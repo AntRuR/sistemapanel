@@ -1,0 +1,47 @@
+<gallery>
+	<!-- The line below sets the path to the folder where the images are stored -->
+	<setup path="volquete_f1_dumper/"/>
+	<!-- The following lines set  the names of your images and thumbnails -->
+	<item>
+		
+		<img>1.jpg</img>
+		<thumb>t1.jpg</thumb>
+	</item>
+		<item>
+		
+		<img>2.jpg</img>
+		<thumb>t2.jpg</thumb>
+	</item>	
+	
+		
+	
+		<item>
+		
+		<img>102.jpg</img>
+		<thumb>t102.jpg</thumb>
+	</item>	
+	
+		<item>
+		
+		<img>103.jpg</img>
+		<thumb>t103.jpg</thumb>
+	</item>	
+	
+		<item>
+		
+		<img>104.jpg</img>
+		<thumb>t104.jpg</thumb>
+	</item>	
+	
+	<item>
+		
+		<img>105.jpg</img>
+		<thumb>t105.jpg</thumb>
+	</item>	
+	</item>	<item>
+		
+	
+	</item>	
+		
+		
+</gallery>

@@ -1,0 +1,106 @@
+/* 
+  -----------------------------------
+  Glide Panel Magic
+  by Project Seven Development
+  www.projectseven.com
+  Style Theme: 02 - Greystone
+  -----------------------------------
+*/
+.p7GP02 {
+	background-color: #FFFFFF;
+	border: 1px dotted #3b3b3b;
+	padding: 3px;
+}
+.p7GP02 .p7GPinnerwrapper {
+	padding: 0;
+	border: 0;
+	background-color: #2b2b2b;
+}
+.p7GP02 .p7GPtwrapper {
+	width: 200px;
+	float: left;
+	margin: 0;
+	background-color: #2b2b2b;
+}
+.p7GP02 .p7GPtwrapper ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.p7GP02 .p7GPtwrapper ul a {
+	color: #000000 !important;
+	text-decoration: none;
+	display: block;
+	padding: 6px 10px;
+	border-bottom: 1px solid #7A7A7A;
+	border-top: 1px solid #B6B6B6;
+	background-image: url(img/p7gp_greystonebut.jpg);
+	background-repeat: repeat-x;
+	background-color: #808080;
+}
+.p7GP02 .p7GPtwrapper ul a:hover {
+	color: #FFFFFF !important;
+	background-color: #808080;
+}
+.p7GP02 .p7GPtwrapper ul a.down, .p7GP02 .p7GPtwrapper ul a.down:hover {
+	background-image: url(img/p7gp_fadetowhite.jpg);
+	background-color: #FFFFFF !important;
+	color: #000000 !important;
+	border-color: #FFFFFF;
+	background-repeat: repeat-y;
+	font-weight: bold;
+}
+.p7GP02 .p7GPcwrapper {
+	margin: 0 0 0 200px;
+	background-color: #FFFFFF;
+}
+.p7GP02 .p7GPcontent {
+	padding: 24px;
+	line-height: 1.5em;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+.p7GP02 .p7GPcontent a {
+	color: #0033FF;
+}
+.p7GP02 .p7GPcontent a:visited {
+	color: #486CFF;
+}
+.p7GP02 .p7GPcontent a:hover {
+	color: #CC0000;
+}
+.p7GPcurrentmark {
+	font-weight:bold !important;
+}
+.p7GP02 .clearfloats {
+	clear: both;
+	height: 0;
+	line-height: 0.0;
+	font-size: 0;
+}
+.p7GP02 .sidecontent {
+	padding: 12px;
+	color: #CCCCCC;
+}
+.p7GP02_external {
+	font-size: 1em;
+}
+.p7GP02_external ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.p7GP02_external ul li {
+
+}
+.p7GP02_external ul a {
+	color: #0033FF;
+}
+.p7GP02_external ul a:hover {
+	color: #000000;
+}
+.p7GP02_external ul a.down {
+	background-image: none;
+	color: #000000;
+	font-weight: bold;
+}

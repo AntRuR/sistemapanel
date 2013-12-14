@@ -1,0 +1,19 @@
+/*<?php include("../../include.php"); ?>*/
+
+
+	<?php echo $name;?> { background-color:#FFF; }
+	<?php echo $name;?> .div_borde{ border:1px solid #9A9A98;	height:auto !important; 
+								 height:249px; min-height:249px;	
+	}
+	<?php echo $name;?> .barra_abajo {height:31px; background-color:#D1D1D1; border-top:1px solid #9A9A98;left:1px; right:1px; bottom:1px !important; width:auto !important; width:100%;}
+	<?php echo $name;?> .abajo_izquierda {width:11px; height:11px; background-image: url(abajo_izquierda.gif);}
+	<?php echo $name;?> .abajo_derecha {width:11px; height:11px; background-image: url(abajo_derecha.gif);}
+	
+	<?php echo $name;?> .barra_arriba { 
+									 height:auto !important; height:16px; min-height:16px;
+									 padding:5px 0px 5px 10px; 
+	 /*background-color:#BBF200; color:#323A2D;*/
+	 background-color:#000000;position:relative; 
+	 float:none; 
+		 font-size:14px; font-weight:bold; text-transform:uppercase; color:#F7CC04;
+	}	

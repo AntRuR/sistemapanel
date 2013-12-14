@@ -1,0 +1,52 @@
+
+img { 
+	vertical-align: middle; 
+}
+
+.id_publicidad_fotos .label,
+.id_publicidad_fotos .titulo,
+.id_publicidad_fotos .ciudad,
+.id_publicidad_fotos .fecha {
+	padding-left:52px !important;
+	font-weight:normal;
+}
+.id_proyectos_realizados .label,
+.id_proyectos_realizados .titulo,
+.id_proyectos_realizados .ciudad,
+.id_proyectos_realizados .fecha {
+	padding-left:10px !important;
+	font-weight:normal;
+}
+.id_publicidad_fotos .label,
+.id_proyectos_realizados .label {
+	font-weight:bold;
+}
+
+.barra_abajo { 
+	overflow:visible !important; 
+}
+.id_publicidad_fotos {
+	background-position: 0 31px;
+}
+.id_proyectos_realizados {
+	background-position: 0 31px;
+}
+
+/**
+ * 
+ */
+
+.id_productos_file .div_barra {
+	padding: 0;
+}
+
+.id_productos_file .div_inner {
+	float: right;
+	width: 300px;
+	padding: 20px 10px 0 0;
+}
+
+
+
+
+

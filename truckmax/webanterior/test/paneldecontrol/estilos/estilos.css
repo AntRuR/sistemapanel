@@ -1,0 +1,106 @@
+@charset "utf-8";
+#valores {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-align: center;
+}
+.BODY {
+	MARGIN: 0px;
+	BACKGROUND-COLOR: #292623;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#FFFFFF;
+}
+.actualizar{
+        font-size:12px;
+        font-family: Arial, Tahoma;
+		font-weight:bold;
+		letter-spacing:0.5pt;
+		color:#000000;
+		background-image:url(../imagenes/actualizar.jpg);
+		border:0px;
+        width:84px;
+        height:24px;
+}
+.buscar{
+        font-size:10px;
+        font-family: Arial, Tahoma;
+		color:#ffffff;
+		background-image:url(../imagenes/btn-buscar.jpg);
+		border:0px;
+        width:65px;
+        height:20px;
+}
+.correcto{
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	color:#FF0033;
+}
+.estado{
+        font-size:12px;
+        font-family: Arial, Tahoma;
+		font-weight:bold;
+		letter-spacing:0.5pt;
+		color:#000000;
+		background-image:url(../imagenes/estado.jpg);
+		border:0px;
+        width:120px;
+        height:24px;
+}
+.idioma{
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#fac254;
+}
+
+.info{
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#aca9a6;
+}
+
+.pendiente{
+        font-size:12px;
+        font-family: Arial, Tahoma, Helvetica, sans-serif;
+		font-weight:bold;
+		color:#FF0000;
+}
+.recuperar{
+        font-size:12px;
+        font-family: Arial, Tahoma;
+		font-weight:bold;
+		letter-spacing:0.5pt;
+		color:#000000;
+		background-image:url(../imagenes/recuperar.jpg);
+		border:0px;
+        width:160px;
+        height:24px;
+}
+.texto-white{
+        font-size:12px;
+        font-family: Arial, Tahoma;
+		color:#FFFFFF;
+}
+.textos{
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#222222;
+}
+.BigTitles {
+	font-family:  Arial,tahoma;
+	font-size: 14px;
+	font-weight:bold;
+	letter-spacing:0px;
+	color: #000000;
+	text-decoration: none;
+}
+.texts {
+	font-family:  Arial,tahoma;
+	font-size: 11px;
+	font-weight:bold;
+	letter-spacing:0px;
+	text-align:left;
+	color: #000000;
+	text-decoration: none;
+}

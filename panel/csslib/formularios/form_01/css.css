@@ -1,0 +1,39 @@
+/*<?php include("../../include.php"); ?>*/
+
+
+<?php echo $name;?> legend { 
+font-weight:bold;
+padding:15px 0 20px 0;
+font-size:15px;
+display:none;
+}
+<?php echo $name;?> .camps {
+margin:0px 0 1px; clear:left; float:left;
+width:80%;
+}
+<?php echo $name;?> .camps label.name {
+float: none;
+width:100%;
+text-align: left; 
+margin: 0px;
+display: block;
+color:#333333;
+font-weight:bold;
+}
+<?php echo $name;?> .camps input.caja, 
+<?php echo $name;?> .camps textarea.caja {
+border: 1px solid #999999;
+background-color:#F5F7FB;
+width:100%; /*default*/
+font-size:12px; padding:1px 1px; color:#000;
+clear:left;	
+} 
+<?php echo $name;?> .camps textarea.caja {
+height:100px;
+}
+<?php echo $name;?> .submit input.caja { 
+padding:0 10px; font-size:12px;
+}	
+
+
+<?php echo $name;?> .mensaje { margin-top:144px; }

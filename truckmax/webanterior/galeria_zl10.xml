@@ -1,0 +1,33 @@
+<gallery>
+	<!-- The line below sets the path to the folder where the images are stored -->
+	<setup path="zl10/"/>
+	<!-- The following lines set  the names of your images and thumbnails -->
+	<item>
+		
+		<img>1.jpg</img>
+		<thumb>t1.jpg</thumb>
+	</item>
+		<item>
+		
+		<img>2.jpg</img>
+		<thumb>t2.jpg</thumb>
+	</item>	
+	
+	<item>
+		
+		<img>100.jpg</img>
+		<thumb>t100.jpg</thumb>
+	</item>	
+	
+		<item>
+		
+		<img>101.jpg</img>
+		<thumb>t101.jpg</thumb>
+	</item>	
+		<item>
+		
+		<img>102.jpg</img>
+		<thumb>t102.jpg</thumb>
+	</item>
+		
+</gallery>

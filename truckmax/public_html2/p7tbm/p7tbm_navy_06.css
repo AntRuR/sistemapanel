@@ -1,0 +1,122 @@
+/* 
+  -----------------------------------
+  TabBar Magic Style Sheet
+  by Project Seven Development
+  www.projectseven.com
+  Style Theme:06 - Navy Blue
+  -----------------------------------
+*/
+#p7TBM {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+#p7TBMroot {
+	font-size: 1em;
+	background-image: url(img/navy_bevel.jpg);
+	background-repeat: repeat-x;
+	padding: 0 0 18px 0;
+	background-position: left bottom;
+}
+#p7TBMrootbox {
+}
+#p7TBMroot img {
+	border: 0;
+}
+#p7TBMroot ul {
+	margin: 0;
+	padding: 0;
+	background-color: #5E56BB;
+	background-image: url(img/navy_on.jpg);
+	background-repeat: repeat-x;
+	border-right: 1px solid #333333;
+	border-left: 1px solid #333333;
+}
+#p7TBMroot li {
+	list-style-type: none;
+	display: inline;
+}
+#p7TBMroot li a {
+	float: left;
+}
+#p7TBMroot .p7TBMtext li a {
+	color: #CCC9E9;
+	padding: 8px 10px;
+	text-decoration: none;
+	border-right: 1px solid #333333;
+	background-image: url(img/navy_on.jpg);
+	background-repeat: repeat-x;
+	line-height: 1.2em;
+}
+#p7TBMroot .p7TBMtext .p7TBMdown, #p7TBMroot .p7TBMtext .p7TBMdown:hover {
+	font-weight: bold;
+	color: #333333 !important;
+	background-image: url(img/navy_down.jpg)!important;
+	background-color: #5E56BB !important;
+}
+/*
+The Root Level Hover. This also locks the Hover state while 
+the root item's associated sub-menu is visible.
+DO NOT CHANGE SELECTOR NAMES*/
+.p7ie6Fix:active, 
+#p7TBMroot .p7TBMtext .p7TBMon,
+#p7TBMroot .p7TBMtext li a:focus, 
+#p7TBMroot .p7TBMtext li a:active {
+	color: #3C273D;
+	background-color: #CC9999;
+	background-image: url(img/navy_over.jpg);
+	background-repeat: repeat-x;
+}
+#p7TBMsubwrap{
+	font-size: .8em;
+	position: relative;
+	height: auto;
+}
+.p7TBMsub {
+	position: absolute;
+	visibility:hidden;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+.p7TBMsubbox {}
+.p7TBMsub ul {
+	margin: 0;
+	padding: 0;
+	background-image: url(img/iebfix.gif);
+	background-color: transparent;
+	border: 0;
+}
+.p7TBMsub li {
+	list-style-type: none;
+	display: inline;
+}
+.p7TBMsub li a {
+	border: 1px solid #FFFFFF;
+	color: #5E56BB;
+	padding: 6px;
+	display: block;
+	float: left;
+}
+.p7TBMsub li a:hover,
+.p7TBMsub li a:active,
+.p7TBMsub li a:focus {
+	color: #333333;
+	border-color: #333333;
+	background-color: #FFFFFF;
+	text-decoration: none;
+}
+#p7TBM br {
+	clear: both;
+	height: 0;
+	line-height: 0.0;
+	font-size: 1px;
+}
+
+/* current marker style */
+.p7TBMsub .p7TBMmark,
+.p7TBMsub .p7TBMmark:hover,
+.p7TBMsub .p7TBMmark:active,
+.p7TBMsub .p7TBMmark:focus {
+	font-weight:bold;
+	color: #333333;
+	cursor: default;
+}

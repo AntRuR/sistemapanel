@@ -1,0 +1,1 @@
+var clear='http://localhost/sistemapanel/nering/web/modulos/lib/defaultimg/clear.gif'

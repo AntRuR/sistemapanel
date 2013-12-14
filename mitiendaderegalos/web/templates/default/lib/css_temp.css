@@ -1,0 +1,49 @@
+body { background:#FFF url(../img/particular/body/bg.gif); }
+body { font-family:calibri,helvetica,arial,sans-serif,tahoma,verdana; font-size:12px; }
+#div_allcontent { width: 972px; }
+#contenido_principal { background:none; margin-top:0; margin-bottom:10px; padding:0;  }
+#contenido_margen { margin: 0px; border:0px solid #FFF; border-bottom:0;  float:none; #float:left; }
+#div_header_pre { margin-top:3px; }
+#div_header { width:100%; height:142px; background:#FFF; clear:left; margin-bottom:0px;  }
+.header-logo { background-image:none !important; }
+.iconos { font-weight:bold;font-size:14px; height:19px; color:#762B1B; padding-top:5px;float:left;background-repeat:no-repeat;background-color:transparent;background-position:0px 0px; padding-left:28px; margin:7px 10px 0px 0;}
+.iconos b { color:#DD2A08; }
+.telefono { background-image:url("../img/particular/iconos/mobile_phone.png");}
+.contactenos { background-image:url("../img/particular/iconos/mail.png");}
+.cotizacion { background-image:url("../img/particular/iconos/calculator.png");}
+#div_bar { height:34px; background:#FFF;  }
+#div_header_pre { height:; background:;  }
+#div_header_after { height:130px; background:#FFF; padding:3px 0 3px 0; }
+#div_footer_pre { height:; background:;  }
+#div_footer_after { height:; background:;  }
+	.div_canvas { background:#FFF;  margin-top:0px; min-height:350px; height:auto !important; height:350px; border:0 solid #999; float:none; border-top:0; padding-bottom:; 
+padding-top:0px; padding-left:0px; 
+}
+	.div_sombra_left, .div_sombra_right { top:100px; display:none; }
+a { color:#BB7E06; text-decoration:none; } a:hover { color:#000; text-decoration:underline; }
+a.fuerte { color:#FF0000; font-size:14px; font-weight:bold; } 
+a.debil { color:#FF0000; font-size:11px; font-weight:normal; } 
+a.main { color:#FF0000;} 
+.header-logo { width:auto; height:auto; }
+.header-boletin { background-image:url("../img/particular/header/boletin.jpg"); width:125px; height:126px; }
+.div-buscador { width:auto; height:auto; }
+.footer_by { width:auto; height:auto; }
+	.div_col_1d1 { width:958px; margin-right:0px; background:none; 
+padding:7px 0px 7px 7px; }
+	.div_col_1d2 { width:178px; margin-right:0px; background:none; 
+padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px; }
+	.div_col_2d2{ width:773px; background-color:none;
+padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px;}
+	.div_col_1d3 { width:178px; margin-right:0px; background:none; 
+padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px; }
+	.div_col_3d3 { width:109px; background-color:none; 
+padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px; }
+	.div_col_2d3 { width:657px; background-color:none; 
+padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px;}
+.header-logo { top:6px;left:16px; }
+.header-buscador { top:29px;left:455px; }
+.header-contactenos { top:3px;left:783px; }
+.header-telefono { top:34px;left:751px; }
+.header-telefonobg { top:26px;left:765px; }
+.header-boletin { top:5px;left:837px; }
+.div-buscador { top:6px;left:317px; }

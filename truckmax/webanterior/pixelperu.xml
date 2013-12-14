@@ -1,0 +1,202 @@
+
+<?xml version="1.0"?>
+
+<map>
+
+<!--Regiones aca se refiere a cada departamento : aca va la informacion en la etiqueta regionInfo es preferible usar  <![CDATA[ bla...bla....bla...]]-->
+
+<!-- region 1 -->
+	<region clickable="true">
+		<regionName>Lima</regionName>
+		<regionAmount>5</regionAmount>
+		<regionInfo><![CDATA[ ]]></regionInfo>
+	</region>
+<!-- region 2-->	
+	<region clickable="false">
+	<regionName>Ancash</regionName>
+		<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 3 -->	
+	<region clickable="false">
+	<regionName>Lalibertad</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	<!-- region 4 -->	
+	<region clickable="false">
+	<regionName>Lambayeque</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+<!-- region 5 -->	
+	<region clickable="false">
+	<regionName>Piura</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+<!-- region 6 -->	
+	<region clickable="false">
+	<regionName>Tumbes</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+<!-- region 7 -->	
+	<region clickable="false">
+	<regionName>Ica</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 8 -->	
+	<region clickable="false">
+	<regionName>Arequipa</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 9 -->	
+	<region clickable="false">
+	<regionName>Moquegua</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 10 -->	
+	<region clickable="false">
+	<regionName>Tacna</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 11 -->	
+	<region clickable="false">
+	<regionName>Puno</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 12 -->	
+	<region clickable="false">
+	<regionName>Ayacucho</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 13 -->	
+	<region clickable="false">
+	<regionName>Apurimac</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 14 -->	
+	<region clickable="false">
+	<regionName>Huancavelica</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 15 -->	
+	<region clickable="false">
+	<regionName>Cusco</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 16 -->	
+	<region clickable="false">
+	<regionName>Madre de Dios</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 17 -->	
+	<region clickable="false">
+	<regionName>Junin</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 18 -->	
+	<region clickable="false">
+	<regionName>Pasco</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 19 -->	
+	<region clickable="false">
+	<regionName>Hucayali</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 20 -->	
+	<region clickable="false">
+	<regionName>Huanuco</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 21 -->	
+	<region clickable="false">
+	<regionName>San Martin</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 22 -->	
+	<region clickable="false">
+	<regionName>Cajamarca</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+	
+<!-- region 23 -->	
+	<region clickable="false">
+	<regionName>Amazonas</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+
+<!-- region 24 -->	
+	<region clickable="false">
+	<regionName>Loreto</regionName>
+	<regionAmount>5</regionAmount>
+	<regionInfo><![CDATA[ ]]>
+	</regionInfo>
+	</region>
+<!-- informacion general de Peru -->
+
+<region clickable="false">
+		<regionName>Peru</regionName>
+		<regionAmount>2</regionAmount>
+		<regionInfo>
+		<![CDATA[ ]]>
+		</regionInfo>
+	</region>
+</map>

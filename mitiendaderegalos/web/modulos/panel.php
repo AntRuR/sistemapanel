@@ -1,0 +1,77 @@
+<?php 
+
+/*OPCIONES-START*/
+$OpcionesTabla['productos_subgrupos']['ver_home'][1]='si';
+$OpcionesTabla['productos_subgrupos']['ver_home'][0]='no';
+$OpcionesTabla['productos_subgrupos']['ver_rubro'][1]='si';
+$OpcionesTabla['productos_subgrupos']['ver_rubro'][0]='no';
+$OpcionesTabla['productos_items']['moneda'][1]='Dólares Americanos';
+$OpcionesTabla['productos_items']['moneda'][2]='Nuevos Soles';
+$OpcionesTabla['productos_items']['oferta'][1]='Si';
+$OpcionesTabla['productos_items']['oferta'][0]='No';
+$OpcionesTabla['productos_items']['operacion'][1]='Compra';
+$OpcionesTabla['productos_items']['operacion'][2]='Venta';
+$OpcionesTabla['productos_items']['operacion'][3]='Alquiler';
+$OpcionesTabla['productos_items']['abr'][1]='Av';
+$OpcionesTabla['productos_items']['abr'][2]='Calle';
+$OpcionesTabla['productos_items']['abr'][3]='Jr';
+$OpcionesTabla['productos_items']['amoblamiento'][1]='Si';
+$OpcionesTabla['productos_items']['amoblamiento'][0]='No';
+$OpcionesTabla['productos_items']['zonificacion'][1]='Residencial';
+$OpcionesTabla['productos_items']['zonificacion'][2]='Comercial';
+$OpcionesTabla['productos_items']['piscina'][1]='Si';
+$OpcionesTabla['productos_items']['piscina'][0]='No';
+$OpcionesTabla['productos_items']['terraza'][1]='Si';
+$OpcionesTabla['productos_items']['terraza'][0]='No';
+$OpcionesTabla['productos_items']['jardin'][1]='Si';
+$OpcionesTabla['productos_items']['jardin'][0]='No';
+$OpcionesTabla['productos_items']['ascensores'][1]='Si';
+$OpcionesTabla['productos_items']['ascensores'][0]='No';
+$OpcionesTabla['pedidos']['envgen_intervalo_entrega'][1]='Entre 7am y 10:30am';
+$OpcionesTabla['pedidos']['envgen_intervalo_entrega'][2]='Entre 9am y 11:30am';
+$OpcionesTabla['pedidos']['envgen_intervalo_entrega'][3]='Entre 8am y 12:30am';
+$OpcionesTabla['pedidos']['envgen_intervalo_entrega'][4]='Entre 2pm y 5:30pm';
+$OpcionesTabla['pedidos']['envgen_intervalo_entrega'][5]='Entre 6:00pm y 8pm';
+$OpcionesTabla['pedidos']['envgen_intervalo_entrega'][6]='Entre 6:00am y 8am (Horario Especial)';
+$OpcionesTabla['pedidos']['env_intervalo_entrega'][1]='Entre 7am y 10:30am';
+$OpcionesTabla['pedidos']['env_intervalo_entrega'][2]='Entre 9am y 11:30am';
+$OpcionesTabla['pedidos']['env_intervalo_entrega'][3]='Entre 8am y 12:30am';
+$OpcionesTabla['pedidos']['env_intervalo_entrega'][4]='Entre 2pm y 5:30pm';
+$OpcionesTabla['pedidos']['env_intervalo_entrega'][5]='Entre 6:00pm y 8pm';
+$OpcionesTabla['pedidos']['env_intervalo_entrega'][6]='Entre 6:00am y 8am (Horario Especial)';
+$OpcionesTabla['pedidos']['env_regalo_sorpresa'][1]='Si';
+$OpcionesTabla['pedidos']['env_regalo_sorpresa'][0]='No';
+$OpcionesTabla['pedidos']['pag_tipo_documento'][1]='Boleta';
+$OpcionesTabla['pedidos']['pag_tipo_documento'][2]='Factura';
+$OpcionesTabla['boletines']['enabled'][1]='si';
+$OpcionesTabla['boletines']['enabled'][0]='no';
+$OpcionesTabla['boletines']['Baja'][0]='activo';
+$OpcionesTabla['boletines']['Baja'][1]='baja por el administrador del sistema';
+$OpcionesTabla['boletines']['Baja'][2]='el usuario removio su email desde el boletin';
+$OpcionesTabla['cuentas']['proveedor'][1]='godaddy - calandriapromociones.info';
+$OpcionesTabla['cuentas']['proveedor'][2]='aplus';
+$OpcionesTabla['cuentas']['proveedor'][3]='godaddy - ofertastravel.info';
+$OpcionesTabla['cuentas']['proveedor'][4]='gmail dominio';
+$OpcionesTabla['cuentas']['enabled'][1]='si';
+$OpcionesTabla['cuentas']['enabled'][0]='no';
+$OpcionesTabla['lista_envio']['enviado'][1]='si';
+$OpcionesTabla['lista_envio']['enviado'][0]='no';
+$OpcionesTabla['lista_envio']['linkeado'][1]='si';
+$OpcionesTabla['lista_envio']['linkeado'][0]='no';
+$OpcionesTabla['usuarios']['genero'][1]='Hombre';
+$OpcionesTabla['usuarios']['genero'][2]='Mujer';
+$OpcionesTabla['usuarios']['forma_contacto'][1]='periódico';
+$OpcionesTabla['usuarios']['forma_contacto'][2]='revista';
+$OpcionesTabla['usuarios']['forma_contacto'][3]='guía telefónica';
+$OpcionesTabla['usuarios']['forma_contacto'][4]='radio';
+$OpcionesTabla['usuarios']['forma_contacto'][5]='poster';
+$OpcionesTabla['usuarios']['forma_contacto'][6]='web';
+$OpcionesTabla['usuarios']['forma_contacto'][7]='eventos/promociones';
+$OpcionesTabla['usuarios']['forma_contacto'][8]='recomendaciones';
+$OpcionesTabla['usuarios']['forma_contacto'][9]='precio cliente';
+$OpcionesTabla['usuarios']['forma_contacto'][10]='no sabe / otros';
+$OpcionesTabla['usuarios']['promociones'][1]='Si';
+$OpcionesTabla['usuarios']['promociones'][0]='No';
+/*OPCIONES-END*/
+
+?>

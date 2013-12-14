@@ -1,0 +1,13 @@
+/*<?php 
+include("../../include.php"); 
+
+
+$var = preprocessvarscss($var);
+
+
+$var = processvarscss($var);
+
+
+?>*/
+
+<?php include("../../footers/css.css"); ?>	

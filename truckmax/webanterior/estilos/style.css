@@ -1,0 +1,91 @@
+/* CSS Document */
+.subcat{
+	font-size:14px;
+	font-weight:bold;
+	font-family: Tahoma, Arial;
+	color:#444444;
+	text-decoration:none;
+}
+.product{
+	font-size:12px;
+	font-family: Tahoma, Arial;
+	color:#444444;
+	margin-left: 12px;
+	text-decoration:none;
+}
+.texto{
+	font-size:11px;
+	font-family: Tahoma, Arial;
+	color:#444444;
+	text-decoration:none;
+}
+.txtwhite{
+		font-size:11px;
+        font-family: Tahoma, Arial;
+        color:#ffffff;
+}
+.txtyellow{
+		font-size:11px;
+        font-family: Tahoma, Arial;
+        color:#ffc332;
+		text-decoration:underline;
+}
+.ruta{
+		font-size:12px;
+        font-family: Tahoma, Arial;
+		font-weight:bold;
+        color:#AA0000;
+}
+.title-cart{
+		font-size:16px;
+        font-family: Tahoma, Arial;
+		font-weight:bold;
+        color:#AA0000;
+}
+.title-contact{
+		font-size:24px;
+        font-family: verdana, Helvetica, Tahoma, Arial;
+		font-weight:bold;
+        color:#AA0000;
+}
+
+.enviar{
+        font-size:12px;
+        font-family: Arial, Tahoma;
+		font-weight:bold;
+		letter-spacing:0.5pt;
+		color:#000000;
+		background-image:url(../images/actualizar.jpg);
+		border:0px;
+        width:84px;
+        height:24px;
+}
+.cotizar{
+        font-size:10px;
+        font-family: Tahoma, Arial;
+        color:#333333;
+        background:url(images/btn_ingresar.png);
+		border:0px;
+        width:82px;
+        height:21px;
+}
+.desarrollado {
+	font-family: Tahoma, Arial;
+	font-size: 11px;
+	color:#c7c5b4;
+	text-decoration:none;
+}
+.pixel {
+	font-family: Tahoma, Arial;
+	font-size: 13px;
+	color:#000099;
+	font-weight:bold;
+	text-decoration:none;
+}
+.graphic {
+	font-family: Tahoma, Arial;
+	font-size: 13px;
+	color:#FF3300;
+	font-weight:bold;
+	text-decoration:none;
+}

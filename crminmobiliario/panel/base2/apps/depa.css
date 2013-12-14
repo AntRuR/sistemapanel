@@ -1,0 +1,65 @@
+
+.proyecto { font-family: 'caviar_dreamsregular'; }
+
+.bloque h6 { font-family: 'caviar_dreamsregular'; }
+
+.torres .bloque { width: 200px; float: left; margin-right: 10px; }
+
+.torre  { }
+
+.torre .inmu { 
+	display: block; text-align: center; color: #000; 
+    font-family: 'caviar_dreamsregular';
+}
+
+.departamentos .inmu { 
+	background-color: #E0FFC1;
+}
+
+.estacionamientos .inmu { 
+	background-color: #A6DBFF;
+}
+
+.depositos .inmu { 
+	background-color: #FFFF99;
+}	
+
+#cart .departamento { 
+	background-color: #E0FFC1;
+}
+
+#cart .estacionamiento { 
+	background-color: #A6DBFF;
+}
+
+#cart .deposito { 
+	background-color: #FFFF99;
+}	
+
+.torre .inmu:hover { background-color: #F4C4A6; }
+
+.jqibox { margin-top: -5px !important; }
+
+.depa { margin-bottom:0px; }
+
+.depa td { padding: 0 0px 0 3px !important; line-height: 15px; }
+
+td.step1 img { max-width:200px !important; }
+
+div.jqi .jqititle {
+    padding: 0px 5px !important;
+    border:0 !important;
+}
+
+div.jqi .jqimessage {
+	padding: 0 5px !important;
+}
+
+div.jqi .jqibuttons {
+background: none !important;
+border:0 !important;
+}
+
+div.jqi button {
+margin-right:0 !important;
+}

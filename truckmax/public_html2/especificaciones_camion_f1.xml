@@ -1,0 +1,20 @@
+<gallery>
+	<!-- The line below sets the path to the folder where the images are stored -->
+	<setup path="camion_f1/"/>
+	<!-- The following lines set  the names of your images and thumbnails -->
+	<item>
+	<img>1.jpg</img>
+	<thumb>t1.jpg</thumb>
+	</item>
+	
+	<item>
+	<img>2.jpg</img>
+	<thumb>t2.jpg</thumb>
+	</item>
+	
+	
+	
+
+	
+		
+</gallery>

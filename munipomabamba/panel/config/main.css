@@ -1,0 +1,164 @@
+/**
+
+ * BODY
+
+ */
+
+
+
+body { background: url("http://www.metacritic.com/images/layout/bg.png") repeat scroll center 78px #010101 !important; }
+
+
+
+.main_content { padding:0 10px; }
+
+
+
+/**
+
+ * HEADER
+
+ */
+
+.logo_panel img {
+    height: 50px;
+}
+
+.logo_panel {
+
+    margin-bottom: 0px;
+
+    margin-top: 5px;
+
+}
+
+a.link_header {
+
+	margin-top: 22px;
+
+	color: #CBCBCB;
+
+}
+
+#menumenu a {
+
+    color: #6F6F6F;
+
+}    
+
+/**
+ * MENU
+ */
+
+ul.ul_menus li a {
+
+	font-size: 12px;
+
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,;
+
+	background: #081226;
+
+	color: #054309  !important;
+
+}
+
+
+
+.menus a.selected, 
+
+ul.ul_menus li.selected {
+
+    background-color: #FE000B;
+
+}
+
+
+
+ul.ul_menus li.padre a,
+
+ul.ul_menus li.selected a {
+
+    color: #FFF !important;
+
+}
+
+
+
+ul.ul_menus li:hover {
+
+	text-decoration: none !important;
+
+}
+
+ul.ul_menus a:hover {
+
+	text-decoration: underline !important;
+
+}
+
+ul.ul_menus li.seccion b {
+
+	letter-spacing: 1px;
+
+}
+
+
+
+ul.ul_menus {
+
+	width: 180px;
+
+}
+
+.div_bloque_cuerpo {
+
+	margin-left: 190px;
+
+}
+
+ul.ul_menus li.seccion b {
+
+    color: #918F8F;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+}
+
+/**
+
+ * FORM
+
+ */
+
+.titulo_formulario {
+
+    color: #565656;
+
+}   
+
+/**
+
+ * LOGIN
+
+ */
+
+.modulo_login ul.ul_menus {
+
+	display:none;
+
+}
+
+.modulo_login .div_bloque_cuerpo {
+
+    margin-left: 23%;
+
+    margin-top: 23px;
+
+}
+
+
+
+
+

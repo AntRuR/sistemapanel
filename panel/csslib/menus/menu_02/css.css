@@ -1,0 +1,37 @@
+/*<?php include("../../include.php"); ?>*/
+
+	<?php echo $name;?> .area_menu  .div_menu_izq,
+	<?php echo $name;?> .area_menu  .div_menu_der,
+	<?php echo $name;?> .area_menu  ul li,
+	<?php echo $name;?> .area_menu  ul li .menu_izq, 
+	<?php echo $name;?> .area_menu  ul li .menu_der,
+	<?php echo $name;?> .area_menu  ul .div_menu_float_izq, 
+	<?php echo $name;?> .area_menu  ul .div_menu_float_der 	 
+	 { height:40px; }
+
+	<?php echo $name;?> .area_menu  { background-color:#000000; /* background-image: url(../img/menu_main/div_menu.jpg); */ }
+	/*	.menu_main .div_menu_izq, .menu_main .div_menu_der { height:29px;width:4px; }
+		.menu_main .div_menu_izq { background-image: url(../img/menu_main/div_menu_izq.jpg); }
+		.menu_main .div_menu_der { background-image: url(../img/menu_main/div_menu_der.jpg); }*/
+		
+	<?php echo $name;?> .area_menu  ul { padding:0 0 0 0px; }
+	<?php echo $name;?> .area_menu  ul li { margin:0 0px 0 0px; 	}					
+	<?php echo $name;?> .area_menu  ul li.ultimo { margin:0; border:0; background:none; }
+	
+	/*<?php echo $name;?> .area_menu  ul li .menu_izq, <?php echo $name;?> .area_menu  ul li .menu_der { width:16px; height:29px; }*/
+	
+	<?php echo $name;?> .area_menu  ul li { 	background-image: url(item_bg.jpg); background-repeat:no-repeat; background-position:right 17px; }
+		/*.menu_main ul li .menu_izq { background-image: url(../img/menu_main/item_izq.jpg); }
+		.menu_main ul li .menu_der { background-image: url(../img/menu_main/item_der.jpg); }*/
+				
+	<?php echo $name;?> .area_menu  ul li.selected,				 <?php echo $name;?> .area_menu  ul li:hover {			/*background-color: #FFCC00; */ border-bottom:0; }	
+		/*<?php echo $name;?> .area_menu  ul li.selected .menu_izq, <?php echo $name;?> .area_menu  ul li:hover .menu_izq { background-image: url(../img/menu_main/item_selected_izq.jpg); }
+		<?php echo $name;?> .area_menu  ul li.selected .menu_der, <?php echo $name;?> .area_menu  ul li:hover .menu_der { background-image: url(../img/menu_main/item_selected_der.jpg); }*/
+
+	<?php echo $name;?> .area_menu  ul li a.line_0 {	color:#DDDDDD; display:block; font-size:12px; font-weight:bold; padding:13px 15px 13px;float:none; }
+	<?php echo $name;?> .area_menu  ul li.selected a.line_0 { 	color:#FFCC01; }
+	<?php echo $name;?> .area_menu  ul li:hover a.line_0 { 	color:#FFCC01; }
+	<?php echo $name;?> .area_menu  ul li a.line_0:hover { 		color:#FFCC01; text-decoration:underline; }		
+	
+
+	

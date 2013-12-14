@@ -1,0 +1,28 @@
+<gallery>
+	<!-- The line below sets the path to the folder where the images are stored -->
+	<setup path="5/"/>
+	<!-- The following lines set  the names of your images and thumbnails -->
+	<item>
+	<img>1.jpg</img>
+	<thumb>t1.jpg</thumb>
+	</item>
+	
+	<item>
+	<img>2.jpg</img>
+	<thumb>t2.jpg</thumb>
+	</item>
+	
+	<item>
+	<img>3.jpg</img>
+	<thumb>t3.jpg</thumb>
+	</item>
+	
+	<item>
+	<img>4.jpg</img>
+	<thumb>t4.jpg</thumb>
+	</item>
+	
+
+	
+		
+</gallery>

@@ -1,0 +1,1 @@
+a:5:{s:8:"CLIENTES";a:1:{s:11:"sincromysql";s:1:"0";}s:16:"PRODUCTOS_VENTAS";a:1:{s:11:"sincromysql";s:1:"0";}s:27:"PRODUCTOS_VENTAS_DOCUMENTOS";a:1:{s:11:"sincromysql";s:1:"0";}s:14:"BANCOS_CUENTAS";a:1:{s:11:"sincromysql";s:1:"0";}s:8:"USUARIOS";a:1:{s:11:"sincromysql";s:1:"0";}}

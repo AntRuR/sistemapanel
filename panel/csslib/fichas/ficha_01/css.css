@@ -1,0 +1,88 @@
+/*<?php 
+include("../../include.php"); 
+
+$var['fila']=array(
+		'p-t'=>'',
+		'min-h'=>''
+);
+$var['foto']=array(
+		'ena'=>'1',
+		'w'=>'360',
+		'h'=>'auto',
+		'align'=>'izq'
+);
+$var['titulo']=array(
+		'ena'=>'1',
+		'color'=>'',
+		'size'=>'',
+		'bg'=>''
+);
+$var['subtitulo']=array(
+		'ena'=>'1',
+		'color'=>'#000000',
+		'size'=>'14',
+);
+$var['texto']=array('ena'=>'1','size'=>'12');
+$var['precio']=array(
+		'ena'=>'0',
+		'w'=>'',
+		'h'=>'',
+		'p-t'=>'',
+		'p-r'=>'',
+		'p-l'=>''
+);
+$var['fecha']=array('ena'=>'0');
+$var['carrito']=array('ena'=>'0');
+
+$var=preprocessvarscss($var);
+
+if($var['foto']['align']=='der'){ 	$var['foto']['align']="float:right; margin-right:0px; margin-left:10px;"; }
+else{ 	$var['foto']['align']="float:left; margin-right:10px; margin-left:0px;";  }
+					
+$var=processvarscss($var);
+
+?>*/
+
+	<?php echo $name;?> .listado_item  { min-height:270px; padding:0; margin:0; text-align:justify; clear:left; }
+
+	/*FOTO <?php if($var['foto']['ena']){ ?>*/	
+	<?php echo $name;?> .listado_item .foto { 
+		<?php echo $var['foto']['align']; ?>
+		width: <?php echo $var['foto']['w']; ?>;
+		height: <?php echo $var['foto']['h']; ?>;
+		text-align: center;
+		margin-bottom:10px; 
+		overflow:hidden;
+		}
+	<?php echo $name;?> .listado_item .foto a {	display:block; position:relative; height:auto; width:auto; }
+
+	<?php echo $name;?> .listado_item .foto strong.legend{
+		position:absolute; background-color:#000; opacity:0.7; font-weight:normal; color:#FFF; display:block; left:0px; bottom:0px; width:100%; height:auto;
+	}
+	
+	<?php echo $name;?> .listado_item a.foto:hover strong.legend{
+		opacity:1;
+	}
+	
+	<?php echo $name;?> .listado_item .foto img { 
+	}		
+	/*<?php } ?>*/
+
+
+	/*TITULO <?php if($var['titulo']['ena']){ ?>*/	
+    <?php echo $name;?> .listado_item .titulo 	{ 
+	font-weight:normal; text-transform:capitalize; font-size:14px; }
+	/*<?php } ?>*/
+
+	
+	/*SUBTITULO <?php if($var['subtitulo']['ena']){ ?>*/		
+    <?php echo $name;?> .listado_item .subtitulo 	{ 
+	font-weight:bold; text-transform:capitalize; font-size:<?php echo $var['subtitulo']['size'];?>; color:<?php echo $var['subtitulo']['color'];?>;
+	}
+	/*<?php } ?>*/
+
+
+	/*TEXTO <?php if($var['texto']['ena']){ ?>*/		
+    <?php echo $name;?> .listado_item .texto 	{ font-size:<?php echo $var['texto']['size'];?>; }
+	/*<?php } ?>*/
+	

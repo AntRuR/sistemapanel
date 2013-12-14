@@ -1,0 +1,10 @@
+// Simplified Chinese lang variables contributed by cube316 (cube316@gmail.com)
+//«Î∑√Œ  http://www.cube316.net/ “‘ªÒ»°TinyMCEµ&Auml;&Ouml;–Œ&Auml;&Ouml;ß≥&Ouml;
+
+tinyMCE.addToLang('',{
+insert_flash : '≤&aring;»Î/±‡º≠ FlashµÁ”∞',
+insert_flash_file : 'FlashŒ&Auml;º˛(.swf)',
+insert_flash_size : '≥ﬂ¥Á',
+insert_flash_list : 'FlashŒ&Auml;º˛¡–±Ì',
+flash_props : 'Flash Ù–‘'
+});

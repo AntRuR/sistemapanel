@@ -1,0 +1,109 @@
+/* 
+  -----------------------------------
+  Glide Panel Magic
+  by Project Seven Development
+  www.projectseven.com
+  Style Theme: 06 - Citrus
+  -----------------------------------
+*/
+.p7GP06 {
+	background-color: #FFFFFF;
+	border: 1px solid;
+	padding: 0px;
+	border: 2px solid #FED593;
+}
+.p7GP06 .p7GPinnerwrapper {
+	padding: 0;
+	border: 0;
+	background-color: #A8E43D;
+}
+.p7GP06 .p7GPtwrapper {
+	width: 200px;
+	float: left;
+	margin: 0;
+	border: 0;
+}
+.p7GP06 .p7GPtwrapper ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid;
+	border-bottom-color: #D6F2A2;
+}
+.p7GP06 .p7GPtwrapper ul a {
+	color: #000000 !important;
+	text-decoration: none;
+	display: block;
+	padding: 6px 10px;
+	border-bottom: 1px solid #BC7703;
+	border-top: 1px solid #FEEBCB;
+	background-image: url(img/p7gp_citrusbut.jpg);
+	background-repeat: repeat-x;
+	background-color: #FE9903;
+}
+.p7GP06 .p7GPtwrapper ul a:hover {
+	color: #000000 !important;
+	border-top-color: #FFFFFF;
+	border-bottom-color: #000000;
+	background-color: #FE9903;
+}
+.p7GP06 .p7GPtwrapper ul a.down, .p7GP06 .p7GPtwrapper ul a.down:hover {
+	background-image: url(img/p7gp_fadetocitrus.jpg);
+	background-color: #7CC303;
+	color: #000000 !important;
+	background-repeat: repeat-y;
+	font-weight: bold;
+	border: 0;
+}
+.p7GP06 .p7GPcwrapper {
+	margin: 0 0 0 200px;
+	background-color: #FFFFFF;
+	border-left: 2px solid #FED593;
+}
+.p7GP06 .p7GPcontent {
+	padding: 24px;
+	line-height: 1.5em;
+	color: #000000;
+}
+.p7GP06 .p7GPcontent a {
+	color: #0033FF;
+}
+.p7GP06 .p7GPcontent a:visited {
+	color: #486CFF;
+}
+.p7GP06 .p7GPcontent a:hover {
+	color: #CC0000;
+}
+.p7GPcurrentmark {
+	font-weight:bold !important;
+}
+.p7GP06 .clearfloats {
+	clear: both;
+	height: 0;
+	line-height: 0.0;
+	font-size: 0;
+}
+.p7GP06 .sidecontent {
+	padding: 12px;
+	color: #CCCCCC;
+}
+.p7GP06_external {
+	font-size: 0.75em;
+}
+.p7GP06_external ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.p7GP06_external ul li {
+	margin: 0;
+}
+.p7GP06_external ul a {
+	color: #0033FF;
+}
+.p7GP06_external ul a:hover {
+	color: #000000;
+}
+.p7GP06_external ul a.down {
+	color: #77AA17;
+}

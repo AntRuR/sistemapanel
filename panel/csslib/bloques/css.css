@@ -1,0 +1,107 @@
+
+	<?php echo $name;?> { background-color:<?php echo $var['marco']['bg'];?>; margin-top:<?php echo $var['bloque']['m-t'];?>;margin-bottom:<?php echo $var['bloque']['m-b'];?>; }
+
+	<?php echo $name;?> .arriba_izquierda 	{display:none;}
+	<?php echo $name;?> .arriba_derecha 	{display:none;}	
+	<?php echo $name;?> .abajo_izquierda 	{display:none;}
+	<?php echo $name;?> .abajo_derecha 		{display:none;}	
+
+
+	<?php echo $name;?> .bors-b {
+	/*<?php if($var['marco']['bg-out']!=''){ ?>*/
+	background-color:<?php echo $var['marco']['bg-out'];?>;
+	color:<?php echo $var['marco']['bg'];?>;
+	display:block;	
+	/*<?php } else { ?>*/
+	display:none;
+	/*<?php } ?>*/
+	}
+
+
+
+
+	 
+	<?php echo $name;?> .barra_arriba { 
+		height:auto !important; height:<?php echo $var['arriba']['min-h'];?>; min-height:<?php echo $var['arriba']['min-h'];?>; 
+		padding-top:<?php echo $var['arriba']['p-t'];?>;
+		padding-left:<?php echo $var['arriba']['p-lados'];?>;
+		padding-right:<?php echo $var['arriba']['p-lados'];?>;
+		padding-bottom:<?php echo $var['arriba']['p-b'];?>;				 
+		text-transform:uppercase;
+	 	background-color:<?php echo $var['arriba']['bg'];?>; position:relative;		
+		<?php echo $var['arriba']['dis'];?>;
+	 }	
+
+	<?php echo $name;?> .barra_arriba,
+	<?php echo $name;?> .barra_arriba h1,
+	<?php echo $name;?> .barra_arriba h2,	
+	<?php echo $name;?> .barra_arriba a
+	 { font-size:<?php echo $var['arriba']['size'];?>; font-weight:bold; color:<?php echo $var['arriba']['color'];?>; 
+	   <?php echo $var['arriba']['s'];?> 
+	 } 
+
+	<?php echo $name;?> .barra_arriba .bors-b {
+	/*<?php if($var['arriba']['bg-out']!=''){ ?>*/
+	background-color:<?php echo $var['arriba']['bg-out'];?>;
+	color:<?php echo $var['arriba']['bg'];?>;
+	display:block;
+	/*<?php } else { ?>*/
+	display:none;
+	/*<?php } ?>*/
+	}
+	 	 
+	<?php echo $name;?> .barra_sub,
+	<?php echo $name;?> .barra_sub h2,
+	<?php echo $name;?> .barra_sub a
+	 { font-size:<?php echo $var['subarriba']['size'];?>; font-weight:bold; color:<?php echo $var['subarriba']['color'];?>; font-family:Arial; } 
+	 
+	<?php echo $name;?> .barra_sub { <?php echo $var['subarriba']['dis']; ?>
+									height:auto !important; height:<?php echo $var['subarriba']['min-h'];?>; min-height:<?php echo $var['subarriba']['min-h'];?>; 
+									padding-top:<?php echo $var['subarriba']['p-t'];?>;
+									padding-right:<?php echo $var['subarriba']['p-lados'];?>; 
+									padding-left:<?php echo $var['subarriba']['p-lados'];?>; 
+									padding-bottom:<?php echo $var['subarriba']['p-b'];?>; 
+									float:left; margin-bottom:10px; 
+									 text-transform:uppercase; position:relative; 
+	 background-color:<?php echo $var['subarriba']['bg'];?>; 
+	}
+	 
+	<?php echo $name;?> .div_inner { 
+	 				padding-top:<?php echo $var['marco']['p-t'];?>; 
+					padding-left:<?php echo $var['marco']['p-izq'];?> !important; 
+					padding-right:<?php echo $var['marco']['p-der'];?> !important;
+					padding-bottom:<?php echo $var['marco']['p-b'];?> !important;
+				/*<?php if($var['marco']['min-h']!='' and $var['marco']['scroll']!=1){ ?>*/
+				overflow:visible; height:auto !important; height:<?php echo $var['marco']['min-h'];?>; min-height:<?php echo $var['marco']['min-h'];?>;				
+				/*<?php } elseif($var['marco']['h']!=''){ ?>*/				
+				overflow:<?php echo ($var['marco']['h']=='auto')?'visible':(($var['marco']['scroll']==1)?'auto':'hidden'); ?>; height:<?php echo $var['marco']['h'];?> !important; height:<?php echo $var['item']['h'];?>;			
+				/*<?php } else { ?>*/
+				overflow:visible; height:auto !important; height:auto;
+				/*<?php } ?>*/					
+				margin:<?php echo $var['marco']['m'];?>;
+				/*float:left;*/
+				<?php echo $var['marco']['s'];?>
+				
+	}		
+
+	<?php echo $name;?> .barra_abajo { <?php echo $var['abajo']['dis']; ?>
+		height:auto !important; height:<?php echo $var['abajo']['min-h'];?>; min-height:<?php echo $var['abajo']['min-h'];?>; 
+		padding:<?php echo $var['abajo']['p-t']." ".$var['abajo']['p-lados'];?> 0px; 
+		text-transform:uppercase;
+	 	background-color:<?php echo $var['abajo']['bg'];?>; 
+		position:relative;
+		<?php echo $var['abajo']['s'];?>
+	 }	
+	 <?php echo $name;?> .barra_abajo,
+	 <?php echo $name;?> .barra_abajo a {
+	 	color:<?php echo $var['abajo']['color'];?>; 
+	 }
+	<?php echo $name;?> .barra_abajo .bors-b {
+	/*<?php if($var['abajo']['bg-out']!=''){ ?>*/
+	background-color:<?php echo $var['abajo']['bg-out'];?>;
+	color:<?php echo $var['abajo']['bg'];?>;
+	/*<?php } else { ?>*/
+	display:none;
+	/*<?php } ?>*/
+	}	
+	

@@ -1,0 +1,118 @@
+/*<?php 
+include("../../include.php"); 
+	
+	//	
+	$var['ul-izq']=array('ena'=>'0');
+	$var['ul-der']=array('ena'=>'0');
+	$var['li-izq']=array('ena'=>'0');
+	$var['li-der']=array('ena'=>'0');
+	$var['a']=array(
+			'h'=>'30',				
+			'm-lados'=>'10',
+			'p-lados'=>'16',
+			'p-t'=>'6',
+			'size'=>'12',
+			'color'=>'#FFF',
+			'bg'=>'#096EB4',
+			'color-sel'=>'#FFF',
+			'bg-sel'=>'#6E6E6E',
+			'borde-ena'=>0
+	);
+	
+$var=preprocessvarscss($var);
+
+	$var['a']['p-b'] = $var['a']['h'] - $var['a']['p-t'] - round(1.25*$var['a']['size']);		
+	$var['a']['ha']  = 'auto';
+	$var['a']['p-lados-ie6']  = $var['a']['p-lados']-1;	
+
+$var=processvarscss($var);
+
+?>*/
+
+	<?php echo $name;?> .area_menu  .div_menu_izq,
+	<?php echo $name;?> .area_menu  .div_menu_der,
+	<?php echo $name;?> .area_menu  ul li,
+	<?php echo $name;?> .area_menu  ul li .menu_izq, 
+	<?php echo $name;?> .area_menu  ul li .menu_der,
+	<?php echo $name;?> .area_menu  ul .div_menu_float_izq, 
+	<?php echo $name;?> .area_menu  ul .div_menu_float_der, 	 
+	<?php echo $name;?> .area_menu  ul li .menu_borde
+	 { height:<?php echo $var['a']['h'];?>; overflow:none !important; overflow:hidden; }
+
+	<?php echo $name;?> .area_menu  { 
+		/*<?php if($var['a']['bg']=='#'){ ?>*/ background-image: url(div_menu.<?php echo $var['me']['ex'];?>);
+		/*<?php } else { ?>*/	background-image:none; background-color:<?php echo $var['a']['bg'];?>; /*<?php } ?>*/ }
+		<?php echo $name;?> .area_menu  .div_menu_izq, .<?php echo $name;?> .area_menu  .div_menu_der { height:<?php echo $var['a']['h'];?>; }
+		<?php echo $name;?> .area_menu  .div_menu_izq {
+		/*<?php if($var['ul-izq']['ena']){ ?>*/ height:<?php echo $var['a']['h'];?>;width:<?php echo $var['ul-izq']['w'];?>; background-image: url(div_menu_izq.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}
+		/*<?php echo $name;?> .area_menu */ .div_menu_der {
+		<?php if($var['ul-izq']['ena']){ ?> height:<?php echo $var['a']['h'];?>;width:<?php echo $var['ul-der']['w'];?>; background-image: url(div_menu_der.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}		
+		
+	<?php echo $name;?> .area_menu  ul { padding:0 0 0 0px; }
+	<?php echo $name;?> .area_menu  ul li { 
+		margin:0 <?php echo $var['a']['m-lados'];?>;  
+		/*<?php if($var['a']['bg']=='#'){ ?>*/ background-image: url(item_bg.<?php echo $var['me']['ex'];?>); 
+		/*<?php } else { ?>*/ background-image:none; background-color:<?php echo $var['a']['bg'];?>; border-bottom:0; /*<?php } ?>*/
+	}						
+
+	<?php echo $name;?> .area_menu  ul li .menu_borde { 
+	/*<?php if($var['li-bor']['ena']){ ?>*/
+		width: <?php echo $var['li-bor']['w'];?>;
+		/*<?php if($var['li-bor']['bg']=='#'){ ?>*/ background-image: url(item_borde.<?php echo $var['me']['ex'];?>); 
+		/*<?php } else { ?>*/ background-image:none; background-color:<?php echo $var['li-bor']['bg'];?>; /*<?php } ?>*/	
+	/*<?php } else { ?>*/ display:none; /*<?php } ?>*/	
+	}						
+	<?php echo $name;?> .area_menu  ul li .menu_izq {
+	/*<?php if($var['li-izq']['ena']){ ?>*/ width:<?php echo $var['li-izq']['w'];?>; background-image: url(item_izq.<?php echo $var['me']['ex'];?>); display:block; 
+	/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+	}
+	<?php echo $name;?> .area_menu  ul li .menu_der {
+	/*<?php if($var['li-der']['ena']){ ?>*/ width:<?php echo $var['li-der']['w'];?>; background-image: url(item_der.<?php echo $var['me']['ex'];?>); display:block; 
+	/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+	}
+	
+	<?php echo $name;?> .area_menu  ul li.ultimo .menu_borde {
+	display:none;
+	}				
+	
+				
+	<?php echo $name;?> .area_menu  ul li.selected,	
+	<?php echo $name;?> .area_menu  ul li:hover { 
+		/*<?php if($var['a']['bg-sel']=='#'){ ?>*/ background-image: url(item_selected_bg.<?php echo $var['me']['ex'];?>); 
+		/*<?php } else { ?>*/ background-image:none; background-color:<?php echo $var['a']['bg-sel'];?>; border-bottom:0; /*<?php } ?>*/
+	}	
+
+		<?php echo $name;?> .area_menu  ul li.selected .menu_marco,
+		<?php echo $name;?> .area_menu  ul li:hover .menu_marco {
+			background:none;
+		}		
+
+				
+		<?php echo $name;?> .area_menu  ul li.selected .menu_izq,
+		<?php echo $name;?> .area_menu  ul li:hover .menu_izq {
+		/*<?php if($var['li-izq']['ena']){ ?>*/ width:<?php echo $var['li-izq']['w'];?>; background-image: url(item_selected_izq.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}
+		<?php echo $name;?> .area_menu  ul li.selected .menu_der,
+		<?php echo $name;?> .area_menu  ul li:hover .menu_der  {
+		/*<?php if($var['li-der']['ena']){ ?>*/ width:<?php echo $var['li-der']['w'];?>; background-image: url(item_selected_der.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}		
+		
+		<?php echo $name;?> .area_menu  ul li.ultimo .menu_borde {
+		display:none;
+		}
+
+
+	<?php echo $name;?> .area_menu  ul li a.line_0 { color:<?php echo $var['a']['color'];?>; display:block; font-weight:bold; 
+	padding: <?php echo $var['a']['p-t']." ".$var['a']['p-lados']." ".$var['a']['p-b']." ".$var['a']['p-lados'];?> !important;*/
+	padding: <?php echo $var['a']['p-t']." ".$var['a']['p-lados-ie6']." ".$var['a']['p-b']." ".$var['a']['p-lados'];?>; 	
+	float:left; height:<?php echo $var['a']['ha'];?>; font-size:<?php echo $var['a']['size'];?>; }
+	<?php echo $name;?> .area_menu  ul li.selected a.line_0 { color:<?php echo $var['a']['color-sel'];?>; text-decoration:underline;	}
+	<?php echo $name;?> .area_menu  ul li:hover a.line_0 { color:<?php echo $var['a']['color-sel'];?>;	 }
+	<?php echo $name;?> .area_menu  ul li a.line_0:hover { text-decoration:underline; }		
+	

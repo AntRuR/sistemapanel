@@ -1,0 +1,40 @@
+/*<?php include("../../include.php"); ?>*/
+
+
+<?php echo $name;?> .listado_items .vacio { padding-left:0px; }
+
+/*paginacion*/
+	<?php echo $name;?> .listado_paginacion { text-align:right; }
+	<?php echo $name;?> .listado_paginacion, 
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { font-size:13px; text-transform:lowercase; color:#999; }
+
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { margin:0 8px; }	
+	
+	<?php echo $name;?> .listado_paginacion .total { float:left; margin-left:14px; }
+	
+	<?php echo $name;?> .listado_paginacion .linkpagselec	{
+	color:#999; font-weight:bold;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag {
+	font-weight:bold; color:#ccc; text-decoration:underline;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag:hover {
+	color:#fff;
+	}
+
+
+/**/
+
+<?php echo $name;?> .foto { border:1px solid #E9E7FC; display:block; }
+<?php echo $name;?> .foto:hover { background-color:#E9E7FC; }
+<?php echo $name;?> { position:relative; }
+
+<?php echo $name;?> .bloque_pie .but_prev, 
+<?php echo $name;?> .bloque_pie .but_next {position:absolute; left:auto;right:10px; text-align:right; width:14px; height:14px; padding:0;}
+<?php echo $name;?> .bloque_pie .but_prev { top:10px; background:#000 url(arrow_arriba.jpg) no-repeat;  }
+<?php echo $name;?> .bloque_pie .but_next { bottom:10px; background:#000 url(arrow_abajo.jpg) no-repeat; }
+
+
+

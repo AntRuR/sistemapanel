@@ -1,0 +1,11 @@
+[31-Jul-2013 20:13:11] PHP Warning:  POST Content-Length of 139998924 bytes exceeds the limit of 67108864 bytes in Unknown on line 0
+[01-Aug-2013 10:49:52] PHP Parse error:  syntax error, unexpected $end, expecting ')' in /home/pomabamb/public_html/panel/config/tablas.php on line 1545
+[15-Aug-2013 20:28:26] PHP Warning:  Unexpected character in input:  ''' (ASCII=39) state=1 in /home/pomabamb/public_html/panel/lib/webutil.php on line 34
+[15-Aug-2013 20:28:26] PHP Parse error:  syntax error, unexpected '<' in /home/pomabamb/public_html/panel/lib/webutil.php on line 34
+[15-Aug-2013 20:28:27] PHP Parse error:  syntax error, unexpected $end in /home/pomabamb/public_html/panel/lib/webutil.php on line 260
+[15-Aug-2013 20:35:10] PHP Parse error:  syntax error, unexpected $end in /home/pomabamb/public_html/panel/lib/webutil.php on line 691
+[04-Sep-2013 23:52:36] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/munipoma/public_html/index.php:6) in /home/munipoma/public_html/panel/lib/global.php on line 3
+[29-Oct-2013 11:24:16] PHP Warning:  Unexpected character in input:  ''' (ASCII=39) state=1 in /home/munipoma/public_html/panel/config/tablas.php on line 334
+[29-Oct-2013 11:24:16] PHP Parse error:  syntax error, unexpected $end, expecting ')' in /home/munipoma/public_html/panel/config/tablas.php on line 334
+[29-Oct-2013 11:24:16] PHP Warning:  Unexpected character in input:  ''' (ASCII=39) state=1 in /home/munipoma/public_html/panel/config/tablas.php on line 334
+[29-Oct-2013 11:24:16] PHP Parse error:  syntax error, unexpected $end, expecting ')' in /home/munipoma/public_html/panel/config/tablas.php on line 334

@@ -1,0 +1,18 @@
+/*<?php include("../../include.php"); ?>*/
+
+
+<?php echo $name;?> {
+position:relative; clear:both;
+background:url(bg.jpg) left bottom repeat-x;
+height:auto; padding:10px 10px 50px 10px;
+}
+<?php echo $name;?> .footer_info {
+text-align:center;
+font-size:12px;
+}
+<?php echo $name;?> .footer_info a { color:#000099; }
+<?php echo $name;?> .footer_by {
+text-align:center;
+left:0px; width:100%; bottom:30px; height:auto; position:absolute;
+}
+<?php echo $name;?> .footer_by a{ color:#666666; }

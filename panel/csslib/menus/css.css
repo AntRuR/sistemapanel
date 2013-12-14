@@ -1,0 +1,119 @@
+	<?php echo $name;?> {
+		<?php echo $var['fila']['s'];?>
+	}
+	<?php echo $name;?> .area_menu {
+		height:auto; overflow:none !important; overflow:hidden;
+	}
+	
+	<?php echo $name;?> .area_menu  .div_menu_izq,
+	<?php echo $name;?> .area_menu  .div_menu_der,
+	<?php echo $name;?> .area_menu  .ul .li,
+	<?php echo $name;?> .area_menu  .ul .li .menu_izq, 
+	<?php echo $name;?> .area_menu  .ul .li .menu_der,
+	<?php echo $name;?> .area_menu  .ul .div_menu_float_izq, 
+	<?php echo $name;?> .area_menu  .ul .div_menu_float_der, 	 
+	<?php echo $name;?> .area_menu  .ul .li .menu_borde
+	 { height:<?php echo $var['a']['h'];?>; overflow:none !important;  }
+
+	<?php echo $name;?> .area_menu  { 
+		/*<?php if($var['a']['bg']=='#'){ ?>*/ background-image: url(div_menu.<?php echo $var['me']['ex'];?>);
+		/*<?php } else { ?>*/	background-image:none; background-color:<?php echo $var['a']['bg'];?>; /*<?php } ?>*/ }
+		<?php echo $name;?> .area_menu  .div_menu_izq, .<?php echo $name;?> .area_menu  .div_menu_der { height:<?php echo $var['a']['h'];?>; }
+		<?php echo $name;?> .area_menu  .div_menu_izq {
+		/*<?php if($var['ul-izq']['ena']){ ?>*/ height:<?php echo $var['a']['h'];?>;width:<?php echo $var['ul-izq']['w'];?>; background-image: url(div_menu_izq.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}
+		/*<?php echo $name;?> .area_menu */ .div_menu_der {
+		<?php if($var['ul-izq']['ena']){ ?> height:<?php echo $var['a']['h'];?>;width:<?php echo $var['ul-der']['w'];?>; background-image: url(div_menu_der.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}		
+		
+	<?php echo $name;?> .area_menu  .ul { padding:0 0 0 0px; }
+	<?php echo $name;?> .area_menu  .ul .li {
+		position:relative;
+		margin:0;  
+		margin-left:<?php echo $var['a']['m-lados'];?>;  
+		margin-right:<?php echo $var['a']['m-lados'];?>;  				
+		/*<?php if($var['a']['bg']=='#'){ ?>*/ background-image: url(item_bg.<?php echo $var['me']['ex'];?>); 
+		/*<?php } else { ?>*/ background-image:none; background-color:<?php echo $var['a']['bg'];?>; border-bottom:0; /*<?php } ?>*/
+		<?php echo $var['li']['s'];?>
+	}						
+
+	<?php echo $name;?> .area_menu  .ul .li .menu_borde { 
+	/*<?php if($var['li-bor']['ena']){ ?>*/
+		width: <?php echo $var['li-bor']['w'];?>;
+		/*<?php if($var['li-bor']['bg']=='#'){ ?>*/ background-image: url(item_borde.<?php echo $var['me']['ex'];?>); 
+		/*<?php } else { ?>*/ background-image:none; background-color:<?php echo $var['li-bor']['bg'];?>; /*<?php } ?>*/	
+		<?php echo $var['li-bor']['s'];?>
+	/*<?php } else { ?>*/ display:none; /*<?php } ?>*/	
+	}						
+	<?php echo $name;?> .area_menu  .ul .li .menu_izq {
+	/*<?php if($var['li-izq']['ena']){ ?>*/ width:<?php echo $var['li-izq']['w'];?>; background-image: url(item_izq.<?php echo $var['me']['ex'];?>); display:block; 
+	/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+	}
+	<?php echo $name;?> .area_menu  .ul .li .menu_der {
+	/*<?php if($var['li-der']['ena']){ ?>*/ width:<?php echo $var['li-der']['w'];?>; background-image: url(item_der.<?php echo $var['me']['ex'];?>); display:block; 
+	/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+	}
+	
+	<?php echo $name;?> .area_menu  .ul .ultimo .menu_borde {
+	display:none;
+	}				
+	
+	<?php echo $name;?> .area_menu  .ul .hover,					
+	<?php echo $name;?> .area_menu  .ul .selected,	
+	<?php echo $name;?> .area_menu  .ul .li:hover { 
+		/*<?php if($var['a']['bg-sel']=='#'){ ?>*/ background-image: url(item_selected_bg.<?php echo $var['me']['ex'];?>); 
+		/*<?php } else { ?>*/ background-image:none; background-color:<?php echo $var['a']['bg-sel'];?>; border-bottom:0; /*<?php } ?>*/
+		<?php echo $var['li-sel']['s'];?>
+	}	
+
+		<?php echo $name;?> .area_menu  .ul .li.hover .menu_marco,
+		<?php echo $name;?> .area_menu  .ul .li.selected .menu_marco,
+		<?php echo $name;?> .area_menu  .ul .li:hover .menu_marco {
+			background:none;
+		}		
+
+		<?php echo $name;?> .area_menu  .ul .hover .menu_izq,				
+		<?php echo $name;?> .area_menu  .ul .selected .menu_izq,
+		<?php echo $name;?> .area_menu  .ul .li:hover .menu_izq {
+		/*<?php if($var['li-izq']['ena']){ ?>*/ width:<?php echo $var['li-izq']['w'];?>; background-image: url(item_selected_izq.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}
+		<?php echo $name;?> .area_menu  .ul .hover .menu_der,
+		<?php echo $name;?> .area_menu  .ul .selected .menu_der,
+		<?php echo $name;?> .area_menu  .ul .li:hover .menu_der  {
+		/*<?php if($var['li-der']['ena']){ ?>*/ width:<?php echo $var['li-der']['w'];?>; background-image: url(item_selected_der.<?php echo $var['me']['ex'];?>); display:block; 
+		/*<?php } else { ?>*/ display:none; /*<?php } ?>*/
+		}		
+		
+		<?php echo $name;?> .area_menu  .ul .ultimo .menu_borde {
+		display:none;
+		}
+
+
+	<?php echo $name;?> .area_menu  .ul .li a.line_0,
+	<?php echo $name;?> .area_menu  .ul a.line_0 { color:<?php echo $var['a']['color'];?>; display:block; font-weight:<?php echo $var['a']['weight'];?>;
+	 
+	padding-top: <?php echo $var['a']['p-t'];?> ;
+	padding-left: <?php echo $var['a']['p-lados'];?> !important;
+	padding-right: <?php echo $var['a']['p-lados'];?> !important;	
+	padding-bottom: <?php echo $var['a']['p-b'];?>;
+	padding-left: <?php echo $var['a']['p-lados-ie6'];?>;
+	padding-right: <?php echo $var['a']['p-lados-ie6'];?>;
+	float:left; height:<?php echo $var['a']['ha'];?>; font-size:<?php echo $var['a']['size'];?>; white-space:nowrap; }
+	<?php echo $name;?> .area_menu  .ul .hover a.line_0 { color:<?php echo $var['a']['color-sel'];?>; text-decoration:underline;	}
+	<?php echo $name;?> .area_menu  .ul .selected a.line_0 { color:<?php echo $var['a']['color-sel'];?>; text-decoration:underline;	}
+	<?php echo $name;?> .area_menu  .ul .li:hover a.line_0 { color:<?php echo $var['a']['color-sel'];?>;	 }
+	<?php echo $name;?> .area_menu  .ul .li a.line_0:hover { text-decoration:underline; }		
+
+
+	<?php echo $name;?> .area_menu  .ul { 	}
+
+	<?php echo $name;?> .area_menu  { <?php echo $var['me']['s'];?> }
+	
+	<?php echo $name;?> .area_menu  .ul .li a.line_0,
+	<?php echo $name;?> .area_menu  .ul a.line_0 { <?php echo $var['a']['s'];?> }
+	
+	<?php echo $name;?> .area_menu  { background:<?php echo $var['me']['bg'];?>;}	
+

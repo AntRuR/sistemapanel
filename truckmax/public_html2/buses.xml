@@ -1,0 +1,35 @@
+<gallery>
+	<!-- The line below sets the path to the folder where the images are stored -->
+	<setup path="buses/"/>
+	<!-- The following lines set  the names of your images and thumbnails -->
+
+		<item>
+	
+		<img>100.jpg</img>
+		<thumb>t100.jpg</thumb>
+	</item>	<item>
+		
+		<img>101.jpg</img>
+		<thumb>t101.jpg</thumb>
+	</item>	<item>
+		
+		<img>4.jpg</img>
+		<thumb>t4.jpg</thumb>
+	</item>	<item>
+		
+		<img>5.jpg</img>
+		<thumb>t5.jpg</thumb>
+	</item>	<item>
+		
+	<img>6.jpg</img>
+		<thumb>t6.jpg</thumb>
+	</item>	<item>
+		
+		<img>7.jpg</img>
+		<thumb>t7.jpg</thumb>
+	</item>	
+	
+	</item>	
+		
+		
+</gallery>

@@ -1,0 +1,9 @@
+
+	.bloque_cuadro_4 { background-color:#FFF; }
+	.bloque_cuadro_4 .div_borde{ border:0;	height:auto !important; 
+								 height:249px; min-height:249px; 	
+	}
+
+	.bloque_cuadro_4 .barra_arriba {height:20px; background-image: url(barra_arriba.jpg); padding:14px 0px 0px 10px; color:#333625; font-size:14px; font-weight:bold; text-transform:uppercase; position:relative; }
+	
+		

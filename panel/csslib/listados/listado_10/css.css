@@ -1,0 +1,78 @@
+/*<?php include("../../include.php"); ?>*/
+
+
+/*nombre,ico_carrito,lupa,precio*/
+
+<?php echo $name;?> .listado_items .vacio { padding-left:0px; }
+
+/*paginacion*/
+	<?php echo $name;?> .listado_paginacion { text-align:right; }
+	<?php echo $name;?> .listado_paginacion, 
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { font-size:13px; text-transform:lowercase; color:inherit; }
+
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { margin:0 8px; }	
+	
+	<?php echo $name;?> .listado_paginacion .total { float:left; margin-left:14px; }
+	
+	<?php echo $name;?> .listado_paginacion .linkpagselec	{
+	color:#999; font-weight:bold;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag {
+	font-weight:bold; color:inherit; text-decoration:underline;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag:hover {
+	color:#999;
+	}
+
+/**/
+<?php echo $name;?> .barra_listado {
+background-color:#372821;
+}
+<?php echo $name;?> .barra_listado .titulo  {	
+color:#FFFFFF; float:left; text-transform:uppercase; font-weight:bold;
+}
+
+/*listado*/
+
+<?php echo $name;?> li.listado_item  { 
+position:relative;
+height:176px; float:left; 
+width:32%; margin-right:1%;
+padding:0;
+}
+<?php echo $name;?> li.listado_item:hover  {
+background-color:#CCCCCC;
+}
+<?php echo $name;?> .listado_item a.foto { 
+position:absolute; width:164px; height:103px; top:12px; left:20px;
+text-align:center; border:1px solid #DADADA; overflow:hidden;
+}
+<?php echo $name;?> .listado_item a.foto:hover { 
+border:1px solid #000;
+}
+<?php echo $name;?> .listado_item .titulo {
+display:block; text-align:center; overflow:hidden; color:#000;
+position:absolute; width:100%; bottom:10px; left:0px; height:40px;
+font-weight:normal;text-transform:uppercase;
+}
+<?php echo $name;?> .listado_item .titulo a {
+font-weight:inherit; color:inherit; text-transform:inherit;
+}
+<?php echo $name;?> .listado_item .texto {
+display:none;
+}
+<?php echo $name;?> .listado_item .ico_carrito {
+position:absolute; width:37px; height:38px; top:13px; right:6px;
+display:block;background:#FFF url(orden.jpg) no-repeat;
+}
+<?php echo $name;?> .listado_item .lupa {
+position:absolute; width:37px; height:22px; top:112px; right:5px;
+display:block;background:#FFF url(lupa.gif) no-repeat;
+}
+<?php echo $name;?> .listado_item .precio {
+position:absolute; width:100%; bottom:40px; left:0; height:15px; 
+display:none; text-align:center;color:#000; font-weight:bold; font-size:14px;
+}
+

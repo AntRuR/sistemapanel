@@ -1,0 +1,14 @@
+/*<?php include("../../include.php"); ?>*/
+
+
+	<?php echo $name;?> { background-color:none; border:1px dashed #908EA3; padding:2px; }
+	<?php echo $name;?> .div_borde{ border:0;	height:auto !important; 
+								 height:249px; min-height:249px;
+								 background-color:#FFFFFF; 	
+	}
+	<?php echo $name;?> .barra_arriba {
+									height:auto !important; height:16px; min-height:16px;
+									background-image: url(barra_arriba.gif); 
+									padding:1px 0px 0px 10px; 
+									color:#fff; font-size:12px; font-weight:bold; text-transform:uppercase; position:relative; width:none; }
+		

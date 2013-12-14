@@ -1,0 +1,59 @@
+
+
+
+<?php echo $name;?>  .linea { height:auto; padding:1px 85px 8px 40px; position:relative; clear:left;  margin-bottom:3px; overflow:hidden; border-bottom:1px dashed #999; }
+<?php echo $name;?>  .linea a.foto { position:absolute; top:0px; left:0px !important; left:-33px; height:20px; overflow:hidden; width:25px; }
+<?php echo $name;?>  .linea a.foto img {margin-top:-25% !important; }
+
+<?php echo $name;?>  .linea .cantidad-precio { font-weight:normal; color:#666; margin-left:3px;  }
+<?php echo $name;?>  .linea .cantidad-precio b { font-weight:bold;}
+<?php echo $name;?>  .linea .cantidad { position:absolute; right:153px; font-weight:normal; color:#666; margin-left:3px; top:1px; }
+<?php echo $name;?>  .linea .cantidad input { width:17px; }
+<?php echo $name;?>  .linea .precio_subtotal { position:absolute; right:9px; border:0px; font-weight:bold; color:#000000; bottom:1px;}
+
+
+
+<?php echo $name;?>  .linea_links { position:relative; height:auto; clear:left; font-weight:bold; text-align:right; font-size:14px; padding:8px 10px 21px 9px; font-size:16px;  }
+
+
+
+<?php echo $name;?>  .linea_links #ver_carrito { text-align:left; position:absolute; color:#666666; text-decoration:underline; font-size:14px; left:2px; top:8px;  }
+<?php echo $name;?>  .linea_links #enviar_pedido { text-align:right; color:#666666; text-decoration:underline;font-size:14px;  }
+<?php echo $name;?>  .linea_links a:hover { color:#000000; }
+
+
+
+
+<?php echo $name;?>  .linea { padding:2px 2px 19px 28px; }
+<?php echo $name;?> .linea a.foto { top:5px; }
+
+<?php echo $name;?>  .linea a.nombre { font-weight:bold; color:<?php echo $var['item']['color'];?>; font-size:<?php echo $var['item']['font'];?>; <?php echo $var['item']['s'];?> }
+<?php echo $name;?>  .linea a.nombre:hover { text-decoration:underline; }
+
+<?php echo $name;?> .linea .precio_subtotal { font-size:12px;}
+
+
+<?php echo $name;?>  .linea_total .total { position:absolute; left:1px; font-weight:bold; font-size:<?php echo $var['total']['font'];?>;color:<?php echo $var['total']['color'];?>;  }
+<?php echo $name;?>  .linea_total .monto_total { font-weight:bold; font-size:<?php echo $var['preciototal']['font'];?>;color:<?php echo $var['preciototal']['color'];?>;  }
+
+<?php echo $name;?>  .linea .actualizar { font-size:<?php echo $var['actualizar']['font'];?>;color:<?php echo $var['actualizar']['color'];?>; position:absolute; right:90px; text-decoration:underline; top:1px; cursor:pointer;}
+
+
+<?php echo $name;?>  .linea .quitar { position:absolute; right:0px; font-size:9px; text-decoration:underline; bottom:1px; cursor:pointer; }
+<?php echo $name;?>  .linea_total { position:relative; height:auto; clear:left; color:#993300; text-align:right; font-size:14px; padding:0px 9px 12px; font-size:16px; }
+<?php echo $name;?>  .linea_total .quitar {bottom:-3px;cursor:pointer;position:absolute;right:10px;text-decoration:underline;}
+
+<?php echo $name;?> .linea .quitar { font-size:<?php echo $var['eliminar']['font'];?>;color:<?php echo $var['eliminar']['color'];?>; }
+<?php echo $name;?> .linea_total { font-size:16px; }
+<?php echo $name;?> .linea_total .quitar {font-size:<?php echo $var['vaciar']['font'];?>;color:<?php echo $var['vaciar']['color'];?>;}
+
+
+
+
+<?php echo $name;?> .linea_links { font-size:14px; }
+
+<?php echo $name;?>  a#ver_carrito { font-size:14px; }
+<?php echo $name;?>  a#enviar_pedido { font-size:14px;  }
+
+
+<?php echo $name;?>  #actualizar_carrito { position:absolute; padding:3px 10px; top:0px; left:0px; z-index:1; background-color:#000; color:#FFF;  }

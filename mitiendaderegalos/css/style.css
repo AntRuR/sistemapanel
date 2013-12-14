@@ -1,0 +1,312 @@
+.style_derecho {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 10px;
+
+	color: #666666;}
+.style_notas {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #666666;}
+	
+	
+	.style_seccion {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #ffffff;
+
+	font-weight: bold;}
+	
+	
+	.style_titulos {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #ff0000;
+
+	font-weight: bold;}
+
+.style_titulo2 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 12px;
+
+	color: #666666;
+
+	font-weight: bold;}
+.style_titulo3 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 12px;
+
+	color: #ffffff;
+
+	font-weight: bold;}
+	.style_titulo4 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #003366;}
+	
+	.style_titulos5 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #ffffff;
+
+	font-weight: bold;}
+.style_delta250 {
+
+	font-family: Tahoma, Helvetica, sans-serif;
+
+	font-size: 18px;
+
+	color: #ffffff;
+
+	font-weight: bold;}
+
+.style_guinda {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 12px;
+
+	color: #cc0000;
+
+	font-weight: bold;}
+
+.style_texto {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #666666;}
+
+.style_orange {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 12px;
+
+	color: #D23167;
+
+	font-weight: bold;}
+
+.style_azul {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 16px;
+
+	color: #036F92;
+
+	font-weight: bold;}
+
+.style_plomo {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 14px;
+
+	color: #ffffff;}
+
+.style1 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 10px;
+
+	color: #666666;
+
+	font-weight: bold;}
+
+	.style_verde {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 10px;
+
+	color: #006600;
+
+	font-weight: bold;}
+
+.style2 {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #666666;}
+
+.style3 {
+
+	font-family: Tahoma, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 14px;
+
+	color: #666666;
+
+	font-weight: bold;}
+
+.style4 {
+
+	font-family: Tahoma, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 14px;
+
+	color: #ffffff;
+
+	font-weight: bold;}
+
+.style5 {
+
+	font-family: Tahoma, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #666666;
+
+	font-weight: bold;}
+
+.style6 {
+
+	font-family: Tahoma, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #ffffff;
+
+	font-weight: bold;}
+
+.style7 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #666666;
+
+	font-weight: bold;}
+
+.style8 {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #666666;}
+
+.style9 {
+
+	font-family: Tahoma, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 12px;
+
+	color: #666666;
+
+	font-weight: bold;}
+
+.style10 {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 12px;
+
+	color: #666666;}
+
+.style11 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #86B02D;
+
+	font-weight: bold;}
+
+.style12 {
+
+	font-family: Georgia, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 14px;
+
+	color: #86B02D;
+
+	font-weight: bold;}
+
+.style13 {
+
+	font-family: Century Gothic, Helvetica, sans-serif;
+
+	font-size: 12px;
+
+	color: #666666;}
+
+.style14 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	color: #4E6889;
+
+	font-weight: bold;}
+	.style20 {
+	font-family: Century Gothic, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #003366;}
+
+.style25 {
+
+	font-family: Century Gothic, Century Gothic, Helvetica, sans-serif;
+
+	font-size: 10px;
+
+	color: #666666;
+
+	font-weight: bold;}
+	
+	.style26 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	font-weight: bold;}
+	.style27 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ff0000;
+	font-weight: bold;}
+	.style28 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;}
+	.style29 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #ff0000;}
+	.style_textos_index {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #ffffff;
+	}
+	.style_linea_incapower {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #ffffff;
+	}

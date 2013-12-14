@@ -1,0 +1,165 @@
+/*<?php 
+include("../../include.php");
+$fila=array(
+			'padding-top'=>10
+			,'min-height'=>50
+			); 
+$foto=array(
+			'width'=>136
+			,'height'=>136
+			);
+$titulo=array(
+			'color'=>'#D30416'
+			,'background'=>'none'
+			);
+$subtitulo=array(
+			'color'=>'#7B1E17'
+			,'background'=>'none'
+			);						
+$precio=array(
+			'width'=>128
+			,'height'=>128
+			,'padding-top'=>23
+			,'padding-right'=>25
+			,'padding-left'=>20
+			);			
+?>*/
+/*foto,titulo,nombre,fecha,texto*/
+
+<?php echo $name;?> .listado_items { margin-top:10px; }
+<?php echo $name;?> .listado_items .vacio { padding-left:0px; }
+
+/*paginacion*/
+	<?php echo $name;?> .listado_paginacion { text-align:right; }
+	
+	<?php echo $name;?> .listado_paginacion, 
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { font-size:13px; text-transform:lowercase; color:none; }
+
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { margin:0 8px; }	
+	
+	<?php echo $name;?> .listado_paginacion .total { float:left; margin-left:14px; }
+	
+	<?php echo $name;?> .listado_paginacion .linkpagselec	{
+	color:#999; font-weight:bold;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag {
+	font-weight:bold; color:none; text-decoration:underline;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag:hover {
+	/*color:inherit;*/
+	}
+
+
+/*fila*/
+<?php echo $name;?> .listado_item  { 
+position:relative;
+height:auto !important; height:<?php echo $foto['height'];?>px; min-height:<?php echo $foto['height'];?>px; float:none; clear:left;
+padding:0;
+padding-top:<?php echo $fila['padding-top'];?>px;
+margin-bottom:20px;
+border-bottom:1px dashed #ccc;
+padding-bottom:10px;
+background-color:#FCFCFC;
+}
+
+
+/*foto*/
+<?php echo $name;?> .listado_item_con_foto { 
+padding-left:<?php echo $foto['width']+20;?>px;
+padding-right:<?php echo $precio['width']+0;?>px;
+height:auto !important; height:<?php echo $foto['height'];?>px; min-height:<?php echo $foto['height'];?>px;
+}
+<?php echo $name;?> .listado_item a.foto {
+position:absolute; width:<?php echo $foto['width'];?>px; height:<?php echo $foto['height'];?>px; 
+top:<?php echo $fila['padding-top'];?>px; left:5px ;
+text-align:center; border:1px solid #E0E4E7;
+overflow:hidden;
+background-color:#F6F7F9;
+}
+<?php echo $name;?> .listado_item a.foto:hover { 
+border:1px solid #2C2A2B;
+background-color:#FFFFFF;
+}
+<?php echo $name;?> .listado_item .texto a.foto {
+position:relative; text-align:left; display:inline; border:0; float:none; 
+}
+<?php echo $name;?> .listado_item .texto a.foto img{
+margin-right:10px; margin-bottom:10px; float:left;
+}
+
+
+/*titulo*/
+<?php echo $name;?> .listado_item .titulo {
+background:<?php echo $titulo['background'];?>;
+font-size:13px; font-weight:bold; margin-bottom:2px; text-transform:uppercase; display:block; padding:2px 2px 2px 2px;
+}
+<?php echo $name;?> .listado_item .titulo,
+<?php echo $name;?> .listado_item .titulo a {
+color:<?php echo $titulo['color'];?>; font-family:Georgia, "Times New Roman", Times, serif; 
+}
+<?php echo $name;?> .listado_item .titulo strong {
+font-size:12px;  font-weight:normal; color:#333; text-transform:none; font-family:Arial, Helvetica, sans-serif; display:block; 
+}
+
+/*subtitulo*/
+<?php echo $name;?> .listado_item .subtitulo {
+font-size:13px;color:<?php echo $subtitulo['color'];?>; background:<?php echo $subtitulo['background'];?>; font-weight:bold; margin-bottom:2px; text-transform:uppercase;
+}
+
+
+/*precio*/
+<?php echo $name;?> .listado_item .precio {
+font-size:30px; color:#FFF;
+background:transparent url(precio_bg.png);
+text-align:center;
+padding-top:<?php echo $precio['padding-top'];?>px;
+padding-right:<?php echo $precio['padding-right'];?>px;
+padding-left:<?php echo $precio['padding-left'];?>px;
+width:<?php echo $precio['width']-$precio['padding-right']-$precio['padding-left'];?>px; 
+height:<?php echo $precio['height']-$precio['padding-top'];?>px;
+position:absolute;
+right:0px; top:-15px;
+display:block;
+text-decoration:none;
+}
+<?php echo $name;?> .listado_item .precio .desde{
+color:inherit; font-size:10px; display:block; text-transform:uppercase;
+}
+<?php echo $name;?> .listado_item .precio .moneda{
+color:inherit; font-size:24px;
+}
+<?php echo $name;?> .listado_item .precio .numero{
+color:inherit; font-size:30px; font-weight:bold;
+}
+<?php echo $name;?> .listado_item .precio .nota{
+color:inherit; font-size:10px; display:block;
+}
+
+
+/*texto*/
+<?php echo $name;?> .listado_item .texto {
+font-size:12px; color:#2C2A2B;
+}
+<?php echo $name;?> .listado_item .texto h2{
+font-size:11px;
+}
+<?php echo $name;?> .listado_item .texto ul{
+}
+
+<?php echo $name;?> .listado_item .texto ul li{
+float:none;
+list-style-image: url(listico.png);
+list-style-position:inside;
+list-style-type:disc;
+}
+
+/*more*/
+<?php echo $name;?> .listado_item a.more{
+font-size:14px;
+color:#D30416; 
+clear:left;
+display:block;
+text-decoration:underline;
+}

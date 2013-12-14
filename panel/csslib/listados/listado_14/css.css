@@ -1,0 +1,210 @@
+/*<?php 
+include("../../include.php"); 
+
+$var['fila']=array(
+			'p-t'=>15
+			,'h'=>'auto'
+			,'min-h'=>50
+			,'w'=>'100%'
+			,'float'=>'left'
+			); 
+$var['paginacion']=array(
+			'ena'=>1
+			,'dis'=>1
+			); 			
+$var['item']=array(
+			'ena'=>1
+			,'w'=>'100%'
+			,'h'=>'auto'
+			,'min-h'
+			); 			
+$var['foto']=array(
+			'ena'=>1
+			,'w'=>'100%'
+			,'h'=>'auto'
+			,'bg'=>'#F0F0F0'
+			,'borde'=>'#FFFFFF'
+			,'bg_sel'=>'#FFFFFF'
+			,'borde_sel'=>'#CCCCCC'			
+			,'sangria'=>0
+			);
+$var['titulo']=array(
+			'ena'=>1
+			,'color'=>'#D30416'
+			,'bg'=>'none'
+			,'size'=>20
+			);
+$var['subtitulo']=array(
+			'ena'=>1
+			,'color'=>'#D30416'
+			,'bg'=>'none'
+			,'size'=>20
+			);						
+$var['precio']=array(
+			'w'=>128
+			,'h'=>128
+			,'p-t'=>23
+			,'p-r'=>25
+			,'p-l'=>20
+			);
+
+$var=preprocessvarscss($var);
+
+$var['foto']['p-l']=$var['foto']['w']+10;
+			
+$var=processvarscss($var);
+
+?>*/
+<?php echo $name;?> { overflow:visible; }
+
+<?php echo $name;?> .listado_items { margin-top:0px; }
+
+<?php echo $name;?> .listado_items .vacio { padding-left:0px; }
+
+/*PAGINACION <?php if($var['paginacion']['ena']){ ?>*/
+
+	<?php echo $name;?> .listado_paginacion { <?php echo $var['paginacion']['dis']; ?> text-align:right; }
+	
+	<?php echo $name;?> .listado_paginacion, 
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { font-size:13px; text-transform:lowercase; color:none; }
+
+	<?php echo $name;?> .listado_paginacion .linkpagselec,
+	<?php echo $name;?> .listado_paginacion a.linkpag { margin:0 8px; }	
+	
+	<?php echo $name;?> .listado_paginacion .total { float:left; margin-left:14px; }
+	
+	<?php echo $name;?> .listado_paginacion .linkpagselec	{
+	color:#999; font-weight:bold;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag {
+	font-weight:bold; color:none; text-decoration:underline;
+	}
+	<?php echo $name;?> .listado_paginacion a.linkpag:hover {
+	/*color:inherit;*/
+	}
+/*<?php } ?>*/
+
+/*listado*/
+
+<?php echo $name;?> ul.listado_columna {
+width:<?php echo $var['fila']['w'];?>; float:<?php echo $var['fila']['float'];?>;
+position:relative;
+margin:0; padding:0;
+margin-right:0px !important; margin-right:-1%;
+}
+
+<?php echo $name;?> ul.listado_items  {
+padding-bottom:10px;
+padding-top:10px;
+}
+
+/*ITEM <?php if($var['item']['ena']){ ?>*/
+
+<?php echo $name;?> .listado_item  { 
+position:relative;
+height:auto; float:left; clear:none;
+padding:0;border:0;margin:0;
+width:<?php echo $var['item']['w'];?>;
+margin-right:0px !important; margin-right:-1%;
+margin-top:0px;
+margin-bottom:10px;
+}
+
+<?php echo $name;?> .listado_item a{
+color:inherit;
+text-decoration:none;
+width:90%;
+}
+
+<?php echo $name;?> .listado_item a:hover{
+text-decoration:underline;
+}
+	/*FOTO SANGRIA <?php if($var['foto']['sangria']){ ?>*/
+	<?php echo $name;?> .listado_item_con_foto { 
+	padding-left:<?php echo $var['foto']['p-l'];?>;
+	height:auto !important; height:<?php echo $var['foto']['h'];?>; min-height:<?php echo $var['foto']['h'];?>; 
+	}
+	<?php echo $name;?> .listado_item a.foto {
+	position:absolute;  top:0px; left:5px ;	
+	}
+	/*<?php } ?>*/
+	
+	/*FOTO <?php if($var['foto']['ena']){ ?>*/	
+	<?php echo $name;?> .listado_item a.foto {
+	width:<?php echo $var['foto']['w'];?>; height:<?php echo $var['foto']['h'];?>; 
+	text-align:center;
+	overflow:hidden;
+	display:block;
+	margin-bottom:7px;
+	background-color:<?php echo $var['foto']['bg'];?>;
+	border: 1px solid <?php echo $var['foto']['borde'];?>;
+	}
+	<?php echo $name;?> .listado_item a.foto:hover {
+	background-color:<?php echo $var['foto']['bg_sel'];?>;
+	border: 1px solid <?php echo $var['foto']['borde_sel'];?>;
+	}
+	/*<?php } ?>*/
+	
+	/*FECHA <?php if($var['fecha']['ena']){ ?>*/	
+	<?php echo $name;?> .listado_item .fecha {
+	font-size:10px; font-weight:normal; display:block;
+	color:#43567E; text-decoration:underline;
+	}	
+	/*<?php } ?>*/
+	
+	/*TITULO <?php if($var['titulo']['ena']){ ?>*/
+	<?php echo $name;?> .listado_item .titulo {
+	height:auto;overflow:hidden; clear:left; margin-bottom:4px;
+	}
+	<?php echo $name;?> .listado_item .titulo a {
+	text-align:justify;
+	}
+	<?php echo $name;?> .listado_item .titulo, <?php echo $name;?> .listado_item .titulo a {
+	font-size:<?php echo $var['titulo']['size'];?>; font-weight:normal;text-transform:capitalize; text-align:justify; font-family:'Times New Roman', Times, serif;
+	color:#4A70A1; padding:0;
+	}
+	/*<?php } ?>*/
+	
+	/*TEXTO <?php if($var['texto']['ena']){ ?>*/
+	<?php echo $name;?> .listado_item .texto {
+	display:block;
+	margin-bottom:7px;
+	}
+	
+	<?php echo $name;?> .listado_item .texto, <?php echo $name;?> .listado_item .texto a {
+	font-size:13px; font-weight:normal; text-align:justify;
+	color:#000; clear:left;
+	}			
+	/*<?php } ?>*/
+
+<?php echo $name;?> .listado_item  .capa {
+	padding-left:<?php echo $var['fila']['p-t'];?>;
+	padding-right:<?php echo $var['fila']['p-t'];?>;
+}
+<?php echo $name;?> .listado_item  .inner {
+position:relative;
+/*<?php if($var['item']['min-h']!=''){ ?>*/
+overflow:hidden; height:auto !important; height:<?php echo $var['item']['min-h'];?>; min-height:<?php echo $var['item']['min-h'];?>;				
+/*<?php } elseif($var['item']['h']!=''){ ?>*/
+overflow:<?php echo ($var['item']['h']=='auto')?'visible':'hidden'; ?>; height:<?php echo $var['item']['h'];?> !important; height:<?php echo $var['item']['h'];?>;			
+/*<?php } else { ?>*/
+overflow:visible; height:auto !important; height:auto;
+/*<?php } ?>*/
+padding-bottom:0px;				
+}
+
+
+/*<?php } ?>*/
+
+
+<?php echo $name;?> ul.listado_items  { 
+	border-top:4px solid #076FB6;
+}
+<?php echo $name;?> .listado_item  .capa {
+	border-right:2px solid #EAEAEA;
+}
+
+<?php echo $name;?> .listado_item  .inner {
+	border-bottom:2px solid #EAEAEA;
+}
