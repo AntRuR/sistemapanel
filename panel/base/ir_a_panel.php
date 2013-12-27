@@ -26,6 +26,6 @@ array('fecha_acceso'=>'now()'),
 0
 );
 //exit();
-header("Location: ../../".$item['carpeta']."/panel");
+// prin("Location: ../../".$item['carpeta']."/panel");
+header("Location: ../".$item['carpeta']."/panel");
 
-?>

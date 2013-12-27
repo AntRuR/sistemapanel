@@ -39,10 +39,13 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 ?>
 <!-- <h3 class='proyecto'><?php echo $proyecto['nombre'];?></h3> -->
 
+<input type="button" class="esquinabtn btn" value="Aceptar" >
+
+
 <div class="row-fluid">
 
 	<div class="span10">
-
+	
 		<ul class="nav nav-tabs" id="myTab">
 		  <li><a href="#departamentos" data-toggle="tab">Departamentos</a></li>
 		  <li><a href="#estacionamientos" data-toggle="tab">Estacionamientos</a></li>
@@ -179,7 +182,8 @@ function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="departamento" ';
 			    $html.='data-ii="'.$bb['id'].'" ';
-	     	}
+			    $html.='data-num="'.$bb['numero'].'" ';	     	
+			}
 	     	elseif($tipo=='estacionamientos')
 	     	{
 				$html.='id="e'.$it.$bb['numero'].'" '; 
@@ -187,6 +191,7 @@ function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="estacionamiento" ';
 			    $html.='data-ii="'.$bb['id'].'" ';
+			    $html.='data-num="'.$bb['numero'].'" ';
 	     	}
 	     	elseif($tipo=='depositos')	     	
 	     	{
@@ -195,6 +200,7 @@ function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="deposito" ';
 			    $html.='data-ii="'.$bb['id'].'" ';
+			    $html.='data-num="'.$bb['numero'].'" ';
 	     	}	
 
 			$html.='>'.$bb['numero'].'</a></td>';

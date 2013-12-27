@@ -24,6 +24,12 @@ PROJECT = {
 
         init : function() {
 
+            $(".esquinabtn").on("click", function(event){
+                // var html = new Element('div#second');
+                parent.$('in_id_item_button').inject("hola", 'after');
+                parent.initMultiBox.close();
+            });
+
             $('#myTab a:first').tab('show');
 
             PROJECT.loadCss.init( "css/jquery-impromptu.css");
@@ -54,7 +60,7 @@ PROJECT = {
                             +">"
                             +'cargando....'
                             +"</div>",
-                            buttons: { "cacelar": 0, "ver mas": 1, "agregar":2 },
+                            buttons: { "cancelar": 0, "ver mas": 1, "agregar":2 },
                             submit:function(e,v,m,f){
                                 if(v==0){ 
                                     $.prompt.close();                                                               
@@ -65,6 +71,7 @@ PROJECT = {
                                     $.prompt.goToState('state1');
                                 }
                                 if(v==2){
+                                    $.prompt.close();
                                     add_cart(type,price,ii);
                                 }
                                 return false; 
@@ -96,6 +103,7 @@ PROJECT = {
                                 //     $.prompt.goToState('state2');
                                 // }
                                 if(v==2){
+                                    $.prompt.close();                                    
                                     add_cart(type,price,ii);
                                 }
                                 return false; 
@@ -699,6 +707,11 @@ function render_cart(){
     // console.log(html);
     // document.getElementById('cart').innerHTML=html;
     $('#cart').html(html);
+
+    if(cart.length>0)
+        $('.esquinabtn').show();
+    else
+        $('.esquinabtn').hide();        
 
 }
 // function confirmControl(object){
