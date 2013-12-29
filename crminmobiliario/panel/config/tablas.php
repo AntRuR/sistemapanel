@@ -2149,7 +2149,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'campo'			=> 'id_item',
 						'label'			=> 'Proyecto',
 						'tipo'			=> 'hid',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '1',
 						'default'		=> '[id_item]',
 						'style'			=> 'width:200px,',
@@ -2276,7 +2276,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'width'			=> '95px',
 						'derecha'		=> '2',
 						'queries'		=> '1',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'tip_foreig'	=> '1'
 				),
 				'tags'			=>array(
