@@ -708,7 +708,6 @@ function render_cart(){
     // document.getElementById('cart').innerHTML=html;
     $('#cart').html(html);
 
-<<<<<<< HEAD
     if(cart.length>0){
         $('.esquinabtn').show();
         $('#fb1').show();
@@ -716,12 +715,6 @@ function render_cart(){
         $('.esquinabtn').hide();        
         $('#fb1').hide();
     }
-=======
-    if(cart.length>0)
-        $('.esquinabtn').show();
-    else
-        $('.esquinabtn').hide();        
->>>>>>> 272f6223f29c26d5992f81c390b1a877200bd567
 
 }
 // function confirmControl(object){
