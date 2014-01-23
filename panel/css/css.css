@@ -269,9 +269,9 @@ form {
 }
 
 a,.alink { /*color:#000080;*/
-	/*color:#3B5998;*/
-	/*color:#0645AD;*/
-	color: #3B5998;
+	 color: #3B5998;
+	 color: #0645AD;
+	 color: #4183C4;
 	cursor: pointer;
 	text-decoration: none;
 }
@@ -1129,7 +1129,7 @@ font-weight:bold;
 }
 /*a.link_header:hover { text-decoration:underline; background:#333; color:#FFF;  }*/
 .tbl {
-	font-size: 10px;
+	font-size: 8px;
 }
 
 a.iconos {
@@ -1711,8 +1711,13 @@ a.objetos:hover {
 	text-align: left; /*background:#FFF !important;*/
 }
 
+.tbl td.cntrl {
+	min-width: 260px;
+	word-wrap: break-word;
+}
+
 .tbl td.big {
-	max-width: 180px;
+	max-width: 140px;
 	word-wrap: break-word;
 }
 
@@ -1724,7 +1729,7 @@ a.objetos:hover {
 
 .tbl td.big b a {
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 10px;
 }
 
 .tbl td.small b a {
@@ -1759,7 +1764,7 @@ a.objetos:hover {
 	font-weight: weight;
 	height: auto;
 	margin-left: 0px;
-	margin-right: 1px;
+	margin-right: 0px;
 	margin-top: 1px;
 	overflow: hidden;
 	text-decoration: none;
@@ -1767,6 +1772,7 @@ a.objetos:hover {
 	text-transform: uppercase;
 	line-height: 12px;
 	padding: 0 0px;
+	outline: 1px solid #FFF;
 }
 
 .tbl td a img {

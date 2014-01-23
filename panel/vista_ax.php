@@ -1236,6 +1236,10 @@ $('tempar_'+hijo).value=$('tempar_'+hijo+'_pre').value+"|"+idparent;
 $('tempar_'+hijo+'_iframe').innerHTML="<iframe frameborder='0' src='custom/"+hijo+".php?block=form"+reloa+"&tipo="+TipoHijo+"&id="+idparent+"' ></iframe>";
 }
 
+function ponerafter(el,html){
+	$(el).after(html);
+}
+
 window.addEvent('domready',function(){
 <?php $loads=json_decode($_GET['load']);
 foreach($loads as $name=>$value){ ?>

@@ -2091,7 +2091,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '1',
 						'directlink'	=> 'id,nombre;apellidos;dni;info|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
-						'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
+						// 'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
 						'style'			=> 'width:600px;',
 						'controles'		=> '<a href="pop.php?app=enviar_cotizacion&id=[id]" style="color:red;" >Nuevo Mensaje</a>
 							<a target="_black" href="../index.php?modulo=items&tab=productos_imprimir&acc=file&id_venta=[id]">imprimir</a>
@@ -2149,7 +2149,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'campo'			=> 'id_item',
 						'label'			=> 'Proyecto',
 						'tipo'			=> 'hid',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '1',
 						'default'		=> '[id_item]',
 						'style'			=> 'width:200px,',
@@ -2276,7 +2276,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'width'			=> '95px',
 						'derecha'		=> '2',
 						'queries'		=> '1',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'tip_foreig'	=> '1'
 				),
 				'tags'			=>array(
