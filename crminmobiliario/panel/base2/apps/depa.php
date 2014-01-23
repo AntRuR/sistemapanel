@@ -45,13 +45,8 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 <div class="row-fluid">
 
-<<<<<<< HEAD
-	<div class="span9">
-
-=======
 	<div class="span10">
 	
->>>>>>> 272f6223f29c26d5992f81c390b1a877200bd567
 		<ul class="nav nav-tabs" id="myTab">
 		  <li><a href="#departamentos" data-toggle="tab">Departamentos</a></li>
 		  <li><a href="#estacionamientos" data-toggle="tab">Estacionamientos</a></li>
