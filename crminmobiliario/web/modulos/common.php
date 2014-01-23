@@ -14,7 +14,7 @@
 ///////////////// VERSION //////////////////
 /**********************************************/
 
-$INCLUDE['version']="?v=1539";
+$INCLUDE['version']="?v=1540";
 
 $HEAD['INCLUDE']['version']=$INCLUDE['version'];
 

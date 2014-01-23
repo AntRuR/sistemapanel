@@ -245,6 +245,10 @@ switch($_GET['type']){
 	case "deposito":
 		echo "deposito";
 	break;	
+	case "record":
+		echo $_GET['cart'];
+	break;
+
 }		
 
 // $proyecto=fila("nombre","productos_items","where id=".$id_project);

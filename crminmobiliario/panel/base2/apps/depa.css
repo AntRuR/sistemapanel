@@ -63,3 +63,11 @@ border:0 !important;
 div.jqi button {
 margin-right:0 !important;
 }
+
+#fb1 {
+    position: absolute;
+    bottom:0px;
+    right:0px;
+    display:none;
+}
+

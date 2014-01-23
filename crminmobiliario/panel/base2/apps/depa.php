@@ -34,6 +34,7 @@ echo $HTML_MAIN_INICIO;
 
 $id_project=$_GET['p'];
 
+
 $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 ?>
@@ -41,7 +42,7 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 <div class="row-fluid">
 
-	<div class="span10">
+	<div class="span9">
 
 		<ul class="nav nav-tabs" id="myTab">
 		  <li><a href="#departamentos" data-toggle="tab">Departamentos</a></li>
@@ -142,11 +143,12 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 	</div>
 
-	<div class="span2" id="cart">
+	<div class="span3" style="min-height:200px;position: relative;">
+		<div id="cart"></div>
+		<button type="button" class="form_boton_1" id="²³" onclick="record();" >Aceptar</button>
 	</div>
 
 </div>
-
 
 <?php
 
