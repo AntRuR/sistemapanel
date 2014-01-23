@@ -45,13 +45,8 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 <div class="row-fluid">
 
-<<<<<<< HEAD
 	<div class="span9">
 
-=======
-	<div class="span10">
-	
->>>>>>> 272f6223f29c26d5992f81c390b1a877200bd567
 		<ul class="nav nav-tabs" id="myTab">
 		  <li><a href="#departamentos" data-toggle="tab">Departamentos</a></li>
 		  <li><a href="#estacionamientos" data-toggle="tab">Estacionamientos</a></li>
@@ -153,7 +148,7 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 	<div class="span3" style="min-height:200px;position: relative;">
 		<div id="cart"></div>
-		<button type="button" class="form_boton_1" id="²³" onclick="record();" >Aceptar</button>
+		<button type="button" class="form_boton_1" id="fb1" onclick="record();" >Aceptar</button>
 	</div>
 
 </div>
