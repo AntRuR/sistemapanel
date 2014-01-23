@@ -799,23 +799,23 @@ function render_cart(){
 
 function record()
 {
-
+    cart_s= new Array();
     for(var i=0;i<cart.length;i++){
-      ee=cart[i];
-      price = price + ee.price;
-      html+="<tr id='"+ee.type+ee.id+"' class='"+ee.type+"'><td>"+ee.type+" "+ee.id+"</td><td style='text-align:right;font-weight:bold;'>"+ee.price+"</td></tr>";
-      // console.log( "type: " + ee.type + " "+"id: " + ee.id );
+        cart_s[i]="{'type':"+cart[i].type+",'price':"+cart[i].price+",'id':"+cart[i].id+"}";
     }
-    $.ajax({
-        url: 'base2/apps/depa_ajax.php?type=record',
-        type: 'POST',
-        data: { cart : menuId },
-        success: function (data) {
-            // $("#icontent0").empty();
-            // $(data).appendTo("#icontent0");
-            // parent.initMultiBox.close();
-        }                                
-    });
+
+    parent.document.getElementById('in_id_pedido').value='['+ cart_s.join(',')+']';
+    parent.initMultiBox.close();
+
+    // $.ajax({
+    //     url: 'base2/apps/depa_ajax.php?type=record',
+    //     type: 'POST',
+    //     data: { cart : '['+ cart_s.join(',')+']' },
+    //     success: function (data) {
+    //         parent.document.getElementById('in_id_canal').value=
+    //         parent.initMultiBox.close();
+    //     }                                
+    // });
 
 }
 

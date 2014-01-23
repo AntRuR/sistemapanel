@@ -246,7 +246,7 @@ switch($_GET['type']){
 		echo "deposito";
 	break;	
 	case "record":
-		echo $_GET['cart'];
+		echo $_POST['cart'];
 	break;
 
 }		
