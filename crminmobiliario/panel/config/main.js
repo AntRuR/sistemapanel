@@ -799,12 +799,16 @@ function render_cart(){
 
 function record()
 {
+
+    var total_price=0;
     cart_s= new Array();
     for(var i=0;i<cart.length;i++){
-        cart_s[i]="{'type':"+cart[i].type+",'price':"+cart[i].price+",'id':"+cart[i].id+"}";
+        cart_s[i]="{\"type\":\""+cart[i].type+"\",\"price\":\""+cart[i].price+"\",\"id\":\""+cart[i].id+"\"}";
+        total_price+=eval(cart[i].price);
     }
 
     parent.document.getElementById('in_pedido').value='['+ cart_s.join(',')+']';
+<<<<<<< HEAD
     parent.initMultiBox.close();
 
     // $.ajax({
@@ -816,7 +820,15 @@ function record()
     //         parent.initMultiBox.close();
     //     }                                
     // });
+=======
+    parent.document.getElementById('in_pvlista').value=total_price;
+    parent.document.getElementById('in_pvpromocion').value=total_price;
+>>>>>>> 4ccff04fc421a9332a925eaa01da49527a97453a
 
+    setTimeout("parent.initMultiBox.close();","1000");
+    setTimeout("parent.alert('cerrar');","1500");
+    setTimeout("parent.initMultiBox.close();","2000");
+    // parent.initMultiBox.close();
 }
 
 

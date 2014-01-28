@@ -40,8 +40,13 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 ?>
 <!-- <h3 class='proyecto'><?php echo $proyecto['nombre'];?></h3> -->
 
+<<<<<<< HEAD
 <!-- <input type="button" class="esquinabtn btn" value="Aceptar" >
  -->
+=======
+<!-- <input type="button" class="esquinabtn btn" value="Aceptar" > -->
+
+>>>>>>> 4ccff04fc421a9332a925eaa01da49527a97453a
 
 <div class="row-fluid">
 
