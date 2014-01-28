@@ -799,24 +799,22 @@ function render_cart(){
 
 function record()
 {
+
+    var total_price=0;
     cart_s= new Array();
     for(var i=0;i<cart.length;i++){
-        cart_s[i]="{'type':"+cart[i].type+",'price':"+cart[i].price+",'id':"+cart[i].id+"}";
+        cart_s[i]="{\"type\":\""+cart[i].type+"\",\"price\":\""+cart[i].price+"\",\"id\":\""+cart[i].id+"\"}";
+        total_price+=eval(cart[i].price);
     }
 
-    parent.document.getElementById('in_id_pedido').value='['+ cart_s.join(',')+']';
-    parent.initMultiBox.close();
+    parent.document.getElementById('in_pedido').value='['+ cart_s.join(',')+']';
+    parent.document.getElementById('in_pvlista').value=total_price;
+    parent.document.getElementById('in_pvpromocion').value=total_price;
 
-    // $.ajax({
-    //     url: 'base2/apps/depa_ajax.php?type=record',
-    //     type: 'POST',
-    //     data: { cart : '['+ cart_s.join(',')+']' },
-    //     success: function (data) {
-    //         parent.document.getElementById('in_id_canal').value=
-    //         parent.initMultiBox.close();
-    //     }                                
-    // });
-
+    setTimeout("parent.initMultiBox.close();","1000");
+    setTimeout("parent.alert('cerrar');","1500");
+    setTimeout("parent.initMultiBox.close();","2000");
+    // parent.initMultiBox.close();
 }
 
 
