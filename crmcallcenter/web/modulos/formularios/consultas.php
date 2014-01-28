@@ -1,7 +1,20 @@
 <?php //á
-// exit();
+
+$_POST=array(
+  "id_item"=>"472",
+  "nombre"=>"guillermo",
+  "apellidos"=>"lozan",
+  "genero"=>"1",
+  "telefono"=>"432423432",
+  "email"=>"guillermolozan@gmail.com",
+  "ciudad"=>"lima",
+  "consulta"=>"prueba",
+);
+
+prin($_POST);
+
 $speech_respuesta='respuesta_web_incapower_v';
-$id_cuenta=3;
+$id_cuenta=1;
 				
 include_once("formularios/formularios.php");
 include("../../panel/lib/simple_html_dom.php");
@@ -66,7 +79,7 @@ include("../../panel/lib/simple_html_dom.php");
 			'label'=>'Género',
 			'tipo'=>'input_combo',
 			'validacion'=>"validate['required']",
-			'opciones'=>$OpcionesTabla['clientes']['genero'],
+			'opciones'=>array('1'=>'Masculino','2'=>'Femenino','3'=>'Empresa'),
 			)							
 		,'telefono'=>array(
 			'label'=>'Teléfono'
@@ -123,7 +136,7 @@ include("../../panel/lib/simple_html_dom.php");
 			$FORM=pre_proceso_form($FORM);
 			
 						
-			if($_SERVER['REQUEST_METHOD']=='POST' ){
+			if($_SERVER['REQUEST_METHOD']=='POST' or 1 ){
 				
 				//data_insert
 				
@@ -133,19 +146,20 @@ include("../../panel/lib/simple_html_dom.php");
 					
 					$Insert=insert(
 							array(
-								'nombre'=>$_POST['nombre'],
-								'apellidos'=>$_POST['apellidos'],
+								'nombre'=>mb_convert_case($_POST['nombre'],MB_CASE_TITLE,"UTF-8"),
+								'apellidos'=>mb_convert_case($_POST['apellidos'],MB_CASE_TITLE,"UTF-8"),
 								'telefono'=>$_POST['telefono'],
 								'email'=>$_POST['email'],
-								'genero'=>$_POST['genero'],
+								'genero'=>($_POST['genero']=='3')?'':$_POST['genero'],
 								'ciudad'=>$_POST['ciudad'],
+								'tipo_cliente'=>($_POST['genero']=='3')?'2':1,
 							),
 							"clientes"
 							,0
 						);	
 					$_POST['id_cliente']=$Insert['id'];	
 					
-				
+				}
 
 
 				
@@ -160,15 +174,15 @@ include("../../panel/lib/simple_html_dom.php");
 								'id_grupo'=>dato('id_grupo','productos_items','where id="'.$_POST['id_item'].'"'),
 								'id_usuario'=>'2',
 								'id_status'=>'7',
-								'id_canal'=>'8',
+								'id_canal'=>'4',
 								'id_cuenta_email'=>$id_cuenta,
 
 								'fecha_creacion'=>"now()",
 								'fecha_edicion'=>"now()",	
-								'1isibilidad'=>'1',
+								'visibilidad'=>'1',
 								 ),
 								 $FORM['tabla'],
-								 1
+								 0
 								 );							
 				
 				
@@ -199,7 +213,7 @@ include("../../panel/lib/simple_html_dom.php");
 					$tableProps='width="100%" cellpadding="0" cellspacing="0" border="0" ';
 
 					$producto['ficha']=fix_ficha($producto['ficha']);
-										
+					
 					$html='';
 					$html.="<table width='600px' cellpadding=0 cellspacing=0 border=0  >";
 					$html.='<tr><td style="text-align:center;font-weight:bold;color:#F10102;">'.$producto['nombre'].'</td></tr>';
@@ -223,7 +237,7 @@ include("../../panel/lib/simple_html_dom.php");
 					$html.='</table>';
 														 					
 	
-				$cliente=fila("email,nombre,apellidos,genero","clientes","where id='".$_POST['id_cliente']."'");
+				$cliente=fila("email,nombre,apellidos,genero,tipo_cliente","clientes","where id='".$_POST['id_cliente']."'");
 				
 				
 				$body_cliente=str_replace(
@@ -237,10 +251,10 @@ include("../../panel/lib/simple_html_dom.php");
 								//'[IMPRIMIR]',
 								),
 								array(
-								($cliente['genero']=='2')?'Estimada':'Estimado',
-								($cliente['genero']=='2')?'Srta.':'Sr.',								
+								($cliente['tipo_cliente']=='2')?'Estimados':(($cliente['genero']=='2')?'Estimada':'Estimado'),
+								($cliente['tipo_cliente']=='2')?'Sres.':(($cliente['genero']=='2')?'Srta.':'Sr.'),							
 								$cliente['nombre']." ".$cliente['apellidos'],
-								strtoupper($cliente['nombre']." ".$cliente['apellidos']),
+								$producto['nombre'], 
 								dato("nombre","usuarios","where id='".$_POST['id_usuario']."'"),
 								$html,
 								//"<a href='".$vars['REMOTE']['url_publica']."index.php?modulo=items&tab=productos_imprimir&acc=file&id=".$_POST['id_item']."&id_cliente=".$_POST['id_cliente']."'>IMPRIMIR</a>"			
@@ -249,6 +263,9 @@ include("../../panel/lib/simple_html_dom.php");
 								);
 				//email_cliente
 				
+				echo $body_cliente;
+				//
+
 					$insertado_mensaje=insert(array(
 									'id_grupo'=>$insertado['id'],
 									'tipo'=>'2',
@@ -260,7 +277,7 @@ include("../../panel/lib/simple_html_dom.php");
 									'visibilidad'=>'1',
 									 ),
 									 "ventas_mensajes",
-									 1
+									 0
 									 );	
 									 
 					$insertado_mensaje=insert(array(
@@ -274,7 +291,7 @@ include("../../panel/lib/simple_html_dom.php");
 									'visibilidad'=>'1',
 									 ),
 									 "ventas_mensajes",
-									 1
+									 0
 									 );	
 									 
 									 				
@@ -288,7 +305,7 @@ include("../../panel/lib/simple_html_dom.php");
 								$body_cliente
 								);	
 								
-				
+				//aqui hay que ver
 				$email_cliente=enviar_email(
 								array(
 								'emails'=>array($cliente['email'],'guillermolozan@gmail.com','wtavara@prodiserv.com')
@@ -299,6 +316,15 @@ include("../../panel/lib/simple_html_dom.php");
 								,'Logo'=>$cuenta['logo']
 								)
 							);
+				
+				// print_r(array(
+				// 				'emails'=>array($cliente['email'],'guillermolozan@gmail.com','wtavara@prodiserv.com')
+				// 				,'Subject'=>"Mensaje de ".$PARAMETROS_EMAIL['nombre_web']
+				// 				,'body'=>$body_cliente
+				// 				,'From'=>$cuenta['email']
+				// 				,'FromName'=>$cuenta['nombre']							
+				// 				,'Logo'=>$cuenta['logo']
+				// 				));
 
 				update(array(
 							'texto'=>$body_cliente,
@@ -314,6 +340,7 @@ include("../../panel/lib/simple_html_dom.php");
 									),"../../debug/emails_".$FORM['nombre'].".html");
 								
 				//if( $email_cliente['todos'] and $email_administrador['todos'] ){
+				// if( $email_cliente['todos'] ){
 				if( 1 ){
 				
 						echo json_encode(array(

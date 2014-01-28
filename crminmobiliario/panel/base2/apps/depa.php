@@ -40,18 +40,13 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 ?>
 <!-- <h3 class='proyecto'><?php echo $proyecto['nombre'];?></h3> -->
 
-<input type="button" class="esquinabtn btn" value="Aceptar" >
-
+<!-- <input type="button" class="esquinabtn btn" value="Aceptar" >
+ -->
 
 <div class="row-fluid">
 
-<<<<<<< HEAD
-	<div class="span10">
-	
-=======
 	<div class="span9">
 
->>>>>>> 85dd07742901f8eb2272143925402d4f6c544f6c
 		<ul class="nav nav-tabs" id="myTab">
 		  <li><a href="#departamentos" data-toggle="tab">Departamentos</a></li>
 		  <li><a href="#estacionamientos" data-toggle="tab">Estacionamientos</a></li>

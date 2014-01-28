@@ -804,7 +804,7 @@ function record()
         cart_s[i]="{'type':"+cart[i].type+",'price':"+cart[i].price+",'id':"+cart[i].id+"}";
     }
 
-    parent.document.getElementById('in_id_pedido').value='['+ cart_s.join(',')+']';
+    parent.document.getElementById('in_pedido').value='['+ cart_s.join(',')+']';
     parent.initMultiBox.close();
 
     // $.ajax({
