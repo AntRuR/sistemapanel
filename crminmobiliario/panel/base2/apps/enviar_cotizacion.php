@@ -301,8 +301,8 @@ include("lib/simple_html_dom.php");
 						);
 
 	$pedido=json_decode($linea['pedido']);	
-	// prin($pedido['0']->type);
-	// exit();
+	prin($pedido['0']->type);
+	exit();
 
 
 	$producto=fila(
