@@ -61,12 +61,16 @@ a.link_header {
 
 ul.ul_menus li a {
 
-	font-size: 12px;
+	font-size: 11px;
 
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,;
 
-    /*background: #AEBC91;*/
-    background: #c7c7c7;
+    
+
+	background: #AEBC91;
+    
+
+	/* background: #c7c7c7; */
 
 	color: #054309  !important;
 
@@ -79,6 +83,8 @@ ul.ul_menus li a {
 ul.ul_menus li.selected {
 
     /*background-color: #F19242;*/
+    
+
     background-color: #070707;
 
 }
@@ -117,13 +123,13 @@ ul.ul_menus li.seccion b {
 
 ul.ul_menus {
 
-	width: 180px;
+	width: 100px;
 
 }
 
 .div_bloque_cuerpo {
 
-	margin-left: 190px;
+	margin-left: 104px;
 
 }
 
@@ -174,7 +180,8 @@ a.link_header,
 .bloque_titulo .titulo, .bloque_titulo .titulo a,
 ul.ul_menus li a {
     font-family: 'caviar_dreamsregular';
-    /*font-size: 17px;*/
+    /* font-size: 11px; */
+    margin-left: 0px;
 }
 .lead {
 margin-bottom:0;
@@ -186,9 +193,9 @@ margin-bottom:0;
 }
 
 a.link_header {
-    color: #c7c7c7;
+    color: #666;
     font-size: 22px;
-    margin-top: 35px;
+    margin-top: 50px;
 }    
 
 
@@ -219,7 +226,7 @@ a.link_header {
 }
 
 a, .alink {
-    color: #66BEE6;
+    /* color: #66BEE6; */
 }
 
 .modificador_grilla .first_linea .nc {
