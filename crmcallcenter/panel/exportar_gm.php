@@ -141,10 +141,13 @@ $items=$items2;
 //prin($items);;
 
 foreach($items as $item){
-	$TITULO=($item['tipo_cliente']=='2')?'':(($item['genero']=='1')?'Sr.':'Sra.');
+	
+	$TITULO=($item['tipo_cliente']=='2')?'Sres.':(($item['genero']=='1')?'Sr.':'Sra.');
+
 	if(trim($item['email'])!='' and trim($item['id'])!=''){
-		$items3[$item['id']]=$item['nombre'].",".$item['apellidos'].",".$TITULO.",".$item['email'];
+		$items3[$item['id']]=trim($item['nombre']).",".trim($item['apellidos']).",".trim($TITULO).",".trim($item['email']);
 	}
+
 }
 
 
@@ -153,7 +156,7 @@ header('Content-Disposition: attachment;filename="exportar_group_mail.txt"');
 header('Cache-Control: max-age=0');
 header ("Pragma: no-cache");
 echo implode("
-		",$items3);
+",$items3);
 exit();
 
 function num2alpha($n)
@@ -176,4 +179,3 @@ function getrango($n){
 	return $uno.":".$dos;
 }
 
-?>

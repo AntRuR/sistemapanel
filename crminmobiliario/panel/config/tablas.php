@@ -2164,25 +2164,12 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 				),
 				'pedido'=>array(
 						'campo'			=> 'pedido',
-<<<<<<< HEAD
-						'label'			=> 'Pedido',
-						'tipo'			=> 'hid',
-						'listable'		=> '0',
-						'width'			=> '50px',
-						'validacion'	=> '0',
-						'variable'		=> 'float',
-						'derecha'		=> '2',
-						'size'			=> '8',
-						'style'			=> 'width:100px;'
-				),				
-=======
 						'label'			=> '',
 						'tipo'			=> 'txt',
 						'width'			=> '70px',
 						'style'			=> 'display:none;',
 						'derecha'		=> '2'
 				),			
->>>>>>> 4ccff04fc421a9332a925eaa01da49527a97453a
 				'forma_pago'	=>array(
 						'campo'			=> 'forma_pago',
 						'label'			=> 'Forma de Pago',
