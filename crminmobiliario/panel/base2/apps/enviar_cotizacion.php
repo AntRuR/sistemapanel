@@ -73,6 +73,28 @@ include("config/library.php");
 					);
 
 	$pedido=json_decode($linea['pedido']);	
+<<<<<<< HEAD
+=======
+	prin($pedido['0']->type);
+	exit();
+
+
+	$producto=fila(
+
+
+
+					array('id','id_items_tipo','id_item','nombre','numero','descripcion2','descripcion3','descripcion4','num_garages','has_deposito','has_balcon','num_rooms',"num_bathrooms",'area_total','area_construida'),
+
+
+
+					//array('id','nombre','id_grupo'),
+
+
+
+					"productos_items_items",
+
+
+>>>>>>> 73b63f4e834f0190d68178586af0590a4307d52a
 
 	$pblocks=array();
 	$pdepartamentos=array();
