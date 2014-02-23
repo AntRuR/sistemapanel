@@ -1159,7 +1159,7 @@ $objeto_tabla['PRODUCTOS_ITEMS_ITEMS']=array(
 						'tipo'			=> 'hid',
 						'style'			=> 'width:150px;',
 						'derecha'		=> '1',
-						'opciones'		=> 'id,nombre;apellidos|clientes',
+						'opciones'		=> 'id,nombre;apellidos|clientes|where 0',
 						'frozen'		=> '1',
 						'listable'		=> '0',
 						'width'			=> '150px',
@@ -1926,8 +1926,8 @@ $objeto_tabla['PRODUCTOS_FOTOS_FOTOS']=array(
 						'validacion'	=> '0',
 						'default'		=> '[id]',
 						'foreig'		=> '1',
-						'foreigkey'		=> 'PRODUCTOS_FOTOS_FOTOS',
-						'opciones'		=> 'id,nombre|productos_fotos_fotos'
+						'foreigkey'		=> 'PRODUCTOS_FOTOS',
+						'opciones'		=> 'id,nombre|productos_fotos'
 				),
 				'file'			=>array(
 						'campo'			=> 'file',
@@ -2164,25 +2164,12 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 				),
 				'pedido'=>array(
 						'campo'			=> 'pedido',
-<<<<<<< HEAD
-						'label'			=> 'Pedido',
-						'tipo'			=> 'hid',
-						'listable'		=> '0',
-						'width'			=> '50px',
-						'validacion'	=> '0',
-						'variable'		=> 'float',
-						'derecha'		=> '2',
-						'size'			=> '8',
-						'style'			=> 'width:100px;'
-				),				
-=======
 						'label'			=> '',
 						'tipo'			=> 'txt',
 						'width'			=> '70px',
 						'style'			=> 'display:none;',
 						'derecha'		=> '2'
 				),			
->>>>>>> 4ccff04fc421a9332a925eaa01da49527a97453a
 				'forma_pago'	=>array(
 						'campo'			=> 'forma_pago',
 						'label'			=> 'Forma de Pago',

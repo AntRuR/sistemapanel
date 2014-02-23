@@ -843,7 +843,7 @@ background-image: -moz-linear-gradient(left center,#09C 50%,#FFFFFF 100%);
 }
 
 ul.ul_menus {
-	margin: 13px 0 0;
+	margin: 13px 0 0px -3px;
 	height: auto;
 	float: left;
 	width: 100%;
@@ -3241,24 +3241,26 @@ a.ico_CargarCombo {
 
 .ul_menus li.hijomenusel {
 	width: 103% !important;
-	margin-left: 4% !important;
+	margin-left: -10px !important;
 	-moz-border-radius: 6px 0px 0px 6px;
 	-webkit-border-radius: 6px 0px 0px 6px;
 	-ms-border-radius: 6px 0px 0px 6px;
 	-khtml-border-radius: 6px 0px 0px 6px;
 	border-radius: 6px 0px 0px 6px;
+	padding-left: 13px !important;
 }
 
 .ul_menus li.hijomenu {
 	width: 100% !important;
 	margin-left: 4% !important;
-	border-bottom: 1px dotted #DDDDDD;
+	border-bottom: 1px solid #ddd;
 	/*
 background: none repeat scroll 0 0 #FFFFFF;
     border: 0 none;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 0px 1px #E6E6E6;
 */
+	border-radius: 0px;
 }
 
 .ul_menus li.hijomenusel,li.hijomenu {
@@ -3494,7 +3496,7 @@ ul.ul_menus li {
 
 ul.ul_menus li a {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,Arial, sans-serif;
-	padding: 1px 5px 2px;
+	padding: 1px 0px 2px;
 	color: #053581;
 	font-size: 13px;
 }

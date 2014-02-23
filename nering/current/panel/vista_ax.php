@@ -1074,7 +1074,7 @@ if(precrear_loaded){ if(next){ eval(next); } return;
 
 <?php
 
-	include("formulario_camposjs.php");
+	// include("formulario_camposjs.php");
 
     if($datos_tabla['creacion_hijo']){
     $Hijos=explode(",",$datos_tabla['creacion_hijo']);

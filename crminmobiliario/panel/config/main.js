@@ -808,22 +808,9 @@ function record()
     }
 
     parent.document.getElementById('in_pedido').value='['+ cart_s.join(',')+']';
-<<<<<<< HEAD
-    parent.initMultiBox.close();
 
-    // $.ajax({
-    //     url: 'base2/apps/depa_ajax.php?type=record',
-    //     type: 'POST',
-    //     data: { cart : '['+ cart_s.join(',')+']' },
-    //     success: function (data) {
-    //         parent.document.getElementById('in_id_canal').value=
-    //         parent.initMultiBox.close();
-    //     }                                
-    // });
-=======
     parent.document.getElementById('in_pvlista').value=total_price;
     parent.document.getElementById('in_pvpromocion').value=total_price;
->>>>>>> 4ccff04fc421a9332a925eaa01da49527a97453a
 
     setTimeout("parent.initMultiBox.close();","1000");
     setTimeout("parent.alert('cerrar');","1500");
