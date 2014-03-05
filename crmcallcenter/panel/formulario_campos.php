@@ -434,6 +434,7 @@ case "img":	case "sto":
 
 
 				}
+				echo ($tbcampA['button_app'])?'<a rel="width:1250,height:600" id="in_'.$tbcampA['campo'].'_button" class="mb crearforeig" style="float:right !important;margin:0 !important;" href="'.$tbcampA['button_app'].'"></a>':"";
 				if($mostrarli){
 				?></li>
 	<?php

@@ -187,10 +187,27 @@ if($mostrar_menu){
 	if($htmlmenu=="<ul id='menu_main' class='ul_menus'></ul>"  ){
 		echo "<ul class='ul_menus ul_menus_empty'></ul>";
 	} else {
+
 		echo $htmlmenu;
+
 			if($SERVER['ARCHIVO']!='maquina.php'){
 			echo '<script>';
-			?>if(!Browser.Engine.webkit){window.addEvent('domready', function(){ new Fx.Accordion('#menu_main .padre', '#menu_main .opcl',{initialDisplayFx :false,opacity:false,display:<?php echo ($OpEn)?$OpEn:"''"; ?>}); });}<?php
+			?>if(!Browser.Engine.webkit || 1){
+
+				window.addEvent('domready', function(){ 
+
+					new Fx.Accordion('#menu_main .padre', '#menu_main .opcl',{initialDisplayFx :false,opacity:false,display:<?php echo ($OpEn)?$OpEn:"''"; ?>});
+					/* var accordion = new Accordion($$('.padre'),$$('.opcl'), { pre-MooTools More */
+					/*
+					var accordion = new Fx.Accordion($$('.padre'),$$('.opcl'), {
+						//opacity: 0,
+						//onActive: function(toggler) { toggler.setStyle('color', '#f30'); },
+						//onBackground: function(toggler) { toggler.setStyle('color', '#000'); }
+					});
+					*/
+				});
+
+			}<?php
 			echo '</script>';
 			}
 	}

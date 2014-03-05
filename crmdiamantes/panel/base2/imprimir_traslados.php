@@ -441,6 +441,8 @@ table.cuadro td.valuewhite { font-weight:normal; width:580px;font-size: 12px; co
 
 <tr><td class="labelwhite">Tipo de Combustible :</td><td class="valuewhite" >'.$LL['tipo_combustible'].'</td></tr>
 
+<tr><td class="labelwhite">Cantidad de Combustible :</td><td class="valuewhite" >'.$LL['cant_combustible'].'</td></tr>
+
 <tr><td class="labelwhite">Año de Fabricación :</td><td class="valuewhite" >'.dato('yearmod','productos_items_items',"where id=".$LL0['id_item_item']).'</td></tr>
 
 <tr><td class="valuewhite" colspan=2 style="font-weight:bold;font-size:13px;">RECIBI EL VEHICULO A MI ENTERA SATISFACCION  Y EN PERFECTAS CONDICIONES</td></tr>
