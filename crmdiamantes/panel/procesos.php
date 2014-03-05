@@ -13,7 +13,8 @@ echo "running.................................";
 $ventas=select("id,id_cliente","ventas_items","order by id desc limit 0,10",0);
 foreach($ventas as $venta){
 	if($venta["id_cliente"]!='')
-		update(array("id_cliente"=>$venta["id_cliente"]),"ventas_mensajes","where id_grupo=".$venta["id"],0);
+	update(array("id_cliente"=>$venta["id_cliente"]),"ventas_mensajes","where id_grupo=".$venta["id"],0);
+
 }
 
 //delete("productos_items_items","where id>");

@@ -98,7 +98,7 @@ $COMODIN_PROPUESTA='<tr><td colspan=3 height=1 style="font-size:1px;">UNO DOS TR
 		,'1'=>''
 	);	
 
-$Saludos['1']=array('Estimado Sr.','Estimados Sres.');
+$Saludos['1']=array('Estimado Sr.');
 $Saludos['2']=array('Estimada Sra.','Estimada Srta.');
 
 $Textos['despedidas']=array('1'=>'Saludos Cordiales','2'=>'Saludos Afectuosos','3'=>'Sinceramente');

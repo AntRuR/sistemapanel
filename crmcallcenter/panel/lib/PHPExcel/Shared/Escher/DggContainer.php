@@ -73,7 +73,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 * Get maximum shape index of all shapes in all drawings (plus one)
 	 *
 	 * @return int
-	 */
+	*/
 	public function getSpIdMax()
 	{
 		return $this->_spIdMax;

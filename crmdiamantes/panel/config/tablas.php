@@ -887,7 +887,7 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'label'			=> 'Impresión de Guía de Remisión',
 						'rel'			=> 'width:500,height:300',
 						'params'		=> 'destinatario|disabled=0&destinatario|validacion=0&ruc|disabled=0&ruc|validacion=0&direccion|disabled=0&direccion|validacion=0&motivo_traslado_otros|disabled=0&motivo_traslado_otros|validacion=0&imp_chofer_nombre|disabled=0&imp_chofer_nombre|validacion=0&imp_placa|disabled=0&imp_placa|validacion=0&imp_chofer_licencia|disabled=0&imp_chofer_licencia|validacion=0
-					&id|listable=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&numero_guia|frozen=1&numero_guia|disabled=0&numero_guia|validacion=1&fecha_pdi|disabled=1&fecha_recepcion|disabled=1&observaciones|disabled=1&id_ubicacion_llegada|disabled=1&id_traslado_status|disabled=1&id_asignacion|disabled=1&id_ubicacion_salida|disabled=1&id_color|disabled=1&fecha_salida|disabled=1&fecha_llegada|disabled=1&id_chofer|disabled=1&id_placa|disabled=1&id_item|disabled=1&id_item_item|disabled=1&onload_include=base2/on_impresiones.php',
+					&id|listable=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&cant_combustible|disabled=0&cant_combustible|validacion=0&numero_guia|frozen=1&numero_guia|disabled=0&numero_guia|validacion=1&fecha_pdi|disabled=1&fecha_recepcion|disabled=1&observaciones|disabled=1&id_ubicacion_llegada|disabled=1&id_traslado_status|disabled=1&id_asignacion|disabled=1&id_ubicacion_salida|disabled=1&id_color|disabled=1&fecha_salida|disabled=1&fecha_llegada|disabled=1&id_chofer|disabled=1&id_placa|disabled=1&id_item|disabled=1&id_item_item|disabled=1&onload_include=base2/on_impresiones.php',
 						'buttom'		=> 'Imprimir',
 						'accion'		=> 'update,load=imprimir_traslados.php',
 						'disabled'		=> '1'
@@ -920,6 +920,16 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 				'calificacion'	=>array(
 						'campo'			=> 'calificacion',
 						'tipo'			=> 'cal'
+				),
+				'numero_guia'	=>array(
+						'campo'			=> 'numero_guia',
+						'label'			=> 'Número de Guía',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '80px',
+						'disabled'		=> '0',
+						'no_save'		=> '1'
 				),
 				'id_ubicacion_salida'=>array(
 						'campo'			=> 'id_ubicacion_salida',
@@ -964,7 +974,7 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'foreig'		=> '1',
 						'style'			=> 'width:100px;',
 						'opciones'		=> 'id,nombre|productos_colores',
-						'width'			=> '140px',
+						'width'			=> '60px',
 						'derecha'		=> '2',
 						'tip_foreig'	=> '0',
 						'tags'			=> '1',
@@ -980,7 +990,7 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'default'		=> '[id_item_item]',
 						'style'			=> 'width:150px,',
 						'opciones'		=> 'id,vin|productos_items_items|where 0',
-						'width'			=> '140px',
+						'width'			=> '120px',
 						'derecha'		=> '1',
 						'tags'			=> '1',
 						'queries'		=> '1',
@@ -1008,7 +1018,8 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'listable'		=> '1',
 						'formato'		=> '7b',
 						'derecha'		=> '1',
-						'rango'			=> '-1 years,+2 years'
+						'rango'			=> '-1 years,+2 years',
+						'queries'		=> '1'
 				),
 				'fecha_llegada'	=>array(
 						'campo'			=> 'fecha_llegada',
@@ -1071,11 +1082,12 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'width'			=> '95px',
 						'derecha'		=> '1',
 						'crearforeig'	=> '0',
-						'frozen'		=> '0'
+						'frozen'		=> '0',
+						'listable'		=> '0'
 				),
 				'id_chofer'		=>array(
 						'campo'			=> 'id_chofer',
-						'label'			=> 'Chofer',
+						'label'			=> 'Transportista',
 						'tipo'			=> 'hid',
 						'validacion'	=> '0',
 						'default'		=> '[id_chofer]',
@@ -1086,7 +1098,8 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'width'			=> '95px',
 						'derecha'		=> '1',
 						'crearforeig'	=> '0',
-						'frozen'		=> '0'
+						'frozen'		=> '0',
+						'listable'		=> '0'
 				),
 				'id_traslado_status'=>array(
 						'campo'			=> 'id_traslado_status',
@@ -1113,16 +1126,6 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'style'			=> 'width:500px;hright:150px;',
 						'derecha'		=> '1'
 				),
-				'numero_guia'	=>array(
-						'campo'			=> 'numero_guia',
-						'label'			=> 'Número de Guía',
-						'tipo'			=> 'inp',
-						'listable'		=> '0',
-						'validacion'	=> '0',
-						'width'			=> '350px',
-						'disabled'		=> '1',
-						'no_save'		=> '1'
-				),
 				'direccion'		=>array(
 						'campo'			=> 'direccion',
 						'label'			=> 'Dirección',
@@ -1136,38 +1139,47 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'campo'			=> 'imp_chofer_nombre',
 						'label'			=> 'Transportista',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
-						'width'			=> '350px',
-						'disabled'		=> '1'
+						'width'			=> '50px',
+						'disabled'		=> '0'
 				),
 				'imp_placa'		=>array(
 						'campo'			=> 'imp_placa',
 						'label'			=> 'Marca y Número de Placa',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
-						'width'			=> '350px',
-						'disabled'		=> '1'
+						'width'			=> '50px',
+						'disabled'		=> '0'
 				),
 				'imp_chofer_licencia'=>array(
 						'campo'			=> 'imp_chofer_licencia',
 						'label'			=> 'N(s) de Licencia(s) de conducir',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
-						'width'			=> '350px',
-						'disabled'		=> '1'
+						'width'			=> '50px',
+						'disabled'		=> '0'
 				),
 				'tipo_combustible'=>array(
 						'campo'			=> 'tipo_combustible',
 						'label'			=> 'Tipo de combustible',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '350px',
-						'disabled'		=> '1'
+						'disabled'		=> '0'
 				),
+				'cant_combustible'=>array(
+						'campo'			=> 'cant_combustible',
+						'label'			=> 'Cantidad de combustible',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '350px',
+						'disabled'		=> '0'
+				),				
 				'motivo_traslado'=>array(
 						'campo'			=> 'motivo_traslado',
 						'label'			=> 'Motivo de Traslado',
@@ -2459,7 +2471,7 @@ $objeto_tabla['PRODUCTOS_ENTREGAS']=array(
 				array(
 						'label'			=> 'Impresión de Guía de Remisión',
 						'rel'			=> 'width:500,height:300',
-						'params'		=> 'motivo_traslado_otros|disabled=0&motivo_traslado_otros|validacion=0&direccion|disabled=0&direccion|validacion=0&id_ubicacion_llegada|disabled=0&id_ubicacion_llegada|validacion=0&imp_chofer_nombre|disabled=0&imp_chofer_nombre|validacion=0&imp_placa|disabled=0&imp_placa|validacion=0&imp_chofer_licencia|disabled=0&imp_chofer_licencia|validacion=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&numero_guia|frozen=1&numero_guia|disabled=0&numero_guia|validacion=1&id_ubicacion|disabled=1&id_item_item|disabled=1&fecha_entrega|disabled=1&fecha_venta|disabled=1&venta_factura|disabled=1&id_vendedor|disabled=1&
+						'params'		=> 'motivo_traslado_otros|disabled=0&motivo_traslado_otros|validacion=0&direccion|disabled=0&direccion|validacion=0&id_ubicacion_llegada|disabled=0&id_ubicacion_llegada|validacion=0&imp_chofer_nombre|disabled=0&imp_chofer_nombre|validacion=0&imp_placa|disabled=0&imp_placa|validacion=0&imp_chofer_licencia|disabled=0&imp_chofer_licencia|validacion=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&cant_combustible|disabled=0&cant_combustible|validacion=0&numero_guia|frozen=1&numero_guia|disabled=0&numero_guia|validacion=1&id_ubicacion|disabled=1&id_item_item|disabled=1&fecha_entrega|disabled=1&fecha_venta|disabled=1&venta_factura|disabled=1&id_vendedor|disabled=1&
 id_cliente|disabled=1&id_item|disabled=1&nummotor|disabled=1&yearfab|disabled=1&id_color|disabled=1&id_placa|disabled=1&receptor_nombre|disabled=1&
 receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disabled=1&onload_include=base2/on_impresiones.php',
 						'buttom'		=> 'Imprimir',
@@ -2492,6 +2504,16 @@ receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disa
 						'campo'			=> 'calificacion',
 						'tipo'			=> 'cal'
 				),
+				'numero_guia'	=>array(
+						'campo'			=> 'numero_guia',
+						'label'			=> 'Número de Guía',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '90px',
+						'disabled'		=> '0',
+						'no_save'		=> '1'
+				),
 				'id_ubicacion'	=>array(
 						'campo'			=> 'id_ubicacion',
 						'label'			=> 'Ubicación',
@@ -2515,7 +2537,7 @@ receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disa
 						'default'		=> '[id_item_item]',
 						'style'			=> 'width:200px',
 						'opciones'		=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where productos_items_items.status_pdi in (1,3) and productos_items_items.id=productos_ventas.id_item_item',
-							'directlink'	=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where productos_items_items.id_status=4 and (productos_items_items.status_pdi=3 or 1 ) and (productos_items_items.status_warrant!=1 or 1 ) and productos_items_items.id=productos_ventas.id_item_item',
+						'directlink'	=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where productos_items_items.id_status=4 and (productos_items_items.status_pdi=3 or 1 ) and (productos_items_items.status_warrant!=1 or 1 ) and productos_items_items.id=productos_ventas.id_item_item',
 						'load'			=> '|||venta_factura as venta_factura|productos_items_items|where id=[id_item_item];||||progsug as fecha_entrega|productos_ventas|where id_item_item=[id_item_item];||||venta_fecha as fecha_venta|productos_items_items|where id=[id_item_item];|||yearfab as yearfab,id_color as id_color,id_item as id_item,nummotor as nummotor,venta_id_cliente as id_cliente,venta_id_vendedor as id_vendedor|productos_items_items|where id=[id_item_item]',
 						'afterload'		=> 'updatecliente(json.id_cliente);',
 						'width'			=> '140px',
@@ -2720,16 +2742,6 @@ receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disa
 						'fulltext'		=> '1',
 						'autotags'		=> '1'
 				),
-				'numero_guia'	=>array(
-						'campo'			=> 'numero_guia',
-						'label'			=> 'Número de Guía',
-						'tipo'			=> 'inp',
-						'listable'		=> '0',
-						'validacion'	=> '0',
-						'width'			=> '350px',
-						'disabled'		=> '1',
-						'no_save'		=> '1'
-				),
 				'direccion'		=>array(
 						'campo'			=> 'direccion',
 						'label'			=> 'Dirección',
@@ -2752,38 +2764,47 @@ receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disa
 						'campo'			=> 'imp_chofer_nombre',
 						'label'			=> 'Transportista',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '350px',
-						'disabled'		=> '1'
+						'disabled'		=> '0'
 				),
 				'imp_placa'		=>array(
 						'campo'			=> 'imp_placa',
 						'label'			=> 'Marca y Número de Placa',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '350px',
-						'disabled'		=> '1'
+						'disabled'		=> '0'
 				),
 				'imp_chofer_licencia'=>array(
 						'campo'			=> 'imp_chofer_licencia',
 						'label'			=> 'N(s) de Licencia(s) de conducir',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '350px',
-						'disabled'		=> '1'
+						'disabled'		=> '0'
 				),
 				'tipo_combustible'=>array(
 						'campo'			=> 'tipo_combustible',
 						'label'			=> 'Tipo de combustible',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '350px',
-						'disabled'		=> '1'
+						'disabled'		=> '0'
 				),
+				'cant_combustible'=>array(
+						'campo'			=> 'cant_combustible',
+						'label'			=> 'Cantidad de combustible',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '350px',
+						'disabled'		=> '0'
+				),				
 				'motivo_traslado'=>array(
 						'campo'			=> 'motivo_traslado',
 						'label'			=> 'Motivo de Traslado',
@@ -4731,7 +4752,7 @@ $objeto_tabla['CHOFERES']=array(
 				)
 		),
 		'grupo'			=> 'productos',
-		'edicion_completa'=> '0',
+		'edicion_completa'=> '1',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
@@ -7245,7 +7266,6 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'width'			=> '100px',
 						'queries'		=> '1'
 				),
-
 				'id_cliente'	=>array(
 						'campo'			=> 'id_cliente',
 						'label'			=> 'Cliente',
@@ -7255,7 +7275,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'default'		=> '[id_cliente]',
 						'tipo'			=> 'hid',
 						'derecha'		=> '1',
-						'directlink'	=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1|6',
+						'directlink'	=> 'id,nombre;apellidos;telefono|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
 						'opciones'		=> 'id,nombre;apellidos|clientes|0',
 						'style'			=> 'width:320px;',
@@ -7267,7 +7287,22 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'queries'		=> '1',
 						'dlquery'		=> '1'
 				),
-
+				'id_item'		=>array(
+						'campo'			=> 'id_item',
+						'label'			=> 'Modelo',
+						'tipo'			=> 'hid',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'default'		=> '[id_item]',
+						'foreig'		=> '1',
+						'style'			=> 'width:150px;',
+						'opciones'		=> 'id,nombre|productos_items',
+						'width'			=> '140px',
+						'derecha'		=> '2',
+						'tip_foreig'	=> '0',
+						'tags'			=> '1',
+						'queries'		=> '1'
+				),
 				'id_grupo'		=>array(
 						'campo'			=> 'id_grupo',
 						'tipo'			=> 'hid',
@@ -7276,7 +7311,6 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'default'		=> '[id]',
 						'foreig'		=> '1'
 				),
-
 				'tipo'			=>array(
 						'campo'			=> 'tipo',
 						'label'			=> 'Tipo',

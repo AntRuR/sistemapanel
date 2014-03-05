@@ -45,7 +45,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
 	 * Add a BLIP Store Entry
 	 *
 	 * @param PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE $BSE
-	 */
+	*/
 	public function addBSE($BSE)
 	{
 		$this->_BSECollection[] = $BSE;

@@ -123,63 +123,63 @@ class LevenbergMarquardt {
 
 			// solve H d = -g, evaluate error at new location
 			//double[] d = DoubleMatrix.solve(H, g);
-//			double[] d = (new Matrix(H)).lu().solve(new Matrix(g, nparm)).getRowPackedCopy();
+			//			double[] d = (new Matrix(H)).lu().solve(new Matrix(g, nparm)).getRowPackedCopy();
 			//double[] na = DoubleVector.add(a, d);
-//			double[] na = (new Matrix(a, nparm)).plus(new Matrix(d, nparm)).getRowPackedCopy();
-//			double e1 = chiSquared(x, na, y, s, f);
+			//			double[] na = (new Matrix(a, nparm)).plus(new Matrix(d, nparm)).getRowPackedCopy();
+			//			double e1 = chiSquared(x, na, y, s, f);
 
-//			if (verbose > 0) {
-//				System.out.println("\n\niteration "+iter+" lambda = "+lambda);
-//				System.out.print("a = ");
-//				(new Matrix(a, nparm)).print(10, 2);
-//				if (verbose > 1) {
-//					System.out.print("H = ");
-//					(new Matrix(H)).print(10, 2);
-//					System.out.print("g = ");
-//					(new Matrix(g, nparm)).print(10, 2);
-//					System.out.print("d = ");
-//					(new Matrix(d, nparm)).print(10, 2);
-//				}
-//				System.out.print("e0 = " + e0 + ": ");
-//				System.out.print("moved from ");
-//				(new Matrix(a, nparm)).print(10, 2);
-//				System.out.print("e1 = " + e1 + ": ");
-//				if (e1 < e0) {
-//					System.out.print("to ");
-//					(new Matrix(na, nparm)).print(10, 2);
-//				} else {
-//					System.out.println("move rejected");
-//				}
-//			}
+			//			if (verbose > 0) {
+			//				System.out.println("\n\niteration "+iter+" lambda = "+lambda);
+			//				System.out.print("a = ");
+			//				(new Matrix(a, nparm)).print(10, 2);
+			//				if (verbose > 1) {
+			//					System.out.print("H = ");
+			//					(new Matrix(H)).print(10, 2);
+			//					System.out.print("g = ");
+			//					(new Matrix(g, nparm)).print(10, 2);
+			//					System.out.print("d = ");
+			//					(new Matrix(d, nparm)).print(10, 2);
+			//				}
+			//				System.out.print("e0 = " + e0 + ": ");
+			//				System.out.print("moved from ");
+			//				(new Matrix(a, nparm)).print(10, 2);
+			//				System.out.print("e1 = " + e1 + ": ");
+			//				if (e1 < e0) {
+			//					System.out.print("to ");
+			//					(new Matrix(na, nparm)).print(10, 2);
+			//				} else {
+			//					System.out.println("move rejected");
+			//				}
+			//			}
 
 			// termination test (slightly different than NR)
-//			if (Math.abs(e1-e0) > termepsilon) {
-//				term = 0;
-//			} else {
-//				term++;
-//				if (term == 4) {
-//					System.out.println("terminating after " + iter + " iterations");
-//					done = true;
-//				}
-//			}
-//			if (iter >= maxiter) done = true;
+			//			if (Math.abs(e1-e0) > termepsilon) {
+			//				term = 0;
+			//			} else {
+			//				term++;
+			//				if (term == 4) {
+			//					System.out.println("terminating after " + iter + " iterations");
+			//					done = true;
+			//				}
+			//			}
+			//			if (iter >= maxiter) done = true;
 
 			// in the C++ version, found that changing this to e1 >= e0
 			// was not a good idea.  See comment there.
 			//
-//			if (e1 > e0 || Double.isNaN(e1)) { // new location worse than before
-//				lambda *= 10.;
-//			} else {		// new location better, accept new parameters
-//				lambda *= 0.1;
-//				e0 = e1;
-//				// simply assigning a = na will not get results copied back to caller
-//				for( int i = 0; i < nparm; i++ ) {
-//					if (vary[i]) a[i] = na[i];
-//				}
-//			}
-		} while(!$done);
+			//			if (e1 > e0 || Double.isNaN(e1)) { // new location worse than before
+			//				lambda *= 10.;
+			//			} else {		// new location better, accept new parameters
+			//				lambda *= 0.1;
+			//				e0 = e1;
+			//				// simply assigning a = na will not get results copied back to caller
+			//				for( int i = 0; i < nparm; i++ ) {
+			//					if (vary[i]) a[i] = na[i];
+			//				}
+			//			}
+			} while(!$done);
 
-		return $lambda;
-	}	//	function solve()
+			return $lambda;
+			}	//	function solve()
 
 }	//	class LevenbergMarquardt

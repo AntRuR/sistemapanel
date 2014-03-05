@@ -1,7 +1,7 @@
 <?php
 require_once "../Matrix.php";
 /*
-* @package JAMA
+ * @package JAMA
 * @author Michael Bommarito
 * @author Paul Meagher
 * @version 0.1
@@ -18,7 +18,7 @@ require_once "../Matrix.php";
 function polyfit($X, $Y, $n) {
 	for ($i = 0; $i < sizeof($X); ++$i)
 		for ($j = 0; $j <= $n; ++$j)
-			$A[$i][$j] = pow($X[$i], $j);
+		$A[$i][$j] = pow($X[$i], $j);
 	for ($i=0; $i < sizeof($Y); ++$i)
 		$B[$i] = array($Y[$i]);
 	$matrixA = new Matrix($A);

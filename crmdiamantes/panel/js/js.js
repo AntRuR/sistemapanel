@@ -651,10 +651,10 @@ function render_upload(tb,campo,id,img_default,il){
 			'<input style="'+styleinfi+'" type="file" name="v_file_'+campo+id2+'"   '+
 			'onchange="if(this.value!=\'\') upload(\''+tb+'\',\''+campo+id2+'\'); " '+
 			'class="upload_input_file"  autocomplete="off" />'+
-			'<a rel="width:1100,height:800" style="float:none;" title="Librería de Imágenes" class="mbb" href="library.php?tb='+tb+'&campo='+campo+id2+'">'+
+			// '<a rel="width:1100,height:800" style="float:none;" title="Librería de Imágenes" class="mbb" href="library.php?tb='+tb+'&campo='+campo+id2+'">'+
 			//'<img align="absmiddle" src="img/ico_library.png">'+
-			'Cargar de Librería de Imágenes'+
-			'</a>'+
+			// 'Cargar de Librería de Imágenes'+
+			// '</a>'+
 			'</div>'+
 		'</div>'+
 	'</form>'+

@@ -22,7 +22,7 @@ class LMQuadTest {
 		$sdy = $s * ($x[1] - $oy);
 
 		return ($sdx * $sdx) + ($sdy * $sdy);
-   }	//	function val()
+	}	//	function val()
 
 
 	/**
@@ -56,7 +56,7 @@ class LMQuadTest {
 		if ($a_k == 0)
 			return -2.*$s*$s*$dx;
 		elseif ($a_k == 1)
-			return -2.*$s*$s*$dy;
+		return -2.*$s*$s*$dy;
 		else
 			return 2.*$s*($dx*$dx + $dy*$dy);
 	}	//	function grad()
