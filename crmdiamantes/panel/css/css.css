@@ -708,6 +708,10 @@ a.bl1:hover {
 .formulario .form_input input,.formulario .form_input select {
 	height: 18px;
 }
+.formulario .form_input input[type="radio"]{
+	margin-right: 10px;
+	margin-left: 10px;
+}
 
 .formulario select.form_input_fecha { /*
 	background:#FFFFFF url(../img/bg_inputs.png) no-repeat scroll 0 0;

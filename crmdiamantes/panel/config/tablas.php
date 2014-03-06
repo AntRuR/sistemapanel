@@ -639,17 +639,17 @@ $objeto_tabla['PRODUCTOS_STOCK']=array(
 		'crear_txt'		=> '660px',
 		'filtros_extra'	=> '',
 		'postscript'	=> '
-				LL=fila("fecha_creacion,fecha_edicion,id_ubicacion_salida,id_item,id_color,id_item_item,id_ubicacion_llegada",TT,"where id=II",0);
+				LL=fila("fecha_creacion,fecha_edicion,id_ubicacion_salida,id_item,id_color,id_item_item,id_ubicacion_llegada,tipo",TT,"where id=II",0);
 				if(SS=="update" or SS=="insert"){
 					/*
 					if(hay("productos_traslados","where id_asignacion=II")){
 						update(LL,"productos_traslados","where id_asignacion=II");
 					}else{
-					*/
+					*/						
 						LL["id_asignacion"]		=II;
 						LL["id_traslado_status"]="1";
 						insert(LL,"productos_traslados",0);
-						update(array("asignado"=>"1"),"productos_items_items","where id=".LL["id_item_item"],0);
+						update(array("asignado"=>"1","id_status"=>(LL["tipo"]==1)?7:1),"productos_items_items","where id=".LL["id_item_item"],0);
 					/*}*/
 				}
 				if(SS=="delete"){
@@ -779,6 +779,19 @@ $objeto_tabla['PRODUCTOS_STOCK']=array(
 						'queries'		=> '0',
 						'listable'		=> '1'
 				),
+				'tipo'=>array(
+						'campo'			=> 'tipo',
+						'label'			=> 'Tipo',
+						'tipo'			=> 'com',
+						'radio'			=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'0'			=> 'VENTAS',
+								'1'			=> 'EXHIBICION'
+						),
+						'default'		=> '0'
+				),				
 				'observaciones'	=>array(
 						'campo'			=> 'observaciones',
 						'label'			=> 'Observaciones',
@@ -1047,6 +1060,20 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'listable'		=> '1',
 						'tip_foreig'	=> '0'
 				),
+				'tipo'=>array(
+						'campo'			=> 'tipo',
+						'label'			=> 'Tipo',
+						'tipo'			=> 'com',
+						'radio'			=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'0'			=> 'VENTAS',
+								'1'			=> 'EXHIBICION'
+						),
+						'default'		=> '0',
+						'frozen'		=> '1'						
+				),				
 				'id_asignacion'	=>array(
 						'campo'			=> 'id_asignacion',
 						'label'			=> '# Asignacion',
@@ -3667,8 +3694,8 @@ $objeto_tabla['PRODUCTOS_GARANTIAS']=array(
 						'validacion'	=> '1',
 						'default'		=> '[id_item_item]',
 						'style'			=> 'width:140px;',
-						'opciones'		=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where productos_items_items.id_status=5 and productos_items_items.id=productos_ventas.id_item_item',
-						'directlink'	=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where productos_items_items.id_status=5 and productos_items_items.id=productos_ventas.id_item_item',
+						'opciones'		=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where (productos_items_items.id_status=5 or productos_items_items.id_status=7) and productos_items_items.id=productos_ventas.id_item_item',
+						'directlink'	=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where (productos_items_items.id_status=5 or productos_items_items.id_status=7) and productos_items_items.id=productos_ventas.id_item_item',
 						'load'			=> '||||progsug as fecha_entrega|productos_ventas|where id_item_item=[id_item_item];|||id_item as id_item|productos_items_items|where id=[id_item_item];|||placa as placa|productos_items_items|where id_item_item=[id_item_item]',
 						'width'			=> '140px',
 						'derecha'		=> '1',
