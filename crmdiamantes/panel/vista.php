@@ -158,7 +158,7 @@ if($_GET['ran']==''){
 
 			*/
 
-			if($datos_tabla['exportar_gm']=='1' and 0){
+			if($datos_tabla['exportar_gm']=='1'){
 
 			?><a href="#" onclick="javascript:exportar_gm();return false;" <?php
 			?>class="btn btn-small" <?php

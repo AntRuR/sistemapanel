@@ -111,14 +111,14 @@ class PHPExcel_Reader_Serialized implements PHPExcel_Reader_IReader
 		return $excel;
 	}
 
-    /**
-     * Does a file support UnserializePHPExcel ?
-     *
+	/**
+	 * Does a file support UnserializePHPExcel ?
+	 *
 	 * @param 	string 		$pFilename
 	 * @throws 	Exception
 	 * @return 	boolean
-     */
-    public function fileSupportsUnserializePHPExcel($pFilename = '') {
+	 */
+	public function fileSupportsUnserializePHPExcel($pFilename = '') {
 		// Check if file exists
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
@@ -126,5 +126,5 @@ class PHPExcel_Reader_Serialized implements PHPExcel_Reader_IReader
 
 		// File exists, does it contain phpexcel.xml?
 		return PHPExcel_Shared_File::file_exists("zip://$pFilename#phpexcel.xml");
-    }
+	}
 }

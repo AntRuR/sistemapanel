@@ -6970,10 +6970,10 @@ $objeto_tabla['CLIENTES']=array(
 				),
 				'telefono'		=>array(
 						'campo'			=> 'telefono',
-						'label'			=> 'Teléfono Casa',
+						'label'			=> 'Teléfono/celular',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
-						'validacion'	=> '0',
+						'validacion'	=> '1',
 						'width'			=> '70px',
 						'style'			=> 'width:70px;',
 						'derecha'		=> '1'

@@ -52,7 +52,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
 	 * Set parent Shape Group Container
 	 *
 	 * @param PHPExcel_Shared_Escher_DgContainer_SpgrContainer $parent
-	 */
+	*/
 	public function setParent($parent)
 	{
 		$this->_parent = $parent;

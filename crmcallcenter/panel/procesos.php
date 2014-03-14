@@ -10,10 +10,10 @@ set_time_limit(0);
 echo "running.................................";
 //delete("productos_items_items","where id>");
 
-$ventas=select("id,id_cliente,id_item","ventas_items","order by id desc limit 0,100000",0);
+$ventas=select("id,id_cliente","ventas_items","order by id desc limit 0,10",0);
 foreach($ventas as $venta){
-	//if($venta["id_cliente"]!='')
-	update(array("id_cliente"=>$venta["id_cliente"],"id_item"=>$venta["id_item"]),"ventas_mensajes","where id_grupo=".$venta["id"],0);
+	if($venta["id_cliente"]!='')
+	update(array("id_cliente"=>$venta["id_cliente"]),"ventas_mensajes","where id_grupo=".$venta["id"],0);
 
 }
 
