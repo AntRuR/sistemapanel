@@ -618,7 +618,7 @@ $objeto_tabla['PRODUCTOS_STOCK']=array(
 		'grupo'			=> 'productos',
 		'titulo'		=> 'Asignaciones',
 		'nombre_singular'=> 'asignación',
-		'nombre_plural'	=> 'asignaciones',
+		'nombre_plural'	=> 'asignaciones',	
 		'tabla'			=> 'productos_stock',
 		'archivo'		=> 'productos_stock',
 		'prefijo'		=> 'prostock',
@@ -779,6 +779,19 @@ $objeto_tabla['PRODUCTOS_STOCK']=array(
 						'queries'		=> '0',
 						'listable'		=> '1'
 				),
+				'tipo'=>array(
+						'campo'			=> 'tipo',
+						'label'			=> 'Tipo',
+						'tipo'			=> 'com',
+						'radio'			=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'0'			=> 'VENTAS',
+								'1'			=> 'EXHIBICION'
+						),
+						'default'		=> '0'
+				),				
 				'observaciones'	=>array(
 						'campo'			=> 'observaciones',
 						'label'			=> 'Observaciones',
@@ -1047,6 +1060,19 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'listable'		=> '1',
 						'tip_foreig'	=> '0'
 				),
+				'tipo'=>array(
+						'campo'			=> 'tipo',
+						'label'			=> 'Tipo',
+						'tipo'			=> 'com',
+						'radio'			=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'0'			=> 'VENTAS',
+								'1'			=> 'EXHIBICION'
+						),
+						'default'		=> '0'
+				),					
 				'id_asignacion'	=>array(
 						'campo'			=> 'id_asignacion',
 						'label'			=> '# Asignacion',
