@@ -812,10 +812,22 @@ function record()
     parent.document.getElementById('in_pvlista').value=total_price;
     parent.document.getElementById('in_pvpromocion').value=total_price;
 
-    setTimeout("parent.initMultiBox.close();","1000");
-    setTimeout("parent.alert('cerrar');","1500");
-    setTimeout("parent.initMultiBox.close();","2000");
     // parent.initMultiBox.close();
+    // 
+    var closesecure = function (){
+
+        setTimeout(function() {
+            
+            console.log('close');
+            parent.initMultiBox.close();
+            closesecure();
+
+        },1000);
+
+    }
+
+    closesecure();
+
 }
 
 

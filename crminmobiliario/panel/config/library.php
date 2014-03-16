@@ -31,7 +31,7 @@ function extract_departamentos($id){
 	        	)
 	        );
 
-	// prin($product);
+	//prin($product);
 
 	return $product;
 
@@ -39,7 +39,7 @@ function extract_departamentos($id){
 
 function render_departamentos($array){
 
-	return "depa";
+	return $array;
 }
 
 function extract_depositos($id){

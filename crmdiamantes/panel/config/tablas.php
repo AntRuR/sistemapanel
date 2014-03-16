@@ -1071,14 +1071,9 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 								'0'			=> 'VENTAS',
 								'1'			=> 'EXHIBICION'
 						),
-<<<<<<< HEAD
-						'default'		=> '0'
-				),					
-=======
 						'default'		=> '0',
 						'frozen'		=> '1'						
 				),				
->>>>>>> d05fa3c18cc5a5bea515538a6ffff8d314877d2e
 				'id_asignacion'	=>array(
 						'campo'			=> 'id_asignacion',
 						'label'			=> '# Asignacion',

@@ -54,7 +54,7 @@ include("config/library.php");
 	if($_GET['id']!=''){
 
 	$linea=select_fila(
-						array('id_cliente','pedido','id_item','id_usuario','id_status'),
+						array('id_cliente','pedido','id_item','id_usuario','id_status','pedido'),
 						'ventas_items',
 						'where id='.$_GET['id'],
 						0,
@@ -72,29 +72,8 @@ include("config/library.php");
 						)							
 					);
 
-	$pedido=json_decode($linea['pedido']);	
-<<<<<<< HEAD
-=======
-	prin($pedido['0']->type);
-	exit();
-
-
-	$producto=fila(
-
-
-
-					array('id','id_items_tipo','id_item','nombre','numero','descripcion2','descripcion3','descripcion4','num_garages','has_deposito','has_balcon','num_rooms',"num_bathrooms",'area_total','area_construida'),
-
-
-
-					//array('id','nombre','id_grupo'),
-
-
-
-					"productos_items_items",
-
-
->>>>>>> 73b63f4e834f0190d68178586af0590a4307d52a
+	$pedido=json_decode($linea['pedido']);
+	// prin($linea['pedido']);
 
 	$pblocks=array();
 	$pdepartamentos=array();
