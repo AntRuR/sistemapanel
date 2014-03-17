@@ -81,7 +81,8 @@ include("config/library.php");
 		$html=implode("",$pblocks);
 
 		// echo $html;
-
+		// exit();
+		
 		$Producto=str_replace("\\\"","\"",$html);
 
 
@@ -144,7 +145,7 @@ include("config/library.php");
 								// 'MODELO'=>$linea['grupo']['nombre'].' '.$linea['item']['nombre'],
 
 								'INMUEBLE'=>$linea['item']['nombre'].' - '.$linea['item_item']['nombre'].' '.$linea['item_item']['numero'],
-								//'FICHA'=>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
+								'FICHA'=>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
 								'FIRMA'=>str_replace("'","\"",$linea['usuario']['firma']),
 								//'IMPRIMIR'=>str_replace("'","\"","<a href='http://".(($linea['cuenta']['dominio'])?$linea['cuenta']['dominio']:"www.vehiculos.com.pe")."/index.php?modulo=items&tab=productos_imprimir&acc=file&id=".$linea['id_item']."&id_cliente=".$linea['id_cliente']."'>IMPRIMIR</a>"),
 
