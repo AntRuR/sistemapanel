@@ -19,242 +19,74 @@ if($_GET['ajax']=='1'){
 include("lib/simple_html_dom.php");
 include("config/library.php");
 
-	function fix_ficha($ficha){
-
-		$ficha=str_replace('&nbsp;','',$ficha);	
-		$ficha=preg_replace("/id=(\")(?)(\")/",'',$ficha);	
-		$ficha=preg_replace("/<br>/",'',$ficha);	
-		$ficha=str_replace('<br />','',$ficha);	
-		$html = str_get_html($ficha);
-		$tables=$html->find("table td");
-		foreach($tables as $ta){
-			$tabl=$ta->find("table");
-			if(sizeof($tabl)>0){					
-			$tat=$ta->innertext();
-			$tat=str_replace("<table","<table cellspacing=0 cellpadding=4 style='border-collapse:collapse;margin-bottom:5px;font-size:11px;' ",$tat);
-			$tat=str_replace("colspan=\"2\"","colspan=\"2\" style='border:1px solid #ddd;background-color:#ccc;' valign=top ",$tat);
-			$tat=preg_replace("/<td(\s*)>/","<td style='border:1px solid #ddd;;' width='50%' valign=top>",$tat);
-			$Tabl[]=$tat;
-			}
-		}
-		$html->clear();
-		unset($html);				
-
-		$ficha="<table width='100%' cellpadding=5 cellspacing=5>
-		<tr>
-		<td valign=top width='50%'>".$Tabl[0]."</td>
-		<td valign=top width='50%'>".$Tabl[1]."</td>
-		</tr></table>";
-		return $ficha;
-
-	}
 
 
 
-	if($_GET['id']!=''){
+	//if($_GET['id']!=''){
 
-	$linea=select_fila(
-						array('id_cliente','pedido','id_item','id_usuario','id_status','pedido'),
-						'ventas_items',
-						'where id='.$_GET['id'],
-						0,
-						array(
-							'cliente'	=>array('fila'=>array('nombre,apellidos,genero,email','clientes','where id="{id_cliente}"')),
-							'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
-							//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
-							//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
-							'item'		=>array('fila'=>array('nombre','productos_items','where id="{id_item}"')),							
-							// 'item_item'	=>array('fila'=>array('nombre,numero,id_items_tipo','productos_items_items','where id="{id_items_item}"')),							
-							'cuenta'	=>array('fila'=>array('nombre,logo,fecha_creacion,dominio','envios_cuentas','where id="{id_cuenta_email}"',0,
-									array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
-								)
-							),							
-						)							
-					);
-
-	$pedido=json_decode($linea['pedido']);
-	// prin($linea['pedido']);
-
-	$pblocks=array();
-	$pdepartamentos=array();
-	$pdepositos=array();
-	$pestacionamientos=array();
-
-	foreach($pedido as $pedi){
-		switch($pedi->type){
-			case "departamento":
-				$pdepartamentos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
-			break;
-			case "estacionamiento":
-				$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
-			break;
-			case "deposito":
-				$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
-			break;						
-		}
-
-	}
-
-	foreach($pdepartamentos as $pdep)
-		$pblocks[]=render_departamentos(extract_departamentos($pdep['id']));
-
-	foreach($pdepositos as $pdep)
-		$pblocks[]=render_depositos(extract_depositos($pdep['id']));
-
-	foreach($pestacionamientos as $pdep)
-		$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']));	
-	
-
-	prin($pblocks);
-
-	exit();
-
-
-		// var_dump($linea);
-		// $galerias=select("nombre,id","productos_fotos","where id_tipo=".$linea['item_item']['id_items_tipo'],0,
-		// 				array(
-		// 					'fotos'=>array('fotos'=>array(
-		// 												"id,file,fecha_creacion|productos_fotos_fotos|where id_grupo='{id}' and visibilidad='1' order by id asc limit 0,100"
-		// 												,$objeto_tabla['PRODUCTOS_FOTOS_FOTOS']['campos']['file']['carpeta']
-		// 												,array(												 
-		// 													   'archivo'=>'1',
-		// 													   'thumb'=>'2,260x200,0',
-		// 													   'box'=>'4'
-		// 													   //'atributos'=>'3,624x600,0'												   
-		// 													  )
-		// 												 )
-		// 								 )							
-
-		// 					)
-		// 				);							
-		// prin($galerias);
-		$tableProps='width="100%" cellpadding="0" cellspacing="0" border="0" ';						
-
-			$producto['ficha']=fix_ficha($producto['ficha']);
-
-			$html='';
-			$html.="<table width='650px' cellpadding=0 cellspacing=0 border=0  >";
-			$html.='<tr><td colspan=2 style="text-align:center;font-weight:bold;color:#F10102;">'.$producto['item']['nombre'].' - '.$producto['nombre'].' '.$producto['numero'].'</td></tr>';
-			// if(trim(strip_tags($producto['ficha']))!=''){
-			//$html.='<tr><td>'.$producto['ficha'].'</td></tr>';
-			// }
-			$html.='<tr><td colspan=2><strong>Descripción</strong></td></tr>';
-			$html.='<tr><td colspan=2>'.$producto['descripcion2'].'</td></tr>';
-			$html.='<tr><td colspan=2><strong>Acabados</strong></td></tr>';
-			$html.='<tr><td colspan=2>'.$producto['descripcion3'].'</td></tr>';
-			$html.='<tr><td colspan=2><strong>Areas Comunes</strong></td></tr>';
-			$html.='<tr><td colspan=2>'.$producto['descripcion4'].'</td></tr>';
-			$html.='<tr><td width=100>Área Total</td><td>'.$producto['area_total'].'</td></tr>';
-			$html.='<tr><td width=100>Área Construída</td><td>'.$producto['area_construida'].'</td></tr>';
-			$html.='<tr><td width=100># Garages</td><td>'.$producto['num_garages'].'</td></tr>';
-			$html.='<tr><td width=100># Dormitorios</td><td>'.$producto['num_rooms'].'</td></tr>';
-			$html.='<tr><td width=100># Baños</td><td>'.$producto['num_bathrooms'].'</td></tr>';
-			$html.='<tr><td width=100>Tiene Balcón</td><td>'. (($producto['has_balcon'])?'Si':'No') .'</td></tr>';
-			$html.='<tr><td width=100>Tiene Depósito</td><td>'. (($producto['has_deposito'])?'Si':'No') .'</td></tr>';
-			$html.='<tr><td colspan=2>';
-			// prin($galerias);
-			if(sizeof($galerias)>0){
-				foreach($galerias as $t=>$galeria){
-				$html.="<table $tableProps >";
-				$html.="<td align=center valign=middle style=\"border:1px solid #999 !important;\" colspan=2>".$galeria['nombre']."</td>";
-				$ttt=0;
-				foreach($galeria['fotos'] as $t=>$foto){
-					if($ttt==0){ $html.='<tr>'; }
-					$html.="<td align=center valign=middle style=\"border:1px solid #999 !important;\"><a href='".$foto['box']."'><img ".$foto['thumb']." /></a></td>";
-					if($ttt==1){ $html.='</tr>'; }												
-					if($ttt==1){ $ttt=0; } else { $ttt=1; }				
-				}
-				$html.="</table><br>";
-				}
-			}
-			$html.='</td></tr>';				
-			$html.='<tr><td height="5" colspan=2></td></tr>';				
-			$html.='</table>';
-			$Producto=str_replace("\\\"","\"",$html);
-
-			// $Botones[]=array(
-			// 				'g'=>$producto['grupo']['nombre'],
-			// 				'n'=>$producto['nombre'],
-			// 				't'=>$producto['fotos'][0]['archivo'],
-			// 				'h'=>$html,
-			// 				);				
-
-			//prin($linea);
-
-			if($_SERVER['REQUEST_METHOD']=='POST'){
-
-				$CuentasE=select('nombre,email,logo,fecha_creacion,dominio','envios_cuentas','where 1',0,
-									array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
-								);
-
-				$linea['cuenta']['logo']=($linea['id_grupo']=='4')?$CuentasE['1']['logo']:$CuentasE['0']['logo'];		
-
-
-				$unos=between($_POST['msg'],"<!--","-->");
-				$ID_SPEECH=dato("id","speeches","where nombre='".$unos[1]."'",0);			
-
-				$insertado_mensaje=insert(array(
-								'id_grupo'=>$_GET['id'],
-								'tipo'=>'1',
-								'nombre'=>$_POST['subject'],
-								'id_speech'=>$ID_SPEECH,
-								'fecha_creacion'=>"now()",
-								'fecha_edicion'=>"now()",	
-								'visibilidad'=>'1',
-								 ),
-								 "ventas_mensajes",
-								 0
-								 );
-
-				$_POST['msg']=str_replace(array(
-												"../imagenes_dir/",
-												"[IMPRIMIR]",
-												)
-										 ,array(
-										 		$vars_server['httpfiles']."/imagenes_dir/",
-				"<a href='http://crminmobiliario.info/index.php?modulo=items&tab=productos_imprimir&acc=file&id_mensaje=".$insertado_mensaje['id']."&id_usuario=".$linea['id_usuario']."'>IMPRIMIR</a>",								 
-										 		),$_POST['msg']);
-									update(array(
-												'texto'=>$_POST['msg'],
-												),
-											 "ventas_mensajes",
-											 "where id='".$insertado_mensaje['id']."'",
-											 0
-											);
-				/*							
-				prin(						array(
-							'emails'=>array($linea['cliente']['email'],'guillermolozan@gmail.com','wtavara@prodiserv.com')
-							,'Subject'=>$_POST['subject']
-							,'body'=>$_POST['msg']
-							,'From'=>$linea['usuario']['email']
-							,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos']
-							,'Logo'=>$linea['cuenta']['logo']
-							));
-				*/
-				$email_cliente=enviar_email(
+		$linea=select_fila(
+							array('id_cliente','pedido','id_item','id_usuario','id_status','pedido'),
+							'ventas_items',
+							'where id='.$_GET['id'],
+							0,
 							array(
-							'emails'=>array(
-											$linea['cliente']['email'],
-											$linea['usuario']['email'],
-											'guillermolozan@gmail.com',
-											'wtavara@prodiserv.com',
-											)
-							,'Subject'=>$_POST['subject']
-							,'body'=>$_POST['msg']
-							,'From'=>$linea['usuario']['email']
-							,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos'] 
-							,'Logo'=>$linea['cuenta']['logo']
-							)
-						);	
+								'cliente'	=>array('fila'=>array('nombre,apellidos,genero,email','clientes','where id="{id_cliente}"')),
+								'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
+								//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
+								//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
+								'item'		=>array('fila'=>array('nombre','productos_items','where id="{id_item}"')),							
+								// 'item_item'	=>array('fila'=>array('nombre,numero,id_items_tipo','productos_items_items','where id="{id_items_item}"')),							
+								'cuenta'	=>array('fila'=>array('nombre,logo,fecha_creacion,dominio','envios_cuentas','where id="{id_cuenta_email}"',0,
+										array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
+									)
+								),							
+							)							
+						);
 
+		$pedido=json_decode($linea['pedido']);
+		// prin($linea['pedido']);
 
-				print_r($email_cliente);			
-	//			print_r($email_cliente['todos']);
+		$pblocks=array();
+		$pdepartamentos=array();
+		$pdepositos=array();
+		$pestacionamientos=array();
 
-				exit();
+		foreach($pedido as $pedi){
+			switch($pedi->type){
+				case "departamento":
+					$pdepartamentos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+				break;
+				case "estacionamiento":
+					$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+				break;
+				case "deposito":
+					$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+				break;						
 			}
 
 		}
+
+		foreach($pdepartamentos as $pdep)
+			$pblocks[]=render_departamentos(extract_departamentos($pdep['id']));
+
+		foreach($pdepositos as $pdep)
+			$pblocks[]=render_depositos(extract_depositos($pdep['id']));
+
+		foreach($pestacionamientos as $pdep)
+			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']));	
+		
+
+		// prin($pblocks);
+
+		$html=implode("",$pblocks);
+
+		// echo $html;
+
+		$Producto=str_replace("\\\"","\"",$html);
+
+
+
+		
 
 		//prin($linea);
 		$tbcampos=array(
@@ -312,7 +144,7 @@ include("config/library.php");
 								// 'MODELO'=>$linea['grupo']['nombre'].' '.$linea['item']['nombre'],
 
 								'INMUEBLE'=>$linea['item']['nombre'].' - '.$linea['item_item']['nombre'].' '.$linea['item_item']['numero'],
-								'FICHA'=>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
+								//'FICHA'=>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
 								'FIRMA'=>str_replace("'","\"",$linea['usuario']['firma']),
 								//'IMPRIMIR'=>str_replace("'","\"","<a href='http://".(($linea['cuenta']['dominio'])?$linea['cuenta']['dominio']:"www.vehiculos.com.pe")."/index.php?modulo=items&tab=productos_imprimir&acc=file&id=".$linea['id_item']."&id_cliente=".$linea['id_cliente']."'>IMPRIMIR</a>"),
 
@@ -320,14 +152,12 @@ include("config/library.php");
 					),
 
 		);
-		//prin($tbcampos['texto']);
+		// prin($tbcampos);
 		//prin($Productos[$linea['id_item']]);
 		?>
 	<div>
 		<?php
-		if(trim($linea['usuario']['email'])=='' and 0){ 
-		echo "<div style='color:red;font-weight:bold;padding:50px 30px;text-transform:uppercase;'>No se puede enviar debido a que el vendedor no tiene configurado un email.</div>"; 
-		} else { ?>	
+		?>	
 		<div class="bloque_content_crear" style="width:659px;" >
 	    <ul class="formulario">
 		<?php 
@@ -398,7 +228,6 @@ include("config/library.php");
 		}	
 
 	    </script>
-	    <?php  } ?>
 	    <?php 
 		//m.selection.insertContent('inserted <strong>content</strong>');return false;"
 		?>
@@ -414,7 +243,7 @@ include("config/library.php");
 		</style> 
 
 	</div>
-	<script language="JavaScript" type="text/javascript"> 
+<script language="JavaScript" type="text/javascript"> 
 	window.moveTo(0,0); 
 	window.resizeTo(1100,750); 
 </script> 
