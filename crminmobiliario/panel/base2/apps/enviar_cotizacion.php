@@ -21,7 +21,6 @@ include("config/library.php");
 
 
 
-
 	//if($_GET['id']!=''){
 
 		$linea=select_fila(
@@ -30,7 +29,7 @@ include("config/library.php");
 							'where id='.$_GET['id'],
 							0,
 							array(
-								'cliente'	=>array('fila'=>array('nombre,apellidos,genero,email','clientes','where id="{id_cliente}"')),
+								'cliente'	=>array('fila'=>array('nombre,apellidos,genero,email,dni','clientes','where id="{id_cliente}"')),
 								'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
 								//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
 								//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
@@ -42,6 +41,47 @@ include("config/library.php");
 								),							
 							)							
 						);
+
+
+$telefonos_fijos=$telefonos_moviles=array();
+
+if($linea['cliente']['telefono']!='')$telefonos_fijos[]=$linea['cliente']['telefono'];
+if($linea['cliente']['telefono_oficina']!='')$telefonos_fijos[]=$linea['cliente']['telefono_oficina'];
+
+if($linea['cliente']['celular_claro']!='')$telefonos_moviles[]=$linea['cliente']['celular_claro'];
+if($linea['cliente']['celular_movistar']!='')$telefonos_moviles[]=$linea['cliente']['celular_movistar'];
+if($linea['cliente']['nextel']!='')$telefonos_moviles[]=$linea['cliente']['nextel'];
+
+$telefonos_fijos_string = implode("/ ",$telefonos_fijos);
+$telefonos_moviles_string = implode("/ ",$telefonos_moviles);
+
+
+
+	$style=render_style();
+
+
+	// $tableProps='width="100%" cellpadding="0" cellspacing="0" border="0" ';						
+
+
+		// $producto['ficha']=fix_ficha($producto['ficha']);
+
+		//var_dump($producto);
+
+	/**
+	 * CLIENTE
+	 */
+			
+	$html='';
+	$html.='<table '.$style['table'].' width="650px" cellpadding=0 cellspacing=0 border=0>';
+	$html.='<tr><td colspan=4 '.$style['section'].'>Cliente</td></tr>';
+	$html.='<tr><td '.$style['variable'].'>Nombre</td><td '.$style['valor'].' colspan=3>'.strtoupper($linea['cliente']['nombre']." ".$linea['cliente']['apellidos']).'</td></tr>';
+	$html.='<tr><td '.$style['variable'].'>Email</td><td '.$style['valor'].'>'.$linea['cliente']['email'].'</td>';
+	$html.='<td '.$style['variable'].'>DNI</td><td '.$style['valor'].'>'.$linea['cliente']['dni'].'</td></tr>';
+	$html.='<tr><td '.$style['variable'].'>Teléfono Fijo</td><td '.$style['valor'].'>'.$telefonos_fijos_string.'</td>';
+	$html.='<td '.$style['variable'].'>Teléfono Móvil</td><td '.$style['valor'].'>'.$telefonos_moviles_string.'</td></tr>';
+	$html.='</table>';
+
+
 
 		$pedido=json_decode($linea['pedido']);
 		// prin($linea['pedido']);
@@ -78,7 +118,7 @@ include("config/library.php");
 
 		// prin($pblocks);
 
-		$html=implode("",$pblocks);
+		$html=$html.implode("",$pblocks);
 
 		// echo $html;
 		// exit();
@@ -97,6 +137,7 @@ include("config/library.php");
 
 
 				$unos=between($_POST['msg'],"<!--","-->");
+
 				$ID_SPEECH=dato("id","speeches","where nombre='".$unos[1]."'",0);			
 
 				$insertado_mensaje=insert(array(
@@ -146,7 +187,7 @@ include("config/library.php");
 											'wtavara@prodiserv.com',
 											)
 							,'Subject'=>$_POST['subject']
-							,'body'=>$_POST['msg']
+							,'body'=>$_POST['msg'].$styles
 							,'From'=>$linea['usuario']['email']
 							,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos'] 
 							,'Logo'=>$linea['cuenta']['logo']
@@ -158,6 +199,7 @@ include("config/library.php");
 	//			print_r($email_cliente['todos']);
 
 				exit();
+
 			}
 
 		
@@ -208,20 +250,20 @@ include("config/library.php");
 							'default'		=> '',
 							'botones'		=> 'nombre,texto|speeches|where id_item='.$linea['id_item'],
 							'variables'		=> array(		
-								'ESTIMADO'=>($linea['cliente']['genero']=='2')?'Estimada':'Estimado',
-								'SR'=>($linea['cliente']['genero']=='2')?'Sra.':'Sr.',
-								//'VENDEDOR_NOMBRE'=>$linea['usuario']['nombre'].' '.$linea['usuario']['apellidos'],
-								//'VENDEDOR'=>(($linea['usuario']['genero']=='2')?'la Srta.':'el Sr.')." ".$linea['usuario']['nombre'].' '.$linea['usuario']['apellidos'],
-								'VENDEDOR'=>$linea['usuario']['nombre'].' '.$linea['usuario']['apellidos'],
-								//'CLIENTE_NOMBRE'=>$linea['cliente']['nombre'].' '.$linea['cliente']['apellidos'],
-								//'CLIENTE'=>(($linea['cliente']['genero']=='2')?'Srta.':'Sr.')." ".$linea['cliente']['nombre'].' '.$linea['cliente']['apellidos'],
-								'CLIENTE'=>strtoupper($linea['cliente']['nombre'].' '.$linea['cliente']['apellidos']),							
-								// 'MODELO'=>$linea['grupo']['nombre'].' '.$linea['item']['nombre'],
-
-								'INMUEBLE'=>$linea['item']['nombre'].' - '.$linea['item_item']['nombre'].' '.$linea['item_item']['numero'],
-								'FICHA'=>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
-								'FIRMA'=>str_replace("'","\"",$linea['usuario']['firma']),
-								//'IMPRIMIR'=>str_replace("'","\"","<a href='http://".(($linea['cuenta']['dominio'])?$linea['cuenta']['dominio']:"www.vehiculos.com.pe")."/index.php?modulo=items&tab=productos_imprimir&acc=file&id=".$linea['id_item']."&id_cliente=".$linea['id_cliente']."'>IMPRIMIR</a>"),
+								'ESTIMADO'          =>($linea['cliente']['genero']=='2')?'Estimada':'Estimado',
+								'SR'                =>($linea['cliente']['genero']=='2')?'Sra.':'Sr.',
+								//'VENDEDOR_NOMBRE' =>$linea['usuario']['nombre'].' '.$linea['usuario']['apellidos'],
+								//'VENDEDOR'        =>(($linea['usuario']['genero']=='2')?'la Srta.':'el Sr.')." ".$linea['usuario']['nombre'].' '.$linea['usuario']['apellidos'],
+								'VENDEDOR'          =>$linea['usuario']['nombre'].' '.$linea['usuario']['apellidos'],
+								//'CLIENTE_NOMBRE'  =>$linea['cliente']['nombre'].' '.$linea['cliente']['apellidos'],
+								//'CLIENTE'         =>(($linea['cliente']['genero']=='2')?'Srta.':'Sr.')." ".$linea['cliente']['nombre'].' '.$linea['cliente']['apellidos'],
+								'CLIENTE'           =>strtoupper($linea['cliente']['nombre'].' '.$linea['cliente']['apellidos']),							
+								// 'MODELO'         =>$linea['grupo']['nombre'].' '.$linea['item']['nombre'],
+								
+								'INMUEBLE'          =>$linea['item']['nombre'].' - '.$linea['item_item']['nombre'].' '.$linea['item_item']['numero'],
+								'FICHA'             =>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
+								'FIRMA'             =>str_replace("'","\"",$linea['usuario']['firma']),
+								//'IMPRIMIR'        =>str_replace("'","\"","<a href='http://".(($linea['cuenta']['dominio'])?$linea['cuenta']['dominio']:"www.vehiculos.com.pe")."/index.php?modulo=items&tab=productos_imprimir&acc=file&id=".$linea['id_item']."&id_cliente=".$linea['id_cliente']."'>IMPRIMIR</a>"),
 
 							)
 					),
@@ -307,6 +349,8 @@ include("config/library.php");
 		//m.selection.insertContent('inserted <strong>content</strong>');return false;"
 		?>
 		<style>
+
+
 		.formulario label { width:50px; text-align:left; text-transform:uppercase; } 
 		.bloque_content_crear { float:left; }
 		.columna_derecha { float:left; height:500px; overflow:auto; }

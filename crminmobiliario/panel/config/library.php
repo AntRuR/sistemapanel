@@ -1,5 +1,17 @@
 <?php
 
+function render_style(){
+
+	$style['table']    ='style="font-size: 14px; border: 1px solid #ccc; "';
+	$style['section']  ='style="background-color: #A1BD5B; color: #FFF; font-size: 15px; font-weight: bold; padding: 5px 0; text-align: center;"';
+	$style['valor']    ='style="color: #000; padding: 3px 0 3px 5px; width: 170px;"';
+	$style['variable'] ='style="width: 90px;"';
+	$style['foto']     ='style="background-color: #CCC; display: inline-block; height: 162px; width: 310px;"';
+	$style['ficha']    ='style="top:0;"';
+
+	return $style;
+
+}
 
 function extract_departamentos($id){
 
@@ -44,9 +56,13 @@ function render_departamentos($producto){
 
 	//prin($producto);
 
+	$style=render_style();
+
 	if(1){
 	$html='';
-	$html.="<table width='650px' cellpadding=0 cellspacing=0 border=0  >";
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=0 >";
+	$html.='<tr><td '.$style['section'].' colspan=2><strong>Departamento</strong></td></tr>';
+
 	// $html.='<tr><td colspan=2 style="text-align:center;font-weight:bold;color:#F10102;">'.$producto['item']['nombre'].' - '.$producto['nombre'].' '.$producto['numero'].'</td></tr>';
 	// if(trim(strip_tags($producto['ficha']))!=''){
 	//$html.='<tr><td>'.$producto['ficha'].'</td></tr>';
@@ -61,7 +77,7 @@ function render_departamentos($producto){
 	$html.='<tr><td width=100>Área Total</td><td>'.$producto['area_total'].'</td></tr>';
 	$html.='<tr><td width=100>Área Construída</td><td>'.$producto['area_construida'].'</td></tr>';
 
-	$html.='<tr><td width=100># Garages</td><td>'.$producto['num_garages'].'</td></tr>';
+	// $html.='<tr><td width=100># Garages</td><td>'.$producto['num_garages'].'</td></tr>';
 	$html.='<tr><td width=100># Dormitorios</td><td>'.$producto['num_rooms'].'</td></tr>';
 	$html.='<tr><td width=100># Baños</td><td>'.$producto['num_bathrooms'].'</td></tr>';
 

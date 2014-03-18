@@ -8,7 +8,7 @@ $ITEM=$DETAIL[$PARAMS['this']];
 
 ?>
 <style>
-table { font-size: 15px; border: 1px solid $ccc; border-radius: 5px; }
+table { font-size: 15px; border: 1px solid #ccc; border-radius: 5px; }
 .section { 
     background-color: #A1BD5B;
     color: #FFFFFF;
@@ -263,7 +263,6 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 		$html.="<table width='650px' cellpadding=0 cellspacing=0 border=0  >";
 
 		/**
-		 * CLIENTE
 		 */
 
 		$html.='<tr><td colspan=4 class="section">Cliente</td></tr>';
