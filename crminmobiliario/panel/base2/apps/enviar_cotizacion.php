@@ -87,7 +87,81 @@ include("config/library.php");
 
 
 
+			if($_SERVER['REQUEST_METHOD']=='POST'){
+
+				$CuentasE=select('nombre,email,logo,fecha_creacion,dominio','envios_cuentas','where 1',0,
+									array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
+								);
+
+				$linea['cuenta']['logo']=($linea['id_grupo']=='4')?$CuentasE['1']['logo']:$CuentasE['0']['logo'];		
+
+
+				$unos=between($_POST['msg'],"<!--","-->");
+				$ID_SPEECH=dato("id","speeches","where nombre='".$unos[1]."'",0);			
+
+				$insertado_mensaje=insert(array(
+								'id_grupo'=>$_GET['id'],
+								'tipo'=>'1',
+								'nombre'=>$_POST['subject'],
+								'id_speech'=>$ID_SPEECH,
+								'fecha_creacion'=>"now()",
+								'fecha_edicion'=>"now()",	
+								'visibilidad'=>'1',
+								 ),
+								 "ventas_mensajes",
+								 0
+								 );
+
+				$_POST['msg']=str_replace(array(
+												"../imagenes_dir/",
+												"[IMPRIMIR]",
+												)
+										 ,array(
+										 		$vars_server['httpfiles']."/imagenes_dir/",
+				"<a href='http://crminmobiliario.info/index.php?modulo=items&tab=productos_imprimir&acc=file&id_mensaje=".$insertado_mensaje['id']."&id_usuario=".$linea['id_usuario']."'>IMPRIMIR</a>",								 
+										 		),$_POST['msg']);
+									update(array(
+												'texto'=>$_POST['msg'],
+												),
+											 "ventas_mensajes",
+											 "where id='".$insertado_mensaje['id']."'",
+											 0
+											);
+				/*							
+				prin(						array(
+							'emails'=>array($linea['cliente']['email'],'guillermolozan@gmail.com','wtavara@prodiserv.com')
+							,'Subject'=>$_POST['subject']
+							,'body'=>$_POST['msg']
+							,'From'=>$linea['usuario']['email']
+							,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos']
+							,'Logo'=>$linea['cuenta']['logo']
+							));
+				*/
+				$email_cliente=enviar_email(
+							array(
+							'emails'=>array(
+											$linea['cliente']['email'],
+											$linea['usuario']['email'],
+											'guillermolozan@gmail.com',
+											'wtavara@prodiserv.com',
+											)
+							,'Subject'=>$_POST['subject']
+							,'body'=>$_POST['msg']
+							,'From'=>$linea['usuario']['email']
+							,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos'] 
+							,'Logo'=>$linea['cuenta']['logo']
+							)
+						);	
+
+
+				print_r($email_cliente);			
+	//			print_r($email_cliente['todos']);
+
+				exit();
+			}
+
 		
+
 
 		//prin($linea);
 		$tbcampos=array(
