@@ -146,7 +146,7 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 	</div>
 
-	<div class="span3" style="min-height:200px;position: relative;">
+	<div class="span3" style="min-height:200px;position: relative; padding-bottom:20px;">
 		<div id="cart"></div>
 		<button type="button" class="form_boton_1" id="fb1" onclick="record();" >Aceptar</button>
 	</div>

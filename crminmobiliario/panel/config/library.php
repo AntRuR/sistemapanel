@@ -19,12 +19,12 @@ function extract_departamentos($id){
 	        "id,id_item,id_items_tipo,id_subgrupo,numero,nombre,pvlista,pvpromocion,area_total,area_construida,
 	        descripcion,descripcion2,descripcion3,descripcion4,
 	        has_balcon,num_rooms,num_bathrooms,
-	        id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,tags,fecha_creacion",
+	        id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,fecha_creacion",
 	        "productos_items_items",
 	        "where id='$id' and visibilidad='1'",
 	        0,
 	        array(    	
-	        	'galerias'=>array('fila'=>array(
+	        	'galerias'=>array('filas'=>array(
 	        									'nombre,id',
 	        									'productos_fotos',
 	        									'where id_tipo="{id_items_tipo}" and visibilidad="1"',
@@ -35,8 +35,8 @@ function extract_departamentos($id){
 																					"profot_imas",
 																					array(												 
 																					 	   'archivo'=>'1',
-																					 	   'thumb'=>'3,260x200,0',
-																					 	   'box'=>'4',
+																					 	   'thumb'=>'1,260x200,0',
+																					 	   'box'=>'2',
 																					)        																	
 	        																)
 	        												)
@@ -46,15 +46,16 @@ function extract_departamentos($id){
 	        	)
 	        );
 
-	//prin($product);
 
 	return $product;
 
 }
 
+
 function render_departamentos($producto){
 
-	//prin($producto);
+	// prin($producto);
+	// exit();
 
 	$style=render_style();
 
@@ -68,11 +69,12 @@ function render_departamentos($producto){
 	//$html.='<tr><td>'.$producto['ficha'].'</td></tr>';
 	// }
 	$html.='<tr><td colspan=2><strong>Descripción</strong></td></tr>';
-	$html.='<tr><td colspan=2>'.$producto['descripcion2	'].'</td></tr>';
+	$html.='<tr><td colspan=2>'.$producto['descripcion2'].'</td></tr>';
+
 	$html.='<tr><td colspan=2><strong>Acabados</strong></td></tr>';
 	$html.='<tr><td colspan=2>'.$producto['descripcion3'].'</td></tr>';
-	$html.='<tr><td colspan=2><strong>Areas Comunes</strong></td></tr>';
-	$html.='<tr><td colspan=2>'.$producto['descripcion4'].'</td></tr>';
+	// $html.='<tr><td colspan=2><strong>Areas Comunes</strong></td></tr>';
+	// $html.='<tr><td colspan=2>'.$producto['descripcion4'].'</td></tr>';
 
 	$html.='<tr><td width=100>Área Total</td><td>'.$producto['area_total'].'</td></tr>';
 	$html.='<tr><td width=100>Área Construída</td><td>'.$producto['area_construida'].'</td></tr>';
@@ -85,12 +87,16 @@ function render_departamentos($producto){
 	$html.='<tr><td width=100>Tiene Depósito</td><td>'. (($producto['has_deposito'])?'Si':'No') .'</td></tr>';
 
 	$html.='<tr><td colspan=2>';
-	// prin($galerias);
-	if(sizeof($galerias)>0){
-		foreach($producto['galerias'] as $t=>$galeria){
+
+	// prin($producto['galerias']);
+	// exit();
+
+	if(sizeof($producto['galerias'])>0){ 
+		foreach($producto['galerias'] as $t=>$galeria){ //prin($galeria);
 		$html.="<table $tableProps >";
 		$html.="<td align=center valign=middle style=\"border:1px solid #999 !important;\" colspan=2>".$galeria['nombre']."</td>";
 		$ttt=0;
+		
 		foreach($galeria['fotos'] as $t=>$foto){
 			if($ttt==0){ $html.='<tr>'; }
 			$html.="<td align=center valign=middle style=\"border:1px solid #999 !important;\"><a href='".$foto['box']."'><img ".$foto['thumb']." /></a></td>";
@@ -100,6 +106,7 @@ function render_departamentos($producto){
 		$html.="</table><br>";
 		}
 	}
+	// exit();
 	$html.='</td></tr>';				
 	$html.='<tr><td height="5" colspan=2></td></tr>';				
 	$html.='</table>';
@@ -110,24 +117,68 @@ function render_departamentos($producto){
 
 function extract_depositos($id){
 
+$product= fila(
+        "id,id_item,id_items_estacionamiento_tipo,id_subgrupo,numero,nombre,tipo,precio,area,descripcion,id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,tags,fecha_creacion"
+        ,"productos_estacionamientos_items_items"
+	    ,"where id='$id' and visibilidad='1'"
+        ,0
+        );
 	return;
 
-}
-
-function render_depositos($array){
-
-	return "depo";
 }
 
 function extract_estacionamiento($id){
 
+$product= fila(
+        "id,id_item,id_items_deposito_tipo,id_subgrupo,numero,nombre,tipo,precio,area,descripcion,id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,tags,fecha_creacion"
+        ,"productos_depositos_items_items"
+	    ,"where id='$id' and visibilidad='1'"
+        ,0
+        );
 	return;
 
 }
 
-function render_estacionamiento($array){
+function render_depositos($producto){
 
-	return "estacionamiento";
+	$style=render_style();
+
+	if(1){
+	$html='';
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=0 >";
+	$html.='<tr><td '.$style['section'].' colspan=2><strong>Deposito</strong></td></tr>';
+
+	$html.='<tr><td colspan=2><strong>Descripción</strong></td></tr>';
+	$html.='<tr><td colspan=2>'.$producto['descripcion'].'</td></tr>';
+
+	$html.='<tr><td width=100>Área</td><td>'.$producto['area'].'</td></tr>';
+			
+	$html.='<tr><td height="5" colspan=2></td></tr>';				
+	$html.='</table>';
+	}
+	return $html;
+}
+
+
+function render_estacionamiento($producto){
+
+	$style=render_style();
+
+	if(1){
+	$html='';
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=0 >";
+	$html.='<tr><td '.$style['section'].' colspan=2><strong>Estacionamiento</strong></td></tr>';
+
+	$html.='<tr><td colspan=2><strong>Descripción</strong></td></tr>';
+	$html.='<tr><td colspan=2>'.$producto['descripcion'].'</td></tr>';
+
+	$html.='<tr><td width=100>Área</td><td>'.$producto['area'].'</td></tr>';
+			
+	$html.='<tr><td height="5" colspan=2></td></tr>';				
+	$html.='</table>';
+	}
+	return $html;
+
 }
 
 

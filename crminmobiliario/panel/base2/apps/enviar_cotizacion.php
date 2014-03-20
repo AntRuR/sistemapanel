@@ -85,6 +85,7 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 
 		$pedido=json_decode($linea['pedido']);
 		// prin($linea['pedido']);
+		// exit();
 
 		$pblocks=array();
 		$pdepartamentos=array();
@@ -100,7 +101,7 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 					$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
 				break;
 				case "deposito":
-					$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+					$pdepositos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
 				break;						
 			}
 
