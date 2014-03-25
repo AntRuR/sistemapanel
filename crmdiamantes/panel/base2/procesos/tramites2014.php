@@ -54,20 +54,12 @@ foreach($lineas as $key=>$linea)
 
 
 
-            // // [NUM] => 1
-            // // [FECHA] => 1/3/14
-            // // [DOCUMENTO] => F/ 003-6875
-            // // [CLIENTE] => INVERSIONES COMERCIALES JF S.A.C.
-            // // [FIJO] => NO TIENE OC
-            // // [MODELO] => INCAPOWER B30
-            // // [SERIE] => LHBP41TR1DN210159
-            // // [IMPORTE] => 11,030.80
-            // [TIENDA] => PROVINCIA
-            // // [VENDEDOR] => J.MALPARTIDA
-            // [TIPO DE LAMINAS Y/O ACCESORIOS] => 
-            // [EXPDIENTES TARJETA Y PLACAS] => PROVINCIA NO SE HACE TRAMITE
-            // // [COMETARIOS ] => 
-            // // [IMPORT] => 1,1/3/14,F/ 003-6875,INVERSIONES COMERCIALES JF S.A.C.,NO TIENE OC ,INCAPOWER B30,LHBP41TR1DN210159,"11,030.80",PROVINCIA,J.MALPARTIDA,,PROVINCIA NO SE HACE TRAMITE ,,,,
+            [CLIENTE] => GLORIA CCAICO QUICHCA
+            [SERIE] => LCR6U3123DX605433
+            [NUM_TITULO] => 2014-563
+            [FECHA] => 1/2/14
+            [CONDICION] => F4O333
+            [IMPORT] => GLORIA CCAICO QUICHCA,LCR6U3123DX605433,2014-563,1/2/14,F4O333,
 
 
 prin($buf);
@@ -75,7 +67,7 @@ exit();
 
 // echo "csv: ".sizeof($buf)."<br>";
 
-$total=$num_ventas=0;
+$total=0;
 $NUEVOS=$NOEXISTEN=array();
 
 foreach($buf as $linea)
@@ -108,31 +100,30 @@ foreach($buf as $linea)
 
     // continue;
 
-    $num_ventas++;
 
-    $id_vendedor=dato("id","productos_ventas","where vin='".$linea['SERIE']."' ",0);
+    // $id_vendedor=dato("id","productos_ventas","where vin='".$linea['SERIE']."' ",0);
 
 
-    list($inicial,$apellido)=explode(".",trim($linea['VENDEDOR']));
-    $inicial=strtolower($inicial);
-    $apellido1=strtolower($apellido);
-    $apellido2=ucfirst($apellido);
-    // echo "<div style='color:red;'>!!".$apellido1."</div>";
+    // list($inicial,$apellido)=explode(".",trim($linea['VENDEDOR']));
+    // $inicial=strtolower($inicial);
+    // $apellido1=strtolower($apellido);
+    // $apellido2=ucfirst($apellido);
+    // // echo "<div style='color:red;'>!!".$apellido1."</div>";
 
-    $id_vendedor=dato("id","usuarios","where ( apellidos like '%".$apellido1."%' or apellidos like '%".$apellido2."%')  ",0);
-    // echor "<br>";
-    if($id_vendedor!=FALSE){
+    // $id_vendedor=dato("id","usuarios","where ( apellidos like '%".$apellido1."%' or apellidos like '%".$apellido2."%')  ",0);
+    // // echor "<br>";
+    // if($id_vendedor!=FALSE){
 
-        // echo '<div style="clear:left;">'.$id_vendedor."</div>";
+    //     // echo '<div style="clear:left;">'.$id_vendedor."</div>";
 
-    } else {
+    // } else {
 
-        // echo "<div style='clear:left;'>vendedor nuevo : ".$linea['VENDEDOR']."</div>";
-        $ii=insert(array("nombre"=>trim($inicial),"apellidos"=>trim($apellido1)),"usuarios",0);
+    //     // echo "<div style='clear:left;'>vendedor nuevo : ".$linea['VENDEDOR']."</div>";
+    //     $ii=insert(array("nombre"=>trim($inicial),"apellidos"=>trim($apellido1)),"usuarios",0);
 
-        $id_vendedor=$ii['id'];
+    //     $id_vendedor=$ii['id'];
 
-    }
+    // }
 
 
     list($mes,$dia,$ano)=explode("/",$linea['FECHA']);
@@ -166,8 +157,6 @@ foreach($buf as $linea)
     }
 
 
-    $monto=str_replace(",","",$linea['IMPORTE']);
-
     /*
 
     $inventa=insert(array(
@@ -199,24 +188,6 @@ foreach($buf as $linea)
     ),"productos_ventas",0);
 
 
-
-    insert(array(
-
-        'fecha_creacion'=>$fechi,
-
-        'id_grupo'=>$inventa['id'],
-
-        'operacion'=>'2',
-
-        'factnum'=>$linea['DOCUMENTO'],
-
-        'monto'=>$total*1,
-
-        'recibido'=>$total*1,
-
-        'saldo'=>0,
-
-    ),"productos_ventas_documentos",0);
 
 
     */

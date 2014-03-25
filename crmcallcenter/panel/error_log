@@ -263,3 +263,15 @@ Stack trace:
 [07-Aug-2012 09:41:41] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 78 bytes) in /home/userinca/public_html/panel/lib/PHPExcel/Shared/String.php on line 561
 [27-Aug-2012 15:16:05] PHP Parse error:  syntax error, unexpected $end in /home/userinca/public_html/panel/lib/util.php on line 371
 [27-Aug-2012 15:54:11] PHP Parse error:  syntax error, unexpected $end, expecting ')' in /home/userinca/public_html/panel/config/tablas.php on line 8275
+[25-May-2013 10:28:32] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/circulan/public_html/panel/lib/PHPExcel/Writer/Excel5/BIFFwriter.php on line 151
+[25-May-2013 10:29:34] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/circulan/public_html/panel/lib/PHPExcel/CachedObjectStorage/CacheBase.php on line 148
+[15-Jun-2013 11:21:17] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/circulan/public_html/panel/lib/PHPExcel/CachedObjectStorage/CacheBase.php on line 146
+[15-Jun-2013 11:21:59] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/circulan/public_html/panel/lib/PHPExcel/Worksheet.php on line 564
+[15-Jun-2013 11:23:35] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/circulan/public_html/panel/lib/PHPExcel/Shared/Font.php on line 249
+[15-Jun-2013 11:24:18] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/circulan/public_html/panel/lib/PHPExcel/Shared/String.php on line 288
+[15-Jun-2013 11:24:19] PHP Fatal error:  Uncaught exception 'Exception' with message 'Cell coordinate can not be zero-length string.' in /home/circulan/public_html/panel/lib/PHPExcel/Cell.php:511
+Stack trace:
+#0 /home/circulan/public_html/panel/lib/PHPExcel/Style.php(283): PHPExcel_Cell::coordinateFromString('')
+#1 /home/circulan/public_html/panel/exportar_excel.php(286): PHPExcel_Style->applyFromArray(Array)
+#2 {main}
+  thrown in /home/circulan/public_html/panel/lib/PHPExcel/Cell.php on line 511

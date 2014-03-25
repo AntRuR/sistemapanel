@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 
 include("objeto.php");
 

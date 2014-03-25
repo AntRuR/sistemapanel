@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 
 /**
  * Name: cPanel Database Class

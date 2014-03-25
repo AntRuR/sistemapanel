@@ -349,8 +349,3 @@ padding:1px 20px; font-size:12px;
 
 div.prin { float:left;width:100%; } 
 div.prin pre { z-index:1;border-radius:3px;margin-bottom:1px;padding:2px 5px;float:left;text-align:left; position:relative;background-color:#333 !important;color:#FFFFFF !important;font-size:9px; }
-
-
-
-/*.arbol_items .menu_group { display: none; }*/
-/*.arbol_items .selected {	 display: block; }*/

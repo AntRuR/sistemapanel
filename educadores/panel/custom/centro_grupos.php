@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 chdir("../");
 include("lib/compresionInicio.php");
 include("lib/includes.php");

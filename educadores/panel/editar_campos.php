@@ -1,5 +1,4 @@
-<?php //á
-?><div class="cuadro_codigo" style="clear: left;">
+<div class="cuadro_codigo" style="clear: left;">
 	<?php
 		
 	$Quicks=array(

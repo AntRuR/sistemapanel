@@ -184,17 +184,7 @@ $vars_global=$vars['GENERAL'];
 $UPLOAD_FTP=(isset($vars_global['UPLOAD_FTP']))?$vars_global['UPLOAD_FTP']:0;
 
 extract($vars_global);
-// $LOCALHOST='';
-// if(enhay($_SERVER['SERVER_NAME'],'localhost')){
-// 	$LOCALHOST=$_SERVER['SERVER_NAME'];
-// }
-// echo '<pre>';
-// print_r($vars_global);
-// print_r($_SERVER);
-// echo '</pre>';
-// exit();
-
-if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME']=="127.0.0.1" or substr($_SERVER['SERVER_NAME'],0,7)=="192.168") {
+if ($_SERVER['SERVER_NAME']=="localhost" or $_SERVER['SERVER_NAME']=="127.0.0.1" or substr($_SERVER['SERVER_NAME'],0,7)=="192.168") {
 
 	$vars['LOCAL']['httpfiles']=($vars['GENERAL']['MODO_LOCAL_ARCHIVOS_REMOTOS']==1)?$vars['REMOTE']['httpfiles']:$vars['LOCAL']['httpfiles'];
 	$vars_server=$vars['LOCAL'];

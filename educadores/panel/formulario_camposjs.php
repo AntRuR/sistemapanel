@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 
 foreach($tbcampos as $tbcampA){
 	switch($tbcampA['tipo']){

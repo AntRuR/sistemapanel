@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 
 //include("lib/includes.php");
 include("lib/global.php");
