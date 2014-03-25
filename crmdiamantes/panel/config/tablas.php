@@ -569,7 +569,7 @@ $objeto_tabla['PRODUCTOS_ITEMS_ITEMS']=array(
 						'tipo'			=> 'hid',
 						'style'			=> 'width:150px;',
 						'derecha'		=> '1',
-						'opciones'		=> 'id,nombre;apellidos|clientes',
+						'opciones'		=> 'id,nombre;apellidos|clientes|where 0op',
 						'frozen'		=> '1',
 						'listable'		=> '0',
 						'width'			=> '150px',
@@ -601,7 +601,14 @@ $objeto_tabla['PRODUCTOS_ITEMS_ITEMS']=array(
 						'fulltext'		=> '1',
 						'autotags'		=> '1',
 						'listable'		=> '0'
-				)
+				),
+				'import'			=>array(
+						'campo'			=> 'import',
+						'label'			=> 'import',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'listable'		=> '0'
+				)				
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '0',
@@ -1619,7 +1626,14 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'fulltext'		=> '1',
 						'autotags'		=> '1',
 						'listable'		=> '0'
-				)
+				),
+				'import'			=>array(
+						'campo'			=> 'import',
+						'label'			=> 'import',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'listable'		=> '0'
+				)					
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '0',
@@ -3206,7 +3220,14 @@ $objeto_tabla['PRODUCTOS_DOCUMENTOS']=array(
 						'indicador'		=> '1',
 						'fulltext'		=> '1',
 						'autotags'		=> '1'
-				)
+				),
+				'import'			=>array(
+						'campo'			=> 'import',
+						'label'			=> 'import',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'listable'		=> '0'
+				)					
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '1',
