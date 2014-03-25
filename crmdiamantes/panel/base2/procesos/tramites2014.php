@@ -1,5 +1,29 @@
 <?php //á
 
+if(!function_exists('str_getcsv2')) {
+    function str_getcsv2($input, $delimiter = ',', $enclosure = '"') {
+
+        if( ! preg_match("/[$enclosure]/", $input) ) {
+          return (array)preg_replace(array("/^\\s*/", "/\\s*$/"), '', explode($delimiter, $input));
+        }
+
+        $token = "##"; $token2 = "::";
+        //alternate tokens "\034\034", "\035\035", "%%";
+        $t1 = preg_replace(array("/\\\[$enclosure]/", "/$enclosure{2}/",
+             "/[$enclosure]\\s*[$delimiter]\\s*[$enclosure]\\s*/", "/\\s*[$enclosure]\\s*/"),
+             array($token2, $token2, $token, $token), trim(trim(trim($input), $enclosure)));
+
+        $a = explode($token, $t1);
+        foreach($a as $k=>$v) {
+            if ( preg_match("/^{$delimiter}/", $v) || preg_match("/{$delimiter}$/", $v) ) {
+                $a[$k] = trim($v, $delimiter); $a[$k] = preg_replace("/$delimiter/", "$token", $a[$k]); }
+        }
+        $a = explode($token, implode($token, $a));
+        return (array)preg_replace(array("/^\\s/", "/\\s$/", "/$token2/"), array('', '', $enclosure), $a);
+
+    }
+}
+
 $csvv=file("tramites2014.csv");
 
 $csv=implode("",$csvv);
@@ -21,7 +45,7 @@ foreach($lineas as $key=>$linea)
 {
 
     if($key===0){ 
-        $header=str_getcsv($linea); 
+        $header=str_getcsv2($linea); 
         // $header=explode(",",$linea); 
         foreach($header as $kh=>$hea){
             // $header[$kh]=$alia;
@@ -38,7 +62,7 @@ foreach($lineas as $key=>$linea)
     {
 
         // $ddd=explode(",",$linea);
-        $ddd=str_getcsv($linea); 
+        $ddd=str_getcsv2($linea); 
 
         foreach($header as $dk=>$dd){
             if(trim($dd)!='')
@@ -54,16 +78,15 @@ foreach($lineas as $key=>$linea)
 
 
 
-            [CLIENTE] => GLORIA CCAICO QUICHCA
-            [SERIE] => LCR6U3123DX605433
-            [NUM_TITULO] => 2014-563
-            [FECHA] => 1/2/14
-            [CONDICION] => F4O333
-            [IMPORT] => GLORIA CCAICO QUICHCA,LCR6U3123DX605433,2014-563,1/2/14,F4O333,
+            // [CLIENTE] => GLORIA CCAICO QUICHCA
+            // [SERIE] => LCR6U3123DX605433
+            // [NUM_TITULO] => 2014-563
+            // [FECHA] => 1/2/14
+            // [CONDICION] => F4O333
+            // [IMPORT] => GLORIA CCAICO QUICHCA,LCR6U3123DX605433,2014-563,1/2/14,F4O333,
 
-
-prin($buf);
-exit();
+// prin($buf);
+// exit();
 
 // echo "csv: ".sizeof($buf)."<br>";
 
@@ -88,7 +111,7 @@ foreach($buf as $linea)
 
     }
 
-    if(hay("productos_ventas","where id_item_item='".$devin['id']."'")){
+    if(hay("productos_documentos","where id_item_item='".$devin['id']."'")){
 
         // echo $linea['SERIE']."ya esta vendido<br>";
 
@@ -125,12 +148,18 @@ foreach($buf as $linea)
 
     // }
 
+    if(trim($linea['FECHA'])!=''){
 
-    list($mes,$dia,$ano)=explode("/",$linea['FECHA']);
-    $mes=str_pad((int) $mes,2,"0",STR_PAD_LEFT);
-    $dia=str_pad((int) $dia,2,"0",STR_PAD_LEFT);
-    $fechi="20".$ano."-".$mes."-".$dia." 00:00:00";
+        list($mes,$dia,$ano)=explode("/",$linea['FECHA']);
+        $mes=str_pad((int) $mes,2,"0",STR_PAD_LEFT);
+        $dia=str_pad((int) $dia,2,"0",STR_PAD_LEFT);
+        $fechi="20".$ano."-".$mes."-".$dia." 00:00:00";
 
+    } else {
+
+        $fechi=date("Y-m-d H:i:s");
+
+    }    
 
 
     list($uno,$dos)=explode(",",$linea['CLIENTE']);
@@ -157,40 +186,28 @@ foreach($buf as $linea)
     }
 
 
-    /*
+    
 
     $inventa=insert(array(
 
         'fecha_creacion'      =>$fechi,
-        
-        'numov'               =>'',
-        
-        'id_ubicacion_salida' =>$devin["id_ubicacion"],
-        
-        'id_item'             =>$devin["id_item"],
-        
-        'id_color'            =>$devin["id_color"],
+
+        'status'              =>7,
+                        
+        // 'id_item'             =>$devin["id_item"],
         
         'id_item_item'        =>$devin["id"],
         
-        'pvpromocional'       =>$monto*1,
-        
-        'descuento'           =>'0',
-        
-        'pvfinal'             =>$monto*1,
-        
-        'id_cliente'          =>$id_cliente,
-        
-        'id_vendedor'         =>$id_vendedor,
+        'placa'               =>$linea['NUM_TITULO'],
 
         'import'              =>$linea['IMPORT'],
 
-    ),"productos_ventas",0);
+    ),"productos_documentos",1);
 
 
 
 
-    */
+    
 
 }    
 

