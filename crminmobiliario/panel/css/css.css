@@ -1,6 +1,9 @@
 /*@import url(http://fonts.googleapis.com/css?family=Arial+Narrow);*/
 /*@import url(http://fonts.googleapis.com/css?family=ABeeZee);*/
 
+@font-face { font-family: "PTN77F"; src: url(fonts/PTN77F.ttf) format("truetype"); }
+@font-face { font-family: "PTN57F"; src: url(fonts/PTN57F.ttf) format("truetype"); }
+
 /*<?php header("Content-type: text/css"); ?>/*******************RESET***********************/
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,th,td
 	{
@@ -171,7 +174,7 @@ body {
 	/*background:url("http://appcdn.springpadit.com/images/themes/deepsea/bubbles.far.png") repeat-x scroll 120% top, -moz-linear-gradient(center top , #7F8C97 0%, #4B525B 100%) repeat scroll 0 0%, none repeat scroll 0 0 #4B525B !important;*/
 	/*background:url("http://appcdn.springpadit.com/images/themes/freeways/bg.jpg"), none !important;	*/
 	/*background:url("https://www.paypalobjects.com/webstatic/mktg/consumer/gradients/interior-gradient-top.png") repeat-x scroll center top transparent !important;*/
-	background:url("https://www.wetransfer.com/assets/black_linen_v2-7f2797495b94f27b54a34a9347ff1f40.png") repeat scroll left top transparent !important;
+	/*background:url("https://www.wetransfer.com/assets/black_linen_v2-7f2797495b94f27b54a34a9347ff1f40.png") repeat scroll left top transparent !important;*/
 
 }
 
@@ -708,12 +711,16 @@ a.bl1:hover {
 .formulario .form_input input,.formulario .form_input select {
 	height: 18px;
 }
+.formulario .form_input input[type="radio"]{
+	margin-right: 4px;
+	margin-left: 4px;
+}
 
 .formulario select.form_input_fecha { /*
 	background:#FFFFFF url(../img/bg_inputs.png) no-repeat scroll 0 0;
 	border:1px solid #CCD6D6;
 	*/
-	width: 52px;
+	width: 58px;
 	margin-right: 0px;
 	margin-top: 4px;
 	height: 20px;
@@ -843,7 +850,7 @@ background-image: -moz-linear-gradient(left center,#09C 50%,#FFFFFF 100%);
 }
 
 ul.ul_menus {
-	margin: 13px 0 0px -3px;
+	margin: 13px 0 0;
 	height: auto;
 	float: left;
 	width: 100%;
@@ -967,6 +974,7 @@ ul.ul_menus .open {
 	position: relative;
 	border: 0px;
 	/*background-image: url("../img/shadow11.png"); background-position: left 28px;*/
+	line-height: 10px;
 }
 
 .menus strong {
@@ -2375,7 +2383,6 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 }
 
 .htmlenlista {
-	font-size: 9px;
 	height: auto;
 	max-height: 150px;
 	overflow: auto;
@@ -2386,7 +2393,9 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 .htmlenlista p {
 	margin: 0px 0;
 }
-
+.htmlenlista, .htmlenlista p, .htmlenlista table td {
+	font-size: 9px !important;
+}
 .itms {
 	margin-left: 3px;
 	margin-right: 10px;
@@ -2451,6 +2460,7 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 .itms .itmedit textarea {
 	width: 100%;
 	height: 36px;
+	font-size: 12px !important;
 }
 
 .itms .tite {
@@ -3241,26 +3251,24 @@ a.ico_CargarCombo {
 
 .ul_menus li.hijomenusel {
 	width: 103% !important;
-	margin-left: -10px !important;
+	margin-left: 4% !important;
 	-moz-border-radius: 6px 0px 0px 6px;
 	-webkit-border-radius: 6px 0px 0px 6px;
 	-ms-border-radius: 6px 0px 0px 6px;
 	-khtml-border-radius: 6px 0px 0px 6px;
 	border-radius: 6px 0px 0px 6px;
-	padding-left: 13px !important;
 }
 
 .ul_menus li.hijomenu {
 	width: 100% !important;
 	margin-left: 4% !important;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px dotted #DDDDDD;
 	/*
 background: none repeat scroll 0 0 #FFFFFF;
     border: 0 none;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 0px 1px #E6E6E6;
 */
-	border-radius: 0px;
 }
 
 .ul_menus li.hijomenusel,li.hijomenu {
@@ -3496,7 +3504,7 @@ ul.ul_menus li {
 
 ul.ul_menus li a {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,Arial, sans-serif;
-	padding: 1px 0px 2px;
+	padding: 1px 5px 2px;
 	color: #053581;
 	font-size: 13px;
 }
@@ -4518,7 +4526,7 @@ input[type="time"], input[type="week"], input[type="number"],
 input[type="email"], input[type="url"], input[type="search"],
 input[type="tel"], input[type="color"], .uneditable-input {
 	padding:0px 0px;
-	margin-bottom: 3px;
+	margin-bottom: 2px;
 }
 li {
     line-height: 17px !important;

@@ -1,5 +1,4 @@
-<?php //á
- 
+<?php 
 /*******************************************************************************
 Version: 1.11 ($Rev: 175 $)
 Website: http://sourceforge.net/projects/simplehtmldom/

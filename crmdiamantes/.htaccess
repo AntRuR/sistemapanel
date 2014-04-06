@@ -26,9 +26,9 @@ Order allow,deny
 ##
 #Bloquea el acceso a config.ini
 ##
-<Files config.ini>
-Order allow,deny
-Deny from all
+<Files config.ini> 
+Order allow,deny 
+Deny from all 
 </Files>
 
 
@@ -70,39 +70,39 @@ AddDefaultCharset UTF-8
 ##
 #Configura caché ( como lo recomienda YSLOW )
 ##
-<IfModule mod_expires.c>
+<IfModule mod_expires.c> 
 
 
 	<FilesMatch "\.(jpg|jpeg|png|gif|ico)$">
-
+	
 	ExpiresActive On
 	ExpiresDefault A31536000
-
+	
 	</FilesMatch>
-
+		
 	<FilesMatch "\.(js|css)$">
-
+	
 	ExpiresActive On
 	ExpiresDefault A31536000
-
+	
 	</FilesMatch>
-
+	
 	<FilesMatch "\.(flv|swf)$">
-
+	
 	ExpiresActive On
 	ExpiresDefault A31536000
-
-	</FilesMatch>
-
+	
+	</FilesMatch>	
+	
 	<FilesMatch "\.(html|php|htm)$">
-
+	
 	ExpiresActive On
 	ExpiresDefault A0
-
+	
 	</FilesMatch>
 
-
-</IfModule>
+		
+</IfModule> 
 
 
 
@@ -112,7 +112,7 @@ AddDefaultCharset UTF-8
 #                          #
 ############################
 
-<IfModule mod_rewrite.c>
+<IfModule mod_rewrite.c> 
 
 ##
 #Acticar el REWRITE
@@ -123,9 +123,9 @@ Options +FollowSymlinks
 
 ##
 #Especificar el root base para el rewrite y error 404
-##
+## 
 RewriteBase /sistemapanel/crmdiamantes/
-ErrorDocument 404 /sistemapanel/crmdiamantes/index.php?modulo=error&tab=404
+ErrorDocument 404 /index.php?modulo=error&tab=404
 
 
 ##
@@ -142,10 +142,9 @@ RewriteRule ^(.*)\.(js|css|ico|gif|jpe?g|png|xml)$ - [L]
 # quitar www del inicio de la url
 ##
 
-##WWW-START##
-RewriteCond %{HTTP_HOST} ^www.incapower.pe$ [NC]
-RewriteRule ^(.*)$ http://incapower.pe/$1 [R=301,L]
-##WWW-END##
+RewriteCond %{HTTP_HOST} ^www.crmcallcenter.info$ [NC]
+RewriteRule ^(.*)$ http://crmcallcenter.info/$1 [R=301,L]
+
 
 ## quitar el / final ( canonicalizacion )
 RewriteRule ^(.*)/$ $1 [L,R=301]
@@ -155,30 +154,37 @@ RewriteRule ^(.*)/$ $1 [L,R=301]
 ############   HOME    ###########
 
 #HOME-START
-RewriteRule ^$ index.php?modulo=error&tab=404 [L]
+RewriteRule ^$ panel [L]
 #HOME-END
 
+## CORRELATIVO ##
 
-############   TABS DE UNA PALABRA   ###########
+#RewriteRule ^(villa|surquillo)/([0-9]{1,10})$ 			panel/correlativo.php?correlativo=$1&numero=$2 [L]
+
+
+############   TABS DE UNA PALABRA   ###########  
 
 #url_formularios-START
-RewriteRule ^(vacio)$ index.php?modulo=formularios&tab=$1&ht=1 [L]
+RewriteRule ^(informenos|login|registro|recordar_clave|calcula-tu-envio|pedido|compre_en_usa|compre_en_lima|compramos_por_ti|calculadora|editar_usuario|editar_clave|boletin)$ index.php?modulo=formularios&tab=$1&ht=1 [L]
 #url_formularios-END
 
 #url_items-START
-RewriteRule ^(vacio)$  index.php?modulo=items&tab=$1&sub=list&ht=2 [L]
+RewriteRule ^(productos|blog_fotos|blog_videos|blog_noticias|blog_actividades|textos_items|productos_imprimir)$  index.php?modulo=items&tab=$1&acc=list&ht=2 [L]
 #url_items-END
 
 #url_pages-START
-RewriteRule ^(vacio)$ index.php?modulo=app&tab=pages&page=$1&ht=3 [L]
+RewriteRule ^(empresa|como-funciona|compre-en-nuestra-tienda|compre|servicios|donde-nos-encontramos|quienes_somos|ubicacion|ubicacion_wt)$ index.php?modulo=app&tab=pages&page=$1&ht=3 [L]
 #url_pages-END
 
 #url_app-START
-RewriteRule ^(vacio)$ index.php?modulo=app&tab=home&ht=4 [L]
+RewriteRule ^(carrito|sigue-tus-compras|sigue_tus_compras|home)$ index.php?modulo=app&tab=$1&ht=4 [L]
 #url_app-END
 
 #varurl-START
+RewriteRule ^contactenos$ index.php?modulo=formularios&tab=contacto [L]
+RewriteRule ^compramos_por_ti$ index.php?modulo=app&tab=pages&page=compramos-por-ti&ht=3 [L]
 #varurl-END
+
 
 ############   ITEMS  ##########
 
@@ -189,28 +195,31 @@ RewriteRule ^([a-z0-9_]{4,20})/pag-([0-9]{1,4})$ 			index.php?modulo=items&tab=$
 RewriteRule ^([a-z0-9_]{4,20})/([0-9]{1,7})/([a-z0-9\-]{2,100})/pag-([0-9]{1,4})$ 	index.php?modulo=items&tab=$1&acc=file&id=$2&friendly=$3&pag=$4&ht=6p [L]
 
 #ITEMS/ID/friendly 													ej: productos/2/url-amigable
-RewriteRule ^([a-z0-9_]{4,20})/([0-9]{1,7})/([a-z0-9\-]{2,100})$ 	index.php?modulo=items&tab=$1&acc=file&id=$2&friendly=$3&ht=6 [L]
-
-#ITEMS/ID/friendly/pag-PAG  										ej: productos/2/url-amigable/pag-2
-RewriteRule ^([a-z0-9_]{4,20})/([0-9]{1,7})/([a-z0-9\-]{2,100})/pag-([0-9]{1,4})$ 	index.php?modulo=items&tab=$1&acc=file&id=$2&friendly=$3&pag=$4&ht=6p [L]
+RewriteRule ^([a-z0-9_]{4,20})/([0-9]{1,7})/([a-z0-9\-.]{3,100})$ 	index.php?modulo=items&tab=$1&acc=file&id=$2&friendly=$3&ht=66 [L]
 
 #ITEMS-GRUPO/pag-PAG																		ej: productos-2/categoria/pag-2
-RewriteRule ^([a-z0-9_]{4,20})-([0-9]{1,2})/([a-z0-9\-]{2,100})/pag-([0-9]{1,4})$ 		index.php?modulo=items&tab=$1&acc=list&gru=$2&friendly=$3&pag=$4&ht=7 [L]
+RewriteRule ^([a-z0-9_]{4,20})-([0-9]{1,2})/([a-z0-9\-.]{3,100})/pag-([0-9]{1,4})$ 		index.php?modulo=items&tab=$1&acc=list&gru=$2&friendly=$3&pag=$4&ht=7 [L]
 
 #ITEMS-GRUPO 															ej: productos-2/categoria
-RewriteRule ^([a-z0-9_]{4,20})-([0-9]{1,2})/([a-z0-9\-]{2,100})$ 		index.php?modulo=items&tab=$1&acc=list&gru=$2&friendly=$3&ht=8 [L]
+RewriteRule ^([a-z0-9_]{4,20})-([0-9]{1,2})/([a-z0-9\-.]{3,100})$ 		index.php?modulo=items&tab=$1&acc=list&gru=$2&friendly=$3&ht=8 [L]
 
 #ITEMS/FILTRO												ej: productos/promociones
-RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{4,100})$ 			index.php?modulo=items&tab=$1&acc=list&fil=$2&ht=9 [L]
+RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{3,100})$ 			index.php?modulo=items&tab=$1&acc=list&fil=$2&ht=9 [L]
 
 #ITEMS/FILTRO/pag-PAG															ej: productos/promociones/pag-2
-RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{4,100})/pag-([0-9]{1,4})$ 			index.php?modulo=items&tab=$1&acc=list&fil=$2&pag=$3&ht=10 [L]
+RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{3,100})/pag-([0-9]{1,4})$ 			index.php?modulo=items&tab=$1&acc=list&fil=$2&pag=$3&ht=10 [L]
 
 #ITEMS/FILTRO/VALOR/friendly																	ej: productos/destinos/2/index.html
-RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{4,100})/([a-z0-9\-]{1,100})/([a-z0-9\-]{2,100})$ 			index.php?modulo=items&tab=$1&acc=list&fil=$2&val=$3&friendly=$4&ht=11 [L]
+RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{3,100})/([a-z0-9\-]{1,100})/([a-z0-9\-.]{3,100})$ 			index.php?modulo=items&tab=$1&acc=list&fil=$2&val=$3&friendly=$4&ht=11 [L]
 
 #ITEMS/FILTRO/VALOR/friendly/pag-PAG																	ej: productos/destinos/2/index.html/pag-2
-RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{4,100})/([a-z0-9\-]{1,100})/([a-z0-9\-]{2,100})/pag-([0-9]{1,4})$	index.php?modulo=items&tab=$1&acc=list&fil=$2&val=$3&friendly=$4&pag=$5&ht=12 [L]
+RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{3,100})/([a-z0-9\-]{1,100})/([a-z0-9\-.]{3,100})/pag-([0-9]{1,4})$	index.php?modulo=items&tab=$1&acc=list&fil=$2&val=$3&friendly=$4&pag=$5&ht=12 [L]
+
+#ITEMS/buscar=PALABRA/pag-PAG												ej: productos/buscar=palabra
+RewriteRule ^([a-z0-9_]{4,20})/buscar=([a-z0-9\-]{1,100})$	index.php?modulo=items&tab=$1&acc=list&buscar=$2&ht=12 [L]
+
+#ITEMS/buscar=PALABRA/pag-PAG												ej: productos/buscar=palabra/pag-2
+RewriteRule ^([a-z0-9_]{4,20})/buscar=([a-z0-9\-]{1,100})/pag-([0-9]{1,4})$	index.php?modulo=items&tab=$1&acc=list&buscar=$2&pag=$3&ht=12 [L]
 
 
 ###########    BASICOS   ###########
@@ -218,9 +227,9 @@ RewriteRule ^([a-z0-9_]{4,20})/([a-z0-9\-]{4,100})/([a-z0-9\-]{1,100})/([a-z0-9\
 RewriteRule ^robots.txt$ robots.txt [L]
 RewriteRule ^(panel|sistema|sistemas)/?$ panel/index.php [L,r=301,NC]
 RewriteRule ^maqueta$ maqueta/index.html [L,r=301]
-RewriteRule ^email$ email/index.php [L,r=301]
-RewriteRule ^email2$ email/index2.php [L,r=301]
+RewriteRule ^email$ https://www.google.com/a/crmcallcenter.info/ [L,r=301]
 RewriteRule ^error$ index.php?modulo=error&tab=404 [L]
+RewriteRule ^comming$ index.php?modulo=comming [L]
 
 
 
@@ -235,134 +244,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 ###
 
-</IfModule>
-
-
-# ##############################################################################
-# # WEB PERFORMANCE                                                            #
-# ##############################################################################
-
-# ------------------------------------------------------------------------------
-# | Compression                                                                |
-# ------------------------------------------------------------------------------
-
-<IfModule mod_deflate.c>
-
-    # Force compression for mangled headers.
-    # http://developer.yahoo.com/blogs/ydn/posts/2010/12/pushing-beyond-gzipping
-    <IfModule mod_setenvif.c>
-        <IfModule mod_headers.c>
-            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
-            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
-        </IfModule>
-    </IfModule>
-
-    # Compress all output labeled with one of the following MIME-types
-    # (for Apache versions below 2.3.7, you don't need to enable `mod_filter`
-    #  and can remove the `<IfModule mod_filter.c>` and `</IfModule>` lines
-    #  as `AddOutputFilterByType` is still in the core directives).
-    <IfModule mod_filter.c>
-        AddOutputFilterByType DEFLATE application/atom+xml \
-                                      application/javascript \
-                                      application/json \
-                                      application/rss+xml \
-                                      application/vnd.ms-fontobject \
-                                      application/x-font-ttf \
-                                      application/x-web-app-manifest+json \
-                                      application/xhtml+xml \
-                                      application/xml \
-                                      font/opentype \
-                                      image/svg+xml \
-                                      image/x-icon \
-                                      text/css \
-                                      text/html \
-                                      text/plain \
-                                      text/x-component \
-                                      text/xml
-    </IfModule>
-
-</IfModule>
-
-# ------------------------------------------------------------------------------
-# | Content transformations                                                    |
-# ------------------------------------------------------------------------------
-
-# Prevent some of the mobile network providers from modifying the content of
-# your site: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.5.
-
-# <IfModule mod_headers.c>
-#    Header set Cache-Control "no-transform"
-# </IfModule>
-
-# ------------------------------------------------------------------------------
-# | ETag removal                                                               |
-# ------------------------------------------------------------------------------
-
-# Since we're sending far-future expires headers (see below), ETags can
-# be removed: http://developer.yahoo.com/performance/rules.html#etags.
-
-# `FileETag None` is not enough for every server.
-<IfModule mod_headers.c>
-    Header unset ETag
-</IfModule>
-
-FileETag None
-
-# ------------------------------------------------------------------------------
-# | Expires headers (for better cache control)                                 |
-# ------------------------------------------------------------------------------
-
-# The following expires headers are set pretty far in the future. If you don't
-# control versioning with filename-based cache busting, consider lowering the
-# cache time for resources like CSS and JS to something like 1 week.
-
-<IfModule mod_expires.c>
-
-    ExpiresActive on
-    ExpiresDefault                                      "access plus 1 month"
-
-  # CSS
-    ExpiresByType text/css                              "access plus 1 year"
-
-  # Data interchange
-    ExpiresByType application/json                      "access plus 0 seconds"
-    ExpiresByType application/xml                       "access plus 0 seconds"
-    ExpiresByType text/xml                              "access plus 0 seconds"
-
-  # Favicon (cannot be renamed!)
-    ExpiresByType image/x-icon                          "access plus 1 week"
-
-  # HTML components (HTCs)
-    ExpiresByType text/x-component                      "access plus 1 month"
-
-  # HTML
-    ExpiresByType text/html                             "access plus 0 seconds"
-
-  # JavaScript
-    ExpiresByType application/javascript                "access plus 1 year"
-
-  # Manifest files
-    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
-    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
-
-  # Media
-    ExpiresByType audio/ogg                             "access plus 1 month"
-    ExpiresByType image/gif                             "access plus 1 month"
-    ExpiresByType image/jpeg                            "access plus 1 month"
-    ExpiresByType image/png                             "access plus 1 month"
-    ExpiresByType video/mp4                             "access plus 1 month"
-    ExpiresByType video/ogg                             "access plus 1 month"
-    ExpiresByType video/webm                            "access plus 1 month"
-
-  # Web feeds
-    ExpiresByType application/atom+xml                  "access plus 1 hour"
-    ExpiresByType application/rss+xml                   "access plus 1 hour"
-
-  # Web fonts
-    ExpiresByType application/font-woff                 "access plus 1 month"
-    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
-    ExpiresByType application/x-font-ttf                "access plus 1 month"
-    ExpiresByType font/opentype                         "access plus 1 month"
-    ExpiresByType image/svg+xml                         "access plus 1 month"
-
-</IfModule>
+</IfModule> 

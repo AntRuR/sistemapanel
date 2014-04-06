@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 
 /*~ class.phpmailer.php
 

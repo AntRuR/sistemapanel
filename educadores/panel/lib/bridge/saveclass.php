@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 
 $_GET=$_REQUEST;
 

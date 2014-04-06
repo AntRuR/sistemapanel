@@ -3265,7 +3265,10 @@ visibilidad	1
 					*/
 					break;
 					case "hid":
-
+					
+					if($objeto_tabla[$obj['obj']]['campos'][$camP]['noedit']=='1'){
+					echo "&nbsp;";
+					} else {
 					list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
 					list($idO,$camposO)=explode(",",$primO);
 					$camposOA=array();
@@ -3279,6 +3282,8 @@ visibilidad	1
 					}
 					$bufy.="</select>";
 					echo $bufy;
+
+					}
 
 					break;
 					case "fcr":

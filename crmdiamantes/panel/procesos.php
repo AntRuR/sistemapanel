@@ -9,7 +9,32 @@ set_time_limit(0);
 
 echo "running.................................";
 
-include("tramites2014.php");
+
+$entregas=select("id,id_cliente,id_item_item","productos_entregas","order by id desc limit 0,1000",0);
+// prin($entregas);
+
+
+
+foreach($entregas as $entrega)
+{
+	$item_item=select_fila("venta_id_cliente","productos_items_items","where id='".$entrega['id_item_item']."'",0);
+	// prin($item_item);
+	// $item_venta=select_fila("venta_id_cliente","productos_ventas","where id_item_item='".$entrega['id_item_item']."'",1);
+	// prin($item_venta);
+	update(array('id_cliente'=>$item_item['venta_id_cliente']),'productos_entregas','where id="'.$entrega['id'].'"',0);
+
+}
+
+// prin($entregas);
+// foreach($entregas as $entrega){
+// 	if($entrega["id_cliente"]!='')
+// 	update(array("id_cliente"=>$venta["id_cliente"]),"productos_entregas","where id_grupo=".$venta["id"],0);
+
+// }
+
+
+// include("tramites2014u.php");
+// include("importaciones2014u.php");
 
 //delete("productos_items_items","where id>");
 

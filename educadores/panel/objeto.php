@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 if($_GET['ran']!=''){
 
 	//include("lib/compresionInicio.php");	/*para Content-Encoding*/

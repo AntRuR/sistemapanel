@@ -2,6 +2,8 @@
 
 // exit();
 
+$temp=false;
+
 $speech_respuesta='respuesta_web_incapower';
 
 $id_cuenta=3;
@@ -10,6 +12,7 @@ $id_cuenta=3;
 include_once("formularios/formularios.php");
 
 include("../../panel/lib/simple_html_dom.php");
+
 
 
 /*
@@ -233,6 +236,9 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 {
 
 
+
+
+
 //data_insert
 
 
@@ -297,6 +303,17 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 	'fecha_edicion'=>"now()",
 
 	'visibilidad'=>'1',
+
+	'consulta'=>"
+nombre    : ".$_POST['nombre']. "
+apellidos : ".$_POST['apellidos']. "
+genero    : ".$_POST['genero']. "
+telefono  : ".$_POST['telefono']. "
+email     : ".$_POST['email']. "
+ciudad    : ".$_POST['ciudad']. "
+consulta  : ".$_POST['consulta']. "
+URL 	  : ".$_SERVER['HTTP_REFERER']."
+";
 
 	 ),
 
@@ -493,7 +510,9 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 
 	 );
 
- 
+
+
+ 	if($temp){
 
 	$insertado_mensaje=insert(array(
 
@@ -521,6 +540,7 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 
 	 );
 
+	}
  
 
  
@@ -543,7 +563,7 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 
 	);
 
-
+	if($temp){
 
 	$email_cliente=enviar_email(
 
@@ -565,7 +585,9 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 
 	);
 
+	}
 
+ 	if($temp){
 
 	update(array(
 
@@ -581,7 +603,8 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 
 	);
 
-
+	}
+	
 	crear_email_debug(array(
 
 	"EMAIL QUE SE LE ENVIA AL USUARIO"=>$email_cliente['debug'],

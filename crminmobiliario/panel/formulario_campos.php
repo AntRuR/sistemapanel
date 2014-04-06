@@ -45,7 +45,7 @@ foreach($tbcampos2 as $tbcampA){
 <li class='linea_form break'>&nbsp;</li>
 <?php }
 
-if($tbcampA['legend']!=''){ ?>
+if($tbcampA['legend']!='' and $tbcampA['indicador']!='1'){ ?>
 </div>
 <div class='groups'
 	id='group_<?php echo str_replace(" ","_",strtolower($tbcampA['legend']));?>'>

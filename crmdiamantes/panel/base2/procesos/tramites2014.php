@@ -24,7 +24,11 @@ if(!function_exists('str_getcsv2')) {
     }
 }
 
-$csvv=file("tramites2014.csv");
+echo 'update';
+
+exit();
+
+$csvv=file("tramites2014b.csv");
 
 $csv=implode("",$csvv);
 
@@ -84,6 +88,15 @@ foreach($lineas as $key=>$linea)
             // [FECHA] => 1/2/14
             // [CONDICION] => F4O333
             // [IMPORT] => GLORIA CCAICO QUICHCA,LCR6U3123DX605433,2014-563,1/2/14,F4O333,
+
+
+            // [CLIENTE] => REPRESENTACIONES ROBIN S.A.C.
+            // [SERIE] => LHBPFPUS0DN210524
+            // [NUM_TITULO] => 2014-37073
+            // [FECHA] => 1/10/14
+            // [CONDICION] => F6M717
+            // [IMPORT] => REPRESENTACIONES ROBIN S.A.C.,LHBPFPUS0DN210524,2014-37073,1/10/14,F6M717
+
 
 // prin($buf);
 // exit();
@@ -186,23 +199,33 @@ foreach($buf as $linea)
     }
 
 
+
+                    // 'fecha_para_revision'
+                    // 'fecha_firma'
+                    // 'fecha_tramite'
+                    // 'fecha_listo'
+                    // 'fecha_entrega'
     
 
     $inventa=insert(array(
 
         'fecha_creacion'      =>$fechi,
+        'fecha_para_revision' =>$fechi,
+        'fecha_firma'         =>$fechi,
+        'fecha_tramite'       =>$fechi,
+        'fecha_listo'         =>$fechi,
+        'fecha_entrega'       =>$fechi,
 
         'status'              =>7,
-                        
-        // 'id_item'             =>$devin["id_item"],
+        // 'id_item'          =>$devin["id_item"],
         
         'id_item_item'        =>$devin["id"],
         
-        'placa'               =>$linea['NUM_TITULO'],
-
+        'placa'               =>$linea['CONDICION'],
+        
         'import'              =>$linea['IMPORT'],
 
-    ),"productos_documentos",1);
+    ),"productos_documentos",0);
 
 
 

@@ -3265,20 +3265,22 @@ visibilidad	1
 					break;
 					case "hid":
 
-					list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
-					list($idO,$camposO)=explode(",",$primO);
-					$camposOA=array();
+					if($datos_tabla['noedit']!='1')
+					{
+						list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
+						list($idO,$camposO)=explode(",",$primO);
+						$camposOA=array();
 
-					$bufy='';
-					$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,$whereO);
-					$bufy.="<select class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
-					$bufy.="<option value='' >&nbsp;</option>";
-					foreach($oopciones as $pppooo){
-					$bufy.="<option value=\"".$pppooo[$idO]."\">".$pppooo['value']."</option>";
+						$bufy='';
+						$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,$whereO);
+						$bufy.="<select class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
+						$bufy.="<option value='' >&nbsp;</option>";
+						foreach($oopciones as $pppooo){
+						$bufy.="<option value=\"".$pppooo[$idO]."\">".$pppooo['value']."</option>";
+						}
+						$bufy.="</select>";
+						echo $bufy;
 					}
-					$bufy.="</select>";
-					echo $bufy;
-
 					break;
 					case "fcr":
 					echo "&nbsp;";

@@ -51,7 +51,7 @@ if($_GET['ran']==''){
 	 if($datos_tabla['altura_listado']!=''){ ?>.bl .bd { height:<?php echo $datos_tabla['altura_listado']?>; }.bl .bd { height:auto; }<?php }
 	 $porr_linea=($datos_tabla['por_linea']=='')?'100':((ceil(100/$datos_tabla['por_linea']))-1);
 	 ?>.bl { float:left; clear:none; width:<?php echo $porr_linea;?>%;   }<?php
-	?></style><?php
+	?></style><script>/**/</script><?php
 
 	echo '<input type="hidden" id="resaltar"  />';
 

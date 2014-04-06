@@ -1,7 +1,7 @@
 <?php
 $LoadWithoutSession='1';
 include("objeto.php");
-//prin($_GET);
+prin($_GET);
 $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 ?>
 <ul class="formulario fst">

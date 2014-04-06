@@ -6743,6 +6743,14 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '2',
 						'style'			=> 'width:170px;'
 				),
+				'consulta'	=>array(
+						'campo'			=> 'consulta',
+						'label'			=> 'Log',
+						'tipo'			=> 'txt',
+						'listable'		=> '1',
+						'derecha'		=> '1',
+						'style'			=> 'height: 130px;width:660px;line-height: 12px;'
+				),				
 				'tags'			=>array(
 						'campo'			=> 'tags',
 						'label'			=> 'tags',

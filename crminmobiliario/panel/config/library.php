@@ -2,7 +2,7 @@
 
 function render_style(){
 
-	$style['table']    ='style="font-size: 14px; border: 1px solid #ccc; "';
+	$style['table']    ='style="font-size: 14px !important; border-width: 1px !important; border-style: solid !important; border-color: #ccc !important; "';
 	$style['section']  ='style="background-color: #A1BD5B; color: #FFF; font-size: 15px; font-weight: bold; padding: 5px 0; text-align: center;"';
 	$style['valor']    ='style="color: #000; padding: 3px 0 3px 5px; width: 170px;"';
 	$style['variable'] ='style="width: 90px;"';
@@ -42,10 +42,17 @@ function extract_departamentos($id){
 	        												)
 	        									)
 	        								)
-	        					  )
-	        	)
+	        					  ),
+	    		'proyecto'=>array('fila'=>array(
+											'nombre',
+											'productos_items',
+											'where id="{id_item}"',
+											0
+											)
+						 		  )		        	
+	        	)        
 	        );
-
+	// prin($product);
 
 	return $product;
 
@@ -62,7 +69,7 @@ function render_departamentos($producto){
 	if(1){
 	$html='';
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=0 >";
-	$html.='<tr><td '.$style['section'].' colspan=2><strong>Departamento</strong></td></tr>';
+	$html.='<tr><td '.$style['section'].' colspan=2><strong>'.$producto['proyecto']['nombre'].' - Departamento '.$producto['nombre'].' '.$producto['numero'].'</strong></td></tr>';
 
 	// $html.='<tr><td colspan=2 style="text-align:center;font-weight:bold;color:#F10102;">'.$producto['item']['nombre'].' - '.$producto['nombre'].' '.$producto['numero'].'</td></tr>';
 	// if(trim(strip_tags($producto['ficha']))!=''){
@@ -91,7 +98,9 @@ function render_departamentos($producto){
 	// prin($producto['galerias']);
 	// exit();
 
-	if(sizeof($producto['galerias'])>0){ 
+	if(sizeof($producto['galerias'])>0)
+	{
+
 		foreach($producto['galerias'] as $t=>$galeria){ //prin($galeria);
 		$html.="<table $tableProps >";
 		$html.="<td align=center valign=middle style=\"border:1px solid #999 !important;\" colspan=2>".$galeria['nombre']."</td>";
@@ -105,6 +114,7 @@ function render_departamentos($producto){
 		}
 		$html.="</table><br>";
 		}
+
 	}
 	// exit();
 	$html.='</td></tr>';				
@@ -122,8 +132,17 @@ $product= fila(
         ,"productos_estacionamientos_items_items"
 	    ,"where id='$id' and visibilidad='1'"
         ,0
+    	,array(
+    		'proyecto'=>array('fila'=>array(
+									'nombre',
+									'productos_items',
+									'where id="{id_item}"',
+									0
+								)
+					  )
+    	)         
         );
-	return;
+return $product;
 
 }
 
@@ -134,8 +153,17 @@ $product= fila(
         ,"productos_depositos_items_items"
 	    ,"where id='$id' and visibilidad='1'"
         ,0
+    	,array(
+    		'proyecto'=>array('fila'=>array(
+									'nombre',
+									'productos_items',
+									'where id="{id_item}"',
+									0
+								)
+					  )
+    	)           
         );
-	return;
+return $product;
 
 }
 
@@ -146,7 +174,7 @@ function render_depositos($producto){
 	if(1){
 	$html='';
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=0 >";
-	$html.='<tr><td '.$style['section'].' colspan=2><strong>Deposito</strong></td></tr>';
+	$html.='<tr><td '.$style['section'].' colspan=2><strong>'.$producto['proyecto']['nombre'].' - Deposito '.$producto['nombre'].' '.$producto['numero'].'</strong></td></tr>';
 
 	$html.='<tr><td colspan=2><strong>Descripción</strong></td></tr>';
 	$html.='<tr><td colspan=2>'.$producto['descripcion'].'</td></tr>';
@@ -167,7 +195,7 @@ function render_estacionamiento($producto){
 	if(1){
 	$html='';
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=0 >";
-	$html.='<tr><td '.$style['section'].' colspan=2><strong>Estacionamiento</strong></td></tr>';
+	$html.='<tr><td '.$style['section'].' colspan=2><strong>'.$producto['proyecto']['nombre'].' - Estacionamiento '.$producto['nombre'].' '.$producto['numero'].'</strong></td></tr>';
 
 	$html.='<tr><td colspan=2><strong>Descripción</strong></td></tr>';
 	$html.='<tr><td colspan=2>'.$producto['descripcion'].'</td></tr>';

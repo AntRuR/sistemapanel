@@ -1,5 +1,4 @@
-<?php //á
-
+<?php
 include("lib/compresionInicio.php");
 include("objeto.php");
 include("head.php");

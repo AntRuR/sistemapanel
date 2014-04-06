@@ -1,6 +1,9 @@
 /*@import url(http://fonts.googleapis.com/css?family=Arial+Narrow);*/
 /*@import url(http://fonts.googleapis.com/css?family=ABeeZee);*/
 
+@font-face { font-family: "PTN77F"; src: url(fonts/PTN77F.ttf) format("truetype"); }
+@font-face { font-family: "PTN57F"; src: url(fonts/PTN57F.ttf) format("truetype"); }
+
 /*<?php header("Content-type: text/css"); ?>/*******************RESET***********************/
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,th,td
 	{
@@ -971,6 +974,7 @@ ul.ul_menus .open {
 	position: relative;
 	border: 0px;
 	/*background-image: url("../img/shadow11.png"); background-position: left 28px;*/
+	line-height: 10px;
 }
 
 .menus strong {
@@ -2379,7 +2383,6 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 }
 
 .htmlenlista {
-	font-size: 9px;
 	height: auto;
 	max-height: 150px;
 	overflow: auto;
@@ -2390,7 +2393,9 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 .htmlenlista p {
 	margin: 0px 0;
 }
-
+.htmlenlista, .htmlenlista p, .htmlenlista table td {
+	font-size: 9px !important;
+}
 .itms {
 	margin-left: 3px;
 	margin-right: 10px;
@@ -2455,6 +2460,7 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 .itms .itmedit textarea {
 	width: 100%;
 	height: 36px;
+	font-size: 12px !important;
 }
 
 .itms .tite {

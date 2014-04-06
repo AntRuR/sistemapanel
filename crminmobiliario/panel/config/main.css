@@ -63,7 +63,7 @@ ul.ul_menus li a {
 
 	font-size: 11px;
 
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,;
+	font-family: PTN57F, "Helvetica Neue",Helvetica,Arial,sans-serif,;
 
     
 
@@ -195,7 +195,7 @@ margin-bottom:0;
 a.link_header {
     color: #666;
     font-size: 22px;
-    margin-top: 50px;
+    margin-top: 27px;
 }    
 
 
@@ -217,12 +217,14 @@ a.link_header {
 .quick #contenido_principal {
     position: relative;
     width: 100%;
-    height: 480px;
+    height: auto;
 }
 
 
 .itms .tite a, .itms .itd a {
     letter-spacing: -0.7px;
+    font-family: PTN57F !important;
+    font-size: 12px;
 }
 
 a, .alink {
@@ -233,4 +235,26 @@ a, .alink {
 color:#999;
 }
 
+
+.bl .bd {
+font-family: 'caviar_dreamsregular' !important;
+font-size: 12px;
+}
+.itms .itm .itd {
+font-family: PTN57F !important;    
+text-transform: capitalize;
+}
+.modificador_grilla .first_linea .nc {
+font-family: PTN77F !important;        
+}
+
+.formulario label {
+font-family: PTN57F !important;    
+}
+/**
+ * modulo_productos_items
+ */
+.modulo_productos_items .modificador .itms {
+    width: 100% !important;
+}
 

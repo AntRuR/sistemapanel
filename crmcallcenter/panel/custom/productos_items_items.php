@@ -3,7 +3,7 @@ chdir("../");
 include("lib/compresionInicio.php");
 include("lib/includes.php");
 include("head.php");
-echo '<body class="modulo_blog_fotos_fotos">';
+echo '<body class="modulo_productos_items_items">';
 echo $HTML_ALL_INICIO;
 echo $HTML_MAIN_INICIO;
 include("header.php");

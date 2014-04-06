@@ -3027,6 +3027,7 @@ function render_foreig_subs($obj0,$id,$urd){
 					(in_array($lis['tipo'],array('inp','txt','html','hid','fch','fcr','img','com')) and
 					($lis['campo']!=trim($forei)) and
 					($lis['listable']=='1') and
+					($lis['inherited']!='1') and
 					( !($lis['indicador']=='1' and $lis['tipo']=='hid') ) and
 					(!enhay($lis['label'],'descripci',1)) and
 					(!enhay($lis['label'],'source',1)) and
@@ -3265,7 +3266,10 @@ visibilidad	1
 					*/
 					break;
 					case "hid":
-
+					
+					if($objeto_tabla[$obj['obj']]['campos'][$camP]['noedit']=='1'){
+					echo "&nbsp;";
+					} else {
 					list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
 					list($idO,$camposO)=explode(",",$primO);
 					$camposOA=array();
@@ -3279,6 +3283,8 @@ visibilidad	1
 					}
 					$bufy.="</select>";
 					echo $bufy;
+
+					}
 
 					break;
 					case "fcr":

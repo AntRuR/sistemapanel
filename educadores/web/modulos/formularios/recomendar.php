@@ -51,7 +51,7 @@ include_once("formularios/formularios.php");
 							,'campo'=>array('nombre_pagina')
 							,'tipo'=>'input_hidden'
 							,'validacion'=>""					
-							,'value'=>array('TrukMax')
+							,'value'=>array('Educadores Perú')
 						)	
 						,array(
 							'label'=>'Dirección de la página'
