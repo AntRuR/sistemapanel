@@ -2172,14 +2172,19 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tip_foreig'	=> '1',
 						'button_app'	=> '#'
 				),
-				'pedido'=>array(
+				'pedido'		=>array(
 						'campo'			=> 'pedido',
-						'label'			=> '',
-						'tipo'			=> 'txt',
+						'label'			=> 'Pedido',
 						'width'			=> '70px',
-						'style'			=> 'display:none;',
-						'derecha'		=> '2'
-				),			
+						'tipo'			=> 'inp',
+						'like'			=> '1',
+						'style'			=> 'width:70px;',
+						'derecha'		=> '1',
+						'listable'		=> '0',
+						'queries'		=> '0',
+						'listclass'		=> 'nogrilla',
+						'disabled'		=> '1'
+				),	
 				'forma_pago'	=>array(
 						'campo'			=> 'forma_pago',
 						'label'			=> 'Forma de Pago',
@@ -2360,7 +2365,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'exportar_excel'	=> '1',
 		'user'			=> '1',
 		'stat'			=> '0',
-		'repos'			=> 'vendedores=Reporte de Asesores'
+		'repos'			=> 'vendedores=Reporte de Ventas'
 );
 /******************************************************************************************************************************************************/
 
@@ -3575,7 +3580,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 		'crear_txt'		=> '660px',
 		'filtros_extra'	=> '',
 		'oncreate'		=> 'base2/create_productos_ventas.php',		
-		'repos'			=> 'vendedores=Reporte de Ventas',
+		'repos'			=> 'ventas=Reporte de Ventas',
 		'postscript'	=> '
 				if(LL["fecha_creacion2"]!="0000-00-00 00:00:00"){
 					update(array("fecha_creacion"=>LL["fecha_creacion2"]),TT,"where id=II",0);
@@ -3736,13 +3741,18 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'tip_foreig'	=> '1',
 						'button_app'	=> '#'
 				),
-				'pedido'=>array(
+				'pedido'		=>array(
 						'campo'			=> 'pedido',
-						'label'			=> '',
-						'tipo'			=> 'txt',
+						'label'			=> 'Pedido',
 						'width'			=> '70px',
-						'style'			=> 'display:none;',
-						'derecha'		=> '2'
+						'tipo'			=> 'inp',
+						'like'			=> '1',
+						'style'			=> 'width:70px;',
+						'derecha'		=> '1',
+						'listable'		=> '0',
+						'queries'		=> '0',
+						'listclass'		=> 'nogrilla',
+						'disabled'		=> '1'
 				),			
 				'forma_pago'	=>array(
 						'campo'			=> 'forma_pago',
@@ -4049,7 +4059,7 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 				'fecha_creacion'	=>array(
 						'campo'			=> 'fecha_creacion',
 						'tipo'			=> 'fcr',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'formato'		=> '7b',
 						'width'			=> '85px'
 				),

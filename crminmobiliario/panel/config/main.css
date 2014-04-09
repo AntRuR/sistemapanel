@@ -257,4 +257,31 @@ font-family: PTN57F !important;
 .modulo_productos_items .modificador .itms {
     width: 100% !important;
 }
+#html_reporte {
+    
+}
+#html_reporte .reporte_ventas {
 
+}
+#html_reporte .reporte_ventas td.nombre {
+    min-width: 84px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 13px;
+    vertical-align: middle;
+}
+#html_reporte .reporte_ventas td.nombre b {
+    /* font-size: 10px; */
+    white-space: nowrap;
+}
+
+#html_reporte .reporte_ventas a.linkstitu {
+    font-size: 10px !important;
+
+    line-height: 16px;
+    font-weight: bold !important;
+    background-position: 0px -2px !important;
+}
+#html_reporte .reporte_ventas td.nombre:first-child  {
+    /*text-align: left;*/
+}

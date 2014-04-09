@@ -12,31 +12,7 @@ include("config/tablas.php");
 	//echo getcwd();
 	//var_dump($_GET); exit();
 
-	$_GET['ob']='VENTAS_ITEMS';
 
-	list($date,$from,$to)=explode("|",$_GET['f']);
-
-
-	$OBJ=$datos_tabla=procesar_objeto_tabla($objeto_tabla[$_GET['ob']]);
-
-	//parse_str($_GET['filtro'], $get);
-
-	//prin($OBJ);
-	$first=dato('min('.$date.')',$OBJ['tabla'],"where ".$date."!=0",0);
-	$first=(!$first)?date("Y-m-d"):$first;
-	$first=substr($first,0,10);
-	//$last =dato($querie['campo'],$tbl,"where 1 order by ".$querie['campo']." desc limit 0,1");
-	$last=dato('max('.$date.')',$OBJ['tabla'],"where ".$date."!=0",0);
-	$last=(!$last)?date("Y-m-d"):$last;
-	$last=substr($last,0,10);
-
-	//prin("$first - $last");
-
-	$from=($from)?$from:$first;
-	$to=($to)?$to:$last;
-
-	$from=fixyfecha($from);
-	$to=fixyfecha($to);
 
 
 	//echo getcwd()."<br>";
