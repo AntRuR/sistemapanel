@@ -1218,7 +1218,7 @@ $('bloque_content_stat').innerHTML=ee;
 
 function load_repos(){
 //$1('cargando_form');
-new Request({url:'repos.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',  method:'get', onSuccess:function(ee) {
+new Request({url:'repos.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',evalScripts:true,  method:'get', onSuccess:function(ee) {
 $('bloque_content_repos').setStyles({'display':'block'});
 $('bloque_content_repos').innerHTML=ee;
 //pre_crear();

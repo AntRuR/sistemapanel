@@ -6389,7 +6389,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'menu_label'	=> 'Atenciones',
 		'me'			=> 'VENTAS_ITEMS',
 		'orden'			=> '0',
-		'onload_include'	=> 'base2/update_alertas.php',
+		'onload_include'=> 'base2/update_alertas.php',
 		'onload_script'	=> '<style>#id_in_id_jefe{display:none;}</style>',
 		'events'		=>array(
 				'on_session'	=> ''
@@ -7267,7 +7267,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 		'editar'		=> '1',
 		'buscar'		=> '1',
 		'bloqueado'		=> '0',
-		'crear'			=> '1',
+		'crear'			=> '0',
 		'crear_label'	=> '60px',
 		'crear_txt'		=> '550px',
 		'menu'			=> '0',
@@ -7277,10 +7277,10 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 		'onload_include'	=> 'base2/update_ventas_mensajes.php',
 		'orden'			=> '0',
 		'postscript'	=> '
-			$linea=fila("id_jefe,id_usuario,user","ventas_items","where id=".LL["id_grupo"],0);
+			$linea=fila("id_jefe,id_usuario,user,id_cliente,id_item","ventas_items","where id=".LL["id_grupo"],0);
 			if(SS=="update" or SS=="insert"){
 				update(array("id_status"=>LL["id_status"]),"ventas_items","where id=".LL["id_grupo"],0);
-				update(array("id_jefe"=>$linea["id_jefe"],"id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
+				update(array("id_item"=>$linea["id_item"],"id_cliente"=>$linea["id_cliente"],"id_jefe"=>$linea["id_jefe"],"id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
 			}
 		',
 		'app'			=> '
@@ -7325,18 +7325,19 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'default'		=> '[id_cliente]',
 						'tipo'			=> 'hid',
 						'derecha'		=> '1',
-						'directlink'	=> 'id,nombre;apellidos;telefono|clientes|where visibilidad=1|6',
+				 		'directlink'	=> 'id,nombre;apellidos;telefono|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
-						'opciones'		=> 'id,nombre;apellidos|clientes|0',
+						'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
 						'style'			=> 'width:320px;',
 						'tip_foreig'	=> '1',
 						'like'			=> '0',
 						'tags'			=> '1',
-						'validacion'	=> '0',
+						'validacion'	=> '1',
 						'noedit'		=> '1',
 						'queries'		=> '1',
-						'dlquery'		=> '1'
-				),
+						'dlquery'		=> '1',
+						'inherited'		=> '1',					
+				),				
 				'id_item'		=>array(
 						'campo'			=> 'id_item',
 						'label'			=> 'Modelo',
@@ -7351,12 +7352,13 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'derecha'		=> '2',
 						'tip_foreig'	=> '0',
 						'tags'			=> '1',
-						'queries'		=> '1'
+						'queries'		=> '1',
+						'inherited'		=> '1',						
 				),
 				'id_grupo'		=>array(
 						'campo'			=> 'id_grupo',
 						'tipo'			=> 'hid',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'default'		=> '[id]',
 						'foreig'		=> '1'
@@ -7452,7 +7454,8 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'queries'		=> '1',
 						'noedit'		=> '1',
 						'disabled'		=> '0',
-						'dlquery'		=> '0'
+						'dlquery'		=> '0',
+						'inherited'		=> '1',						
 				),
 				'id_jefe'		=>array(
 						'campo'			=> 'id_jefe',
@@ -7467,7 +7470,8 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'derecha'		=> '2',
 						'tip_foreig'	=> '1',
 						'queries'		=> '1',
-						'disabled'		=> '0'
+						'disabled'		=> '0',
+						'inherited'		=> '1',						
 				),
 				'id_speech'		=>array(
 						'campo'			=> 'id_speech',

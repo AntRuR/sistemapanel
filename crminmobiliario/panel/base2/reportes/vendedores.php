@@ -31,28 +31,8 @@ $to=($to)?$to:$last;
 $from=fixyfecha($from);
 $to=fixyfecha($to);
 
-function num2alpha($n)
-{
-	for($r = ""; $n >= 0; $n = intval($n / 26) - 1)
-		$r = chr($n%26 + 0x41) . $r;
-	return $r;
-}
 
-function getrango($n){
-	$i=0;
-	foreach($n as $b=>$c){
-		if($i==0){
-			$uno=$b;
-		}
-		if($i==sizeof($n)-1){
-			$dos=$b;
-		} 
-		$i++;
-	}
-	return $uno.":".$dos;
-}
-
-function render_table($row){
+function render_table_old($row){
 	$ht='';
 	$ht.='<table class="reporte table table-striped table-condensed table-bordered table-hover">';
 	foreach($row as $rl=>$rline)
@@ -74,7 +54,7 @@ function render_table($row){
 	return $ht;
 }
 
-function render_excel($row){
+function render_excel_old($row){
 
 	global $from;
 	global $to;
@@ -492,10 +472,10 @@ $row[$l][]=round($ff/$rango,2);
 $seccion['jefes']=$row;
 
 if($_GET['seccion']!=''){
-	echo render_excel($seccion[$_GET['seccion']]);
+	echo render_excel_old($seccion[$_GET['seccion']]);
 } else {
-	echo render_table($seccion['jefes']);
+	echo render_table_old($seccion['jefes']);
 	foreach($vendes as $vende){
-		echo render_table($vende);
+		echo render_table_old($vende);
 	}
 }

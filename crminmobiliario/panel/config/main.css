@@ -258,6 +258,7 @@ font-family: PTN57F !important;
     width: 100% !important;
 }
 #html_reporte {
+    margin-top: 9px;
     
 }
 #html_reporte .reporte_ventas {
@@ -285,3 +286,9 @@ font-family: PTN57F !important;
 #html_reporte .reporte_ventas td.nombre:first-child  {
     /*text-align: left;*/
 }
+
+
+.modulo_productos_ventas .filters { display: none; }
+.modulo_productos_ventas .bloque_content_repos input { display: none; }
+.modulo_productos_ventas .fst li label { width: 160px !important; }
+.modulo_productos_ventas .fst li input[type="radio"]:checked+label{ color: #CF6A27 !important; } 

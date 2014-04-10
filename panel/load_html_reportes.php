@@ -8,6 +8,7 @@ include("lib/mysql3.php");
 include("lib/util.php");
 //	include("lib/stripattributes.php");
 include("config/tablas.php");
+include("lib/reports.php");
 }
 	//echo getcwd();
 	//var_dump($_GET); exit();

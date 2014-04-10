@@ -3579,8 +3579,8 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 		'crear_label'	=> '80px',
 		'crear_txt'		=> '660px',
 		'filtros_extra'	=> '',
-		'oncreate'		=> 'base2/create_productos_ventas.php',		
-		'repos'			=> 'ventas=Reporte de Ventas',
+		'oncreate'		=> 'base2/create_productos_ventas.php',
+		'repos'			=> 'ventas=Resúmen de ventas y por vender&cierre=Informe de cierre de publicidad&evolucion=Evolución del precio promedio',
 		'postscript'	=> '
 				if(LL["fecha_creacion2"]!="0000-00-00 00:00:00"){
 					update(array("fecha_creacion"=>LL["fecha_creacion2"]),TT,"where id=II",0);
@@ -3745,7 +3745,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'campo'			=> 'pedido',
 						'label'			=> 'Pedido',
 						'width'			=> '70px',
-						'tipo'			=> 'inp',
+						'tipo'			=> 'txt',
 						'like'			=> '1',
 						'style'			=> 'width:70px;',
 						'derecha'		=> '1',

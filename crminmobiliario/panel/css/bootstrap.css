@@ -1041,7 +1041,7 @@ table {
 }
 .table-striped tbody > tr:nth-child(odd) > td,
 .table-striped tbody > tr:nth-child(odd) > th {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 .table-hover tbody tr:hover td,
 .table-hover tbody tr:hover th {
@@ -1134,13 +1134,13 @@ table th[class*="span"],
   background-color: #f2dede;
 }
 .table tbody tr.warning td {
-  background-color: #FCF8E3;
+  background-color: #fcf8e3;
 }
 .table tbody tr.info td {
-  background-color: #D9EDF7;
+  background-color: #d9edf7;
 }
 .table-hover tbody tr.success:hover td {
-  background-color: #D0E9C6;
+  background-color: #d0e9c6;
 }
 .table-hover tbody tr.error:hover td {
   background-color: #ebcccc;

@@ -197,8 +197,9 @@ function render_filderRP(input){
 	vurl = vurl + '&file='+file;
 	vurl="load_html_reportes.php?"+vurl;
 
-	new Request({url:vurl,  method:'get', onSuccess:function(ee) {
+	new Request({url:vurl,  method:'get', evalScripts:true,onSuccess:function(ee){
 		$("html_reporte").innerHTML=ee;
+		// if(typeof('load_reporte_'+file)=='function') eval('reporte_'+file);		
 		 } } ).send();
 }
 
@@ -1044,3 +1045,12 @@ function program_alert_remove(ii){
 	$(ii+"_ined").removeEvent('click', destroy);
 
 }
+
+function load_ajax_in(where,get){
+	new Request({url:get,  method:'get', evalScripts:true,onSuccess:function(ee){
+			$(where).innerHTML=ee;
+			// if(typeof(colbac)=='function') eval(colbac);		
+		 } } ).send();	
+}
+
+
