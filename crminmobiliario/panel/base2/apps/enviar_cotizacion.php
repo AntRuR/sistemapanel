@@ -24,7 +24,7 @@ include("config/library.php");
 	//if($_GET['id']!=''){
 
 		$linea=select_fila(
-							array('id_cliente','pedido','id_item','id_usuario','id_status','pedido'),
+							array('id_cliente','pedido','id_item','id_usuario','id_status','pedido','cuota_inicial','saldo_financiar','separacion','pvpromocion'),
 							'ventas_items',
 							'where id='.$_GET['id'],
 							0,
@@ -43,17 +43,7 @@ include("config/library.php");
 						);
 
 
-$telefonos_fijos=$telefonos_moviles=array();
 
-if($linea['cliente']['telefono']!='')$telefonos_fijos[]=$linea['cliente']['telefono'];
-if($linea['cliente']['telefono_oficina']!='')$telefonos_fijos[]=$linea['cliente']['telefono_oficina'];
-
-if($linea['cliente']['celular_claro']!='')$telefonos_moviles[]=$linea['cliente']['celular_claro'];
-if($linea['cliente']['celular_movistar']!='')$telefonos_moviles[]=$linea['cliente']['celular_movistar'];
-if($linea['cliente']['nextel']!='')$telefonos_moviles[]=$linea['cliente']['nextel'];
-
-$telefonos_fijos_string = implode("/ ",$telefonos_fijos);
-$telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 
 
 
@@ -70,60 +60,66 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 	/**
 	 * CLIENTE
 	 */
-			
-	$html='';
-	$html.='<table '.$style['table'].' width="650px" cellpadding=0 cellspacing=0 border=0>';
-	$html.='<tr><td colspan=4 '.$style['section'].'>Cliente</td></tr>';
-	$html.='<tr><td '.$style['variable'].'>Nombre</td><td '.$style['valor'].' colspan=3>'.strtoupper($linea['cliente']['nombre']." ".$linea['cliente']['apellidos']).'</td></tr>';
-	$html.='<tr><td '.$style['variable'].'>Email</td><td '.$style['valor'].'>'.$linea['cliente']['email'].'</td>';
-	$html.='<td '.$style['variable'].'>DNI</td><td '.$style['valor'].'>'.$linea['cliente']['dni'].'</td></tr>';
-	$html.='<tr><td '.$style['variable'].'>Teléfono Fijo</td><td '.$style['valor'].'>'.$telefonos_fijos_string.'</td>';
-	$html.='<td '.$style['variable'].'>Teléfono Móvil</td><td '.$style['valor'].'>'.$telefonos_moviles_string.'</td></tr>';
-	$html.='</table>';
+	
+	$pblocks=array();
 
+
+	$pblocks[]=render_logo($linea);
+
+
+	$pblocks[]=render_cliente($linea);
 
 
 		$pedido=json_decode($linea['pedido']);
 		// prin($linea['pedido']);
 		// exit();
 
-		$pblocks=array();
 		$pdepartamentos=array();
 		$pdepositos=array();
 		$pestacionamientos=array();
 
+		$suma=0;
 		foreach($pedido as $pedi){
 			switch($pedi->type){
 				case "departamento":
-					$pdepartamentos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+					$pdepartamentos[]=array('id'=>$pedi->id,'price'=>$pedi->price); $suma=$suma+$pedi->price;
 				break;
 				case "estacionamiento":
-					$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+					$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price); $suma=$suma+$pedi->price;
 				break;
 				case "deposito":
-					$pdepositos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+					$pdepositos[]=array('id'=>$pedi->id,'price'=>$pedi->price); $suma=$suma+$pedi->price;
 				break;						
 			}
 
 		}
 
 		foreach($pdepartamentos as $pdep)
-			$pblocks[]=render_departamentos(extract_departamentos($pdep['id']));
+			$pblocks[]=render_departamentos(extract_departamentos($pdep['id']),$pdep['price']);
 
 		foreach($pdepositos as $pdep)
-			$pblocks[]=render_depositos(extract_depositos($pdep['id']));
+			$pblocks[]=render_depositos(extract_depositos($pdep['id']),$pdep['price']);
 
 		foreach($pestacionamientos as $pdep)
-			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']));	
-		
+			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']),$pdep['price']);	
+
+
+		$pblocks[]=render_total($linea,$suma);
+
+
+		$pblocks[]=render_vendedor($linea);
+
+		$pblocks[]=render_plano($linea);
+
+		$pblocks[]=render_firma($linea);
 
 		// prin($pblocks);
 
-		$html=$html.implode("",$pblocks);
+		$html=implode("",$pblocks);
 
-		// echo $html;
-		// exit();
+
 		
+
 		$Producto=str_replace("\\\"","\"",$html);
 
 

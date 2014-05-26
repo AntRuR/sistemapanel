@@ -543,7 +543,7 @@ $menus_d['verdesarrollo_off'].="' title='".( ($_SESSION['verdesarrollo']=='1')?'
 
 	if($LOGIN){
 
-		$bgsel="<select style='left:0px;top:0px;width:80px;height:auto;position:position:absolute;' onchange='setbgq(this.value);' onkeyup='setbgq(this.value);' >";
+		$bgsel="<select style='left:0px;top:0px;width:60px;height:auto;position:position:absolute;' onchange='setbgq(this.value);' onkeyup='setbgq(this.value);' >";
 		$CLI=($vars['INTERNO']['ID_PROYECTO']=="0")?'':'../../panel/';
 		$directorio_s = dir($CLI."img/bgs/");
 

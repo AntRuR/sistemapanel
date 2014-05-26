@@ -20,7 +20,10 @@ require_once 'lib/PHPExcel.php';
 $obj['obj']=$_GET['me'];
 
 
+list($MEEE,$EXTRA_FILTRO) = pre_procesar_objeto_tabla_0($objeto_tabla[$_GET['me']]);
 
+// echo $EXTRA_FILTRO."<br>";
+// exit();
 
 $confes=explode("&",$_GET['conf']);
 //var_dump($confes);
@@ -121,6 +124,7 @@ if($_GET['filter']!=''){
 }
 
 $query_where=$where
+." ".$EXTRA_FILTRO." "
 ."order by ". ( ($datos_tabla['order_by']=='')? (  $datos_tabla['id']." ". (($datos_tabla['orden']=='1')?"desc":"asc") ):$datos_tabla['order_by'] )." "
 		."limit 0,1000";
 $items=select($campS2,

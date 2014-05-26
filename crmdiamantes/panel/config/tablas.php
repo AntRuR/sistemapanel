@@ -4,7 +4,7 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 		'grupo'			=> 'productos',
 		'titulo'		=> 'Modelos',
 		'nombre_singular'=> 'modelo',
-		'nombre_plural'	=> 'modelos', 
+		'nombre_plural'	=> 'modelos',
 		'tabla'			=> 'productos_items',
 		'archivo'		=> 'productos_items',
 		'archivo_hijo'	=> 'productos_fotos',
@@ -206,7 +206,7 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 		'calificacion'	=> '1',
 		'importar_csv'	=> '0',
 		'group'			=> 'id_tipo',
-		'order_by'		=> 'id_grupo desc, id desc',
+		'order_by'		=> 'id_grupo desc, orden asc',
 		'width_listado'	=> '',
 		'edicion_rapida'	=> '1',
 		'crear_pruebas'	=> '0'
@@ -264,6 +264,14 @@ $objeto_tabla['PRODUCTOS_ITEMS_ITEMS']=array(
 				'calificacion'	=>array(
 						'campo'			=> 'calificacion',
 						'tipo'			=> 'cal'
+				),
+				,'orden'		=>array(
+						'label'			=> 'orden',
+						'width'			=> '70px',
+						'campo'			=> 'orden',
+						'variable'		=> 'float',
+						'tipo'          => 'inp',
+						'style'         => 'width:70px;'
 				),
 				'pedido'		=>array(
 						'campo'			=> 'pedido',
@@ -602,13 +610,13 @@ $objeto_tabla['PRODUCTOS_ITEMS_ITEMS']=array(
 						'autotags'		=> '1',
 						'listable'		=> '0'
 				),
-				'import'			=>array(
+				'import'		=>array(
 						'campo'			=> 'import',
 						'label'			=> 'import',
 						'tipo'			=> 'txt',
 						'indicador'		=> '1',
 						'listable'		=> '0'
-				)				
+				)
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '0',
@@ -625,7 +633,7 @@ $objeto_tabla['PRODUCTOS_STOCK']=array(
 		'grupo'			=> 'productos',
 		'titulo'		=> 'Asignaciones',
 		'nombre_singular'=> 'asignación',
-		'nombre_plural'	=> 'asignaciones',	
+		'nombre_plural'	=> 'asignaciones',
 		'tabla'			=> 'productos_stock',
 		'archivo'		=> 'productos_stock',
 		'prefijo'		=> 'prostock',
@@ -786,7 +794,7 @@ $objeto_tabla['PRODUCTOS_STOCK']=array(
 						'queries'		=> '0',
 						'listable'		=> '1'
 				),
-				'tipo'=>array(
+				'tipo'			=>array(
 						'campo'			=> 'tipo',
 						'label'			=> 'Tipo',
 						'tipo'			=> 'com',
@@ -798,7 +806,7 @@ $objeto_tabla['PRODUCTOS_STOCK']=array(
 								'1'			=> 'EXHIBICION'
 						),
 						'default'		=> '0'
-				),				
+				),
 				'observaciones'	=>array(
 						'campo'			=> 'observaciones',
 						'label'			=> 'Observaciones',
@@ -907,7 +915,7 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'label'			=> 'Impresión de Guía de Remisión',
 						'rel'			=> 'width:500,height:300',
 						'params'		=> 'destinatario|disabled=0&destinatario|validacion=0&ruc|disabled=0&ruc|validacion=0&direccion|disabled=0&direccion|validacion=0&motivo_traslado_otros|disabled=0&motivo_traslado_otros|validacion=0&imp_chofer_nombre|disabled=0&imp_chofer_nombre|validacion=0&imp_placa|disabled=0&imp_placa|validacion=0&imp_chofer_licencia|disabled=0&imp_chofer_licencia|validacion=0
-					&id|listable=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&cant_combustible|disabled=0&cant_combustible|validacion=0&numero_guia|frozen=1&numero_guia|disabled=0&numero_guia|validacion=1&fecha_pdi|disabled=1&fecha_recepcion|disabled=1&observaciones|disabled=1&id_ubicacion_llegada|disabled=1&id_traslado_status|disabled=1&id_asignacion|disabled=1&id_ubicacion_salida|disabled=1&id_color|disabled=1&fecha_salida|disabled=1&fecha_llegada|disabled=1&id_chofer|disabled=1&id_placa|disabled=1&id_item|disabled=1&id_item_item|disabled=1&onload_include=base2/on_impresiones.php',
+					&id|listable=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&cant_combustible|disabled=0&cant_combustible|validacion=0&numero_guia|frozen=0&numero_guia|disabled=0&numero_guia|validacion=1&fecha_pdi|disabled=1&fecha_recepcion|disabled=1&observaciones|disabled=1&id_ubicacion_llegada|disabled=1&id_traslado_status|disabled=1&id_asignacion|disabled=1&id_ubicacion_salida|disabled=1&id_color|disabled=1&fecha_salida|disabled=1&fecha_llegada|disabled=1&id_chofer|disabled=1&id_placa|disabled=1&id_item|disabled=1&id_item_item|disabled=1&onload_include=base2/on_impresiones.php',
 						'buttom'		=> 'Imprimir',
 						'accion'		=> 'update,load=imprimir_traslados.php',
 						'disabled'		=> '1'
@@ -1067,7 +1075,7 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'listable'		=> '1',
 						'tip_foreig'	=> '0'
 				),
-				'tipo'=>array(
+				'tipo'			=>array(
 						'campo'			=> 'tipo',
 						'label'			=> 'Tipo',
 						'tipo'			=> 'com',
@@ -1079,8 +1087,8 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 								'1'			=> 'EXHIBICION'
 						),
 						'default'		=> '0',
-						'frozen'		=> '1'						
-				),				
+						'frozen'		=> '1'
+				),
 				'id_asignacion'	=>array(
 						'campo'			=> 'id_asignacion',
 						'label'			=> '# Asignacion',
@@ -1213,7 +1221,7 @@ $objeto_tabla['PRODUCTOS_TRASLADOS']=array(
 						'validacion'	=> '0',
 						'width'			=> '350px',
 						'disabled'		=> '0'
-				),				
+				),
 				'motivo_traslado'=>array(
 						'campo'			=> 'motivo_traslado',
 						'label'			=> 'Motivo de Traslado',
@@ -1316,6 +1324,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 		'crear_label'	=> '80px',
 		'crear_txt'		=> '660px',
 		'filtros_extra'	=> '',
+		'onload_include'	=> 'base2/fix_estados.php',		
 		'postscript'	=> '
 				if(LL["fecha_creacion2"]!="0000-00-00 00:00:00"){
 					update(array("fecha_creacion"=>LL["fecha_creacion2"]),TT,"where id=II",0);
@@ -1627,13 +1636,13 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'autotags'		=> '1',
 						'listable'		=> '0'
 				),
-				'import'			=>array(
+				'import'		=>array(
 						'campo'			=> 'import',
 						'label'			=> 'import',
 						'tipo'			=> 'txt',
 						'indicador'		=> '1',
 						'listable'		=> '0'
-				)					
+				)
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '0',
@@ -2512,7 +2521,7 @@ $objeto_tabla['PRODUCTOS_ENTREGAS']=array(
 				array(
 						'label'			=> 'Impresión de Guía de Remisión',
 						'rel'			=> 'width:500,height:300',
-						'params'		=> 'motivo_traslado_otros|disabled=0&motivo_traslado_otros|validacion=0&direccion|disabled=0&direccion|validacion=0&id_ubicacion_llegada|disabled=0&id_ubicacion_llegada|validacion=0&imp_chofer_nombre|disabled=0&imp_chofer_nombre|validacion=0&imp_placa|disabled=0&imp_placa|validacion=0&imp_chofer_licencia|disabled=0&imp_chofer_licencia|validacion=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&cant_combustible|disabled=0&cant_combustible|validacion=0&numero_guia|frozen=1&numero_guia|disabled=0&numero_guia|validacion=1&id_ubicacion|disabled=1&id_item_item|disabled=1&fecha_entrega|disabled=1&fecha_venta|disabled=1&venta_factura|disabled=1&id_vendedor|disabled=1&
+						'params'		=> 'motivo_traslado_otros|disabled=0&motivo_traslado_otros|validacion=0&direccion|disabled=0&direccion|validacion=0&id_ubicacion_llegada|disabled=0&id_ubicacion_llegada|validacion=0&imp_chofer_nombre|disabled=0&imp_chofer_nombre|validacion=0&imp_placa|disabled=0&imp_placa|validacion=0&imp_chofer_licencia|disabled=0&imp_chofer_licencia|validacion=0&motivo_traslado|disabled=0&motivo_traslado|validacion=0&tipo_combustible|disabled=0&tipo_combustible|validacion=0&cant_combustible|disabled=0&cant_combustible|validacion=0&numero_guia|frozen=0&numero_guia|disabled=0&numero_guia|validacion=1&id_ubicacion|disabled=1&id_item_item|disabled=1&fecha_entrega|disabled=1&fecha_venta|disabled=1&venta_factura|disabled=1&id_vendedor|disabled=1&
 id_cliente|disabled=1&id_item|disabled=1&nummotor|disabled=1&yearfab|disabled=1&id_color|disabled=1&id_placa|disabled=1&receptor_nombre|disabled=1&
 receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disabled=1&onload_include=base2/on_impresiones.php',
 						'buttom'		=> 'Imprimir',
@@ -2845,7 +2854,7 @@ receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disa
 						'validacion'	=> '0',
 						'width'			=> '350px',
 						'disabled'		=> '0'
-				),				
+				),
 				'motivo_traslado'=>array(
 						'campo'			=> 'motivo_traslado',
 						'label'			=> 'Motivo de Traslado',
@@ -3222,20 +3231,21 @@ $objeto_tabla['PRODUCTOS_DOCUMENTOS']=array(
 						'fulltext'		=> '1',
 						'autotags'		=> '1'
 				),
-				'import'			=>array(
+				'import'		=>array(
 						'campo'			=> 'import',
 						'label'			=> 'import',
 						'tipo'			=> 'txt',
 						'indicador'		=> '1',
 						'listable'		=> '0'
-				)					
+				)
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '1',
 		'importar_csv'	=> '0',
 		'width_listado'	=> '',
 		'edicion_rapida'	=> '1',
-		'crear_pruebas'	=> '0'
+		'crear_pruebas'	=> '0',
+		'exportar_excel'	=> '1'
 );
 /******************************************************************************************************************************************************/
 
@@ -6389,7 +6399,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'menu_label'	=> 'Atenciones',
 		'me'			=> 'VENTAS_ITEMS',
 		'orden'			=> '0',
-		'onload_include'=> 'base2/update_alertas.php',
+		'onload_include'	=> 'base2/update_alertas.php',
 		'onload_script'	=> '<style>#id_in_id_jefe{display:none;}</style>',
 		'events'		=>array(
 				'on_session'	=> ''
@@ -6512,7 +6522,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'foreig'		=> '1',
 						'style'			=> 'width:100px,',
 						'opciones'		=> 'id,nombre|productos_grupos',
-						'load'			=> 'id_item||id,nombre|productos_items|where visibilidad=1 and id_grupo=',
+						'load'			=> 'id_item||id,nombre|productos_items|where visibilidad=1 and id_grupo=$1 order by orden asc',
 						'width'			=> '80px',
 						'derecha'		=> '1',
 						'tags'			=> '1',
@@ -7325,7 +7335,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'default'		=> '[id_cliente]',
 						'tipo'			=> 'hid',
 						'derecha'		=> '1',
-				 		'directlink'	=> 'id,nombre;apellidos;telefono|clientes|where visibilidad=1|6',
+						'directlink'	=> 'id,nombre;apellidos;telefono|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
 						'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
 						'style'			=> 'width:320px;',
@@ -7336,8 +7346,8 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'noedit'		=> '1',
 						'queries'		=> '1',
 						'dlquery'		=> '1',
-						'inherited'		=> '1',					
-				),				
+						'inherited'		=> '1'
+				),
 				'id_item'		=>array(
 						'campo'			=> 'id_item',
 						'label'			=> 'Modelo',
@@ -7353,7 +7363,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'tip_foreig'	=> '0',
 						'tags'			=> '1',
 						'queries'		=> '1',
-						'inherited'		=> '1',						
+						'inherited'		=> '1'
 				),
 				'id_grupo'		=>array(
 						'campo'			=> 'id_grupo',
@@ -7455,7 +7465,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'noedit'		=> '1',
 						'disabled'		=> '0',
 						'dlquery'		=> '0',
-						'inherited'		=> '1',						
+						'inherited'		=> '1'
 				),
 				'id_jefe'		=>array(
 						'campo'			=> 'id_jefe',
@@ -7471,7 +7481,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'tip_foreig'	=> '1',
 						'queries'		=> '1',
 						'disabled'		=> '0',
-						'inherited'		=> '1',						
+						'inherited'		=> '1'
 				),
 				'id_speech'		=>array(
 						'campo'			=> 'id_speech',

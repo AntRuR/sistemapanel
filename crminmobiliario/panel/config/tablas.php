@@ -96,7 +96,7 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 						'listable'		=> '0',
 						'validacion'	=> '0',
 						'opciones'		=> 'id,nombre|geo_departamentos',
-						'load'			=> 'provincia||id,nombre|geo_provincias|where id_departamento 	=',
+						'load'			=> 'provincia||id,nombre|geo_provincias|where id_departamento=',
 						'style'			=> 'width:150px;',
 						'derecha'		=> '1'
 				),
@@ -107,7 +107,7 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 						'combo'			=> '1',
 						'listable'		=> '0',
 						'validacion'	=> '0',
-						'opciones'		=> 'id,nombre|geo_provincias',
+						'opciones'		=> 'id,nombre|geo_provincias|where 0',
 						'load'			=> 'distrito||id,nombre|geo_distritos|where id_provincia=',
 						'style'			=> 'width:150px;',
 						'derecha'		=> '2'
@@ -119,7 +119,7 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 						'combo'			=> '1',
 						'listable'		=> '1',
 						'validacion'	=> '0',
-						'opciones'		=> 'id,nombre|geo_distritos',
+						'opciones'		=> 'id,nombre|geo_distritos|where id_provincia=8',
 						'style'			=> 'width:150px;',
 						'derecha'		=> '2',
 						'queries'		=> '1'
@@ -1088,7 +1088,7 @@ $objeto_tabla['PRODUCTOS_ITEMS_ITEMS']=array(
 				'id_status'		=>array(
 						'campo'			=> 'id_status',
 						'label'			=> 'Status',
-						'width'			=> '60px',
+						'width'			=> '80px',
 						'listable'		=> '1',
 						'tipo'			=> 'hid',
 						'opciones'		=> 'id,nombre|productos_stock_status',
@@ -1991,7 +1991,10 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'onedit'		=> 'base2/update_ventas_items.php',
 		'oncreate'		=> 'base2/update_ventas_items.php',
 		'onload_include'	=> 'base2/update_alertas.php',
-		'onload_script'	=> '<style>#id_in_id_jefe{display:none;}</style>',
+		'onload_script'	=> '<style>#id_in_id_jefe{display:none;}#id_in_id_usuario{display:none;}</style>',
+		'events'		=>array(
+				'on_session'	=> ''
+		),		
 		'procesos'		=>array(
 				array(
 						'label'			=> 'VENTA / SEPARACION',
@@ -2000,8 +2003,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'extra'			=> 'id=[id]',
 						'buttom'		=> 'Venta / Separación',
 						'params'		=> 'crear=1&id_canal|indicador=1&id_jefe|indicador=1&id_item|indicador=1&pedido|indicador=1&id_usuario|indicador=1&id_sectorista|indicador=1&id_cliente|indicador=1&id_cliente|indicador=1&id_cliente|indicador=1&id_banco|indicador=1&onload_include=base2/on_atencion_venta.php'
-				),
-		),		
+				)
+		),
 		'postscript'	=> '
 
 				$jefe=dato("id_jefe","usuarios","where id=".LL["id_usuario"],0);
@@ -2099,7 +2102,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'default'		=> '[id_cliente]',
 						'tipo'			=> 'hid',
 						'derecha'		=> '1',
-						'directlink'	=> 'id,nombre;apellidos;dni;info|clientes|where visibilidad=1|6',
+						'directlink'	=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
 						'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
 						'style'			=> 'width:600px;',
@@ -2144,7 +2147,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 				),
 				'id_canal'		=>array(
 						'campo'			=> 'id_canal',
-						'label'			=> 'Código de Marketing',
+						'label'			=> 'Código de Publicidad',
 						'width'			=> '120px',
 						'tipo'			=> 'hid',
 						'listable'		=> '1',
@@ -2164,7 +2167,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'default'		=> '[id_item]',
 						'style'			=> 'width:200px,',
 						'opciones'		=> 'id,codigo;nombre|productos_items',
-						'onchange'		=> '$(\'in_id_item_button\').set(\'href\',\'base2/apps/depa.php?p=\'+this.value);',
+						'onchange'		=> "$('in_id_item_button').set('href','base2/apps/depa.php?p='+this.value);",
 						'width'			=> '140px',
 						'derecha'		=> '1',
 						'tags'			=> '1',
@@ -2174,17 +2177,17 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 				),
 				'pedido'		=>array(
 						'campo'			=> 'pedido',
-						'label'			=> 'Pedido',
+						'label'			=> '',
 						'width'			=> '70px',
-						'tipo'			=> 'inp',
+						'tipo'			=> 'txt',
 						'like'			=> '1',
-						'style'			=> 'width:70px;',
+						'style'			=> 'width:70px;display:none;',
 						'derecha'		=> '1',
 						'listable'		=> '0',
 						'queries'		=> '0',
 						'listclass'		=> 'nogrilla',
-						'disabled'		=> '1'
-				),	
+						'disabled'		=> '0'
+				),
 				'forma_pago'	=>array(
 						'campo'			=> 'forma_pago',
 						'label'			=> 'Forma de Pago',
@@ -2202,7 +2205,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 								'2'			=> '$0("id_in_porcentaje_cuota_inicial");$0("id_in_cuota_inicial");$0("id_in_saldo_financiar");',
 								'3'			=> '$1("id_in_porcentaje_cuota_inicial");$1("id_in_cuota_inicial");$1("id_in_saldo_financiar");',
 								'4'			=> '$1("id_in_porcentaje_cuota_inicial");$1("id_in_cuota_inicial");$1("id_in_saldo_financiar");'
-						),						
+						),
 						'derecha'		=> '1',
 						'legend'		=> 'Pago'
 				),
@@ -2317,9 +2320,10 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'fulltext'		=> '1',
 						'autotags'		=> '1'
 				),
+
 				'id_usuario'	=>array(
 						'campo'			=> 'id_usuario',
-						'label'			=> 'Asesor',
+						'label'			=> 'Vendedor',
 						'width'			=> '120px',
 						'tipo'			=> 'hid',
 						'listable'		=> '1',
@@ -2330,8 +2334,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'queries'		=> '1',
 						'noedit'		=> '1',
 						'crearforeig'	=> '0',
-						'validacion'	=> '1',
-						'legend'		=> 'Asesor'
+						'validacion'	=> '0',
+						'indicador'		=> '0'
 				),
 				'id_jefe'		=>array(
 						'campo'			=> 'id_jefe',
@@ -2574,7 +2578,7 @@ $objeto_tabla['CLIENTES']=array(
 						'label'			=> 'Teléfono Casa',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
-						'validacion'	=> '0',
+						'validacion'	=> '1',
 						'width'			=> '70px',
 						'style'			=> 'width:70px;',
 						'derecha'		=> '2'
@@ -2591,10 +2595,10 @@ $objeto_tabla['CLIENTES']=array(
 				),
 				'celular_claro'	=>array(
 						'campo'			=> 'celular_claro',
-						'label'			=> 'Claro',
+						'label'			=> 'Celular',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
-						'validacion'	=> '0',
+						'validacion'	=> '1',
 						'width'			=> '70px',
 						'style'			=> 'width:70px;',
 						'derecha'		=> '1'
@@ -2602,7 +2606,7 @@ $objeto_tabla['CLIENTES']=array(
 				'celular_movistar'=>array(
 						'campo'			=> 'celular_movistar',
 						'label'			=> 'Movistar',
-						'tipo'			=> 'inp',
+						'tipo'			=> 'hid',
 						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '70px',
@@ -2612,7 +2616,7 @@ $objeto_tabla['CLIENTES']=array(
 				'nextel'		=>array(
 						'campo'			=> 'nextel',
 						'label'			=> 'Nextel',
-						'tipo'			=> 'inp',
+						'tipo'			=> 'hid',
 						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '70px',
@@ -3075,7 +3079,6 @@ $objeto_tabla['CLIENTES']=array(
 );
 /******************************************************************************************************************************************************/
 
-
 $objeto_tabla['VENTAS_MENSAJES']=array(
 		'grupo'			=> 'ventas',
 		'alias_grupo'	=> '',
@@ -3178,7 +3181,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'noedit'		=> '1',
 						'inherited'		=> '1',
 						'queries'		=> '1'
-				),				
+				),
 				'id_grupo'		=>array(
 						'campo'			=> 'id_grupo',
 						'tipo'			=> 'hid',
@@ -3277,7 +3280,7 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'tags'			=> '1',
 						'queries'		=> '1',
 						'noedit'		=> '1',
-						'inherited'		=> '1',						
+						'inherited'		=> '1',
 						'disabled'		=> '0',
 						'dlquery'		=> '0'
 				),
@@ -3294,8 +3297,8 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'derecha'		=> '2',
 						'tip_foreig'	=> '1',
 						'queries'		=> '1',
-						'inherited'		=> '1',						
-						'noedit'		=> '1',
+						'inherited'		=> '1',
+						'noedit'		=> '1'
 				),
 				'id_speech'		=>array(
 						'campo'			=> 'id_speech',
@@ -3580,7 +3583,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 		'crear_txt'		=> '660px',
 		'filtros_extra'	=> '',
 		'oncreate'		=> 'base2/create_productos_ventas.php',
-		'repos'			=> 'ventas=Resúmen de ventas y por vender&cierre=Informe de cierre de publicidad&evolucion=Evolución del precio promedio',
+		'repos'			=> 'ventas=Resúmen de ventas y por vender&evolucion=Evolución del precio promedio&cierre=Informe de cierre de publicidad',
 		'postscript'	=> '
 				if(LL["fecha_creacion2"]!="0000-00-00 00:00:00"){
 					update(array("fecha_creacion"=>LL["fecha_creacion2"]),TT,"where id=II",0);
@@ -3595,40 +3598,6 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 				}
 
 		',
-		/*'procesos'		=>array(
-				array(
-						'label'			=> 'Depósito Separación',
-						'ot'			=> 'productos_ventas_documentos',
-						'accion'		=> 'insert',
-						'extra'			=> 'id=[id]',
-						'buttom'		=> 'Registrar',
-						'params'		=> 'operacion|default=1&operacion|frozen=1&saldo|disabled=1&onload_include=base2/on_ventas_documentos.php'
-				),
-				array(
-						'label'			=> 'Depósito Ahorro',
-						'ot'			=> 'productos_ventas_documentos',
-						'accion'		=> 'insert',
-						'extra'			=> 'id=[id]',
-						'buttom'		=> 'Registrar',
-						'params'		=> 'operacion|default=2&operacion|frozen=1&saldo|disabled=1&onload_include=base2/on_ventas_documentos.php'
-				),
-				array(
-						'label'			=> 'Depósito Cuota Inicial',
-						'ot'			=> 'productos_ventas_documentos',
-						'accion'		=> 'insert',
-						'extra'			=> 'id=[id]',
-						'buttom'		=> 'Registrar',
-						'params'		=> 'operacion|default=3&operacion|frozen=1&saldo|disabled=1&onload_include=base2/on_ventas_documentos.php'
-				),
-				array(
-						'label'			=> 'Desembolso Bancario',
-						'ot'			=> 'productos_ventas_documentos',
-						'accion'		=> 'insert',
-						'extra'			=> 'id=[id]',
-						'buttom'		=> 'Registrar',
-						'params'		=> 'operacion|default=4&operacion|frozen=1&saldo|disabled=1&onload_include=base2/on_ventas_documentos.php'
-				)
-		),*/
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -3686,7 +3655,6 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'queries'		=> '1',
 						'validacion'	=> '0'
 				),
-
 				'id_cliente'	=>array(
 						'legend'		=> 'Cliente',
 						'campo'			=> 'id_cliente',
@@ -3697,23 +3665,22 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'default'		=> '[id_cliente]',
 						'tipo'			=> 'hid',
 						'derecha'		=> '1',
-						'directlink'	=> 'id,nombre;apellidos;dni;info|clientes|where visibilidad=1|6',
+						'directlink'	=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
 						'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
 						'style'			=> 'width:600px;',
 						'tip_foreig'	=> '1',
 						'like'			=> '0',
 						'tags'			=> '1',
-						'validacion'	=> '1',
+						'validacion'	=> '0',
 						'noedit'		=> '1',
 						'crearforeig'	=> '1',
 						'queries'		=> '1',
 						'dlquery'		=> '1'
 				),
-
 				'id_canal'		=>array(
 						'campo'			=> 'id_canal',
-						'label'			=> 'Código de Marketing',
+						'label'			=> 'Código de Publicidad',
 						'width'			=> '120px',
 						'tipo'			=> 'hid',
 						'listable'		=> '1',
@@ -3733,7 +3700,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'default'		=> '[id_item]',
 						'style'			=> 'width:200px,',
 						'opciones'		=> 'id,codigo;nombre|productos_items',
-						'onchange'		=> '$(\'in_id_item_button\').set(\'href\',\'base2/apps/depa.php?p=\'+this.value);',
+						'onchange'		=> '$("in_id_item_button").set("href","base2/apps/depa.php?p="+this.value);',
 						'width'			=> '140px',
 						'derecha'		=> '1',
 						'tags'			=> '1',
@@ -3743,17 +3710,17 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 				),
 				'pedido'		=>array(
 						'campo'			=> 'pedido',
-						'label'			=> 'Pedido',
+						'label'			=> '',
 						'width'			=> '70px',
 						'tipo'			=> 'txt',
 						'like'			=> '1',
-						'style'			=> 'width:70px;',
+						'style'			=> 'width:70px;display:none;',
 						'derecha'		=> '1',
 						'listable'		=> '0',
 						'queries'		=> '0',
 						'listclass'		=> 'nogrilla',
-						'disabled'		=> '1'
-				),			
+						'disabled'		=> '0'
+				),
 				'forma_pago'	=>array(
 						'campo'			=> 'forma_pago',
 						'label'			=> 'Forma de Pago',
@@ -3771,7 +3738,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 								'2'			=> '$0("id_in_porcentaje_cuota_inicial");$0("id_in_cuota_inicial");$0("id_in_saldo_financiar");',
 								'3'			=> '$1("id_in_porcentaje_cuota_inicial");$1("id_in_cuota_inicial");$1("id_in_saldo_financiar");',
 								'4'			=> '$1("id_in_porcentaje_cuota_inicial");$1("id_in_cuota_inicial");$1("id_in_saldo_financiar");'
-						),						
+						),
 						'derecha'		=> '1',
 						'legend'		=> 'Pago'
 				),
@@ -3884,7 +3851,8 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'tipo'			=> 'txt',
 						'indicador'		=> '1',
 						'fulltext'		=> '1',
-						'autotags'		=> '1'
+						'autotags'		=> '1',
+						'listable'		=> '0'
 				),
 				'id_usuario'	=>array(
 						'campo'			=> 'id_usuario',
@@ -3899,7 +3867,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'queries'		=> '1',
 						'noedit'		=> '1',
 						'crearforeig'	=> '0',
-						'validacion'	=> '1',
+						'validacion'	=> '0',
 						'legend'		=> 'Asesor'
 				),
 				'id_jefe'		=>array(
@@ -3916,23 +3884,10 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'tip_foreig'	=> '1',
 						'queries'		=> '1'
 				),
-
-
-
-
 				'method'		=>array(
 						'campo'			=> 'method',
 						'tipo'			=> 'inp',
 						'indicador'		=> '1'
-				),
-				'tags'			=>array(
-						'campo'			=> 'tags',
-						'label'			=> 'tags',
-						'tipo'			=> 'txt',
-						'indicador'		=> '1',
-						'fulltext'		=> '1',
-						'autotags'		=> '1',
-						'listable'		=> '0'
 				)
 		),
 		'edicion_completa'=> '1',
@@ -4164,8 +4119,7 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 						'tipo'			=> 'inp',
 						'style'			=> 'width:60px;',
 						'derecha'		=> '1',
-						'listable'		=> '1',
-						// 'live'			=> '[importe]=[monto];[recibido]=[monto];'
+						'listable'		=> '1'
 				),
 				'saldo'			=>array(
 						'campo'			=> 'saldo',
@@ -4177,7 +4131,6 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 						'listable'		=> '1',
 						'frozen'		=> '1'
 				),
-
 				'fecha_vencimiento'=>array(
 						'campo'			=> 'fecha_vencimiento',
 						'label'			=> 'Vencimiento',
@@ -4189,8 +4142,7 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 						'derecha'		=> '1',
 						'rango'			=> 'now,+10 years'
 				),
-
-				'fecha_abono'=>array(
+				'fecha_abono'	=>array(
 						'campo'			=> 'fecha_abono',
 						'label'			=> 'Abono',
 						'tipo'			=> 'fch',
@@ -4200,8 +4152,7 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 						'formato'		=> '7b',
 						'derecha'		=> '1',
 						'rango'			=> 'now,+10 years'
-				),				
-
+				),
 				'estado'		=>array(
 						'campo'			=> 'estado',
 						'label'			=> 'Estado',
@@ -4233,7 +4184,6 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 						'style'			=> 'width:150px;',
 						'width'			=> '100px'
 				),
-
 				'method'		=>array(
 						'campo'			=> 'method',
 						'tipo'			=> 'inp',
@@ -4261,7 +4211,127 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 		'crear_pruebas'	=> '0',
 		'order_by'		=> 'id asc',
 		'user'			=> '1',
-		'disabled'		=> '0'
+		'disabled'		=> '0',
+		'seccion'		=> ''
+);
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['PUBLICIDADES']=array(
+		'grupo'			=> 'ventas',
+		'alias_grupo'	=> '',
+		'titulo'		=> 'Publicidades',
+		'nombre_singular'=> 'publicidad',
+		'nombre_plural'	=> 'publicidades',
+		'tabla'			=> 'publicidades',
+		'archivo'		=> 'publicidades',
+		'prefijo'		=> 'spe',
+		'eliminar'		=> '1',
+		'crear'			=> '1',
+		'editar'		=> '1',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '600px',
+		'menu_label'	=> 'Publicidades',
+		'me'			=> 'PUBLICIDADES',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'fecha_creacion2'=>array(
+						'campo'			=> 'fecha_creacion2',
+						'label'			=> 'Fecha Creacion',
+						'tipo'			=> 'fch',
+						'width'			=> '80px',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'formato'		=> '7b',
+						'derecha'		=> '1',
+						'rango'			=> '-4 years,now',
+						'default'		=> 'now()'
+				),
+				'id_item'		=>array(
+						'campo'			=> 'id_item',
+						'label'			=> 'Proyecto',
+						'tipo'			=> 'hid',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'default'		=> '[id_item]',
+						'style'			=> 'width:200px,',
+						'opciones'		=> 'id,codigo;nombre|productos_items',
+						'width'			=> '140px',
+						'derecha'		=> '1',
+						'tags'			=> '1',
+						'queries'		=> '1',
+						'tip_foreig'	=> '1'
+				),
+				'tamano'		=>array(
+						'campo'			=> 'tamano',
+						'label'			=> 'Tamaño',
+						'tipo'			=> 'com',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'2 X 2'			=> '2 X 2',
+								'3 X 2'			=> '3 X 2',
+								'3 X 3'			=> '3 X 3',
+								'3 X 5'			=> '3 X 5',
+								'3 X 6'			=> '3 X 6',
+								'4 X 3'			=> '4 X 3',
+								'6 X 3'			=> '6 X 3',
+								'6 X 6'			=> '6 X 6'
+						),
+						'style'			=> 'width:150px;',
+						'width'			=> '100px',
+						'derecha'		=> '1',
+				),
+				'cantidad'		=>array(
+						'campo'			=> 'cantidad',
+						'label'			=> 'Cantidad',
+						'width'			=> '60px',
+						'tipo'			=> 'inp',
+						'style'			=> 'width:60px;',
+						'derecha'		=> '2',
+						'listable'		=> '1',
+						'validacion'	=> '1'
+				),
+				'precio'		=>array(
+						'campo'			=> 'precio',
+						'label'			=> 'Precio Unitario',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '50px',
+						'validacion'	=> '0',
+						'variable'		=> 'float',
+						'derecha'		=> '2',
+						'size'			=> '8',
+						'style'			=> 'width:100px;'
+				)
+		),
+		'seccion'		=> 'publicidad'
 );
 /******************************************************************************************************************************************************/
 
@@ -5912,7 +5982,7 @@ $objeto_tabla['PRODUCTOS_PTOVENTA']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['CONTACTO_CANALES']=array(
-		'titulo'		=> 'Código de Marketing',
+		'titulo'		=> 'Código de Publicidad',
 		'nombre_singular'=> 'código',
 		'nombre_plural'	=> 'códigos',
 		'tabla'			=> 'contacto_canales',
@@ -5926,7 +5996,7 @@ $objeto_tabla['CONTACTO_CANALES']=array(
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
 		'menu'			=> '1',
-		'menu_label'	=> 'Código de Marketing',
+		'menu_label'	=> 'Código de Publicidad',
 		'me'			=> 'CONTACTO_CANALES',
 		'orden'			=> '1',
 		'campos'		=>array(

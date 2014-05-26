@@ -168,11 +168,11 @@ if($_GET['ran']==''){
 
 			if($datos_tabla['exportar_excel']=='1'){
 
-			?><a href="#" onclick="javascript:window.print();return false;" <?php
+			?><a href="#" id="boton_excel" onclick="javascript:window.print();return false;" <?php
 			?>class="btn btn-small" <?php
 			?>title="Imprimir"><i class="itl ico_Print"></i>Imprimir</a><?php
 
-			?><a href="#" onclick="javascript:exportar_excel();return false;" <?php
+			?><a href="#" id="boton_imprimir" onclick="javascript:exportar_excel();return false;" <?php
 			?>class="btn btn-small" <?php
 			?>title="Descargar Excel"><i class="itl ico_Excel"></i>Exportar Excel</a><script>function exportar_excel(){ var url='exportar_excel.php?conf=<?php echo urlencode($_GET['conf']); ?>&me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); location.href=url; }</script> <?php
 			}

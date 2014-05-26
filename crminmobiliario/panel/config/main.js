@@ -812,21 +812,24 @@ function record()
     parent.document.getElementById('in_pvlista').value=total_price;
     parent.document.getElementById('in_pvpromocion').value=total_price;
 
-    // parent.initMultiBox.close();
+    parent.initMultiBox.close();
+    parent.initMultiBox.close();
+    parent.initMultiBox.close();
+    parent.initMultiBox.close();
     // 
-    var closesecure = function (){
+    // var closesecure = function (){
 
-        setTimeout(function() {
+    //     setTimeout(function() {
             
-            console.log('close');
-            parent.initMultiBox.close();
-            closesecure();
+    //         console.log('close');
+    //         parent.initMultiBox.close();
+    //         closesecure();
 
-        },1000);
+    //     },1000);
 
-    }
+    // }
 
-    closesecure();
+    // closesecure();
 
 }
 

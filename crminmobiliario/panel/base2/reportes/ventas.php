@@ -381,12 +381,15 @@ $seccion['resumen']=$row;
 
 // prin($seccion[$_GET['seccion']]);
 
-if($_GET['seccion']!=''){
-	echo render_excel($seccion[$_GET['seccion']]);
+if($_GET['format']=='excel'){
+
+	echo render_excel($seccion);
+
 } else {
-	foreach($vendes as $vende){
+
+	foreach($seccion as $vende){
 		echo render_table($vende,'reporte_ventas');
 	}
-	echo render_table($seccion['resumen'],'reporte_ventas');
 	echo '<script> $$(".filters").setStyle("display","none"); </script>';
+	
 }
