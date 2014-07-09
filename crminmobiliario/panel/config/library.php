@@ -2,7 +2,7 @@
 
 function render_style(){
 
-	$style['table']    ='style="font-size: 10px !important; border:1px solid #AAA !important;"';
+	$style['table']    ='style="font-size: 10px !important; "';
 	$style['section']  ='style="font-size: 10px; font-weight: bold; padding: 5px 0; text-align: center;"';
 	$style['valor']    ='style="color: #000; padding: 3px 0 3px 5px; width: 170px;"';
 	$style['variable'] ='style="width: 90px;"';
@@ -11,13 +11,15 @@ function render_style(){
 	$style['head']    ='style="font-weight:bold;text-decoration:underline;font-size:10px;padding-bottom:10px;"';
 	$style['bold']    ='style="font-weight:bold;"';
 
-	$style['line5']=$style['line']	  ='<table width="98%"><tr><td height="5"></td></tr></table>';
-	$style['line10']='<table width="98%"><tr><td height="10"></td></tr></table>';
-	$style['line15']='<table width="98%"><tr><td height="15"></td></tr></table>';
-	$style['line20']='<table width="98%"><tr><td height="20"></td></tr></table>';
+	$style['line5']=$style['line']	  ='<table width="98%" border="0" style="border:0;"><tr><td height="5"></td></tr></table>';
+	$style['line10']='<table width="98%" border="0" style="border:0;"><tr><td height="10"></td></tr></table>';
+	$style['line15']='<table width="98%" border="0" style="border:0;"><tr><td height="15"></td></tr></table>';
+	$style['line20']='<table width="98%" border="0" style="border:0;"><tr><td height="20"></td></tr></table>';
 
-	$style['enclosure_open']='<table><tr><td style="border:1px solid #AAA !important;">';
-	$style['enclosure_close']='</td></tr></table>';
+	// $style['enclosure_open']='<table><tr><td>';
+	// $style['enclosure_close']='</td></tr></table>';
+
+	$style['moneda']='S/.';
 
 	return $style;
 
@@ -29,7 +31,73 @@ function render_logo($linea){
 }
 
 function render_plano($linea){
-	$html='';
+
+	$style=render_style();
+
+	if($linea['galerias'][0]['fotos'][0]['thumb']){
+
+		$html='';
+			$html.=$style['enclosure_open'];
+
+		$html.="<table  ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
+		
+		$html.='<tr><td class="section" '.$style['head'].'>PLANO</td></tr>';
+
+		$html.="<tr><td><img ".$linea['galerias'][0]['fotos'][0]['thumb']." ></td></tr>";
+
+		$html.='</table>';
+
+			$html.=$style['enclosure_close'];
+
+		$html.=$style['line'];
+
+	}
+
+	return $html;
+}
+
+function render_caracteristicas_inmueble($linea){
+
+		$style=render_style();
+
+		// prin($linea);
+		$html='';
+			$html.=$style['enclosure_open'];
+
+		$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
+		
+		$html.='<tr><td '.$style['head'].'>CARACTERICTICAS DEL INMUEBLE</td></tr>';
+
+		$html.="<tr><td>".$linea['item']['descripction5']."</td></tr>";
+
+		$html.='</table>';
+
+			$html.=$style['enclosure_close'];
+
+		$html.=$style['line'];
+
+	return $html;
+}
+
+function render_caracteristicas_proyecto($linea){
+
+		$style=render_style();
+
+		$html='';
+			$html.=$style['enclosure_open'];
+
+		$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
+		
+		$html.='<tr><td class="section"  '.$style['head'].'>CARACTERICTICAS DEL PROYECTO</td></tr>';
+
+		$html.="<tr><td>".$linea['item']['descripction5']."</td></tr>";
+
+		$html.='</table>';
+
+			$html.=$style['enclosure_close'];
+
+		$html.=$style['line'];
+
 	return $html;
 }
 
@@ -42,7 +110,7 @@ function extract_departamentos($id){
 
 	$product=fila(
 	        "id,id_item,id_items_tipo,id_subgrupo,numero,nombre,pvlista,pvpromocion,area_total,area_construida,
-	        descripcion,descripcion2,descripcion3,descripcion4,
+	        descripcion,descripcion2,descripcion3,descripcion4,descripcion5,
 	        has_balcon,num_rooms,num_bathrooms,
 	        id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,fecha_creacion",
 	        "productos_items_items",
@@ -60,7 +128,7 @@ function extract_departamentos($id){
 																					"profot_imas",
 																					array(												 
 																					 	   'archivo'=>'1',
-																					 	   'thumb'=>'1,260x200,0',
+																					 	   'thumb'=>'2,649x400,0',
 																					 	   'box'=>'2',
 																					)        																	
 	        																)
@@ -77,13 +145,14 @@ function extract_departamentos($id){
 						 		  )		        	
 	        	)        
 	        );
+	
 	// prin($product);
 
 	return $product;
 
 }
 
-function render_vendedor($linea){
+function render_cliente($linea){
 
 	$telefonos_fijos=$telefonos_moviles=array();
 
@@ -104,10 +173,10 @@ function render_vendedor($linea){
 
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
 	
-	$html.='<tr><td colspan=4 '.$style['head'].'>DATOS DEL EJECUTIVO DE VENTAS</td></tr>';
+	$html.='<tr><td class="section" colspan=4 '.$style['head'].'>DATOS DEL CLIENTE</td></tr>';
 
 	$html.="<tr>
-	<td ".$style['variable'].">VENDEDOR</td>
+	<td ".$style['variable'].">CLIENTE</td>
 	<td ".$style['valor']." colspan=3>".strtoupper($linea['cliente']['nombre']." ".$linea['cliente']['apellidos'])."</td>
 	</tr>";
 
@@ -124,10 +193,7 @@ function render_vendedor($linea){
 	</tr>";
 
 
-	$html.="<tr>
-	<td ".$style['variable'].">ATENDIDO POR</td>
-	<td ".$style['valor']." colspan=3>".strtoupper($linea['cliente']['nombre']." ".$linea['cliente']['apellidos'])."</td>
-	</tr>";
+
 
 	$html.='</table>';
 		$html.=$style['enclosure_close'];
@@ -138,7 +204,7 @@ function render_vendedor($linea){
 
 }
 
-function render_cliente($linea){
+function render_vendedor($linea){
 
 	$telefonos_fijos=$telefonos_moviles=array();
 
@@ -159,10 +225,10 @@ function render_cliente($linea){
 
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
 	
-	$html.='<tr><td colspan=4 '.$style['head'].'>DATOS DEL CLIENTE</td></tr>';
+	$html.='<tr><td class="section" colspan=4 '.$style['head'].'>DATOS DEL ASESOR COMERCIAL</td></tr>';
 
 	$html.="<tr>
-	<td ".$style['variable'].">CLIENTE</td>
+	<td ".$style['variable'].">VENDEDOR</td>
 	<td ".$style['valor']." colspan=3>".strtoupper($linea['usuario']['nombre']." ".$linea['usuario']['apellidos'])."</td>
 	</tr>";
 
@@ -178,7 +244,13 @@ function render_cliente($linea){
 	<td ".$style['valor'].">".$telefonos_moviles_string."</td>
 	</tr>";
 
+	$html.="<tr>
+	<td ".$style['variable'].">ATENDIDO POR</td>
+	<td ".$style['valor']." colspan=3>".strtoupper($linea['usuario']['nombre']." ".$linea['usuario']['apellidos'])."</td>
+	</tr>";
+
 	$html.='</table>';
+
 		$html.=$style['enclosure_close'];
 
 	$html.=$style['line'];
@@ -189,6 +261,9 @@ function render_cliente($linea){
 
 function render_departamentos($producto,$precio){
 
+	// prin($producto);
+	// exit();
+
 	$style=render_style();
 
 	$html='';
@@ -196,10 +271,10 @@ function render_departamentos($producto,$precio){
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
 
 	$html.="<tr>
-	<td width=200 ".$style['head'].">DATOS DE LA COTIZACIÓN</td>
-	<td width=30 ".$style['head'].">S/.</td>
+	<td width=200 ".$style['head'].">DATOS DEL DEPARTAMENTO</td>
+	<td width=30 ".$style['head'].">Nro</td>
 	<td ".$style['head'].">N DORMITORIOS</td>
-	<td ".$style['head'].">TIPO DE VISTA</td>
+	<td ".$style['head'].">TIPO DE INMUEBLE</td>
 	<td ".$style['head'].">AREA TECHADA</td>
 	<td width=100 ".$style['head'].">AREA TOTAL</td>
 	</tr>";
@@ -208,7 +283,7 @@ function render_departamentos($producto,$precio){
 	<td>DEPARTAMENTO</td>
 	<td>".$producto['numero']."</td>
 	<td>".$producto['num_rooms']."</td>
-	<td></td>
+	<td>".$producto['nombre']."</td>
 	<td>".$producto['area_construida']."</td>
 	<td>".$producto['area_total']."</td>
 	</tr>";
@@ -216,7 +291,11 @@ function render_departamentos($producto,$precio){
 	$html.="<tr>
 	<td colspan=2></td>
 	<td colspan=3 ".$style['bold'].">PRECIO FINAL</td>
-	<td ".$style['bold']." align=right>".$producto['pvpromocion']."</td>
+	<td ".$style['bold']." align=right>".$style['moneda']." ".$producto['pvpromocion']."</td>
+	</tr>";	
+
+	$html.="<tr>
+	<td colspan=6 ".$style['bold']."><b>CARACTERISTICAS</b><br> ".$producto['descripcion5']."</td>
 	</tr>";	
 
 	// $html.='<tr><td '.$style['section'].' colspan=2><strong>'.$producto['proyecto']['nombre'].' - Departamento '.$producto['nombre'].' '.$producto['numero'].'</strong></td></tr>';
@@ -326,23 +405,23 @@ function render_total($linea,$suma){
 
 	$html='';
 	$html.=$style['enclosure_open'];	
-	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=0 >";
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
 
 	$html.="<tr>
-	<td ".$style['head'].">PRECIO FINAL</td>
-	<td width=100 ".$style['bold']." align=right>".$suma."</td>
+	<td ".$style['head'].">PRECIO TOTAL</td>
+	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".$suma."</td>
 	</tr>";		
 	$html.="<tr>
 	<td>SEPARACIÓN</td>
-	<td align=right>".$linea['separacion']."</td>
+	<td align=right>".$style['moneda']." ".$linea['separacion']."</td>
 	</tr>";		
 	$html.="<tr>
 	<td>CUOTA INICIAL</td>
-	<td align=right>".$linea['cuota_inicial']."</td>
+	<td align=right>".$style['moneda']." ".$linea['cuota_inicial']."</td>
 	</tr>";		
 	$html.="<tr>
 	<td>SALDO A FINANCIAR</td>
-	<td align=right>".$linea['saldo_financiar']."</td>
+	<td align=right>".$style['moneda']." ".$linea['saldo_financiar']."</td>
 	</tr>";		
 				
 	$html.='</table>';
@@ -362,12 +441,17 @@ function render_depositos($producto,$precio){
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
 
 	$html.="<tr>
-	<td width=200 ".$style['head'].">DEPOSITO</td>
+	<td width=200 ".$style['head'].">DATOS DEL DEPOSITO</td>
 	<td width=30 >".$producto['numero']."</td>
-	<td>AREA TECHADA : ".$producto['area']."</td>
-	<td width=100 ".$style['bold']." align=right>".$precio."</td>
+	<td colspan=3>AREA TECHADA : ".$producto['area']." | ".$producto['nombre']."</td>
 	</tr>";		
 	
+	$html.="<tr>
+	<td colspan=2></td>
+	<td colspan=2 ".$style['bold'].">PRECIO FINAL</td>
+	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".$precio."</td>
+	</tr>";	
+
 	$html.='</table>';
 	$html.=$style['enclosure_close'];
 	$html.=$style['line'];
@@ -387,10 +471,15 @@ function render_estacionamiento($producto,$precio){
 	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
 
 	$html.="<tr>
-	<td width=200 ".$style['head'].">ESTACIONAMIENTO</td>
+	<td width=200 ".$style['head'].">DATOS DEL ESTACIONAMIENTO</td>
 	<td width=30 >".$producto['numero']."</td>
-	<td>AREA TECHADA : ".$producto['area']."</td>
-	<td width=100 ".$style['bold']." align=right>".$precio."</td>
+	<td colspan=3>AREA TECHADA : ".$producto['area']." | ".$producto['nombre']."</td>
+	</tr>";		
+
+	$html.="<tr>
+	<td colspan=2></td>
+	<td colspan=2 ".$style['bold'].">PRECIO FINAL</td>
+	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".$precio."</td>
 	</tr>";		
 	
 	$html.='</table>';

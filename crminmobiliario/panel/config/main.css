@@ -112,6 +112,8 @@ ul.ul_menus a:hover {
 
 	text-decoration: underline !important;
 
+	color: #000 !important;
+
 }
 
 ul.ul_menus li.seccion b {
@@ -136,7 +138,7 @@ ul.ul_menus {
 
 ul.ul_menus li.seccion b {
 
-    color: #918F8F;
+    color: #000;
 
     font-size: 11px;
 
@@ -302,5 +304,9 @@ font-family: PTN57F !important;
 
 td { background-color: #FFF; }
 
-
 #menumenu { margin-top: 4px;}
+
+
+.htmlenlista td { background-color: transparent; }
+
+

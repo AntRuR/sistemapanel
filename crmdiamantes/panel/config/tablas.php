@@ -65,6 +65,15 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 						'tags'			=> '1',
 						'queries'		=> '1'
 				),
+				'orden'		=>array(
+						'label'			=> 'orden',
+						'width'			=> '70px',
+						'campo'			=> 'orden',
+						'variable'		=> 'float',
+						'tipo'          => 'inp',
+						'style'         => 'width:70px;',
+						'listable'		=> '1',
+				),				
 				'codigo'		=>array(
 						'campo'			=> 'codigo',
 						'label'			=> 'Código',
@@ -205,8 +214,7 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 		'creacion_hijo'	=> 'productos_fotos',
 		'calificacion'	=> '1',
 		'importar_csv'	=> '0',
-		'group'			=> 'id_tipo',
-		'order_by'		=> 'id_grupo desc, orden asc',
+		'order_by'		=> 'orden desc, id_grupo desc',
 		'width_listado'	=> '',
 		'edicion_rapida'	=> '1',
 		'crear_pruebas'	=> '0'
@@ -264,14 +272,6 @@ $objeto_tabla['PRODUCTOS_ITEMS_ITEMS']=array(
 				'calificacion'	=>array(
 						'campo'			=> 'calificacion',
 						'tipo'			=> 'cal'
-				),
-				,'orden'		=>array(
-						'label'			=> 'orden',
-						'width'			=> '70px',
-						'campo'			=> 'orden',
-						'variable'		=> 'float',
-						'tipo'          => 'inp',
-						'style'         => 'width:70px;'
 				),
 				'pedido'		=>array(
 						'campo'			=> 'pedido',
@@ -2111,10 +2111,17 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION']=array(
 						'extra'			=> 'id=[id]',
 						'buttom'		=> 'Crear',
 						'params'		=> 'id_item_item|disabled=1',
+						'rel'			=> 'width:1250,height:600',
 						'cargar'		=>array(
 								'fecha_cierre'	=> 'now()'
 						)
-				)
+				),
+				array(
+						'label'			=> 'Imprimir',
+						'accion'		=> 'custom',
+						'ot'			=> 'imprimir_programacion.php',
+						'rel'			=> 'width:1250,height:1000'
+				),				
 		),
 		'campos'		=>array(
 				'id'			=>array(
@@ -2230,6 +2237,15 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION']=array(
 						'width'			=> '30px',
 						'disabled'		=> '1'
 				),
+				'receptor'		=>array(
+						'campo'			=> 'receptor',
+						'label'			=> 'Receptor',
+						'width'			=> '200px',
+						'tipo'			=> 'inp',
+						'style'			=> 'width:200px;',
+						'derecha'		=> '1',
+						'listable'		=> '1',
+				),
 				'observaciones'	=>array(
 						'campo'			=> 'observaciones',
 						'label'			=> 'Observaciones',
@@ -2299,6 +2315,12 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 						update(array("conf"=>"0|disabled=1"),TT,"where id=II",0);
 					}
 				}
+				if(SS=="insert" or SS=="update"){
+					if(LL["id_operacion"]==""){
+						$iiii=insert(array("horas"=>LL["horas"],"costo"=>LL["costo"],"nombre"=>LL["nombre"]),"programaciones_operaciones",0);									
+						update(array("id_operacion"=>$iiii["id"]),TT,"where id=II",0);
+					}
+				}
 				if(SS=="delete"){
 					//
 				}
@@ -2348,16 +2370,6 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 						'default'		=> '[id]',
 						'foreig'		=> '1'
 				),
-				'nombre'		=>array(
-						'campo'			=> 'nombre',
-						'label'			=> 'Operación',
-						'width'			=> '200px',
-						'tipo'			=> 'inp',
-						'style'			=> 'width:200px;',
-						'derecha'		=> '1',
-						'listable'		=> '1',
-						'validacion'	=> '1'
-				),
 				'id_item_item'	=>array(
 						'campo'			=> 'id_item_item',
 						'label'			=> 'Vin',
@@ -2374,7 +2386,35 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 						'queries'		=> '1',
 						'tip_foreig'	=> '1',
 						'dlquery'		=> '1'
-				),
+				),				
+				'id_operacion'	=>array(
+						'campo'			=> 'id_operacion',
+						'label'			=> 'Operación',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[id_operacion]',
+						'style'			=> 'width:300px;',
+						'opciones'		=> 'id,nombre|programaciones_operaciones|where 1',
+						'directlink'	=> 'id,nombre|programaciones_operaciones|where 1',
+						'width'			=> '100px',
+						'derecha'		=> '1',
+						'tags'			=> '1',
+						'queries'		=> '1',
+						'dlquery'		=> '1',
+						'onchange'		=> 'if($v(\'in_id_operacion\')==\'\'){$(\'in_nombre\').value=this.value;$(\'in_horas\').value=\'\';$(\'in_costo\').value=\'\'}',
+						'load'			=> '|||nombre,costo,horas|programaciones_operaciones|where id=[id_operacion];',						
+				),				
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Operación',
+						'width'			=> '200px',
+						'tipo'			=> 'inp',
+						'style'			=> 'width:300px;',
+						'derecha'		=> '2',
+						'listable'		=> '1',
+						'listyle'		=> 'display:none;'
+				),	
 				'horas'			=>array(
 						'campo'			=> 'horas',
 						'label'			=> 'Tiempo (horas)',
@@ -2382,7 +2422,7 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 						'listable'		=> '1',
 						'width'			=> '50px',
 						'validacion'	=> '1',
-						'derecha'		=> '1',
+						'derecha'		=> '2',
 						'size'			=> '4'
 				),
 				'costo'			=>array(
@@ -2396,7 +2436,7 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 						'derecha'		=> '2',
 						'listhtml'		=> '',
 						'style'			=> 'width:50px;'
-				),
+				),			
 				'fecha_inicio'	=>array(
 						'campo'			=> 'fecha_inicio',
 						'label'			=> 'Inicio',
@@ -2446,13 +2486,32 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 						'listable'		=> '1',
 						'tip_foreig'	=> '1'
 				),
+				'productos'	=>array(
+						'campo'			=> 'productos',
+						'label'			=> 'Productos',
+						'tipo'			=> 'txt',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'width'			=> '350px',
+						'style'			=> 'height:80px;width:450px;'						
+				),				
+				'observaciones'	=>array(
+						'campo'			=> 'observaciones',
+						'label'			=> 'Observaciones',
+						'tipo'			=> 'txt',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'width'			=> '350px',
+						'style'			=> 'height:80px;width:450px;'						
+				),				
 				'qc'			=>array(
 						'campo'			=> 'qc',
 						'label'			=> 'QC',
 						'width'			=> '30px',
 						'tipo'			=> 'txt',
 						'style'			=> 'width:300px;',
-						'derecha'		=> '1'
+						'derecha'		=> '1',
+						'style'			=> 'height:80px;width:450px;'						
 				),
 				'conf'			=>array(
 						'campo'			=> 'conf',
@@ -2476,6 +2535,95 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 		'edicion_rapida'	=> '0',
 		'crear_pruebas'	=> '0'
 );
+
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['PROGRAMACIONES_OPERACIONES']=array(
+		'titulo'		=> 'Configuración : Operaciones',
+		'nombre_singular'=> 'operación',
+		'nombre_plural'	=> 'operesaciones',
+		'tabla'			=> 'programaciones_operaciones',
+		'archivo'		=> 'programaciones_operaciones',
+		'prefijo'		=> 'banc',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '0',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Operaciones',
+		'me'			=> 'PROGRAMACIONES_OPERACIONES',
+		'orden'			=> '1',
+		'width_listado'	=> '600px',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'width'			=> '300px',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'style'			=> 'width:300px;'
+				),
+				'horas'			=>array(
+						'campo'			=> 'horas',
+						'label'			=> 'Tiempo (horas)',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '50px',
+						'validacion'	=> '1',
+						'derecha'		=> '1',
+						'size'			=> '4'
+				),
+				'costo'			=>array(
+						'campo'			=> 'costo',
+						'label'			=> 'Costo x Operación',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '50px',
+						'validacion'	=> '1',
+						'variable'		=> 'float',
+						'derecha'		=> '2',
+						'listhtml'		=> '',
+						'style'			=> 'width:50px;'
+				),
+		),
+		'grupo'			=> 'productos',
+		'edicion_completa'=> '0',
+		'expandir_vertical'=> '0',
+		'edicion_rapida'	=> '1',
+		'calificacion'	=> '0',
+		'set_fila_fijo'	=> '3',
+		'crear_quick'	=> '1',
+		'disabled'		=> '0'
+);
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['PRODUCTOS_ENTREGAS']=array(
@@ -3727,8 +3875,8 @@ $objeto_tabla['PRODUCTOS_GARANTIAS']=array(
 						'validacion'	=> '1',
 						'default'		=> '[id_item_item]',
 						'style'			=> 'width:140px;',
-						'opciones'		=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where (productos_items_items.id_status=5 or productos_items_items.id_status=7) and productos_items_items.id=productos_ventas.id_item_item',
-						'directlink'	=> 'productos_items_items.id,productos_items_items.vin|productos_items_items,productos_ventas|where (productos_items_items.id_status=5 or productos_items_items.id_status=7) and productos_items_items.id=productos_ventas.id_item_item',
+						'opciones'		=> 'productos_items_items.id,productos_items_items.vin|productos_items_items|where (productos_items_items.id_status=5 or productos_items_items.id_status=7) ',
+						'directlink'	=> 'productos_items_items.id,productos_items_items.vin|productos_items_items|where (productos_items_items.id_status=5 or productos_items_items.id_status=7) ',
 						'load'			=> '||||progsug as fecha_entrega|productos_ventas|where id_item_item=[id_item_item];|||id_item as id_item|productos_items_items|where id=[id_item_item];|||placa as placa|productos_items_items|where id_item_item=[id_item_item]',
 						'width'			=> '140px',
 						'derecha'		=> '1',
@@ -4537,6 +4685,11 @@ $objeto_tabla['BANCOS_CUENTAS']=array(
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
+
+
+
+
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['BANCOS']=array(
@@ -6522,7 +6675,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'foreig'		=> '1',
 						'style'			=> 'width:100px,',
 						'opciones'		=> 'id,nombre|productos_grupos',
-						'load'			=> 'id_item||id,nombre|productos_items|where visibilidad=1 and id_grupo=$1 order by orden asc',
+						'load'			=> 'id_item||id,nombre|productos_items|where visibilidad=1 and id_grupo=[id_grupo] order by orden desc',
 						'width'			=> '80px',
 						'derecha'		=> '1',
 						'tags'			=> '1',

@@ -237,8 +237,8 @@ $(el).removeClass('painton');
 				<th>Por<br>lín</th>
 				<th>nombre<br>singular</th>
 				<th>nombre<br>plural</th>
-				<th>kill</th>
-				<th>IMPORT</th>
+				<!--<th>kill</th>-->
+				<th>IMP</th>
 			  </tr>";
 
 
@@ -310,7 +310,7 @@ foreach($objeto_tabla as $ot){
 			class="letra '. (($saved[$ot['me']][$cam]=='1')?"onon":"offoff") .'"
 			><img src="img/ico_sync.png"/></a>';
 			echo '</td>';
-			echo '<td>';
+			echo '<td class="cntrl">';
 
 			foreach($indicesA as $inicial=>$indice){
 			if($indice=='orden'){ continue; }
@@ -402,12 +402,12 @@ foreach($objeto_tabla as $ot){
 			echo $ot['nombre_plural'];
 			echo '</td>';
 
+			// echo '<td>';
+			// echo '<a href="#" style="color:#111;" onclick="javascript:if(confirm(\'¿Está seguro que desea eliminar este objeto?\')){ eliminar_objeto(\''.$ot['me'].'\',this); } return false;" ><img src="img/ico_bomb.png" /></a>';
+			// echo '</td>';
+				
 			echo '<td>';
-			echo '<a href="#" style="color:#111;" onclick="javascript:if(confirm(\'¿Está seguro que desea eliminar este objeto?\')){ eliminar_objeto(\''.$ot['me'].'\',this); } return false;" ><img src="img/ico_bomb.png" /></a>';
-			echo '</td>';
-
-			echo '<td>';
-			echo '<a href="maquina.php?accion=importdb&tablas='.$ot['tabla'].'" style="color:green;">▼import</a>';
+			echo '<a href="maquina.php?accion=importdb&tablas='.$ot['tabla'].'" style="color:green;">▼imp</a>';
 			echo '</td>';
 			echo "</tr>";
 
@@ -3675,7 +3675,6 @@ if( $_GET['me']!='' and $_GET['accion']=='borrararchivos' ){
 }
 if( $_GET['me']!='' and $_GET['accion']=='recreararchivos' ){
 
-
 	@unlink($DIR_CUSTOM.$objeto_tabla[$_GET['me']]['archivo'].".php");
 	@unlink($DIR_CUSTOM.$objeto_tabla[$_GET['me']]['archivo']."_vista.php");
 	$_GET['accion']='creararchivos';
@@ -3689,7 +3688,7 @@ chdir(\"../\");
 include(\"lib/compresionInicio.php\");
 include(\"lib/includes.php\");
 include(\"head.php\");
-echo '<body class=\"modulo_".$ot['archivo']."\">';
+echo '<body class=\"modulo_".$objeto_tabla[$_GET['me']]['archivo']."\">';
 echo \$HTML_ALL_INICIO;
 echo \$HTML_MAIN_INICIO;
 include(\"header.php\");

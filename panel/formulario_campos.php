@@ -65,6 +65,9 @@ $whereO='where 0';
 list($idO,$camposO)=explode(",",$primO);
 $camposOA=array();
 $camposOA=explode(";",$camposO);
+
+// prin(get_extra_filtro_0($tablaO));
+
 $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO)),0);
 
 /*
@@ -96,8 +99,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 
 				if($mostrarli){
 					?>
-	<li id="id_in_<?php echo $tbcampA['campo']?>"
-		class="linea_form <?php echo $Derecha; ?>"><?php
+	<li style="<?php echo $tbcampA['listyle']?>" id="id_in_<?php echo $tbcampA['campo']?>" class="linea_form <?php echo $Derecha; ?>"><?php
 
 		?><label for="in_<?php echo $tbcampA['campo']?>"
 		id="la_<?php echo $tbcampA['campo']?>"><?php
@@ -346,7 +348,7 @@ case "img":	case "sto":
 								}
 
 								?>
-								<input type="text" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?><?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>_dl" class="form_input" <?php /* ?> onchange="if($('in_<?php echo $tbcampA['campo']?>').value==''){ $('in_<?php echo $tbcampA['campo']?>_dl').value=''; } " <?php */ ?>>
+								<input type="text" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?><?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>_dl" class="form_input" <?php if($tbcampA['onchange']){ echo "onchange=\"".$tbcampA['onchange']."\""; } ?> <?php /* ?> onchange="if($('in_<?php echo $tbcampA['campo']?>').value==''){ $('in_<?php echo $tbcampA['campo']?>_dl').value=''; } " <?php */ ?>>
 								<input type="hidden" readonly="true" style="width:30px;border:0;background:none;" id="in_<?php echo $tbcampA['campo']?>" name="<?php echo $tbcampA['campo']?>">
 								<?php
 

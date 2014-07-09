@@ -38,7 +38,7 @@ foreach($object['p']['ids'] as $ii=>$ID){
 	$oGrupo['items']= select(
 			"id,nombre as titulo,fecha_creacion"
 			,"obras_fotos"
-			,"where 1 and  visibilidad='1' order by id asc limit 0,100"
+			,"where 1 and  visibilidad='1' order by id desc limit 0,100"
 			,0
 			,array(
 				'foto'=>array('foto'=>array(

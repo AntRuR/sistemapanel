@@ -66,7 +66,7 @@ table { font-size: 15px; border: 1px solid #ccc; border-radius: 5px; }
 
                     <div class="ficha div_absoluto ficha-cliente">
 
-                        <table width="260" border="0"><tbody>
+<!--                         <table width="260" border="0"><tbody>
 
                         <tr><td colspan=2 style="border:1px solid #ddd;" align="center"><?php 
 
@@ -92,7 +92,7 @@ table { font-size: 15px; border: 1px solid #ccc; border-radius: 5px; }
 
 						<?php /* if($fila['sectorista_email']){  ?><tr><td style="font-weight:bold;border:1px solid #DDD;" align="left" >Email</td><td style="border:1px solid #ddd;"><?php echo $fila['sectorista_email'];?></td></tr><?php } */?>
 
-                        </tbody></table>
+                        </tbody></table> -->
 
                     	<?php 
 
@@ -195,24 +195,10 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 
 		$html='';
 
-		$html.="<table width='650px' cellpadding=0 cellspacing=0 border=0  >";
-
-		/**
-		 */
-
-		$html.='<tr><td colspan=4 class="section">Cliente</td></tr>';
-
-		$html.='<tr><td class="variable">Nombre</td><td class="valor" colspan=3>'.ucfirst($linea['cliente']['nombre'])." ".ucfirst($linea['cliente']['apellidos']).'</td></tr>';
-		
-		$html.='<tr><td class="variable">Email</td><td class="valor">'.$linea['cliente']['email'].'</td>';
-
-		$html.='<td class="variable">DNI</td><td class="valor">'.$linea['cliente']['dni'].'</td></tr>';
-
-		$html.='<tr><td class="variable">Teléfono Fijo</td><td class="valor">'.$telefonos_fijos_string.'</td>';
-
-		$html.='<td class="variable">Teléfono Móvil</td><td class="valor">'.$telefonos_moviles_string.'</td></tr>';
 
 
+
+		$pblocks=array();
 
 		/**
 		 * INMUEBLE
@@ -224,12 +210,12 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 		 * FOTO PROYECTO
 		 */
 		
+		$pblocks[]=render_cliente($linea);
 
 		$pedido=json_decode($linea['pedido']);
 		// prin($linea['pedido']);
 		// exit();
 
-		$pblocks=array();
 		$pdepartamentos=array();
 		$pdepositos=array();
 		$pestacionamientos=array();
@@ -258,6 +244,18 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 		foreach($pestacionamientos as $pdep)
 			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']));	
 		
+		$pblocks[]=render_total($linea,$suma);
+
+		$pblocks[]=render_vendedor($linea);
+
+		$pblocks[]=render_plano(extract_departamentos($pdepartamentos['0']['id']),$pdepartamentos['0']['price']);
+
+		// $pblocks[]=render_caracteristicas_inmueble($pdepartamentos['0']);
+
+		$pblocks[]=render_caracteristicas_proyecto($linea);
+
+		$pblocks[]=render_firma($linea);
+
 
 		// prin($pblocks);
 		$html.='<tr><td colspan=4 class="sections">';
@@ -266,29 +264,8 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 
 		$html.='</td></tr>';
 
-		/**
-		 * FORMA DE PAGO
-		 */
-		$html.='<tr><td colspan=4 class="section">Forma de Pago</td></tr>';
 
-		$html.='<tr><td class="variable">Precio</td><td class="valor" colspan=3>'.$linea['pvpromocion'].'</td>';//
 
-		$html.='<tr><td class="variable">Cuota Inicial</td><td class="valor">'.$linea['cuota_inicial'].'</td>';//
-
-		$html.='<td class="variable">Saldo a Financiar</td><td class="valor">'.$linea['saldo_financiar'].'</td></tr>';//
-
-		$html.='<tr><td class="variable">Separación</td><td class="valor">'.$linea['separacion'].'</td>';//
-
-		$html.='<td class="variable">Banco a Financiar</td><td class="valor">'.$linea['banco']['nombre'].'</td></tr>';
-
-		/**
-		 * FOTO INMUEBLE
-		 */
-		$html.='<tr><td colspan=4 class="section"></td></tr>';
-
-		$html.='<tr><td colspan=4 align=center><img '.$galerias['0']['fotos']['0']['thumb'].' ></td></tr>';		
-
-		$html.='</table>';
 
 		$Producto=str_replace("\\\"","\"",$html);
 
@@ -324,3 +301,23 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
     </div>
 
 </div>
+<style>
+table tr td {
+padding: 5px 4px;
+vertical-align: top;
+color: #4F5767;
+}
+table {
+    border: 1px solid #000;
+}
+</style>
+<?php 
+prin($SERVER);
+prin($_SERVER);
+if($SERVER['LOCAL']=='0' 
+	// and $_SERVER['HTTP_X_REAL_IP']=='190.43.239.11' 
+){ //190.43.239.11 ?>
+<script>
+window.print();
+</script>
+<?php } ?>

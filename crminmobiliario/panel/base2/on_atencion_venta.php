@@ -1,5 +1,5 @@
 <?php //á 
-$fila=fila("id_canal,id_cliente,id_item,pedido,forma_pago,pvlista,pvpromocion,porcentaje_cuota_inicial,cuota_inicial,saldo_financiar,separacion,id_banco,id_sectorista,id_usuario,id_jefe","ventas_items","where id=".$_GET['id']);
+$fila=fila("saldo_inmobiliaria,saldo_inmobiliaria_cuotas,saldo_ahorro,saldo_ahorro_cuotas,id_canal,id_cliente,id_item,pedido,forma_pago,pvlista,pvpromocion,porcentaje_cuota_inicial,cuota_inicial,saldo_financiar,separacion,id_banco,id_sectorista,id_usuario,id_jefe","ventas_items","where id=".$_GET['id']);
 ?>
 <script>
 window.addEvent('domready',function(){
@@ -20,13 +20,24 @@ window.addEvent('domready',function(){
 	$('in_id_jefe').value                  ='<?php echo $fila['id_jefe']; ?>';
 	$('in_id_canal').value                 ='<?php echo $fila['id_canal']; ?>';
 
+	$('in_saldo_inmobiliaria').value         ='<?php echo $fila['saldo_inmobiliaria']; ?>';
+	$('in_saldo_inmobiliaria_cuotas').value  ='<?php echo $fila['saldo_inmobiliaria_cuotas']; ?>';
+	$('in_saldo_ahorro').value               ='<?php echo $fila['saldo_ahorro']; ?>';
+	$('in_saldo_ahorro_cuotas').value        ='<?php echo $fila['saldo_ahorro_cuotas']; ?>';
+
 	// $('in_forma_pago').fireEvent('change');
-	if($('in_forma_pago').value=='1' || $('in_forma_pago').value=='2'){
+	if($('in_forma_pago').value=='1'){
 		$0("id_in_porcentaje_cuota_inicial");$0("id_in_cuota_inicial");$0("id_in_saldo_financiar");
 	}
-	if($('in_forma_pago').value=='3' || $('in_forma_pago').value=='4'){
+	if($('in_forma_pago').value=='2'){
+		$0("id_in_porcentaje_cuota_inicial");$0("id_in_cuota_inicial");$0("id_in_saldo_financiar");
+	}
+	if($('in_forma_pago').value=='3'){
 		$1("id_in_porcentaje_cuota_inicial");$1("id_in_cuota_inicial");$1("id_in_saldo_financiar");
-		
+	}
+	if($('in_forma_pago').value=='4'){
+		$1("id_in_porcentaje_cuota_inicial");$1("id_in_cuota_inicial");$1("id_in_saldo_financiar");
+		$1("id_in_saldo_inmobiliaria");$1("id_in_saldo_inmobiliaria_cuotas");$1("id_in_saldo_ahorro");$1("id_in_saldo_ahorro_cuotas");
 	}	
 
 });

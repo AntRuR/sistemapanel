@@ -4243,17 +4243,20 @@ $ALL.=$obj.",\n";
 			if(sizeof($Params[$obj])>0){
 				foreach($Params[$obj] as $var=>$val){
 				if($var=='campos'){
-				foreach($Params[$obj]['campos'] as $id_campo=>$campo){
-					foreach($campo as $varc=>$valc){
-					$objeto_tabla2[$obj]['campos'][$id_campo][$varc]=$valc;
+					foreach($Params[$obj]['campos'] as $id_campo=>$campo){
+						foreach($campo as $varc=>$valc){
+						$objeto_tabla2[$obj]['campos'][$id_campo][$varc]=$valc;
+						}
 					}
-				}
-				}elseif($var=='procesos'){
-				foreach($Params[$obj]['procesos'] as $id_campo=>$campo){
-					foreach($campo as $varc=>$valc){
-					$objeto_tabla2[$obj]['procesos'][$id_campo][$varc]=$valc;
+				}/*elseif($var=='procesos' and ($val==0 or $val=='0' or $val!='') ){
+					unset($objeto_tabla2[$obj]['procesos']);
+				}*/elseif($var=='procesos'){
+					// prin($val);	
+					foreach($Params[$obj]['procesos'] as $id_campo=>$campo){
+						foreach($campo as $varc=>$valc){
+						$objeto_tabla2[$obj]['procesos'][$id_campo][$varc]=$valc;
+						}
 					}
-				}
 				} else {
 					$objeto_tabla2[$obj][$var]=$val;
 				}

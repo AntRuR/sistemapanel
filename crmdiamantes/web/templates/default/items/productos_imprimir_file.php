@@ -119,7 +119,7 @@ $ITEM=$DETAIL[$PARAMS['this']];
 
 					?>
 
-					<b style='font-size:9px;'><?php echo nl2br($direccion);?></b>
+					<b style='font-size:9px;display: inline-block; width: 368px;'><?php echo nl2br($direccion);?></b>
 
 					</div>
 
@@ -233,7 +233,7 @@ $ITEM=$DETAIL[$PARAMS['this']];
 
 
 
-            <div class="div_fila" style='color:#000;text-align:center; font-size:15px; font-weight:bold;'>
+            <div class="div_fila" style='color:#000;text-align:center; font-size:14px; font-weight:bold;'>
 
             ESPECIFICACIONES TÉCNICAS
 
@@ -241,9 +241,9 @@ $ITEM=$DETAIL[$PARAMS['this']];
 
 
 
-            <div class="div_fila" style='margin-bottom:10px;'>
+            <div class="div_fila" style='margin-bottom:1px;'>
 
-            <div style="color:#FF0000; text-align:center;padding:1px 0; font-size:15px; background-color:#CCC; font-weight:bold;margin:0 14px 0 3px;">
+            <div style="color:#FF0000; text-align:center;padding:1px 0; font-size:14px; background-color:#CCC; font-weight:bold;margin:0 14px 0 3px;">
 
             <?php echo $ITEM['titulo'];?>
 
@@ -307,7 +307,7 @@ $ITEM=$DETAIL[$PARAMS['this']];
 
             </div>
 
-            <div class="div_fila" style='font-weight:bold;margin-bottom:10px;'>
+            <div class="div_fila" style='font-weight:bold;margin-bottom:0x;'>
 
                 <table width="98%" border="0"><tbody>
 
@@ -363,3 +363,7 @@ $ITEM=$DETAIL[$PARAMS['this']];
     </div>
 
 </div>
+<style>
+.ficha table { height:auto; }
+.ficha table td { font-size: 12px; }
+</style>

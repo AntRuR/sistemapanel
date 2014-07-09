@@ -104,7 +104,6 @@ if(!in_array($datos_tabla['fcr'],$campS2)){
 }
 
 
-
 foreach($campS2 as $ccc=>$cccc){
 
 	//$campos[]=$lis['campo'];

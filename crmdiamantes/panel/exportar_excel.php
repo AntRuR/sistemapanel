@@ -104,7 +104,6 @@ if(!in_array($datos_tabla['fcr'],$campS2)){
 }
 
 
-
 foreach($campS2 as $ccc=>$cccc){
 
 	//$campos[]=$lis['campo'];
@@ -148,7 +147,7 @@ foreach($items as $lll=>$linea){
 			case "com":
 				$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 				//$valoor=($valoor!='')?$valoor:"&nbsp;";
-
+				list($valoor,$nada)=explode("|",$valoor);	
 				$items2[$lll][$camP]=$valoor;
 				break;
 			case "hid":

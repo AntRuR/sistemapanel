@@ -174,7 +174,6 @@ body {
 	/*background:url("http://appcdn.springpadit.com/images/themes/deepsea/bubbles.far.png") repeat-x scroll 120% top, -moz-linear-gradient(center top , #7F8C97 0%, #4B525B 100%) repeat scroll 0 0%, none repeat scroll 0 0 #4B525B !important;*/
 	/*background:url("http://appcdn.springpadit.com/images/themes/freeways/bg.jpg"), none !important;	*/
 	/*background:url("https://www.paypalobjects.com/webstatic/mktg/consumer/gradients/interior-gradient-top.png") repeat-x scroll center top transparent !important;*/
-	/*background:url("https://www.wetransfer.com/assets/black_linen_v2-7f2797495b94f27b54a34a9347ff1f40.png") repeat scroll left top transparent !important;*/
 
 }
 
@@ -1387,6 +1386,8 @@ a.z {
 	margin-right: 1px !important;
 	overflow: hidden;
 	font-variant: small-caps;
+	min-width: 9px;
+	min-height: 14px;
 }
 
 .segunda_barra {
@@ -2848,6 +2849,8 @@ a.linkstitu {
 	width: 230px;
 	margin-top: 2px;
 	clear: left;
+	color: transparent;
+	line-height: 10px !important;
 }
 
 .upload_table1 {
@@ -3743,12 +3746,12 @@ h2 {
 
 ul.li_cabecera {
 	position: absolute;
-	right: 0px;
+	right: 9px;
 	z-index: 100;
 	border: 1px solid #DCDCDC;
 	border-top: 0;
 	box-shadow: 1px 7px 10px #333;
-	top: 16px;
+	top: 14px;
 	overflow: auto;
 	max-height: 600px;
 }

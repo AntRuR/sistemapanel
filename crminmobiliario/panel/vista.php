@@ -841,7 +841,7 @@ background-image: -moz-linear-gradient(
 						foreach($ct['procesos'] as $iproceso=>$proceso){
 							if($ct['procesos'][$iproceso]['disabled']=='1'){ unset($ct['procesos'][$iproceso]); }
 						}
-						//prin($ct['procesos']);
+						// prin($ct['procesos']);
 						if(sizeof($ct['procesos'])>0 and $ct['procesos']!=0){
 						//echo '<ul>'; echo '<li class="menudown">';
 
@@ -967,7 +967,7 @@ background-image: -moz-linear-gradient(
 
 							$tbli['controles']=($tbli['control']=='0')?'':procesar_controles_html($controlEs[$tbli['campo']]);
 
-							$tbli['width']=($tbli['width']=='' or $tbli['width']=='100px')?"":"width:".$tbli['width'].";";
+							$tbli['width']=($tbli['width']=='' or $tbli['width']=='0px')?"":"width:".$tbli['width'].";";
                             echo '<li class="bld '. (($tbli['tipo']=='check')?'lchk':'').' '.(($tbli['listclass'])?$tbli['listclass']:'').' '.$nuevoDad.'" >';
 
 							if($tbli['tipo']=='inp' and $load_foto[$tbli['campo']]!=''){
@@ -1195,7 +1195,7 @@ background-image: -moz-linear-gradient(
 										case "soporte":								$adiv1.= "&nbsp;<a title='soporte' class='ico_clip z ico_list'></a>"; break;
 										case "enviado":								$adiv1.= "&nbsp;<a title='enviado' class='ico_left z ico_list'></a>"; break;
 										case "recibido":							$adiv1.= "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
-										case "si":case "s�":						$adiv1.= "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
+										case "si":case "sí":						$adiv1.= "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 										case "no":									$adiv1.= "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
 										case "nuevos soles":case "soles": 			$adiv1.= "S/."; break;
 										case "dolares":case "dolares americanos": 	$adiv1.= "\$US"; break;

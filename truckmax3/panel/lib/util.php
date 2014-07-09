@@ -3027,6 +3027,7 @@ function render_foreig_subs($obj0,$id,$urd){
 					(in_array($lis['tipo'],array('inp','txt','html','hid','fch','fcr','img','com')) and
 					($lis['campo']!=trim($forei)) and
 					($lis['listable']=='1') and
+					($lis['inherited']!='1') and
 					( !($lis['indicador']=='1' and $lis['tipo']=='hid') ) and
 					(!enhay($lis['label'],'descripci',1)) and
 					(!enhay($lis['label'],'source',1)) and
@@ -3265,7 +3266,10 @@ visibilidad	1
 					*/
 					break;
 					case "hid":
-
+					
+					if($objeto_tabla[$obj['obj']]['campos'][$camP]['noedit']=='1'){
+					echo "&nbsp;";
+					} else {
 					list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
 					list($idO,$camposO)=explode(",",$primO);
 					$camposOA=array();
@@ -3279,6 +3283,8 @@ visibilidad	1
 					}
 					$bufy.="</select>";
 					echo $bufy;
+
+					}
 
 					break;
 					case "fcr":
@@ -4710,17 +4716,79 @@ function opciones_fechas($querie){
 		//prin($I);
 		return $I;
 	}
+
+
+	function crear_intervalos_con_labels($tipo,$from,$to)
+	{
+		global $Array_Meses;
+		$intervalos=crear_intervalos($tipo,$from,$to);
+		$ints=array();
+		// prin($Array_Meses);
+		foreach($intervalos as $vv)
+		{
+
+			list($from,$to)=explode("|",$vv);
+
+			$fromY=substr($from,0,4);
+			$toY=substr($to,0,4);
+
+			$fromM=substr($from,5,2);
+			$toM=substr($to,5,2);	
+
+			if($tipo=='D'){
+				if($fromM==$toM){
+					$label=substr($vv,8,2);
+				} else {
+					$label=substr($vv,8,2)." ".substr($Array_Meses[substr($vv,5,2)*1],0,3);
+				}
+				$day=substr($vv,8,2);
+				$month=substr($Array_Meses[substr($vv,5,2)*1],0,3);
+				$year=substr($vv,0,4);
+			}elseif($tipo=='M'){
+				if($fromY==$toY){
+					$label=substr($Array_Meses[substr($vv,5,2)*1],0,3);
+				} else {
+					$label=substr($Array_Meses[substr($vv,5,2)*1],0,3)." ".substr($vv,0,4);
+				}
+				$day   ='';
+				$month =substr($Array_Meses[substr($vv,5,2)*1],0,3);
+				$year  =substr($vv,0,4);
+			}elseif($tipo=='A'){
+				$label =substr($vv,0,4);
+				$day   ='';
+				$month ='';
+				$year  =substr($vv,0,4);
+			}
+
+			$ints[]=array(
+				'from'  => $from,
+				'to'	=> $to,
+				'day'	=> $day,
+				'month' => $month,
+				'year'  => $year,
+				'label' => $label
+				);
+			
+		}
+
+		return $ints;
+
+	}
+
+
 	function nextDay($date){
 		$d = new DateTime($date);
 		$d->modify( '+1 day' );
 		return $d->format( 'Y-m-d' );
 	}
+
 	function nextMonth($date){
 	$aa=strtotime($date);
 	$aa=strtotime("+1 month",$aa);
 	$aa=strtotime(date('Y-m-01',$aa));
 	return date('Y-m-d',$aa);
 	}
+
 	function nextYear($date){
 		$d = new DateTime($date);
 		$d->modify( 'first day of next year' );
@@ -4736,6 +4804,7 @@ function opciones_fechas($querie){
 	return $rango;
 	}
 	*/
+
 	function Difer2($dt1,$dt2){
 
 		$y1 = substr($dt1,0,4);
@@ -4752,7 +4821,6 @@ function opciones_fechas($querie){
 		return (($r2-$r1)/(60*60*24))+1;
 
 	}
-
 
 	function getPrimerDiaMes($fecha){
 	return substr($fecha,0,7)."-01";
@@ -4773,9 +4841,11 @@ function opciones_fechas($querie){
 	function getUltimoDiaAnio($fecha){
 	return substr($fecha,0,4)."-12-31";
 	}
+
 	function fixyfecha($fecha){
 	$lm=array('1'=>'31','28','31','30','31','30','31','31','30','31','30','31');
-	if($year%4==0){ $lm['2']=29; }
+	if($year%4==0){ $lm['2']=29; 
+	}
 
 	$year=substr($fecha,0,4);
 	$mes=substr($fecha,5,2);

@@ -174,7 +174,6 @@ body {
 	/*background:url("http://appcdn.springpadit.com/images/themes/deepsea/bubbles.far.png") repeat-x scroll 120% top, -moz-linear-gradient(center top , #7F8C97 0%, #4B525B 100%) repeat scroll 0 0%, none repeat scroll 0 0 #4B525B !important;*/
 	/*background:url("http://appcdn.springpadit.com/images/themes/freeways/bg.jpg"), none !important;	*/
 	/*background:url("https://www.paypalobjects.com/webstatic/mktg/consumer/gradients/interior-gradient-top.png") repeat-x scroll center top transparent !important;*/
-	/*background:url("https://www.wetransfer.com/assets/black_linen_v2-7f2797495b94f27b54a34a9347ff1f40.png") repeat scroll left top transparent !important;*/
 
 }
 
@@ -720,7 +719,7 @@ a.bl1:hover {
 	background:#FFFFFF url(../img/bg_inputs.png) no-repeat scroll 0 0;
 	border:1px solid #CCD6D6;
 	*/
-	width: 52px;
+	width: 58px;
 	margin-right: 0px;
 	margin-top: 4px;
 	height: 20px;
@@ -1387,6 +1386,8 @@ a.z {
 	margin-right: 1px !important;
 	overflow: hidden;
 	font-variant: small-caps;
+	min-width: 9px;
+	min-height: 14px;
 }
 
 .segunda_barra {
@@ -2255,7 +2256,7 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 	clear: left;
 	height: auto;
 	padding-bottom: 1px;
-	margin-bottom: 0ypx;
+	margin-bottom: 1px;
 }
 
 .modificador_grilla .nc {
@@ -2848,6 +2849,8 @@ a.linkstitu {
 	width: 230px;
 	margin-top: 2px;
 	clear: left;
+	color: transparent;
+	line-height: 10px !important;
 }
 
 .upload_table1 {
@@ -3743,12 +3746,12 @@ h2 {
 
 ul.li_cabecera {
 	position: absolute;
-	right: 0px;
+	right: 9px;
 	z-index: 100;
 	border: 1px solid #DCDCDC;
 	border-top: 0;
 	box-shadow: 1px 7px 10px #333;
-	top: 16px;
+	top: 14px;
 	overflow: auto;
 	max-height: 600px;
 }
@@ -4526,7 +4529,7 @@ input[type="time"], input[type="week"], input[type="number"],
 input[type="email"], input[type="url"], input[type="search"],
 input[type="tel"], input[type="color"], .uneditable-input {
 	padding:0px 0px;
-	margin-bottom: 3px;
+	margin-bottom: 2px;
 }
 li {
     line-height: 17px !important;

@@ -25,7 +25,7 @@ $COMMON['categorias'] = select(
 
 $object['menu']=array(
 						array(
-							'url'=>'index.php?modulo=app&tab=home'
+							'url'=>''
 							,'label'=>'Inicio'
 						),						
 						array(
@@ -36,10 +36,10 @@ $object['menu']=array(
 							'url'=>'index.php?modulo=app&tab=pages&page=servicios'
 							,'label'=>'Servicios'
 						),
-						array(
-							'url'=>'index.php?modulo=items&tab=blog_noticias&acc=list'
-							,'label'=>'Blog'
-						),
+						// array(
+						// 	'url'=>'index.php?modulo=items&tab=blog_noticias&acc=list'
+						// 	,'label'=>'Blog'
+						// ),
 						array(
 							'url'=>'index.php?modulo=formularios&tab=contacto'
 							,'label'=>'Contacto'

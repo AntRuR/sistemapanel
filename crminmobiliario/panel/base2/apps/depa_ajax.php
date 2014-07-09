@@ -188,6 +188,7 @@ switch($_GET['type']){
 							<li class="active"><a href="#txt2" data-toggle="tab">Descripción</a></li>
 							<li><a href="#txt3" data-toggle="tab">Acabados</a></li>
 							<li><a href="#txt4" data-toggle="tab">Areas comunes</a></li>
+							<li><a href="#txt5" data-toggle="tab">Galerías</a></li>
 						</ul>'
 						.'<div class="tab-content">
 							<div class="tab-pane active" id="txt2">'
@@ -229,8 +230,13 @@ switch($_GET['type']){
 								.'<div style="overflow:auto;height:380px;">'
 								.clean_txt($depa['descripcion4'])
 								.'</div>'
-							.'</div>
-						</div>';
+							.'</div>'
+							.'<div class="tab-pane" id="txt5">'
+								.'<div style="overflow:auto;height:380px;">'
+								.'galería'
+								.'</div>'								
+							.'</div>'
+						.'</div>';
 
 
 				echo $html;					 

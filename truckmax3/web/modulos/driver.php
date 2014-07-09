@@ -52,7 +52,7 @@ array(
 	array(
 		"bloques/arbol_categorias.php?conector=productos",
 		"MAIN",
-		$Block['bar_derecha'],
+		// $Block['bar_derecha'],
 		),
 	'footer'=>$Block['footer'],			
 );
@@ -79,10 +79,11 @@ array(
 $Estructura['modulo=items&tab=productos&acc=list']=
 array(
 	'header'=>$Block['header'],
+	"bloques/banner_main.php",	
 	array(
 		"bloques/arbol_categorias.php?conector=productos",
 		"MAIN",
-		$Block['bar_derecha'],
+		// $Block['bar_derecha'],
 		),
 	'footer'=>$Block['footer'],			
 );
@@ -110,7 +111,7 @@ array(
 	 array(
 		"bloques/arbol_categorias.php?conector=productos",
 		"MAIN",
-		$Block['bar_derecha'],
+		// $Block['bar_derecha'],
 		),
 	'footer'=>$Block['footer'],			
 );

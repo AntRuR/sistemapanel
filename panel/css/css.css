@@ -1386,6 +1386,8 @@ a.z {
 	margin-right: 1px !important;
 	overflow: hidden;
 	font-variant: small-caps;
+	min-width: 9px;
+	min-height: 14px;
 }
 
 .segunda_barra {
@@ -2847,6 +2849,8 @@ a.linkstitu {
 	width: 230px;
 	margin-top: 2px;
 	clear: left;
+	color: transparent;
+	line-height: 10px !important;
 }
 
 .upload_table1 {
@@ -3742,12 +3746,12 @@ h2 {
 
 ul.li_cabecera {
 	position: absolute;
-	right: 0px;
+	right: 9px;
 	z-index: 100;
 	border: 1px solid #DCDCDC;
 	border-top: 0;
 	box-shadow: 1px 7px 10px #333;
-	top: 16px;
+	top: 14px;
 	overflow: auto;
 	max-height: 600px;
 }

@@ -480,11 +480,16 @@ function abrir_repos(set,save){
 			$('bloque_content_repos').setStyles({'display':'block'});
 			$('inner').setStyles({'display':'none'});
 			$('segunda_barra_2').setStyles({'display':'none'});
+			$('boton_excel').setStyles({'display':'none'});
+			$('boton_imprimir').setStyles({'display':'none'});
+
 			//load_crear();
 		} else {
 			$('bloque_content_repos').setStyles({'display':'none'});
 			$('inner').setStyles({'display':'block'});
 			$('segunda_barra_2').setStyles({'display':'block'});
+			$('boton_excel').setStyles({'display':'block'});
+			$('boton_imprimir').setStyles({'display':'block'});
 		}
 		//alert('resetear');
 		//ax('resetear');
@@ -493,6 +498,8 @@ function abrir_repos(set,save){
 		load_repos();
 		$('inner').setStyles({'display':'none'});
 		$('segunda_barra_2').setStyles({'display':'none'});
+		$('boton_excel').setStyles({'display':'none'});
+		$('boton_imprimir').setStyles({'display':'none'});				
 		//alert('load_crear');
 
 	}

@@ -1,5 +1,7 @@
 <?php //á
 
+if($_GET['home']=='1'){
+
 $object=array();
 
 $object['items']= select(
@@ -49,5 +51,5 @@ $object['items']= select(
 	
 	$REMOOZZ=1;	
 	//$SEXYLIGHTBOX=1;
-		
-?>
+
+}		

@@ -1,6 +1,9 @@
 /*@import url(http://fonts.googleapis.com/css?family=Arial+Narrow);*/
 /*@import url(http://fonts.googleapis.com/css?family=ABeeZee);*/
 
+@font-face { font-family: "PTN77F"; src: url(fonts/PTN77F.ttf) format("truetype"); }
+@font-face { font-family: "PTN57F"; src: url(fonts/PTN57F.ttf) format("truetype"); }
+
 /*<?php header("Content-type: text/css"); ?>/*******************RESET***********************/
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,th,td
 	{
@@ -171,7 +174,6 @@ body {
 	/*background:url("http://appcdn.springpadit.com/images/themes/deepsea/bubbles.far.png") repeat-x scroll 120% top, -moz-linear-gradient(center top , #7F8C97 0%, #4B525B 100%) repeat scroll 0 0%, none repeat scroll 0 0 #4B525B !important;*/
 	/*background:url("http://appcdn.springpadit.com/images/themes/freeways/bg.jpg"), none !important;	*/
 	/*background:url("https://www.paypalobjects.com/webstatic/mktg/consumer/gradients/interior-gradient-top.png") repeat-x scroll center top transparent !important;*/
-	background:url("https://www.wetransfer.com/assets/black_linen_v2-7f2797495b94f27b54a34a9347ff1f40.png") repeat scroll left top transparent !important;
 
 }
 
@@ -269,9 +271,9 @@ form {
 }
 
 a,.alink { /*color:#000080;*/
-	/*color:#3B5998;*/
-	/*color:#0645AD;*/
-	color: #3B5998;
+	 color: #3B5998;
+	 color: #0645AD;
+	 color: #4183C4;
 	cursor: pointer;
 	text-decoration: none;
 }
@@ -708,12 +710,16 @@ a.bl1:hover {
 .formulario .form_input input,.formulario .form_input select {
 	height: 18px;
 }
+.formulario .form_input input[type="radio"]{
+	margin-right: 4px;
+	margin-left: 4px;
+}
 
 .formulario select.form_input_fecha { /*
 	background:#FFFFFF url(../img/bg_inputs.png) no-repeat scroll 0 0;
 	border:1px solid #CCD6D6;
 	*/
-	width: 52px;
+	width: 58px;
 	margin-right: 0px;
 	margin-top: 4px;
 	height: 20px;
@@ -967,6 +973,7 @@ ul.ul_menus .open {
 	position: relative;
 	border: 0px;
 	/*background-image: url("../img/shadow11.png"); background-position: left 28px;*/
+	line-height: 10px;
 }
 
 .menus strong {
@@ -1129,7 +1136,7 @@ font-weight:bold;
 }
 /*a.link_header:hover { text-decoration:underline; background:#333; color:#FFF;  }*/
 .tbl {
-	font-size: 10px;
+	font-size: 8px;
 }
 
 a.iconos {
@@ -1379,6 +1386,8 @@ a.z {
 	margin-right: 1px !important;
 	overflow: hidden;
 	font-variant: small-caps;
+	min-width: 9px;
+	min-height: 14px;
 }
 
 .segunda_barra {
@@ -1711,8 +1720,13 @@ a.objetos:hover {
 	text-align: left; /*background:#FFF !important;*/
 }
 
+.tbl td.cntrl {
+	min-width: 260px;
+	word-wrap: break-word;
+}
+
 .tbl td.big {
-	max-width: 180px;
+	max-width: 140px;
 	word-wrap: break-word;
 }
 
@@ -1724,7 +1738,7 @@ a.objetos:hover {
 
 .tbl td.big b a {
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 10px;
 }
 
 .tbl td.small b a {
@@ -1759,7 +1773,7 @@ a.objetos:hover {
 	font-weight: weight;
 	height: auto;
 	margin-left: 0px;
-	margin-right: 1px;
+	margin-right: 0px;
 	margin-top: 1px;
 	overflow: hidden;
 	text-decoration: none;
@@ -1767,6 +1781,7 @@ a.objetos:hover {
 	text-transform: uppercase;
 	line-height: 12px;
 	padding: 0 0px;
+	outline: 1px solid #FFF;
 }
 
 .tbl td a img {
@@ -2241,7 +2256,7 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 	clear: left;
 	height: auto;
 	padding-bottom: 1px;
-	margin-bottom: 0ypx;
+	margin-bottom: 1px;
 }
 
 .modificador_grilla .nc {
@@ -2369,7 +2384,6 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 }
 
 .htmlenlista {
-	font-size: 9px;
 	height: auto;
 	max-height: 150px;
 	overflow: auto;
@@ -2380,7 +2394,9 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 .htmlenlista p {
 	margin: 0px 0;
 }
-
+.htmlenlista, .htmlenlista p, .htmlenlista table td {
+	font-size: 9px !important;
+}
 .itms {
 	margin-left: 3px;
 	margin-right: 10px;
@@ -2445,6 +2461,7 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 .itms .itmedit textarea {
 	width: 100%;
 	height: 36px;
+	font-size: 12px !important;
 }
 
 .itms .tite {
@@ -2628,7 +2645,7 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 }
 
 .bld a.mn {
-	color: #DB4B39 !important;
+	color: green !important;
 }
 
 .ldd .nd .bd {
@@ -2832,6 +2849,8 @@ a.linkstitu {
 	width: 230px;
 	margin-top: 2px;
 	clear: left;
+	color: transparent;
+	line-height: 10px !important;
 }
 
 .upload_table1 {
@@ -3727,12 +3746,12 @@ h2 {
 
 ul.li_cabecera {
 	position: absolute;
-	right: 0px;
+	right: 9px;
 	z-index: 100;
 	border: 1px solid #DCDCDC;
 	border-top: 0;
 	box-shadow: 1px 7px 10px #333;
-	top: 16px;
+	top: 14px;
 	overflow: auto;
 	max-height: 600px;
 }
@@ -4510,7 +4529,7 @@ input[type="time"], input[type="week"], input[type="number"],
 input[type="email"], input[type="url"], input[type="search"],
 input[type="tel"], input[type="color"], .uneditable-input {
 	padding:0px 0px;
-	margin-bottom: 3px;
+	margin-bottom: 2px;
 }
 li {
     line-height: 17px !important;

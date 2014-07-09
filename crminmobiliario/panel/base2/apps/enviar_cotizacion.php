@@ -33,7 +33,7 @@ include("config/library.php");
 								'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
 								//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
 								//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
-								'item'		=>array('fila'=>array('nombre','productos_items','where id="{id_item}"')),							
+								'item'		=>array('fila'=>array('nombre,descripcion5','productos_items','where id="{id_item}"')),							
 								// 'item_item'	=>array('fila'=>array('nombre,numero,id_items_tipo','productos_items_items','where id="{id_items_item}"')),							
 								'cuenta'	=>array('fila'=>array('nombre,logo,fecha_creacion,dominio','envios_cuentas','where id="{id_cuenta_email}"',0,
 										array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
@@ -43,6 +43,7 @@ include("config/library.php");
 						);
 
 
+		// prin($linea);
 
 
 
@@ -61,6 +62,8 @@ include("config/library.php");
 	 * CLIENTE
 	 */
 	
+
+
 	$pblocks=array();
 
 
@@ -104,12 +107,16 @@ include("config/library.php");
 			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']),$pdep['price']);	
 
 
-		$pblocks[]=render_total($linea,$suma);
 
+		$pblocks[]=render_total($linea,$suma);
 
 		$pblocks[]=render_vendedor($linea);
 
-		$pblocks[]=render_plano($linea);
+		// $pblocks[]=render_caracteristicas_inmueble($pdepartamentos['0']);
+
+		$pblocks[]=render_caracteristicas_proyecto($linea);
+
+		$pblocks[]=render_plano(extract_departamentos($pdepartamentos['0']['id']),$pdepartamentos['0']['price']);
 
 		$pblocks[]=render_firma($linea);
 
@@ -117,7 +124,10 @@ include("config/library.php");
 
 		$html=implode("",$pblocks);
 
-
+		// echo $html;
+		// exit();
+		// echo '<textarea>'.$html.'</textarea>';
+		// die();
 		
 
 		$Producto=str_replace("\\\"","\"",$html);
@@ -178,9 +188,9 @@ include("config/library.php");
 				$email_cliente=enviar_email(
 							array(
 							'emails'=>array(
+											'guillermolozan@gmail.com',
 											$linea['cliente']['email'],
 											$linea['usuario']['email'],
-											'guillermolozan@gmail.com',
 											'wtavara@prodiserv.com',
 											)
 							,'Subject'=>$_POST['subject']

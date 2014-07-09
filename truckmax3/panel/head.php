@@ -27,7 +27,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='589';
+$rrr='607';
 
 $needs=necesita_libs($objeto_tabla);
 

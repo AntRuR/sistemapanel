@@ -41,7 +41,7 @@ foreach($object['p']['ids'] as $ii=>$ID){
 	$oGrupo['items']= select(
 			"id,file,foto_descripcion as texto,fecha_creacion,url"
 			,"banners_fotos_fotos"
-			,"where 1 and id_grupo='$id_group_banner' and  visibilidad='1' order by id asc limit 0,100"
+			,"where 1 and id_grupo='$id_group_banner' and  visibilidad='1' order by id desc limit 0,100"
 			,0
 			,array(
 				'foto:url'=>'{url}',
