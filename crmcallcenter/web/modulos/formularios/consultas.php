@@ -2,7 +2,7 @@
 
 // exit();
 
-$temp=false;
+$temp=true;
 
 $speech_respuesta='respuesta_web_incapower';
 
@@ -161,6 +161,10 @@ $CAMPOS=array(
 
 	)
 
+		,'captcha'=>array(
+			'tipo'=>'captcha'
+		)	
+		
 );
 
 /*
@@ -236,7 +240,16 @@ if($_SERVER['REQUEST_METHOD']=='POST' )
 {
 
 
+				if($_SESSION['captchaword']!=$_POST['captcha']){
+				
+					echo json_encode(array(
+								't'=>'error'
+								,'m'=>'Error de verificación'
+								,'n'=>$FORM['nombre']
+								));					
+					exit();
 
+				}	
 
 
 //data_insert
@@ -313,7 +326,7 @@ email     : ".$_POST['email']. "
 ciudad    : ".$_POST['ciudad']. "
 consulta  : ".$_POST['consulta']. "
 URL 	  : ".$_SERVER['HTTP_REFERER']."
-";
+"
 
 	 ),
 

@@ -17,22 +17,22 @@ $object['menu']=array(
 						'label'=>'INICIO',
 						'url'=>'index.php?modulo=app&tab=home',
 					),
-					array(
-						'url'=>'index.php?modulo=app&tab=transparencia',
-						'label'=>'TRANSPARENCIA',
-					),
+					// array(
+					// 	'url'=>'index.php?modulo=app&tab=transparencia',
+					// 	'label'=>'TRANSPARENCIA',
+					// ),
 					array(
 						'url'=>'index.php?modulo=items&tab=servicios_items&acc=file',
 						'label'=>'SERVICIOS',
 					),
-					array(
-						'url'=>'index.php?modulo=app&tab=enlinea',
-						'label'=>'EN LINEA',
-					),
-					array(
-						'url'=>'index.php?modulo=items&tab=tramites_items&acc=file',
-						'label'=>'TRAMITES',
-					),
+					// array(
+					// 	'url'=>'index.php?modulo=app&tab=enlinea',
+					// 	'label'=>'EN LINEA',
+					// ),
+					// array(
+					// 	'url'=>'index.php?modulo=items&tab=tramites_items&acc=file',
+					// 	'label'=>'TRAMITES',
+					// ),
 					array(
 						'url'=>'index.php?modulo=items&tab=obras_fotos&acc=list',
 						'label'=>'OBRAS',
@@ -44,7 +44,7 @@ $object['menu']=array(
 					array(
 					 	'url'=>'index.php?modulo=formularios&tab=contactenos',
 						'label'=>'CONTACTENOS',
-					),
+					)
 					/*
 					array(
 						'nombre'=>'Nuestra Historia',
@@ -83,22 +83,22 @@ $object['menu']=array(
 				);							
 
 	
-	$object['menu']['5']['menu']=select(
-	array(
-		"id",
-		"nombre",
-		"seccion"
-	),
-	'secciones',
-	'where 1 and visibilidad=1 and tipo=1
-	order by id asc 	
-	limit 0,100',
-	0,
-	array(
-		'nombre'=>'Departamento de {nombre}',
-	    'url'=>array('url'=>array('url'=>"index.php?sec={seccion}&modulo=app&tab=home")),							
-	)
-	);		
+	// $object['menu']['5']['menu']=select(
+	// array(
+	// 	"id",
+	// 	"nombre",
+	// 	"seccion"
+	// ),
+	// 'secciones',
+	// 'where 1 and visibilidad=1 and tipo=1
+	// order by id asc 	
+	// limit 0,100',
+	// 0,
+	// array(
+	// 	'nombre'=>'Departamento de {nombre}',
+	//     'url'=>array('url'=>array('url'=>"index.php?sec={seccion}&modulo=app&tab=home")),							
+	// )
+	// );		
 				
 
 $object['menu'] = web_procesar_menu($object['menu'],"izquierda");

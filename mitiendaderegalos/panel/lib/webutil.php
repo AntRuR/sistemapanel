@@ -377,7 +377,7 @@ function pre_proceso_form($FORM){
 }
 
 function web_render_form($FORM){
-	global $HEAD;
+	global $HEAD,$SERVER;
 	if($FORM['legend']!=''){ echo "<div class='legend camps'>".$FORM['legend']."</div>"; }
     foreach($FORM['campos'] as $Campo=>$field){
 
@@ -398,6 +398,29 @@ function web_render_form($FORM){
         <?php } ?>
     <?php } ?>
     <?php switch($field['tipo']){
+    case "captcha": ?>
+    <label class="name" >Verificación</label>
+    	<?php 
+    		@mkdir('../../../captcha');	
+			$cpch=create_captcha(
+				array(
+				'img_path'		=> '../../../captcha/',
+				'img_url'		=> $SERVER['BASE'].'/captcha/',
+				// 'font_path'		=> './'.$this->config->item('captcha_fonts_path', 'tank_auth'),
+				// 'font_size'		=> $this->config->item('captcha_font_size', 'tank_auth'),
+				// 'img_width'		=> $this->config->item('captcha_width', 'tank_auth'),
+				// 'img_height'	=> $this->config->item('captcha_height', 'tank_auth'),
+				'show_grid'		=> false,
+				'expiration'	=> '3600',
+				)
+			);
+			$_SESSION['captchaword']=$cpch['word'];
+			echo $cpch['image'];
+    	?><br>
+    	<input style="margin-left:105px; width:145px;" type="text" name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>" value="" />
+
+	<?php
+    break;	
 	case "constante":
 	break;
     case "input_hidden": case "hidden":

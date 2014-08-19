@@ -852,10 +852,12 @@ background-image: -moz-linear-gradient(
 							echo '<img src="img/white.jpg">';
 							foreach($ct['procesos'] as $iproceso=>$proceso){
 							echo "<li>";
-							//prin($proceso);
+							// prin($proceso);
 							echo '<a rel="';
 							echo ($proceso['rel'])?$proceso['rel']:'width:1050,height:400';
-							echo '" href="formulario_quick.php?proceso='.$iproceso.'&L='.$linea[$datos_tabla['id']].'&OT='.(($proceso['ot'])?$proceso['ot']."&parent=".$objeto_tabla[$this_me]['archivo']:$objeto_tabla[$this_me]['archivo']."&parent=").'&ran=1'.(($proceso['accion'])?"&accion=".$proceso['accion']:'').((sizeof($proceso['cargar'])>0)?'&load='.urlencode(json_encode($proceso['cargar'])):'').(($proceso['extra'])?"&".str_replace(array("[id]"),array($linea[$datos_tabla['id']]),$proceso['extra']):'').'" class="mb">';
+							echo '" href="'. ( ($proceso['file']!='')?$proceso['file']:'formulario_quick.php' ) .'?proceso='.$iproceso.'&L='.$linea[$datos_tabla['id']].'&OT='.(($proceso['ot'])?$proceso['ot']."&parent=".$objeto_tabla[$this_me]['archivo']:$objeto_tabla[$this_me]['archivo']."&parent=").'&ran=1'.(($proceso['accion'])?"&accion=".$proceso['accion']:'').((sizeof($proceso['cargar'])>0)?'&load='.urlencode(json_encode($proceso['cargar'])):'').(($proceso['extra'])?"&".str_replace(array("[id]"),array($linea[$datos_tabla['id']]),$proceso['extra']):'').'"'.
+							' class="'. ( (isset($proceso['class']))?$proceso['class']:'mb' ) . 
+							'" >';
 							//echo '<a onclick="ax(\'ec\',\e'9\'); return false;" href="#" >';
 							echo $proceso['label'];
 							echo '</a>';

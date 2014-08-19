@@ -69,7 +69,7 @@ $PERMISOS_USUARIO=$Permisos['permisos']['texto'];
 $PERMISOS_PAGE=$Permisos['permisos']['per_pages'];
 $PERMISOS_WEBS=$Permisos['permisos']['per_webs'];
 
-//prin($PERMISOS_USUARIO);
+// prin($PERMISOS_USUARIO);
 $PU=explode(",",$PERMISOS_USUARIO);
 foreach($PU as $pu){
 $pu=trim($pu);
@@ -79,6 +79,7 @@ else {$PPUU[]=$pu;}
 }
 $PERMISOS_USUARIO=implode(",\n",$PPUU);
 //prin($PERMISOS_USUARIO);
+
 parse_str($CO,$CO2);
 foreach($CO2 as $CO3=>$CO4){ list($u,$d)=explode("|",$CO3); $vars[$u][$d]=$CO4; }
 //prin($CO2);

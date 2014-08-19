@@ -361,7 +361,8 @@ function get_browser_()
 
 	foreach($browsers as $browser=>$pattern)
 	{
-		if (eregi($pattern, $user_agent))
+		if(!(strpos(" ".$user_agent." ",$pattern)===false))		
+		// if (eregi($pattern, $user_agent))
 			return $browser;
 	}
 	return 'Unknown';

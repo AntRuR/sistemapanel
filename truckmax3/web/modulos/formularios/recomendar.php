@@ -2,6 +2,7 @@
 
 include_once("formularios/formularios.php");
 
+			exit();
 			$FORM=$FORMULARIO[$PARAMS['conector']]=array(
 					'nombre'=>$PARAMS['conector']
 					//,'titulo'=>'Recomienda a un amigo'

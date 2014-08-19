@@ -604,14 +604,25 @@ echo $hhtml;
 
 
 echo "<div class='main_content'>";
+			
+if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
+
+echo '<a id="ic_menu" class="bl1 itr i_mm z" title="Menú"></a>';
+echo '<a id="ic_filters" class="bl1 itr i_ff z" title="Filtros"></a>'; ?>
+<script>
+window.addEvent('domready',function(){ 
+	$("ic_menu").addEvent('click',function(){ $('menu_main').toggleClass('showmenu'); });	
+	$("ic_filters").addEvent('click',function(){ $('dfilters').toggleClass('showfilters'); });	
+}); 
+</script>
+<?php
+}
 if(file_exists($img_logo)){
 if(trim($img_logo)!=''){
-?>
-	<a href="./" class="logo_panel"><img src="<?php echo $img_logo?>"
-		align="absmiddle" border="0" /> </a>
-	<?php
+?><a href="./" class="logo_panel"><img src="<?php echo $img_logo?>" align="absmiddle" border="0" /> </a><?php
 }
 } ?>
+
 	<div style="float: left; margin-bottom: 5px;">
 		<?php
 		/* ?><a href="./" style='text-transform:uppercase; margin-left:7px; display:block; '><?php echo $titulo_strong;?></a><?php */

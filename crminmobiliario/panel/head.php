@@ -3,6 +3,7 @@
 <html lang="es">
 <head>
 <title><?php echo $html_title?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 <?php
 /* ?><meta name="title" content="<?php echo $meta_title?>"/><?php */
@@ -27,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='607';
+$rrr='615';
 
 $needs=necesita_libs($objeto_tabla);
 
@@ -247,6 +248,12 @@ body {
 	background: fixed;
 	background-image: url('<?php echo $BG_IMAGE;?>');
 }
+<?php if($SERVER['ARCHIVO']!='login.php'){ ?>
+.contenido_principal {
+	border: 0 !important;
+	margin-top: -3px;
+}
+<?php } ?>
 </style>
 <?php
 }

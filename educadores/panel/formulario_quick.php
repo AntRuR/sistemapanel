@@ -1,4 +1,15 @@
 <?php
+
+include('base2/apps/'.$_GET['OT']);	
+
+if(0){
+
+if($_GET['accion']=='custom_load'){
+
+	include('base2/apps/'.$_GET['OT']);	
+
+} else {
+
 include("lib/compresionInicio.php");
 include("objeto.php");
 include("head.php");
@@ -9,6 +20,7 @@ echo $objeto_tabla[$this_me]['onload_script'];
 echo "</div>";
 echo $HTML_ALL_INICIO;
 echo $HTML_MAIN_INICIO;
+
 
 if($_GET['accion']=='custom'){
 
@@ -93,3 +105,6 @@ echo '</body>';
 echo '</html>';
 include("lib/compresionFinal.php");
 
+}
+
+}

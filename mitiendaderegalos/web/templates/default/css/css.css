@@ -1,4 +1,4 @@
-<?php 
-header("Content-type: text/css");
-include("../../../../panel/lib/bridge/css.css"); 
+<?php 
+header("Content-type: text/css");
+include("../../../../panel/lib/bridge/css.css"); 
 ?>

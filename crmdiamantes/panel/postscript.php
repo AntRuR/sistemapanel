@@ -17,9 +17,11 @@ $Pcampos[]=$Pcamps['campo'];
 }
 $CC=$Pcampos;
 $LL=fila($CC,$TT,"where id='$II'");
-//print_r(array($SS,$II,$TT,$LL,$CC,$III));
+
+// print_r(array($SS,$II,$TT,$LL,$CC,$III));
+// exit();
+
 $script=str_replace(array("CC","SS","II","TT","LL","PP","AA"),array("\$CC","\$SS","\$II","\$TT","\$LL","\$PP","\$AA"),$script);
 //echo $script;
 eval($script);
 
-?>

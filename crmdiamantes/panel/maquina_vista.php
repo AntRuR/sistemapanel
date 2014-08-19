@@ -1020,7 +1020,7 @@ $EXCEPCIONES['LOCAL_FTP']=array('ftp_files_user','ftp_files_pass','ftp_files_roo
 $vars=parse_ini_file("config/config.ini",true);
 echo "<div style='padding-left:10px;'>config.ini $get_num_vars</div>";
 echo "<table class='config_table'>";
-echo "<tr><th colspan=3 style='background:none;color:#000;'>Editar archivo config.ini</td><td align=right style='border:0;'><a href='?config=edit'>refresh</a></td></tr>";
+echo "<tr><th colspan=2 style='background:none;color:#000;'>Editar archivo config.ini</td><td align=right style='border:0;'><a href='?config=edit'>refresh</a></td></tr>";
 echo "<tr><td colspan='3' height=10></td></tr>";
 
 $GENERAL=$vars['GENERAL'];
@@ -2509,6 +2509,8 @@ if($_GET['accion']=='alllistado' ){
 		(strpos($dires,".buildpath")===false)
 		and
 		(strpos($dires,".git")===false)
+		and
+		(strpos($dires,".DS_Store")===false)		
 
 		){
 			$directoriS_1S[]=$dires;
@@ -2558,6 +2560,12 @@ if($_GET['accion']=='alllistado' ){
 		($dires!='panel/base/')
 		and
 		($dires!='panel/base2/')
+		and
+		($dires!='panel/base2/apps/')
+		and
+		($dires!='panel/base2/reportes/')	
+		and
+		($dires!='panel/base2/procesos/')						
 		and
 		($dires!='panel/custom/')
 		and
@@ -2728,6 +2736,7 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 				,"tablas_copy.php"
 				,".gitignore"
 				,"README.md"
+				,".DS_Store"
 				,".project"
 				,".buildpath"
 				)) and !is_dir($dire.$fichero) ){
@@ -2786,6 +2795,7 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 		,"tablas_copy.php"
 		,"Thumbs.db"
 		,".gitignore"
+		,".DS_Store"		
 		,"README.md"
 		,".project"
 		,".buildpath"
@@ -2957,10 +2967,33 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 			}
 
 
+			$dire33=explode("sistemapanel/",$dire);
+			$dire2=$dire33['1'];
+			// prin($dire);
+			 
+			// $carpeta3=explode("sistemapanel",$carpeta);
+			// $carpeta2=$carpeta3['1'];
+			// $carpeta=$carpeta2;
+			 
+
+			$labelll=( str_replace(
+									array(
+										'panel/',
+										$carpeta.'/web/'
+										),
+									array(
+										'<span style="color:red;">panel/</span>',
+										'<span style="color:blue;">'.$carpeta.'/web/</span>'
+										),
+									$dire) 
+						).$fichero;
+
+			// $labelll=$dire2;
+
 			$str = "<li id='li_".$co."' class='cossli li_todos $lili '>";
 			$str.= "<label for='co_".$co."'>";
 			$str.= "<b>
-			".( str_replace(array('panel/',$carpeta.'/web/'),array('<span style="color:red;">panel/</span>','<span style="color:blue;">'.$carpeta.'/web/</span>'),$dire) ).$fichero;
+			".$labelll;
 			$str.= "</b> ";
 //			$str.= $carpeta.'/web/'.$fichero;
 //			$str.= $co;

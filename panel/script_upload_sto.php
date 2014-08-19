@@ -37,7 +37,7 @@ $userlabel = $objeto_tabla[$_GET['obj']]['campos'][$CanE]['prefijo'];
 $tb = $_GET['tb'];
 
 ?> 
-<html>
+<html><body>
 <script>//alert('campo:<?php echo $campo;?>;last:<?php echo $CanEnd;?>;');</script>
 <?php
 

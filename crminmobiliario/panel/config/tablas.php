@@ -3362,6 +3362,9 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 				update(array("id_status"=>LL["id_status"]),"ventas_items","where id=".LL["id_grupo"],0);
 				update(array("id_cliente"=>$linea["id_cliente"],"id_item"=>$linea["id_item"],"id_jefe"=>$linea["id_jefe"],"id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
 			}
+
+			include("base2/apps/crear_notificaciones.php");
+
 		',
 		'app'			=> '
 		<a href="custom/ventas_mensajes.php?conf=estado%7Clistable%3D0%26alerta_fecha%7Cqueries%3D0%26fecha_creacion%7Cqueries%3D1%26crear%3D0%26order_by%3Did+desc">Actividades</a>
@@ -3856,12 +3859,21 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 		',
 		'procesos'		=>array(
 				array(
-						'label'			=> 'Generar contrato',
-						'accion'		=> 'custom',
-						'ot'			=> 'download_word_doc.php',
-						'rel'			=> 'width:1250,height:1000',
+						'label'			=> 'Contrato Venta',
+						'accion'		=> 'custom_load',
+						'file'			=> 'base2/apps/download_word_doc.php',
+						'rel'			=> 'width:250,height:80',
 						'extra'			=> 'nombre=contrato_venta&id=[id]',
+						'class'			=> ''
 				),
+				// array(
+				// 		'label'			=> 'Anexo 2',
+				// 		'accion'		=> 'custom_load',
+				// 		'file'			=> 'base2/apps/download_word_doc.php',
+				// 		'rel'			=> 'width:250,height:80',
+				// 		'extra'			=> 'nombre=contrato_anexo2&id=[id]',
+				// 		'class'			=> ''
+				// ),				
 		),
 		'campos'		=>array(
 				'id'			=>array(
@@ -5963,11 +5975,11 @@ $objeto_tabla['CONTRATOS']=array(
 				'nombre'		=>array(
 						'campo'			=> 'nombre',
 						'label'			=> 'Nombre',
-						'width'			=> '150px',
+						'width'			=> '300px',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
-						'setup'			=> 'contrato_venta',	
+						'setup'			=> 'contrato_venta,contrato_anexo2',	
 						'constante'		=> '1',
 				),
 				'file'		=>array(
@@ -5985,9 +5997,9 @@ $objeto_tabla['CONTRATOS']=array(
 				),				
 		),
 		'grupo'			=> 'configuraciones',
-		'edicion_completa'=> '0',
+		'edicion_completa'=> '1',
 		'expandir_vertical'=> '0',
-		'edicion_rapida'	=> '1',
+		'edicion_rapida'	=> '0',
 		'calificacion'	=> '0',
 		'set_fila_fijo'	=> '3',
 		'crear_quick'	=> '0',

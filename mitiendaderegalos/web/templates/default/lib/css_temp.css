@@ -16,8 +16,8 @@ body { font-family:calibri,helvetica,arial,sans-serif,tahoma,verdana; font-size:
 #div_header_after { height:130px; background:#FFF; padding:3px 0 3px 0; }
 #div_footer_pre { height:; background:;  }
 #div_footer_after { height:; background:;  }
-	.div_canvas { background:#FFF;  margin-top:0px; min-height:350px; height:auto !important; height:350px; border:0 solid #999; float:none; border-top:0; padding-bottom:; 
-padding-top:0px; padding-left:0px; 
+	.div_canvas { background:#FFF;  margin-top:0px; min-height:350px; height:auto !important; height:350px; border:0 solid #999; float:none; border-top:0; padding-bottom:; 
+padding-top:0px; padding-left:0px; 
 }
 	.div_sombra_left, .div_sombra_right { top:100px; display:none; }
 a { color:#BB7E06; text-decoration:none; } a:hover { color:#000; text-decoration:underline; }
@@ -28,17 +28,17 @@ a.main { color:#FF0000;}
 .header-boletin { background-image:url("../img/particular/header/boletin.jpg"); width:125px; height:126px; }
 .div-buscador { width:auto; height:auto; }
 .footer_by { width:auto; height:auto; }
-	.div_col_1d1 { width:958px; margin-right:0px; background:none; 
+	.div_col_1d1 { width:958px; margin-right:0px; background:none; 
 padding:7px 0px 7px 7px; }
-	.div_col_1d2 { width:178px; margin-right:0px; background:none; 
+	.div_col_1d2 { width:178px; margin-right:0px; background:none; 
 padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px; }
-	.div_col_2d2{ width:773px; background-color:none;
+	.div_col_2d2{ width:773px; background-color:none;
 padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px;}
-	.div_col_1d3 { width:178px; margin-right:0px; background:none; 
+	.div_col_1d3 { width:178px; margin-right:0px; background:none; 
 padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px; }
-	.div_col_3d3 { width:109px; background-color:none; 
+	.div_col_3d3 { width:109px; background-color:none; 
 padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px; }
-	.div_col_2d3 { width:657px; background-color:none; 
+	.div_col_2d3 { width:657px; background-color:none; 
 padding-top:7px; padding-right: 0px; padding-bottom:7px; padding-left:7px;}
 .header-logo { top:6px;left:16px; }
 .header-buscador { top:29px;left:455px; }

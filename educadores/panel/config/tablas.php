@@ -1,5 +1,8 @@
 <?php //á
 
+
+/******************************************************************************************************************************************************/
+
 $objeto_tabla['BANNER_DEPARTAMENTOS_FOTOS']=array(
 		'titulo'		=> 'Banner Departamentos',
 		'nombre_singular'=> 'foto',
@@ -180,7 +183,7 @@ $objeto_tabla['PAGINAS']=array(
 		'editar'		=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'crear_label'	=> '60px',
 		'crear_txt'		=> '550px',
 		'menu_label'	=> 'Páginas',
@@ -277,7 +280,7 @@ $objeto_tabla['PUBLICACIONES_GRUPOS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Directorios',
 		'crear_label'	=> '80px',
 		'crear_txt'		=> '400px',
@@ -343,7 +346,7 @@ $objeto_tabla['PUBLICACIONES_ITEMS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '1',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Documentos',
 		'por_pagina'	=> '50',
 		'me'			=> 'PUBLICACIONES_ITEMS',
@@ -450,7 +453,7 @@ $objeto_tabla['DOCUMENTOS_GRUPOS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Directorios',
 		'crear_label'	=> '80px',
 		'crear_txt'		=> '400px',
@@ -517,7 +520,7 @@ $objeto_tabla['DOCUMENTOS_ITEMS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '1',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Documentos',
 		'por_pagina'	=> '50',
 		'me'			=> 'DOCUMENTOS_ITEMS',
@@ -737,7 +740,7 @@ $objeto_tabla['NEWS_ITEMS']=array(
 						'style'			=> 'width:300px;',
 						'formato'		=> '7',
 						'default'		=> 'now()',
-						'rango'			=> '-1 years,now',
+						'rango'			=> '-10 years,now',
 						'validacion'	=> '1',
 						'listable'		=> '1',
 						'queries'		=> '0'
@@ -1502,7 +1505,7 @@ $objeto_tabla['BLOQUE_AGENDA']=array(
 						'style'			=> 'width:300px;',
 						'formato'		=> '0',
 						'default'		=> 'now()',
-						'rango'			=> '-1 years,now',
+						'rango'			=> '-10 years,now',
 						'validacion'	=> '1',
 						'listable'		=> '1'
 				),
@@ -1846,7 +1849,7 @@ $objeto_tabla['TRAMITES_ITEMS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '1',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Trámites',
 		'por_pagina'	=> '50',
 		'me'			=> 'TRAMITES_ITEMS',
@@ -2077,7 +2080,7 @@ $objeto_tabla['BANNERS']=array(
 		'crear_label'	=> '110px',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Archivos',
 		'por_pagina'	=> '40',
 		'orden'			=> '0',
@@ -2281,7 +2284,7 @@ $objeto_tabla['BLOG_NOTICIAS']=array(
 						'style'			=> 'width:300px;',
 						'formato'		=> '0',
 						'default'		=> 'now()',
-						'rango'			=> '-1 years,now',
+						'rango'			=> '-10 years,now',
 						'validacion'	=> '1',
 						'listable'		=> '1'
 				),
@@ -2389,7 +2392,7 @@ $objeto_tabla['BLOG_ACTIVIDADES']=array(
 						'style'			=> 'width:300px;',
 						'formato'		=> '0',
 						'default'		=> 'now()',
-						'rango'			=> '-1 years,now',
+						'rango'			=> '-10 years,now',
 						'validacion'	=> '1',
 						'listable'		=> '1'
 				),
@@ -2941,7 +2944,7 @@ $objeto_tabla['OBRAS_FOTOS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Obras Culminadas',
 		'me'			=> 'OBRAS_FOTOS',
 		'orden'			=> '0',
@@ -3119,7 +3122,7 @@ $objeto_tabla['OBRAS_FOTOS2']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Obras en ejecución',
 		'me'			=> 'OBRAS_FOTOS2',
 		'orden'			=> '0',
@@ -5431,6 +5434,775 @@ $objeto_tabla['PAGE_CONFIG']=array(
 		),
 		'importar_csv'	=> '0',
 		'disabled'		=> '0'
+);
+
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['VENTAS_ITEMS']=array(
+		'titulo'		=> 'Temas',
+		'nombre_singular'=> 'tema',
+		'nombre_plural'	=> 'temas',
+		'tabla'			=> 'ventas_items',
+		'archivo'		=> 'ventas_items',
+		'prefijo'		=> 'venite',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '1',
+		'buscar'		=> '1',
+		'busqueda_estricta'=> '1',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Temas',
+		'me'			=> 'VENTAS_ITEMS',
+		'orden'			=> '0',
+		'events'		=>array(
+				'on_session'	=> ''
+		),
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr',
+						'listable'		=> '1',
+						'formato'		=> '7b',
+						'queries'		=> '1'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Tema',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> 'width:150px;',
+						'derecha'		=> '1',
+						'style'			=> 'width:150px;',
+						'controles'		=> '
+							<a href="custom/ventas_mensajes.php?id=[id]" rel="subs crear">{select count(*) from ventas_mensajes where id_grupo=[id]} posts</a>
+							'
+				),
+				'tags'			=>array(
+						'campo'			=> 'tags',
+						'label'			=> 'tags',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'fulltext'		=> '1',
+						'autotags'		=> '1'
+				),
+				'user'			=>array(
+						'campo'			=> 'user',
+						'tipo'			=> 'user'
+				)
+		),
+		'grupo'			=> 'aplicación',
+		'edicion_completa'=> '1',
+		'expandir_vertical'=> '0',
+		'control'		=> '1',
+		'edicion_rapida'	=> '1',
+		'set_fila_fijo'	=> '',
+		'alias_grupo'	=> '',
+		'seccion'		=> '',
+		'order_by'		=> 'id desc',
+		'por_pagina'	=> '10',
+		'exportar_excel'	=> '0',
+		'user'			=> '1',
+		'stat'			=> '0'
+);
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['VENTAS_MENSAJES']=array(
+		'grupo'			=> 'aplicación',
+		'alias_grupo'	=> '',
+		'titulo'		=> 'Posts',
+		'nombre_singular'=> 'post',
+		'nombre_plural'	=> 'posts',
+		'tabla'			=> 'ventas_mensajes',
+		'archivo'		=> 'ventas_mensajes',
+		'prefijo'		=> 'venmen',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'buscar'		=> '1',
+		'bloqueado'		=> '0',
+		'crear'			=> '1',
+		'crear_label'	=> '60px',
+		'crear_txt'		=> '550px',
+		'menu'			=> '0',
+		'menu_label'	=> 'Posts',
+		'por_pagina'	=> '10',
+		'me'			=> 'VENTAS_MENSAJES',
+		'onload_include'	=> 'base2/update_ventas_mensajes.php',
+		'orden'			=> '0',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr',
+						'listable'		=> '1',
+						'formato'		=> '7b',
+						'width'			=> '100px',
+						'queries'		=> '1'
+				),
+				'id_grupo'		=>array(
+						'campo'			=> 'id_grupo',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[id]',
+						'foreig'		=> '1'
+				),
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Texto',
+						'tipo'			=> 'html',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '300px',
+						'style'			=> 'height:350px; width:800px '
+				),
+				'adjunto'		=>array(
+						'campo'			=> 'adjunto',
+						'label'			=> 'Archivo',
+						'tipo'			=> 'sto',
+						'width'			=> '300px',
+						'style'			=> 'width:200px;',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'doc',
+						'carpeta'		=> 'atc_imas',
+						'name'			=> 'nombre',
+						'enlace'		=> 'down'
+				),
+				'user'			=>array(
+						'campo'			=> 'user',
+						'tipo'			=> 'user',
+						'queries'		=> '1'
+				),
+				'tags'			=>array(
+						'campo'			=> 'tags',
+						'label'			=> 'tags',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'fulltext'		=> '1',
+						'autotags'		=> '1'
+				)
+		),
+		'edicion_rapida'	=> '1',
+		'calificacion'	=> '0',
+		'edicion_completa'=> '1',
+		'disabled'		=> '0',
+		'user'			=> '1',
+		'order_by'		=> 'id asc',
+		'stat'			=> '0'
+);
+
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['USUARIOS']=array(
+		'grupo'			=> 'aplicación',
+		'alias_grupo'	=> '',
+		'titulo'		=> 'Profesores',
+		'nombre_singular'=> 'profesor',
+		'nombre_plural'	=> 'profesores',
+		'tabla'			=> 'usuarios',
+		'archivo'		=> 'usuarios',
+		'prefijo'		=> 'usuope',
+		'eliminar'		=> '1',
+		'archivo_sub'	=> 'usuarios_acceso',
+		'editar'		=> '1',
+		'buscar'		=> '1',
+		'menu'			=> '1',
+		'menu_label'	=> 'Profesores',
+		'me'			=> 'USUARIOS',
+		'orden'			=> '1',
+		'postscript'	=> '
+
+				if(SS=="insert" or SS=="update"){
+					if(LL["id_colegio"]==""){
+						$iiii=insert(array("nombre"=>LL["cole"]),"colegios",0);									
+						update(array("id_colegio"=>$iiii["id"]),TT,"where id=II",0);
+					}
+				}
+
+		',		
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '150px',
+						'derecha'		=> '1',
+						'like'			=> '1',
+						'validacion'	=> '1'
+				),
+				'apellidos'		=>array(
+						'campo'			=> 'apellidos',
+						'label'			=> 'Apellidos',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '150px',
+						'derecha'		=> '2',
+						'like'			=> '1',
+						'validacion'	=> '1'
+				),
+				'genero'		=>array(
+						'campo'			=> 'genero',
+						'label'			=> 'Género',
+						'tipo'			=> 'com',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'1'			=> 'Masculino',
+								'2'			=> 'Femenino'
+						),
+						'default'		=> '1',
+						'style'			=> 'width:45px;',
+						'derecha'		=> '2',
+						'width'			=> '30px'
+				),
+				'email'			=>array(
+						'campo'			=> 'email',
+						'label'			=> 'Email',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '150px',
+						'derecha'		=> '2',
+						'validacion'	=> '1'
+				),
+				'departamento'	=>array(
+						'campo'			=> 'departamento',
+						'label'			=> 'Departamento',
+						'tipo'			=> 'hid',
+						'combo'			=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=> 'id,nombre|geo_departamentos',
+						'load'			=> 'provincia||id,nombre|geo_provincias|where id_departamento=',
+						'style'			=> 'width:150px;',
+						'derecha'		=> '1'
+				),
+				'provincia'		=>array(
+						'campo'			=> 'provincia',
+						'label'			=> 'Provincia',
+						'tipo'			=> 'hid',
+						'combo'			=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=> 'id,nombre|geo_provincias',
+						'load'			=> 'distrito||id,nombre|geo_distritos|where id_provincia=',
+						'style'			=> 'width:150px;',
+						'derecha'		=> '2'
+				),
+				'distrito'		=>array(
+						'campo'			=> 'distrito',
+						'label'			=> 'Distrito',
+						'tipo'			=> 'hid',
+						'combo'			=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'opciones'		=> 'id,nombre|geo_distritos',
+						'style'			=> 'width:150px;',
+						'derecha'		=> '2'
+				),
+				'direccion'		=>array(
+						'campo'			=> 'direccion',
+						'label'			=> 'Dirección',
+						'tipo'			=> 'inp',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'width'			=> '120px',
+						'style'			=> 'width:350px;',
+						'derecha'		=> '1'
+				),
+				'telefono'		=>array(
+						'campo'			=> 'telefono',
+						'label'			=> 'Teléfono',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '60px',
+						'style'			=> 'width:70px;',
+						'derecha'		=> '1'
+				),
+				'area'		=>array(
+						'campo'			=> 'area',
+						'label'			=> 'Área',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '60px',
+						'style'			=> 'width:270px;',
+						'derecha'		=> '1'
+				),				
+				'cole'		=>array(
+						'campo'			=> 'cole',
+						'tipo'			=> 'inp',
+						'listyle'		=> 'display:none;',				
+				),				
+				'id_colegio'	=>array(
+						'campo'			=> 'id_colegio',
+						'label'			=> 'Colegio',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[id_colegio]',
+						'style'			=> 'width:300px;',
+						'opciones'		=> 'id,nombre|colegios|where 1',
+						'directlink'	=> 'id,nombre|colegios|where 1',
+						'width'			=> '100px',
+						'derecha'		=> '1',
+						'tags'			=> '1',
+						'queries'		=> '1',
+						'dlquery'		=> '1',
+						'onchange'		=> 'if($v(\'in_id_colegio\')==\'\'){$(\'in_cole\').value=this.value;}',						
+				),
+				'codigo'		=>array(
+						'campo'			=> 'codigo',
+						'label'			=> 'COD CPPE',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '60px',
+						'style'			=> 'width:70px;',
+						'derecha'		=> '1'
+				),
+				'foto'			=>array(
+						'campo'			=> 'foto',
+						'label'			=> 'Foto',
+						'tipo'			=> 'img',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'usua',
+						'carpeta'		=> 'usua_imas',
+						'tamanos'		=> '150x120,202x88',
+						'tamano_listado'	=> '1',
+						'width'			=> '150px',
+						'style'			=> 'width:150px,height:auto,'
+				),				
+				'status'		=>array(
+						'campo'			=> 'status',
+						'label'			=> 'Status',
+						'tipo'			=> 'com',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'1'			=> 'Activo',
+								'2'			=> 'Cesado'
+						),
+						'default'		=> '1',
+						'style'			=> 'width:60px;',
+						'derecha'		=> '1',
+						'width'			=> '30px',
+						'queries'		=> '1'
+				),
+				'usuarios_acceso_nombre'=>array(
+						'legend'		=> 'Datos de Acceso',
+						'campo'			=> 'usuarios_acceso_nombre',
+						'label'			=> 'Nombre',
+						'tipo'			=> 'inp',
+						'unique'		=> '1',
+						'validacion'	=> '1',
+						'sync'			=> 'usuarios_acceso,nombre,[usuarios_acceso_nombre],id,[id_sesion]',
+						'listable'		=> '1'
+				),
+				'usuarios_acceso_password'=>array(
+						'campo'			=> 'usuarios_acceso_password',
+						'label'			=> 'Password',
+						'tipo'			=> 'pas',
+						'validacion'	=> '1',
+						'sync'			=> 'usuarios_acceso,password,[usuarios_acceso_password],id,[id_sesion]',
+						'listable'		=> '1'
+				),
+				'usuarios_acceso_id_permisos'=>array(
+						'campo'			=> 'usuarios_acceso_id_permisos',
+						'tipo'			=> 'inp',
+						'sync'			=> 'usuarios_acceso,id_permisos,[usuarios_acceso_id_permisos],id,[id_sesion]',
+						'default'		=> '3',
+						'indicador'		=> '1'
+				),
+				'id_sesion'		=>array(
+						'campo'			=> 'id_sesion',
+						'label'			=> 'usuario sessión',
+						'width'			=> '120px',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'opciones'		=> 'id,nombre|usuarios_acceso',
+						'biunivoca'		=> '1',
+						'subform'		=> '1',
+						'unique'		=> '1',
+						'indicador'		=> '1'
+				),
+				'tags'			=>array(
+						'campo'			=> 'tags',
+						'label'			=> 'tags',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'fulltext'		=> '1',
+						'autotags'		=> '1'
+				)
+		),
+		'importar_csv'	=> '0',
+		'disabled'		=> '0',
+		'edicion_rapida'	=> '1',
+		'crear_label'	=> '',
+		'stat'			=> '1'
+);
+
+$objeto_tabla['COLEGIOS']=array(
+		'titulo'		=> 'Colegios',
+		'nombre_singular'=> 'colegio',
+		'nombre_plural'	=> 'colegios',
+		'tabla'			=> 'colegios',
+		'archivo'		=> 'colegios',
+		'prefijo'		=> 'banc',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '0',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Colegios',
+		'me'			=> 'COLEGIOS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'width'			=> '300px',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'style'			=> 'width:400px;'
+				),
+				'direccion'		=>array(
+						'campo'			=> 'direccion',
+						'label'			=> 'Dirección',
+						'width'			=> '300px',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'style'			=> 'width:600px;'
+				)
+		),
+		'grupo'			=> 'aplicación',
+		'edicion_completa'=> '0',
+		'expandir_vertical'=> '0',
+		'edicion_rapida'	=> '1',
+		'calificacion'	=> '0',
+		'set_fila_fijo'	=> '3',
+		'crear_quick'	=> '1',
+		'disabled'		=> '0'
+);
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['GEO_DEPARTAMENTOS']=array(
+		'titulo'		=> 'Departamentos',
+		'nombre_singular'=> 'departamento',
+		'nombre_plural'	=> 'departamentos',
+		'tabla'			=> 'geo_departamentos',
+		'archivo'		=> 'geo_departamentos',
+		'archivo_hijo'	=> 'geo_provincias',
+		'prefijo'		=> 'geodep',
+		'eliminar'		=> '0',
+		'editar'		=> '0',
+		'crear'			=> '0',
+		'visibilidad'	=> '1',
+		'altura_listado'	=> 'auto',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Departamentos',
+		'por_pagina'	=> '100',
+		'me'			=> 'GEO_DEPARTAMENTOS',
+		'orden'			=> '0',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Departamento',
+						'width'			=> '150px',
+						'unique'		=> '1',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'controles'		=> '<a href="custom/geo_provincias.php?id=[id]">{select count(*) from geo_provincias where id_departamento=[id]} provincias</a>'
+				),
+				'geo'			=>array(
+						'campo'			=> 'geo',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'disabled'		=> '1'
+				)
+		),
+		'grupo'			=> 'configuraciones',
+		'width_listado'	=> '400px',
+		'set_fila_fijo'	=> '1',
+		'edicion_rapida'	=> '0',
+		'edicion_completa'=> '0',
+		'seccion'		=> 'ubigeo'
+);
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['GEO_PROVINCIA']=array(
+		'titulo'		=> '<a href="custom/geo_departamentos.php">Departamentos del Perú</a>  -
+                      Provincias de {select nombre from geo_departamentos where id=[id]}',
+		'nombre_singular'=> 'provincia',
+		'nombre_plural'	=> 'provincias',
+		'tabla'			=> 'geo_provincias',
+		'archivo'		=> 'geo_provincias',
+		'archivo_hijo'	=> 'geo_distritos',
+		'prefijo'		=> 'geodis',
+		'eliminar'		=> '0',
+		'editar'		=> '0',
+		'crear'			=> '0',
+		'crear_label'	=> '200px',
+		'crear_txt'		=> '400px',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '1',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '0',
+		'menu_label'	=> '',
+		'por_pagina'	=> '100',
+		'me'			=> 'GEO_PROVINCIA',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'tipo'			=> 'inp',
+						'unique'		=> '1',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'width'			=> '150px',
+						'controles'		=> '<a href="custom/geo_distritos.php?id=[id]">{select count(*) from geo_distritos where id_provincia=[id]} distritos</a>'
+				),
+				'id_departamento'=>array(
+						'campo'			=> 'id_departamento',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'foreig'		=> '1',
+						'default'		=> '[id]'
+				),
+				'geo'			=>array(
+						'campo'			=> 'geo',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'disabled'		=> '1'
+				)
+		),
+		'grupo'			=> 'configuraciones',
+		'edicion_rapida'	=> '0',
+		'set_fila_fijo'	=> '1',
+		'width_listado'	=> '400px'
+);
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['GEO_DISTRITOS']=array(
+		'titulo'		=> '<a href="custom/geo_departamentos.php">Departamentos del Perú</a>
+                          - <a href="custom/geo_provincias.php?id={select id_departamento from geo_provincias where id=[id]}">Provincias de {select geo_departamentos.nombre from geo_departamentos,geo_provincias where geo_departamentos.id=geo_provincias.id_departamento and geo_provincias.id=[id]}</a>
+                          - Distritos de {select nombre from geo_provincias where id=[id]}',
+		'nombre_singular'=> 'distrito',
+		'nombre_plural'	=> 'distritos',
+		'tabla'			=> 'geo_distritos',
+		'archivo'		=> 'geo_distritos',
+		'prefijo'		=> 'geodis',
+		'eliminar'		=> '0',
+		'editar'		=> '0',
+		'crear'			=> '0',
+		'crear_label'	=> '200px',
+		'crear_txt'		=> '400px',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '1',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '0',
+		'menu_label'	=> '',
+		'por_pagina'	=> '100',
+		'me'			=> 'GEO_DISTRITOS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'id_provincia'	=>array(
+						'campo'			=> 'id_provincia',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[id]',
+						'foreig'		=> '1'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'unique'		=> '1',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'width'			=> '150px'
+				),
+				'geo'			=>array(
+						'campo'			=> 'geo',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'disabled'		=> '1'
+				)
+		),
+		'grupo'			=> 'configuraciones',
+		'width_listado'	=> '400px',
+		'set_fila_fijo'	=> '1',
+		'edicion_rapida'	=> '0',
+		'edicion_completa'=> '0'
 );
 /******************************************************************************************************************************************************/
 

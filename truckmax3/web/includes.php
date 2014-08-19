@@ -33,4 +33,3 @@ chdir($root_dir);
 chdir(THEME_PATH);
 
 		
-?>

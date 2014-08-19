@@ -80,14 +80,18 @@ include("../../panel/lib/simple_html_dom.php");
 			'label'=>'Ciudad'
 			,'validacion'=>"validate['required']"
 		)		
-		
 		,'consulta'=>array(
 			'label'=>'Consulta'
 			,'tipo'=>'textarea'
 			,'validacion'=>"validate['required']"
 			//,'value'=>array('')
 		)
-	);							
+		,'captcha'=>array(
+			'tipo'=>'captcha'
+		)		
+	);		
+
+
 	
 			$FORM=array(
 					'nombre'=>$PARAMS['conector']
@@ -124,7 +128,18 @@ include("../../panel/lib/simple_html_dom.php");
 			
 						
 			if($_SERVER['REQUEST_METHOD']=='POST' ){
+
 				
+				if($_SESSION['captchaword']!=$_POST['captcha']){
+				
+					echo json_encode(array(
+								't'=>'error'
+								,'m'=>'Error de verificación'
+								,'n'=>$FORM['nombre']
+								));					
+					exit();
+
+				}				
 				//data_insert
 				
 				$_POST['id_cliente']=dato("id","clientes","where email='".$_POST['email']."'");
@@ -152,7 +167,11 @@ include("../../panel/lib/simple_html_dom.php");
 				'logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}'))
 				));				
 
-								
+
+				
+
+
+				// 																
 				$insertado=insert(array(
 								'id_cliente'=>$_POST['id_cliente'],
 								'id_item'=>$_POST['id_item'],
@@ -196,6 +215,37 @@ include("../../panel/lib/simple_html_dom.php");
 							);
 					
 					
+
+
+				//body_mensaje
+				$body_mensaje="";
+				$body_mensaje.="<tr><td nowrap><b>vehículo:</b></td><td style='padding-left:10px;'>".$producto['nombre']."</td></tr>"; 
+				foreach($FORM['campos'] as $CAMP){
+					switch($CAMP['tipo']){
+						case "input_text": $body_mensaje.="<tr><td nowrap><b>".$CAMP['label'].":</b></td><td style='padding-left:10px;'>".$_POST[$CAMP['campo']['0']]."</td></tr>"; break;
+						case "textarea": $body_mensaje.="<tr><td colspan=2><b>".$CAMP['label'].":</b></td></tr><tr><td colspan=2>".$_POST[$CAMP['campo']['0']]."</td></tr>"; break;
+					}
+				}
+	////////////body_administrador			
+				$body_administrador ="";
+				$body_administrador.="Desde la web, han enviado un mensaje de consulta con los siguientes datos:<br><br>";
+				$body_administrador.="<table style='font:inherit;' cellspacing=0 cellpadding=0 border=0><tr><td style='width:120px;'></td><td></td></tr>";
+				$body_administrador.=$body_mensaje;		
+				$body_administrador.="</table><br><br><br>";			
+				//email_administrador
+				$email_administrador=enviar_email(
+								array(
+								'emails'=>$PARAMETROS_EMAIL['emailsAdmin']
+								,'Subject'=>'consulta desde '.$PARAMETROS_EMAIL['url_web']
+								,'body'=>$body_administrador
+								,'From'=>$cuenta['email']
+								,'FromName'=>$cuenta['nombre']							
+								,'Logo'=>$cuenta['logo']
+								)
+							);
+
+
+
 					$tableProps='width="100%" cellpadding="0" cellspacing="0" border="0" ';
 
 					$producto['ficha']=fix_ficha($producto['ficha']);
@@ -281,7 +331,11 @@ include("../../panel/lib/simple_html_dom.php");
 									 "ventas_mensajes",
 									 0
 									 );	
-									 
+
+
+
+
+
 				$body_cliente=str_replace(
 								array(
 								'[IMPRIMIR]',
@@ -340,4 +394,3 @@ include("../../panel/lib/simple_html_dom.php");
 
 $FORMULARIO[$PARAMS['conector']]=$FORM;
 
-?>

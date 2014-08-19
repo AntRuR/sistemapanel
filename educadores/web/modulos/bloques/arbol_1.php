@@ -15,7 +15,8 @@ $grupos=select(array(
 					"nombre",
 					),
 				"textos_grupos",
-				"where 1 and visibilidad='1' $filtro_where  and id not in ('4','3') order by id asc limit 0,100",
+				// "where 1 and visibilidad='1' $filtro_where  and id not in ('4','3') order by id asc limit 0,100",
+				"where 1 and visibilidad='1' $filtro_where  order by id asc limit 0,100",
 				0
 				);
 $gru=array();

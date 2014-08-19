@@ -14,6 +14,9 @@ $Block['footer']=array(array(
 	  ));	  
 
 $Block['bar_izquierda']=array(
+
+		"bloques/menu_app.php?page=1",
+
 		// "bloques/print_titulo.php",//
 		
 		// "bloques/arbol_0.php",//		
@@ -238,6 +241,18 @@ array(
 		),
 	'footer'=>$Block['footer'],			
 );
+
+$Estructura['modulo=items&tab={usuarios_items,temas_items,posts_items}']=
+array(
+	'header'=>$Block['header'],	
+//	"bloques/print_marquesina.php",
+	 array(
+		$Block['bar_izquierda'],//
+		"MAIN?classStyle=pages",						//panel:textos_items
+		),
+	'footer'=>$Block['footer'],			
+);
+
 
 $Estructura['modulo=items&tab={documentos_items,documentos_grupos}']=
 array(

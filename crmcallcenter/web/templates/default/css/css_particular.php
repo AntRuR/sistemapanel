@@ -186,3 +186,12 @@ outline:1px solid #EEE;
 .id_formulario_consultas #p_consultas_submit { float:right; }
 .id_formulario_consultas #p_consultas_submit input { margin-top:10px; }
 .id_formulario_consultas #p_consultas_pie { float:right;  }
+
+
+#p_consultas_captcha img {
+	float:left;
+	clear:left;
+}
+#p_consultas_captcha input {
+	margin-left:0px !important;
+}

@@ -125,5 +125,93 @@ body {
 .id_agenda,
 .id_alcalde { display: none;}
 
+#temas_items_file .num,
+#usuarios_items_file .num {
+    margin-bottom: 14px;
+	
+    font-size: 13px;
+}
 
+#temas_items_file,
+#usuarios_items_file {
+    background: url('http://1.bp.blogspot.com/-3PBmvNum65Q/TwGIeScgF0I/AAAAAAAACtE/gMS33U7ulaY/s1600/unanotegrey.gif') repeat;
+    min-height: 1000px;
+}
 
+#temas_items_file #profile ,
+#usuarios_items_file #profile {
+    background: #ccc;
+
+    float: right;
+    border-radius: 10px;
+    padding: 2%;
+    width: 30%;
+    margin-top: 0;
+    margin-right: 0%;
+}
+#temas_items_file #profile li,
+#usuarios_items_file #profile li {
+    clear: left;
+
+    margin-bottom: 6px;
+}
+#temas_items_file #profile li label,
+#usuarios_items_file #profile li label {
+    width: 40%;
+
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: top;
+}
+#temas_items_file #profile li span ,
+#usuarios_items_file #profile li span {
+    display: inline-block;
+
+    width: 60%;
+}
+#temas_items_file .barra_arriba,
+#usuarios_items_file .barra_arriba {
+    background: #004993;
+
+    padding: 10px;
+    color: #FFF;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 10px;
+}
+#usuarios_items_file .listado_items {
+
+}
+#temas_items_file .listado_items,
+#usuarios_items_file .listado_items {
+    width: 66%;
+	
+    float: left;
+}
+#temas_items_file .listado_items .listado_item ,
+#usuarios_items_file .listado_items .listado_item {
+	margin-bottom: 20px;
+	padding-left: 11px;
+}
+#temas_items_file .listado_items .fecha ,
+#usuarios_items_file .listado_items .fecha {
+    color: 333;
+	
+}
+#usuarios_items_file .listado_items .titulo {
+    color: #00527D;
+	
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+#temas_items_file .listado_items .texto {
+	text-transform: capitalize;
+    
+	font-size: 16px;
+    margin-bottom: 4px;	
+}
+#temas_items_file .listado_items .numero,
+#usuarios_items_file .listado_items .numero {
+	color: red;
+}

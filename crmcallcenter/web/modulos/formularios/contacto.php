@@ -39,7 +39,10 @@ include_once("formularios/formularios.php");
 		,'tipo'=>'textarea'
 		,'validacion'=>"validate['required'] autoinput"
 		//,'value'=>array('')
-	)							
+	)		
+		,'captcha'=>array(
+			'tipo'=>'captcha'
+		)								
 )	
 					/*CAMPOS-END*/
 					
@@ -61,6 +64,17 @@ include_once("formularios/formularios.php");
 			
 			if($_SERVER['REQUEST_METHOD']=='POST'){
 						
+				if(	strtoupper($_SESSION['captchaword'])!=strtoupper($_POST['captcha']) ){
+				
+					echo json_encode(array(
+								't'=>'error'
+								,'m'=>'Error de verificación'
+								,'n'=>$FORM['nombre']
+								));					
+					exit();
+
+				}	
+
 				//body_mensaje
 				$body_mensaje="";
 				foreach($FORM['campos'] as $CAMP){

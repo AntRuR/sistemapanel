@@ -1,15 +1,8 @@
 <?php //á
-?>
-<!DOCTYPE HTML>
-<?php
-?>
+?><!DOCTYPE HTML>
 <html lang="es">
-<?php
-?>
 <head>
 <title><?php echo $html_title?></title>
-<?php
-?>
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 <?php
 /* ?><meta name="title" content="<?php echo $meta_title?>"/><?php */
@@ -34,7 +27,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='584';
+$rrr='610';
 
 $needs=necesita_libs($objeto_tabla);
 
@@ -69,145 +62,199 @@ if($Local){ ?>
 <link href="<?php echo $sn2?>config/main.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
 
 <?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/mootools-core-1.4.2-full-compat-yc.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/mootools-more-1.4.0.1.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/js.js?r=<?php echo $rrr;?>"></script>
-<?php
 
 
-//swfobject.js
-if(1){
-?>
-<script type="text/javascript" src="<?php echo $sn2?>js/swfobject.js"></script>
-<?php
-}
 
-//Meio.Autocomplete.js
-if(1){
+if($JAVASCRIPT_FRAMEWORK=="jquery")
+{ //JQUERY
 ?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/Meio.Autocomplete.js"></script>
-<?php
-/*?><script type="text/javascript" src="<?php echo $sn2?>js/HashListener.js"></script><?php*/
-/*?><script type="text/javascript" src="<?php echo $sn2?>js/HistoryManager.js"></script><?php*/
-/* ?><link type="text/css" rel="stylesheet" href="<?php echo $sn2?>css/multiBox.css" /><?php */
-}
-//LIGHTSHOW
-$needs['img']=1;
-if($needs['img']){
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/_class.noobSlide.packed.js"></script>
-<?php
-?>
-<script type="text/javascript" src="<?php echo $sn2?>js/overlay.js"></script>
-<?php
-?>
-<script type="text/javascript" src="<?php echo $sn2?>js/multiBox.js"></script>
-<?php
-?>
-<link type="text/css" rel="stylesheet"
-	href="<?php echo $sn2?>css/multiBox.css" />
-<?php
-}
 
-//EDIT HTML
-//if(1){
-if($needs['html'] or $SERVER['ARCHIVO']=='pop.php'){
-?>
-<link rel="stylesheet" type="text/css"
-	href="<?php echo $sn2?>css/MooEditable.css">
-<?php
-?>
-<link rel="stylesheet" type="text/css"
-	href="<?php echo $sn2?>css/MooEditable.Extras.css">
-<?php
-?>
-<link rel="stylesheet" type="text/css"
-	href="<?php echo $sn2?>css/MooEditable.SilkTheme.css">
-<?php
-?>
-<link rel="stylesheet" type="text/css"
-	href="<?php echo $sn2?>css/MooEditable.Table.css">
-<?php
-?>
-<link rel="stylesheet" type="text/css"
-	href="<?php echo $sn2?>css/MooEditable.Forecolor.css">
-<?php
-?>
-<script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/MooEditable.UI.ButtonOverlay.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/MooEditable.UI.MenuList.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/MooEditable.Extras.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/MooEditable.Table.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/MooEditable.CleanPaste.js"></script>
-<?php
-?>
-<script type="text/javascript"
-	src="<?php echo $sn2?>js/MooEditable.Forecolor.js"></script>
-<?php
-}
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
 
-/*
- $needs['milkbox']=1;
-if($needs['milkbox']){
-?><script type="text/javascript" src="<?php echo $sn2?>js/milkbox-yc.js"></script><?php
-?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/milkbox/milkbox.css"><?php
-}
-*/
-$needs['mootooltips']=1;
-if($needs['mootooltips']){
-?>
-<link rel="stylesheet" type="text/css"
-	href="<?php echo $sn2?>css/MooTooltips.css">
-<?php
-?>
-<script type="text/javascript" src="<?php echo $sn2?>js/MooTooltips.js"></script>
-<style>
-.ToolTips .message {
-	margin-bottom: 0px;
-	margin-top: -14px;
-	min-height: 20px;
+<script src="../js/plugins.js"></script>
+<script src="../js/vendor/bootstrap.min.js"></script>
+<script src="../js/main.js"></script> -->
+
+<style type="text/css">
+@font-face {
+	font-family: 'caviar_dreamsregular';
+	src: url('css/fonts/caviardreams/caviardreams-webfont.eot');
+	src: url('css/fonts/caviardreams/caviardreams-webfont.eot') format('embedded-opentype'),
+	url('css/fonts/caviardreams/caviardreams-webfont.woff') format('woff'),
+	url('css/fonts/caviardreams/caviardreams-webfont.ttf') format('truetype'),
+	url('css/fonts/caviardreams/caviardreams-webfont.svg#caviar_dreamsregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 </style>
+<!--<link rel="stylesheet" href="css/docs.css">-->
+<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+<script data-main="js/" src="js/require.min.js"></script>
 <?php
+
+if(isset($EXTRA_JSS) and sizeof($EXTRA_JSS)>0)
+foreach($EXTRA_JSS as $archivo){
+echo '<script type="text/javascript" src="'.$archivo.'"></script>';
 }
+
+if(isset($EXTRA_CSSS) and sizeof($EXTRA_CSSS)>0)
+foreach($EXTRA_CSSS as $archivo){
+echo '<link type="text/css" rel="stylesheet" href="'.$archivo.'" >';
+}
+
+?>
+<?php
+} //JQUERY END
+else 
+{ //MOOTOOLS
+
+?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/mootools-core-1.4.2-full-compat-yc.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/mootools-more-1.4.0.1.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/js.js?r=<?php echo $rrr;?>"></script>
+	<?php
+
+
+	//swfobject.js
+	if(1){
+	?>
+	<script type="text/javascript" src="<?php echo $sn2?>js/swfobject.js"></script>
+	<?php
+	}
+
+	//Meio.Autocomplete.js
+	if(1){
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/Meio.Autocomplete.js"></script>
+	<?php
+	/*?><script type="text/javascript" src="<?php echo $sn2?>js/HashListener.js"></script><?php*/
+	/*?><script type="text/javascript" src="<?php echo $sn2?>js/HistoryManager.js"></script><?php*/
+	/* ?><link type="text/css" rel="stylesheet" href="<?php echo $sn2?>css/multiBox.css" /><?php */
+	}
+	//LIGHTSHOW
+	$needs['img']=1;
+	if($needs['img']){
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/_class.noobSlide.packed.js"></script>
+	<?php
+	?>
+	<script type="text/javascript" src="<?php echo $sn2?>js/overlay.js"></script>
+	<?php
+	?>
+	<script type="text/javascript" src="<?php echo $sn2?>js/multiBox.js"></script>
+	<?php
+	?>
+	<link type="text/css" rel="stylesheet"
+		href="<?php echo $sn2?>css/multiBox.css" />
+	<?php
+	}
+
+	//EDIT HTML
+	//if(1){
+	if($needs['html'] or $SERVER['ARCHIVO']=='pop.php'){
+	?>
+	<link rel="stylesheet" type="text/css"
+		href="<?php echo $sn2?>css/MooEditable.css">
+	<?php
+	?>
+	<link rel="stylesheet" type="text/css"
+		href="<?php echo $sn2?>css/MooEditable.Extras.css">
+	<?php
+	?>
+	<link rel="stylesheet" type="text/css"
+		href="<?php echo $sn2?>css/MooEditable.SilkTheme.css">
+	<?php
+	?>
+	<link rel="stylesheet" type="text/css"
+		href="<?php echo $sn2?>css/MooEditable.Table.css">
+	<?php
+	?>
+	<link rel="stylesheet" type="text/css"
+		href="<?php echo $sn2?>css/MooEditable.Forecolor.css">
+	<?php
+	?>
+	<script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/MooEditable.UI.ButtonOverlay.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/MooEditable.UI.MenuList.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/MooEditable.Extras.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/MooEditable.Table.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/MooEditable.CleanPaste.js"></script>
+	<?php
+	?>
+	<script type="text/javascript"
+		src="<?php echo $sn2?>js/MooEditable.Forecolor.js"></script>
+	<?php
+	}
+
+	/*
+	 $needs['milkbox']=1;
+	if($needs['milkbox']){
+	?><script type="text/javascript" src="<?php echo $sn2?>js/milkbox-yc.js"></script><?php
+	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/milkbox/milkbox.css"><?php
+	}
+	*/
+	$needs['mootooltips']=1;
+	if($needs['mootooltips']){
+	?>
+	<link rel="stylesheet" type="text/css"
+		href="<?php echo $sn2?>css/MooTooltips.css">
+	<?php
+	?>
+	<script type="text/javascript" src="<?php echo $sn2?>js/MooTooltips.js"></script>
+	<style>
+	.ToolTips .message {
+		margin-bottom: 0px;
+		margin-top: -14px;
+		min-height: 20px;
+	}
+	</style>
+	<?php
+
+}//END MOOTOOLS
+
 
 $LINK_COLOR_OPP=oppColour($LINK_COLOR);
 $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
 <script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
-<?php
-?>
 <style>
 body {
 	background: fixed;
 	background-image: url('<?php echo $BG_IMAGE;?>');
 }
+<?php if($SERVER['ARCHIVO']!='login.php'){ ?>
+.contenido_principal {
+	border: 0 !important;
+	margin-top: -3px;
+}
+<?php } ?>
 </style>
 <?php
+}
 ?>
 </head>

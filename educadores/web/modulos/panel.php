@@ -80,6 +80,10 @@ $OpcionesTabla['cotizaciones']['oursourcing_tiempo'][2]='1 año';
 $OpcionesTabla['cotizaciones']['oursourcing_tiempo'][3]='2 años';
 $OpcionesTabla['usuarios_permisos']['multiusuario'][1]='Si';
 $OpcionesTabla['usuarios_permisos']['multiusuario'][0]='No';
+$OpcionesTabla['usuarios']['genero'][1]='Masculino';
+$OpcionesTabla['usuarios']['genero'][2]='Femenino';
+$OpcionesTabla['usuarios']['status'][1]='Activo';
+$OpcionesTabla['usuarios']['status'][2]='Cesado';
 /*OPCIONES-END*/
 
 ?>

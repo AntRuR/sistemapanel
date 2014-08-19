@@ -21,7 +21,8 @@ font-family: 'caviar_dreamsregular';
 
 /*body { background: url("http://www.metacritic.com/images/layout/bg.png") repeat scroll center 78px #010101 !important; }*/
 /*body { background: url("http://www.webtexture.net/wp-content/uploads/2013/02/6-Wood-Pattern-Background-Thumb01.jpg") repeat scroll center 78px #010101 !important; }*/
-body { background: url("http://cdn.elcomercio.e3.pe/f/i/gb_caption_nota.png") repeat !important; }
+/*body { background: url("http://cdn.elcomercio.e3.pe/f/i/gb_caption_nota.png") repeat !important; }*/
+body { background: #F5F8FA!important ;}
 
 
 .main_content { padding:0 10px; }
@@ -140,7 +141,7 @@ ul.ul_menus li.seccion b {
 
     color: #000;
 
-    font-size: 11px;
+    /* font-size: 11px; */
 
     font-weight: bold;
 
@@ -185,6 +186,15 @@ ul.ul_menus li a {
     font-family: 'caviar_dreamsregular';
     /* font-size: 11px; */
     margin-left: 0px;
+}
+.formulario, .bloque_titulo {
+    border-color: #E1E8ED !important;
+}
+.contenido_principal {
+    border:1px solid #099 !important;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+box-shadow: none;    
 }
 .lead {
 margin-bottom:0;
@@ -304,9 +314,18 @@ font-family: PTN57F !important;
 
 td { background-color: #FFF; }
 
-#menumenu { margin-top: 4px;}
+#menumenu { margin-top: 8px;}
 
 
 .htmlenlista td { background-color: transparent; }
 
+@media (max-width: 900px) {
 
+    .contenido_principal {
+        border-color:#FFF !important;
+    }
+    body { 
+        background: #FFF !important ;
+    }
+
+}

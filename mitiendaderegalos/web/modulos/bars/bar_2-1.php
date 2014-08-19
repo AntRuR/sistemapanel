@@ -1,5 +1,5 @@
-<?php //á
-
-	include(incluget("bloques/bloque_banner_3.php"));		
-	
+<?php //á
+
+	include(incluget("bloques/bloque_banner_3.php"));		
+	
 ?>

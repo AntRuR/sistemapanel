@@ -230,3 +230,9 @@ padding-top:0px; padding-right: 0px; padding-bottom:0px; padding-left:'.$InterCo
 //
 $HEAD['INCLUDES']['style_common'][]='.margen_izquierda { padding-left:'.$InterCol.'px; } ';
 
+
+
+// $HEAD['INCLUDES']['style_common'][]='#recomendar_captcha { margin-left: 0 !important; }';
+
+
+

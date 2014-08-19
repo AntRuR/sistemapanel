@@ -68,6 +68,7 @@ $ITEM = select_fila(
 
 			*/	
 
+			/*
 			'archivo'=>array('get_archivo'=>array('carpeta'=>'pdf_fil','fecha'=>'{fecha_creacion}','file'=>'{pdf}')),
 
 			//'archivo'=>array('urlencode'=>array('{archivo}')),
@@ -79,7 +80,8 @@ $ITEM = select_fila(
 			'url_download'=>'panel/down.php?name={nombre_ue}&file={archivo_ue}',		
 
 			'download'=>"<a class='download' href='{url_download}' >Descargar</a>",												
-
+			*/
+		
 			)
 
         );

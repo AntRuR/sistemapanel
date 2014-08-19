@@ -27,7 +27,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='607';
+$rrr='610';
 
 $needs=necesita_libs($objeto_tabla);
 
@@ -247,6 +247,12 @@ body {
 	background: fixed;
 	background-image: url('<?php echo $BG_IMAGE;?>');
 }
+<?php if($SERVER['ARCHIVO']!='login.php'){ ?>
+.contenido_principal {
+	border: 0 !important;
+	margin-top: -3px;
+}
+<?php } ?>
 </style>
 <?php
 }

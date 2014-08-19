@@ -64,4 +64,3 @@ $COMMON['url_publicar-2']=procesar_url('index.php?modulo=formulario&tab=publicar
 $COMMON['url_carrito']=procesar_url('index.php?modulo=app&tab=carrito');
 */
 
-?>

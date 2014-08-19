@@ -9,7 +9,7 @@ $THIS=$PARAMS['this'];
 $item=$DETAIL[$PARAMS['conector']];
 
 
-$FB=$FACEBOOK_LIKE[$PARAMS['conector']];
+$FB=$FACEBOOK_LIKE[$PARAMS['this']];
 
 
 

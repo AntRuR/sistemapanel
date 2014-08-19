@@ -51,7 +51,7 @@ if($_GET['ran']==''){
 	 if($datos_tabla['altura_listado']!=''){ ?>.bl .bd { height:<?php echo $datos_tabla['altura_listado']?>; }.bl .bd { height:auto; }<?php }
 	 $porr_linea=($datos_tabla['por_linea']=='')?'100':((ceil(100/$datos_tabla['por_linea']))-1);
 	 ?>.bl { float:left; clear:none; width:<?php echo $porr_linea;?>%;   }<?php
-	?></style><?php
+	?></style><script>/**/</script><?php
 
 	echo '<input type="hidden" id="resaltar"  />';
 
@@ -168,11 +168,11 @@ if($_GET['ran']==''){
 
 			if($datos_tabla['exportar_excel']=='1'){
 
-			?><a href="#" onclick="javascript:window.print();return false;" <?php
+			?><a href="#" id="boton_excel" onclick="javascript:window.print();return false;" <?php
 			?>class="btn btn-small" <?php
 			?>title="Imprimir"><i class="itl ico_Print"></i>Imprimir</a><?php
 
-			?><a href="#" onclick="javascript:exportar_excel();return false;" <?php
+			?><a href="#" id="boton_imprimir" onclick="javascript:exportar_excel();return false;" <?php
 			?>class="btn btn-small" <?php
 			?>title="Descargar Excel"><i class="itl ico_Excel"></i>Exportar Excel</a><script>function exportar_excel(){ var url='exportar_excel.php?conf=<?php echo urlencode($_GET['conf']); ?>&me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); location.href=url; }</script> <?php
 			}
@@ -841,7 +841,7 @@ background-image: -moz-linear-gradient(
 						foreach($ct['procesos'] as $iproceso=>$proceso){
 							if($ct['procesos'][$iproceso]['disabled']=='1'){ unset($ct['procesos'][$iproceso]); }
 						}
-						//prin($ct['procesos']);
+						// prin($ct['procesos']);
 						if(sizeof($ct['procesos'])>0 and $ct['procesos']!=0){
 						//echo '<ul>'; echo '<li class="menudown">';
 
@@ -852,10 +852,12 @@ background-image: -moz-linear-gradient(
 							echo '<img src="img/white.jpg">';
 							foreach($ct['procesos'] as $iproceso=>$proceso){
 							echo "<li>";
-							//prin($proceso);
+							// prin($proceso);
 							echo '<a rel="';
 							echo ($proceso['rel'])?$proceso['rel']:'width:1050,height:400';
-							echo '" href="formulario_quick.php?proceso='.$iproceso.'&L='.$linea[$datos_tabla['id']].'&OT='.(($proceso['ot'])?$proceso['ot']."&parent=".$objeto_tabla[$this_me]['archivo']:$objeto_tabla[$this_me]['archivo']."&parent=").'&ran=1'.(($proceso['accion'])?"&accion=".$proceso['accion']:'').((sizeof($proceso['cargar'])>0)?'&load='.urlencode(json_encode($proceso['cargar'])):'').(($proceso['extra'])?"&".str_replace(array("[id]"),array($linea[$datos_tabla['id']]),$proceso['extra']):'').'" class="mb">';
+							echo '" href="'. ( ($proceso['file']!='')?$proceso['file']:'formulario_quick.php' ) .'?proceso='.$iproceso.'&L='.$linea[$datos_tabla['id']].'&OT='.(($proceso['ot'])?$proceso['ot']."&parent=".$objeto_tabla[$this_me]['archivo']:$objeto_tabla[$this_me]['archivo']."&parent=").'&ran=1'.(($proceso['accion'])?"&accion=".$proceso['accion']:'').((sizeof($proceso['cargar'])>0)?'&load='.urlencode(json_encode($proceso['cargar'])):'').(($proceso['extra'])?"&".str_replace(array("[id]"),array($linea[$datos_tabla['id']]),$proceso['extra']):'').'"'.
+							' class="'. ( (isset($proceso['class']))?$proceso['class']:'mb' ) . 
+							'" >';
 							//echo '<a onclick="ax(\'ec\',\e'9\'); return false;" href="#" >';
 							echo $proceso['label'];
 							echo '</a>';
@@ -967,7 +969,7 @@ background-image: -moz-linear-gradient(
 
 							$tbli['controles']=($tbli['control']=='0')?'':procesar_controles_html($controlEs[$tbli['campo']]);
 
-							$tbli['width']=($tbli['width']=='' or $tbli['width']=='100px')?"":"width:".$tbli['width'].";";
+							$tbli['width']=($tbli['width']=='' or $tbli['width']=='0px')?"":"width:".$tbli['width'].";";
                             echo '<li class="bld '. (($tbli['tipo']=='check')?'lchk':'').' '.(($tbli['listclass'])?$tbli['listclass']:'').' '.$nuevoDad.'" >';
 
 							if($tbli['tipo']=='inp' and $load_foto[$tbli['campo']]!=''){
@@ -1195,7 +1197,7 @@ background-image: -moz-linear-gradient(
 										case "soporte":								$adiv1.= "&nbsp;<a title='soporte' class='ico_clip z ico_list'></a>"; break;
 										case "enviado":								$adiv1.= "&nbsp;<a title='enviado' class='ico_left z ico_list'></a>"; break;
 										case "recibido":							$adiv1.= "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
-										case "si":case "s�":						$adiv1.= "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
+										case "si":case "sí":						$adiv1.= "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 										case "no":									$adiv1.= "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
 										case "nuevos soles":case "soles": 			$adiv1.= "S/."; break;
 										case "dolares":case "dolares americanos": 	$adiv1.= "\$US"; break;

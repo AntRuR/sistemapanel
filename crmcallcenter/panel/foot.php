@@ -1,30 +1,38 @@
 <?php //á
+if($JAVASCRIPT_FRAMEWORK=="jquery"){
+?>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+<!-- <script src="js/plugins.js"></script>
+ --><script src="js/vendor/bootstrap.min.js"></script>
+<script src="config/main.js"></script>
+
+<?php } else { 
+
 if($_GET['block']!='form'){
-	?>
+?>
 <div class="foot bloque">
 	<div>
 		<span id='pagespan'></span>
 		<script>window.addEvent('domready',function(){ loadinfopage(); });</script>
 		<?php
 		if($Local==1){ ?>
-		<a
-			href="http://<?php echo $_SERVER['SERVER_NAME'];?>/sistemapanel/panel"
-			target="_blank"><?php echo $vars['GENERAL']['factory'];?>
-		</a> |
+		<a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/sistemapanel/panel" target="_blank"><?php echo $vars['GENERAL']['factory'];?></a> |
 		<?php }
 		?>
 		<a href="<?php echo $vars['GENERAL']['by_url'];?>" target="_blank"><?php echo $vars['GENERAL']['by_label'];?>
 		</a>
 		<?php
 		if($Local==1){
-?>
+		?>
 		| <a href="maquina.php">Master</a>
 		<?php } else {
 			?>
 		<a href="maquina.php"
 			style="text-decoration: none; color: #DDDDFF; cursor: text;">&nbsp;&nbsp;</a>
 		<?php }
-		?></div>
+		?>
+	</div>
 </div>
 <?php }
 if($needs['img'] or 1){
@@ -81,3 +89,4 @@ function charge_submenus(){
 }
 <?php echo $objeto_tabla[$datos_tabla['me']]['javascript']; ?>
 </script>
+<?php } ?>

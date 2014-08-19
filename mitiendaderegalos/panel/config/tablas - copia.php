@@ -19,9 +19,9 @@ $objeto_tabla['PROYECTOS']=array(
 		'crear_pruebas'	=> '0',
 		'menu'			=> '1',
 		'menu_label'	=> 'Proyectos',
-		'controles'		=> '<a class="linkstitu" href="base/actualizar_panel.php">actualizar todos los paneles</a>
-
-<a class="linkstitu" href="base/proceso_analisis.php">procesar análisis</a>							
+		'controles'		=> '<a class="linkstitu" href="base/actualizar_panel.php">actualizar todos los paneles</a>
+
+<a class="linkstitu" href="base/proceso_analisis.php">procesar análisis</a>							
 						',
 		'exportar_excel'	=> '1',
 		'por_pagina'	=> '30',
@@ -76,9 +76,9 @@ $objeto_tabla['PROYECTOS']=array(
 						'validacion'	=> '1',
 						'width'			=> '150px',
 						'enlace'		=> 'base/ir_a_panel.php?id=[id]',
-						'controles'		=> '<a style="color:purple;" href="base/crear_hosting.php?id=[id]">crear hosting</a>
-<a href="base/actualizar_panel.php?id=[id]">Update</a> 
-<a style="color:green" href="base/crear_config.php?id=[id]">Crear Config</a> 
+						'controles'		=> '<a style="color:purple;" href="base/crear_hosting.php?id=[id]">crear hosting</a>
+<a href="base/actualizar_panel.php?id=[id]">Update</a> 
+<a style="color:green" href="base/crear_config.php?id=[id]">Crear Config</a> 
 <a style="color:blue" href="base/startup.php?id=[id]">Crear Web</a>',
 						'like'			=> '1',
 						'style'			=> 'width:150px;',

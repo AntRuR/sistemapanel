@@ -1,50 +1,50 @@
-<?php //á
-
-/**********************************************/
-//////////////////configuraciones///////////////
-/***********************************************
-
-body
-#div_allcontent
-	#div_contenedor
-		#contenido_principal
-			#div_header_pre ( opcional )
-				#contenido_margen
-				#div_header
-				.menu_main
-				#div_items_main
-				#div_footer
-				
-*/
-
-
-
+<?php //á
+
+/**********************************************/
+//////////////////configuraciones///////////////
+/***********************************************
+
+body
+#div_allcontent
+	#div_contenedor
+		#contenido_principal
+			#div_header_pre ( opcional )
+				#contenido_margen
+				#div_header
+				.menu_main
+				#div_items_main
+				#div_footer
+				
+*/
+
+
+
 /*BLOQUES_FLOTANTES-START*/
 $BLOQUES_FLOTANTES['header-logo']='auto,auto';
 $BLOQUES_FLOTANTES['header-boletin']='particular/header/boletin.jpg';
 $BLOQUES_FLOTANTES['div-buscador']='auto,auto';
 $BLOQUES_FLOTANTES['footer_by']='auto,auto';
-/*BLOQUES_FLOTANTES-END*/
-
-
-//$BLOQUES_FLOTANTES['header-contactenos']='auto,auto';
-
-
-/*FLOTANTES-START*/
-$FLOTANTES['header-logo']='top:6px;left:16px;';
-$FLOTANTES['header-buscador']='top:29px;left:455px;';
-$FLOTANTES['header-contactenos']='top:3px;left:783px;';
-$FLOTANTES['header-telefono']='top:34px;left:751px;';
-$FLOTANTES['header-telefonobg']='top:26px;left:765px;';
-$FLOTANTES['header-boletin']='top:5px;left:837px;';
-$FLOTANTES['div-buscador']='top:6px;left:317px;';
-/*FLOTANTES-END*/
-
-
-/***********************************************/
-/********         STORE         ****************/
-/***********************************************/
-
+/*BLOQUES_FLOTANTES-END*/
+
+
+//$BLOQUES_FLOTANTES['header-contactenos']='auto,auto';
+
+
+/*FLOTANTES-START*/
+$FLOTANTES['header-logo']='top:6px;left:16px;';
+$FLOTANTES['header-buscador']='top:29px;left:455px;';
+$FLOTANTES['header-contactenos']='top:3px;left:783px;';
+$FLOTANTES['header-telefono']='top:34px;left:751px;';
+$FLOTANTES['header-telefonobg']='top:26px;left:765px;';
+$FLOTANTES['header-boletin']='top:5px;left:837px;';
+$FLOTANTES['div-buscador']='top:6px;left:317px;';
+/*FLOTANTES-END*/
+
+
+/***********************************************/
+/********         STORE         ****************/
+/***********************************************/
+
 /*WEBBLOQUES-START*/
 $WEBBLOQUES['web']='web';
 $WEBBLOQUES['menu']='menus';
@@ -88,8 +88,8 @@ $WEBBLOQUES['plaza_inmuebles_categorias']='bloques,listados';
 $WEBBLOQUES['plaza_inmuebles_buscador']='bloques,listados';
 $WEBBLOQUES['plaza_inmuebles_publicidad_home_fotos']='bloques,listados';
 $WEBBLOQUES['inmuebles_list']='bloques,menus,listados';
-/*WEBBLOQUES-END*/
-
+/*WEBBLOQUES-END*/
+
 /*CLASSSELECTED-START*/
 $CLASSSELECTED['web-web']='web_01';
 $CLASSSELECTED['menu-menus']='menu_20';
@@ -252,8 +252,8 @@ $CLASSSELECTED['plaza_inmuebles_publicidad_home_fotos-listados-listado_15']='';
 $CLASSSELECTED['inmuebles_list-bloques-bloque_cuadro_18']='';
 $CLASSSELECTED['inmuebles_list-menus-menu_20']='';
 $CLASSSELECTED['inmuebles_list-listados-listado_15']='';
-/*CLASSSELECTED-END*/ 
-
+/*CLASSSELECTED-END*/ 
+
 /*CLASSPARAMETERS-START*/
 $CLASSPARAMETERS['menu-menus']='me_ex=jpg&me_bg=%23FFF&me_s=border-bottom:4px solid %2393B334;padding:0 0 0 99px;&ul-izq_ena=0&ul-izq_w=5&ul-der_ena=0&ul-der_w=5&li-izq_ena=1&li-izq_w=16&li-der_ena=1&li-der_w=16&li-bor_ena=0&li-bor_w=1&li-bor_bg=%23FFF&a_h=28&a_m-lados=0&a_p-lados=25&a_p-t=10&a_size=12&a_color=%23FFF&a_bg=%23&a_color-sel=%23FFF&a_bg-sel=%23&a_weight=bold';
 $CLASSPARAMETERS['footer-footers']='fila_h=40&fila_bg=%23696969&fila_p-t=3&fila_p-b=7&fila_p-lados=0&fila_color=%23FFF&fila_s=margin-top:0px;&by_color=%23CCC&info_color=%23CCC';
@@ -354,230 +354,230 @@ $CLASSPARAMETERS['plaza_inmuebles_publicidad_home_fotos-listados']='fila_w=100%&
 $CLASSPARAMETERS['inmuebles_list-bloques']='bloque_m-b=10&arriba_ena=1&arriba_size=12&arriba_color=%23000&arriba_s=font:normal;&subarriba_ena=1&marco_min-h=100&marco_p-t=0&marco_p-izq=0&marco_p-der=0&marco_p-b=0&abajo_ena=1&abajo_dis=1&abajo_min-h=25&abajo_bg=%23E4E5E0&abajo_p-lados=0&abajo_p-t=7&abajo_s=text-transform:none;';
 $CLASSPARAMETERS['inmuebles_list-menus']='me_ex=jpg&me_bg=%23FFF&ul-izq_ena=0&ul-izq_w=5&ul-der_ena=0&ul-der_w=5&li-izq_ena=1&li-izq_w=16&li-der_ena=1&li-der_w=16&li-bor_ena=0&li-bor_w=1&li-bor_bg=%23FFF&a_h=29&a_m-lados=0&a_p-lados=50&a_p-t=10&a_size=12&a_color=%23FFF&a_bg=%23&a_color-sel=%23FFF&a_bg-sel=%23';
 $CLASSPARAMETERS['inmuebles_list-listados']='fila_w=100%&fila_float=left&paginacion_ena=1&paginacion_dis=1&paginacion_color=%23000&paginacion_m-izq=1&paginacion_p=5&paginacion_weight=normal&item_ena=1&item_h=auto&item_min-h=129&item_w=100%&item_p-l=158&item_s=padding-left:9px;margin-bottom:8px;border-bottom:1px dashed %23ccc;&foto_ena=1&foto_w=151&foto_h=121&foto_p=0&foto_borde=%23ccc&foto_borde-w=1&foto_sangria=0&foto_s=background-color:%23FFF;position:absolute;top:6px;left:0px;&titulo_ena=1&titulo_color=%23000&titulo_size=12&titulo_weight=bold&titulo_s=padding:4px 0;&subtitulo_ena=1&texto_ena=1&fecha_ena=0&precio_ena=0&carrito_ena=0';
-/*CLASSPARAMETERS-END*/
- 
-
-if($_GET['file']=='css'){
-
-parse_str($CLASSPARAMETERS['web-web'],$WV);
-
-$WV = processvarscss_2D($WV);
-
-
-$AnchoTotal=str_replace("px","",$WV['body_w']);
-
-$ContenidoBorde=0;
-
-$InterCol=str_replace("px","",$WV['canvas_inter']);
-$InterFila=str_replace("px","",$WV['canvas_inter']);
-
-$MargenDer=0;
-
-$CanvasLados=$WV['canvas_p-lados'];
-
-list($dbl_1)=explode("M",$WV['canvas_dbl']);
-
-list($tpl_1,$tpl_3)=explode("M",$WV['canvas_tpl']);
-
-$AnchoCol[1][1] = $AnchoTotal - array_sum($AnchoCol[1]) - ( 2 + sizeof($AnchoCol[1]) )*$InterCol - $MargenDer - 2*$CanvasLados;
-
-
-$AnchoCol[2][1]=$dbl_1;
-$AnchoCol[2][2] = $AnchoTotal - array_sum($AnchoCol[2]) - ( 2 + sizeof($AnchoCol[2]) )*$InterCol - $MargenDer - 2*$CanvasLados;
-
-
-$AnchoCol[3][1]=$tpl_1;
-$AnchoCol[3][3]=$tpl_3;
-//prin( $AnchoTotal - array_sum($AnchoCol[3]) - 2*$CanvasLados );
-$AnchoCol[3][2] = $AnchoTotal - array_sum($AnchoCol[3]) - ( 2 + sizeof($AnchoCol[2]) )*$InterCol - $MargenDer - 2*$CanvasLados;
-
-
-/************************************************/
-/************         BODY         **************/
-/************************************************/
-
-
-
-//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://meijereventos.com/web/templates/default/img/common_bg.gif") #FFF; }';
-//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://www.domiruth.com/wp-content/themes/domiruth_01/img/back-body-text.gif") repeat scroll 0 0 #E7E7CA; }';
-//$HEAD['INCLUDES']['style_common'][]='body { background:url("../img/particular/body/bg2.jpg") repeat scroll 0 0 #E7E7CA; }';
-//$HEAD['INCLUDES']['style_common'][]='body { background:#FFF; }';
-//$HEAD['INCLUDES']['style_common'][]='body { background:url("../img/particular/body/bg3.jpg") repeat-x scroll 0 0 #C7C3C2; }';
-
-//$HEAD['INCLUDES']['style_common'][]='body { background:url("../img/particular/body/bg4.jpg") repeat scroll 0 0 #C6C5C3; }';
-
-//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://www.nosoloviajeros.com/wp-content/themes/inove/img/bg.jpg") repeat-x scroll 0 0 #C7C3C2; }';
-
-//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://etiquetanegra.com.pe/wp-content/themes/box-set-10/images/pattern_036.gif") repeat scroll 0 0 #C7C3C2; }';
-
-
-
-$HEAD['INCLUDES']['style_common'][]='body { background:'.$WV['body_bg'].'; }';
-
-
-$HEAD['INCLUDES']['style_common'][]='body { font-family:calibri,helvetica,arial,sans-serif,tahoma,verdana; font-size:12px; }';
-//$HEAD['INCLUDES']['style_common'][]='body { font-family:\'Cantarell\',"Trebuchet MS","Times New Roman", Times, serif; font-size:12px; }';
-
-
-//$HEAD['INCLUDES']['style_common'][]='#div_allcontent { width: 100%; }';
-$HEAD['INCLUDES']['style_common'][]='#div_allcontent { width: '. ( $AnchoTotal + 2*$ContenidoBorde ).'px; }';
-$HEAD['INCLUDES']['style_common'][]='#contenido_principal { background:none; margin-top:0; margin-bottom:10px; padding:0;  }';
-$HEAD['INCLUDES']['style_common'][]='#contenido_margen { margin: 0px; border:'. $ContenidoBorde .'px solid #FFF; border-bottom:0;  float:none; #float:left; }';
-
-
-/************************************************/
-/********         HEADER_PRE         ************/
-/************************************************/
-
-$HEAD['INCLUDES']['style_common'][]='#div_header_pre { margin-top:3px; }';
-
-/************************************************/
-/**********         HEADER         **************/
-/************************************************/
-
-$HEAD['INCLUDES']['style_common'][]='#div_header { width:100%; height:'.$WV['header_h'].'; background:'.$WV['header_bg'].'; clear:left; margin-bottom:'.$WV['header_m-b'].';  }';
-
-$HEAD['INCLUDES']['style_common'][]='.header-logo { background-image:none !important; }';
-
-
-$HEAD['INCLUDES']['style_common'][]='.iconos { font-weight:bold;font-size:14px; height:19px; color:#762B1B; padding-top:5px;float:left;background-repeat:no-repeat;background-color:transparent;background-position:0px 0px; padding-left:28px; margin:7px 10px 0px 0;}';
-$HEAD['INCLUDES']['style_common'][]='.iconos b { color:#DD2A08; }';
-$HEAD['INCLUDES']['style_common'][]='.telefono { background-image:url("../img/particular/iconos/mobile_phone.png");}';
-$HEAD['INCLUDES']['style_common'][]='.contactenos { background-image:url("../img/particular/iconos/mail.png");}';
-$HEAD['INCLUDES']['style_common'][]='.cotizacion { background-image:url("../img/particular/iconos/calculator.png");}';
-
-
-/************************************************/
-/*********          MENU         ****************/
-/************************************************/
-
-
-
-/************************************************/
-/********           BAR          ****************/
-/************************************************/
-
-$HEAD['INCLUDES']['style_common'][]='#div_bar { height:'.$WV['bar_h'].'; background:'.$WV['bar_bg'].'; '.$WV['bar_s'].' }';
-
-/*************************************************/
-/*********         HEADER_PRE         ************/
-/*************************************************/
-$HEAD['INCLUDES']['style_common'][]='#div_header_pre { height:'.$WV['headerpre_h'].'; background:'.$WV['headerpre_bg'].'; '.$WV['headerpre_s'].' }';
-
-/*************************************************/
-/********         HEADER_AFTER         ***********/
-/*************************************************/
-$HEAD['INCLUDES']['style_common'][]='#div_header_after { height:'.$WV['headerafter_h'].'; background:'.$WV['headerafter_bg'].'; '.$WV['headerafter_s'].' }';
-
-/*************************************************/
-/*********         FOOTER_PRE         ************/
-/*************************************************/
-$HEAD['INCLUDES']['style_common'][]='#div_footer_pre { height:'.$WV['footerpre_h'].'; background:'.$WV['footerpre_bg'].'; '.$WV['footerpre_s'].' }';
-
-/*************************************************/
-/*********         FOOTER_AFTER         **********/
-/*************************************************/
-$HEAD['INCLUDES']['style_common'][]='#div_footer_after { height:'.$WV['footerafter_h'].'; background:'.$WV['footerafter_bg'].'; '.$WV['footerafter_s'].' }';
-
-/*************************************************/
-/**********         CANVAS         ***************/
-/*************************************************/
-
-/*CANVAS*/	$HEAD['INCLUDES']['style_common'][]='	.div_canvas { background:'.$WV['canvas_bg'].';  margin-top:0px; min-height:350px; height:auto !important; height:350px; border:'.$WV['canvas_borde'].' solid #999; float:none; border-top:0; padding-bottom:'.$WV['canvas_p-b'].'; 
-padding-top:'.$WV['canvas_p-t'].'; padding-left:'.$WV['canvas_p-lados'].'; 
-}';
-
-/*************************************************/
-/*********         SOMBRAS         ***************/
-/*************************************************/
-
-/*sombras*/	$HEAD['INCLUDES']['style_common'][]='	.div_sombra_left, .div_sombra_right { top:100px; display:none; }';
-
-
-/*************************************************/
-/**********         FOOTER         ***************/
-/*************************************************/
-
-/*$HEAD['INCLUDES']['style_common'][]='#div_footer { }';*/
-
-
-
-
-/************************************************/
-/***********         ICONOS         *************/
-/************************************************/
-
-/* 
-$HEAD['INCLUDES']['style_common'][]='.ico_phone { background-image:url("../img/particular/iconos/mobile_phone.png");}';
-$HEAD['INCLUDES']['style_common'][]='.ico_email { background-image:url("../img/particular/iconos/mail.png");}';
-$HEAD['INCLUDES']['style_common'][]='.ico_mobi { background-image:url("../img/particular/iconos/mobile.gif");}';
-$HEAD['INCLUDES']['style_common'][]='.ico_calc { background-image:url("../img/particular/iconos/calculator.png");}';
-$HEAD['INCLUDES']['style_common'][]='.ico_cart { background-image:url("../img/particular/iconos/calculator.png");}';
- */
- 
-/************************************************/
-/***********         ITEMS         **************/
-/************************************************/
-
-
-/************************************************/
-/***********         LINKS         **************/
-/************************************************/
-
-$HEAD['INCLUDES']['style_common'][]='a { color:#BB7E06; text-decoration:none; } a:hover { color:#000; text-decoration:underline; }';
-$HEAD['INCLUDES']['style_common'][]='a.fuerte { color:#FF0000; font-size:14px; font-weight:bold; } ';
-$HEAD['INCLUDES']['style_common'][]='a.debil { color:#FF0000; font-size:11px; font-weight:normal; } ';
-$HEAD['INCLUDES']['style_common'][]='a.main { color:#FF0000;} ';
-
-
-/**********************************************/
-/***************      FLOTANTES    ************/
-/**********************************************/
-
-foreach($BLOQUES_FLOTANTES as $class=>$bf){
-	$HEAD['INCLUDES']['style_common'][]='.'.$class.' { '. web_render_flotantes($bf) .' }';
-}
-
-/*************************************************/
-/********         COLUMNAS         ***************/
-/*************************************************/
-
-//1 POR FILA///////////////////////////////////
-/*left*/ 	$HEAD['INCLUDES']['style_common'][]='	.div_col_1d1 { width:'.$AnchoCol[1][1].'px; margin-right:0px; background:none; 
-padding:'.$InterFila.'px 0px '.$InterFila.'px '.$InterCol.'px; }';
-
-//2 POR FILA//////////////////////////////////
-/*left*/ 	$HEAD['INCLUDES']['style_common'][]='	.div_col_1d2 { width:'.$AnchoCol[2][1].'px; margin-right:0px; background:none; 
-padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px; }';
-/*main*/	$HEAD['INCLUDES']['style_common'][]='	.div_col_2d2{ width:'.$AnchoCol[2][2].'px; background-color:none;
-padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px;}';
-
-//3 POR FILA//////////////////////////////////
-/*left*/ 	$HEAD['INCLUDES']['style_common'][]='	.div_col_1d3 { width:'.$AnchoCol[3][1].'px; margin-right:0px; background:none; 
-padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px; }';
-/*right*/	$HEAD['INCLUDES']['style_common'][]='	.div_col_3d3 { width:'.$AnchoCol[3][3].'px; background-color:none; 
-padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px; }';
-/*main*/	$HEAD['INCLUDES']['style_common'][]='	.div_col_2d3 { width:'.$AnchoCol[3][2].'px; background-color:none; 
-padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px;}';
-
-
-}
-
-
-$COMMON['path_logo']=$SERVER['BASE'].THEME_PATH."img/".$BLOQUES_FLOTANTES['header-logo'] ;
-
-
-
- 
-
-
-
-//APP CARRITO
-//$SELECTORS['id_carrito'] = web_render_get_css('class'=>"carritos/carrito",'rango'=>"1,10",'selected'=>"5"); //5
-
-//
-//prin($SELECTORS);
-//
-
-
+/*CLASSPARAMETERS-END*/
+ 
+
+if($_GET['file']=='css'){
+
+parse_str($CLASSPARAMETERS['web-web'],$WV);
+
+$WV = processvarscss_2D($WV);
+
+
+$AnchoTotal=str_replace("px","",$WV['body_w']);
+
+$ContenidoBorde=0;
+
+$InterCol=str_replace("px","",$WV['canvas_inter']);
+$InterFila=str_replace("px","",$WV['canvas_inter']);
+
+$MargenDer=0;
+
+$CanvasLados=$WV['canvas_p-lados'];
+
+list($dbl_1)=explode("M",$WV['canvas_dbl']);
+
+list($tpl_1,$tpl_3)=explode("M",$WV['canvas_tpl']);
+
+$AnchoCol[1][1] = $AnchoTotal - array_sum($AnchoCol[1]) - ( 2 + sizeof($AnchoCol[1]) )*$InterCol - $MargenDer - 2*$CanvasLados;
+
+
+$AnchoCol[2][1]=$dbl_1;
+$AnchoCol[2][2] = $AnchoTotal - array_sum($AnchoCol[2]) - ( 2 + sizeof($AnchoCol[2]) )*$InterCol - $MargenDer - 2*$CanvasLados;
+
+
+$AnchoCol[3][1]=$tpl_1;
+$AnchoCol[3][3]=$tpl_3;
+//prin( $AnchoTotal - array_sum($AnchoCol[3]) - 2*$CanvasLados );
+$AnchoCol[3][2] = $AnchoTotal - array_sum($AnchoCol[3]) - ( 2 + sizeof($AnchoCol[2]) )*$InterCol - $MargenDer - 2*$CanvasLados;
+
+
+/************************************************/
+/************         BODY         **************/
+/************************************************/
+
+
+
+//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://meijereventos.com/web/templates/default/img/common_bg.gif") #FFF; }';
+//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://www.domiruth.com/wp-content/themes/domiruth_01/img/back-body-text.gif") repeat scroll 0 0 #E7E7CA; }';
+//$HEAD['INCLUDES']['style_common'][]='body { background:url("../img/particular/body/bg2.jpg") repeat scroll 0 0 #E7E7CA; }';
+//$HEAD['INCLUDES']['style_common'][]='body { background:#FFF; }';
+//$HEAD['INCLUDES']['style_common'][]='body { background:url("../img/particular/body/bg3.jpg") repeat-x scroll 0 0 #C7C3C2; }';
+
+//$HEAD['INCLUDES']['style_common'][]='body { background:url("../img/particular/body/bg4.jpg") repeat scroll 0 0 #C6C5C3; }';
+
+//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://www.nosoloviajeros.com/wp-content/themes/inove/img/bg.jpg") repeat-x scroll 0 0 #C7C3C2; }';
+
+//$HEAD['INCLUDES']['style_common'][]='body { background:url("http://etiquetanegra.com.pe/wp-content/themes/box-set-10/images/pattern_036.gif") repeat scroll 0 0 #C7C3C2; }';
+
+
+
+$HEAD['INCLUDES']['style_common'][]='body { background:'.$WV['body_bg'].'; }';
+
+
+$HEAD['INCLUDES']['style_common'][]='body { font-family:calibri,helvetica,arial,sans-serif,tahoma,verdana; font-size:12px; }';
+//$HEAD['INCLUDES']['style_common'][]='body { font-family:\'Cantarell\',"Trebuchet MS","Times New Roman", Times, serif; font-size:12px; }';
+
+
+//$HEAD['INCLUDES']['style_common'][]='#div_allcontent { width: 100%; }';
+$HEAD['INCLUDES']['style_common'][]='#div_allcontent { width: '. ( $AnchoTotal + 2*$ContenidoBorde ).'px; }';
+$HEAD['INCLUDES']['style_common'][]='#contenido_principal { background:none; margin-top:0; margin-bottom:10px; padding:0;  }';
+$HEAD['INCLUDES']['style_common'][]='#contenido_margen { margin: 0px; border:'. $ContenidoBorde .'px solid #FFF; border-bottom:0;  float:none; #float:left; }';
+
+
+/************************************************/
+/********         HEADER_PRE         ************/
+/************************************************/
+
+$HEAD['INCLUDES']['style_common'][]='#div_header_pre { margin-top:3px; }';
+
+/************************************************/
+/**********         HEADER         **************/
+/************************************************/
+
+$HEAD['INCLUDES']['style_common'][]='#div_header { width:100%; height:'.$WV['header_h'].'; background:'.$WV['header_bg'].'; clear:left; margin-bottom:'.$WV['header_m-b'].';  }';
+
+$HEAD['INCLUDES']['style_common'][]='.header-logo { background-image:none !important; }';
+
+
+$HEAD['INCLUDES']['style_common'][]='.iconos { font-weight:bold;font-size:14px; height:19px; color:#762B1B; padding-top:5px;float:left;background-repeat:no-repeat;background-color:transparent;background-position:0px 0px; padding-left:28px; margin:7px 10px 0px 0;}';
+$HEAD['INCLUDES']['style_common'][]='.iconos b { color:#DD2A08; }';
+$HEAD['INCLUDES']['style_common'][]='.telefono { background-image:url("../img/particular/iconos/mobile_phone.png");}';
+$HEAD['INCLUDES']['style_common'][]='.contactenos { background-image:url("../img/particular/iconos/mail.png");}';
+$HEAD['INCLUDES']['style_common'][]='.cotizacion { background-image:url("../img/particular/iconos/calculator.png");}';
+
+
+/************************************************/
+/*********          MENU         ****************/
+/************************************************/
+
+
+
+/************************************************/
+/********           BAR          ****************/
+/************************************************/
+
+$HEAD['INCLUDES']['style_common'][]='#div_bar { height:'.$WV['bar_h'].'; background:'.$WV['bar_bg'].'; '.$WV['bar_s'].' }';
+
+/*************************************************/
+/*********         HEADER_PRE         ************/
+/*************************************************/
+$HEAD['INCLUDES']['style_common'][]='#div_header_pre { height:'.$WV['headerpre_h'].'; background:'.$WV['headerpre_bg'].'; '.$WV['headerpre_s'].' }';
+
+/*************************************************/
+/********         HEADER_AFTER         ***********/
+/*************************************************/
+$HEAD['INCLUDES']['style_common'][]='#div_header_after { height:'.$WV['headerafter_h'].'; background:'.$WV['headerafter_bg'].'; '.$WV['headerafter_s'].' }';
+
+/*************************************************/
+/*********         FOOTER_PRE         ************/
+/*************************************************/
+$HEAD['INCLUDES']['style_common'][]='#div_footer_pre { height:'.$WV['footerpre_h'].'; background:'.$WV['footerpre_bg'].'; '.$WV['footerpre_s'].' }';
+
+/*************************************************/
+/*********         FOOTER_AFTER         **********/
+/*************************************************/
+$HEAD['INCLUDES']['style_common'][]='#div_footer_after { height:'.$WV['footerafter_h'].'; background:'.$WV['footerafter_bg'].'; '.$WV['footerafter_s'].' }';
+
+/*************************************************/
+/**********         CANVAS         ***************/
+/*************************************************/
+
+/*CANVAS*/	$HEAD['INCLUDES']['style_common'][]='	.div_canvas { background:'.$WV['canvas_bg'].';  margin-top:0px; min-height:350px; height:auto !important; height:350px; border:'.$WV['canvas_borde'].' solid #999; float:none; border-top:0; padding-bottom:'.$WV['canvas_p-b'].'; 
+padding-top:'.$WV['canvas_p-t'].'; padding-left:'.$WV['canvas_p-lados'].'; 
+}';
+
+/*************************************************/
+/*********         SOMBRAS         ***************/
+/*************************************************/
+
+/*sombras*/	$HEAD['INCLUDES']['style_common'][]='	.div_sombra_left, .div_sombra_right { top:100px; display:none; }';
+
+
+/*************************************************/
+/**********         FOOTER         ***************/
+/*************************************************/
+
+/*$HEAD['INCLUDES']['style_common'][]='#div_footer { }';*/
+
+
+
+
+/************************************************/
+/***********         ICONOS         *************/
+/************************************************/
+
+/* 
+$HEAD['INCLUDES']['style_common'][]='.ico_phone { background-image:url("../img/particular/iconos/mobile_phone.png");}';
+$HEAD['INCLUDES']['style_common'][]='.ico_email { background-image:url("../img/particular/iconos/mail.png");}';
+$HEAD['INCLUDES']['style_common'][]='.ico_mobi { background-image:url("../img/particular/iconos/mobile.gif");}';
+$HEAD['INCLUDES']['style_common'][]='.ico_calc { background-image:url("../img/particular/iconos/calculator.png");}';
+$HEAD['INCLUDES']['style_common'][]='.ico_cart { background-image:url("../img/particular/iconos/calculator.png");}';
+ */
+ 
+/************************************************/
+/***********         ITEMS         **************/
+/************************************************/
+
+
+/************************************************/
+/***********         LINKS         **************/
+/************************************************/
+
+$HEAD['INCLUDES']['style_common'][]='a { color:#BB7E06; text-decoration:none; } a:hover { color:#000; text-decoration:underline; }';
+$HEAD['INCLUDES']['style_common'][]='a.fuerte { color:#FF0000; font-size:14px; font-weight:bold; } ';
+$HEAD['INCLUDES']['style_common'][]='a.debil { color:#FF0000; font-size:11px; font-weight:normal; } ';
+$HEAD['INCLUDES']['style_common'][]='a.main { color:#FF0000;} ';
+
+
+/**********************************************/
+/***************      FLOTANTES    ************/
+/**********************************************/
+
+foreach($BLOQUES_FLOTANTES as $class=>$bf){
+	$HEAD['INCLUDES']['style_common'][]='.'.$class.' { '. web_render_flotantes($bf) .' }';
+}
+
+/*************************************************/
+/********         COLUMNAS         ***************/
+/*************************************************/
+
+//1 POR FILA///////////////////////////////////
+/*left*/ 	$HEAD['INCLUDES']['style_common'][]='	.div_col_1d1 { width:'.$AnchoCol[1][1].'px; margin-right:0px; background:none; 
+padding:'.$InterFila.'px 0px '.$InterFila.'px '.$InterCol.'px; }';
+
+//2 POR FILA//////////////////////////////////
+/*left*/ 	$HEAD['INCLUDES']['style_common'][]='	.div_col_1d2 { width:'.$AnchoCol[2][1].'px; margin-right:0px; background:none; 
+padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px; }';
+/*main*/	$HEAD['INCLUDES']['style_common'][]='	.div_col_2d2{ width:'.$AnchoCol[2][2].'px; background-color:none;
+padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px;}';
+
+//3 POR FILA//////////////////////////////////
+/*left*/ 	$HEAD['INCLUDES']['style_common'][]='	.div_col_1d3 { width:'.$AnchoCol[3][1].'px; margin-right:0px; background:none; 
+padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px; }';
+/*right*/	$HEAD['INCLUDES']['style_common'][]='	.div_col_3d3 { width:'.$AnchoCol[3][3].'px; background-color:none; 
+padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px; }';
+/*main*/	$HEAD['INCLUDES']['style_common'][]='	.div_col_2d3 { width:'.$AnchoCol[3][2].'px; background-color:none; 
+padding-top:'.$InterFila.'px; padding-right: 0px; padding-bottom:'.$InterFila.'px; padding-left:'.$InterCol.'px;}';
+
+
+}
+
+
+$COMMON['path_logo']=$SERVER['BASE'].THEME_PATH."img/".$BLOQUES_FLOTANTES['header-logo'] ;
+
+
+
+ 
+
+
+
+//APP CARRITO
+//$SELECTORS['id_carrito'] = web_render_get_css('class'=>"carritos/carrito",'rango'=>"1,10",'selected'=>"5"); //5
+
+//
+//prin($SELECTORS);
+//
+
+
 ?>
