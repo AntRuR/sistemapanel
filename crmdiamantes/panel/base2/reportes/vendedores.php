@@ -5,28 +5,34 @@ var_dump($_SERVER);
 exit();
 */
 
-function num2alpha($n)
-{
-	for($r = ""; $n >= 0; $n = intval($n / 26) - 1)
-		$r = chr($n%26 + 0x41) . $r;
-	return $r;
-}
+$_GET['ob']='VENTAS_ITEMS';
 
-function getrango($n){
-	$i=0;
-	foreach($n as $b=>$c){
-		if($i==0){
-			$uno=$b;
-		}
-		if($i==sizeof($n)-1){
-			$dos=$b;
-		}
-		$i++;
-	}
-	return $uno.":".$dos;
-}
+list($date,$from,$to)=explode("|",$_GET['f']);
 
-function render_table($row){
+
+$OBJ=$datos_tabla=procesar_objeto_tabla($objeto_tabla[$_GET['ob']]);
+
+//parse_str($_GET['filtro'], $get);
+
+//prin($OBJ);
+$first=dato('min('.$date.')',$OBJ['tabla'],"where ".$date."!=0",0);
+$first=(!$first)?date("Y-m-d"):$first;
+$first=substr($first,0,10);
+//$last =dato($querie['campo'],$tbl,"where 1 order by ".$querie['campo']." desc limit 0,1");
+$last=dato('max('.$date.')',$OBJ['tabla'],"where ".$date."!=0",0);
+$last=(!$last)?date("Y-m-d"):$last;
+$last=substr($last,0,10);
+
+//prin("$first - $last");
+
+$from=($from)?$from:$first;
+$to=($to)?$to:$last;
+
+$from=fixyfecha($from);
+$to=fixyfecha($to);
+
+
+function render_table_old($row){
 	$ht='';
 	$ht.='<table class="reporte table table-striped table-condensed table-bordered table-hover">';
 	foreach($row as $rl=>$rline)
@@ -48,7 +54,7 @@ function render_table($row){
 	return $ht;
 }
 
-function render_excel($row){
+function render_excel_old($row){
 
 	global $from;
 	global $to;
@@ -362,7 +368,7 @@ foreach($intervalos as $vv){
 
 
 
-
+// prin($line);
 
 foreach($line as $iusu2=>$lin2){
 
@@ -462,14 +468,15 @@ foreach($intervalos as $ii=>$la)
 $row[$l][]=$rango;
 $row[$l][]=$ff;
 $row[$l][]=round($ff/$rango,2);
+
 //end
 $seccion['jefes']=$row;
 
 if($_GET['seccion']!=''){
-	echo render_excel($seccion[$_GET['seccion']]);
+	echo render_excel_old($seccion[$_GET['seccion']]);
 } else {
-	echo render_table($seccion['jefes']);
+	echo render_table_old($seccion['jefes']);
 	foreach($vendes as $vende){
-		echo render_table($vende);
+		echo render_table_old($vende);
 	}
 }

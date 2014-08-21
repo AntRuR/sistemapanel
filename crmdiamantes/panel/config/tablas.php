@@ -2269,7 +2269,8 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION']=array(
 		'importar_csv'	=> '0',
 		'width_listado'	=> '',
 		'edicion_rapida'	=> '0',
-		'crear_pruebas'	=> '0'
+		'crear_pruebas'	=> '0',
+		'repos'			=> 'contratistas=Reporte por Contratista'		
 );
 /******************************************************************************************************************************************************/
 
@@ -2461,7 +2462,7 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION_SUBITEMS']=array(
 						'default'		=> 'now()',
 						'queries'		=> '1'
 				),
-				'fecha_cierre'	=>array(
+				'fch'	=>array(
 						'campo'			=> 'fecha_cierre',
 						'label'			=> 'Cierre',
 						'tipo'			=> 'fch',

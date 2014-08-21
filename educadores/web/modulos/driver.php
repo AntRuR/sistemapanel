@@ -230,7 +230,7 @@ array(
 	'footer'=>$Block['footer'],				
 );
 
-$Estructura['modulo=items&tab={textos_items,publicaciones_items,faq_items}']=
+$Estructura['modulo=items&tab={busqueda,textos_items,publicaciones_items,faq_items}']=
 array(
 	'header'=>$Block['header'],	
 //	"bloques/print_marquesina.php",

@@ -163,6 +163,9 @@ array(
 	'footer'=>$Block['footer'],				
 );
 */
+
+
+
 $Estructura['modulo=items&tab={blog_noticias,blog_actividades,blog_fotos,blog_videos}']=
 array(
 	'header'=>$Block['header'],	

@@ -21,7 +21,7 @@ include($panel_path."/lib/compresionInicio.php"); //compresion
 
 if(isset($_GET['buscar'])){ 
  $_GET['modulo']='items';
- $_GET['tab']='productos';
+ $_GET['tab']='busqueda';
  $_GET['acc']='list';
 }
 

@@ -7,10 +7,10 @@ a.link_header {
 
 .bloque_titulo .titulo {
 
-    color: #777777 !important;
+    color: #000 !important;
     
 
-    text-shadow: 1px 1px 1px #CCCCCC;
+    /* text-shadow: 1px 1px 1px #CCCCCC; */
 
 }
 
@@ -159,7 +159,7 @@ a.link_header {
 .itms .tite a, .itms .itd a {
     letter-spacing: -0.7px;
     font-family: PTN57F !important;
-    font-size: 12px;
+    /* font-size: 12px; */
 }
 
 a, .alink {

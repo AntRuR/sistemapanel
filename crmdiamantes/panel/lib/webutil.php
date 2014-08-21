@@ -204,7 +204,7 @@ function web_procesar_menu($menu,$direccion="izquierda",$debug=false){
 
 }
 
-function web_render_menu($MENU,$obj=NULL,$tag='h3'){
+function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 
 	$labelA=array();
 
@@ -285,6 +285,7 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3'){
 
 		$e++;
 	}
+	
 
     $html.="</$UL>";
     $html.="</div>";
@@ -2565,7 +2566,7 @@ function web_item($item,$ITEM,$debug=0){
 
 				if($item['url']){ $html.= "</a>"; }
 				} else {
-				$html.=  (!empty($item[$est]))?"<$tag class=\"$extraclass $class\" >".( ($Param['limit'])?limit_string($item[$est],$Param['limit']):$item[$est] )."</$tag>":"";
+				$html.=  ($item[$est]!=NULL)?"<$tag class=\"$extraclass $class\" >".( ($Param['limit'])?limit_string($item[$est],$Param['limit']):$item[$est] )."</$tag>":"";
 				}
 			}
 			break;

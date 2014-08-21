@@ -1011,6 +1011,7 @@ $objeto_tabla['TEXTOS_GRUPOS']=array(
 		'crear_label'	=> '80px',
 		'crear_txt'		=> '400px',
 		'me'			=> 'TEXTOS_GRUPOS',
+		'orden_by'			=> 'orden desc',
 		'orden'			=> '1',
 		'campos'		=>array(
 				'id'			=>array(
@@ -1048,7 +1049,16 @@ $objeto_tabla['TEXTOS_GRUPOS']=array(
 				'page'			=>array(
 						'campo'			=> 'page',
 						'tipo'			=> 'page'
-				)
+				),
+                'orden' =>array('campo'=>'orden',
+                            'label'=>'Orden',
+                            'tipo'=>'inp',
+							'variable'=>'float',
+							'size'=>'10',
+                            'listable'=>'1',
+                            'validacion'=>'0',
+                            'width'=>'150px'
+                            ),						
 		),
 		'grupo'			=> 'contenidos',
 		'edicion_rapida'	=> '1',
@@ -1150,6 +1160,7 @@ $objeto_tabla['TEXTOS_ITEMS']=array(
 		'menu_label'	=> 'Textos',
 		'por_pagina'	=> '50',
 		'me'			=> 'TEXTOS_ITEMS',
+		'orden_by'			=> 'orden desc',		
 		'orden'			=> '1',
 		'campos'		=>array(
 				'id'			=>array(
@@ -1258,7 +1269,16 @@ $objeto_tabla['TEXTOS_ITEMS']=array(
 				'page'			=>array(
 						'campo'			=> 'page',
 						'tipo'			=> 'page'
-				)
+				),
+                'orden' =>array('campo'=>'orden',
+                            'label'=>'Orden',
+                            'tipo'=>'inp',
+							'variable'=>'float',
+							'size'=>'10',
+                            'listable'=>'1',
+                            'validacion'=>'0',
+                            'width'=>'150px'
+                            ),				
 		),
 		'grupo'			=> 'contenidos',
 		'edicion_rapida'	=> '1',

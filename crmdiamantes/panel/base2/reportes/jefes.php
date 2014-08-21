@@ -19,7 +19,7 @@ $bisi = (substr($to,0,4)%4==0)?1:0;
 //echo "1";
 $rango=Difer2($from,$to);
 
-$fromY=substr($from,0,4);
+$fromY=substr($from,0,4); 
 $toY=substr($to,0,4);
 
 $fromM=substr($from,5,2);

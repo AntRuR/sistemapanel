@@ -204,7 +204,7 @@ function web_procesar_menu($menu,$direccion="izquierda",$debug=false){
 
 }
 
-function web_render_menu($MENU,$obj=NULL,$tag='h3'){
+function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 
 	$labelA=array();
 
@@ -285,6 +285,7 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3'){
 
 		$e++;
 	}
+	
 
     $html.="</$UL>";
     $html.="</div>";

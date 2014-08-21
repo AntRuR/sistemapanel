@@ -604,6 +604,9 @@ echo $hhtml;
 
 
 echo "<div class='main_content'>";
+			
+if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
+
 echo '<a id="ic_menu" class="bl1 itr i_mm z" title="Menú"></a>';
 echo '<a id="ic_filters" class="bl1 itr i_ff z" title="Filtros"></a>'; ?>
 <script>
@@ -613,6 +616,7 @@ window.addEvent('domready',function(){
 }); 
 </script>
 <?php
+}
 if(file_exists($img_logo)){
 if(trim($img_logo)!=''){
 ?><a href="./" class="logo_panel"><img src="<?php echo $img_logo?>" align="absmiddle" border="0" /> </a><?php

@@ -260,7 +260,7 @@ background-image: -moz-linear-gradient(
 
 	if($tblistadosize!='0'){
 
-    ?><b style="float:left; text-align:left; width:33%;" id="inner_span_num" ></b><?php
+    ?><b style="float:left; text-align:left;" id="inner_span_num" ></b><?php
     ?><b id="inner_span_tren" class="inner_span_tren" ></b><?php
 
     	}
@@ -799,7 +799,8 @@ background-image: -moz-linear-gradient(
 			.fecha_formato($linea['fecha_creacion'],"7b")
 			.$linea[$datos_tabla['id']]
 			.'</a>';
-			echo '<div class="lc '. ( ($datos_tabla['vis']!='')?(($linea[$datos_tabla['vis']]=='0')?"oc":""):'' ).'" id="lc_'.$linea[$datos_tabla['id']].'">';
+
+			echo '<div class="lc '. ( ($urd=='1')?"lc1 ":" " ) . ( ($datos_tabla['vis']!='')?(($linea[$datos_tabla['vis']]=='0')?"oc":""):'' ).'" id="lc_'.$linea[$datos_tabla['id']].'">';
 
 
 

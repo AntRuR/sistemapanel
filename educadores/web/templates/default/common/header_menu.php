@@ -16,6 +16,9 @@ $object=$OBJECT[$THIS];
                                                 ,'rel'=>'son_menu_main'
                                                 //,'ul'=>'div'													
                                                 ),'h2');
+
+    web_render_buscador($_GET['buscar']);
+
     ?></div>
     
     <?php 		
@@ -32,9 +35,14 @@ $object=$OBJECT[$THIS];
                                         ,'rel'=>'son_menu2_main_'.$gm['id']
                                         ,'menu_borde'=>0
                                         ),'h3');
+
+                                        
+
                                         ?></div><?php
-	
+
+
     ?>
+
 
 	<div class="clean"></div>
 </div>

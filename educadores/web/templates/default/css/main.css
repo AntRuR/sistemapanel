@@ -157,6 +157,25 @@ h2.nombre a img { display: none; }
 	color:blue !important; text-decoration: underline !important; 
 
 }
+form[action="index.php"] {
+	float: right;
+	margin-right: 10px;
+}
+form[action="index.php"] .box {
+	border: 1px solid #00527D;
+}
+form[action="index.php"]  .button {
+	background-color: #00527D;
+	color: #FFF;
+	border: 0;
+	padding: 3px 15px;
+}
 
+#busqueda_list h2.nombre a.nombre {
+    font-size: 20px;
+    color: #00527D;
+    line-height: 2em;
+    text-decoration: underline;
+}
 
 

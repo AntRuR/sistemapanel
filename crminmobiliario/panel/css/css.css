@@ -2113,6 +2113,7 @@ li.bl:hover .oc .bd,li.bl:hover .oc a {
 	z-index: 10;
 	opacity: 1;
 	background-color: inherit;
+	top:1px;
 }
 
 .modificador .lc {
@@ -4664,7 +4665,10 @@ body.quick .titulo_formulario {
 	}
 	#menu_main li a { 
 		font-size: 20px;
-	}
+	
+		padding-top: 15px;
+		padding-bottom: 15px;
+}
 	#menu_main li {
 	}
 	.div_bloque_cuerpo {
@@ -4679,18 +4683,21 @@ body.quick .titulo_formulario {
 	#menu_main li.hijomenu {
 		width: 100% !important;
 		margin-left: 0 !important;
-		height: 16px;
+		/* height: 16px; */
 		overflow: hidden;
 		border-bottom: 0;
 		font-size: 20px;
 	
-		padding: 10px 0;
+		padding: 0;
 		background: #ccc;
 		text-transform: uppercase;
 } 
 	#menu_main li.hijomenu a {
-		text-decoration: underline;
+		/*text-decoration: underline;*/
 	}	
+	#menu_main li:hover {
+		text-decoration: none !important;
+	}
 	#menu_main .numero { 
 		display: none; 
 	}
@@ -4782,7 +4789,7 @@ body.quick .titulo_formulario {
 	
 		font-size: 12px;
 	
-}
+	}
 	.i_mm {
 		display: block;
 	}
@@ -4803,6 +4810,9 @@ body.quick .titulo_formulario {
 	}
 	.modificador_grilla .first_linea .nc {
 		font-size: 12px;
+	}
+	.modificador_grilla .itms {
+		display: none;	
 	}
 
 }

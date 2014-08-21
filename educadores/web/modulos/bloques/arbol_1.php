@@ -16,7 +16,7 @@ $grupos=select(array(
 					),
 				"textos_grupos",
 				// "where 1 and visibilidad='1' $filtro_where  and id not in ('4','3') order by id asc limit 0,100",
-				"where 1 and visibilidad='1' $filtro_where  order by id asc limit 0,100",
+				"where 1 and visibilidad='1' $filtro_where  order by orden desc limit 0,100",
 				0
 				);
 $gru=array();
@@ -25,7 +25,7 @@ foreach($grupos as $grupo){
 	$gru['menu']=select(
 			'id,nombre,id_subgrupo',
 			'textos_items',
-			"where visibilidad='1' and id_grupo='".$grupo['id']."' $filtro_where order by id_subgrupo asc, id asc ",
+			"where visibilidad='1' and id_grupo='".$grupo['id']."' $filtro_where order by id_subgrupo asc, orden desc ",
 			0,
 				array(
 				    'url'=>array('procesar_url'=>array('url'=>"index.php?".$filtro_param."modulo=items&tab=textos_items&acc=file&id={id}&friendly={nombre}")),							
