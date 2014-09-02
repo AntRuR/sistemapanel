@@ -1,9 +1,5 @@
 <?php
 
-include('base2/apps/'.$_GET['OT']);	
-
-if(0){
-
 if($_GET['accion']=='custom_load'){
 
 	include('base2/apps/'.$_GET['OT']);	
@@ -105,6 +101,6 @@ echo '</body>';
 echo '</html>';
 include("lib/compresionFinal.php");
 
-}
+
 
 }

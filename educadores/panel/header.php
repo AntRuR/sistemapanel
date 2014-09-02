@@ -141,17 +141,17 @@ $BG_COLOR_4_OPP=oppColour($vars['GENERAL']['BG_COLOR_4']);
 
 <?php if($_GET['i']!=''){ ?>
 .bl .bd {
-    width: 300px !important;
+    /*width: 300px !important;*/
 }
 .filters {
 	display:none !important;
 }
 .modificador .bld .nc {
-	padding-left:40px;
-	width:150px;
+	/*padding-left:40px;*/
+	/*width:150px;*/
 }
 .modificador .itms {
-	margin-left:15px;
+	/*margin-left:15px;*/
 }
 .modificador .bld {
 	background:none;
@@ -310,11 +310,11 @@ location.href=url;
 	if($Open or $Local==1){
 
 		if( $VALIDAR_SESION!='' /*or $_SESSION['usuario_id']!=''*/ ){
-			$menus_d['entrar'] = "<a style='font-weight:bold;text-transform:uppercase;' ". (($script_name=="maquina.php")?"class='selected'":"") ." href='maquina.php?redirhome=1' ></span>MASTER</a>";
+			$menus_d['entrar'] = "<a style='text-transform:uppercase;' ". (($script_name=="maquina.php")?"class='selected'":"") ." href='maquina.php?redirhome=1' ></span>MASTER</a>";
 		} else {
 
 			$mmmM = "<li class='menudown'>";
-			$mmmM.= "<a href='maquina.php' style='font-weight:bold;text-transform:uppercase;'>MASTER</a>";
+			$mmmM.= "<a href='maquina.php' style='text-transform:uppercase;'>MASTER</a>";
 			if( ( $Open or $Local==1 )){
 				if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
 
@@ -403,14 +403,28 @@ location.href=url;
 				mysql_query("SET NAMES 'utf8'",$link);
 				$mumu.= "<ul class='li_cabecera'>";
 				$item2 = select(
-						"carpeta,logo,fecha_creacion,dominio,nombre",
+						"carpeta,logo,fecha_creacion,dominio,nombre,calificacion",
 						"proyectos",
 						"where para_subir='1' and visibilidad='1' order by id asc limit 0,100"
 						,0
 				);
-				foreach($item2 as $ite2){
-					$mumu.= "<li>";
-					$mumu.= "<a href='".str_replace($vars['INTERNO']['CARPETA_PROYECTO'],$ite2['carpeta'],$vars['LOCAL']['url_publica'])."/panel'>".$ite2['nombre']."</a>";
+				foreach($item2 as $ite2){ 
+					if($ite2['calificacion']==0) continue;
+					$mumu.= "<li style='background-color:";
+					switch($ite2['calificacion']){
+						case "1": $mumu.= "#FAFA9D"; break;
+						case "2": $mumu.= "#E8C3C3"; break;
+						case "3": $mumu.= "#B3EFB3"; break;
+					}
+					$mumu.=";'>";
+					$mumu.= "<a href='".str_replace(
+													$vars['INTERNO']['CARPETA_PROYECTO'],
+													$ite2['carpeta'],
+													$vars['LOCAL']['url_publica']
+													)."/panel'>"
+													// .$vars['LOCAL']['url_publica']
+													.strtoupper($ite2['nombre'])
+													."</a>";
 					$mumu.= "<li>";
 				}
 				$mumu.= "</ul>";
@@ -543,28 +557,28 @@ $menus_d['verdesarrollo_off'].="' title='".( ($_SESSION['verdesarrollo']=='1')?'
 
 	if($LOGIN){
 
-		$bgsel="<select style='left:0px;top:0px;width:60px;height:auto;position:position:absolute;' onchange='setbgq(this.value);' onkeyup='setbgq(this.value);' >";
-		$CLI=($vars['INTERNO']['ID_PROYECTO']=="0")?'':'../../panel/';
-		$directorio_s = dir($CLI."img/bgs/");
+		// $bgsel="<select style='left:0px;top:0px;width:60px;height:auto;position:position:absolute;' onchange='setbgq(this.value);' onkeyup='setbgq(this.value);' >";
+		// $CLI=($vars['INTERNO']['ID_PROYECTO']=="0")?'':'../../panel/';
+		// $directorio_s = dir($CLI."img/bgs/");
 
-		while($fichero=$directorio_s->read()) {
-			if($fichero!='.' and $fichero!='..'  and !is_dir($CLI."img/bgs/".$fichero) ){
-				$ooppp[$fichero]= "<option ".( ("http://crazyosito.com/bgs/".$fichero==$BG_IMAGE)?"selected":"")." value='"."img/bgs/".$fichero."'>".$fichero."</option>";
-			}
-		}
+		// while($fichero=$directorio_s->read()) {
+		// 	if($fichero!='.' and $fichero!='..'  and !is_dir($CLI."img/bgs/".$fichero) ){
+		// 		$ooppp[$fichero]= "<option ".( ("http://crazyosito.com/bgs/".$fichero==$BG_IMAGE)?"selected":"")." value='"."img/bgs/".$fichero."'>".$fichero."</option>";
+		// 	}
+		// }
 
-		$directorio_s->close();
+		// $directorio_s->close();
 
-		ksort($ooppp);
-		$bgsel.= implode("",$ooppp);
-		$bgsel.= "</select>";
-		$bgsel.= "<script>";
-		$bgsel.= "function setbgq(bg){ \$(document.body).setStyles({'background-image':'url(";
-		$bgsel.= ($vars['INTERNO']['ID_PROYECTO']=="0")?"'+bg+'":"../../panel/'+bg+'";
-		$bgsel.= ")'});}";
-		$bgsel.= "</script>";
+		// ksort($ooppp);
+		// $bgsel.= implode("",$ooppp);
+		// $bgsel.= "</select>";
+		// $bgsel.= "<script>";
+		// $bgsel.= "function setbgq(bg){ \$(document.body).setStyles({'background-image':'url(";
+		// $bgsel.= ($vars['INTERNO']['ID_PROYECTO']=="0")?"'+bg+'":"../../panel/'+bg+'";
+		// $bgsel.= ")'});}";
+		// $bgsel.= "</script>";
 
-		$menus_d[] = $bgsel;
+		// $menus_d[] = $bgsel;
 
 	}
 
@@ -607,8 +621,8 @@ echo "<div class='main_content'>";
 			
 if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
 
-echo '<a id="ic_menu" class="bl1 itr i_mm z" title="Menú"></a>';
-echo '<a id="ic_filters" class="bl1 itr i_ff z" title="Filtros"></a>'; ?>
+echo '<a id="ic_menu" class="bl1 itr i_mm " title="Menú">MENÚ</a>';
+echo '<a id="ic_filters" class="bl1 itr i_ff " title="Filtros">FILTROS</a>'; ?>
 <script>
 window.addEvent('domready',function(){ 
 	$("ic_menu").addEvent('click',function(){ $('menu_main').toggleClass('showmenu'); });	

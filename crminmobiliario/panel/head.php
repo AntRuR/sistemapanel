@@ -28,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='617';
+$rrr='16';
 
 $needs=necesita_libs($objeto_tabla);
 
@@ -244,10 +244,10 @@ $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
 <script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
 <style>
-body {
+/*body {
 	background: fixed;
 	background-image: url('<?php echo $BG_IMAGE;?>');
-}
+}*/
 <?php if($SERVER['ARCHIVO']!='login.php'){ ?>
 .contenido_principal {
 	border: 0 !important;

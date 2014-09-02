@@ -30,15 +30,15 @@ $Block['bar_izquierda']=array(
 		// "bloques/arbol_departamentos.php",//
 		"bloques/arbol_blog.php?page=1",//
 
-		"bloques/menu_obras.php",
+		// "bloques/menu_obras.php",
 
-		"bloques/menu_obras2.php",
+		// "bloques/menu_obras2.php",
 
 		// "bloques/banner_departamentos.php",//
 		// "bloques/banner_publicidad_1.php?page=1",//
 		// "bloques/banner_publicidad_2.php?page=1",//
 		"bloques/print_novedades.php",//		
-		"bloques/form_recomendar.php?conector=recomendar",//V[x]		
+		// "bloques/form_recomendar.php?conector=recomendar",//V[x]		
 		// "bloques/print_redes_sociales.php",//V[x]		
 		"bloques/izquierda_facebook.php",//		
 	  );

@@ -1424,7 +1424,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'tipo'			=> 'inp',
 						'style'			=> 'width:80px;',
 						'derecha'		=> '1',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'unique'		=> '0',
 						'controles'		=> '<a href="custom/productos_ventas_documentos.php?id=[id]" rel="subs">{select count(*) from ventas_mensajes where id_grupo=[id]} mensajes</a>
 							',

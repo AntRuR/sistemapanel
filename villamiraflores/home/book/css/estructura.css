@@ -1,0 +1,448 @@
+@charset "utf-8";
+/* CSS Document */
+
+@font-face{
+	font-family: village;
+	src: url(../font/msyi.ttf);
+	}
+
+body{
+	padding:0; margin:0;
+	font-size:18px;
+	font-family:village, Helvetica, sans-serif;}
+	
+	h1, h2, h3, h4, h5, p{
+		margin:10px 0; padding:0;}
+		
+	.clear{
+		clear:both;}
+.franja-negra{
+	background:#000; width:100%; margin: 0 auto;}
+	
+	.franja-negrax1000{
+		width:1000px; height:40px; margin:0 auto;
+		}
+	/* --------- encabezado ----------- */
+		.logohotel{
+			float:left;
+			background:url(../image/logo-hotel.png) no-repeat top;
+			background-position:8px -5px;
+			width:150px;
+			height:250px;
+			position: absolute;
+			z-index: 10;
+			}
+		.icomaps{
+			margin:0 auto;
+			width:60px;
+			height:30px;
+			background:url(../image/icomaps.png) top no-repeat;
+			}
+		.sesion{
+			width:200px;
+			background:#123;
+			float:right;
+			display:inline-block;
+			
+			margin:8px 0 0 0;
+			color:#FFF;
+			}
+			.idiomahotel{
+				width:50%;
+				float:left;
+				text-align:center;
+				}
+			.loginhotel{
+				width:50%;
+				float:left;
+				text-align:center;
+				}
+/* ------- barra de navegacion ----- */
+
+	.franja-blanca{
+	background:#fff; width:100%; margin: 0 auto;	
+	}
+	.franja-blancax1000{
+	width:1000px; height:50px; margin:0 auto;
+	}
+	nav{
+		width:60%; float:right;}
+	.navegacion{}
+		.navegacion a li{
+			float:left; list-style:none; width:20%;
+			color:#111;
+			-webkit-transition: all .2s ease-in-out;
+			-ms-transition: all .2s ease-in-out;
+			transition: all .2s ease-in-out;
+			text-align: center;}
+
+		.navegacion a li:hover{
+			-webkit-transform: scale(1.1);
+			-ms-transform: scale(1.1);
+			text-align: center;
+			color:#222;}
+
+.banner-slider{
+	width:100%;
+	height:auto;
+	margin:0 auto;}
+	
+.area-reserva, .area-hotel, .area-galeria, footer{
+	width:1000px;
+	margin:0 auto 10px auto;
+}
+	
+	.area-reserva{
+		height:100px;
+		background:#CCC;
+		margin:-120px auto 10px auto;
+		border-bottom:5px solid #999;
+		position: relative;}
+		
+	.area-hotel{
+		height:auto;}
+		
+	.area-galeria{
+		height:auto;
+		background:#ddd;}
+		
+/* COLUMNAS DE CONTENIDO */
+
+
+
+.columna-300{
+	width:300px;
+	float:left;
+	height:100%;}
+	
+.columna-700{
+	width:700px;
+	/*background:#123;*/
+	float:left;
+	height:100%;}
+	
+.contenedorgaleria{
+	background:#FFF;
+	height:200px;}	
+	
+	.galeriahotel{
+		/*background:#069;*/
+		height:150px;}
+	
+	.columna-300 div {
+		width:80%;
+		padding:10%;}
+		
+	.contenedorgaleria{
+		width:222px;
+		background:#FFF;
+		margin: 10px 0 0 10px;
+		height: 250px;
+		float:right;}
+		
+		.link-galeria{
+			width:80px;
+			text-align:center;
+			padding:5px 0;
+			border:#CCC solid 1px;}
+			
+/* SLIDER */
+.sobre-hotel{
+	width:1000px;
+	margin:30px auto;
+	background:#FFF;
+	text-align:center;
+	padding:50px 0;
+	color:#666;
+	}
+
+/*TRES COLUMNAS DE 1000*/
+
+.columna-1000{
+	width:1000px;
+	/*background:#123;*/
+	float:left;
+	height:100%;}
+	
+	
+.contenedorgaleria1000{
+	background:#FFF;
+	height:200px;}	
+	
+	.galeriahotel1000{
+		/*background:#069;*/
+		height:150px;}
+		
+	.contenedorgaleria1000{
+		width:326px;
+		background:#FFF;
+		margin: 10px 0 0 0px;
+		height: 320px;
+		float:right;
+		color:#666;}
+		.contenedorgaleria1001{
+		width:327px;
+		background:#FFF;
+		margin: 10px 10px 0 10px;
+		height: 320px;
+		float:right;
+		color:#666;}
+		
+		.link-galeria1000{
+			width:80px;
+			text-align:center;
+			padding:5px 0;
+			border:#CCC solid 1px;
+			color:#666;}
+
+/* CUATRO COLUMNAS DE 1000*/
+
+.columna-1000x4{
+	width:1000px;
+	/*background:#123;*/
+	float:left;
+	height:100%;}
+	
+	
+.contenedorgaleria1000x4{
+	background:#FFF;
+	height:200px;
+	color:#666;}	
+	
+	.galeriahotel1000x4{
+		/*background:#069;*/
+		height:150px;}
+		
+	.contenedorgaleria1000x4{
+		width:242px;
+		background:#FFF;
+		margin: 10px 0 0 10px;
+		height: 320px;
+		float:right;
+		color:#666;}
+		.contenedorgaleria1001x4{
+		width:244px;
+		background:#FFF;
+		margin: 10px 0px 0 0px;
+		height: 320px;
+		float:right;
+		color:#666;}
+		
+		.link-galeria1000x4{
+			width:80px;
+			text-align:center;
+			padding:5px 0;
+			border:#CCC solid 1px;}
+
+	/* CUATRO COLUMNAS DE 1000*/
+	
+	.columna-1000x2{
+		width:1000px;
+		/*background:#123;*/
+		float:left;
+		height:100%;}
+		
+		
+	.contenedorgaleria1000x2{
+		background:#FFF;
+		height:200px;}	
+		
+		.galeriahotel1000x2{
+			/*background:#069;*/
+			height:150px;}
+			
+		.contenedorgaleria1000x2{
+			width:495px;
+			background:#FFF;
+			margin: 10px 0 0 10px;
+			height: 320px;
+			float:right;}
+			.contenedorgaleria1001x2{
+			width:495px;
+			background:#FFF;
+			margin: 10px 0px 0 0px;
+			height: 320px;
+			float:right;}
+			
+			.link-galeria1000x2{
+				width:80px;
+				text-align:center;
+				padding:5px 0;
+				border:#CCC solid 1px;}
+
+/* --- COMENTARIOS ---*/
+	.comentarios-hotel{
+		width:980px;
+		margin:10px auto 0  auto;
+		background:#efefef;
+		padding:20px 10px;
+		}
+		.comentario-modulo{
+			width:50%;
+			
+			height:100px;
+			float:left;
+			padding:10px 0;}
+			
+			.area-photo-comentario{
+				width:20%;
+				height:100px;
+				border-radius:100px;
+				float:left;}
+				
+				.photo-comentario{
+					width:80px;
+					height:80px;
+					border-radius:100px;
+					float:left;
+					background:#666;
+					margin:10px;}
+				
+			.texto-comentario{
+				width: 70%;
+				height:50px;
+				float:left;
+				padding:0 5%;
+				color:#666;}
+
+/* FOOTER */
+footer{
+	background:#666;
+	height:auto;
+	margin: 0 auto;
+	color:#ddd;}
+	
+	.footer-columna4{
+		width:21%;
+		float:left;
+		padding:2%;
+		}
+		.footer-columna4 ul li{
+			list-style:none;
+			margin:5px 0;
+			color:#FFF;
+			font-size:11px;
+			text-decoration:none;}
+			.menu-footer{
+				margin:0;
+				padding:0;}
+/* --- derechos-reservados -----*/
+	.derechos-reservados{
+		text-align:center;
+		font-size:16px;
+		padding:5px 0;
+		color:#666;}
+
+/* --- --- */
+	.franja-negra-footer{
+	background:#000; width:1000px; margin: 0 auto;	
+	}
+
+/* ---- AREA DE SUITES ----*/
+	.areasuites{
+		width: 1000px;
+		height: auto;
+		}
+		.photosuite, .descripcionsuite, .botonsuite{ 
+			
+		 	float:left; 
+		 	width:30%; 
+		 	height:150px; 
+		 	margin:15px;}
+	.photosuite{}
+    .descripcionsuite{}
+
+    .btn-disponibilidad{
+    	background: #ddd;
+    	width: 200px;
+    	text-align: center;
+    	padding: 10px 0;
+    	border-radius: 1px;
+    	float: right;;
+    }
+
+    .btn-mas-detalle{
+    	background: #f32;
+    	width: 100px;
+    	text-align: center;
+    	padding: 5px 0;
+    	border-radius: 1px;
+
+    }
+
+    .estrellas-relevancia{
+    	background: url("../image/star-g.png") repeat-x;
+    	height: 18px;
+    	width: 90px;
+    	float: right;
+    	margin-top: -28px;
+    }
+
+/* --- DETALLES PARA SUITES --- */
+
+.columna_descripcion{
+	width: 690px;
+	margin-right: 10px;
+	float: left;
+}
+
+.columna_formulario{
+	width: 300px;
+	float: left;
+}
+
+.galeria-photos{
+	width: 690px;
+	height: 400px;
+	background: #ddd;
+}
+
+.formulario-bloque{
+	background: #eee;
+	width: 300px;
+	height: 400px;
+}
+
+.plano-interno{
+	width: 600px;
+	height: 300px;
+	background: #fef;
+}
+
+/* --- SERVICIOS --- */
+
+.descripcion-servicios{
+	width: 340px;
+	margin-right: 10px;
+	float: left;
+}
+
+.photos-servicios{
+	width: 650px;
+	height: 300px;
+	background: #fef;
+	float: left;
+}
+
+/* --- CONTACTO --- */
+
+.mapa-formulario{
+	width: 690px;
+	margin-right: 10px;
+	float: left;
+}
+
+.mapa{
+	width: 100%;
+	height: 300px;
+	background: #123;
+}
+.formulario{
+	width: 100%;
+}
+
+.como-llegar{
+	width: 300px;
+	float: left;
+	
+}

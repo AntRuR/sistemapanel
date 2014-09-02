@@ -33,10 +33,10 @@ $object['menu']=array(
 					// 	'url'=>'index.php?modulo=items&tab=tramites_items&acc=file',
 					// 	'label'=>'TRAMITES',
 					// ),
-					array(
-						'url'=>'index.php?modulo=items&tab=obras_fotos&acc=list',
-						'label'=>'OBRAS',
-					),
+					// array(
+					// 	'url'=>'index.php?modulo=items&tab=obras_fotos&acc=list',
+					// 	'label'=>'OBRAS',
+					// ),
 					array(
 						'url'=>'index.php?modulo=items&tab=turismo_fotos&acc=file',
 						'label'=>'TURISMO',

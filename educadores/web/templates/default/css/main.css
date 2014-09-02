@@ -178,4 +178,14 @@ form[action="index.php"]  .button {
     text-decoration: underline;
 }
 
+#temas_items_file .texto ul li {
+	margin-bottom: 10px;
+	text-decoration: underline;
+}
 
+.area {
+    margin-left: -6px;
+	
+    font-weight: bold;
+    text-transform: capitalize;
+}

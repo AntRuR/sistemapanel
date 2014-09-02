@@ -1,0 +1,32 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $("#mo").click(function(){
+		
+		$("#mapa-head").height(300);
+		$("#mo").hide("fast");
+		$("#ocu").show("fast");
+		});
+	$("#ocu").click(function(){
+		$("#mapa-head").hide("slow");
+		$("#ocu").hide("fast");
+		$("#mo").show("fast");
+		});
+});
+
+</script>
+
+<style>
+	#mo{}
+	#ocu{display:none;}
+	#mapa-head{height:0px;}
+</style>
+<div id="mapa-head">
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3900.81802319939!2d-77.03252373541143!3d-12.124600353824654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2spe!4v1398893464267" width="100%" height="450" frameborder="0" style="border:0"></iframe>
+</div>
+<a id="mo" href="#">mostrar</a>
+<a id="ocu" href="#">ocultar</a>
+
+

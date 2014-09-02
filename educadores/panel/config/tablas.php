@@ -5480,17 +5480,20 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'events'		=>array(
 				'on_session'	=> ''
 		),
+		'postscript'	=> '
+
+				if(SS=="insert" or SS=="update"){
+					if(LL["id_area"]=="" and LL["area"]!=""){
+						$iiii=( hay("areas","where nombre=\'".LL["area"]."\'") ) ? fila("id","areas","where nombre=\'".LL["area"]."\'") : insert(array("nombre"=>LL["area"]),"areas",0);
+						update(array("id_area"=>$iiii["id"]),TT,"where id=II",0);
+					}
+				}
+
+		',			
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
 						'tipo'			=> 'id'
-				),
-				'fecha_creacion'	=>array(
-						'campo'			=> 'fecha_creacion',
-						'tipo'			=> 'fcr',
-						'listable'		=> '1',
-						'formato'		=> '7b',
-						'queries'		=> '1'
 				),
 				'fecha_edicion'	=>array(
 						'campo'			=> 'fecha_edicion',
@@ -5513,14 +5516,49 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'label'			=> 'Tema',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
-						'validacion'	=> '0',
-						'width'			=> 'width:150px;',
+						'validacion'	=> '1',
+						'width'			=> '300px',
 						'derecha'		=> '1',
-						'style'			=> 'width:150px;',
+						'style'			=> 'width:450px;',
 						'controles'		=> '
 							<a href="custom/ventas_mensajes.php?id=[id]" rel="subs crear">{select count(*) from ventas_mensajes where id_grupo=[id]} posts</a>
 							'
 				),
+				'area'		=>array(
+						'campo'			=> 'area',
+						'tipo'			=> 'inp',
+						'listyle'		=> 'display:none;',				
+				),				
+				'id_area'	=>array(
+						'campo'			=> 'id_area',
+						'label'			=> 'Area',
+						'tipo'			=> 'hid',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'default'		=> '[id_area]',
+						'style'			=> 'width:300px;',
+						'opciones'		=> 'id,nombre|areas|where 1',
+						'directlink'	=> 'id,nombre|areas|where 1',
+						'width'			=> '300px',
+						'derecha'		=> '1',
+						'tags'			=> '1',
+						'queries'		=> '1',
+						'dlquery'		=> '1',
+						'onchange'		=> 'if($v(\'in_id_area\')==\'\'){$(\'in_area\').value=this.value;}',						
+				),				
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr',
+						'listable'		=> '1',
+						'formato'		=> '7b',
+						'queries'		=> '1'
+				),				
+				'clave'		=>array(
+						'label'			=> 'Clave',
+						'campo'			=> 'clave',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+				),					
 				'tags'			=>array(
 						'campo'			=> 'tags',
 						'label'			=> 'tags',
@@ -5538,7 +5576,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'edicion_completa'=> '1',
 		'expandir_vertical'=> '0',
 		'control'		=> '1',
-		'edicion_rapida'	=> '1',
+		'edicion_rapida'	=> '0',
 		'set_fila_fijo'	=> '',
 		'alias_grupo'	=> '',
 		'seccion'		=> '',
@@ -5824,7 +5862,7 @@ $objeto_tabla['USUARIOS']=array(
 				),				
 				'id_colegio'	=>array(
 						'campo'			=> 'id_colegio',
-						'label'			=> 'Colegio',
+						'label'			=> 'Institución Educativa',
 						'tipo'			=> 'hid',
 						'listable'		=> '0',
 						'validacion'	=> '0',
@@ -5931,10 +5969,74 @@ $objeto_tabla['USUARIOS']=array(
 		'stat'			=> '1'
 );
 
+$objeto_tabla['AREAS']=array(
+		'titulo'		=> 'Areas',
+		'nombre_singular'=> 'area',
+		'nombre_plural'	=> 'areas',
+		'tabla'			=> 'areas',
+		'archivo'		=> 'areas',
+		'prefijo'		=> 'area',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '0',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Areas',
+		'me'			=> 'AREAS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'width'			=> '300px',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'style'			=> 'width:400px;'
+				),
+
+		),
+		'grupo'			=> 'aplicación',
+		'edicion_completa'=> '0',
+		'expandir_vertical'=> '0',
+		'edicion_rapida'	=> '1',
+		'calificacion'	=> '0',
+		'set_fila_fijo'	=> '3',
+		'crear_quick'	=> '1',
+		'disabled'		=> '0'
+);
+
 $objeto_tabla['COLEGIOS']=array(
-		'titulo'		=> 'Colegios',
-		'nombre_singular'=> 'colegio',
-		'nombre_plural'	=> 'colegios',
+		'titulo'		=> 'Intitución Educativa',
+		'nombre_singular'=> 'institución',
+		'nombre_plural'	=> 'instituciones',
 		'tabla'			=> 'colegios',
 		'archivo'		=> 'colegios',
 		'prefijo'		=> 'banc',
@@ -5946,7 +6048,7 @@ $objeto_tabla['COLEGIOS']=array(
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
 		'menu'			=> '1',
-		'menu_label'	=> 'Colegios',
+		'menu_label'	=> 'Institución Educativa',
 		'me'			=> 'COLEGIOS',
 		'orden'			=> '1',
 		'campos'		=>array(

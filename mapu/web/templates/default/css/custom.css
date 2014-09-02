@@ -1,0 +1,159 @@
+body {
+	background: #333;
+}
+.news_menu-menus {
+	background: #333;	
+}
+.id_news0_items_list .nombre {
+	color: #333 !important;
+}
+
+/**
+ * 333
+ */
+.id_menu_obras2,
+.id_menu_obras,
+.id_bloq_enlaces,
+.id_agenda,
+.id_alcalde,
+.id_menu_convocatoria2,
+.id_arbol_1,
+.id_bloq_centro  {
+	border:5px solid #CCC;
+	border-radius: 18px;
+	width: auto;
+}
+
+.id_menu_obras2 .div_inner,
+.id_menu_obras  .div_inner,
+.id_bloq_enlaces  .div_inner,
+.id_alcalde  .div_inner,
+.id_agenda  .div_inner,
+.id_menu_convocatoria2  .div_inner,
+.id_arbol_1 .div_inner,
+.id_bloq_centro .div_inner
+ {
+	border-left: 0px;
+	border-right: 0px;
+}
+.id_menu_obras2 .barra_arriba,
+.id_menu_obras  .barra_arriba,
+.id_bloq_enlaces  .barra_arriba,
+.id_agenda  .barra_arriba,
+.id_menu_convocatoria2  .barra_arriba,
+.id_arbol_1  .barra_arriba,
+.id_bloq_centro  .barra_arriba 
+{ 
+	background-image: none;
+	background-color: #277017;
+	border-radius: 13px 13px 0 0;
+	padding-left: 10px;
+	padding-right: 0;
+	padding-bottom: 5px;
+}
+
+.barra_arriba h2
+{ 
+font-size: 12px !important;
+}
+
+/*.id_agenda  .barra_arriba,
+*/.id_alcalde  .barra_arriba {
+	background: #FF9900;
+	color: #000;
+	padding-left: 10px;	
+}
+
+.id_menu_obras2 .arriba_derecha ,
+.id_menu_obras2 .arriba_izquierda,
+.id_menu_obras2 .abajo_derecha ,
+.id_menu_obras2 .abajo_izquierda,
+
+.id_menu_obras .arriba_derecha ,
+.id_menu_obras .arriba_izquierda,
+.id_menu_obras .abajo_derecha ,
+.id_menu_obras .abajo_izquierda,
+
+.id_bloq_enlaces .arriba_derecha ,
+.id_bloq_enlaces .arriba_izquierda,
+.id_bloq_enlaces .abajo_derecha ,
+.id_bloq_enlaces .abajo_izquierda,
+
+.id_alcalde .arriba_derecha ,
+.id_alcalde .arriba_izquierda,
+.id_alcalde .abajo_derecha ,
+.id_alcalde .abajo_izquierda,
+
+.id_agenda .arriba_derecha ,
+.id_agenda .arriba_izquierda,
+.id_agenda .abajo_derecha ,
+.id_agenda .abajo_izquierda,
+
+.id_arbol_1 .arriba_derecha ,
+.id_arbol_1 .arriba_izquierda,
+.id_arbol_1 .abajo_derecha ,
+.id_arbol_1 .abajo_izquierda,
+
+.id_menu_convocatoria2 .arriba_derecha ,
+.id_menu_convocatoria2 .arriba_izquierda,
+.id_menu_convocatoria2 .abajo_derecha ,
+.id_menu_convocatoria2 .abajo_izquierda,
+
+.id_bloq_centro .arriba_derecha ,
+.id_bloq_centro .arriba_izquierda,
+.id_bloq_centro .abajo_derecha ,
+.id_bloq_centro .abajo_izquierda
+{
+	display: none !important;
+}
+
+.id_menu_obras2 .barra_abajo,
+.id_menu_obras  .barra_abajo,
+.id_bloq_enlaces  .barra_abajo,
+.id_agenda .barra_abajo,
+.id_menu_convocatoria2  .barra_abajo,
+.id_arbol_1 .barra_abajo ,
+.id_bloq_centro .barra_abajo
+{
+	background-image: none;	
+	border-radius: 0 0 10px 10px;
+}
+
+.id_agenda .barra_abajo,
+.id_alcalde .barra_abajo {
+	border-radius: 0 0 10px 10px;	
+	background: #277017 !important;
+	padding-top: 6px;
+	min-height: 22px;	
+}
+/**
+ * 
+ */
+
+.id_header_menu .area_menu ul li {
+	border-radius: 10px 10px 0 0 !important;
+	background: #333 !important;
+}
+.id_header_menu .area_menu ul li .menu_der,
+.id_header_menu .area_menu ul li .menu_izq {
+	display: none !important;
+}
+.header_menu-menus .area_menu .ul .li a.line_0, .header_menu-menus .area_menu .ul a.line_0 {
+    padding-top: 9px !important;
+.padding-left: 25px !important;
+.padding-right: 25px !important; 
+    /* padding-right: 13px !important; */
+    font-size: 12px;
+}
+/**
+ * 
+ */
+.id_menu_convocatoria2 { display: none;}
+
+
+.bloq_enlaces-listados .listado_item .foto {
+	width: 50px;
+}
+.id_news0_items_list .nombre {
+	overflow: visible !important;
+}

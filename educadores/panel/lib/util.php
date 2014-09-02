@@ -3197,7 +3197,7 @@ function render_foreig_subs($obj0,$id,$urd){
 				foreach($campS as $camP){
 					echo '<div class="itd" ';
 					if($classLineal==0){ echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="'.
-					(($bottoms[$camP]=='SUM')?'border-top:1px solid #000;':'').
+					(($bottoms[$camP]=='SUM')?'border-top:1px solid #000;background-color:#FFC;':'').
 					'width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; }
 					echo ' >';
 					if($bottoms[$camP]=='SUM'){

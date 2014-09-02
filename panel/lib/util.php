@@ -3307,21 +3307,21 @@ $fech=fecha_formato($linea[$camP],($objeto_tabla[$obj['obj']]['campos'][$camP]['
 					}
 
 					$html='';
-					$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:37px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+					$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:45px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 					$html.= "<option></option>";
 					for($i=1; $i<=31;$i++){
 					if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("d"))?"selected":""; }
 					$html.="<option value='". sprintf("%02d",$i) ."' $selected >".$i."</option>";
 					}
 					$html.= "</select>";
-					$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:45px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+					$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:46px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 					$html.= "<option></option>";
 					for($i=1; $i<=12;$i++){
 					if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("m"))?"selected":""; }
 					$html.="<option value='". sprintf("%02d",$i) ."' $selected >".substr($Array_Meses[$i],0,3)."</option>";
 					}
 					$html.= "</select>";
-					$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:47px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+					$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:50px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 					$html.= "<option></option>";
 					for($i=$toYear; $i>=$fromYear;$i--){
 					if($tbcampA['default']=='now()'){ $selected=($i==date("Y"))?"selected":""; }

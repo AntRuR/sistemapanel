@@ -48,7 +48,7 @@ $mmenuu.= '<li><a href="maquina.php?edicionpanel='. ( ($_SESSION['edicionpanel']
 
     	if($vars['INTERNO']['ID_PROYECTO']!="0"){
 			if($vars['GENERAL']['IMPORTARDB']!='0'){
-            $mmenuu.= '<li class="links_menu" style="height:auto;text-align:right; background-color:#030;" >';
+            $mmenuu.= '<li class="links_menu" style="height:auto;text-align:right; background-color:#030;padding:7px 0px 10px 10px;" >';
             $mmenuu.= '<input type="text" id="importDBdominio" style="width:50px; float:left; margin:1px 0 0 1px; border:0; padding:0; font-size:9px; height:13px;" />';
 			$mmenuu.= '<span style="cursor:pointer;color:white;" onclick="javascript:location.href=($v(\'importDBdominio\')==\'\')?\'maquina.php?accion=importdb'.$tablassincro.'\':\'maquina.php?accion=importdb'.$tablassincro.'&domain=\'+$v(\'importDBdominio\');return false;" rel="nofollow" style="color:#fff;margin:0px;padding:0;border:0;float:none; background-color:transparent; text-decoration:none;" title="import DB" >▼import&nbsp;</span>';
 			$mmenuu.= '</li>';

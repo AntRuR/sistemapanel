@@ -25,7 +25,7 @@ font-family: 'caviar_dreamsregular';
 body { background: #F5F8FA!important ;}
 
 
-.main_content { padding:0 10px; }
+.main_content { padding: 0 0px; }
 
 
 
@@ -63,7 +63,7 @@ a.link_header {
 
 ul.ul_menus li a {
 
-	font-size: 11px;
+	/* font-size: 1em; */
 
 	font-family: PTN57F, "Helvetica Neue",Helvetica,Arial,sans-serif,;
 
@@ -190,11 +190,9 @@ ul.ul_menus li a {
 .formulario, .bloque_titulo {
     border-color: #E1E8ED !important;
 }
-.contenido_principal {
-    border:1px solid #099 !important;
--moz-box-shadow: none;
--webkit-box-shadow: none;
-box-shadow: none;    
+
+.modulo_login #div_allcontent {
+    border: 1px solid #099 !important; 
 }
 .lead {
 margin-bottom:0;
@@ -235,9 +233,9 @@ a.link_header {
 
 
 .itms .tite a, .itms .itd a {
-    letter-spacing: -0.7px;
-    font-family: PTN57F !important;
-    font-size: 12px;
+    /* letter-spacing: -0.7px; */
+    /* font-family: PTN57F !important; */
+    /* font-size: 1em; */
 }
 
 a, .alink {
@@ -245,20 +243,20 @@ a, .alink {
 }
 
 .modificador_grilla .first_linea .nc {
-color:#999;
+/* color: #999; */
 }
 
 
 .bl .bd {
-font-family: 'caviar_dreamsregular' !important;
-font-size: 12px;
+/* font-family: 'caviar_dreamsregular' !important; */
+/* font-size: 1em; */
 }
 .itms .itm .itd {
 font-family: PTN57F !important;    
 text-transform: capitalize;
 }
 .modificador_grilla .first_linea .nc {
-font-family: PTN77F !important;        
+/* font-family: PTN77F !important; */        
 }
 
 .formulario label {
@@ -322,7 +320,7 @@ td { background-color: #FFF; }
 @media (max-width: 900px) {
 
     .contenido_principal {
-        border-color:#FFF !important;
+        /*border-color:#FFF !important;*/
     }
     body { 
         background: #FFF !important ;

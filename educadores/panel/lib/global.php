@@ -176,8 +176,9 @@ $LIBRARIES['tablas']=array('name'=>"Tbl",'value'=>
 
 //date_default_timezone_set('America/New_York');
 // date_default_timezone_set('America/Lima');
-
+// echo '<pre>';print_r($_SERVER);echo '</pre>';
 $vars=parse_ini_file("config/config.ini",true);
+$vars['LOCAL']['url_publica']=str_replace(array("localhost","127.0.0.1"),$_SERVER['HTTP_HOST'],$vars['LOCAL']['url_publica']);
 //echo "<pre>"; print_r($vars); echo "</pre>";
 $vars_global=$vars['GENERAL'];
 

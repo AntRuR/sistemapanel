@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+
+.imagenejemplo1{
+	background:url(../image/ejemplo1.jpg) center;}
+
+.imagenejemplo2{
+	background:url(../image/ejemplo2.jpg) center;
+	background-size:cover;}
+	
+.imagenejemplo3{
+	background:url(../image/ejemplo3.jpg) center;
+	background-size:cover;}
