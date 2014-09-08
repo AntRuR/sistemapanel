@@ -1415,7 +1415,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'derecha'		=> '1',
 						'disabled'		=> '1',
 						'rango'			=> '-1 years,now',
-						'default'		=> 'now()'
+						'default'		=> 'now()',				
 				),
 				'numov'			=>array(
 						'campo'			=> 'numov',
@@ -1426,8 +1426,6 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'derecha'		=> '1',
 						'listable'		=> '0',
 						'unique'		=> '0',
-						'controles'		=> '<a href="custom/productos_ventas_documentos.php?id=[id]" rel="subs">{select count(*) from ventas_mensajes where id_grupo=[id]} mensajes</a>
-							',
 						'queries'		=> '1',
 						'validacion'	=> '0'
 				),
@@ -1462,7 +1460,9 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'derecha'		=> '2',
 						'tip_foreig'	=> '1',
 						'tags'			=> '1',
-						'queries'		=> '1'
+						'queries'		=> '1',
+						'controles'		=> '<a href="custom/productos_ventas_documentos.php?id=[id]" rel="subs">{select count(*) from ventas_mensajes where id_grupo=[id]} mensajes</a>
+							',								
 				),
 				'id_color'		=>array(
 						'campo'			=> 'id_color',
@@ -2126,7 +2126,10 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION']=array(
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
-						'tipo'			=> 'id'
+						'tipo'			=> 'id',
+						'listable'		=> '1',
+						'width'			=> '50px',
+						'label'			=> 'Código'
 				),
 				'fecha_creacion'	=>array(
 						'campo'			=> 'fecha_creacion',
@@ -6651,9 +6654,9 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '1',
 						'directlink'	=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
-						'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
+						'opciones'		=> 'id,nombre;apellidos|clientes|where 0|telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
 						'style'			=> 'width:320px;',
-						'controles'		=> '<a href="pop.php?app=enviar_cotizacion&id=[id]" style="color:red;" >Nuevo Mensaje</a>
+						'controles'		=> '<a href="pop.php?app=enviar_cotizacion&id=[id]" style="color:red;" >Mensaje</a>
 							<a target="_black" href="../index.php?modulo=items&tab=productos_imprimir&acc=file&id_venta=[id]">imprimir</a>
 							<a href="custom/ventas_mensajes.php?id=[id]" rel="subs crear">{select count(*) from ventas_mensajes where id_grupo=[id]} mensajes</a>
 							',

@@ -136,7 +136,7 @@ a, .alink {
 }
 
 .modificador_grilla .first_linea .nc {
-color:#999;
+/*color:#999;*/
 }
 
 
@@ -207,7 +207,8 @@ td { background-color: #FFF; }
 
 .htmlenlista td { background-color: transparent; }
 
+@media (max-width: 900px) {
 
 .modulo_login a.link_header {
-	margin-top: 35px;
+	/*margin-top: 35px;*/
 }

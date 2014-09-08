@@ -1,5 +1,7 @@
-<?php 
-
+<?php 
+
+
+
 /*OPCIONES-START*/
 $OpcionesTabla['productos_tipos']['has_balcon'][1]='Si';
 $OpcionesTabla['productos_tipos']['has_balcon'][0]='No';
@@ -137,6 +139,8 @@ $OpcionesTabla['usuarios']['status'][1]='Activo';
 $OpcionesTabla['usuarios']['status'][2]='Cesado';
 $OpcionesTabla['usuarios2']['genero'][1]='Masculino';
 $OpcionesTabla['usuarios2']['genero'][2]='Femenino';
-/*OPCIONES-END*/
-
+/*OPCIONES-END*/
+
+
+
 ?>

@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c> 
+
+RewriteEngine On
+Options +FollowSymlinks
+
+# RewriteRule ^custom/([a-z_]{3,20}).php$ index.php?cus=$1 [L]
+
+</IfModule> 

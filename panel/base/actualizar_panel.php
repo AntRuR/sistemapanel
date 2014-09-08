@@ -201,6 +201,7 @@ foreach($items as $item){
 			"panel/css/",
 			"panel/css/fonts/",
 			"panel/css/fonts/caviardreams/",
+			"panel/css/fonts/icomoon/",
 			"panel/css/images/",
 			"panel/css/Other/",
 			"panel/css/MooTooltips/",

@@ -45,6 +45,7 @@ function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
 		//prin($match);
 	}
 	$consulta="select $campos from $tabla $donde";
+	// echo $consulta;
 	//}
 	$result=mysql_query($consulta,$link);
 	//$result=mysql_query($consulta,$link) or $error=mysql_error;

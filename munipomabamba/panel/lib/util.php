@@ -35,7 +35,10 @@ function procesar_objeto_tabla($array){
 		if(in_array($camp['tipo'],array('id','fcr','fed','pos','vis','cal','web','page','user'))){
 			$campos[$camp['tipo']]=$camp['campo'];
 		}
-		if(in_array($camp['tipo'],array('inp','txt','hid','img','sto','com','fch','pas','yot','html','bit'))){
+		if(in_array($camp['tipo'],array('inp','txt','hid','img','sto','com','fch','pas','yot','html','bit','fcr'))){
+
+			if($camp['tipo']=='fcr' and $camp['edit']!='1') continue;
+
 			$campos['form'][]=$camp;
 			//if($array['buscar']=='1'){
 			if($array['buscar']=='1' or $array['buscar']=='2'){

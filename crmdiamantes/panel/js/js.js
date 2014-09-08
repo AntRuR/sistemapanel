@@ -734,7 +734,7 @@ function set_filas(tb,tbf,val){
 	var eee=0;
 
     $$('.braz').each(function(ele) {
-		$(ele).setStyles({'border':'1px solid #CCC'});
+		// $(ele).setStyles({'border':'1px solid #CCC'});
 		$(ele).removeClass('brasselected');
 	});
 
@@ -744,7 +744,7 @@ function set_filas(tb,tbf,val){
 		$(blo).removeClass('modificador_grilla');
 	});
 
-	$("set_filas_"+val).setStyles({'border':'1px solid #000'});
+	// $("set_filas_"+val).setStyles({'border':'1px solid #000'});
 	$("set_filas_"+val).addClass('brasselected');
 
 	if(val=='1'){

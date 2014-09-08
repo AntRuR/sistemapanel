@@ -465,10 +465,10 @@ location.href=url;
 	$mmmM = "<li class='menudown m_user' >";
 	//$mmmM .= "<a href='custom/usuarios_acceso.php'>";
 	if($_SESSION['usuario_datos_id']){
-		$mmmM.=  ($_SESSION['usuario_datos_nombre'])?"<strong>". $_SESSION['usuario_datos_nombre'] ."</strong>":'';
+		$mmmM.=  ($_SESSION['usuario_datos_nombre'])?"<strong class='z'>". $_SESSION['usuario_datos_nombre'] ."</strong>":'';
 	}else{
 		//$mmmM.=  "<strong>". dato($sesion_login,$tabla_sesion,"where $sesion_id='".$_SESSION['usuario_id']."'") ."</strong>";
-		$mmmM.=  "<strong>". $_SESSION['usuario_datos_nombre'] ."</strong>";
+		$mmmM.=  "<strong class='z'>". $_SESSION['usuario_datos_nombre'] ."</strong>";
 	}
 	//$mmmM.= "</a>";
 
@@ -533,7 +533,7 @@ if(sizeof($FiLa)){
 	$menus_d['usuario']=$mmmM;
 	}
 
-	$menus_d['grupo']=  ($_SESSION['usuario_datos_nombre_grupo'])?"<li class='m_grupo'><strong>". $_SESSION['usuario_datos_nombre_grupo'] ."</strong></li>":'';
+	$menus_d['grupo']=  ($_SESSION['usuario_datos_nombre_grupo'])?"<li class='m_grupo'><strong class='z'>". $_SESSION['usuario_datos_nombre_grupo'] ."</strong></li>":'';
 
 
 

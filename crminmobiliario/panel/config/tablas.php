@@ -387,7 +387,7 @@ $objeto_tabla['PRODUCTOS_TIPOS']=array(
 						'listable'		=> '1',
 						'validacion'	=> '1',
 						'controles'		=> '
-						<a rel="subs" href="custom/productos_items_items.php?id_tipo=[id]" >{select count(*) from productos_items_items where id_tipo=[id]} inmuebles</a>
+						<a rel="subs" href="custom/productos_items_items.php?id_tipo=[id]" >{select count(*) from productos_items_items where id_items_tipo=[id]} inmuebles</a>
 						<a rel="subs" href="custom/productos_fotos.php?id_tipo=[id]" >{select count(*) from productos_fotos where id_tipo=[id]} galerias</a>',
 						'multiopciones'	=> 'Productos|productos_items_tipos|id,nombre|productos_items|where visibilidad=1'
 				),
@@ -2033,7 +2033,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'onedit'		=> 'base2/update_ventas_items.php',
 		'oncreate'		=> 'base2/update_ventas_items.php',
 		'onload_include'	=> 'base2/update_alertas.php',
-		'onload_script'	=> '<style>#id_in_id_jefe{display:none;}#id_in_id_usuario{display:none;}</style>',
+		'onload_script'	=> '<style>#id_in_id_jefe{display:none;}#id_in_id_usuario{/*display:none;*/}</style>',
 		'events'		=>array(
 				'on_session'	=> ''
 		),
@@ -2088,6 +2088,11 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 
 					update(array("id_jefe"=>$jefe,"id_usuario"=>LL["id_usuario"],"info"=>$info),"clientes","where id=".LL["id_cliente"],0);
 
+
+					if(LL["fecha_creacion_temporal"]!="")
+						update(array("fecha_creacion"=>LL["fecha_creacion_temporal"]),TT,"where id=".II,0);
+
+
 				}
 				if(SS=="updatemass"){
 
@@ -2116,7 +2121,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tipo'			=> 'fcr',
 						'listable'		=> '1',
 						'formato'		=> '7b',
-						'queries'		=> '1'
+						'queries'		=> '1',
+						'edit'			=> '1',
 				),
 				'fecha_edicion'	=>array(
 						'campo'			=> 'fecha_edicion',
@@ -2148,7 +2154,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'ondlselect'	=> '1',
 						'opciones'		=> 'id,nombre;apellidos|clientes||telefono;celular_claro;celular_movistar;nextel;rpm;rpc;email;empresa',
 						'style'			=> 'width:600px;',
-						'controles'		=> '<a href="pop.php?app=enviar_cotizacion&id=[id]" style="color:red;" >Nuevo Mensaje</a>
+						'controles'		=> '<a href="pop.php?app=enviar_cotizacion&id=[id]" style="color:red;" >Mensaje</a>
 							<a target="_black" href="../index.php?modulo=items&tab=productos_imprimir&acc=file&id_venta=[id]">imprimir</a>
 							<a href="custom/ventas_mensajes.php?id=[id]" rel="subs crear">{select count(*) from ventas_mensajes where id_grupo=[id]} mensajes</a>
 							',
@@ -2407,7 +2413,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'width'			=> '95px',
 						'derecha'		=> '2',
 						'queries'		=> '1',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'tip_foreig'	=> '1'
 				),
 				'tags'			=>array(
@@ -2553,6 +2559,22 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'queries'		=> '1',
 						'listyle'		=> 'display:none;'						
 				),
+				'cliente_distrito'	=>array(
+						'campo'			=> 'cliente_distrito',
+						'label'			=> 'Distrito',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[cliente_distrito]',
+						'foreig'		=> '1',
+						'style'			=> 'width:auto,',
+						'opciones'		=> 'id,nombre|geo_distritos|where id_provincia=8',
+						'width'			=> '95px',
+						'derecha'		=> '2',
+						'tags'			=> '1',
+						'queries'		=> '1',
+						'listyle'		=> 'display:none;'						
+				),				
 				'id_items_tipo'	=>array(
 						'campo'			=> 'id_items_tipo',
 						'label'			=> 'Modelo de departamento',
@@ -2604,7 +2626,16 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'load'			=> '|||nombre,precio,area,tipo,descripcion|productos_depositos_tipos|where id=[id_items_deposito_tipo]',
 						'listyle'		=> 'display:none;'						
 				),				
-
+				'fecha_creacion_temporal'=>array(
+						'campo'			=> 'fecha_creacion_temporal',
+						'label'			=> 'Creación (temporal)',
+						'tipo'			=> 'fch',
+						'width'			=> '110px',
+						'validacion'	=> '0',
+						'derecha'		=> '1',
+						'rango'			=> '-1 years,+1 years',
+						'time'			=> '1',						
+				),
 
 
 
@@ -3329,7 +3360,7 @@ $objeto_tabla['CLIENTES']=array(
 		'exportar_excel'	=> '0',
 		'importar_csv'	=> '0',
 		'user'			=> '1',
-		'set_fila_fijo'	=> '4'
+		// 'set_fila_fijo'	=> '4'
 );
 /******************************************************************************************************************************************************/
 
@@ -3851,6 +3882,8 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 					update(array("id_status"=>"2"),"productos_items_items","where id=".LL["id_item_item"],0);
 				}
 				if(SS=="update"){
+					if(LL["fecha_creacion_temporal"]!="")
+						update(array("fecha_creacion"=>LL["fecha_creacion_temporal"]),TT,"where id=".II,0);
 				}
 				if(SS=="delete"){
 					update(array("id_status"=>"1"),"productos_items_items","where id=".LL["id_item_item"],0);
@@ -3927,9 +3960,6 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'derecha'		=> '1',
 						'listable'		=> '0',
 						'unique'		=> '0',
-						'controles'		=> '<a href="custom/productos_ventas_documentos.php?id=[id]" rel="subs">{select count(*) from productos_ventas_documentos where id_grupo=[id]} mensajes</a>
-						<a href="custom/productos_ventas_docs.php?id=[id]" rel="subs">{select count(*) from productos_ventas_docs where id_grupo=[id]} mensajes</a>
-							',
 						'queries'		=> '1',
 						'validacion'	=> '0'
 				),
@@ -3954,7 +3984,10 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'noedit'		=> '1',
 						'crearforeig'	=> '1',
 						'queries'		=> '1',
-						'dlquery'		=> '1'
+						'dlquery'		=> '1',
+						'controles'		=> '<a href="custom/productos_ventas_documentos.php?id=[id]" rel="subs">{select count(*) from productos_ventas_documentos where id_grupo=[id]} mensajes</a>
+						<a href="custom/productos_ventas_docs.php?id=[id]" rel="subs">{select count(*) from productos_ventas_docs where id_grupo=[id]} mensajes</a>
+							',						
 				),
 				'id_canal'		=>array(
 						'campo'			=> 'id_canal',
@@ -4226,7 +4259,18 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 				'user'			=>array(
 						'campo'			=> 'user',
 						'tipo'			=> 'user'
-				)
+				),
+				'fecha_creacion_temporal'=>array(
+						'campo'			=> 'fecha_creacion_temporal',
+						'label'			=> 'Creación (temporal)',
+						'tipo'			=> 'fch',
+						'width'			=> '110px',
+						'validacion'	=> '0',
+						'derecha'		=> '1',
+						'rango'			=> '-1 years,+1 years',
+						'time'			=> '1',						
+
+				),				
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '0',
@@ -4437,12 +4481,12 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 				),
 				'opeban'		=>array(
 						'campo'			=> 'opeban',
-						'label'			=> 'Operacion Bancaria',
-						'width'			=> '130px',
+						'label'			=> 'Ope Banc',
+						'width'			=> '70px',
 						'tipo'			=> 'inp',
 						'style'			=> 'width:60px;',
 						'derecha'		=> '2',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'unique'		=> '1',
 						'validacion'	=> '1'
 				),
@@ -5569,7 +5613,7 @@ $objeto_tabla['BANCOS']=array(
 						'default'		=> '20'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '1',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
@@ -5817,7 +5861,7 @@ $objeto_tabla['BANCOS_SECTORISTAS']=array(
 						'derecha'		=> '2'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
@@ -5917,7 +5961,7 @@ $objeto_tabla['BANCOS_CUENTAS']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
@@ -5996,7 +6040,7 @@ $objeto_tabla['CONTRATOS']=array(
 						'enlace'		=> 'down'
 				),				
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '1',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '0',
@@ -6009,7 +6053,7 @@ $objeto_tabla['CONTRATOS']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['VENTAS_CUENTAS']=array(
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'titulo'		=> 'Cuentas para envio de pedidos',
 		'nombre_singular'=> 'cuenta',
 		'nombre_plural'	=> 'cuentas',
@@ -6159,7 +6203,7 @@ $objeto_tabla['PRODUCTOS_STOCK_STATUS']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'calificacion'	=> '0',
@@ -6224,7 +6268,7 @@ $objeto_tabla['VENTAS_STATUS']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
@@ -6290,7 +6334,7 @@ $objeto_tabla['CLIENTES_STATUS']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
@@ -6302,7 +6346,7 @@ $objeto_tabla['CLIENTES_STATUS']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['ENVIOS_CUENTAS']=array(
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'titulo'		=> 'Cuentas para envios',
 		'nombre_singular'=> 'cuenta',
 		'nombre_plural'	=> 'cuentas',
@@ -6458,7 +6502,7 @@ $objeto_tabla['VENTAS_NIVELES']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
@@ -6471,7 +6515,7 @@ $objeto_tabla['VENTAS_NIVELES']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['VENTAS_ALERTAS']=array(
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'alias_grupo'	=> '',
 		'titulo'		=> 'Alertas',
 		'nombre_singular'=> 'alerta',
@@ -6644,7 +6688,7 @@ $objeto_tabla['MENSAJES_STATUS']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
@@ -6709,7 +6753,7 @@ $objeto_tabla['MENSAJES_ALERTAS']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '0',
@@ -6782,7 +6826,7 @@ $objeto_tabla['PRODUCTOS_PTOVENTA']=array(
 						'derecha'		=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '1',
 		'expandir_vertical'=> '0',
 		'calificacion'	=> '0',
@@ -6844,7 +6888,7 @@ $objeto_tabla['CONTACTO_CANALES']=array(
 						'validacion'	=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'calificacion'	=> '0',
@@ -6914,7 +6958,7 @@ $objeto_tabla['GEO_DEPARTAMENTOS']=array(
 						'disabled'		=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'width_listado'	=> '400px',
 		'set_fila_fijo'	=> '1',
 		'edicion_rapida'	=> '0',
@@ -6993,7 +7037,7 @@ $objeto_tabla['GEO_PROVINCIA']=array(
 						'disabled'		=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'edicion_rapida'	=> '0',
 		'set_fila_fijo'	=> '1',
 		'width_listado'	=> '400px'
@@ -7069,7 +7113,7 @@ $objeto_tabla['GEO_DISTRITOS']=array(
 						'disabled'		=> '1'
 				)
 		),
-		'grupo'			=> 'configuraciones',
+		'grupo'			=> 'config',
 		'width_listado'	=> '400px',
 		'set_fila_fijo'	=> '1',
 		'edicion_rapida'	=> '0',

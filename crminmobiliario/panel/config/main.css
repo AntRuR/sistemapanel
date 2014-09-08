@@ -74,7 +74,7 @@ ul.ul_menus li a {
 
 	/* background: #c7c7c7; */
 
-	color: #054309  !important;
+	/* color: #054309  !important; */
 
 }
 
@@ -87,7 +87,7 @@ ul.ul_menus li.selected {
     /*background-color: #F19242;*/
     
 
-    background-color: #070707;
+    /* background-color: #070707; */
 
 }
 
@@ -97,7 +97,7 @@ ul.ul_menus li.padre a,
 
 ul.ul_menus li.selected a {
 
-    color: #FFF !important;
+    /* color: #FFF !important; */
 
 }
 
@@ -127,13 +127,13 @@ ul.ul_menus li.seccion b {
 
 ul.ul_menus {
 
-	width: 100px;
+	/* width: 100px; */
 
 }
 
 .div_bloque_cuerpo {
 
-	margin-left: 104px;
+	/* margin-left: 104px; */
 
 }
 
@@ -183,9 +183,10 @@ ul.ul_menus li.seccion b {
 a.link_header,
 .bloque_titulo .titulo, .bloque_titulo .titulo a,
 ul.ul_menus li a {
-    font-family: 'caviar_dreamsregular';
+    /* font-family: 'caviar_dreamsregular'; */
     /* font-size: 11px; */
-    margin-left: 0px;
+    /* margin-left: 0px; */
+    /* color: #374D0A; */
 }
 .formulario, .bloque_titulo {
     border-color: #E1E8ED !important;
@@ -266,7 +267,7 @@ font-family: PTN57F !important;
  * modulo_productos_items
  */
 .modulo_productos_items .modificador .itms {
-    width: 100% !important;
+    /* width: 100% !important; */
 }
 #html_reporte {
     margin-top: 9px;
