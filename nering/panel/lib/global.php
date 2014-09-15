@@ -176,15 +176,26 @@ $LIBRARIES['tablas']=array('name'=>"Tbl",'value'=>
 
 //date_default_timezone_set('America/New_York');
 // date_default_timezone_set('America/Lima');
-
+// echo '<pre>';print_r($_SERVER);echo '</pre>';
 $vars=parse_ini_file("config/config.ini",true);
+$vars['LOCAL']['url_publica']=str_replace(array("localhost","127.0.0.1"),$_SERVER['HTTP_HOST'],$vars['LOCAL']['url_publica']);
 //echo "<pre>"; print_r($vars); echo "</pre>";
 $vars_global=$vars['GENERAL'];
 
 $UPLOAD_FTP=(isset($vars_global['UPLOAD_FTP']))?$vars_global['UPLOAD_FTP']:0;
 
 extract($vars_global);
-if ($_SERVER['SERVER_NAME']=="localhost" or $_SERVER['SERVER_NAME']=="127.0.0.1" or substr($_SERVER['SERVER_NAME'],0,7)=="192.168") {
+// $LOCALHOST='';
+// if(enhay($_SERVER['SERVER_NAME'],'localhost')){
+// 	$LOCALHOST=$_SERVER['SERVER_NAME'];
+// }
+// echo '<pre>';
+// print_r($vars_global);
+// print_r($_SERVER);
+// echo '</pre>';
+// exit();
+
+if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME']=="127.0.0.1" or substr($_SERVER['SERVER_NAME'],0,7)=="192.168") {
 
 	$vars['LOCAL']['httpfiles']=($vars['GENERAL']['MODO_LOCAL_ARCHIVOS_REMOTOS']==1)?$vars['REMOTE']['httpfiles']:$vars['LOCAL']['httpfiles'];
 	$vars_server=$vars['LOCAL'];
@@ -232,29 +243,6 @@ $get_num_vars++;
 extract($vars_server);
 extract($vars_server_mysql);
 extract($vars_server_ftp);
-
-$HTML_ALL_INICIO    = '<div id="div_allcontent" ><div id="div_contenedor" >';
-
-$HTML_MAIN_INICIO   = '<div class="contenido_principal" id="contenido_principal"  >';
-
-$HTML_CONTENT_INICIO= '<div class="line_content">';
-
-$HTML_CONTENT_FIN 	= '</div>';
-
-$HTML_ALL_FIN		= '</div></div>';
-
-$HTML_ALL_FIN		= '</div></div>';
-
-$HTML_ESQUINAS_ARRIBA    = '';
-
-$HTML_ESQUINAS_ABAJO    = '';
-
-define(HTML_ALL_INICIO,$HTML_ALL_INICIO);
-define(HTML_MAIN_INICIO,$HTML_MAIN_INICIO);
-define(HTML_MAIN_FIN,$HTML_MAIN_FIN);
-define(HTML_ALL_FIN,$HTML_ALL_FIN);
-
-$HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
 
 define(CLAV,"guillermolozan");
 
@@ -351,7 +339,8 @@ function get_browser_()
 
 	foreach($browsers as $browser=>$pattern)
 	{
-		if (eregi($pattern, $user_agent))
+		if(!(strpos(" ".$user_agent." ",$pattern)===false))		
+		// if (eregi($pattern, $user_agent))
 			return $browser;
 	}
 	return 'Unknown';
@@ -642,4 +631,30 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 </IfModule>';
 
-?>
+
+
+// echo '<pre>';print_r($SERVER);echo '</pre>';
+
+$HTML_ALL_INICIO    = '<div id="div_allcontent" ><div id="div_contenedor" >';
+
+$HTML_MAIN_INICIO   = '<div class="contenido_principal '. ( (  ($SERVER['ARCHIVO']!='login.php') and $_COOKIE['men'])?'menu_colapsed':'' ) .'" id="contenido_principal"  >';
+
+$HTML_CONTENT_INICIO= '<div class="line_content">';
+
+$HTML_CONTENT_FIN 	= '</div>';
+
+$HTML_ALL_FIN		= '</div></div>';
+
+$HTML_ALL_FIN		= '</div></div>';
+
+$HTML_ESQUINAS_ARRIBA    = '';
+
+$HTML_ESQUINAS_ABAJO    = '';
+
+define(HTML_ALL_INICIO,$HTML_ALL_INICIO);
+define(HTML_MAIN_INICIO,$HTML_MAIN_INICIO);
+define(HTML_MAIN_FIN,$HTML_MAIN_FIN);
+define(HTML_ALL_FIN,$HTML_ALL_FIN);
+
+$HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
+

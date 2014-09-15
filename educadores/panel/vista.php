@@ -82,7 +82,7 @@ if(!isset($_GET['ran']) or $_GET['ran']==''){
             ?>onclick="abrir_repos('1','0');" <?php
             ?>class="btn btn-small" <?php
             ?>style=" <?php echo ($saved[$datos_tabla['me']]['repos']=='1')?"display:none;":""?>" <?php
-            ?>>reportes</a><?php
+            ?>><i class="itl ico_reportes"></i>reportes</a><?php
 
             ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#repos" id="cerrar_repos" <?php
             ?>onclick="abrir_repos('0','0');" <?php
@@ -134,7 +134,7 @@ if(!isset($_GET['ran']) or $_GET['ran']==''){
             ?>onclick="abrir_crear('1','0');" <?php
             ?>class="btn btn-small btn-primary" <?php
             ?>style=" <?php echo ($saved[$datos_tabla['me']]['crearopen']=='1')?"display:none;":""?>" <?php
-            ?>>crear <?php echo $datos_tabla['nombre_singular']?></a><?php
+            ?>><i class="itr ico_crea"></i>crear <?php echo $datos_tabla['nombre_singular']?></a><?php
 
             ?><a href="custom/<?php echo $SERVER['URL'];?>#list" id="cerrar_crear" <?php
             ?>onclick="abrir_crear('0','0');" <?php
@@ -698,7 +698,7 @@ background-image: -moz-linear-gradient(
 		onsubmit="if($v('buscar')=='buscar <?php echo $datos_tabla['nombre_singular'];?>'){ return false; }"
 		><?php
 			?><div id="linea_buscador"><?php
-				?><input type="text" class="<?php echo ($_GET['buscar']!='')?"inuse":"";?>" style="color:<?php echo ($_GET['buscar']!='')?"#000":"#999";?>; " <?php
+				?><span class="z ico_search"></span><input type="text" class="<?php echo ($_GET['buscar']!='')?"inuse":"";?>" style="color:<?php echo ($_GET['buscar']!='')?"#000":"#999";?>; " <?php
 				?>onfocus="if(this.value=='buscar <?php echo $datos_tabla['nombre_singular'];?>'){ this.value=''; this.style.color='#000'; } " <?php
 				?>onblur="if(this.value==''){ this.style.color='#999'; this.value='buscar <?php echo $datos_tabla['nombre_singular'];?>'; } " <?php
 				/* onkeyup=" if(event.keyCode=='13' && this.value!=''){ ax('buscar',this.value,'buscar <?php echo $datos_tabla['nombre_singular'];?>'); } " */
@@ -1318,7 +1318,7 @@ background-image: -moz-linear-gradient(
 
     } else {
     ?><style>
-	#div_allcontent { width:680px; margin-top:5%; min-width:0%; }
+	#div_allcontent { width:630px; margin-top:7%; min-width:0%; }
 	ul.ul_menus { width:25%;}
     .div_bloque_cuerpo { float:left; width:60%; margin-left:4%; }
 	.formulario .linea_form:hover label { background:none; }

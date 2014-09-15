@@ -9,7 +9,7 @@ $filtro_nombre=$secc['nombre'];
 
 	$object['menu']=array(
 						array('label'=>"Noticias", 		'onclick'=>";",'id'=>'1','class'=>'selected'),
-						array('label'=>"Actividades", 	'onclick'=>";",'id'=>'2'),
+						array('label'=>"Comunicados", 	'onclick'=>";",'id'=>'2'),
 						array('label'=>"Fotos", 		'onclick'=>";",'id'=>'3'),
 						array('label'=>"Videos", 		'onclick'=>";",'id'=>'4','class'=>'ultimo'),
 					 );

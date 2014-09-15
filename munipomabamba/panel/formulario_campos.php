@@ -45,7 +45,7 @@ foreach($tbcampos2 as $tbcampA){
 <li class='linea_form break'>&nbsp;</li>
 <?php }
 
-if($tbcampA['legend']!=''){ ?>
+if($tbcampA['legend']!='' and $tbcampA['indicador']!='1'){ ?>
 </div>
 <div class='groups'
 	id='group_<?php echo str_replace(" ","_",strtolower($tbcampA['legend']));?>'>
@@ -65,6 +65,9 @@ $whereO='where 0';
 list($idO,$camposO)=explode(",",$primO);
 $camposOA=array();
 $camposOA=explode(";",$camposO);
+
+// prin(get_extra_filtro_0($tablaO));
+
 $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO)),0);
 
 /*
@@ -94,10 +97,9 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 					}
 				}
 
-				if($mostrarli){
+				if($mostrarli){ 
 					?>
-	<li id="id_in_<?php echo $tbcampA['campo']?>"
-		class="linea_form <?php echo $Derecha; ?>"><?php
+	<li style="<?php echo $tbcampA['listyle']?>" id="id_in_<?php echo $tbcampA['campo']?>" class="linea_form <?php echo $Derecha; ?>"><?php
 
 		?><label for="in_<?php echo $tbcampA['campo']?>"
 		id="la_<?php echo $tbcampA['campo']?>"><?php
@@ -340,13 +342,13 @@ case "img":	case "sto":
 								list($ee,$bb,$cc)=explode("|",$tbcampA['directlink']);
 
 								if($tbcampA['crearforeig']){
-								?><span id="span_<?php echo $tbcampA['campo']?>_dl"><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
+								?><span id="span_<?php echo $tbcampA['campo']?>_dl"><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb z crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
 								/*onclick='javascript:crearforeig("<?php echo $bb;?>");return false;' */
 								?> ></a></span><?php
 								}
 
 								?>
-								<input type="text" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?><?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>_dl" class="form_input" <?php /* ?> onchange="if($('in_<?php echo $tbcampA['campo']?>').value==''){ $('in_<?php echo $tbcampA['campo']?>_dl').value=''; } " <?php */ ?>>
+								<input type="text" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?><?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>_dl" class="form_input" <?php if($tbcampA['onchange']){ echo "onchange=\"".$tbcampA['onchange']."\""; } ?> <?php /* ?> onchange="if($('in_<?php echo $tbcampA['campo']?>').value==''){ $('in_<?php echo $tbcampA['campo']?>_dl').value=''; } " <?php */ ?>>
 								<input type="hidden" readonly="true" style="width:30px;border:0;background:none;" id="in_<?php echo $tbcampA['campo']?>" name="<?php echo $tbcampA['campo']?>">
 								<?php
 
@@ -359,7 +361,7 @@ case "img":	case "sto":
 										$tbcampA['afterload']=$tbcampA['afterload']."()";								
 
 								if($tbcampA['crearforeig']){
-								?><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
+								?><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb z crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
 								/*onclick='javascript:crearforeig("<?php echo $bb;?>");return false;' */
 								?> ></a><?php
 								}
@@ -434,7 +436,7 @@ case "img":	case "sto":
 
 
 				}
-				echo ($tbcampA['button_app'])?'<a rel="width:1250,height:600" class="mb crearforeig" style="float:right !important;margin:0 !important;" href="'.$tbcampA['button_app'].'"></a>':"";
+				echo ($tbcampA['button_app'])?'<a rel="width:1250,height:600" id="in_'.$tbcampA['campo'].'_button" class="mb z crearforeig" style="float:right !important;margin:0 !important;" href="'.$tbcampA['button_app'].'"></a>':"";
 				if($mostrarli){
 				?></li>
 	<?php

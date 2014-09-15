@@ -348,7 +348,7 @@ case "img":	case "sto":
 								}
 
 								?>
-								<input type="text" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?><?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>_dl" class="form_input" <?php if($tbcampA['onchange']){ echo "onchange=\"".$tbcampA['onchange']."\""; } ?> <?php /* ?> onchange="if($('in_<?php echo $tbcampA['campo']?>').value==''){ $('in_<?php echo $tbcampA['campo']?>_dl').value=''; } " <?php */ ?>>
+								<input type="text" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?><?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>_dl" class="form_input" <?php if($tbcampA['onchange']){ echo "onchange=\"".str_replace("\"","'",$tbcampA['onchange'])."\""; } ?> <?php /* ?> onchange="if($('in_<?php echo $tbcampA['campo']?>').value==''){ $('in_<?php echo $tbcampA['campo']?>_dl').value=''; } " <?php */ ?>>
 								<input type="hidden" readonly="true" style="width:30px;border:0;background:none;" id="in_<?php echo $tbcampA['campo']?>" name="<?php echo $tbcampA['campo']?>">
 								<?php
 
@@ -400,7 +400,7 @@ case "img":	case "sto":
 								?>load_combo('<?php echo $looop[0]?>','<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>');<?php
 								} } ?>"<?php
 								}
-								if($tbcampA['onchange']!=''){ echo "onchange=\"".$tbcampA['onchange']."(this.value);\""; }
+								if($tbcampA['onchange']!=''){ echo "onchange=\"".str_replace("\"","'",$tbcampA['onchange'])."(this.value);\""; }
 								?> ><option selected="selected"></option><?php
 									foreach($oopciones as $oooo2){
 									?><option <?php echo ($GGET==$oooo2[$idO] or $tbcampA['default']==$oooo2[$idO])?"selected":"";?> value="<?php echo $oooo2[$idO]?>" ><?php

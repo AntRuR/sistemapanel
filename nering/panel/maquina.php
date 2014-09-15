@@ -40,8 +40,8 @@ if(@$_COOKIE["admin"]!="1")
 	?>
 	<html>
 	<body style="background-color:#fff;">
-    <form name="login" method="post" style='position:absolute;top:45%;left:45%;'>
-    	<input name="clave" id="clave" type="password" style="font-size:18px; width:200px; color:#000; border:1px solid #333;  " />
+    <form name="login" method="post" style=''>
+    	<input name="clave" id="clave" type="password" style="width: 100%;color: #000;border: 1px solid #333;font-size: 10em; " />
     </form>
     <script>
 	document.getElementById('clave').focus();

@@ -30,14 +30,16 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	//$html_filter.='<input type="hidden" id="filtr_fs_orderby" value="" >';
 
 	$rpt=0;
+	$defaultfilter='';
 	foreach($reportes as $rt=>$reporte)
 	{
 			$rrrr=explode("=",$reporte);
 			$html_filter.= '<li>
 			<input name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
-			'onchange="if(this.checked){ render_filderRP({FECHA},this); } " '. ( ($rpt==0)?'checked':'').' >
+			'onchange="if(this.checked){ render_filderRP({FECHA},this); } " '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
 			<label for="rp_'.$rt.'" class="alink">'.$rrrr['1'].'</label>
 			</li>';
+			if($rpt==0) $defaultfilter='rp_'.$rt;
 			$rpt++;
 	}
 
@@ -162,14 +164,16 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	?></div>
 
 </ul>
-
+<script type="text/javascript">
+	<?php if($defaultfilter!='' and  0){ ?> $('<?php echo $defaultfilter; ?>').fireEvent('checked'); <?php } ?>
+</script>
 <style>
 .bloque_content_stat {
 	display: block;
 }
 </style>
 <?php
-if($_GET['ran']!=''){
+if(isset($_GET['ran']) and $_GET['ran']!=''){
 	include("lib/compresionFinal.php");	/*para Content-Encoding*/
 }
-?>
+

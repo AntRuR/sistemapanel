@@ -4,19 +4,6 @@
 
  */
 
-@font-face {
-font-family: 'caviar_dreamsregular';
-src: url('../css/fonts/caviardreams/caviardreams-webfont.eot');
-src: url('../css/fonts/caviardreams/caviardreams-webfont.eot') format('embedded-opentype'),
-url('../css/fonts/caviardreams/caviardreams-webfont.woff') format('woff'),
-url('../css/fonts/caviardreams/caviardreams-webfont.ttf') format('truetype'),
-url('../css/fonts/caviardreams/caviardreams-webfont.svg#caviar_dreamsregular') format('svg');
-font-weight: normal;
-font-style: normal;
-margin: 0 auto;
-letter-spacing: -1px;
-font-family: 'caviar_dreamsregular';
-}
 
 
 /*body { background: url("http://www.metacritic.com/images/layout/bg.png") repeat scroll center 78px #010101 !important; }*/
@@ -37,9 +24,7 @@ body { background: #F5F8FA!important ;}
 
 .logo_panel {
 
-    margin-bottom: 15px;
-
-    margin-top: 10px;
+    margin-bottom: 5px;
 
 }
 
@@ -53,7 +38,7 @@ a.link_header {
 
 #menumenu a {
 
-    color: #6F6F6F;
+    /* color: #fff; */
 
 }    
 
@@ -62,19 +47,11 @@ a.link_header {
  */
 
 ul.ul_menus li a {
-
-	/* font-size: 1em; */
-
 	font-family: PTN57F, "Helvetica Neue",Helvetica,Arial,sans-serif,;
+}
 
-    
-
-	background: #AEBC91;
-    
-
-	/* background: #c7c7c7; */
-
-	/* color: #054309  !important; */
+ul.ul_menus li.padre {
+    background: #AEBC91;
 
 }
 
@@ -84,22 +61,11 @@ ul.ul_menus li a {
 
 ul.ul_menus li.selected {
 
-    /*background-color: #F19242;*/
-    
-
-    /* background-color: #070707; */
 
 }
 
 
 
-ul.ul_menus li.padre a,
-
-ul.ul_menus li.selected a {
-
-    /* color: #FFF !important; */
-
-}
 
 
 
@@ -111,9 +77,9 @@ ul.ul_menus li:hover {
 
 ul.ul_menus a:hover {
 
-	text-decoration: underline !important;
+	/* text-decoration: underline !important; */
 
-	color: #000 !important;
+	/* color: #000 !important; */
 
 }
 
@@ -125,23 +91,10 @@ ul.ul_menus li.seccion b {
 
 
 
-ul.ul_menus {
-
-	/* width: 100px; */
-
-}
-
-.div_bloque_cuerpo {
-
-	/* margin-left: 104px; */
-
-}
 
 ul.ul_menus li.seccion b {
 
-    color: #000;
-
-    /* font-size: 11px; */
+    /* color: #000; */
 
     font-weight: bold;
 
@@ -166,34 +119,22 @@ ul.ul_menus li.seccion b {
  */
 
 .modulo_login ul.ul_menus {
-
 	display:none;
-
 }
 
 .modulo_login .div_bloque_cuerpo {
-
     margin-left: 23%;
-
     margin-top: 23px;
-
 }
 
 /*body,*/
-a.link_header,
-.bloque_titulo .titulo, .bloque_titulo .titulo a,
-ul.ul_menus li a {
-    /* font-family: 'caviar_dreamsregular'; */
-    /* font-size: 11px; */
-    /* margin-left: 0px; */
-    /* color: #374D0A; */
-}
+
 .formulario, .bloque_titulo {
     border-color: #E1E8ED !important;
 }
 
 .modulo_login #div_allcontent {
-    border: 1px solid #099 !important; 
+    /* border: 1px solid #099; */ 
 }
 .lead {
 margin-bottom:0;
@@ -207,7 +148,7 @@ margin-bottom:0;
 a.link_header {
     color: #666;
     font-size: 22px;
-    margin-top: 50px;
+    margin-top: 43px;
 }    
 
 
@@ -233,42 +174,16 @@ a.link_header {
 }
 
 
-.itms .tite a, .itms .itd a {
-    /* letter-spacing: -0.7px; */
-    /* font-family: PTN57F !important; */
-    /* font-size: 1em; */
-}
 
-a, .alink {
-    /* color: #66BEE6; */
-}
-
-.modificador_grilla .first_linea .nc {
-/* color: #999; */
-}
-
-
-.bl .bd {
-/* font-family: 'caviar_dreamsregular' !important; */
-/* font-size: 1em; */
-}
 .itms .itm .itd {
 font-family: PTN57F !important;    
 text-transform: capitalize;
 }
-.modificador_grilla .first_linea .nc {
-/* font-family: PTN77F !important; */        
-}
 
 .formulario label {
-font-family: PTN57F !important;    
+/* font-family: PTN57F !important; */    
 }
-/**
- * modulo_productos_items
- */
-.modulo_productos_items .modificador .itms {
-    /* width: 100% !important; */
-}
+
 #html_reporte {
     margin-top: 9px;
     
@@ -298,9 +213,6 @@ font-family: PTN57F !important;
     font-weight: bold !important;
     background-position: 0px -2px !important;
 }
-#html_reporte .reporte_ventas td.nombre:first-child  {
-    /*text-align: left;*/
-}
 
 
 .modulo_productos_ventas .filters { display: none; }
@@ -313,18 +225,28 @@ font-family: PTN57F !important;
 
 td { background-color: #FFF; }
 
-#menumenu { margin-top: 8px;}
+#menumenu { /* background: #000; */}
 
 
 .htmlenlista td { background-color: transparent; }
 
-@media (max-width: 900px) {
-
+@media (max-width: 800px) {
+    .logo_panel img {
+        margin-top: 0 !important;
+    }
     .contenido_principal {
         /*border-color:#FFF !important;*/
     }
     body { 
         background: #FFF !important ;
     }
+    a.link_header {
 
+        margin-top: 15px !important;
+
+    }    
+    .i_mm, .i_ff {
+    margin-top: 10px !important;
+
+    }
 }

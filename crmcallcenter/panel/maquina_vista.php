@@ -2967,10 +2967,33 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 			}
 
 
+			$dire33=explode("sistemapanel/",$dire);
+			$dire2=$dire33['1'];
+			// prin($dire);
+			 
+			// $carpeta3=explode("sistemapanel",$carpeta);
+			// $carpeta2=$carpeta3['1'];
+			// $carpeta=$carpeta2;
+			 
+
+			$labelll=( str_replace(
+									array(
+										'panel/',
+										$carpeta.'/web/'
+										),
+									array(
+										'<span style="color:red;">panel/</span>',
+										'<span style="color:blue;">'.$carpeta.'/web/</span>'
+										),
+									$dire) 
+						).$fichero;
+
+			// $labelll=$dire2;
+
 			$str = "<li id='li_".$co."' class='cossli li_todos $lili '>";
 			$str.= "<label for='co_".$co."'>";
 			$str.= "<b>
-			".( str_replace(array('panel/',$carpeta.'/web/'),array('<span style="color:red;">panel/</span>','<span style="color:blue;">'.$carpeta.'/web/</span>'),$dire) ).$fichero;
+			".$labelll;
 			$str.= "</b> ";
 //			$str.= $carpeta.'/web/'.$fichero;
 //			$str.= $co;

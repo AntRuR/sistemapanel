@@ -17,23 +17,14 @@ include("objeto.php");
 	<h1 style="display: none;" class="titulo_formulario" id="titulo_editar">
 		<?php
 		?>
-		<a class="boton_right"
-			onclick="javascript:ax('editar_completo_cancelar','');return false;">Cancelar
-			Editar</a>
+		<a class="z i_form_cancel boton_right" onclick="javascript:ax('editar_completo_cancelar','');return false;"></a>
 		<?php
-
 		?>
-		<a class="boton_right"
-			onclick="javascript:ax('guardar_completo',$v('id_guardar'));return false;">Guardar
-			<?php echo ucfirst($datos_tabla['nombre_singular']);?>
-		</a>
+<!-- 		<a class="boton_right" onclick="javascript:ax('guardar_completo',$v('id_guardar'));return false;">Guardar <?php echo ucfirst($datos_tabla['nombre_singular']);?>
+		</a> -->
 		<?php
-
 		?>
-		Editar
-		<?php echo ucfirst($datos_tabla['nombre_singular']);
-
-		?></h1>
+		Editar <?php echo ucfirst($datos_tabla['nombre_singular']); ?> <i class="z i_form_edit"></i></h1>
 	<?php
 
 	?>
@@ -41,17 +32,14 @@ include("objeto.php");
 		<?php
 
 		?>
-		<a rel="nofollow" class="boton_right"
-			onclick="javascript:ax('insertar',$v('id_guardar'));return false;">Crear
+		<a class="z i_form_cancel boton_right" onclick="javascript:abrir_crear('0','0');return false;"></a>
+		<!-- <a rel="nofollow" class="boton_right" onclick="javascript:ax('insertar',$v('id_guardar'));return false;">Crear
 			<?php echo ucfirst($datos_tabla['nombre_singular']);?>
-		</a>
+		</a> -->
 		<?php
 
 		?>
-		Crear
-		<?php echo ucfirst($datos_tabla['nombre_singular']);
-
-		?></h1>
+		Crear <?php echo ucfirst($datos_tabla['nombre_singular']); ?> <i class="z i_form_create"></i></h1>
 	<?php
     }
 
@@ -178,7 +166,7 @@ include("objeto.php");
 }
 </style>
 <?php
-if($_GET['ran']!=''){
+if(isset($_GET['ran']) and $_GET['ran']!=''){
 	include("lib/compresionFinal.php");	/*para Content-Encoding*/
 }
 ?>

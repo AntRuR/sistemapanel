@@ -242,19 +242,7 @@ ERROR:
 
 
 
-CSS
----
--RESET
--LAYOUT
-    body
-        #div_allcontent
-            #div_contenedor
-                .contenido_principal
-                    #div_header_pre
-                        #contenido_margen
-                        div_header
-                        div_items_main
-                        div_footer
+
 
 -LIBS
 	margenes

@@ -6,6 +6,7 @@ echo "<body>\n";
 echo '<div class="div_fila div_body">';
 //echo '<div class="div_fila">';
 $tet=0;
+// prin($EsquemaT);
 foreach($EsquemaT as $iidd=>$Esquema){
 
 	$tet++;

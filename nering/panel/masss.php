@@ -8,15 +8,18 @@ foreach($tbcampos as $tc=>$camp){
 		unset($tbcampos[$tc]);
 	}
 }
+
+// prin($tbcampos);
+
 ?><ul class="formulario">
 
 	<div class="sv" id="load" style="display: none; top: -30px; left: 0px;">cargando...</div>
 
 	<h1 class="titulo_formulario" id="titulo_mass">
-		<a rel="nofollow" class="boton_right"
+<!-- 		<a rel="nofollow" class="boton_right"
 			onclick="javascript:ax('save_changes',$v('id_guardar'));return false;">Crear
 			<?php echo ucfirst($datos_tabla['nombre_singular']);?>
-		</a>
+		</a> -->
 		Acciones
 	</h1>
 	<?php
@@ -63,7 +66,7 @@ foreach($tbcampos as $tc=>$camp){
 }
 </style>
 <?php
-if($_GET['ran']!=''){
+if(isset($_GET['ran']) and $_GET['ran']!=''){
 	include("lib/compresionFinal.php");	/*para Content-Encoding*/
 }
 ?>

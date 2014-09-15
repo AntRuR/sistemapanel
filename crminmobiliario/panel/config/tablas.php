@@ -236,7 +236,8 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 		'width_listado'	=> '',
 		'edicion_rapida'	=> '1',
 		'crear_pruebas'	=> '0',
-		'seccion'		=> 'proyectos'
+		'seccion'		=> 'proyectos',
+		'disabled'		=> '0'
 );
 /******************************************************************************************************************************************************/
 
@@ -2122,7 +2123,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'listable'		=> '1',
 						'formato'		=> '7b',
 						'queries'		=> '1',
-						'edit'			=> '1',
+						'edit'			=> '1'
 				),
 				'fecha_edicion'	=>array(
 						'campo'			=> 'fecha_edicion',
@@ -2215,7 +2216,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'default'		=> '[id_item]',
 						'style'			=> 'width:200px,',
 						'opciones'		=> 'id,codigo;nombre|productos_items',
-						'onchange'		=> '$(\'in_id_item_button\').set(\'href\',\'base2/apps/depa.php?p=\'+this.value);',
+						'onchange'		=> '$("in_id_item_button").set("href","base2/apps/depa.php?p="+this.value);',
 						'width'			=> '140px',
 						'derecha'		=> '1',
 						'tags'			=> '1',
@@ -2319,7 +2320,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '2',
 						'size'			=> '8',
 						'style'			=> 'width:100px;',
-						'listyle'		=> 'margin-left:475px;clear:left;display:none;',
+						'listyle'		=> 'margin-left:510px;clear:left;display:none;',
 						'onchange'		=> '$("in_saldo_ahorro").value=$("in_cuota_inicial").value-$("in_saldo_inmobiliaria").value;'
 				),
 				'saldo_inmobiliaria_cuotas'=>array(
@@ -2347,7 +2348,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '2',
 						'size'			=> '8',
 						'style'			=> 'width:100px;',
-						'listyle'		=> 'margin-left:485px;clear:left;display:none;',
+						'listyle'		=> 'margin-left:522px;clear:left;display:none;',
 						'onchange'		=> '$("in_saldo_inmobiliaria").value=$("in_cuota_inicial").value-$("in_saldo_ahorro").value;'
 				),
 				'saldo_ahorro_cuotas'=>array(
@@ -2389,6 +2390,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'style'			=> 'width:100px;'
 				),
 				'id_banco'		=>array(
+						'legend'		=> 'Sectorista',
 						'campo'			=> 'id_banco',
 						'label'			=> 'Banco',
 						'tipo'			=> 'hid',
@@ -2458,9 +2460,6 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'campo'			=> 'user',
 						'tipo'			=> 'user'
 				),
-
-
-
 				'has_balcon'	=>array(
 						'campo'			=> 'has_balcon',
 						'label'			=> 'Balcón',
@@ -2526,9 +2525,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '2',
 						'size'			=> '8',
 						'queries'		=> '1',
-						'listyle'		=> 'display:none;'						
+						'listyle'		=> 'display:none;'
 				),
-
 				'area_construida'=>array(
 						'campo'			=> 'area_construida',
 						'label'			=> 'Área Techada',
@@ -2540,9 +2538,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '2',
 						'size'			=> '8',
 						'style'			=> 'width:100px;',
-						'listyle'		=> 'display:none;'						
+						'listyle'		=> 'display:none;'
 				),
-
 				'id_subgrupo'	=>array(
 						'campo'			=> 'id_subgrupo',
 						'label'			=> 'Torre',
@@ -2557,9 +2554,9 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '2',
 						'tags'			=> '1',
 						'queries'		=> '1',
-						'listyle'		=> 'display:none;'						
+						'listyle'		=> 'display:none;'
 				),
-				'cliente_distrito'	=>array(
+				'cliente_distrito'=>array(
 						'campo'			=> 'cliente_distrito',
 						'label'			=> 'Distrito',
 						'tipo'			=> 'hid',
@@ -2573,8 +2570,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'derecha'		=> '2',
 						'tags'			=> '1',
 						'queries'		=> '1',
-						'listyle'		=> 'display:none;'						
-				),				
+						'listyle'		=> 'display:none;'
+				),
 				'id_items_tipo'	=>array(
 						'campo'			=> 'id_items_tipo',
 						'label'			=> 'Modelo de departamento',
@@ -2590,7 +2587,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tags'			=> '1',
 						'queries'		=> '1',
 						'load'			=> '|||nombre,pvlista,pvpromocion,area_total,area_construida,descripcion,num_rooms,num_bathrooms|productos_tipos|where id=[id_items_tipo];|html|descripcion2,descripcion3,descripcion4|productos_tipos|where id=[id_items_tipo];|checks|has_balcon|productos_tipos|where id=[id_items_tipo]',
-						'listyle'		=> 'display:none;'						
+						'listyle'		=> 'display:none;'
 				),
 				'id_items_estacionamiento_tipo'=>array(
 						'campo'			=> 'id_items_estacionamiento_tipo',
@@ -2607,7 +2604,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tags'			=> '1',
 						'queries'		=> '1',
 						'load'			=> '|||nombre,precio,area,tipo,descripcion|productos_estacionamientos_tipos|where id=[id_items_estacionamiento_tipo]',
-						'listyle'		=> 'display:none;'						
+						'listyle'		=> 'display:none;'
 				),
 				'id_items_deposito_tipo'=>array(
 						'campo'			=> 'id_items_deposito_tipo',
@@ -2624,8 +2621,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tags'			=> '1',
 						'queries'		=> '1',
 						'load'			=> '|||nombre,precio,area,tipo,descripcion|productos_depositos_tipos|where id=[id_items_deposito_tipo]',
-						'listyle'		=> 'display:none;'						
-				),				
+						'listyle'		=> 'display:none;'
+				),
 				'fecha_creacion_temporal'=>array(
 						'campo'			=> 'fecha_creacion_temporal',
 						'label'			=> 'Creación (temporal)',
@@ -2634,12 +2631,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'validacion'	=> '0',
 						'derecha'		=> '1',
 						'rango'			=> '-1 years,+1 years',
-						'time'			=> '1',						
-				),
-
-
-
-
+						'time'			=> '1'
+				)
 		),
 		'grupo'			=> 'ventas',
 		'edicion_completa'=> '1',
@@ -2891,7 +2884,7 @@ $objeto_tabla['CLIENTES']=array(
 				'celular_movistar'=>array(
 						'campo'			=> 'celular_movistar',
 						'label'			=> 'Movistar',
-						'tipo'			=> 'hid',
+						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '70px',
@@ -2901,7 +2894,7 @@ $objeto_tabla['CLIENTES']=array(
 				'nextel'		=>array(
 						'campo'			=> 'nextel',
 						'label'			=> 'Nextel',
-						'tipo'			=> 'hid',
+						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '70px',
@@ -3359,8 +3352,7 @@ $objeto_tabla['CLIENTES']=array(
 		'edicion_completa'=> '1',
 		'exportar_excel'	=> '0',
 		'importar_csv'	=> '0',
-		'user'			=> '1',
-		// 'set_fila_fijo'	=> '4'
+		'user'			=> '1'
 );
 /******************************************************************************************************************************************************/
 
@@ -3898,15 +3890,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'rel'			=> 'width:250,height:80',
 						'extra'			=> 'nombre=contrato_venta&id=[id]',
 						'class'			=> ''
-				),
-				// array(
-				// 		'label'			=> 'Anexo 2',
-				// 		'accion'		=> 'custom_load',
-				// 		'file'			=> 'base2/apps/download_word_doc.php',
-				// 		'rel'			=> 'width:250,height:80',
-				// 		'extra'			=> 'nombre=contrato_anexo2&id=[id]',
-				// 		'class'			=> ''
-				// ),				
+				)
 		),
 		'campos'		=>array(
 				'id'			=>array(
@@ -3987,7 +3971,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'dlquery'		=> '1',
 						'controles'		=> '<a href="custom/productos_ventas_documentos.php?id=[id]" rel="subs">{select count(*) from productos_ventas_documentos where id_grupo=[id]} mensajes</a>
 						<a href="custom/productos_ventas_docs.php?id=[id]" rel="subs">{select count(*) from productos_ventas_docs where id_grupo=[id]} mensajes</a>
-							',						
+							'
 				),
 				'id_canal'		=>array(
 						'campo'			=> 'id_canal',
@@ -4115,7 +4099,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'derecha'		=> '2',
 						'size'			=> '8',
 						'style'			=> 'width:100px;',
-						'listyle'		=> 'margin-left:45.9%;clear:left;display:none;',
+						'listyle'		=> 'margin-left:49.7%;clear:left;display:none;',
 						'onchange'		=> '$("in_saldo_ahorro").value=$("in_cuota_inicial").value-$("in_saldo_inmobiliaria").value;'
 				),
 				'saldo_inmobiliaria_cuotas'=>array(
@@ -4143,7 +4127,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'derecha'		=> '2',
 						'size'			=> '8',
 						'style'			=> 'width:100px;',
-						'listyle'		=> 'margin-left:46.4%;clear:left;display:none;',
+						'listyle'		=> 'margin-left:50.7%;clear:left;display:none;',
 						'onchange'		=> '$("in_saldo_inmobiliaria").value=$("in_cuota_inicial").value-$("in_saldo_ahorro").value;'
 				),
 				'saldo_ahorro_cuotas'=>array(
@@ -4268,9 +4252,8 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'validacion'	=> '0',
 						'derecha'		=> '1',
 						'rango'			=> '-1 years,+1 years',
-						'time'			=> '1',						
-
-				),				
+						'time'			=> '1'
+				)
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '0',
@@ -4653,7 +4636,7 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCUMENTOS']=array(
 		'disabled'		=> '0',
 		'seccion'		=> ''
 );
-
+/******************************************************************************************************************************************************/
 
 $objeto_tabla['PRODUCTOS_VENTAS_DOCS']=array(
 		'grupo'			=> 'ventas',
@@ -4717,15 +4700,15 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCS']=array(
 						'validacion'	=> '0',
 						'default'		=> '[id]',
 						'foreig'		=> '1'
-				),				
-				'nombre'			=>array(
+				),
+				'nombre'		=>array(
 						'campo'			=> 'nombre',
 						'label'			=> 'Nombre',
 						'width'			=> '130px',
 						'tipo'			=> 'inp',
 						'style'			=> 'width:240px;',
 						'derecha'		=> '1',
-						'listable'		=> '1',
+						'listable'		=> '1'
 				),
 				'fichero'		=>array(
 						'campo'			=> 'fichero',
@@ -4765,7 +4748,6 @@ $objeto_tabla['PRODUCTOS_VENTAS_DOCS']=array(
 		'disabled'		=> '0',
 		'seccion'		=> ''
 );
-
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['NOTIFICACIONES']=array(
@@ -5618,7 +5600,7 @@ $objeto_tabla['BANCOS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -5866,7 +5848,7 @@ $objeto_tabla['BANCOS_SECTORISTAS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '0',
 		'disabled'		=> '0'
 );
@@ -6023,10 +6005,10 @@ $objeto_tabla['CONTRATOS']=array(
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
-						'setup'			=> 'contrato_venta,contrato_anexo2',	
-						'constante'		=> '1',
+						'setup'			=> 'contrato_venta,contrato_anexo2',
+						'constante'		=> '1'
 				),
-				'file'		=>array(
+				'file'			=>array(
 						'campo'			=> 'file',
 						'label'			=> 'File',
 						'tipo'			=> 'sto',
@@ -6038,14 +6020,14 @@ $objeto_tabla['CONTRATOS']=array(
 						'carpeta'		=> 'ctr_doc',
 						'name'			=> 'nombre',
 						'enlace'		=> 'down'
-				),				
+				)
 		),
 		'grupo'			=> 'config',
 		'edicion_completa'=> '1',
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '0',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '0',
 		'disabled'		=> '0',
 		'seccion'		=> 'contratos'
@@ -6209,7 +6191,7 @@ $objeto_tabla['PRODUCTOS_STOCK_STATUS']=array(
 		'calificacion'	=> '0',
 		'edicion_rapida'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0',
 		'seccion'		=> 'producto'
@@ -6274,7 +6256,7 @@ $objeto_tabla['VENTAS_STATUS']=array(
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'order_by'		=> 'calificacion asc',
 		'seccion'		=> 'atenciones'
@@ -6339,7 +6321,7 @@ $objeto_tabla['CLIENTES_STATUS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '1',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6508,7 +6490,7 @@ $objeto_tabla['VENTAS_NIVELES']=array(
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'order_by'		=> 'calificacion asc'
 );
@@ -6693,7 +6675,7 @@ $objeto_tabla['MENSAJES_STATUS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '0',
 		'disabled'		=> '0',
 		'seccion'		=> ''
@@ -6758,7 +6740,7 @@ $objeto_tabla['MENSAJES_ALERTAS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '0',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6894,7 +6876,7 @@ $objeto_tabla['CONTACTO_CANALES']=array(
 		'calificacion'	=> '0',
 		'edicion_rapida'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1'
 );
 /******************************************************************************************************************************************************/
@@ -7245,7 +7227,7 @@ $objeto_tabla['SUPER_ADMINISTRADORES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0',
 		'seccion'		=> 'administradores'
@@ -7376,7 +7358,7 @@ $objeto_tabla['ADMINISTRADORES_GENERALES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -7507,7 +7489,7 @@ $objeto_tabla['ADMINISTRADORES_VENTAS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );

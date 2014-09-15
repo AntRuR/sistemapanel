@@ -1,25 +1,26 @@
 <?php //á
-
-$THIS=$PARAMS['this'];
+// prin($PARAMS);
+// $THIS=$PARAMS['this'];
 
 //$ITEMS=$LISTADO[$PARAMS['conector']];
 
 $ITEMS=$OBJECT[$PARAMS['this']]['items'];
-
+// prin($ITEMS);
+$THIS='banner_enlaces';
 ?>
-<?php foreach($ITEMS as $ITEM){ ?>
-<div class="cuadro <?php 
+<?php foreach($ITEMS as $ITEM){ ?>  
+<div class="cuadro <?php echo $PARAMS['this'].'_dif ';
        web_selector_control($SELECTED,$THIS,"bloques,listados");
        ?>" >
        <?php web_render_esquinas(1,4);?>
             
        <?php
        echo '<div class="barra_arriba">';
-	   if($ITEM['header']){ 
-	    web_render_item($ITEM['header']);
-	   } 
-	   echo '</div>';
-	   ?>
+  	   if($ITEM['header']){ 
+  	   web_render_item($ITEM['header']);
+  	   } 
+  	   echo '</div>';
+  	   ?>
        
        <div class="div_borde div_inner">
 
@@ -29,7 +30,7 @@ $ITEMS=$OBJECT[$PARAMS['this']]['items'];
                     if(sizeof($ITEM['settings']['num_items'])==0){ ?><p class="vacio"><?php echo $ITEM['settings']['vacio']; ?></p><?php } else {
                         foreach($ITEM['items_bloques'] as $i=>$items){
                         ?>
-		                <div class="slid">                              
+		                    <div class="slid">                              
                         <?php //SLIDE FRAME INICIO ?>    
                             <div class="div_borde">
                             	<?php web_render_items($items); ?>

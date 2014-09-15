@@ -45,4 +45,3 @@ $LL=fila($Pcampos,$TT,"where id='$II'");
 //echo $script;
 include("base2/".$_GET['load']);
 
-?>

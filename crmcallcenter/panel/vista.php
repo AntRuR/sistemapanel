@@ -1,4 +1,6 @@
 <?php
+
+
 include("objeto.php");
 include("setup.php");
 //prin(sizeof($objeto_tabla[$this_me]['campos']));
@@ -7,6 +9,7 @@ if( in_array($_GET['verdesarrollo'],array('1','0')) ){
 	$_SESSION['verdesarrollo']=$_GET['verdesarrollo'];
 	redireccionar_a($_SERVER['HTTP_REFERER']);
 }
+
 
 if(1){
 
@@ -27,7 +30,7 @@ foreach($confes as $confe){
 		$objeto_tabla[$_REQUEST['OB']][$uno]=$dos;
 	}
 }
-unset($_GET['conf2']);
+if(isset($_GET['conf2'])) unset($_GET['conf2']);
 $datos_tabla = procesar_objeto_tabla($objeto_tabla[$_REQUEST['OB']]);
 // $datos_tabla;
 // var_dump($datos_tabla);
@@ -42,7 +45,7 @@ $ocultaresquina=($tblistadosize<8)?1:0;
 
 ?><!-- INICIO AJAX --><?php
 
-if($_GET['ran']==''){
+if(!isset($_GET['ran']) or $_GET['ran']==''){
 
 
 	?><style><?php
@@ -79,7 +82,7 @@ if($_GET['ran']==''){
             ?>onclick="abrir_repos('1','0');" <?php
             ?>class="btn btn-small" <?php
             ?>style=" <?php echo ($saved[$datos_tabla['me']]['repos']=='1')?"display:none;":""?>" <?php
-            ?>>reportes</a><?php
+            ?>><i class="itl ico_reportes"></i>reportes</a><?php
 
             ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#repos" id="cerrar_repos" <?php
             ?>onclick="abrir_repos('0','0');" <?php
@@ -131,7 +134,7 @@ if($_GET['ran']==''){
             ?>onclick="abrir_crear('1','0');" <?php
             ?>class="btn btn-small btn-primary" <?php
             ?>style=" <?php echo ($saved[$datos_tabla['me']]['crearopen']=='1')?"display:none;":""?>" <?php
-            ?>>crear <?php echo $datos_tabla['nombre_singular']?></a><?php
+            ?>><i class="itr ico_crea"></i>crear <?php echo $datos_tabla['nombre_singular']?></a><?php
 
             ?><a href="custom/<?php echo $SERVER['URL'];?>#list" id="cerrar_crear" <?php
             ?>onclick="abrir_crear('0','0');" <?php
@@ -168,11 +171,11 @@ if($_GET['ran']==''){
 
 			if($datos_tabla['exportar_excel']=='1'){
 
-			?><a href="#" id="boton_excel" onclick="javascript:window.print();return false;" <?php
+			?><a href="#" id="boton_imprimir" onclick="javascript:window.print();return false;" <?php
 			?>class="btn btn-small" <?php
 			?>title="Imprimir"><i class="itl ico_Print"></i>Imprimir</a><?php
 
-			?><a href="#" id="boton_imprimir" onclick="javascript:exportar_excel();return false;" <?php
+			?><a href="#" id="boton_excel" onclick="javascript:exportar_excel();return false;" <?php
 			?>class="btn btn-small" <?php
 			?>title="Descargar Excel"><i class="itl ico_Excel"></i>Exportar Excel</a><script>function exportar_excel(){ var url='exportar_excel.php?conf=<?php echo urlencode($_GET['conf']); ?>&me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); location.href=url; }</script> <?php
 			}
@@ -181,6 +184,13 @@ if($_GET['ran']==''){
 			echo '<a href="#" rel="nofollow" onclick="javascrip:procesar_recargar(\'importar_csv.php?conf='.$_GET['conf'].'&me='.$datos_tabla['me']."&".$SERVER['PARAMS'].'\');return false;" class="btn btn-small" title="Importar CSV"><i class="itl ico_Excel"></i>Importar CSV</a>';
 			}
 
+			?><a id="msino"></a><script>window.addEvent('domready',function(){ $("msino").addEvent('click',function(){ 
+					$('contenido_principal').toggleClass('menu_colapsed'); 
+					val = ( $('contenido_principal').hasClass('menu_colapsed') )?1:0;
+					Cookie.write('men', val, {duration: 10});
+					new Request({url:"ajax_change_cookie.php?var=men&val="+val+"&ajax=1", method:'get', onSuccess:function(ee) {
+					 } } ).send();
+				}); });</script><?php
 
             ?><span class='titulo' name="titulo" ><?php echo $tbtitulo?></span><?php
 
@@ -189,6 +199,7 @@ if($_GET['ran']==''){
     ?></div><?php
 
 	} else {
+
 
 	$_COOKIE[$tb.'_colap']=0;
 
@@ -260,7 +271,7 @@ background-image: -moz-linear-gradient(
 
 	if($tblistadosize!='0'){
 
-    ?><b style="float:left; text-align:left; width:33%;" id="inner_span_num" ></b><?php
+    ?><b style="float:left; text-align:left;" id="inner_span_num" ></b><?php
     ?><b id="inner_span_tren" class="inner_span_tren" ></b><?php
 
     	}
@@ -657,24 +668,24 @@ background-image: -moz-linear-gradient(
 
         ?><span style=" <?php echo ($ocultar_opciones_filas==1)?'display:none;':''; ?>"><?php
 
-	   	?><a class="braz <?php if($_COOKIE[$tb.'_colap']=='2'){?>brasselected<?php }?>" <?php
+	   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='2'){?>brasselected<?php }?>" <?php
         ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','2');return false;" <?php
-        ?>title="Vista de Res�men" <?php
+        ?>title="Vista de Resúmen" <?php
         echo (in_array($vars['GENERAL']['controles_listados'],array('1','2')))?'':'style="display:none;"';
         ?>id="set_filas_2"></a><?php
 
-	   	?><a class="braz <?php if($_COOKIE[$tb.'_colap']=='1'){?>brasselected<?php }?>" <?php
+	   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='1'){?>brasselected<?php }?>" <?php
         ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','1');return false;" <?php
         ?>title="Filas en Bloque" <?php
         echo (in_array($vars['GENERAL']['controles_listados'],array('1','3')))?'':'style="display:none;"';
         ?>id="set_filas_1"></a><?php
 
-	   	?><a class="braz <?php if($_COOKIE[$tb.'_colap']=='3'){?>brasselected<?php }?>" <?php
+	   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='3'){?>brasselected<?php }?>" <?php
         ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','3');return false;" <?php
         ?>title="Vista de Filas" <?php
         ?>id="set_filas_3"></a><?php
 
-        ?><a class="braz <?php if($_COOKIE[$tb.'_colap']=='4'){?>brasselected<?php }?>" <?php
+        ?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='4'){?>brasselected<?php }?>" <?php
         ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','4');return false;" <?php
         ?>title="Vista de tabla" <?php
         echo (in_array($vars['GENERAL']['controles_listados'],array('1','3')))?'':'style="display:none;"';
@@ -687,7 +698,7 @@ background-image: -moz-linear-gradient(
 		onsubmit="if($v('buscar')=='buscar <?php echo $datos_tabla['nombre_singular'];?>'){ return false; }"
 		><?php
 			?><div id="linea_buscador"><?php
-				?><input type="text" class="<?php echo ($_GET['buscar']!='')?"inuse":"";?>" style="color:<?php echo ($_GET['buscar']!='')?"#000":"#999";?>; " <?php
+				?><span class="z ico_search"></span><input type="text" class="<?php echo ($_GET['buscar']!='')?"inuse":"";?>" style="color:<?php echo ($_GET['buscar']!='')?"#000":"#999";?>; " <?php
 				?>onfocus="if(this.value=='buscar <?php echo $datos_tabla['nombre_singular'];?>'){ this.value=''; this.style.color='#000'; } " <?php
 				?>onblur="if(this.value==''){ this.style.color='#999'; this.value='buscar <?php echo $datos_tabla['nombre_singular'];?>'; } " <?php
 				/* onkeyup=" if(event.keyCode=='13' && this.value!=''){ ax('buscar',this.value,'buscar <?php echo $datos_tabla['nombre_singular'];?>'); } " */
@@ -703,7 +714,7 @@ background-image: -moz-linear-gradient(
 		}
 
 		$html_filter="<div style='clear:left;' class='byother'>".$html_filter."</div>";
-		echo "<div class='filters'>".$html_filter_fecha.$html_filter."</div>";
+		echo "<div class='filters' id='dfilters' >".$html_filter_fecha.$html_filter."</div>";
 
 		}
 
@@ -799,7 +810,8 @@ background-image: -moz-linear-gradient(
 			.fecha_formato($linea['fecha_creacion'],"7b")
 			.$linea[$datos_tabla['id']]
 			.'</a>';
-			echo '<div class="lc '. ( ($datos_tabla['vis']!='')?(($linea[$datos_tabla['vis']]=='0')?"oc":""):'' ).'" id="lc_'.$linea[$datos_tabla['id']].'">';
+
+			echo '<div class="lc '. ( ($urd=='1')?"lc1 ":" " ) . ( ($datos_tabla['vis']!='')?(($linea[$datos_tabla['vis']]=='0')?"oc":""):'' ).'" id="lc_'.$linea[$datos_tabla['id']].'">';
 
 
 
@@ -849,7 +861,6 @@ background-image: -moz-linear-gradient(
 
 							echo '<div id="sm_'.$linea[$datos_tabla['id']].'" class="div_fila_overflow">';
 							echo '<ul class="li_cabecera">';
-							echo '<img src="img/white.jpg">';
 							foreach($ct['procesos'] as $iproceso=>$proceso){
 							echo "<li>";
 							// prin($proceso);
@@ -902,7 +913,7 @@ background-image: -moz-linear-gradient(
 						$pdto[]=$linea[$tbli['campo']];
 					}
 
-
+					$fefe=1;
 					//var_dump($tblistado);
 					foreach($tblistado as $tbli){
 
@@ -946,11 +957,19 @@ background-image: -moz-linear-gradient(
 								}
 							}
 
+							if($fefe==1){
 							$Firstmain=(
-											strtolower($tbli['label'])=='nombre'
+											enhay(strtolower($tbli['label']),'nombre')
 											or strtolower($tbli['label'])==strtolower($datos_tabla['nombre_singular'])
-											or $tbli['label']=='T�tulo'
+											or $tbli['label']=='Título'
+											or strtolower($tbli['label'])=='código'
+											or strtolower($tbli['label'])=='código'
+											or strtolower($tbli['label'])=='numero'
+											or strtolower($tbli['label'])=='número'
+											or $tbli['campo']=='fecha_creacion'
 											)?1:0;
+							if($Firstmain) $fefe=0;
+							} else $Firstmain=0;
 
 							$nomodificar=(
 											strtolower($tbli['label'])=='fecha'
@@ -1129,11 +1148,12 @@ background-image: -moz-linear-gradient(
 									echo "<img style='float:left;' src='http://i4.ytimg.com/vi/".$linea[$tbli['campo']]."/default.jpg' />";
 									}
 									$adiv0='';
-									if($tbli['enlace'] or $tbli['tip_foreig']=='1'){ $adiv0.='<a class="bd '; } else { $adiv0.='<div class="bd '; }
+									if($tbli['enlace'] or $tbli['tip_foreig']=='1' or $Firstmain){ $adiv0.='<a class="bd '; } else { $adiv0.='<div class="bd '; }
 									if($tbli['tip_foreig']=='1'){ $adiv0.='tipper '; } else { $adiv0.=''; }
 
 									$adiv0.= ($SuprimirLabel and !$nomodificar)?"mn ":"";
 									$adiv0.= ($Firstmain and !$nomodificar and $tbli['listhtml']!='1')?"fm ":"";
+									$adiv0.= ($Firstmain and !$nomodificar and $tbli['listhtml']!='1')?"fmf ":"";
 									$adiv0.= '"';
 									if($tbli['tip_foreig']=='1'){
 									list($primO,$tablaO)=explode("|",$tbli['opciones']);
@@ -1152,7 +1172,11 @@ background-image: -moz-linear-gradient(
 									} else {
 									$adiv0.= "href=\"".str_replace(array("[id]","[enlace]"),array($linea[$datos_tabla['id']],$linea[$tbli['campo']]),$tbli['enlace'])."\" ";
 									}
+									} else {
+										if($Firstmain)
+										$adiv0.= "href=\"custom/".$datos_tabla['archivo'].".php?i=".$linea[$datos_tabla['id']]."\" ";										
 									}
+									
 
 									$adiv1= '';
 									switch($tbli['tipo']){
@@ -1216,7 +1240,7 @@ background-image: -moz-linear-gradient(
 
 									}
 
-									if($tbli['enlace'] or $tbli['tip_foreig']=='1' ){ $adiv2= '</a>'; } else { $adiv2= '</div>'; }
+									if($tbli['enlace'] or $tbli['tip_foreig']=='1' or $Firstmain ){ $adiv2= '</a>'; } else { $adiv2= '</div>'; }
 
 									$adiv0.= " >";
 
@@ -1281,14 +1305,16 @@ background-image: -moz-linear-gradient(
 
 	if(strpos($_SERVER['SCRIPT_NAME'], "login.php")===false){
 
+	/*
     ?><div class="segunda_barra"  id="segunda_barra_3" style="clear:left;" ><?php
 
 		 if($tblistadosize!='0'){
-            ?><b style="float:left; text-align:left; width:48%;" id="inner_span_num2" ></b><?php
+            ?><b style="float:left; text-align:left; width:33%;" id="inner_span_num2" ></b><?php
             ?><b id="inner_span_tren2" class="inner_span_tren" ></b><?php
          }
 
 	?></div><?php
+	*/
 
     } else {
     ?><style>
@@ -1310,7 +1336,7 @@ background-image: -moz-linear-gradient(
     ?><!-- FIN AJAX --><?php
 
 
-if($_GET['ran']==''){
+if(!isset($_GET['ran']) or $_GET['ran']==''){
 
 echo "</div>";
 include("vista_ax.php");
@@ -1318,7 +1344,7 @@ include("vista_ax.php");
 
 }
 //prin(0);
-if($_GET['ran']!=''){
+if(isset($_GET['ran']) and $_GET['ran']!=''){
 	include("lib/compresionFinal.php");	/*para Content-Encoding*/
 }
 

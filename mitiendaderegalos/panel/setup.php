@@ -16,4 +16,3 @@ foreach($datos_tabla['form'] as $xamps){
 	}
 }
 
-?>

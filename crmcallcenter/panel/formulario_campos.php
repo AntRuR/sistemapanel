@@ -97,7 +97,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 					}
 				}
 
-				if($mostrarli){
+				if($mostrarli){ 
 					?>
 	<li style="<?php echo $tbcampA['listyle']?>" id="id_in_<?php echo $tbcampA['campo']?>" class="linea_form <?php echo $Derecha; ?>"><?php
 
@@ -342,7 +342,7 @@ case "img":	case "sto":
 								list($ee,$bb,$cc)=explode("|",$tbcampA['directlink']);
 
 								if($tbcampA['crearforeig']){
-								?><span id="span_<?php echo $tbcampA['campo']?>_dl"><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
+								?><span id="span_<?php echo $tbcampA['campo']?>_dl"><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb z crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
 								/*onclick='javascript:crearforeig("<?php echo $bb;?>");return false;' */
 								?> ></a></span><?php
 								}
@@ -361,7 +361,7 @@ case "img":	case "sto":
 										$tbcampA['afterload']=$tbcampA['afterload']."()";								
 
 								if($tbcampA['crearforeig']){
-								?><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
+								?><a href="formulario_quick.php?OT=<?php echo $bb;?>&ran=1&proceso=&parent=<?php echo $this_me;?>" style="float:right !important;margin:0 !important;" class="mb z crearforeig" rel="<?php echo get_dims_crearforeig($bb);?>" <?php
 								/*onclick='javascript:crearforeig("<?php echo $bb;?>");return false;' */
 								?> ></a><?php
 								}
@@ -436,7 +436,7 @@ case "img":	case "sto":
 
 
 				}
-				echo ($tbcampA['button_app'])?'<a rel="width:1250,height:600" id="in_'.$tbcampA['campo'].'_button" class="mb crearforeig" style="float:right !important;margin:0 !important;" href="'.$tbcampA['button_app'].'"></a>':"";
+				echo ($tbcampA['button_app'])?'<a rel="width:1250,height:600" id="in_'.$tbcampA['campo'].'_button" class="mb z crearforeig" style="float:right !important;margin:0 !important;" href="'.$tbcampA['button_app'].'"></a>':"";
 				if($mostrarli){
 				?></li>
 	<?php

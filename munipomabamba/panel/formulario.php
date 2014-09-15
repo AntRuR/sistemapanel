@@ -178,7 +178,7 @@ include("objeto.php");
 }
 </style>
 <?php
-if($_GET['ran']!=''){
+if(isset($_GET['ran']) and $_GET['ran']!=''){
 	include("lib/compresionFinal.php");	/*para Content-Encoding*/
 }
 ?>

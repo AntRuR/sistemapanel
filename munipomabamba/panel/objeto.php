@@ -1,6 +1,5 @@
 <?php
-if($_GET['ran']!=''){
-
+if(isset($_GET['ran']) and $_GET['ran']!=''){
 	//include("lib/compresionInicio.php");	/*para Content-Encoding*/
 	include("lib/includes.php");
 
@@ -15,21 +14,21 @@ if($_GET['ran']!=''){
 
 	if($_GET['proceso']!='' or 1){
 
-	if($_GET['parent']){
-	foreach($objeto_tabla as $oo=>$ot){
-	if($ot['tabla']==$_GET['parent']){ $this_pa=$oo; continue; }
-	}
-	}
+		if($_GET['parent']){
+		foreach($objeto_tabla as $oo=>$ot){
+		if($ot['tabla']==$_GET['parent']){ $this_pa=$oo; continue; }
+		}
+		}
 
-	$thiS=($this_pa)?$this_pa:$this_me;
-	$vArs=$objeto_tabla[$thiS]['procesos'][$_GET['proceso']];
-	$Plabel=$vArs['label'];
-	$Pbuttom=$vArs['buttom'];
-	$_GET['conf']=$vArs['params'];
+		$thiS=($this_pa)?$this_pa:$this_me;
+		$vArs=$objeto_tabla[$thiS]['procesos'][$_GET['proceso']];
+		$Plabel=$vArs['label'];
+		$Pbuttom=$vArs['buttom'];
+		$_GET['conf']=$vArs['params'];
 
-	//prin($objeto_tabla['PRODUCTOS_TRASLADOS']['procesos']['2']['disabled']);
-	$objeto_tabla=pre_procesar_tabla($objeto_tabla,$vars);
-	//prin($objeto_tabla['PRODUCTOS_TRASLADOS']['procesos']['2']['disabled']);
+		//prin($objeto_tabla['PRODUCTOS_TRASLADOS']['procesos']['2']['disabled']);
+		$objeto_tabla=pre_procesar_tabla($objeto_tabla,$vars);
+		//prin($objeto_tabla['PRODUCTOS_TRASLADOS']['procesos']['2']['disabled']);
 
 	//prin($objeto_tabla[$this_me]['campos']['fecha_recepcion']);
 	}
@@ -40,15 +39,18 @@ if($_GET['ran']!=''){
 
 	$Proceso=$_GET['proceso'];
 
-	$Open=($_COOKIE['admin']=='1' and $vars['GENERAL']['mostrar_toolbars']=='1')?1:0;}
+	$Open=($_COOKIE['admin']=='1' and $vars['GENERAL']['mostrar_toolbars']=='1')?1:0;
+	
+}
 
-	$EdicionPanel=($Open and $_SESSION['edicionpanel']=='1')?1:0;
+$EdicionPanel=($Open and $_SESSION['edicionpanel']=='1')?1:0;
 
 /// procesar campos
 list($MEEE,$EXTRA_FILTRO) = pre_procesar_objeto_tabla_0($MEEE);
+// prin($MEEE);
 
 $datos_tabla = procesar_objeto_tabla($MEEE);
-
+// prin($datos_tabla);
 verificar_tabla($datos_tabla['tabla']);
 
 
@@ -99,4 +101,3 @@ if($Proceso=='login'){
 $tblistadosize=sizeof($tblistado);
 
 
-?>

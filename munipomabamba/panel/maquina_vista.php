@@ -237,8 +237,8 @@ $(el).removeClass('painton');
 				<th>Por<br>lín</th>
 				<th>nombre<br>singular</th>
 				<th>nombre<br>plural</th>
-				<th>kill</th>
-				<th>IMPORT</th>
+				<!--<th>kill</th>-->
+				<th>IMP</th>
 			  </tr>";
 
 
@@ -310,7 +310,7 @@ foreach($objeto_tabla as $ot){
 			class="letra '. (($saved[$ot['me']][$cam]=='1')?"onon":"offoff") .'"
 			><img src="img/ico_sync.png"/></a>';
 			echo '</td>';
-			echo '<td>';
+			echo '<td class="cntrl">';
 
 			foreach($indicesA as $inicial=>$indice){
 			if($indice=='orden'){ continue; }
@@ -402,12 +402,12 @@ foreach($objeto_tabla as $ot){
 			echo $ot['nombre_plural'];
 			echo '</td>';
 
+			// echo '<td>';
+			// echo '<a href="#" style="color:#111;" onclick="javascript:if(confirm(\'¿Está seguro que desea eliminar este objeto?\')){ eliminar_objeto(\''.$ot['me'].'\',this); } return false;" ><img src="img/ico_bomb.png" /></a>';
+			// echo '</td>';
+				
 			echo '<td>';
-			echo '<a href="#" style="color:#111;" onclick="javascript:if(confirm(\'¿Está seguro que desea eliminar este objeto?\')){ eliminar_objeto(\''.$ot['me'].'\',this); } return false;" ><img src="img/ico_bomb.png" /></a>';
-			echo '</td>';
-
-			echo '<td>';
-			echo '<a href="maquina.php?accion=importdb&tablas='.$ot['tabla'].'" style="color:green;">▼import</a>';
+			echo '<a href="maquina.php?accion=importdb&tablas='.$ot['tabla'].'" style="color:green;">▼imp</a>';
 			echo '</td>';
 			echo "</tr>";
 
@@ -1020,7 +1020,7 @@ $EXCEPCIONES['LOCAL_FTP']=array('ftp_files_user','ftp_files_pass','ftp_files_roo
 $vars=parse_ini_file("config/config.ini",true);
 echo "<div style='padding-left:10px;'>config.ini $get_num_vars</div>";
 echo "<table class='config_table'>";
-echo "<tr><th colspan=3 style='background:none;color:#000;'>Editar archivo config.ini</td><td align=right style='border:0;'><a href='?config=edit'>refresh</a></td></tr>";
+echo "<tr><th colspan=2 style='background:none;color:#000;'>Editar archivo config.ini</td><td align=right style='border:0;'><a href='?config=edit'>refresh</a></td></tr>";
 echo "<tr><td colspan='3' height=10></td></tr>";
 
 $GENERAL=$vars['GENERAL'];
@@ -2509,6 +2509,8 @@ if($_GET['accion']=='alllistado' ){
 		(strpos($dires,".buildpath")===false)
 		and
 		(strpos($dires,".git")===false)
+		and
+		(strpos($dires,".DS_Store")===false)		
 
 		){
 			$directoriS_1S[]=$dires;
@@ -2558,6 +2560,12 @@ if($_GET['accion']=='alllistado' ){
 		($dires!='panel/base/')
 		and
 		($dires!='panel/base2/')
+		and
+		($dires!='panel/base2/apps/')
+		and
+		($dires!='panel/base2/reportes/')	
+		and
+		($dires!='panel/base2/procesos/')						
 		and
 		($dires!='panel/custom/')
 		and
@@ -2728,6 +2736,7 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 				,"tablas_copy.php"
 				,".gitignore"
 				,"README.md"
+				,".DS_Store"
 				,".project"
 				,".buildpath"
 				)) and !is_dir($dire.$fichero) ){
@@ -2786,6 +2795,7 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 		,"tablas_copy.php"
 		,"Thumbs.db"
 		,".gitignore"
+		,".DS_Store"		
 		,"README.md"
 		,".project"
 		,".buildpath"
@@ -2957,10 +2967,33 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 			}
 
 
+			$dire33=explode("sistemapanel/",$dire);
+			$dire2=$dire33['1'];
+			// prin($dire);
+			 
+			// $carpeta3=explode("sistemapanel",$carpeta);
+			// $carpeta2=$carpeta3['1'];
+			// $carpeta=$carpeta2;
+			 
+
+			$labelll=( str_replace(
+									array(
+										'panel/',
+										$carpeta.'/web/'
+										),
+									array(
+										'<span style="color:red;">panel/</span>',
+										'<span style="color:blue;">'.$carpeta.'/web/</span>'
+										),
+									$dire) 
+						).$fichero;
+
+			// $labelll=$dire2;
+
 			$str = "<li id='li_".$co."' class='cossli li_todos $lili '>";
 			$str.= "<label for='co_".$co."'>";
 			$str.= "<b>
-			".( str_replace(array('panel/',$carpeta.'/web/'),array('<span style="color:red;">panel/</span>','<span style="color:blue;">'.$carpeta.'/web/</span>'),$dire) ).$fichero;
+			".$labelll;
 			$str.= "</b> ";
 //			$str.= $carpeta.'/web/'.$fichero;
 //			$str.= $co;
@@ -3675,7 +3708,6 @@ if( $_GET['me']!='' and $_GET['accion']=='borrararchivos' ){
 }
 if( $_GET['me']!='' and $_GET['accion']=='recreararchivos' ){
 
-
 	@unlink($DIR_CUSTOM.$objeto_tabla[$_GET['me']]['archivo'].".php");
 	@unlink($DIR_CUSTOM.$objeto_tabla[$_GET['me']]['archivo']."_vista.php");
 	$_GET['accion']='creararchivos';
@@ -3689,7 +3721,7 @@ chdir(\"../\");
 include(\"lib/compresionInicio.php\");
 include(\"lib/includes.php\");
 include(\"head.php\");
-echo '<body class=\"modulo_".$ot['archivo']."\">';
+echo '<body class=\"modulo_".$objeto_tabla[$_GET['me']]['archivo']."\">';
 echo \$HTML_ALL_INICIO;
 echo \$HTML_MAIN_INICIO;
 include(\"header.php\");

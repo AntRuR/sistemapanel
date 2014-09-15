@@ -197,8 +197,9 @@ function render_filderRP(input){
 	vurl = vurl + '&file='+file;
 	vurl="load_html_reportes.php?"+vurl;
 
-	new Request({url:vurl,  method:'get', onSuccess:function(ee) {
+	new Request({url:vurl,  method:'get', evalScripts:true,onSuccess:function(ee){
 		$("html_reporte").innerHTML=ee;
+		// if(typeof('load_reporte_'+file)=='function') eval('reporte_'+file);		
 		 } } ).send();
 }
 
@@ -430,13 +431,19 @@ function abrir_crear(set,save){
 	if($('titulo_crear')){
 		if(set=='1'){
 			$('bloque_content_crear').setStyles({'display':'block'});
+			$('inner').setStyles({'display':'none'});
+			$('segunda_barra_2').setStyles({'display':'none'});
 			//load_crear();
 			ax('resetear');
 		} else {
 			$('bloque_content_crear').setStyles({'display':'none'});
+			$('inner').setStyles({'display':'block'});
+			$('segunda_barra_2').setStyles({'display':'block'});
 		}
 	} else {
 		load_crear();
+		$('inner').setStyles({'display':'none'});
+		$('segunda_barra_2').setStyles({'display':'none'});
 	}
 	if($('abrir_crear')){
 		$0(((set==1)?"abrir":"cerrar" )+"_crear");
@@ -479,11 +486,16 @@ function abrir_repos(set,save){
 			$('bloque_content_repos').setStyles({'display':'block'});
 			$('inner').setStyles({'display':'none'});
 			$('segunda_barra_2').setStyles({'display':'none'});
+			$('boton_excel').setStyles({'display':'none'});
+			$('boton_imprimir').setStyles({'display':'none'});
+
 			//load_crear();
 		} else {
 			$('bloque_content_repos').setStyles({'display':'none'});
 			$('inner').setStyles({'display':'block'});
 			$('segunda_barra_2').setStyles({'display':'block'});
+			$('boton_excel').setStyles({'display':'block'});
+			$('boton_imprimir').setStyles({'display':'block'});
 		}
 		//alert('resetear');
 		//ax('resetear');
@@ -492,6 +504,8 @@ function abrir_repos(set,save){
 		load_repos();
 		$('inner').setStyles({'display':'none'});
 		$('segunda_barra_2').setStyles({'display':'none'});
+		$('boton_excel').setStyles({'display':'none'});
+		$('boton_imprimir').setStyles({'display':'none'});				
 		//alert('load_crear');
 
 	}
@@ -726,7 +740,7 @@ function set_filas(tb,tbf,val){
 	var eee=0;
 
     $$('.braz').each(function(ele) {
-		$(ele).setStyles({'border':'1px solid #CCC'});
+		// $(ele).setStyles({'border':'1px solid #CCC'});
 		$(ele).removeClass('brasselected');
 	});
 
@@ -736,7 +750,7 @@ function set_filas(tb,tbf,val){
 		$(blo).removeClass('modificador_grilla');
 	});
 
-	$("set_filas_"+val).setStyles({'border':'1px solid #000'});
+	// $("set_filas_"+val).setStyles({'border':'1px solid #000'});
 	$("set_filas_"+val).addClass('brasselected');
 
 	if(val=='1'){
@@ -1044,3 +1058,12 @@ function program_alert_remove(ii){
 	$(ii+"_ined").removeEvent('click', destroy);
 
 }
+
+function load_ajax_in(where,get){
+	new Request({url:get,  method:'get', evalScripts:true,onSuccess:function(ee){
+			$(where).innerHTML=ee;
+			// if(typeof(colbac)=='function') eval(colbac);		
+		 } } ).send();	
+}
+
+

@@ -8,6 +8,9 @@ foreach($tbcampos as $tc=>$camp){
 		unset($tbcampos[$tc]);
 	}
 }
+
+// prin($tbcampos);
+
 ?><ul class="formulario">
 
 	<div class="sv" id="load" style="display: none; top: -30px; left: 0px;">cargando...</div>
@@ -63,7 +66,7 @@ foreach($tbcampos as $tc=>$camp){
 }
 </style>
 <?php
-if($_GET['ran']!=''){
+if(isset($_GET['ran']) and $_GET['ran']!=''){
 	include("lib/compresionFinal.php");	/*para Content-Encoding*/
 }
 ?>

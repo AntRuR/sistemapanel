@@ -1,10 +1,6 @@
 <?php 
 
 /*OPCIONES-START*/
-$OpcionesTabla['news_items']['estructura'][1]='PRINCIPAL';
-$OpcionesTabla['news_items']['estructura'][2]='REGULAR';
-$OpcionesTabla['secciones']['tipo'][1]='Departamento';
-$OpcionesTabla['secciones']['tipo'][2]='Principal';
 $OpcionesTabla['contacto']['como_se_entero'][1]='Web';
 $OpcionesTabla['contacto']['como_se_entero'][2]='Páginas Amarillas';
 $OpcionesTabla['contacto']['como_se_entero'][3]='Mailing';

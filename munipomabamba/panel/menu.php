@@ -80,7 +80,8 @@ if($mostrar_menu){
 				//$otto[]=$meit;
 				$mmm .="<li class='". ((($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php"))?"selected $classhijosel":" $classhijo ") ." ' style='" . ( ($bbgg)?"background-color:".$BGDD.";":(!in_array($item['tabla'],$tablas_creadas)?"background-color:#37F73B;":"")) . "'>";
 
-				$mmm .="<a style='". ( ($bbgg)?"background-image:none;":"") . ( ( !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1') )?"color:;":'') . $ExtraStyle. "' href='".$DIR_CUSTOM.$item['archivo'].".php' >".$item['menu_label'].$item['archivo_padre'];
+				$mmm .="<a style='". ( ($bbgg)?"background-image:none;":"") . ( ( !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1') )?"color:;":'') . $ExtraStyle. "' href='".$DIR_CUSTOM.$item['archivo'].".php' >";
+				$mmm .=$item['menu_label'].$item['archivo_padre'];
 				$nume=contar($item['tabla'],"where 1 ".get_extra_filtro(array('user'=>$item['user'],'web'=>($filtrar_web)?$item['web']:0,'page'=>($filtrar_page)?$item['page']:0)));
 				$mmm.=" <span class='numero'>$nume</span>";
 				$mmm.="</a>";
@@ -125,7 +126,17 @@ if($mostrar_menu){
 						$grupi[]=$item['grupo'];
 
 							if(trim($item['grupo'])!='' ){
-							$GrupLi[$item['grupo']]="<li id='idg_".$item['grupo']."' class='padre' ><a ". (($item['grupo']=='sistema')?"class='admincc'":'') ."  >". ( ($ALIAS_GRUPO[$item['grupo']])?$ALIAS_GRUPO[$item['grupo']]:$item['grupo'] ) ."</a></li>";
+							$paddre=($ALIAS_GRUPO[$item['grupo']])?$ALIAS_GRUPO[$item['grupo']]:$item['grupo'];
+							$GrupLi[$item['grupo']]="<li id='idg_".$item['grupo']."' class='padre' >".
+							"<a ". (($item['grupo']=='sistema')?"class='admincc'":'') ."  >".
+							"<i class='zzz ic_". str_replace(
+													array(" ",'á','é','í','ó',''), 
+													array("_",'a','e','i','o','u'), 
+													strtolower($paddre)
+													) . "'></i>".							
+ 							$paddre .
+ 							"</a>".
+ 							"</li>";
 							}
 					}
 				}
@@ -185,12 +196,29 @@ if($mostrar_menu){
 
 
 	if($htmlmenu=="<ul id='menu_main' class='ul_menus'></ul>"  ){
-		echo "<ul class='ul_menus ul_menus_empty'></ul>";
+		echo "<ul class='ul_menus ul_menus_empty' id='ul_menus_empty'></ul>";
 	} else {
+
 		echo $htmlmenu;
+
 			if($SERVER['ARCHIVO']!='maquina.php'){
 			echo '<script>';
-			?>if(!Browser.Engine.webkit){window.addEvent('domready', function(){ new Fx.Accordion('#menu_main .padre', '#menu_main .opcl',{initialDisplayFx :false,opacity:false,display:<?php echo ($OpEn)?$OpEn:"''"; ?>}); });}<?php
+			?>if(!Browser.Engine.webkit || 1){
+
+				window.addEvent('domready', function(){ 
+
+					new Fx.Accordion('#menu_main .padre', '#menu_main .opcl',{initialDisplayFx :false,opacity:false,display:<?php echo ($OpEn)?$OpEn:"''"; ?>});
+					/* var accordion = new Accordion($$('.padre'),$$('.opcl'), { pre-MooTools More */
+					/*
+					var accordion = new Fx.Accordion($$('.padre'),$$('.opcl'), {
+						//opacity: 0,
+						//onActive: function(toggler) { toggler.setStyle('color', '#f30'); },
+						//onBackground: function(toggler) { toggler.setStyle('color', '#000'); }
+					});
+					*/
+				});
+
+			}<?php
 			echo '</script>';
 			}
 	}

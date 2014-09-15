@@ -1,6 +1,7 @@
 <?php //á 
 $THIS=$PARAMS['this'];
 $object=$OBJECT[$THIS];
+// prin($object);
 ?>
 <div class="div_fila">           
 
@@ -20,7 +21,7 @@ $object=$OBJECT[$THIS];
     
     <?php 		
 	
-	$gm=$object['menu']['5'];
+	$gm=$object['menu']['2'];
     ?><div id="son_menu_main_<?php echo $gm['id'];?>" class="div_fila_overflow div_menu <?php 
     web_selector_control($SELECTED,$THIS.'2',"menus",1);
     ?>" ><?php

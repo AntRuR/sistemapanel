@@ -1,5 +1,6 @@
 <?php //á
 
+
 $object=array();
 
 $secc=$SECCIONES[$_GET['sec']];
@@ -11,24 +12,57 @@ $filtro_where='';
 $filtro_param='';
 $filtro_nombre='';
 
-$object['p']=array(
-			'ids'=>array("name='banner_enlaces'"),
-			't'=>'4','w'=>'245','h'=>'109',
-			);
-			
-$object['settings']=array(
-		'label'=>$PARAMS['conector'],	
-		'width'	=>$object['p']['w'],
-		'height'=>$object['p']['h'],
-		'itemsporpagina'=>"1x1",
-		'vacio'=>"aún no hay fotos",
-		'titulo'=>"",	
-		'interval'=>"7000",	
-		'autoplay'=>"true",//[true,false]
-		'mode'=>"horizontal", //[horizontal,vertical]	
-		//'handles'=>"0",
-		'buttons'=>"1",
-		);	
+if($PARAMS['this']=='banner_enlaces'){
+
+			$object['p']=array(
+
+						'ids'=>array("name='banner_enlaces'"),
+						't'=>'4','w'=>'245','h'=>'240',
+						);
+
+			$object['settings']=array(
+					'label'=>$PARAMS['conector'],	
+					'width'	=>$object['p']['w'],
+					'height'=>$object['p']['h'],
+					'itemsporpagina'=>"1x2",
+					'vacio'=>"aún no hay fotos",
+					'titulo'=>"",	
+					'interval'=>"7000",	
+					'autoplay'=>"true",//[true,false]
+					'mode'=>"horizontal", //[horizontal,vertical]	
+					//'handles'=>"0",
+					'buttons'=>"1",
+					);	
+
+			$height=$object['p']['h']/2;
+
+} elseif($PARAMS['this']=='banner_enlaces2'){
+			// prin('hey');
+			$object['p']=array(
+						'ids'=>array("name='banner_enlaces2'"),
+						't'=>'4','w'=>'195','h'=>'140',
+						);
+
+			$object['settings']=array(
+					'label'=>$PARAMS['conector'],	
+					'width'	=>$object['p']['w'],
+					'height'=>$object['p']['h'],
+					'itemsporpagina'=>"1x1",
+					'vacio'=>"aún no hay fotos",
+					'titulo'=>"",	
+					'interval'=>"7000",	
+					'autoplay'=>"true",//[true,false]
+					'mode'=>"horizontal", //[horizontal,vertical]	
+					//'handles'=>"0",
+					'buttons'=>"1",
+					);	
+
+			$height=$object['p']['h'];			
+
+}	
+// prin($PARAMS['name']);
+// prin($object['p']);
+
 					
 foreach($object['p']['ids'] as $ii=>$ID){				
 
@@ -42,7 +76,7 @@ foreach($object['p']['ids'] as $ii=>$ID){
 			,0
 			,array(
 				'foto:url'=>'{url}',
-				'foto:atributos'=>array('atributos'=>'banfot_imas,{fecha_creacion},{file},'.$object['p']['t'].','.$object['p']['w'].'x'.$object['p']['h'].',1'),
+				'foto:atributos'=>array('atributos'=>'banfot_imas,{fecha_creacion},{file},'.$object['p']['t'].','.$object['p']['w'].'x'.$height.',1'),
 				//'foto:atributos'=>array('atributos'=>'banfot_imas,{fecha_creacion},{file},2,223x118,1'),
 				'esquema'=>'foto'
 				)	  
@@ -61,7 +95,7 @@ foreach($object['p']['ids'] as $ii=>$ID){
 	$object=array('items'=>$oGrupos); unset($oGrupos);
 	
 	$object['panel']='banners_fotos,banners_fotos_fotos';
-
+	// prin($PARAMS);
 	$OBJECT[$PARAMS['this']]=$object;
 	
 	$REMOOZZ=1;	

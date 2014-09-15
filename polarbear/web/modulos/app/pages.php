@@ -6,8 +6,9 @@ $filtro_param=$secc['param'];
 $filtro_nombre=$secc['nombre'];
 
 $object=array();
-
-$object=web_render_page($_GET['page'],$filtro_where);
+// prin($_GET);
+$object=web_render_page($_GET['page'],$filtro_where,array('foto_dimension'=>'380x500'));
+// prin($object);
 
 $OBJECT['pages']=$object;
 

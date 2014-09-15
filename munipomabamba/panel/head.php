@@ -3,6 +3,7 @@
 <html lang="es">
 <head>
 <title><?php echo $html_title?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 <?php
 /* ?><meta name="title" content="<?php echo $meta_title?>"/><?php */
@@ -27,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='586';
+$rrr='42';
 
 $needs=necesita_libs($objeto_tabla);
 
@@ -62,7 +63,11 @@ if($Local){ ?>
 <link href="<?php echo $sn2?>config/main.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
 
 <?php
-if($JAVASCRIPT_FRAMEWORK=="jquery"){
+
+
+
+if($JAVASCRIPT_FRAMEWORK=="jquery")
+{ //JQUERY
 ?>
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -84,13 +89,26 @@ if($JAVASCRIPT_FRAMEWORK=="jquery"){
     font-style: normal;
 }
 </style>
-
 <!--<link rel="stylesheet" href="css/docs.css">-->
 <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 <script data-main="js/" src="js/require.min.js"></script>
-
 <?php
-} else {
+
+if(isset($EXTRA_JSS) and sizeof($EXTRA_JSS)>0)
+foreach($EXTRA_JSS as $archivo){
+echo '<script type="text/javascript" src="'.$archivo.'"></script>';
+}
+
+if(isset($EXTRA_CSSS) and sizeof($EXTRA_CSSS)>0)
+foreach($EXTRA_CSSS as $archivo){
+echo '<link type="text/css" rel="stylesheet" href="'.$archivo.'" >';
+}
+
+?>
+<?php
+} //JQUERY END
+else 
+{ //MOOTOOLS
 
 ?>
 	<script type="text/javascript"
@@ -217,7 +235,8 @@ if($JAVASCRIPT_FRAMEWORK=="jquery"){
 	}
 	</style>
 	<?php
-	}
+
+}//END MOOTOOLS
 
 
 $LINK_COLOR_OPP=oppColour($LINK_COLOR);
@@ -225,10 +244,16 @@ $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
 <script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
 <style>
-body {
+/*body {
 	background: fixed;
 	background-image: url('<?php echo $BG_IMAGE;?>');
+}*/
+<?php if($SERVER['ARCHIVO']!='login.php'){ ?>
+.contenido_principal {
+	border: 0 !important;
+	margin-top: -3px;
 }
+<?php } ?>
 </style>
 <?php
 }

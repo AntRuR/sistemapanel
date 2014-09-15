@@ -1556,7 +1556,7 @@ $objeto_tabla['PRODUCTOS_VENTAS']=array(
 						'derecha'		=> '1',
 						'directlink'	=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1|1',
 						'ondlselect'	=> '0',
-						'opciones'		=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1',
+						'opciones'		=> 'id,nombre;apellidos;dni|clientes|where 0 and visibilidad=1',
 						'style'			=> 'width:320px;',
 						'tip_foreig'	=> '1',
 						'like'			=> '0',
@@ -2623,7 +2623,7 @@ $objeto_tabla['PROGRAMACIONES_OPERACIONES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -4387,7 +4387,7 @@ $objeto_tabla['PRODUCTOS_BLOQUES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1'
 );
 /******************************************************************************************************************************************************/
@@ -4450,7 +4450,7 @@ $objeto_tabla['PLACAS_TEMPORALES']=array(
 		'calificacion'	=> '0',
 		'edicion_rapida'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -4514,7 +4514,7 @@ $objeto_tabla['PRODUCTOS_COLORES']=array(
 		'calificacion'	=> '0',
 		'edicion_rapida'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -4763,7 +4763,7 @@ $objeto_tabla['BANCOS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -4836,7 +4836,7 @@ $objeto_tabla['PRODUCTOS_UBICACIONES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -4973,7 +4973,7 @@ $objeto_tabla['CHOFERES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -5069,7 +5069,7 @@ $objeto_tabla['PROVEEDORES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -5133,7 +5133,7 @@ $objeto_tabla['PRODUCTOS_STOCK_STATUS']=array(
 		'calificacion'	=> '0',
 		'edicion_rapida'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0',
 		'seccion'		=> 'status'
@@ -5198,7 +5198,7 @@ $objeto_tabla['TRASLADOS_STATUS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '0',
 		'disabled'		=> '0'
 );
@@ -5328,7 +5328,7 @@ $objeto_tabla['JEFES_GARANTIAS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0',
 		'seccion'		=> 'usuarios'
@@ -5475,7 +5475,7 @@ $objeto_tabla['SERVICIO_TECNIVO']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -5613,7 +5613,7 @@ $objeto_tabla['SERVICIO_TECNICO2']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -5751,7 +5751,7 @@ $objeto_tabla['USUARIO_IMPORTACIONES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -5881,7 +5881,7 @@ $objeto_tabla['TRAMITADORES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6011,7 +6011,7 @@ $objeto_tabla['USUARIOS_PROGRAMACIONES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6141,7 +6141,7 @@ $objeto_tabla['USUARIOS_ENTREGAS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6271,7 +6271,7 @@ $objeto_tabla['ADMINISTRADORES_VENTAS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6401,7 +6401,7 @@ $objeto_tabla['ADMINISTRADORES_GENERALES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6531,7 +6531,7 @@ $objeto_tabla['SUPER_ADMINISTRADORES']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -6729,7 +6729,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 								'2'			=> 'Cesado'
 						),
 						'foreig'		=> '1',
-						'style'			=> 'width:160px;display:none;',
+						'listyle'			=> 'width:160px;display:none;',
 						'width'			=> '120px',
 						'derecha'		=> '2',
 						'tip_foreig'	=> '1',
@@ -7875,7 +7875,7 @@ $objeto_tabla['VENTAS_STATUS']=array(
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'order_by'		=> 'calificacion asc',
 		'seccion'		=> 'configuraciones'
@@ -8044,7 +8044,7 @@ $objeto_tabla['CLIENTES_STATUS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '1',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -8108,7 +8108,7 @@ $objeto_tabla['MENSAJES_ALERTAS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '0',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1',
 		'disabled'		=> '0'
 );
@@ -8172,7 +8172,7 @@ $objeto_tabla['MENSAJES_STATUS']=array(
 		'expandir_vertical'=> '0',
 		'edicion_rapida'	=> '0',
 		'calificacion'	=> '0',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '0',
 		'disabled'		=> '0'
 );
@@ -9082,7 +9082,7 @@ $objeto_tabla['CONTACTO_CANALES']=array(
 		'calificacion'	=> '0',
 		'edicion_rapida'	=> '1',
 		'width_listado'	=> '300px',
-		'set_fila_fijo'	=> '3',
+		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1'
 );
 /******************************************************************************************************************************************************/

@@ -16,19 +16,19 @@ if($_GET['buscar']!=''){
 	
 	$VACIO	= "La búqueda <strong>".$_GET['buscar']."</strong> no obtuvo ningún resultado";
 	$TITULO = "Resultado para la búsqueda de ".$_GET['buscar'];
-	$PORPAG = 14;		
+	$PORPAG = 12;		
 	$ENLPAG = "index.php?".$filtro_param."modulo=items&acc=list&tab=".$PARAMS['conector']."&buscar=".$_GET['buscar']."&pag=";
 	$DISABLED = 0;	
 }
 /* HOME */
 elseif($_GET['modulo']=='app' and $_GET['tab']=='home'){
-	$FILTRO	= " and estructura in ('2') ";
-	//$FILTRO	= " and 1 ";
+	// $FILTRO	= " and estructura in ('2') ";
+	$FILTRO	= " and 1 ";
 	$ORDEN	= " order by fecha desc";
 	
 	$VACIO	= "No hay ninguna publicación en la página principal de ésta sección";
 	$TITULO = "Portada";
-	$PORPAG = 7;
+	$PORPAG = 12;
 	$ENLPAG = "index.php?".$filtro_param."modulo=items&acc=list&tab=".$PARAMS['conector']."&gru=0&pag=";	
 	$DISABLED = 1;
 }
@@ -39,7 +39,7 @@ else {
 
 	$TITULO = select_dato("nombre","newss_grupos","where id='".$_GET['gru']."'");
 	$VACIO	= "No hay ninguna publicación en la categoría <b>".$TITULO."</b>";
-	$PORPAG = 7;	
+	$PORPAG = 12;	
 	$ENLPAG = "index.php?".$filtro_param."modulo=items&tab=".$PARAMS['conector']."&acc=list&gru=".$_GET['gru']."&friendly=".$TITULO."&pag=";	
 	$DISABLED = 0;
 }
@@ -57,22 +57,15 @@ $LISTA = paginacion(
 			,'pagina_disabled'=>$DISABLED
             //,'onclick'=>"?pag="
         )
-        ,"id,id_grupo,fecha,nombre,resumen as texto,fecha_creacion"
-        ,$PARAMS['conector']
-        ,"where 1 and  visibilidad='1' $filtro_where $FILTRO $ORDEN"
+        ,"id,nombre,resumen as texto,fecha_creacion"
+        ,'servicios_items'
+        ,"where 1 and  visibilidad='1'"
         ,0
  		,array(
-		    'url'=>array('url'=>array("index.php?".$filtro_param."modulo=items&tab=".$PARAMS['conector']."&acc=file&id={id}&friendly={nombre}"))		
-			,'fecha'=>array('fecha'=>array('{fecha}','1'))
-						
-			,'item:regular'=>'foto,nombre?limit=100,fecha,texto?limit=250'
-			
-			,'grupo'=>array('fila'=>array('nombre,id','news_grupos','where id={id_grupo}'
-							,array(											
-								'url'=>array('url'=>array("index.php?modulo=items&tab=".$PARAMS['conector']."&acc=list&gru={id}&friendly={nombre}"))		
-							)
-					  ))
-
+		    'url'=>array('url'=>array("index.php?".$filtro_param."modulo=items&tab=servicios_items&acc=file&id={id}&friendly={nombre}"))		
+			// ,'fecha'=>array('fecha'=>array('{fecha}','1'))		
+			,'vermas'=>'Ver mas'
+			,'item:regular'=>'foto,nombre?limit=100,texto?limit=125,vermas?tag=a'
 			,'foto'=>array('foto'=>array(
 											"id,file,fecha_creacion|news_fotos|where id_item='{id}' and visibilidad='1' order by id desc limit 0,1"
 											,"newite_imas"
@@ -86,7 +79,7 @@ $LISTA = paginacion(
 			) 
         );
 
-//prin($LISTA);
+	// prin($LISTA);
 	
 	$LISTAS_FILAS=array();
 	
@@ -105,7 +98,8 @@ $LISTA = paginacion(
 	} else {
 	/* HOME */
 	
-		foreach($LISTA['filas'] as $fila){
+		foreach($LISTA['filas'] as $fila)
+		{
 				if($fila['foto']) $fila['foto']['get_atributos']=$fila['foto']['get_atributos']['regular'];				
 				if($fila['video_codigo']){ $fila['foto']['get_atributos']=' src="http://i4.ytimg.com/vi/'.$fila['video_codigo'].'/default.jpg" width="100" '; }
 				$fila['item']=$fila['item']['regular'];
@@ -113,7 +107,7 @@ $LISTA = paginacion(
 		}
 		
 		//if(sizeof($COL_MAIN)>0){	$COL_MAIN=array($COL_MAIN[0]);	}
-		if(sizeof($COL_SEC)>0){		$TEM=array(); foreach($COL_SEC as $i=>$e){		if($i<10){ $TEM[]=$e; }	} $COL_SEC	=$TEM; }
+		if(sizeof($COL_SEC)>0){		$TEM=array(); foreach($COL_SEC as $i=>$e){		if($i<20){ $TEM[]=$e; }	} $COL_SEC	=$TEM; }
 		//if(sizeof($COL_TRIPLE)>0){	$TEM=array(); foreach($COL_TRIPLE as $i=>$e){	if($i<3){ $TEM[]=$e; }	} $COL_TRIPLE=$TEM; }
 		
 		//if(sizeof($COL_MAIN)>0){	$LISTAS_FILAS[]=array('classStyle'=>'news_items_principal',	'items'=>$COL_MAIN); }
@@ -124,8 +118,7 @@ $LISTA = paginacion(
 	}
 	
 $LISTA['filas']=$LISTAS_FILAS;
-//
-
+	//
 	/*
 	$BANNER=array('1'=>'banner_construccion','2'=>'banner_industri_comercio','3'=>'banner_banca_finanzas','4'=>'banner_turismo','5'=>'banner_agropecuario_pesca','6'=>'banner_energia_minas','7'=>'banner_tecnologi_servicios','8'=>'banner_pymes');	
 	*/	

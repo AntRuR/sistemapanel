@@ -14,92 +14,54 @@ array(
 
 $object['menu']=array(
 					array(
-						'label'=>'INICIO',
+						'label'=>'Inicio',
 						'url'=>'index.php?modulo=app&tab=home',
 					),
 					array(
-						'url'=>'index.php?modulo=app&tab=transparencia',
-						'label'=>'TRANSPARENCIA',
+						'url'=>'index.php?modulo=app&tab=pages&page=quienes_somos',
+						'label'=>'Quienes Somos',
 					),
 					array(
-						'url'=>'index.php?modulo=items&tab=servicios_items&acc=file',
-						'label'=>'SERVICIOS',
+						'url'=>'index.php?modulo=app&tab=pages&page=servicios',
+						'label'=>'Servicios',
+						'id'=>'3'
 					),
 					array(
-						'url'=>'index.php?modulo=app&tab=enlinea',
-						'label'=>'EN LINEA',
+						'url'=>'index.php?modulo=app&tab=pages&page=nuestra_flota',
+						'label'=>'Nuestra Flota',
 					),
 					array(
-						'url'=>'index.php?modulo=items&tab=tramites_items&acc=file',
-						'label'=>'TRAMITES',
+						'url'=>'index.php?modulo=app&tab=pages&page=cobertura',
+						'label'=>'Cobertura',
 					),
 					array(
-						'url'=>'index.php?modulo=items&tab=obras_fotos&acc=list',
-						'label'=>'OBRAS',
-					),
-					array(
-						'url'=>'index.php?modulo=items&tab=turismo_fotos&acc=file',
-						'label'=>'TURISMO',
+						'url'=>'index.php?modulo=app&tab=pages&page=nuestros_clientes',
+						'label'=>'Nuestros Clientes',
 					),
 					array(
 					 	'url'=>'index.php?modulo=formularios&tab=contactenos',
-						'label'=>'CONTACTENOS',
-					),
-					/*
-					array(
-						'nombre'=>'Nuestra Historia',
-						'url'=>'index.php?modulo=app&tab=pages&page=nuestra-historia',
-					),
-					array(
-						'nombre'=>'Estatuto',
-						'url'=>'index.php?modulo=app&tab=pages&page=estatuto',
+						'label'=>'Contáctenos',
 					),					
-					array(
-						'nombre'=>'Concejo Nacional',
-						'url'=>'index.php?modulo=app&tab=pages&page=concejo-nacional',
-					),
-					array(
-						'nombre'=>'Secretariado Ejecutivo',
-						'url'=>'index.php?modulo=app&tab=pages&page=secretariado-ejecutivo',
-					),
-					*/
-					
-					// array(
-					// 	'nombre'=>'Departamentos',
-					// 	//'url'=>'index.php?modulo=items&tab=secciones&acc=list',//falta
-					// 	//'url'=>'index.php?modulo=app&tab=home',						
-					// 	'id'=>'6',		
-					// 	//'class'=>'noselected'
-					// ),										
-					// array(
-					// 	'nombre'=>'Contáctenos',
-					// 	'url'=>'index.php?modulo=formularios&tab=contactenos',
-					// ),	
-					// array(
-					// 	'nombre'=>'Consultas',
-					// 	'url'=>'index.php?modulo=formularios&tab=consultas',
-					// ),						
 																								
 				);							
 
 	
-	$object['menu']['5']['menu']=select(
+	$object['menu']['2']['menu']=select(
 	array(
 		"id",
-		"nombre",
-		"seccion"
+		"nombre as label"
 	),
-	'secciones',
-	'where 1 and visibilidad=1 and tipo=1
+	'servicios_items',
+	'where 1 and visibilidad=1 
 	order by id asc 	
-	limit 0,100',
+	limit 0,18',
 	0,
 	array(
-		'nombre'=>'Departamento de {nombre}',
-	    'url'=>array('url'=>array('url'=>"index.php?sec={seccion}&modulo=app&tab=home")),							
-	)
+		'url'=>'index.php?modulo=items&tab=servicios_items&acc=file&id={id}'
+		)
 	);		
-				
+			
+// prin($object);				
 
 $object['menu'] = web_procesar_menu($object['menu'],"izquierda");
 

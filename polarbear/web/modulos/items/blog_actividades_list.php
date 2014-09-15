@@ -64,7 +64,7 @@ elseif($_GET['gru']=='0' or empty($_GET['gru']) ){
 	$ORDEN	= " order by fecha desc";
 	
 	$VACIO	= "No hay ningun producto portada";
-	$TITULO = "Actividades";
+	$TITULO = "Comunicados";
 	$PORPAG = 10;
 	$ENLPAG = "index.php?".$filtro_param."modulo=items&acc=list&tab=".$PARAMS['conector']."&pag=";	
 

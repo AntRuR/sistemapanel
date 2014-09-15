@@ -244,29 +244,6 @@ extract($vars_server);
 extract($vars_server_mysql);
 extract($vars_server_ftp);
 
-$HTML_ALL_INICIO    = '<div id="div_allcontent" ><div id="div_contenedor" >';
-
-$HTML_MAIN_INICIO   = '<div class="contenido_principal '. ( ($_COOKIE['men'])?'menu_colapsed':'' ) .'" id="contenido_principal"  >';
-
-$HTML_CONTENT_INICIO= '<div class="line_content">';
-
-$HTML_CONTENT_FIN 	= '</div>';
-
-$HTML_ALL_FIN		= '</div></div>';
-
-$HTML_ALL_FIN		= '</div></div>';
-
-$HTML_ESQUINAS_ARRIBA    = '';
-
-$HTML_ESQUINAS_ABAJO    = '';
-
-define(HTML_ALL_INICIO,$HTML_ALL_INICIO);
-define(HTML_MAIN_INICIO,$HTML_MAIN_INICIO);
-define(HTML_MAIN_FIN,$HTML_MAIN_FIN);
-define(HTML_ALL_FIN,$HTML_ALL_FIN);
-
-$HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
-
 define(CLAV,"guillermolozan");
 
 $DEPARTAMENTOS_PERU = array(
@@ -654,4 +631,30 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 </IfModule>';
 
-?>
+
+
+// echo '<pre>';print_r($SERVER);echo '</pre>';
+
+$HTML_ALL_INICIO    = '<div id="div_allcontent" ><div id="div_contenedor" >';
+
+$HTML_MAIN_INICIO   = '<div class="contenido_principal '. ( (  ($SERVER['ARCHIVO']!='login.php') and $_COOKIE['men'])?'menu_colapsed':'' ) .'" id="contenido_principal"  >';
+
+$HTML_CONTENT_INICIO= '<div class="line_content">';
+
+$HTML_CONTENT_FIN 	= '</div>';
+
+$HTML_ALL_FIN		= '</div></div>';
+
+$HTML_ALL_FIN		= '</div></div>';
+
+$HTML_ESQUINAS_ARRIBA    = '';
+
+$HTML_ESQUINAS_ABAJO    = '';
+
+define(HTML_ALL_INICIO,$HTML_ALL_INICIO);
+define(HTML_MAIN_INICIO,$HTML_MAIN_INICIO);
+define(HTML_MAIN_FIN,$HTML_MAIN_FIN);
+define(HTML_ALL_FIN,$HTML_ALL_FIN);
+
+$HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
+

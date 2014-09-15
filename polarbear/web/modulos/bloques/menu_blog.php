@@ -12,11 +12,11 @@ $object=array();
 
 $object['menu']=array(
 					array(
-							'label'=>"Notas",
+							'label'=>"Noticias",
 							'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_noticias&acc=list',
 					),
 					array(
-							'label'=>"Actividades",
+							'label'=>"Comunicados",
 							'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_actividades&acc=list',
 					),
 					array(
@@ -35,7 +35,7 @@ switch($_GET['tab']){
 case "blog_noticias":	
 
 	$object['header']=array(
-						'nombre'=>'Últimas Notas',
+						'nombre'=>'Últimas Noticias',
 						'url'=>procesar_url('index.php?'.$filtro_param.'modulo=items&tab=blog_noticias&acc=list'),
 					  );
 
@@ -60,7 +60,7 @@ case "blog_noticias":
 			)
 		);
 	$object['footer']=array(
-						'nombre'=>'Ver Todas las Notas',
+						'nombre'=>'Ver Todas las Noticias',
 						'url'=>procesar_url('index.php?'.$filtro_param.'modulo=items&tab=blog_noticias&acc=list'),
 					  );							
 
@@ -68,7 +68,7 @@ break;
 case "blog_actividades":	
 
 	$object['header']=array(
-						'nombre'=>'Últimas Actividades',
+						'nombre'=>'Últimos Comunicados',
 						'url'=>procesar_url('index.php?'.$filtro_param.'modulo=items&tab=blog_actividades&acc=list'),
 					  );
 	
@@ -94,7 +94,7 @@ case "blog_actividades":
 		);
 		
 	$object['footer']=array(
-						'nombre'=>'Ver Todas las Actividades',
+						'nombre'=>'Ver Todos los Comunicados',
 						'url'=>procesar_url('index.php?'.$filtro_param.'modulo=items&tab=blog_actividades&acc=list'),
 					  );					  		
 

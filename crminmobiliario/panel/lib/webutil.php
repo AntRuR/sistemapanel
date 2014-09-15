@@ -2552,16 +2552,18 @@ function web_item($item,$ITEM,$debug=0){
 			if($Param['orphant']=='1'){
 				$html.=$item[$est];
 			} else {
+
 				$tag=($tag)?$tag:"div";
 				$class=($class)?$class:$est;
-				if($tag=='a' and $item['url']){
+				if($tag=='a' and $item['url']){ 				
 				if($item['url']){ $html.= "<a class=\"$extraclass $class\" $Target href=\"".$item['url']."\" title='".$item[$est]."'>"; }
 
 
 				if($MENU_ITEM['src']!=''){
 				$html.='<img src="'. ( ($MENU_ITEM['src-sel'] and $MENU_ITEM['selected']=='selected')?$MENU_ITEM['src-sel']:$MENU_ITEM['src'] ).'" alt="'.$MENU_ITEM['label'].'" />';
 				} else {
-				$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
+				$html.=$item[$est];
+				// $html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
 				}
 
 				if($item['url']){ $html.= "</a>"; }

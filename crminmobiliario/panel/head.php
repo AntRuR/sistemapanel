@@ -28,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='36';
+$rrr='53';
 
 $needs=necesita_libs($objeto_tabla);
 
@@ -251,7 +251,6 @@ $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 <?php if($SERVER['ARCHIVO']!='login.php'){ ?>
 .contenido_principal {
 	border: 0 !important;
-	margin-top: -3px;
 }
 <?php } ?>
 </style>

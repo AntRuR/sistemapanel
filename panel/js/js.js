@@ -431,13 +431,19 @@ function abrir_crear(set,save){
 	if($('titulo_crear')){
 		if(set=='1'){
 			$('bloque_content_crear').setStyles({'display':'block'});
+			$('inner').setStyles({'display':'none'});
+			$('segunda_barra_2').setStyles({'display':'none'});
 			//load_crear();
 			ax('resetear');
 		} else {
 			$('bloque_content_crear').setStyles({'display':'none'});
+			$('inner').setStyles({'display':'block'});
+			$('segunda_barra_2').setStyles({'display':'block'});
 		}
 	} else {
 		load_crear();
+		$('inner').setStyles({'display':'none'});
+		$('segunda_barra_2').setStyles({'display':'none'});
 	}
 	if($('abrir_crear')){
 		$0(((set==1)?"abrir":"cerrar" )+"_crear");

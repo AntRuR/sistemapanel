@@ -176,8 +176,9 @@ $LIBRARIES['tablas']=array('name'=>"Tbl",'value'=>
 
 //date_default_timezone_set('America/New_York');
 // date_default_timezone_set('America/Lima');
-
+// echo '<pre>';print_r($_SERVER);echo '</pre>';
 $vars=parse_ini_file("config/config.ini",true);
+$vars['LOCAL']['url_publica']=str_replace(array("localhost","127.0.0.1"),$_SERVER['HTTP_HOST'],$vars['LOCAL']['url_publica']);
 //echo "<pre>"; print_r($vars); echo "</pre>";
 $vars_global=$vars['GENERAL'];
 
@@ -245,7 +246,7 @@ extract($vars_server_ftp);
 
 $HTML_ALL_INICIO    = '<div id="div_allcontent" ><div id="div_contenedor" >';
 
-$HTML_MAIN_INICIO   = '<div class="contenido_principal" id="contenido_principal"  >';
+$HTML_MAIN_INICIO   = '<div class="contenido_principal '. ( ($_COOKIE['men'])?'menu_colapsed':'' ) .'" id="contenido_principal"  >';
 
 $HTML_CONTENT_INICIO= '<div class="line_content">';
 

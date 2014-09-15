@@ -2,7 +2,7 @@
 ?><script>
 var styleinfi='<?php
 	if($SERVER['browser']=='Firefox'){
-	echo "margin-left:0px;";
+	echo "margin-left:69px;";
 	} elseif($SERVER['browser']=='Opera'){
 	echo "margin-left:-154px;";
 	} elseif($SERVER['browser']=='Chrome'){
@@ -426,8 +426,8 @@ foreach($tbcampos as $tbcampA){
 ?>v_o:MMEE<?php
 ?>};<?php
 ?>new Request({url:"ajax_sql.php?<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=login&debug=0", method:'post', data:datos, onSuccess:function(ee) {<?php
-?>if(ee!=''){ location.href='index.php'; } else {<?php
-?>show_error(3);<?php
+?>if(ee!=''){ location.href='index.php'; $('ul_menus_empty').addClass('ul_menus_empty_si'); } else {<?php
+?>show_error(3,'Error');$('ul_menus_empty').addClass('ul_menus_empty_no');<?php
 ?>$('in_submit').disabled=false;<?php
 ?>$('in_submit').value='Entrar';<?php
 ?>} } } ).send();<?php
@@ -877,7 +877,15 @@ if($('edit_hidd').value.trim()!=id && $('edit_hidd').value.trim()!=''){	ax('e_a'
 $('edit_hidd').value=id;
 $0('lc_'+id);
 $1('lec_'+id);<?php
-			foreach($tblistado as $tbli){ if($tbli['indicador']=='1' or $tbli['noedit']=='1') continue;
+			foreach($tblistado as $tbli){ 
+
+				if(
+					$tbli['indicador']=='1' or 
+					$tbli['noedit']=='1' or 
+					isset($tbli['directlink']) or
+					$datos_tabla['edicion_rapida']=='0'
+					)  continue;
+
 				if($tbli['listable']=='1' and $tbli['constante']!='1'){
 
 						   if($tbli['tipo']=='sto'){
@@ -951,9 +959,8 @@ $1('lec_'+id);<?php
 							}
 
 							if(in_array($tbli['tipo'],array('fch'))){
-
-							if($tbcampA['rango']){
-							list($uuno,$ddos)=explode(",",$tbcampA['rango']);
+							if($tbli['rango']){
+							list($uuno,$ddos)=explode(",",$tbli['rango']);
 							$FromYear = date("Y",strtotime($uuno));
 							$ToYear = date("Y",strtotime($ddos));
 							} else {
@@ -1218,7 +1225,7 @@ $('bloque_content_stat').innerHTML=ee;
 
 function load_repos(){
 //$1('cargando_form');
-new Request({url:'repos.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',  method:'get', onSuccess:function(ee) {
+new Request({url:'repos.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',evalScripts:true,  method:'get', onSuccess:function(ee) {
 $('bloque_content_repos').setStyles({'display':'block'});
 $('bloque_content_repos').innerHTML=ee;
 //pre_crear();
@@ -1234,6 +1241,10 @@ reloa = (relo)?"&rt="+$random(1,999):"";
 <?php } ?>
 $('tempar_'+hijo).value=$('tempar_'+hijo+'_pre').value+"|"+idparent;
 $('tempar_'+hijo+'_iframe').innerHTML="<iframe frameborder='0' src='custom/"+hijo+".php?block=form"+reloa+"&tipo="+TipoHijo+"&id="+idparent+"' ></iframe>";
+}
+
+function ponerafter(el,html){
+	$(el).after(html);
 }
 
 window.addEvent('domready',function(){

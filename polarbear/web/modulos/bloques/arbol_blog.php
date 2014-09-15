@@ -17,12 +17,12 @@ $object['items'][]=array(
 								),
 						'menu'=>array_merge(array(
 										array(
-												'label'=>"Notas",
+												'label'=>"Noticias",
 												'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_noticias&acc=list',
 												'nivel'=>'menu_nivel_2',												
 										),
 										array(
-												'label'=>"Actividades",
+												'label'=>"Comunicados",
 												'nivel'=>'menu_nivel_2',												
 												'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_actividades&acc=list',
 										),

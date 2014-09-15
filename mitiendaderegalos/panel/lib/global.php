@@ -246,7 +246,7 @@ extract($vars_server_ftp);
 
 $HTML_ALL_INICIO    = '<div id="div_allcontent" ><div id="div_contenedor" >';
 
-$HTML_MAIN_INICIO   = '<div class="contenido_principal" id="contenido_principal"  >';
+$HTML_MAIN_INICIO   = '<div class="contenido_principal '. ( ($_COOKIE['men'])?'menu_colapsed':'' ) .'" id="contenido_principal"  >';
 
 $HTML_CONTENT_INICIO= '<div class="line_content">';
 

@@ -57,7 +57,10 @@ include_once("formularios/formularios.php");
 		,'tipo'=>'textarea'
 		,'validacion'=>"validate['required'] autoinput"
 		//,'value'=>array('')
-	)							
+	)		
+		,'captcha'=>array(
+			'tipo'=>'captcha'
+		)							
 )	
 					/*CAMPOS-END*/
 					

@@ -45,6 +45,7 @@ function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
 		//prin($match);
 	}
 	$consulta="select $campos from $tabla $donde";
+	// echo $consulta;
 	//}
 	$result=mysql_query($consulta,$link);
 	//$result=mysql_query($consulta,$link) or $error=mysql_error;
@@ -478,6 +479,8 @@ function hay($tabla,$donde,$debug=0){
 	return $return;
 }
 
+function isthere($tabla,$donde,$debug=0){ hay($tabla,$donde,$debug); }
+
 function aumentar($campo,$tabla,$where){
 
 	$valor=select_dato($campo,$tabla,$where);
@@ -819,6 +822,9 @@ function fecha_formato($ff,$op=0){
 		case "8": //23-09-09 12:53 pm
 			$fecha=date("d-m-y g:i a",$unix);
 			break;
+		case "8b": //23 de Setiembre de 2009
+			$fecha=date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)])." de ".date("Y - g:i a",$unix);
+			break;			
 		case "9": //hace 10 seg
 			$fecha=calcular_tiempo($unix);
 			break;
