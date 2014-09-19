@@ -1,6 +1,6 @@
 <?php
 
-$_GET=$_REQUEST;
+$_GET=($_SERVER['REQUEST_METHOD']=='POST')?$_POST:$_GET;
 
 include("../../panel/lib/webutil.php");
 
@@ -19,8 +19,6 @@ web_guardar_datos($_GET);
 if($_GET['file']=='css' and $_GET['var']=='CLASSSELECTED'){
 
 	include("master.php");
-
-	include("css.php");
 
 	include("loaders.php");
 
@@ -97,37 +95,34 @@ if($_GET['file']=='css' and $_GET['var']=='CLASSSELECTED'){
 
 
 //	$buff_base=implode("",file("../templates/".THEME_PATH."/css/css.css"));
-	$buff_base=implode("",file("../../panel/lib/bridge/css.css"));
+	// $buff_base=implode("",file("../../panel/lib/bridge/css.css"));
 
 	//print_r(file("../templates/".THEME_PATH."/css/css_particular.php"));
 
-	$buff_base_particular=file_get_contents(str_replace("modulos/lib/","",$SERVER['BASE'])."templates/".THEME_PATH."/css/css_particular.php");
+	// $buff_base_particular=file_get_contents(str_replace("modulos/lib/","",$SERVER['BASE'])."templates/".THEME_PATH."/css/css_particular.php");
 
 	//@$buff_base_particular=implode("",file("../templates/".THEME_PATH."/css/css_particular.php"));
 
-	if(sizeof($FLOTANTES)>0){
-	foreach($FLOTANTES as $class=>$ccssss){
-	$buff.=".".$class." { ".$ccssss." }\n";
-	$buff_temp.=".".$class." { ".$ccssss." }\n";
-	}
-	}
+	// if(sizeof($FLOTANTES)>0){
+	// foreach($FLOTANTES as $class=>$ccssss){
+	// $buff.=".".$class." { ".$ccssss." }\n";
+	// $buff_temp.=".".$class." { ".$ccssss." }\n";
+	// }
+	// }
 
-	$buff=$buff_base.$buff.$buff_base_particular;
+	// $buff=$buff_base.$buff.$buff_base_particular;
 	//$buff=$buff_base_particular;
 	//$buff=str_replace("modulos/lib/","",$SERVER['BASE'])."templates/".THEME_PATH."/css/css_particular.php";
-	if($MASTERCOFIG['comprimir_css']){
 
-		$buff=compress($buff);
 
-	}
 
-	$f1=fopen("../templates/".THEME_PATH."/lib/css.css","w+");
-	fwrite($f1,$buff);
-	fclose($f1);
+	// $f1=fopen("../templates/".THEME_PATH."/lib/css.css","w+");
+	// fwrite($f1,$buff);
+	// fclose($f1);
 
-	$f10=fopen("../templates/".THEME_PATH."/lib/css_temp.css","w+");
-	fwrite($f10,$buff_temp);
-	fclose($f10);
+	// $f10=fopen("../templates/".THEME_PATH."/lib/css_temp.css","w+");
+	// fwrite($f10,$buff_temp);
+	// fclose($f10);
 
 	$buff_jss=array();
 	foreach($JSC['js'] as $jsss){
@@ -165,31 +160,6 @@ if($_GET['file']=='css' and $_GET['var']=='CLASSSELECTED'){
 }
 
 
-	function compress($buffer) {
 
-		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
-
-		$buffer = str_replace(array(
-									"\r\n"
-									, "\r"
-									, "\n"
-									, "\t"
-									//, '  '
-									, '    '
-									, '    '
-									), '', $buffer);
-		$buffer = str_replace('{ ', '{', $buffer);
-		$buffer = str_replace(' }', '}', $buffer);
-		$buffer = str_replace('; ', ';', $buffer);
-		$buffer = str_replace(', ', ',', $buffer);
-		$buffer = str_replace(' {', '{', $buffer);
-		$buffer = str_replace('} ', '}', $buffer);
-		$buffer = str_replace(': ', ':', $buffer);
-		$buffer = str_replace(' ,', ',', $buffer);
-		$buffer = str_replace(' ;', ';', $buffer);
-
-
-	return $buffer;
-	}
 
 ?>

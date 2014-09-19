@@ -1940,29 +1940,7 @@ function web_guardar_datos($GET,$debug=0){
 
 } else {
 
-	if($GET['var']=='CLASSPARAMETERS'){
 
-		$GET2=array();
-		if($GET['file']=='css'){
-			$GET2['file']=$GET['file'];
-			$GET2['var']=$GET['var'];
-			foreach($GET as $uno => $dos){
-				if(!in_array($uno,array("var","file"))){
-					$xinco=explode("%23%23%23%23",$dos);
-					foreach($xinco as $xinc){
-						$xxxin=explode("\n",$xinc);
-						$TyPe=strtolower(trim($xxxin[0]));
-						if($TyPe!=''){
-						unset($xxxin[0]);
-						$GET2[$uno."-".$TyPe]=implode("\n",$xxxin);
-						}
-					}
-				}
-			}
-		$GET=$GET2;
-		}
-
-	}
 
 
 	//GENERAL
@@ -1986,12 +1964,8 @@ function web_guardar_datos($GET,$debug=0){
 		$ttt='';
 
 		foreach($VAR as $uno=>$dos){
-			if($GET['var']=='CLASSPARAMETERS'){
-				list($aaa,$bbb)=explode("-",$uno);
-				$ttt.= "\$".$GET['var']."['$uno']='".parametros_encode($dos,$bbb)."';\n";
-			} else {
-				$ttt.= "\$".$GET['var']."['$uno']='$dos';\n";
-			}
+			$ttt.= "\$".$GET['var']."['$uno']='$dos';\n";
+			
 		}
 		/*$keys=array_keys($_GET['var']);*/
 
@@ -2007,45 +1981,6 @@ function web_guardar_datos($GET,$debug=0){
 
 }
 
-function clean_css_css(){
-
-	$allcs=implode("",file("css.php"));
-
-	$Default=array('footers'=>'form_05','bloques'=>'bloque_cuadro_18','listados'=>'listado_15','arboles'=>'arbol_01','menus'=>'menu_22');
-
-	list($uno,$dos,$tres)=between($allcs,"/*WEBBLOQUES-START*/","/*WEBBLOQUES-END*/");
-	eval($dos);
-
-	list($uno0,$dos0,$tres0)=between($allcs,"/*CLASSSELECTED-START*/","/*CLASSSELECTED-END*/");
-	eval($dos0);
-
-	$CSS='';
-	foreach($WEBBLOQUES as $uno=>$dos){
-		$ddos=explode(",",$dos);
-		foreach($ddos as $dddos){
-		$CSS.="\$CLASSSELECTED['".$uno."-".$dddos."']='".(($CLASSSELECTED[$uno."-".$dddos])?$CLASSSELECTED[$uno."-".$dddos]:$Default[$dddos])."';\n";
-		}
-	}
-	$allcs=$uno0."/*CLASSSELECTED-START*/\n".$CSS."/*CLASSSELECTED-END*/\n".$tres0;
-
-	list($uno0,$dos0,$tres0)=between($allcs,"/*CLASSPARAMETERS-START*/","/*CLASSPARAMETERS-END*/");
-	eval($dos0);
-
-	$CPS='';
-	foreach($WEBBLOQUES as $uno=>$dos){
-		$ddos=explode(",",$dos);
-		foreach($ddos as $dddos){
-		$CPS.="\$CLASSPARAMETERS['".$uno."-".$dddos."']='".$CLASSPARAMETERS[$uno."-".$dddos]."';\n";
-		}
-	}
-	$allcs=$uno0."/*CLASSPARAMETERS-START*/\n".$CPS."/*CLASSPARAMETERS-END*/\n".$tres0;
-
-	$f1=fopen("css.php","w+");
-	fwrite($f1,$allcs);
-	fclose($f1);
-
-
-}
 
  function parametros_preprocess($string,$base=false){
 
@@ -3179,7 +3114,7 @@ function render_foreig_subs($obj0,$id,$urd){
 							break;
 							case "fcr":	case "fch":
 							$fech=fecha_formato($linea[$camP],($objeto_tabla[$obj['obj']]['campos'][$camP]['formato'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['formato']:'0b');
-							echo '<span style="font-size:11px;">'.(($fech!='')?$fech:"&nbsp;")."</span>";
+							echo '<span class="fche">'.(($fech!='')?$fech:"&nbsp;")."</span>";
 							break;
 							case "html":
 							echo ($linea[$camP]!='')?"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>":"&nbsp;";

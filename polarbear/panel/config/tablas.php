@@ -175,7 +175,7 @@ $objeto_tabla['PAGINAS']=array(
 		'tabla'			=> 'paginas',
 		'archivo'		=> 'paginas',
 		'prefijo'		=> 'pag',
-		'eliminar'		=> '1',
+		'eliminar'		=> '0',
 		'crear'			=> '0',
 		'editar'		=> '1',
 		'buscar'		=> '0',
@@ -216,7 +216,7 @@ $objeto_tabla['PAGINAS']=array(
 						'listable'		=> '1',
 						'validacion'	=> '1',
 						'constante'		=> '1',
-						'setup'			=> 'quienes_somos,nuestra_flota,cobertura,nuestros_clientes'
+						'setup'			=> 'nuestra_flota,cobertura'
 				),
 				'titulo'		=>array(
 						'campo'			=> 'titulo',
@@ -263,8 +263,101 @@ $objeto_tabla['PAGINAS']=array(
 		'seccion'		=> 'paginas',
 		'grupo'			=> 'contenidos',
 		'edicion_completa'=> '1',
-		'web'			=> '0'
+		'web'			=> '0',
+		'visibilidad'	=> '0'
 );
+
+
+$objeto_tabla['EMPRESA_ITEMS']=array(
+		'titulo'		=> 'Empresa',
+		'nombre_singular'=> 'item de empresa',
+		'nombre_plural'	=> 'items de empresa',
+		'tabla'			=> 'empresa_items',
+		'archivo'		=> 'empresa_items',
+		'archivo_hijo'	=> 'news_fotos',
+		'prefijo'		=> 'serite',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '670px',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '1',
+		'buscar'		=> '1',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Empresa',
+		'por_pagina'	=> '20',
+		'me'			=> 'EMPRESA_ITEMS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Título',
+						'unique'		=> '1',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'like'			=> '1',
+						'width'			=> '230px',
+						'controles'		=> '<a href="custom/news_fotos.php?id=[id]">{select count(*) from news_fotos where id_item=[id]} fotos</a>',
+						'control'		=> '1',
+						'size'			=> '250'
+				),
+
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Publicación',
+						'tipo'			=> 'html',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'width'			=> '150px',
+						'style'			=> 'height:350px,'
+				),
+				'pdf'			=>array(
+						'campo'			=> 'pdf',
+						'label'			=> 'PDF',
+						'tipo'			=> 'sto',
+						'width'			=> '300px',
+						'style'			=> 'width:200px;',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'doc',
+						'carpeta'		=> 'pdf_fil',
+						'name'			=> 'nombre',
+						'enlace'		=> 'down'
+				),
+				'page'			=>array(
+						'campo'			=> 'page',
+						'tipo'			=> 'page'
+				)
+		),
+		'grupo'			=> 'contenidos',
+		'edicion_completa'=> '1',
+		'page'			=> '0',
+		'creacion_hijo'	=> 'news_fotos'
+);
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['SERVICIOS_ITEMS']=array(
@@ -366,6 +459,8 @@ $objeto_tabla['SERVICIOS_ITEMS']=array(
 		'page'			=> '0',
 		'creacion_hijo'	=> 'news_fotos'
 );
+/******************************************************************************************************************************************************/
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['NEWS_FOTOS']=array(
@@ -2532,9 +2627,7 @@ $objeto_tabla['BLOG_FOTOS']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['BLOG_FOTOS_FOTOS']=array(
-		'titulo'		=> '<a href="custom/blog_fotos.php">Bloques de fotos</a>
-
-                          - Fotos del Bloque {select nombre from blog_fotos where id=[id]}',
+		'titulo'		=> 'Fotos : {select nombre from blog_fotos where id=[id]}',
 		'nombre_singular'=> 'foto',
 		'nombre_plural'	=> 'fotos',
 		'tabla'			=> 'blog_fotos_fotos',
@@ -2781,9 +2874,7 @@ $objeto_tabla['OBRAS_FOTOS']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['OBRAS_FOTOS_FOTOS']=array(
-		'titulo'		=> '<a href="custom/obras_fotos.php">Bloques de fotos</a>
-
-                          - Fotos del Bloque {select nombre from obras_fotos where id=[id]}',
+		'titulo'		=> 'Fotos : {select nombre from obras_fotos where id=[id]}',
 		'nombre_singular'=> 'foto',
 		'nombre_plural'	=> 'fotos',
 		'tabla'			=> 'obras_fotos_fotos',
@@ -2956,9 +3047,7 @@ $objeto_tabla['OBRAS_FOTOS2']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['OBRAS_FOTOS2_FOTOS']=array(
-		'titulo'		=> '<a href="custom/obras_fotos2.php">Bloques de fotos</a>
-
-                          - Fotos del Bloque {select nombre from obras_fotos2 where id=[id]}',
+		'titulo'		=> 'Fotos : {select nombre from obras_fotos2 where id=[id]}',
 		'nombre_singular'=> 'foto',
 		'nombre_plural'	=> 'fotos',
 		'tabla'			=> 'obras_fotos2_fotos',
@@ -3133,9 +3222,7 @@ $objeto_tabla['TURISMO_FOTOS']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['TURISMO_FOTOS_FOTOS']=array(
-		'titulo'		=> '<a href="custom/turismo_fotos.php">Bloques de fotos</a>
-
-                          - Fotos del Bloque {select nombre from turismo_fotos where id=[id]}',
+		'titulo'		=> 'Fotos : {select nombre from turismo_fotos where id=[id]}',
 		'nombre_singular'=> 'foto',
 		'nombre_plural'	=> 'fotos',
 		'tabla'			=> 'turismo_fotos_fotos',
@@ -3533,10 +3620,10 @@ $objeto_tabla['BANNERS_FOTOS']=array(
 		'archivo'		=> 'banners_fotos',
 		'archivo_hijo'	=> 'banners_fotos_fotos',
 		'prefijo'		=> 'banfot',
-		'eliminar'		=> '1',
+		'eliminar'		=> '0',
 		'editar'		=> '1',
 		'crear'			=> '0',
-		'visibilidad'	=> '1',
+		'visibilidad'	=> '0',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
 		'menu'			=> '1',
@@ -3600,9 +3687,7 @@ $objeto_tabla['BANNERS_FOTOS']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['BANNERS_FOTOS_FOTOS']=array(
-		'titulo'		=> '<a href="custom/banners_fotos.php">Bloques de fotos</a>
-
-                          - Fotos del Bloque {select nombre from banners_fotos where id=[id]}',
+		'titulo'		=> 'Fotos : {select nombre from banners_fotos where id=[id]}',
 		'nombre_singular'=> 'foto',
 		'nombre_plural'	=> 'fotos',
 		'tabla'			=> 'banners_fotos_fotos',
@@ -3771,9 +3856,7 @@ $objeto_tabla['BANNERS2_FOTOS']=array(
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['BANNERS2_FOTOS_FOTOS']=array(
-		'titulo'		=> '<a href="custom/banners2_fotos.php">Bloques de fotos</a>
-
-                          - Fotos del Bloque {select nombre from banners2_fotos where id=[id]}',
+		'titulo'		=> 'Fotos : {select nombre from banners2_fotos where id=[id]}',
 		'nombre_singular'=> 'foto',
 		'nombre_plural'	=> 'fotos',
 		'tabla'			=> 'banners2_fotos_fotos',

@@ -176,7 +176,7 @@ a.link_header {
 
 
 .itms .itm .itd {
-font-family: PTN57F !important;    
+/* font-family: PTN57F !important; */    
 text-transform: capitalize;
 }
 

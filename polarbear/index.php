@@ -1,29 +1,33 @@
 <?php //á
+// session_start();
+// echo '<pre>';print_r($_GET); echo '</pre>';
+// echo '<pre>';print_r($_SESSION); echo '</pre>';
+// echo '<pre>';print_r($_COOKIE); echo '</pre>';
 
-if($_GET['modulo']!='error'){
+// if($_GET['modulo']!='error'){
 
-	$visitor_file="visitor.txt";
-	$vis=implode("",file($visitor_file));
-	if (!isset($_COOKIE['visiter2'])){
-	setcookie('visiter2','1',time()+60*60*24);
-	$f1=fopen($visitor_file,"w+");
-	fwrite($f1,++$vis);
-	fclose($f1);	
-	}
-	$VISITAS=$vis;
-}
+// 	$visitor_file="visitor.txt";
+// 	$vis=implode("",file($visitor_file));
+// 	if (!isset($_COOKIE['visiter2'])){
+// 	setcookie('visiter2','1',time()+60*60*24);
+// 	$f1=fopen($visitor_file,"w+");
+// 	fwrite($f1,++$vis);
+// 	fclose($f1);	
+// 	}
+// 	$VISITAS=$vis;
+// }
 
-$web_path="web"; //ruta de la carpeta web 
+$web_path="app"; //ruta de la carpeta web 
 
 $panel_path="panel"; //ruta de la carpeta modulos 
 
-include($panel_path."/lib/compresionInicio.php"); //compresion
+// include($panel_path."/lib/compresionInicio.php"); //compresion
 
-if(isset($_GET['buscar'])){ 
- $_GET['modulo']='items';
- $_GET['tab']='productos';
- $_GET['acc']='list';
-}
+// if(isset($_GET['buscar'])){ 
+//  $_GET['modulo']='items';
+//  $_GET['tab']='productos';
+//  $_GET['acc']='list';
+// }
 
 $file = $_GET['modulo'].".php"; //define modulo a incluir
 
@@ -33,5 +37,5 @@ include("driver.php");
 
 chdir($root_dir);
 
-include($panel_path."/lib/compresionFinal.php"); //compresion
+// include($panel_path."/lib/compresionFinal.php"); //compresion
 

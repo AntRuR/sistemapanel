@@ -141,8 +141,9 @@ a, .alink {
 /* font-family: 'caviar_dreamsregular' !important; */
 }
 .itms .itm .itd {
-font-family: PTN57F !important;    
+/* font-family: PTN57F !important; */    
 text-transform: capitalize;
+font-size: 1em;
 }
 .modificador_grilla .first_linea .nc {
 font-family: PTN77F !important;        
@@ -155,7 +156,7 @@ font-family: PTN77F !important;
  * modulo_productos_items
  */
 .modulo_productos_items .modificador .itms {
-    width: 100% !important;
+    /* width: auto !important; */
 }
 #html_reporte {
     margin-top: 9px;

@@ -208,10 +208,6 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 
 	$labelA=array();
 
-	$obj['menu_borde']=(isset($obj['menu_borde']))?$obj['menu_borde']:1;
-	$obj['lados_flotantes']=(isset($obj['lados_flotantes']))?$obj['lados_flotantes']:0;
-	$obj['lados_externos']=(isset($obj['lados_externos']))?$obj['lados_externos']:1;
-	$obj['lados_internos']=(isset($obj['lados_internos']))?$obj['lados_internos']:1;
 	$obj['ul']=(isset($obj['ul']))?$obj['ul']:"ul";
 	$obj['id']=(isset($obj['id']))?$obj['id']:'';
 	$obj['rel']=(isset($obj['rel']))?$obj['rel']:'';
@@ -222,10 +218,10 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 	$html ="";
 	$html.="<div class='area_menu' ".( ($obj['id']!="")?"id='".$obj['id']."' ":'')." ".( ($obj['rel']!="")?"id='".$obj['rel']."' ":'')." >";
 
-	if($obj['lados_externos']==1){
-		$html.="<div class='div_menu_izq'></div>\n";
-		$html.="<div class='div_menu_der'></div>\n";
-	}
+	// if($obj['lados_externos']==1){
+	// 	$html.="<div class='div_menu_izq'></div>\n";
+	// 	$html.="<div class='div_menu_der'></div>\n";
+	// }
     $html.="<$UL class='ul' >";
 	$e=0;
 	foreach($MENU as $i=>$men){
@@ -233,12 +229,6 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 		$out=($men['target']=='_blank')?" target='_blank' ":'';
 
 		$men['label']=($men['label'])?$men['label']:$men['nombre'];
-
-		if($e==0){
-			if($obj['lados_flotantes']==1){
-				$html.=($men['lado']=="derecha")?"<div class='div_menu_float_der' style='float:right;'></div>\n":"<div class='div_menu_float_izq'></div>\n";
-			}
-		}
 
 		$iii=($men['id'])?$men['id']:$i+1;
 
@@ -249,33 +239,40 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 			 .( ($men['lado']=="derecha")?"style='float:right'":'')." "
 			 .((trim($class)=='')?"":"class='".trim($class)."'")
 			 ." >";
-		if($obj['lados_internos']==1){
-			$html.= "<div class='menu_izq'></div>";
-			$html.= "<div class='menu_der'></div>";
-		}
-		if($obj['menu_borde']==1){
-			$html.= ($obj['ul']=='ul')?"<span class='menu_borde'></span>":'';
-		}
+
 		$tag=($obj['id']=='menu_main')?'h2':$tag;
 		$labelA=explode("|",$men['label']);
+		$manylabels=(sizeof($labelA)>1);
 		foreach($labelA as $ii=>$label){
+			$line=($manylabels)?"class='line_".$ii."'":"";
 			if( $men['disabled']=='1' ){
-				$html.= "<$tag><a title='".$label."' $out class='line_".$ii."' href='#' onclick=\"javacript:return false;\">";
+				$html.= "<$tag><a title='".$label."' $out $line  href='#' onclick=\"javacript:return false;\">";
 				$html.=$label;
 				$html.="</a></$tag>";
 			} elseif( $men['onclick']!='' ){
 				$ShowTab=($obj['id']!='')?"ShowTab('".$obj['id']."','".$iii."');":"";
-				$html.= "<$tag><a title='".$label."' $out class='line_".$ii."' href='#' rel='nofollow' onclick=\"javacript:".$ShowTab.str_replace("\"","'",$men['onclick']).";return false;\">";
+				$html.= "<$tag><a title='".$label."' $out $line href='#' rel='nofollow' onclick=\"javacript:".$ShowTab.str_replace("\"","'",$men['onclick']).";return false;\">";
 				$html.=$label;
 				$html.="</a></$tag>";
 			} else {
-				$html.= "<$tag><a title='".$label."' $out class='line_".$ii."' ".( ($men['url'] or $men['url']=='')?"href='".$men['url']."'":"" ).">";
+				$html.= "<$tag><a title='".$label."' $out $line ".( ($men['url'] or $men['url']=='')?"href='".$men['url']."'":"" ).">";
 				$html.=$label;
 				$html.="</a></$tag>";
 			}
 		}
 		$html.=($obj['id']=='menu_main')?'</h2>':'';
+
+		// prin($men['menu']);
+		if(sizeof($men['menu'])>0){
+			$obj_sub=$obj;
+			$obj_sub['return']=1;
+			$obj_sub['id']=$obj['id'].'_'.$iii;
+			$html.=web_render_menu($men['menu'],$obj_sub,'h3');
+		}
+
 		$html.= "</$LI>";
+
+
 
 		if($e==sizeof($MENU)-1){
 			if($obj['lados_flotantes']==1){
@@ -289,6 +286,7 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 
     $html.="</$UL>";
     $html.="</div>";
+    if($obj['return']) return $html;
 	echo $html;
 }
 
@@ -312,27 +310,27 @@ global $HEAD;
 
 function web_render_esquinas($numFrom=1,$numTo=2,$label=""){
 $html="";
-$esquina[1]='<div class="arriba_izquierda'.$label.'"></div>';
-$esquina[2]='<div class="arriba_derecha'.$label.'"></div>';
-$esquina[3]='<div class="abajo_izquierda'.$label.'"></div>';
-$esquina[4]='<div class="abajo_derecha'.$label.'"></div>';
+// $esquina[1]='<div class="arriba_izquierda'.$label.'"></div>';
+// $esquina[2]='<div class="arriba_derecha'.$label.'"></div>';
+// $esquina[3]='<div class="abajo_izquierda'.$label.'"></div>';
+// $esquina[4]='<div class="abajo_derecha'.$label.'"></div>';
 
-for($i=$numFrom;$i<=$numTo;$i++){
-$html.=$esquina[$i];
-}
+// for($i=$numFrom;$i<=$numTo;$i++){
+// $html.=$esquina[$i];
+// }
 echo $html;
 }
 
 function web_render_item_borde($class=NULL,$numFrom=1,$numTo=4){
 $html="";
-$esquina[1]='<div class="'.$class.' bors bor-1"><b>&bull;</b></div>';
-$esquina[2]='<div class="'.$class.' bors bor-2"><b>&bull;</b></div>';
-$esquina[3]='<div class="'.$class.' bors bor-3"><b>&bull;</b></div>';
-$esquina[4]='<div class="'.$class.' bors bor-4"><b>&bull;</b></div>';
+// $esquina[1]='<div class="'.$class.' bors bor-1"><b>&bull;</b></div>';
+// $esquina[2]='<div class="'.$class.' bors bor-2"><b>&bull;</b></div>';
+// $esquina[3]='<div class="'.$class.' bors bor-3"><b>&bull;</b></div>';
+// $esquina[4]='<div class="'.$class.' bors bor-4"><b>&bull;</b></div>';
 
-for($i=$numFrom;$i<=$numTo;$i++){
-$html.=$esquina[$i];
-}
+// for($i=$numFrom;$i<=$numTo;$i++){
+// $html.=$esquina[$i];
+// }
 echo $html;
 
 
@@ -1792,10 +1790,10 @@ function web_render_edit_toolbar($SELS){
     <span id="selects">
 	<a href="panel" style="position:absolute; right:8px; top:0px; padding-left:1px; padding-right:1px; color:#000; background-color:#fff; outline:1px solid #000;" rel="nofollow" title="Panel" >p</a>
 	<a href="#" style="position:absolute; background-color:green; right:20px; top:0px; color:#FFF;padding:0 2px; outline:1px solid #000;" onclick="subircss(); return false;" title="Subir css" rel="nofollow" >c</a>
-	<?php if($MASTERCOFIG['editar_css']){ ?>
+	<?php  if($MASTERCOFIG['editar_css']){ ?>
     <a href="#" style="position:absolute; background-color:#993300; right:60px; top:0px; color:#FFFFFF; outline:1px solid #000;" onclick="saveparams(); return false;" title="Save" rel="nofollow" >param</a>
     <a href="#" style="position:absolute; background-color:#FF0000; right:33px; top:0px; color:#FFFFFF; outline:1px solid #000;" onclick="saveclass(); return false;" title="Save" rel="nofollow" >class</a>
-    <?php } ?>
+    <?php }  ?>
     <a href="#" style="position:absolute; background-color:yellow; right:95px; top:0px; color:#000;padding:0 2px; outline:1px solid #000;" onclick="updateupdate(); return false;" title="Save" rel="nofollow" >a</a>
 
 
@@ -1811,120 +1809,11 @@ function web_render_edit_toolbar($SELS){
 <span style="position:absolute; background-color:blue; right:69px; top:-17px; color:#FFFFFF;" title="$_SESSION" rel="<?php foreach($_SESSION as $GG=>$EE){ echo "<b>".$GG."</b> : ".$EE."<br>"; } ?>" class="thisisatooltip">_ses</span>
 
 <span style="position:absolute; background-color:black; right:0px; top:-32px; color:#FFF;" ><?php echo $HEAD['INCLUDE']['version'];?></span>
-    <script>
-	var myTips = new Tips('.thisisatooltip',{fixed:true,'className':'class_tip_1'});
-	</script>
 
-	<?php
-	if($MASTERCOFIG['editar_css']){
-
-	foreach($SELS as $SS0=>$SEL0){
-
-		$clax='';
-		if( substr($SS0,0,6)=='header' or
-			substr($SS0,0,6)=='footer' or
-			substr($SS0,0,4)=='menu' or
-			$SS0=='bar' or
-			$VAR=='status'
-			){ $clax='common'; }
-		//if(substr($SS0,-5)=='_file' or substr($SS0,-5)=='_list'){ $SS0='itemss'; }
-		if(in_array($SS0,array('page','home','contacto','recomendar','carrito','login','registrar'))){ $clax='usual'; }
-
-		echo "<script>
-		window.addEvent('domready',function(){
-			$$('.id_".$SS0."').each(function(element) {
-				Element('div', {
-					'class': 'ayudaselect',
-					'text': '".$SS0."',
-					'events':{ 'click':function(){	$('".$SS0."_div').addClass('varr_sel'); } }
-				}).inject(element);
-				element.addEvent('dblclick', function(){
-					$('".$SS0."_div').addClass('varr_sel');
-				});
-				element.addEvent('mouseover', function(){
-					element.addClass('markarselected');
-					$('".$SS0."_div').addClass('bvarr_sel');
-				});
-				element.addEvent('mouseout', function(){
-					element.removeClass('markarselected');
-					$$('.varr').removeClass('bvarr_sel');
-				});
-			});
-		});
-		</script>";
-		echo "<li class='varr' style='display:". ( ($SS0=='web')?'':'none' ) .";' id='".$SS0."_div' ";
-		echo " onmouseout=\"outselected('".$SS0."');\" ";
-		echo " onmouseover=\"overselected('".$SS0."');\" ";
-		echo ">";
-		echo "<a class='elemen ".$clax." elemen2' style='padding:0 2px;' ";
-		echo " onclick=\"$('".$SS0."_div').addClass('varr_sel');\" ";
-		echo " ondblclick=\"$('".$SS0."_div').removeClass('varr_sel');\" ";
-		echo ">".$SS0."</a>";
-		$xtx='';
-		foreach($SEL0 as $SS=>$SEL){
-			list($aa3,$bb3)=explode("-",$SS);
-			$xtx.="####                                  ".strtoupper($bb3)."\n".parametros_decode($CLASSPARAMETERS[$SS],$bb3)."\n\n";
-		}
-		$xtxn=explode("\n",$xtx);
-		echo "<textarea class='PARAMS' id='PARAMS_".$SS0."' style='height:".( 15*sizeof($xtxn) )."px;' ";
-		echo " onclick=\"$('".$SS0."_div').addClass('varr_sel');\" ";
-		echo " ondblclick=\"$('".$SS0."_div').removeClass('varr_sel');\" ";
-		echo " onkeypress=\"if(event.keyCode==27){ $('".$SS0."_div').removeClass('varr_sel');}\" ";
-		echo " >";
-		echo $xtx;
-		echo "</textarea>";
-		echo "<div class='controls' style='top:-".( 15*sizeof($xtxn) + 23 )."px;'>";
-		echo ".id_".$SS0;
-		echo '<a onclick="$(\''.$SS0.'_div\').removeClass(\'varr_sel\'); return false;" href="#">x</a>';
-		echo "</div>";
-
-		$tttp[]="'".$SS0."'".":\$v('PARAMS_".$SS0."').replace(/#/g,\"%23\")";
-		echo "<div class='ovarr' id='ovarr_".$SS0."'>";
-		foreach($SEL0 as $SS=>$SEL){
-			echo "<span class='varro' id='varro_".$SS."' >";
-			//echo "<b>".$SS0."</b> <strong>".$SEL['tipo']."</strong>";
-			list($aa3,$bb3)=explode("-",$SS);
-//			echo "<textarea id='PARAMS_".$SS."' >". ( parametros_decode($CLASSPARAMETERS[$SS],$bb3) ) ."</textarea>";
-			echo "<label ";
-			//echo " onclick=\"clicktextarea('PARAMS_".$SS."','TXT_".$SS."');\" ";
-			echo " for='".$SS."'
-			>".$SEL['tipo']."</label>";
-			echo "</span>";
-
-			foreach($SEL['options'] as $SE){
-				$tren[]=$SE['option'];
-			}
-			$tren_opciones=implode("|",$tren);
-			unset($tren);
-			$CCPP="name=".$SS."&".str_replace("#","",$CLASSPARAMETERS[$SS]);
-			echo "<select
-			id='".$SS."'
-			onchange=\"putclass('".$SEL['path']."','". $tren_opciones ."',this.value,'".$SS."','".$CCPP."')\"
-			onkeyup=\"putclass('".$SEL['path']."','". $tren_opciones ."',this.value,'".$SS."','".$CCPP."')\"
-			style=\"".(($SS0=='web')?'visibility:hidden;width:2px;':'')."\"
-			>";
-			echo "<option value=''></option>";
-			foreach($SEL['options'] as $SE){
-				$exp=explode("_",$SE['option']);$opcion=$exp[sizeof($exp)-1];
-				echo "<option value='".$SE['option']."' ". ( ($SE['selected']=='1')?'selected':'' ) ." >".$opcion."</option>";
-			}
-			echo "</select>";
-			echo "<input value='".$HEAD['INCLUDES']['cssabs']["css_".$SS]."' >";
-			$ttt[]="'".$SS."'".":\$('".$SS."').value";
-		}
-		$tttt[]="$$('.id_".$SS0."').each(function(element){ $1('".$SS0."_div'); });\n";
-		echo "</div>";
-		echo "</li>";
-
-	}
-
-	}
-
-?>
 	</span>
 
-
 	</div>
+
     </div>
 
 	<script type="application/javascript">
@@ -2070,48 +1959,6 @@ function web_render_edit_toolbar($SELS){
 
 		echo implode("",$tttt);
 
-		if($MASTERCOFIG['editar_flotantes']==1){
-
-		foreach($BLOQUES_FLOTANTES as $rrr=>$ttt){
-			$rrrr[]="'$rrr'";
-		}?>
-		var BLOQUES_FLOTANTES = [<?php echo implode(",",$rrrr);?>];
-		var div_abs=new Array();
-		var er=0;
-		$$('.div_absoluto').each(function(element) {
-			div_a=element.getProperty('class').replace("div_absoluto","").trim();
-			div_aa=div_a.split(" ");
-			div_a=(div_aa[0].substr(0,4)!='div_')?div_aa[0]:div_aa[1];
-			if(!BLOQUES_FLOTANTES.contains(div_a)){
-			if(!div_abs.contains(div_a)){
-			div_abs[er++]=div_a;
-			//alert(div_a);
-			data= { 'file':'css','var':'BLOQUES_FLOTANTES' }
-			eval("data= { 'file':'css','var':'BLOQUES_FLOTANTES','"+div_a+"':'auto,auto' }");
-			new Request({
-					url: 'web/modulos/lib/saveclass.php',
-					onSuccess:function(ee){
-						//location.href='<?php echo $_SERVER['REQUEST_URI']?>';
-					}
-				}).send({
-				method: 'post',
-				data:data
-			});
-			}
-			}
-		});
-		<?php
-		foreach($BLOQUES_FLOTANTES as $ckass=>$ma){?>
-        $$('.<?php echo $ckass;?>').each(function(el) {
-		el.removeProperty('href');
-		new Drag(el,{
-		'onComplete':function(el){
-			new Request({url: 'web/modulos/lib/saveclass.php'}).send({method: 'post',data: { 'file':'css','var':'FLOTANTES','<?php echo $ckass; ?>':"top:"+el.getStyle('top')+";left:"+el.getStyle('left')+";" }});
-
-		}
-		});});
-		<?php }
-		}
 		?>
 	});
 
@@ -2123,6 +1970,7 @@ function web_render_edit_toolbar($SELS){
 
 
 function web_render_get_css($objs,$CLASSSELECTED){
+
 	global $SERVER;
 	global $HEAD;
 	global $SELECTORS;
@@ -2138,126 +1986,26 @@ function web_render_get_css($objs,$CLASSSELECTED){
 	$Ruta2 = $local.'/panel/csslib/';
 	$Ruta3 = "../../../panel/csslib/";
 
-	if($_SESSION['edicionweb']=='1' and $SERVER['LOCAL']=='1' and $MASTERCOFIG['editar_css']=='1'){
-
-		foreach($objs as $key=>$obj){
-
-			$objA=array();
-			$objA=explode(",",$obj);
-
-			foreach($objA as $ob){
-
-				$obj2['id_class']=$key."-".$ob;
-				$obj2['carpeta']=$ob;
-				$obj2['selected']=$CLASSSELECTED[$obj2['id_class']];
-				$iidd=$obj2['id_class'];
-				$carpeta=$obj2['carpeta'];
-
-
-				$directorio=$Ruta3.$carpeta;
-				if(is_dir($directorio)){
-					$directorio_s = dir($directorio);
-					while($fichero=$directorio_s->read()) {
-						$archivo=$directorio."/".$fichero;
-						if($fichero!='.' and $fichero!='..' and is_dir($archivo) ){
-							$arra2[]=$fichero;
-						}
-					}
-					$directorio_s->close();
-				}
-
-
-				foreach($arra2 as $arr){
-					//echo "../../".THEME_PATH.'css/'.$carpeta."/".$arr.'/css.css'; echo "<br>";
-					if(file_exists($Ruta3.$carpeta."/".$arr.'/css.css')){
-						//$it['path']='css/'.$carpeta."/".$arr.'/css.css';
-						$it['option']=$arr;
-						if($arr==$obj2['selected']){
-							$it['selected']=1;
-						}
-						$SELECTORS[$key][$iidd]['tipo']=$LIBRARIES[$ob]['name'];
-						$SELECTORS[$key][$iidd]['path']=$Ruta2.$carpeta;
-						$SELECTORS[$key][$iidd]['options'][]=$it;
-						unset($it);
-					}
-				}
-
-				unset($arra2);
-
-			}
-
-
-		}
-
-		list($local,$dos)=explode($vars['INTERNO']['CARPETA_PROYECTO'],$SERVER['BASE']);
-		/*
-		$Url_panel_lib=$vars['LOCAL']['url_publica']."/web/templates/".THEME_PATH."/css/";
-		$Path_panel_lib="../templates/".THEME_PATH."/css/lib/";
-		*/
-		$Url_panel_lib=$local."/panel/csslib/";
-		$Path_panel_lib="../../../panel/csslib/";
-
-		foreach($WEBBLOQUES as $key=>$obj){
-
-			$objA=array();
-			$objA=explode(",",$obj);
-
-			foreach($objA as $ob){
-
-				$obj2['id_class']=$key."-".$ob;
-				$obj2['carpeta']=$ob;
-				$obj2['selected']=$CLASSSELECTED[$obj2['id_class']];
-				$iidd=$obj2['id_class'];
-				$carpeta=$obj2['carpeta'];
-
-				$ccssss[$obj2['id_class']."|".$obj2['carpeta']."/".$CLASSSELECTED[$obj2['id_class']]]=$obj2['carpeta']."/".$CLASSSELECTED[$obj2['id_class']];
-
-			}
-
-		}
-
-		$HEAD['INCLUDES']['css'][]='css/css.css';
-
-		$HEAD['INCLUDES']['css'][]='lib/css_temp.css';
-
-		foreach($ccssss as $Nam=>$cs){
-
-			list($name,$ex)=explode("|",$Nam);
-			$uurrll=$Url_panel_lib.$cs."/css.css?name=".$name."&".str_replace("#","",$CLASSPARAMETERS[$name]);
-	/* 		echo $uurrll."\n";
-			echo $cs."\n\n";	 	*/
-			$HEAD['INCLUDES']['cssabs']['css_'.$name]=$uurrll;
-
-		}
-
-		$HEAD['INCLUDES']['cssabs'][]=$local.$vars['INTERNO']['CARPETA_PROYECTO'].'/'.THEME_PATH.'css/css_particular.php?particular=1';
-
-
-	} else {
-
-		$HEAD['INCLUDES']['css'][]='lib/css.css';
-
-	}
+	$HEAD['INCLUDES']['css'][]='lib/css.css';
 
 	$SELECTED=$CLASSSELECTED;
-
 
 }
 
 function web_selector_control($SELECTED,$THIS,$tipos,$debug=0){
-	$tiposA=array();
-	$tiposA=explode(",",$tipos);
+	// $tiposA=array();
+	// $tiposA=explode(",",$tipos);
 	echo "id_".$THIS." ";
-	foreach($tiposA as $tipo){
-		echo $THIS."-".$tipo." ".$SELECTED[$THIS."-".$tipo]." ";
-	}
-	global $_SESSION; global $SERVER;
-	if($_SESSION['edicionweb']=='1' and $SERVER['LOCAL']=='1'){
-		global $MASTERCOFIG;
-		if($MASTERCOFIG['edicion_bloques']){
-			web_guardar_datos(array('file'=>'../../modulos/css','var'=>'WEBBLOQUES',$THIS=>$tipos),$debug);
-		}
-	}
+	// foreach($tiposA as $tipo){
+	// 	echo $THIS."-".$tipo." ".$SELECTED[$THIS."-".$tipo]." ";
+	// }
+	// global $_SESSION; global $SERVER;
+	// if($_SESSION['edicionweb']=='1' and $SERVER['LOCAL']=='1'){
+	// 	global $MASTERCOFIG;
+	// 	if($MASTERCOFIG['edicion_bloques']){
+	// 		web_guardar_datos(array('file'=>'../../modulos/css','var'=>'WEBBLOQUES',$THIS=>$tipos),$debug);
+	// 	}
+	// }
 }
 
 function incluget($archivo,$p=NULL){
@@ -2661,12 +2409,13 @@ function web_render_colap_2($id,$titulo,$contenido){
         <div class="boton boton_open" title="abrir" ></div>
         <div class="boton boton_close" title="cerrar" ></div>
         </div>
-        <div class="contenido""><?php echo $contenido;?></div>
+        <div class="contenido"><?php echo $contenido;?></div>
     </div>
 	<?php
 }
 
 function web_render_colap($id,$titulo,$contenido,$open=false){
+	// echo ;
 	?>
     <div class="colapsable <?php echo ($open)?'open':'close'; ?>" id="<?php echo $id;?>">
         <div class="barra" >
@@ -2698,7 +2447,7 @@ function web_render_colap($id,$titulo,$contenido,$open=false){
         });
     });
     </script>
-	<?php
+	<?php 
 }
 
 function web_render_menu_footer($menus){
@@ -2922,7 +2671,7 @@ function web_selected($menu,$GET){
 	return $Menu;
 }
 
-function web_render_page($this,$filtro=NULL){
+function web_render_page($this,$filtro=NULL,$opciones=NULL){
 
 	$result=fila(
 		"id,pagina,titulo,texto,foto,foto_descripcion,fecha_creacion"
@@ -2932,7 +2681,7 @@ function web_render_page($this,$filtro=NULL){
 		,array(
 				'carpeta'=>'pag_imas'
 				,'tamano'=>'2'
-				,'dimensionado'=>'250x250'
+				,'dimensionado'=>($opciones['foto_dimension'])?$opciones['foto_dimension']:'380x250'
 				//,'centrado'=>'1'
 				,'get_atributos'=>array('get_atributos'=>array(
 											'carpeta'=>'{carpeta}'
@@ -2972,7 +2721,7 @@ function css_render_esquinas($ID,$DIR,$opciones){
 	$files=array(
 		'barra_arriba'=>array('barra_arriba'),
 		'barra_abajo'=>array('barra_abajo'),
-		'block'=>array('arriba_izquierda','arriba_derecha','abajo_izquierda','abajo_derecha'),
+		// 'block'=>array('arriba_izquierda','arriba_derecha','abajo_izquierda','abajo_derecha'),
 		'arrow_left'=>array('but_prev'),
 		'arrow_right'=>array('but_next'),
 		'but_handle'=>array('but_handle','but_handle_selected'),
@@ -3074,13 +2823,13 @@ function css_render_menu($ID,$DIR,$opciones){
 				'item_bg'=>'.CLOSS .area_menu ul li',
 				'item_selected_bg'=>'.CLOSS .area_menu ul li.selected, .CLOSS .area_menu ul li:hover, .CLOSS .area_menu ul li.hover',
 
-				'item_izq'=>'.CLOSS .area_menu ul li .menu_izq',
-				'item_der'=>'.CLOSS .area_menu ul li .menu_der',
-				'item_selected_izq'=>'.CLOSS .area_menu ul li.selected .menu_izq, .CLOSS .area_menu ul li:hover .menu_izq, .CLOSS .area_menu ul li.hover .menu_izq',
-				'item_selected_der'=>'.CLOSS .area_menu ul li.selected .menu_der, .CLOSS .area_menu ul li:hover .menu_der, .CLOSS .area_menu ul li.hover .menu_der',
+				// 'item_izq'=>'.CLOSS .area_menu ul li .menu_izq',
+				// 'item_der'=>'.CLOSS .area_menu ul li .menu_der',
+				// 'item_selected_izq'=>'.CLOSS .area_menu ul li.selected .menu_izq, .CLOSS .area_menu ul li:hover .menu_izq, .CLOSS .area_menu ul li.hover .menu_izq',
+				// 'item_selected_der'=>'.CLOSS .area_menu ul li.selected .menu_der, .CLOSS .area_menu ul li:hover .menu_der, .CLOSS .area_menu ul li.hover .menu_der',
 
-				'div_menu_izq'=>'.CLOSS .area_menu ul div.div_menu_float_izq',
-				'div_menu_der'=>'.CLOSS .area_menu ul div.div_menu_float_izq',
+				// 'div_menu_izq'=>'.CLOSS .area_menu ul div.div_menu_float_izq',
+				// 'div_menu_der'=>'.CLOSS .area_menu ul div.div_menu_float_izq',
 				);
 
 	foreach($files as $type=>$files2){
