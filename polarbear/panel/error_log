@@ -263,3 +263,6 @@ Stack trace:
 [07-Aug-2012 09:41:41] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 78 bytes) in /home/userinca/public_html/panel/lib/PHPExcel/Shared/String.php on line 561
 [27-Aug-2012 15:16:05] PHP Parse error:  syntax error, unexpected $end in /home/userinca/public_html/panel/lib/util.php on line 371
 [27-Aug-2012 15:54:11] PHP Parse error:  syntax error, unexpected $end, expecting ')' in /home/userinca/public_html/panel/config/tablas.php on line 8275
+[15-Sep-2014 11:05:52 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home/polarbea/public_html/panel/vista.php on line 102
+[15-Sep-2014 11:05:53 America/Lima] PHP Parse error:  syntax error, unexpected ''c' (T_ENCAPSED_AND_WHITESPACE), expecting ']' in /home/polarbea/public_html/panel/vista.php on line 784
+[15-Sep-2014 11:06:09 America/Chicago] PHP Parse error:  syntax error, unexpected ''' (T_ENCAPSED_AND_WHITESPACE) in /home/polarbea/public_html/panel/lib/global.php on line 154

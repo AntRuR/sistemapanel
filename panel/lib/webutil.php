@@ -32,39 +32,50 @@ $INCLUDE=$HEAD['INCLUDE'];
 
 $html ='';
 $html.='<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"><!--<![endif]-->
+<!--[if lt IE 7]>      <html lang="es_ES" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="es_ES" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="es_ES" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="es_ES" class="no-js"> <!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="imagetoolbar" content="no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 ';
 if($HEAD['meta_descripcion']){ $html.='<meta name="description" content="'.$HEAD['meta_descripcion'].'" />
 '; }
 if($HEAD['meta_keywords']){ $html.='<meta name="keywords" content="'.$HEAD['meta_keywords'].'" />
 '; }
-//$html.='<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>';
-$html.='<meta http-equiv="content-language" content="es" />
-<meta name="robots" content="index,follow"/>
+$html.='<meta name="robots" content="index,follow"/>
 <meta name="googlebot" content="index, follow" />
 <title>'.$HEAD['titulo'].'</title>
 <base href="'.$SERVER['BASE'].'" />
 <link rel="canonical" href="'. $SERVER['URL'] .'" />
 ';
+
+/**
+ * FACEBOOK
+ */
 foreach($HEAD['facebook'] as $var=>$val){
 $html.='<meta property="'.$var.'" content="'.$val.'"/>
 ';}
 
-//INCLUDES
+/**
+ * OTHER METAS
+ */
 foreach($INCLUDES['meta'] as $var=>$val){
 $html.='<meta http-equiv="'.$var.'" content="'.$val.'"/>
 ';}
+
+/**
+ * FAVICON
+ */
 foreach($INCLUDES['ico'] as $file){
 $html.='<link rel="shortcut icon" href="'.$SERVER['BASE'].THEME_PATH.$file.$INCLUDE['version'].'" type="image/x-icon" />
 ';}
+
+/**
+ * WEB FONTS AND EXTERNAL CSS
+ */
 foreach($INCLUDES['external_css'] as $file){
 $html.='<link type="text/css" rel="stylesheet" href="'.$file.'" />
 ';}
@@ -1969,28 +1980,6 @@ function web_render_edit_toolbar($SELS){
 }
 
 
-function web_render_get_css($objs,$CLASSSELECTED){
-
-	global $SERVER;
-	global $HEAD;
-	global $SELECTORS;
-	global $SELECTED;
-	global $vars;
-	global $LIBRARIES;
-	global $WEBBLOQUES;
-	global $CLASSSELECTED;
-	global $CLASSPARAMETERS;
-	global $MASTERCOFIG;
-	list($local,$dos)=explode($vars['INTERNO']['CARPETA_PROYECTO'],$SERVER['BASE']);
-
-	$Ruta2 = $local.'/panel/csslib/';
-	$Ruta3 = "../../../panel/csslib/";
-
-	$HEAD['INCLUDES']['css'][]='lib/css.css';
-
-	$SELECTED=$CLASSSELECTED;
-
-}
 
 function web_selector_control($SELECTED,$THIS,$tipos,$debug=0){
 	// $tiposA=array();

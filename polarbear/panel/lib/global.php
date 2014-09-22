@@ -206,7 +206,6 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$SERVER['LOCAL']=1;
 	$LOCAL=1;
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
-	// error_reporting(E_ALL);
 
 } else {
 	$vars_server=$vars['REMOTE'];
@@ -245,7 +244,7 @@ extract($vars_server);
 extract($vars_server_mysql);
 extract($vars_server_ftp);
 
-define('CLAV',"guillermolozan");
+define(CLAV,"guillermolozan");
 
 $DEPARTAMENTOS_PERU = array(
 							"Amazonas",
@@ -644,7 +643,7 @@ $HTML_CONTENT_INICIO= '<div class="line_content">';
 
 $HTML_CONTENT_FIN 	= '</div>';
 
-$HTML_MAIN_FIN		= '</div></div>';
+$HTML_ALL_FIN		= '</div></div>';
 
 $HTML_ALL_FIN		= '</div></div>';
 
@@ -652,10 +651,10 @@ $HTML_ESQUINAS_ARRIBA    = '';
 
 $HTML_ESQUINAS_ABAJO    = '';
 
-define('HTML_ALL_INICIO',$HTML_ALL_INICIO);
-define('HTML_MAIN_INICIO',$HTML_MAIN_INICIO);
-define('HTML_MAIN_FIN',$HTML_MAIN_FIN);
-define('HTML_ALL_FIN',$HTML_ALL_FIN);
+define(HTML_ALL_INICIO,$HTML_ALL_INICIO);
+define(HTML_MAIN_INICIO,$HTML_MAIN_INICIO);
+define(HTML_MAIN_FIN,$HTML_MAIN_FIN);
+define(HTML_ALL_FIN,$HTML_ALL_FIN);
 
 $HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
 

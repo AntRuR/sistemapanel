@@ -1,1 +1,0 @@
-var clear='http://localhost/sistemapanel/polarbear/web/modulos/lib/defaultimg/clear.gif'
