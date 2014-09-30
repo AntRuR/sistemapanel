@@ -1,0 +1,672 @@
+vendorx-prefixes = webkit o moz official
+
+
+@import 'nib'
+
+@import 'nib_fix'
+
+
+
+// @import 'normalize'
+
+// @import 'fonts'
+
+
+$img_path='../../../img'
+
+$page_width=982
+
+
+
+@import 'libs'
+
+
+
+
+/**
+ * ESTRUCTURA
+ */
+
+body
+	background #125586 url($img_path/body_bg.jpg) repeat-x fixed center 0
+	font-family: calibri,helvetica,arial,sans-serif,tahoma,verdana
+	font-size: 12px
+	margin-bottom 10px
+	header,
+	footer,
+	nav,
+	section.contenido
+		width: ($page_width)px
+		margin 0 auto
+		position relative
+	nav
+		margin-top -58px				
+	section.contenido
+		background rgba(255, 255, 255, 0.5)
+
+
+
+/**
+ * COMMON : HEADER
+ */
+header
+	background rgba(white,0.7)
+	height: 117px
+	figure
+		position absolute
+		top 7px
+		left 7px
+
+
+
+/**
+ * COMMON : MENU PRINCIPAL
+ */		
+header + nav
+	z-index: 1000;
+	height 58px;
+	text-align right
+	> ul
+		list-style: none;
+		padding: 0;
+		margin: 0;			
+		display: inline-block;
+		text-align: center;
+		margin-right 10px
+		> li
+			position: relative;
+			margin: 0 12px;			
+			// background #FC0;	
+			background: url($img_path/menu_item_bg.png) repeat-x;					
+			border: 0;
+			padding: 0	
+			float: left
+			transition:all 0.5s linear;	
+			height 22px								
+			// border-radius: 10px 10px 0px 0px;
+			&:before
+				background: url($img_path/menu_item_left.png) no-repeat;
+				width: 40px;
+				content: "";
+				height: 22px;
+				position: absolute;
+				left: -22px;					
+			&:after				
+				background: url($img_path/menu_item_right.png) no-repeat;
+				width: 22px;
+				content: "";
+				height: 22px;
+				position: absolute;
+				right: -21px;
+				z-index: 26;				
+			a
+				height: auto;
+				color: white;
+				font-weight: bold;
+				padding: 4px 1px;
+				float: left;
+				white-space: nowrap;
+				font-family: 'Titillium Web','caviar_dreamsregular', "Helvetica Neue"
+				font-size: 0.9em;
+				text-transform: uppercase;
+				text-decoration: none;
+			// .selected,					
+			// &:hover
+			// 	transition:all 0.5s linear;					
+			// 	background #264F80
+			// 	a
+			// 		text-decoration: underline
+			> .area_menu
+				position absolute
+				top 22px
+				left -20px
+				overflow hidden
+				> ul
+					margin-top -100%
+					box-shadow 4px 2px 10px #444
+					display block
+					transition:all 0.3s linear;
+					> li
+						background white
+						border-radius 0 !important;
+						width 100% 
+						clear left
+						float left
+						border-top 1px solid #ccc
+						height auto
+						&:before
+						&:after
+							display none	
+						a
+							font-size: 1em;
+							padding: 9px 19px;
+			&:hover
+				a
+					color #9bd7ff
+				.area_menu
+					> ul
+						margin-top 0%
+						transition:all 0.3s linear;							
+						>li
+							a
+								color black
+								text-decoration: none;
+								width 100%
+								text-align left
+							&:hover
+								background #ccc
+								a
+									color black
+									text-decoration: underline;
+
+
+/**
+ * COMMON : FOOTER
+ */
+footer
+	background-color: #125586;
+	height: 38px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 0;
+	padding-right: 0;	
+	color #FFF
+	.info
+		color: #CCC;
+		.copy
+			top: 0px;
+			left: 0px;	
+			text-align center	
+			width 100%	
+	.visitas
+		top: 5px;
+		right: 10px;			
+	.footer_by
+		top 22px;
+		left 45%;		
+		width 10%
+		display none
+		a
+			color #FFF
+
+	
+/**
+ * HOME
+ */
+
+/* columnas */
+.home_col1
+	width 234px
+				
+.home_col2
+	width 470px
+
+.home_col3
+	width 275px
+
+
+/**
+ * 	HOME : BANNER PRINCIPAL
+ */
+.banner_main
+	margin-bottom -25px	
+	ul
+		li
+			float left
+			.texto
+				position absolute
+				bottom 0
+				left 0
+				padding 20px
+				font-size 2em
+				background black
+				color white
+				opacity 0.8
+	// unslider
+	/*				
+	ol.dots
+		position absolute
+		right 5px
+		bottom 5px
+		li.dot
+			background black
+			color white
+			float left
+			width 20px
+			height @width
+			text-align center
+			line-height @width
+			vertical-align middle
+			margin (@width/4)
+			border-radius (@width/2)
+			cursor pointer
+			&:hover
+			&.active
+				background red
+	*/
+	// flux
+	ul.pagination
+		position absolute
+		right 5px
+		bottom 35px
+		z-index 1001
+		li
+			background black
+			color white
+			float left
+			width 20px
+			height @width
+			text-align center
+			line-height @width
+			vertical-align middle
+			margin (@width/4)
+			border-radius (@width/2)
+			cursor pointer
+			&:hover
+			&.current
+				background red	
+	.caption
+		width auto !important
+		padding 20px !important
+		font-size 2em !important		
+		opacity 0.8 !important	
+		background #264F80 !important
+				
+/**
+ * HOME : Banner left
+ */
+
+.banner_enlaces
+	margin-top 10px
+	margin-bottom 10px
+	.header
+		text-align center
+		background #0188BE
+		border-radius 10px 10px 0 0
+		padding 3px 0
+		color white
+		text-transform uppercase
+	.inner
+		background white	
+		height 110px
+		.slides
+			ul
+				li
+					float left
+	.footer	
+		background #125586
+		color white
+		padding 4px 4px
+		a
+			color white
+			cursor pointer
+		.prev
+			&:before
+				content "«"
+		.next	
+			float right
+			&:after
+				content "»"						
+
+/**
+ * HOME : Banner right
+ */
+
+.banner_enlaces2
+	margin-top 10px
+	margin-bottom 10px
+	.header
+		text-align center
+		background #0188BE
+		border-radius 10px 10px 0 0
+		padding 3px 0
+		color white
+		text-transform uppercase
+	.inner
+		background white	
+		height 240px
+		.slides
+			ul
+				li
+					float left
+					.foto
+						width 100%
+						text-align center
+						height 120px
+						float left
+	.footer	
+		background #125586
+		color white
+		padding 4px 4px
+		a
+			color white
+			cursor pointer
+		.prev
+			&:before
+				content "«"
+		.next	
+			float right
+			&:after
+				content "»"						
+
+
+
+
+
+
+
+
+/*
+.id_banner_main
+	margin 0 -15px
+	.div_inner
+		margin 0 0
+		padding 0
+		.listado_item 
+			.foto
+				width: 100%;
+				height: auto;
+				text-align: center;
+				overflow: hidden;
+				display: block;
+				margin: 0 auto;
+				background-color: #F0F0F0;
+				border-color: #FFF;
+				border-style: solid;
+				border-width: 0px;
+				padding: 0;
+			.texto 
+				left: 0px;
+				bottom: -7px;
+				padding: 25px 30px 20px;
+				opacity: 0.8;
+				font-size: 1.5em !important;
+				background: #264F80;
+				color: #FFF !important;
+				border-radius: 0 !important;
+				font-weight: bold;			
+				min-height: 29px;
+				position: absolute;
+				width: 33%;
+	.barra_abajo
+		padding: 0 0 10px;
+		padding-bottom: 0 !important;
+		text-align right
+		height 25px
+		.listado_paginacion
+			margin-right: 10px;
+			text-align: right;
+			font-weight: normal;
+			display: inline-block;
+			a
+				cursor pointer
+				float left
+				margin-left: 10px !important;
+				font-size: 0.9em !important;
+				padding: 6px 9px;
+				background-color black
+				color white
+				&.selected
+					background-color white
+					color black
+*/
+
+/**
+ * HOME : ITEMS NOTICIAS
+ */
+
+.servicios_items_list
+	overflow: visible;
+	margin 0 -15px
+	padding-top 10px
+	padding-bottom 0px
+	.listado_items
+		position: relative;
+		display inline-block
+		.listado_item
+			position: relative;
+			float: left;
+			// display inline-block
+			width: 21%;
+			margin: 0 0 10px ( @width*(-0.8) + 20);
+			height: 230px;
+			background-color: #125586;
+			padding: 10px 1.8%;
+			border-radius: 10px;
+			a.vermas,
+			a.nombre
+				color: #A0E1FF;
+				display: block;
+				font-family: Arial
+			a.nombre
+				height: 24px
+				font-size 1.17em
+				text-decoration: none
+				font-family 'Titillium Web'
+				&:hover
+					text-decoration underline
+			.texto
+				color white
+				line-height 1.3em
+
+
+/**
+ * HOME : BLOG
+ */
+
+.blog
+	margin-top 10px
+	.tabs
+		ul
+			background #264F80
+			padding 6px 0 0
+			// float left
+			text-align center
+			li
+				line-height 1.2em
+				background #0188BE
+				list-style none
+				display inline-block
+				margin 0 7px
+				// float left
+				> a
+					padding 4px 10px
+					color white
+					font-size 1.1em
+					float left
+					cursor pointer
+					text-transform uppercase
+			.active 
+				a
+					color #FC0
+	section		
+		display none
+		background #DDD
+		overflow hidden
+		position relative
+		padding 15px 30px 0px
+		.inner
+			height 215px !important				
+			.slides
+				width 100% !important
+				> ul
+					> li
+						float left
+						.nombre
+							// font-size 1.2em
+							color #264F80
+							font-weight bold
+						.fecha
+							font-weight bold	
+						.texto
+							font-size 1.1em
+						.foto
+							width 100%
+							text-align center
+							float left	
+							img
+								width auto
+								height 120px									
+		.footer
+			margin 0 -30px
+			background #125586
+			color white
+			padding 4px 4px
+			text-align center
+			a
+				color white
+				cursor pointer
+			.prev
+				float left
+				&:before
+					content "«"
+			.next	
+				float right
+				&:after
+					content "»"						
+		&.show	
+			display block
+		
+
+/**
+ * HOME : RECOMENDAR
+ */
+
+.form_recomendar
+	text-align center
+	border 1px solid #125586
+	background #EBF8FF
+	padding 8px 10px
+	margin-bottom 10px
+	.inner
+		input
+			margin-top 6px
+		input[type=submit]
+			padding 4px	
+
+
+
+/**
+ * PAGES
+ */
+
+/* columnas */
+.page_col1
+	width 234px
+.page_col2
+	width 732px
+
+
+
+
+/**
+ * PAGES: PAGE
+ */
+.page
+	margin-left -15px
+	margin-right -15px
+	margin-top 10px
+	margin-bottom 10px
+	background rgba(white,0.7)
+	min-height 400px
+	border-radius 10px
+	overflow hidden
+	.header
+		// border-radius 10px 10px 0 0
+		background linear-gradient(top, white, #bbb)
+		padding 7px 20px
+		h1
+			font-family 'Titillium Web' Arial
+			text-transform uppercase
+			font-size 1.1em
+			font-weight bold
+	.inner
+		padding 20px 20px 10px
+		ul
+			li
+				clear both
+		img
+			max-width 100%
+			float left
+			margin 0 15px 15px 0
+
+
+/**
+ * PAGES: MENU LEFT
+ */
+
+.menu_left
+	margin-top 10px
+	border 5px solid #CCC
+	border-radius 18px
+	overflow hidden
+	.header
+		background #0188BE
+		padding 6px 12px
+		text-transform uppercase
+		h2
+			font-family Arial
+			font-weight bold			
+			font-size 1em
+			color white			
+			font-family 'Titillium Web' Arial			
+			a
+				color white			
+	.inner	
+		ul
+			li
+				background white		
+				padding 10px 15px
+				border-bottom 1px solid #ccc
+				h3
+				h2	
+					a
+						font-size 1em
+						display inline-block
+						font-weight bold
+				&.selected				
+					background #eee
+	.footer
+		background white		
+		text-align center
+		padding 5px
+		a
+			text-decoration underline
+			color black
+
+		
+/**
+ * PAGES : MENU BLOG
+ */
+.menu_left.menu_blog
+	border 0
+	border-radius 0
+	margin-bottom 10px
+	ul
+		li
+			background #0188BE
+			display inline-block
+			a
+				color #FFCC00
+				padding 4px 3px
+				display inline-block
+				letter-spacing -0.3px
+				font-size 1em
+
+
+/**
+ * FORM : 
+ */
+.modulo_is_formularios
+	form
+		label
+			width 100px
+	
+
+
+/**
+ * temporal
+ */
+.tab_is_empresa_items
+	.download
+		display none
