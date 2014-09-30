@@ -47,5 +47,5 @@ $COMMON['variables']=get_valores(
 		$COMMON['archivos'][$archivo['nombre']]=$archivo;
 	}
 
-
+// prin($COMMON);
 ?>

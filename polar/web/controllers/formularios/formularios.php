@@ -16,7 +16,6 @@ $PARAMETROS_EMAIL_MASTER['email_prueba']='0';
 
 $PARAMETROS_EMAIL['emailsAdmin']=array_merge(explode(",",$COMMON['datos']['emails_admin']),explode(",",$COMMON['datos_root']['emails_admin']));
 
-//exit();
 
 if($PARAMETROS_EMAIL_MASTER['email_prueba']){
 
@@ -41,5 +40,6 @@ $body_firma ="";
 //$body_firma.="<a href='".$vars['REMOTE']['httpfiles']."'>".$vars['REMOTE']['httpfiles']."</a>";
 		
 
-	
-?>
+
+
+$HEAD['LOAD']['form']=true;

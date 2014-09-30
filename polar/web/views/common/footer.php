@@ -1,7 +1,5 @@
 <?php //á
 
-web_render_foot($HEAD,$SERVER);
-
 // echo getcwd();exit();
 
 $THIS=$PARAMS['this'];

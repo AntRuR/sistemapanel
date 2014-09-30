@@ -2,13 +2,6 @@
 
 
 
-$secc=$SECCIONES[$_GET['sec']];
-
-$filtro_where=$secc['where'];
-
-$filtro_param=$secc['param'];
-
-$filtro_nombre=$secc['nombre'];
 
 
 
@@ -34,7 +27,7 @@ $ITEM = select_fila(
 
 			//,'item'=>'video,foto,fecha,texto,autor'
 
-			,'item'=>'titulo,fecha,foto,texto,download'
+			,'item'=>'fecha,foto,texto,download'
 
 			
 
@@ -116,7 +109,7 @@ $COMMON['menu'] = web_re_procesar_menu($COMMON['menu'],"index.php?modulo=items&t
 
 
 
-$DETAIL[$PARAMS['conector']]=$ITEM;
+$OBJECT[$PARAMS['conector']]=$ITEM;
 
 
 
@@ -181,4 +174,3 @@ $HEAD['facebook']['og:description']=strip_tags(str_replace(array("</li>","\""),a
 
 
 
-?>

@@ -85,6 +85,7 @@ $objeto_tabla['BANNER_DEPARTAMENTOS_FOTOS']=array(
 		'page'			=> '0',
 		'disabled'		=> '1'
 );
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['BANNER_SERVICIOS_FOTOS']=array(
@@ -169,6 +170,7 @@ $objeto_tabla['BANNER_SERVICIOS_FOTOS']=array(
 		'page'			=> '0',
 		'disabled'		=> '1'
 );
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['PAGINAS']=array(
@@ -265,6 +267,197 @@ $objeto_tabla['PAGINAS']=array(
 		'edicion_completa'=> '1',
 		'web'			=> '0'
 );
+
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['EMPRESA_ITEMS']=array(
+		'titulo'		=> 'Quienes Somos',
+		'nombre_singular'=> 'item de quienes somos',
+		'nombre_plural'	=> 'items de quienes somos',
+		'tabla'			=> 'empresa_items',
+		'archivo'		=> 'empresa_items',
+		'prefijo'		=> 'serite',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '670px',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '1',
+		'buscar'		=> '1',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Quienes Somos',
+		'por_pagina'	=> '20',
+		'me'			=> 'EMPRESA_ITEMS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Título',
+						'unique'		=> '1',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'like'			=> '1',
+						'width'			=> '230px',
+						'control'		=> '1',
+						'size'			=> '250'
+				),
+
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Publicación',
+						'tipo'			=> 'html',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'width'			=> '150px',
+						'style'			=> 'height:350px,'
+				),
+				'foto'			=>array(
+						'campo'			=> 'foto',
+						'label'			=> 'Foto',
+						'tipo'			=> 'img',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'empr',
+						'carpeta'		=> 'empr_imas',
+						'tamanos'		=> '70x70,400x300',
+						'tamano_listado'	=> '1'
+				),
+				'foto_descripcion'=>array(
+						'campo'			=> 'foto_descripcion',
+						'label'			=> '',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '207px'
+				),
+				'page'			=>array(
+						'campo'			=> 'page',
+						'tipo'			=> 'page'
+				)
+		),
+		'grupo'			=> 'contenidos',
+		'edicion_completa'=> '1',
+		'page'			=> '0',
+);
+
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['CLASES_ITEMS']=array(
+		'titulo'		=> 'Clases personalizadas',
+		'nombre_singular'=> 'clase',
+		'nombre_plural'	=> 'clases',
+		'tabla'			=> 'clases_items',
+		'archivo'		=> 'clases_items',
+		'prefijo'		=> 'serite',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '670px',
+		'altura_listado'=> 'auto',
+		'visibilidad'	=> '1',
+		'buscar'		=> '1',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Clases personalizadas',
+		'por_pagina'	=> '20',
+		'me'			=> 'CLASES_ITEMS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Título',
+						'unique'		=> '1',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'like'			=> '1',
+						'width'			=> '230px',
+						'control'		=> '1',
+						'size'			=> '250'
+				),
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Publicación',
+						'tipo'			=> 'html',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'width'			=> '150px',
+						'style'			=> 'height:350px,'
+				),
+				'foto'			=>array(
+						'campo'			=> 'foto',
+						'label'			=> 'Foto',
+						'tipo'			=> 'img',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'class',
+						'carpeta'		=> 'class_imas',
+						'tamanos'		=> '70x70,400x300',
+						'tamano_listado'	=> '1'
+				),
+				'foto_descripcion'=>array(
+						'campo'			=> 'foto_descripcion',
+						'label'			=> '',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '207px'
+				),
+				'page'			=>array(
+						'campo'			=> 'page',
+						'tipo'			=> 'page'
+				)
+		),
+		'grupo'			=> 'contenidos',
+		'edicion_completa'=> '1',
+		'page'			=> '0',
+);
+
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['PUBLICACIONES_GRUPOS']=array(

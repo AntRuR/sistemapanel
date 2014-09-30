@@ -165,10 +165,10 @@ form[action="index.php"] .box {
 	border: 1px solid #00527D;
 }
 form[action="index.php"]  .button {
-	background-color: #00527D;
+	background-color: #004993;
 	color: #FFF;
 	border: 0;
-	padding: 3px 15px;
+	padding: 3px 20px;
 }
 
 #busqueda_list h2.nombre a.nombre {

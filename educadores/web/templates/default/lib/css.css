@@ -8805,7 +8805,7 @@ width:100%;
 	.header_menu-menus .area_menu  .ul .li {
 		position:relative;
 		margin:0;  
-		margin-left:2px;  
+		margin-left: 2px;  
 		margin-right:2px;  				
 		/**/ background-image:none; background-color:#DDDDDD; border-bottom:0; /**/
 			}						
@@ -8856,8 +8856,8 @@ width:100%;
 	.header_menu-menus .area_menu  .ul a.line_0 { color:#FFFFFF; display:block; font-weight:bold;
 	 
 	padding-top: 3px ;
-	padding-left: 20px !important;
-	padding-right: 20px !important;	
+	 padding-left: 15px !important;
+	 padding-right: 15px !important;	
 	padding-bottom: 3px;
 	padding-left: 19px;
 	padding-right: 19px;
@@ -8870,7 +8870,7 @@ width:100%;
 
 	.header_menu-menus .area_menu  .ul { 	}
 
-	.header_menu-menus .area_menu  { padding:0px 0 0px 0px ;z-index:1;overflow:visible;margin-left:95px; }
+	.header_menu-menus .area_menu  { padding:0px 0 0px 0px ;z-index:1;overflow:visible; margin-left: 22px; }
 	
 	.header_menu-menus .area_menu  .ul .li a.line_0,
 	.header_menu-menus .area_menu  .ul a.line_0 { text-decoration:none; }
@@ -12980,7 +12980,8 @@ display:none;
 		margin:0;  
 		margin-left:0;  
 		margin-right:0;  				
-		/**/ background-image:none; background-color:#CECECE; border-bottom:0; /**/
+		/**/ background-image:none; 
+		background-color: #004993; border-bottom:0; /**/
 		clear:left;width:100%;border-bottom:1px solid #666;	}						
 
 	.header_menu2-menus .area_menu  .ul .li .menu_borde { 
@@ -13026,15 +13027,15 @@ display:none;
 
 
 	.header_menu2-menus .area_menu  .ul .li a.line_0,
-	.header_menu2-menus .area_menu  .ul a.line_0 { color:#000; display:block; font-weight:normal;
+	.header_menu2-menus .area_menu  .ul a.line_0 { color: #FFF; display:block; font-weight:normal;
 	 
-	padding-top: 2px ;
+	 padding-top: 10px;
 	padding-left: 10px !important;
 	padding-right: 10px !important;	
-	padding-bottom: -16px;
+	 padding-bottom: 10px;
 	padding-left: 9px;
 	padding-right: 9px;
-	float:left; height:auto; font-size:11px; white-space:nowrap; }
+	float:left; height:auto; font-size: 13px; white-space:nowrap; }
 	.header_menu2-menus .area_menu  .ul .hover a.line_0 { color:#fff; text-decoration:underline;	}
 	.header_menu2-menus .area_menu  .ul .selected a.line_0 { color:#fff; text-decoration:underline;	}
 	.header_menu2-menus .area_menu  .ul .li:hover a.line_0 { color:#fff;	 }

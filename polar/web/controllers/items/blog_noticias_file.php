@@ -1,9 +1,5 @@
 <?php //á
 
-$secc=$SECCIONES[$_GET['sec']];
-$filtro_where=$secc['where'];
-$filtro_param=$secc['param'];
-$filtro_nombre=$secc['nombre'];
 
 $ITEM=select_fila(
 		"id,nombre as titulo,texto,foto,foto_descripcion,fecha_creacion"

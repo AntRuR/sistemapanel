@@ -1,9 +1,6 @@
 <?php //á
 
-$secc=$SECCIONES[$_GET['sec']];
-$filtro_where=$secc['where'];
-$filtro_param=$secc['param'];
-$filtro_nombre=$secc['nombre'];
+
 
 $object=array();
 $object=fila(

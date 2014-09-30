@@ -2504,7 +2504,7 @@ function web_item($item,$ITEM,$debug=0){
 				$html.=  "</div>";
 			}
 			}
-			if($item['foto']['extra']){
+			if(isset($item['foto']['extra'])){
 				$html.=$item['foto']['extra'];
 			}
 			break;

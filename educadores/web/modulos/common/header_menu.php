@@ -44,7 +44,7 @@ $object['menu']=array(
 					array(
 					 	'url'=>'index.php?modulo=formularios&tab=contactenos',
 						'label'=>'CONTACTENOS',
-					)
+					),
 					/*
 					array(
 						'nombre'=>'Nuestra Historia',
@@ -64,13 +64,16 @@ $object['menu']=array(
 					),
 					*/
 					
-					// array(
-					// 	'nombre'=>'Departamentos',
-					// 	//'url'=>'index.php?modulo=items&tab=secciones&acc=list',//falta
-					// 	//'url'=>'index.php?modulo=app&tab=home',						
-					// 	'id'=>'6',		
-					// 	//'class'=>'noselected'
-					// ),										
+					array(
+						'nombre'=>'Quienes Somos',
+						'id'=>'6',		
+					),	
+
+					array(
+						'nombre'=>'Clases Personalizadas',
+						'id'=>'7',		
+					),	
+
 					// array(
 					// 	'nombre'=>'Contáctenos',
 					// 	'url'=>'index.php?modulo=formularios&tab=contactenos',
@@ -83,23 +86,36 @@ $object['menu']=array(
 				);							
 
 	
-	// $object['menu']['5']['menu']=select(
-	// array(
-	// 	"id",
-	// 	"nombre",
-	// 	"seccion"
-	// ),
-	// 'secciones',
-	// 'where 1 and visibilidad=1 and tipo=1
-	// order by id asc 	
-	// limit 0,100',
-	// 0,
-	// array(
-	// 	'nombre'=>'Departamento de {nombre}',
-	//     'url'=>array('url'=>array('url'=>"index.php?sec={seccion}&modulo=app&tab=home")),							
-	// )
-	// );		
+	$object['menu']['4']['menu']=select(
+	array(
+		"id",
+		"nombre",
+	),
+	'empresa_items',
+	'where 1 and visibilidad=1 
+	order by id asc 	
+	limit 0,100',
+	0,
+	array(
+		'url'=>'index.php?modulo=items&tab=empresa_items&acc=file&id={id}'
+	)
+	);		
 				
+	$object['menu']['5']['menu']=select(
+	array(
+		"id",
+		"nombre",
+	),
+	'clases_items',
+	'where 1 and visibilidad=1 
+	order by id asc 	
+	limit 0,100',
+	0,
+	array(
+		'url'=>'index.php?modulo=items&tab=clases_items&acc=file&id={id}'
+	)
+	);	
+
 
 $object['menu'] = web_procesar_menu($object['menu'],"izquierda");
 

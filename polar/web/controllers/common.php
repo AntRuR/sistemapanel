@@ -1,27 +1,6 @@
 <?php //á
 
 
-
-/**********************************************/
-
-//////////////////  VARS  //////////////////////
-
-/**********************************************/
-
-
-
-//unset($_SESSION['publicar']);
-
-//prin($_SESSION);
-
-//prin($_COOKIE);
-
-//prin($_GET);
-
-//prin($SERVER);
-
-//prin($_SERVER);
-
 /**********************************************/
 
 ///////////////// VERSION //////////////////
@@ -76,15 +55,15 @@ include("master.php");
 
 /**********************************************/
 
-
-
 include("lib/class.autokeyword.php");
 
-include("lib/include.php");
+if(0){
 
-include("urls.php");
+include("lib/helpers.php");
 
+include("build/routes.php");
 
+}
 
 /**********************************************/
 
@@ -94,69 +73,7 @@ include("urls.php");
 
 
 
-include("loaddata.php");
-
-
-
-
-
-/*******************************************/
-
-////////////////// SESSION //////////////////
-
-/*******************************************/
-
-
-
-/*
-
-if($_SESSION['login']['status']==1){
-
-$LOGIN['usuario']="<b>".$_SESSION['login']['nombre']."</b>| <a href='#' >mi cuenta</a> | <a href='#' >mis anuncios</a> | <a href='#' onclick='javascript:cerrar_sesion(\"login\");return false;' rel='nofollow'>salir</a>";
-
-}
-
-
-
-if(isset($_SESSION['publicar']['usuario_temp'])){
-
-$STATUS='Hay un anuncio pendiente de publicación (<a class="main" href="'.$COMMON['url_publicar-2'].'">editar</a>). Para terminar de publicar debe <a class="main" href="'.$COMMON['url_registro'].'">registrarse</a> o <a class="main" href="'.$COMMON['url_login'].'">iniciar sesión</a>. O puede <a href="#" onclick="javascript:cerrar_sesion(\'publicar\');return false;" rel="nofollow" class="main" >cancelar</a> la publicación';
-
-}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**********************************************/
-
-///////////// INCLUDES AFTER ///////////////////
-
-/**********************************************/
-
-
-
-
-
-include("css.php");
-
-// web_render_get_css($WEBBLOQUES,$CLASSSELECTED);
-
-//prin($SELECTORS);
-
-
-
-//include("formularios/formularios.php");						
+include("loaddata.php");				
 
 
 
@@ -186,31 +103,20 @@ include("css.php");
 
 
 
-include("driver.php");
+include("../build/driver.php");
 
 
 
-include("driver_render.php");
+include("lib/driver_render.php");
 
 //prin($COMMON['menu']);
 
 
 
-include("loaders.php");
+include("../build/loaders.php");
 
 
 
-////////////////////////////////////////////////
-
-/**********************************************/
-
-
-
-if($MASTERCOFIG['editar_friendly_url']=='1'){
-
-	web_guardar_datos_htaccess($_GET,$ALIAS);
-
-}
 
 
 

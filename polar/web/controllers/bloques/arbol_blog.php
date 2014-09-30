@@ -2,10 +2,6 @@
 
 $object=array();
 
-$secc=$SECCIONES[$_GET['sec']];
-$filtro_where=$secc['where'];
-$filtro_param=$secc['param'];
-$filtro_nombre=$secc['nombre'];
 
 $ID=($_GET['tab']=='textos_items')?$_GET['id']:'';
 
@@ -40,14 +36,6 @@ $object['items'][]=array(
 						);
 						
 					
-//prin($object['items']);
-$object['styles']='arbol_1';
-
-$object['classStyle']='arbol_1';
-
-//$ITEMS['items']=array($ITEMS['items'][1]);
-//prin($ITEMS);
 
 $OBJECT[$PARAMS['this']]=$object; 
 	
-?>

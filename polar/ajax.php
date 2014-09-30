@@ -14,7 +14,7 @@ case "get":
 	include("ajax_get.php");
 break;
 case "form":
-	include("urls.php");
+	include("build/routes.php");
 	include("loaddata.php");
 	include("panel.php");
 	include(incluget("formularios/".$_GET['tab'].".php"));
@@ -24,4 +24,3 @@ case "carrito":
 break;
 }
 
-?>

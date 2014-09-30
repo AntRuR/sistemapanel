@@ -1,26 +1,23 @@
 <?php //á
-//prin($PAGINA);
 
 $THIS=$PARAMS['this'];
 
-$PAGINA=$OBJECT[$THIS];
+$ITEM=$OBJECT[$THIS];
 
 ?>
-<div class="cuadro <?php 
-    web_selector_control($SELECTED,$THIS,"bloques");
-    ?>" ><?php web_render_esquinas(1,4);?>
 
-    <div class="barra_arriba">
-    <?php //web_render_item_borde('bors-b',1,2);?>        
-    <?php echo $PAGINA['titulo']; ?>
+<section class="<?php echo $PARAMS['classStyle']; ?>" >
+
+    <div class="header">
+        <h1><?php echo $ITEM['titulo']; ?></h1>
     </div>
-    <div class="div_borde div_inner">
+    <article class="inner">
 
-        <?php if($PAGINA['foto']!=''){ ?>
-        <div style="margin-bottom:10px;float:left;"><img  <?php echo $PAGINA['get_atributos']; ?> class="margen_der" /></div>
+        <?php if($ITEM['foto']!=''){ ?>
+        <img  <?php echo $ITEM['get_atributos']; ?> />
         <?php } ?>
-        <?php echo $PAGINA['texto']; ?>        
+        <?php echo $ITEM['texto']; ?>        
     
-    </div>
+    </article>
 
-</div>
+</section>

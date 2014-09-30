@@ -5,20 +5,16 @@ $THIS=$PARAMS['this'];
 $ITEM=$OBJECT[$PARAMS['this']];
 
 ?>
-<div class="div_fila">
+<section class="<?php echo $PARAMS['classStyle']; ?>" >
 
-    <div class="cuadro <?php 
-        web_selector_control($SELECTED,$THIS,"bloques");
-        ?>" >
-        <?php web_render_esquinas(1,4);?>        
-        
-        <div class="barra_arriba">
-        <?php web_render_item_borde('bors-b',1,2);?>        
-        <?php echo $ITEM['titulo']; ?>
-        </div>
 
-		<div class="area_tab <?php echo 'menu_'.$PARAMS['this'];?>_area_tab" style='display:block;' id="<?php echo 'menu_'.$PARAMS['this'];?>_area_tab_1">
-		   
+    <div class="header">
+        <h1><?php echo $ITEM['titulo']; ?></h1>
+    </div>
+
+         
+
+    <article class="inner">	   
 		   <?php
 		   echo "<ul class='album'>";
 		   foreach($ITEM['fotos'] as $foto){
@@ -38,13 +34,12 @@ $ITEM=$OBJECT[$PARAMS['this']];
 		   ?>
 		   <?php //web_render_slideshow_proceso($SLIDE); ?>                                	            
 
-		</div>    
              
         <div class="div_borde div_inner">
 		            
             <?php echo $ITEM['texto']; ?>          
         </div>
         
-    </div>
+    </article>
  
 </div> 

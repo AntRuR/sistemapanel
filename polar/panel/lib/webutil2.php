@@ -72,11 +72,12 @@ $INCLUDES=quitar_repetidos($INCLUDES);
 $INCLUDE=$HEAD['INCLUDE'];
 
 $html ='';
-$html.='<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="es_ES" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="es_ES" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="es_ES" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="es_ES" class="no-js"> <!--<![endif]-->
+$html.='<!DOCTYPE html>';
+// $html.='<!--[if lt IE 7]>      <html lang="es_ES" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+// <!--[if IE 7]>         <html lang="es_ES" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+// <!--[if IE 8]>         <html lang="es_ES" class="no-js lt-ie9"> <![endif]-->
+// <!--[if gt IE 8]><!--> <html lang="es_ES" class="no-js"> <!--<![endif]-->';
+$html.='<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -235,25 +236,29 @@ function web_procesar_menu($menu,$direccion="izquierda",$debug=false){
 
 }
 
-function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
+function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
 
 	$labelA=array();
 
 	$obj['ul']=(isset($obj['ul']))?$obj['ul']:"ul";
 	$obj['id']=(isset($obj['id']))?$obj['id']:'';
 	$obj['rel']=(isset($obj['rel']))?$obj['rel']:'';
+	$obj['area']=(isset($obj['area']))?$obj['area']:NULL;
 
 	if($obj['ul']=='ul'){ $UL="ul"; $LI="li"; $SPC=""; }
 	elseif($obj['ul']=='div'){ $UL="div"; $LI="span"; $SPC="&nbsp;\n"; }
 
 	$html ="";
-	$html.="<div class='area_menu' ".( ($obj['id']!="")?"id='".$obj['id']."' ":'')." ".( ($obj['rel']!="")?"id='".$obj['rel']."' ":'')." >";
+	if($obj['area']) $html.="<div class='area_menu' ".( ($obj['id']!="")?"id='".$obj['id']."' ":'')." ".( ($obj['rel']!="")?"id='".$obj['rel']."' ":'')." >";
 
 	// if($obj['lados_externos']==1){
 	// 	$html.="<div class='div_menu_izq'></div>\n";
 	// 	$html.="<div class='div_menu_der'></div>\n";
 	// }
-    $html.="<$UL class='ul' >";
+    
+	// $tag=($obj['id']=='menu_main')?'h2':$tag;
+
+    $html.="<$UL>";
 	$e=0;
 	foreach($MENU as $i=>$men){
 
@@ -263,42 +268,29 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 
 		$iii=($men['id'])?$men['id']:$i+1;
 
-		$class="li ".$men['ultimo']." ".$men['class']." ".$men['classadicional'];
+		// $class="li ".$men['class']." ".$men['classadicional'];
 		$html.= $SPC."<$LI "
 			 .( ($obj['id']!="")?"id='".$obj['id']."_".$iii."'":'')." "
-			 .( ($obj['rel']!="")?"rel='".$obj['rel']."_".$iii."'":'')." "
-			 .( ($men['lado']=="derecha")?"style='float:right'":'')." "
-			 .((trim($class)=='')?"":"class='".trim($class)."'")
+			 .((trim($men['class'])=='')?"":"class='".trim($men['class'])."'")
 			 ." >";
 
-		$tag=($obj['id']=='menu_main')?'h2':$tag;
-		$labelA=explode("|",$men['label']);
-		$manylabels=(sizeof($labelA)>1);
-		foreach($labelA as $ii=>$label){
-			$line=($manylabels)?"class='line_".$ii."'":"";
-			if( $men['disabled']=='1' ){
-				$html.= "<$tag><a title='".$label."' $out $line  href='#' onclick=\"javacript:return false;\">";
-				$html.=$label;
-				$html.="</a></$tag>";
-			} elseif( $men['onclick']!='' ){
-				$ShowTab=($obj['id']!='')?"ShowTab('".$obj['id']."','".$iii."');":"";
-				$html.= "<$tag><a title='".$label."' $out $line href='#' rel='nofollow' onclick=\"javacript:".$ShowTab.str_replace("\"","'",$men['onclick']).";return false;\">";
-				$html.=$label;
-				$html.="</a></$tag>";
-			} else {
-				$html.= "<$tag><a title='".$label."' $out $line ".( ($men['url'] or $men['url']=='')?"href='".$men['url']."'":"" ).">";
-				$html.=$label;
-				$html.="</a></$tag>";
-			}
-		}
+
+			$more=($men['more'])?$men['more']:"";
+			if($tag) $html.="<$tag>";
+			$html.="<a title='".$men['label']."' $out ".( ($men['url'])?"href='".$men['url']."'":"" )." $more>";
+			$html.=$men['label'];
+			$html.="</a>";
+			if($tag) $html.="</$tag>";
+
 		$html.=($obj['id']=='menu_main')?'</h2>':'';
 
 		// prin($men['menu']);
 		if(sizeof($men['menu'])>0){
 			$obj_sub=$obj;
 			$obj_sub['return']=1;
-			$obj_sub['id']=$obj['id'].'_'.$iii;
-			$html.=web_render_menu($men['menu'],$obj_sub,'h3');
+			$obj_sub['area']=1;
+			// $obj_sub['id']=$obj['id'].'_'.$iii;
+			$html.=web_render_menu($men['menu'],$obj_sub,'h4');
 		}
 
 		$html.= "</$LI>";
@@ -316,9 +308,12 @@ function web_render_menu($MENU,$obj=NULL,$tag='h3',$extra=NULL){
 	
 
     $html.="</$UL>";
-    $html.="</div>";
+    if($obj['area']) $html.="</div>";
+
     if($obj['return']) return $html;
+	
 	echo $html;
+
 }
 
 
@@ -1522,6 +1517,60 @@ function web_selector($SES,$id_class){
 function web_render_edit_toolbar($SELS){
 
 	global $_SESSION; global $SERVER;
+	global $DEVEL;
+
+echo ($DEVEL)?'<style>.sqm {
+background-color: #34352E;
+color: #FFF;
+width: 9px;
+height: 9px;
+position: relative;
+left: 0px;
+top: 0px;
+float:left;
+z-index: 1000;
+border-radius:5px;
+border:1px solid #fff;
+margin-right:-9px;
+margin-bottom:-5px;
+margin-top:-4px;
+}
+.sqm .flt {
+display:none;
+position: absolute;
+width:auto;
+height:auto;
+top:left;
+left:0px;
+background:inherit;
+color:#000;
+padding:5px;
+z-index: 1001;
+border-radius:5px;
+}
+.sqm .flt div {
+clear:left;
+width:368px;
+}
+.sqm .flt div label {
+float:left; 
+width:60px;	
+color:#818AFF;
+}
+.sqm .flt div input {
+float:left; 
+width:300px;	
+border:1px solid #FFFFF8;
+padding:1px 5px;
+color:#CDCA7D;
+background:inherit;
+}
+.sqm:hover .flt {
+display:block;
+}
+</style>':'';
+
+
 	if($_SESSION['edicionweb']=='1' and $SERVER['LOCAL']=='1'){
 	global $CLASSSELECTED;
 	global $WEBBLOQUES;
@@ -1536,6 +1585,8 @@ function web_render_edit_toolbar($SELS){
 	global $vars;
 	global $Estructura;
 	global $Vectore;
+
+
 
 
 	//if($MASTERCOFIG['edicion_bloques']){
@@ -2017,6 +2068,149 @@ function web_selector_control($SELECTED,$THIS,$tipos,$debug=0){
 	// }
 }
 
+function web_render_esquema($fila,$deep,$orientacion,$params=NULL,$just=NULL){
+
+	global $_SESSION;
+	global $SERVER;
+
+	global $OBJECT;
+	global $LISTADO;
+	global $DEVEL;
+
+	global $vars;
+
+	if(!is_array($fila)){ 
+		
+		if( ( !is_null($just) and $just==$fila ) or ( is_null($just) )	)
+			view($fila,$params);
+
+	} else {
+
+		if(sizeof($fila)>1 and $deep>1 and $orientacion) echo '<div class="row">';
+
+		foreach($fila as $jj=>$columna){
+
+			if($jj=='canvas' and $deep==1 ) echo "<section class='contenido container-fluid'>\n";
+			
+			$params=(is_array($columna))?NULL:get_params_view($columna);
+
+			$blockclass=( isset($params['block']) ) ? $params['block'] : ((enhay($jj,"col-")) ? $jj : ''); 
+
+			// prin($blockclass);
+
+			$deep_class=($DEVEL)?' deep-'.$deep.' ':'';
+
+			$div=( isset($params['tag']) ) ? $params['tag'] : 'div';
+
+			if(!empty($blockclass)) echo '<'.$div.' class="'.$blockclass.$deep_class.'">';
+
+			$comments='';
+			if($DEVEL){
+
+				if($blockclass) 
+					echo "<!--block : $blockclass-->\n";
+
+				if(!is_array($columna)){
+
+					$comments.="<div><label>file      </label><input value='".$params['archivo']."'></div>";
+					$comments.="<div><label>controller</label><input value='".$params['controller']."'></div>";
+					$comments.="<div><label>view      </label><input value='".$params['view']."'></div>";
+					
+					$comments.="<div><label>vars      </label><input value='".$params['vars']."'></div>";
+
+					$comments.="<div><label>this      </label><input value='".$params['this']."'></div>";
+					$comments.="<div><label>classStyle</label><input value='".$params['classStyle']."'></div>";
+					$comments.="<div><label>conector  </label><input value='".$params['conector']."'></div>";
+					$comments.="<div><a href='".$params['link']."'>".$params['archivo']."</a></div>";
+
+				} 
+
+				if(!empty($comments)) echo '<div class="sqm"><div class="flt">'.$comments.'</div></div>';
+
+			}
+
+
+			web_render_esquema($columna,$deep+1,!($orientacion), $params, $just);
+
+			if(!empty($blockclass))	echo '</'.$div.'>';
+
+			if($jj=='canvas' and $deep==1 ) echo "</section>\n";
+
+		}
+
+		if(sizeof($fila)>1 and $deep>1 and $orientacion) echo '</div>';
+
+	}
+
+}
+
+function get_params_view($archivo,$p=NULL){
+
+	global $vars;
+	$archivo0=$archivo;
+
+	if($p==NULL){
+		list($one,$variables)=explode("?",$archivo);
+		$out=parse_url($archivo);
+		$archivo=$out['path'];
+		parse_str($out['query'],$p);
+	}
+	$PARAMS = $p;
+	
+	$PARAMS['archivo']=$archivo0;
+	$PARAMS['controller']=$vars['INTERNO']['CARPETA_PROYECTO'].'/web/controllers/'.$archivo;
+	$PARAMS['view']=$vars['INTERNO']['CARPETA_PROYECTO'].'/web/views/'.$archivo;
+	$PARAMS['vars']=$variables;
+	$PARAMS['link']='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'&just='.urlencode($archivo0);
+
+	$ar=array();
+	$ar=explode("/",$archivo);
+	list($THIS,$ex)=explode(".",end($ar));
+	$THIS=($p['this']=='')?$THIS:$p['this'];
+
+	if($ar['0']=='items'){
+		$ah=explode("_",$THIS);
+		$sah=sizeof($ah);
+		$ah[$sah-1];
+		$conec=str_replace("_".$ah[$sah-1],"",$THIS);
+		$PARAMS['conector']=($p['conector']!='')?$p['conector']:$conec;
+	} else { 
+		$PARAMS['conector']=($p['conector']!='')?$p['conector']:$THIS; 
+	}
+
+	$PARAMS['classStyle']=($p['classStyle']=='')?$THIS:$p['classStyle'];
+
+	if($p['width']!=''){ $PARAMS['width']=$p['width']; }
+	$PARAMS['this']=$THIS;
+	
+	return $PARAMS;
+
+}
+
+function view($archivo,$params){
+
+	global $_SESSION;
+	global $SERVER;
+	
+	global $OBJECT;
+	// global $LISTADO;
+	// global $FORMULARIO;
+	// global $DETAIL;
+	// global $FB;
+
+	global $HEAD;
+
+	global $LOCAL;
+
+	$out=parse_url($archivo);
+	$archivo=$out['path'];
+	
+	$PARAMS = $params;
+
+	include $archivo;
+
+}
+
 function incluget($archivo,$p=NULL){
 
 	global $_SESSION;
@@ -2028,10 +2222,12 @@ function incluget($archivo,$p=NULL){
 		parse_str($out['query'],$p);
 	}
 	$PARAMS = $p;
+
 	$ar=array();
 	$ar=explode("/",$archivo);
 	list($THIS,$ex)=explode(".",end($ar));
 	$THIS=($p['this']=='')?$THIS:$p['this'];
+
 	if($ar['0']=='items'){
 	$ah=explode("_",$THIS);
 	$sah=sizeof($ah);
@@ -2040,7 +2236,9 @@ function incluget($archivo,$p=NULL){
 	$PARAMS['conector']=($p['conector']!='')?$p['conector']:$conec;
 	}
 	else { $PARAMS['conector']=($p['conector']!='')?$p['conector']:$THIS; }
+
 	$PARAMS['classStyle']=($p['classStyle']=='')?$THIS:$p['classStyle'];
+
 	if($p['width']!=''){ $PARAMS['width']=$p['width']; }
 	$PARAMS['this']=$THIS;
 
@@ -2229,105 +2427,111 @@ function web_item($item,$ITEM,$debug=0){
 		switch($est){
 
 			case "foto":
-			if($item['foto']){
-			$item['foto']['archivo']=($item['foto']['archivo'])?$item['foto']['archivo']:$item['foto']['get_archivo'];
-			$item['foto']['atributos']=($item['foto']['atributos'])?$item['foto']['atributos']:$item['foto']['get_atributos'];
-			$item['foto']['descripcion']=($item['foto']['descripcion'])?$item['foto']['descripcion']:$item['foto']['foto_descripcion'];
-			$item['foto']['url']=($item['foto']['url'])?$item['foto']['url']:(($item['url'])?$item['url']:'');
-			if(enhay($item['foto']['atributos'],"spacer.gif")){ continue; }
-			$tag=($tag)?$tag:(($item['foto']['url'])?"a":"div");
-			$class=($class)?$class:"foto";
-			$legend=(is_array($item['foto']) and $item['foto']['descripcion']!='')?$item['foto']['descripcion']:'';
-			$titulo=($legend!='')?$item['foto']['descripcion']:$item['titulo'];
-			if($tag!='a'){
-				$html.= "<div class=\"$extraclass $class\" >";
-				$html.=  "<$tag ";
-			} else {
-				$html.=  "<$tag class=\"$extraclass $class\" ";
-			}
-			if($item['foto']['url']){
-			$html.=  "href=\"".$item['foto']['url']."\" $Target ";
-			$html.=  ($item['foto']['descripcion'])?" title=\"".$titulo."\" ":"";
-			$html.=  ($item['foto']['rel'])?" rel=\"".$item['foto']['rel']."\" ":"";
-			}
-			$html.=  " >";
-			$html.=  "<img ";
-			$html.=  ($item['atributos']!='')?$item['atributos']:$item['foto']['atributos'];
-			$html.=  ($item['foto']['descripcion'])?" title=\"".$titulo."\" alt=\"".$titulo."\" ":"";
-			$html.=  " />";
-			//if($legend!='') echo "<strong class='legend'>".$titulo."</strong>";
-			$html.=  "</$tag>";
-			if($tag!='a'){
-				$html.=  "</div>";
-			}
-			}
-			if($item['foto']['extra']){
-				$html.=$item['foto']['extra'];
-			}
+				if($item['foto']){
+				$item['foto']['archivo']=($item['foto']['archivo'])?$item['foto']['archivo']:$item['foto']['get_archivo'];
+				$item['foto']['atributos']=($item['foto']['atributos'])?$item['foto']['atributos']:$item['foto']['get_atributos'];
+				$item['foto']['descripcion']=($item['foto']['descripcion'])?$item['foto']['descripcion']:$item['foto']['foto_descripcion'];
+				$item['foto']['url']=($item['foto']['url'])?$item['foto']['url']:(($item['url'])?$item['url']:'');
+				if(enhay($item['foto']['atributos'],"spacer.gif")){ continue; }
+				$tag=($tag)?$tag:(($item['foto']['url'])?"a":"figure");
+				$class=($class)?$class:"foto";
+				$legend=(is_array($item['foto']) and $item['foto']['descripcion']!='')?$item['foto']['descripcion']:'';
+				$titulo=($legend!='')?$item['foto']['descripcion']:$item['titulo'];
+				if($tag!='a'){
+					// $html.= "<div  >";
+					$html.= "<$tag class=\"$extraclass $class\">";								
+				} else {
+					$html.=  "<$tag class=\"$extraclass $class\" ";
+					if($item['foto']['url']){
+					$html.=  "href=\"".$item['foto']['url']."\" $Target ";
+					$html.=  ($item['foto']['descripcion'])?" title=\"".$titulo."\" ":"";
+					$html.=  ($item['foto']['rel'])?" rel=\"".$item['foto']['rel']."\" ":"";
+					}
+					$html.=  ">";						
+				}
+
+
+				$html.=  "<img ";
+				$html.=  ($item['atributos']!='')?$item['atributos']:$item['foto']['atributos'];
+				$html.=  ($item['foto']['descripcion'])?" title=\"".$titulo."\" alt=\"".$titulo."\" ":" title=\" \" alt=\" \" ";
+				$html.=  " />";
+
+				//if($legend!='') echo "<strong class='legend'>".$titulo."</strong>";
+
+				if($tag!='a'){
+					$html.=  "</$tag>";
+					// $html.=  "</div>";
+				} else {
+					$html.=  "</$tag>";
+				}
+				}
+				if($item['foto']['extra']){
+					$html.=$item['foto']['extra'];
+				}
 			break;
 			case "video":
-			if($item['video']){
-			//$tag=($tag)?$tag:"a";
-			$class=($class)?$class:"video";
-			$width=360; $height=intval(($width*3)/4);
-			$html.=  '<div style="float:left;width:auto;height:auto;margin-right:10px;"><object width="'.$width.'" height="'.$height.'" align="middle" type="application/x-shockwave-flash" wmode="transparent" quality="high" allowscriptaccess="sameDomain" allowfullscreen="false" data="http://www.youtube.com/v/'.$item['video'].'&amp;amp;hl=es&amp;amp;fs=1&amp;amp;rel=0&amp;amp;color1=0x3a3a3a&amp;amp;color2=0x999999" style="visibility: visible;"><param name="wmode" value="transparent"><param name="quality" value="high"><param name="align" value="middle"><param name="allowScriptAccess" value="sameDomain"><param name="allowFullScreen" value="false"></object></div>';
-			}
+				if($item['video']){
+				//$tag=($tag)?$tag:"a";
+				$class=($class)?$class:"video";
+				$width=360; $height=intval(($width*3)/4);
+				$html.=  '<div style="float:left;width:auto;height:auto;margin-right:10px;"><object width="'.$width.'" height="'.$height.'" align="middle" type="application/x-shockwave-flash" wmode="transparent" quality="high" allowscriptaccess="sameDomain" allowfullscreen="false" data="http://www.youtube.com/v/'.$item['video'].'&amp;amp;hl=es&amp;amp;fs=1&amp;amp;rel=0&amp;amp;color1=0x3a3a3a&amp;amp;color2=0x999999" style="visibility: visible;"><param name="wmode" value="transparent"><param name="quality" value="high"><param name="align" value="middle"><param name="allowScriptAccess" value="sameDomain"><param name="allowFullScreen" value="false"></object></div>';
+				}
 			break;
 
 			case "nombre":case "titulo":
 
-			$item['nombre']=($item['nombre'])?$item['nombre']:$item['titulo'];
+				$item['nombre']=($item['nombre'])?$item['nombre']:$item['titulo'];
 
-			//prin($item);
-			$tag=($tag)?$tag:"h2";
-			$class=($class)?$class:$est;
-			if($tag=='a' and ($item['url'] or $item['onclick'])){
+				//prin($item);
+				$tag=($tag)?$tag:"h2";
+				$class=($class)?$class:$est;
+				if($tag=='a' and ($item['url'] or $item['onclick'])){
 
-			if($item['url']){ $html.= "<a class=\"$extraclass $class\" href=\"".$item['url']."\" $Target title=\"".$item['nombre']."\">"; }
-			elseif($item['onclick']){ $html.= "<a class=\"$extraclass $class\" href=\"#\" onclick=\"".$item['onclick'].";return false;\" rel=\"nofollow\" title='".$item['nombre']."'>"; }
-			$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
-			$html.="</a>";
-			} else {
-			$html.= "<$tag class=\"$class $extraclass\" >";
-			if($item['url']){ $html.= "<a class=\"$extraclass $class\" href=\"".$item['url']."\" $Target title='".$item['nombre']."'>"; }
-			elseif($item['onclick']){ $html.= "<a class=\"$extraclass $class\" href=\"#\" onclick='".$item['onclick'].";return false;' rel=\"nofollow\" title='".$item[$est]."'>"; }
+				if($item['url']){ $html.= "<a class=\"$extraclass $class\" href=\"".$item['url']."\" $Target title=\"".$item['nombre']."\">"; }
+				elseif($item['onclick']){ $html.= "<a class=\"$extraclass $class\" href=\"#\" onclick=\"".$item['onclick'].";return false;\" rel=\"nofollow\" title='".$item['nombre']."'>"; }
+				$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
+				$html.="</a>";
+				} else {
+				$html.= "<$tag class=\"$class $extraclass\" >";
+				if($item['url']){ $html.= "<a class=\"$extraclass $class\" href=\"".$item['url']."\" $Target title='".$item['nombre']."'>"; }
+				elseif($item['onclick']){ $html.= "<a class=\"$extraclass $class\" href=\"#\" onclick='".$item['onclick'].";return false;' rel=\"nofollow\" title='".$item[$est]."'>"; }
 
-			if($item['src']!=''){
-			$html.='<img src="'. ( ($item['src-sel'] and $item['selected']=='selected')?$item['src-sel']:$item['src'] ).'" alt="'.$MENU_ITEM['label'].'" />';
-			$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
-			} else {
-			$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
-			}
+				if($item['src']!=''){
+				$html.='<img src="'. ( ($item['src-sel'] and $item['selected']=='selected')?$item['src-sel']:$item['src'] ).'" alt="'.$MENU_ITEM['label'].'" />';
+				$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
+				} else {
+				$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
+				}
 
-			if($item['url'] or $item['onclick']){ $html.= "</a>"; }
-			$html.= "</$tag>";
-			}
+				if($item['url'] or $item['onclick']){ $html.= "</a>"; }
+				$html.= "</$tag>";
+				}
 			break;
 
 			default:
 
-			if($Param['orphant']=='1'){
-				$html.=$item[$est];
-			} else {
-
-				$tag=($tag)?$tag:"div";
-				$class=($class)?$class:$est;
-				if($tag=='a' and $item['url']){ 				
-				if($item['url']){ $html.= "<a class=\"$extraclass $class\" $Target href=\"".$item['url']."\" title='".$item[$est]."'>"; }
-
-
-				if($MENU_ITEM['src']!=''){
-				$html.='<img src="'. ( ($MENU_ITEM['src-sel'] and $MENU_ITEM['selected']=='selected')?$MENU_ITEM['src-sel']:$MENU_ITEM['src'] ).'" alt="'.$MENU_ITEM['label'].'" />';
+				if($Param['orphant']=='1'){
+					$html.=$item[$est];
 				} else {
-				$html.=$item[$est];
-				// $html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
-				}
 
-				if($item['url']){ $html.= "</a>"; }
-				} else {
-				$html.=  ($item[$est]!=NULL)?"<$tag class=\"$extraclass $class\" >".( ($Param['limit'])?limit_string($item[$est],$Param['limit']):$item[$est] )."</$tag>":"";
+					$tag=($tag)?$tag:"div";
+					$class=($class)?$class:$est;
+					if($tag=='a' and $item['url']){ 				
+					if($item['url']){ $html.= "<a class=\"$extraclass $class\" $Target href=\"".$item['url']."\" title='".$item[$est]."'>"; }
+
+
+					if($MENU_ITEM['src']!=''){
+					$html.='<img src="'. ( ($MENU_ITEM['src-sel'] and $MENU_ITEM['selected']=='selected')?$MENU_ITEM['src-sel']:$MENU_ITEM['src'] ).'" alt="'.$MENU_ITEM['label'].'" />';
+					} else {
+					$html.=$item[$est];
+					// $html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
+					}
+
+					if($item['url']){ $html.= "</a>"; }
+					} else {
+					$html.=  ($item[$est]!=NULL)?"<$tag class=\"$extraclass $class\" >".( ($Param['limit'])?limit_string($item[$est],$Param['limit']):$item[$est] )."</$tag>":"";
+					}
 				}
-			}
 			break;
 
 		}
@@ -2626,17 +2830,27 @@ function web_render_tree_special($MENU,$esquema,$debug=0){
 }
 
 
-function web_render_items($items,$esquema,$debug=0){
+function web_render_items($items,$esquema,$debug=0,$step=1){
 
 	$html ='';
 	$html.="<ul class='listado_items'>";
-		foreach($items as $item){
+
+		$n=sizeof($items);
+
+		$i=0;
+		while($i<$n){
 
 			$html.='<li class="listado_item">';
 
-			$esquema=($esquema!='')?$esquema:(($item['esquema']!='')?$item['esquema']:'nombre');
+			for($j=0;$j<$step;$j++){
 
-			$html.=web_item($item,$esquema,$debug);
+				$item=$items[$i++];
+
+				$esquema=($esquema!='')?$esquema:(($item['esquema']!='')?$item['esquema']:'nombre');
+
+				$html.=web_item($item,$esquema,$debug);
+
+			}
 
 			$html.='</li>';
 		}

@@ -7,34 +7,16 @@ $THIS=$PARAMS['this'];
 $ITEMS=$OBJECT[$PARAMS['this']];
 ?>
 
-<div class="clean"></div>
-        
-<div id="<?php echo $THIS;?>" style="position:relative;" class="listado_productos cuadro <?php 
-	web_selector_control($SELECTED,$THIS,"bloques,listados");
-	?>" >
-    <?php web_render_esquinas(1,4);?>        
-    
-   <?php //web_render_item_borde('bors-b'); ?>   
-    
-	<?php /* ?>
-    <div class="div-buscador div_absoluto" style="z-index:1;" >
-    <?php web_render_buscador($_GET['buscar']); ?>
+<section class="<?php echo $PARAMS['classStyle']; ?>" >
+
+
+    <div class="header">
+        <h1><?php echo $ITEMS['nombre']; ?></h1>
     </div>
-    <?php */ ?>
-    
-    
-   <?php 
-   echo ($ITEMS['url'])?'<a class="barra_arriba" href="'.$ITEMS['url'].'">':'<div class="barra_arriba">';
-   //web_render_item_borde('bors-b',1,2);?
-   echo $ITEMS['nombre'];
-   echo ($ITEMS['url'])?'</a>':'</div>';
-   ?>
-   
 
-    <div class="clean"></div>
+         
 
-    <div class="cuadro" >     
-        <div class="div_borde div_inner" >
+    <article class="inner">
                                 
                         <?php  
 						//prin($ITEMS['filas']);
@@ -56,9 +38,8 @@ $ITEMS=$OBJECT[$PARAMS['this']];
                         }
                         ?>
                           
-        </div>
     
-	</div>
+	</article>
     
     <div class="barra_abajo">
     	<div class="listado_paginacion">
@@ -67,7 +48,7 @@ $ITEMS=$OBJECT[$PARAMS['this']];
         </div>
    </div>  
 
-</div> 
+</section> 
        
 	<?php /*
 	<script>

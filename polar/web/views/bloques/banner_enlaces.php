@@ -1,58 +1,35 @@
 <?php //á
-// prin($PARAMS);
-// $THIS=$PARAMS['this'];
 
-//$ITEMS=$LISTADO[$PARAMS['conector']];
+$THIS=$PARAMS['this'];
 
-$ITEMS=$OBJECT[$PARAMS['this']]['items'];
-// prin($ITEMS);
-$THIS='banner_enlaces';
+$ITEMS=$OBJECT[$PARAMS['conector']];
+
+
 ?>
-<?php foreach($ITEMS as $ITEM){ ?>  
-<div class="cuadro <?php echo $PARAMS['this'].'_dif ';
-       web_selector_control($SELECTED,$THIS,"bloques,listados");
-       ?>" >
-       <?php web_render_esquinas(1,4);?>
-            
-       <?php
-       echo '<div class="barra_arriba">';
-  	   if($ITEM['header']){ 
-  	   web_render_item($ITEM['header']);
-  	   } 
-  	   echo '</div>';
-  	   ?>
-       
-       <div class="div_borde div_inner">
-
-            <div  id="contenedor_slider_<?php echo $ITEM['settings']['label'];?>_fijo" class="contenedor_slider_fijo">
-                <div  id="contenedor_slider_<?php echo $ITEM['settings']['label'];?>_movil" class="contenedor_slider_movil">
-                    <?php
-                    if(sizeof($ITEM['settings']['num_items'])==0){ ?><p class="vacio"><?php echo $ITEM['settings']['vacio']; ?></p><?php } else {
-                        foreach($ITEM['items_bloques'] as $i=>$items){
-                        ?>
-		                    <div class="slid">                              
-                        <?php //SLIDE FRAME INICIO ?>    
-                            <div class="div_borde">
-                            	<?php web_render_items($items); ?>
-                            </div>
-                        <?php //SLIDE FRAME FIN ?>
-                        </div>   
-                        <?php 
-                        }
-                    }
-                    ?>
-                </div>
-            </div>
-            
-        </div>        
-    
-       <div class="barra_abajo">
-	        <?php //web_render_item($ITEM['footer']); ?>       
-	       <div class="listado_paginacion">
-	       		<?php web_render_slider_pie($ITEM['settings']); ?>       
-           </div>
-       </div>
-    
+<div class="<?php echo $PARAMS['classStyle'] ?>" > 
+    <div class="header">
+    <?php echo $ITEMS['header']; ?>
     </div>
+    <div class="inner">
+      <div class="slides">
+      <?php  
 
-<?php } ?>
+      if($ITEMS['total']==0){ ?>
+      <ul class="listado_items">
+        <p class="vacio"><?php echo $ITEMS['vacio']; ?></p>
+      </ul>
+      <?php } else {
+
+      web_render_items($ITEMS['filas'],$ITEMS['filas'][0]['esquema'],0,
+        ($PARAMS['this']=='banner_enlaces2')?2:1);
+
+      }
+
+      ?>   
+      </div> 
+    </div> 
+    <div class="footer">
+      <a class="arrow prev">anterior</a>
+      <a class="arrow next">siguiente</a>
+    </div>                
+</div>

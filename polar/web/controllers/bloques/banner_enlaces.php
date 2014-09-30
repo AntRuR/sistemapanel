@@ -1,104 +1,76 @@
 <?php //á
 
 
-$object=array();
+$object=[];
 
-$secc=$SECCIONES[$_GET['sec']];
-$filtro_where=$secc['where'];
-$filtro_param=$secc['param'];
-$filtro_nombre=$secc['nombre'];
-
-$filtro_where='';
-$filtro_param='';
-$filtro_nombre='';
 
 if($PARAMS['this']=='banner_enlaces'){
 
-			$object['p']=array(
+	$grupo=fila('nombre,id','banners_fotos',"where name='banner_enlaces2' ",0);
+	$object['header']=$grupo['nombre'];
 
-						'ids'=>array("name='banner_enlaces'"),
-						't'=>'4','w'=>'245','h'=>'240',
-						);
+	$object['filas']=select(
+				"id,file,foto_descripcion as texto,fecha_creacion,url"
+				,"banners_fotos_fotos"
+				,"where 1 and id_grupo='".$grupo['id']."' and  visibilidad='1' order by id desc limit 0,100"
+				,0
+				,array(
+					'foto:url'		=> '{url}',
+					'foto:atributos'=> array('atributos'=>'banfot_imas,{fecha_creacion},{file},4,204x110,1'),
+					'esquema'		=> 'foto'
+				)
+	);
 
-			$object['settings']=array(
-					'label'=>$PARAMS['conector'],	
-					'width'	=>$object['p']['w'],
-					'height'=>$object['p']['h'],
-					'itemsporpagina'=>"1x2",
-					'vacio'=>"aún no hay fotos",
-					'titulo'=>"",	
-					'interval'=>"7000",	
-					'autoplay'=>"true",//[true,false]
-					'mode'=>"horizontal", //[horizontal,vertical]	
-					//'handles'=>"0",
-					'buttons'=>"1",
-					);	
-
-			$height=$object['p']['h']/2;
 
 } elseif($PARAMS['this']=='banner_enlaces2'){
-			// prin('hey');
-			$object['p']=array(
-						'ids'=>array("name='banner_enlaces2'"),
-						't'=>'4','w'=>'204','h'=>'110',
-						);
 
-			$object['settings']=array(
-					'label'=>$PARAMS['conector'],	
-					'width'	=>$object['p']['w'],
-					'height'=>$object['p']['h'],
-					'itemsporpagina'=>"1x1",
-					'vacio'=>"aún no hay fotos",
-					'titulo'=>"",	
-					'interval'=>"7000",	
-					'autoplay'=>"true",//[true,false]
-					'mode'=>"horizontal", //[horizontal,vertical]	
-					//'handles'=>"0",
-					'buttons'=>"1",
-					);	
 
-			$height=$object['p']['h'];			
+	$grupo=fila('nombre,id','banners_fotos',"where name='banner_enlaces' ",0);
+	$object['header']=$grupo['nombre'];
+
+	$object['filas']=select(
+				"id,file,foto_descripcion as texto,fecha_creacion,url"
+				,"banners_fotos_fotos"
+				,"where 1 and id_grupo='".$grupo['id']."' and  visibilidad='1' order by id desc limit 0,100"
+				,0
+				,array(
+					'foto:url'		=> '{url}',
+					'foto:atributos'=> array('atributos'=>'banfot_imas,{fecha_creacion},{file},4,245x120,1'),
+					'esquema'		=> 'foto'
+				)
+	);
+		
 
 }	
-// prin($PARAMS['name']);
-// prin($object['p']);
 
-					
-foreach($object['p']['ids'] as $ii=>$ID){				
 
-	$grupo=fila('nombre,id','banners_fotos',"where $ID $filtro_where ",0);
-	$oGrupo['header']=$grupo;
-	
-	$oGrupo['items']= select(
-			"id,file,fecha_creacion,url"
-			,"banners_fotos_fotos"
-			,"where 1 and id_grupo ='".$grupo['id']."' and  visibilidad='1' order by id asc limit 0,100"
-			,0
-			,array(
-				'foto:url'=>'{url}',
-				'foto:atributos'=>array('atributos'=>'banfot_imas,{fecha_creacion},{file},'.$object['p']['t'].','.$object['p']['w'].'x'.$height.',1'),
-				//'foto:atributos'=>array('atributos'=>'banfot_imas,{fecha_creacion},{file},2,223x118,1'),
-				'esquema'=>'foto'
-				)	  
-			);
-			
-	$oGrupo=web_render_Slider_PreProceso2(array_merge($object['settings'],array(
-												'label'=>$object['settings']['label']."_".$ii,
-												'titulo'=>$item['nombre']
-												//'interval'=>'7000',
-												)),$oGrupo);
-	$oGrupos[]=$oGrupo; unset($oGrupo);
-	
-}
-		
+$object['total']=sizeof($object['filas']);
 
-	$object=array('items'=>$oGrupos); unset($oGrupos);
-	
-	$object['panel']='banners_fotos,banners_fotos_fotos';
-	// prin($PARAMS);
-	$OBJECT[$PARAMS['this']]=$object;
-	
-	$REMOOZZ=1;	
-	//$SEXYLIGHTBOX=1;
-		
-?>
+$object['vacio']='aún no hay fotos en el banner';
+
+
+
+$HEAD['LOAD']['unslider']=true;
+
+$HEAD['INCLUDES']['script'][]="
+$( document ).ready(function() {
+	var unslider = $('.".$PARAMS['this']." .slides').unslider({
+		fluid:true,
+		// dots:true,
+		delay:10000,
+		speed:500,
+		keys:true,
+	});
+
+    $('.".$PARAMS['this']." .arrow').click(function() {
+        var fn = this.className.split(' ')[1];
+        unslider.data('unslider')[fn]();
+    });
+
+});
+";
+// prin($PARAMS['this']);
+
+// prin($object);
+$OBJECT[$PARAMS['this']]=$object;
+

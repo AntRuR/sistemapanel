@@ -195,6 +195,11 @@ extract($vars_global);
 // echo '</pre>';
 // exit();
 
+$USU_IMG_DEFAULT=$vars_global['USU_IMG_DEFAULT']=$vars['GENERAL']['USU_IMG_DEFAULT']='img/blank.gif';
+
+
+
+
 if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME']=="127.0.0.1" or substr($_SERVER['SERVER_NAME'],0,7)=="192.168") {
 
 	$vars['LOCAL']['httpfiles']=($vars['GENERAL']['MODO_LOCAL_ARCHIVOS_REMOTOS']==1)?$vars['REMOTE']['httpfiles']:$vars['LOCAL']['httpfiles'];

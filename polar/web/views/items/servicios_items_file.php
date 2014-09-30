@@ -1,46 +1,29 @@
 <?php //á
 
 
-
 $THIS=$PARAMS['this'];
 
 
-
-$item=$DETAIL[$PARAMS['conector']];
-
-
-$FB=$FACEBOOK_LIKE[$PARAMS['conector']];
+$ITEM=$OBJECT[$PARAMS['conector']];
 
 
-
-
+$FB=$ITEM['FACEBOOK_LIKE'];
 
 
 ?>
 
-<div id="detail_<?php echo $THIS;?>" class="cuadro <?php 
-
-    web_selector_control($SELECTED,$THIS,"bloques,fichas");
-
-    ?>" >
-
-    <?php web_render_esquinas(1,4);?>        
+<section class="<?php echo $PARAMS['classStyle']; ?>" >
 
 
-
-
-   <div class="barra_arriba">
-
-       <?php web_render_item($item,'titulo:h1'); ?>
-
-   </div>
+    <div class="header">
+        <h1><?php echo $ITEM['titulo']; ?></h1>
+    </div>
 
          
 
-    <div class="div_borde div_inner">
+    <article class="inner">
 
         
-
         <!--GRILLA-->
 
         <div class="listado_items">
@@ -51,7 +34,7 @@ $FB=$FACEBOOK_LIKE[$PARAMS['conector']];
 
             
 
-                <?php web_render_item($item,$item['item']); ?>
+                <?php web_render_item($ITEM,$ITEM['item']); ?>
 
 
                
@@ -59,17 +42,17 @@ $FB=$FACEBOOK_LIKE[$PARAMS['conector']];
 
 
 
-                <?php if(($item['enlace1']!='' and $item['enlace1']!='null')or($item['enlace1']!='' and $item['enlace1']!='null')){ ?>
+                <?php if(($ITEM['enlace1']!='' and $ITEM['enlace1']!='null')or($ITEM['enlace1']!='' and $ITEM['enlace1']!='null')){ ?>
 
                 <div><strong>Noticias Relacionadas</strong></div><?php } ?> 
 
-                <?php if($item['enlace1']!='' and $item['enlace1']!='null'){ ?><a class="enlace" href="<?php echo $item['enlace1'];?>"><?php 
+                <?php if($ITEM['enlace1']!='' and $ITEM['enlace1']!='null'){ ?><a class="enlace" href="<?php echo $ITEM['enlace1'];?>"><?php 
 
-                echo $item['tituloenlace1'];?></a><?php } ?>
+                echo $ITEM['tituloenlace1'];?></a><?php } ?>
 
-                <?php if($item['enlace2']!='' and $item['enlace2']!='null'){ ?><a class="enlace" href="<?php echo $item['enlace2'];?>"><?php 
+                <?php if($ITEM['enlace2']!='' and $ITEM['enlace2']!='null'){ ?><a class="enlace" href="<?php echo $ITEM['enlace2'];?>"><?php 
 
-                echo $item['tituloenlace2'];?></a><?php } ?>   
+                echo $ITEM['tituloenlace2'];?></a><?php } ?>   
 
                 
 
@@ -91,11 +74,11 @@ $FB=$FACEBOOK_LIKE[$PARAMS['conector']];
 
         
 
-    </div>        
+    </article>        
 
 
 
-</div>
+</section>
 
 <?php /*
 
@@ -129,4 +112,4 @@ $FB=$FACEBOOK_LIKE[$PARAMS['conector']];
 
 </script>
 
-*/ ?>
+*/

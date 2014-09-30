@@ -184,13 +184,12 @@ include_once("formularios/formularios.php");
 			} else {
 			
 			$HEAD['titulo'] = ucfirst($FORM['nombre'])." | ".$COMMON['datos_root']['titulo_web']; 			
-			$HEAD['meta_keywords'] .= procesar_keywords($COMMON['datos_root']['titulo_web']);			 
-			$HEAD['meta_descripcion'] = procesar_description($COMMON['datos_root']['titulo_web']);	
+			// $HEAD['meta_keywords'] .= procesar_keywords($COMMON['datos_root']['titulo_web']);			 
+			// $HEAD['meta_descripcion'] = procesar_description($COMMON['datos_root']['titulo_web']);	
 			
 			}			
 
 $FORM['panel']='CONTACTO';
 
-$FORMULARIO[$PARAMS['conector']]=$FORM;
+$OBJECT[$PARAMS['conector']]=$FORM;
 
-?>

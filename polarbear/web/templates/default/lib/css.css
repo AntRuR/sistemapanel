@@ -1798,7 +1798,7 @@ display:none;
 	padding-right: 22px;
 	float:left; height:auto; font-size:13px; white-space:nowrap; }
 	.blog-menus .area_menu  .ul .hover a.line_0 { color:#000; text-decoration:underline;	}
-	.blog-menus .area_menu  .ul .selected a.line_0 { color:#000; text-decoration:underline;	}
+	.blog-menus .area_menu  .ul .selected a.line_0 { color: #FC0; text-decoration:underline;	}
 	.blog-menus .area_menu  .ul .li:hover a.line_0 { color:#000;	 }
 	.blog-menus .area_menu  .ul .li a.line_0:hover { text-decoration:underline; }		
 

@@ -1,9 +1,6 @@
 <?php //á
 
-$secc=$SECCIONES[$_GET['sec']];
-$filtro_where=$secc['where'];
-$filtro_param=$secc['param'];
-$filtro_nombre=$secc['nombre'];
+
 
 /**********   FILTRO   ************/
 
@@ -150,7 +147,7 @@ $LISTA['titulo'] = $TITULO;
 
 //$LISTA['menu'] = $MENU_FILTROS;
 
-$LISTADO[$PARAMS['this']]=$LISTA;
+$OBJECT[$PARAMS['this']]=$LISTA;
 //prin($PARAMS['conector']);
 
 $KEYWORDS['A']=array($LISTA['titulo'],$COMMON['datos_root']['titulo_web']);

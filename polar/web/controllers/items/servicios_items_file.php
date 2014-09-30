@@ -34,7 +34,7 @@ $ITEM = select_fila(
 
 			//,'item'=>'video,foto,fecha,texto,autor'
 
-			,'item'=>'titulo,fecha,foto,texto,download'
+			,'item'=>'fecha,foto,texto,download'
 
 			
 
@@ -116,7 +116,7 @@ $COMMON['menu'] = web_re_procesar_menu($COMMON['menu'],"index.php?modulo=items&t
 
 
 
-$DETAIL[$PARAMS['conector']]=$ITEM;
+$OBJECT[$PARAMS['conector']]=$ITEM;
 
 
 

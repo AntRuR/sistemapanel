@@ -23,7 +23,28 @@ $object=$OBJECT[$THIS];
     
     <?php 		
 	
-	$gm=$object['menu']['5'];
+	$gm=$object['menu']['4'];
+    ?><div id="son_menu_main_<?php echo $gm['id'];?>" class="div_fila_overflow div_menu <?php 
+    web_selector_control($SELECTED,$THIS.'2',"menus",1);
+    ?>" ><?php
+    web_render_menu($gm['menu'],array(
+                                        'lados_externos'=>0
+                                        ,'lados_internos'=>0
+                                        ,'lados_flotantes'=>0
+                                        ,'id'=>'menu2_main_'.$gm['id']
+                                        ,'rel'=>'son_menu2_main_'.$gm['id']
+                                        ,'menu_borde'=>0
+                                        ),'h3');
+
+
+                                        ?></div><?php
+
+
+    ?>
+
+    <?php       
+    
+    $gm=$object['menu']['5'];
     ?><div id="son_menu_main_<?php echo $gm['id'];?>" class="div_fila_overflow div_menu <?php 
     web_selector_control($SELECTED,$THIS.'2',"menus",1);
     ?>" ><?php
@@ -41,7 +62,7 @@ $object=$OBJECT[$THIS];
                                         ?></div><?php
 
 
-    ?>
+    ?>    
 
 
 	<div class="clean"></div>

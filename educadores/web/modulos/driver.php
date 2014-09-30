@@ -205,7 +205,27 @@ array(
 		),
 	'footer'=>$Block['footer'],
 );
-								
+
+$Estructura['modulo=items&tab={clases_items}']=
+array(
+	'header'=>$Block['header'],	
+	 array(
+		'bloques/menu_clases.php',		//
+		"MAIN?classStyle=pages",						//panel:blog_noticias,blog_actividades,blog_fotos,blog_fotos_fotos,blog_videos,blog,videos_videos
+		),
+	'footer'=>$Block['footer'],				
+);
+
+$Estructura['modulo=items&tab={empresa_items}']=
+array(
+	'header'=>$Block['header'],	
+	 array(
+		'bloques/menu_empresa.php',		//
+		"MAIN?classStyle=pages",						//panel:blog_noticias,blog_actividades,blog_fotos,blog_fotos_fotos,blog_videos,blog,videos_videos
+		),
+	'footer'=>$Block['footer'],				
+);
+
 $Estructura['modulo=items&tab={bloque_agenda}']=
 array(
 	'header'=>$Block['header'],	
