@@ -9,11 +9,9 @@
 
 
 
-$INCLUDE['version']="?v=1862";
+// $INCLUDE['version']="?v=1862";
 
-
-
-$HEAD['INCLUDE']['version']=$INCLUDE['version'];
+// $HEAD['INCLUDE']['version']=$INCLUDE['version'];
 
 
 
@@ -57,13 +55,10 @@ include("master.php");
 
 include("lib/class.autokeyword.php");
 
-if(0){
+// include("lib/helpers.php");
 
-include("lib/helpers.php");
+include("../build/routes.php");
 
-include("build/routes.php");
-
-}
 
 /**********************************************/
 
@@ -74,7 +69,6 @@ include("build/routes.php");
 
 
 include("loaddata.php");				
-
 
 
 /**********************************************/
@@ -112,15 +106,6 @@ include("lib/driver_render.php");
 //prin($COMMON['menu']);
 
 
-
 include("../build/loaders.php");
-
-
-
-
-
-
-
-
 
 

@@ -2976,3 +2976,95 @@ function Titulo_Filtro($titulo,$value){
 	return $titulo.$MesesA[$month]." de ".$year;
 }
 
+
+function procesar_url($url,$debug=0){
+
+	global $URLS; global $MASTERCOFIG;
+	//	prin($URLS);
+
+	if(substr($url,-5)=='.html'){
+		return $url;
+	}
+
+	if($MASTERCOFIG['friendly_url']=='0'){
+
+		return $url;
+
+	}
+
+	if(isset($URLS[$url])){
+
+		$url=$URLS[$url];
+
+	} else {
+
+		$file="index.php?";
+		$url2=str_replace($file,"",$url);
+
+		parse_str($url2,$gets);
+		$url='';
+
+		/*	ANTIGUO*/
+		if( $gets['modulo']=='home' ){
+			if( $gets['tab']=='productos' ){
+				if( isset($gets['buscar']) ){
+					$url.='buscar/'.url_encode_seo($gets['buscar']);
+				} elseif( $gets['id_grupo']!='' ){
+					$url.='productos/'.url_encode_seo($gets['id_grupo']);
+				} else {
+					$url.='';
+				}
+				$slash=($url=='')?'':'/';
+				$url.=( ($gets['pag'])?$slash.$gets['pag']:"" );
+			}
+
+		} elseif($gets['modulo']=='item'){
+			if( $gets['tab']=='productos' ){
+				$url="producto/".$gets['id'];
+			}
+		}
+
+		/*ESPECIALES*/
+		if($gets['modulo']=='formularios' and $gets['tab']=='login' and $gets['redir']!=''){
+			$url.="index.php?modulo=formularios&tab=login&redir=".urlencode($gets['redir']);
+		}
+		/**/
+		elseif( $gets['modulo']=='items' ){
+			$url.=$gets['tab'];
+			//			$url.=( ($gets['grupo'])?"/".$gets['grupo']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):"" );
+			if( $gets['acc']=='file' ){
+				$url.=( ($gets['id'])?"/".$gets['id']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):"" );
+
+				$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+			} elseif( $gets['acc']=='list' ){
+				$url.=( ($gets['gru'])?"-".$gets['gru']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"categoria" ):"" );
+
+				$url.=( ($gets['fil'])?"/".$gets['fil'].(($gets['val'])?"/".$gets['val']."/".( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):''):'');
+
+				$url.=( ($gets['buscar'])?"/buscar=".$gets['buscar']:"" );
+
+				$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+			}
+		}
+		elseif( $gets['modulo']=='app' and $gets['tab']=='pages' ){
+			$url.=$gets['page'];
+			//$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+		}
+		elseif( $gets['modulo']=='app' ){
+			$url.=$gets['tab'];
+			//$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+		}
+		elseif( $gets['modulo']=='formularios'){
+			$url.=$gets['tab'];
+		}
+
+		if($debug==1){
+			prin($gets); prin($url);
+		}
+
+	}
+	$url=str_replace('&amp;','&',$url);
+
+	return $url;
+
+}

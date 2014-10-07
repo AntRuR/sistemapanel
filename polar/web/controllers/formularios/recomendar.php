@@ -4,68 +4,49 @@ include_once("formularios/formularios.php");
 
 $FORM=$OBJECT[$PARAMS['conector']]=array(
 
-	'nombre'=>$PARAMS['conector']
-	//,'titulo'=>'Recomienda a un amigo'
-	,'legend'=>'Recomienda a un amigo'
-	,'ajax'=>'1'
-	,'action'=>'ajax.php?mode=form&tab='.$PARAMS['this'].'&name='.$PARAMS['conector']
-//	,'url'=>'index.php?modulo=app&tab=home'
-	,'exito'=>'Su recomendación ha sido enviada con éxito'
-	,'error'=>'Ocurrió un error en al enviar su recomendación'				
-//	,'submit'=>' type="image" src="'.$SERVER['BASE'].THEME_PATH.'img/ico_login.jpg" '
-	,'submit'=>' type="submit" value="Recomendar" '
-//	,'submiting'=>' src="'.$SERVER['BASE'].THEME_PATH.'img/ico_enviando.jpg" '					
-	//,'pie'=>'los campos con * son obligatorios'
-	,'tabla'=>'recomendar'
-	,'campos'=>array(
-								
-		array(
-			'label'=>'',
-			'campo'=>array('nombre_amigo'),
-			'tipo'=>'input_text',
-			'validacion'=>"validate['required'] autoinput",
-			'value'=>array('Nombre de tu Amigo'),
-		)						
-		,array(
-			'label'=>'',
-			'campo'=>array('email_amigo'),
-			'tipo'=>'input_text',
-			'validacion'=>"validate['required','email'] autoinput",
-			'value'=>array('Email de tu Amigo'),							
-		)
-		,array(
-			'label'=>'Título de la página'
-			,'campo'=>array('nombre_pagina')
-			,'tipo'=>'input_hidden'
-			,'validacion'=>""					
-			,'value'=>array('Polar Bear')
-		)	
-		,array(
-			'label'=>'Dirección de la página'
-			,'campo'=>array('url_pagina')
-			,'tipo'=>'input_hidden'
-			,'validacion'=>""					
-			,'value'=>array($SERVER['BASE'].$SERVER['url'])
-		)								
-		
-	)			
-	,'complete'=>"
-	
-		
-			
-	"					
+	'nombre'         =>$PARAMS['conector']
+	//,'titulo'      =>'Recomienda a un amigo'
+	,'legend'        =>'Recomienda a un amigo'
+	,'ajax'          =>'1'
+	,'action'        =>'ajax.php?mode=form&tab='.$PARAMS['conector'].'&name='.$PARAMS['conector']	
+	//	,'url'       =>'index.php?modulo=app&tab=home'
+	,'exito'         =>'Su recomendación ha sido enviada con éxito'
+	,'error'         =>'Ocurrió un error en al enviar su recomendación'				
+	//	,'submit'    =>' type="image" src="'.$SERVER['BASE'].THEME_PATH.'img/ico_login.jpg" '
+	,'submit'        =>' type="submit" value="Recomendar" class="btn btn-primary btn-sm" '
+	//	,'submiting' =>' src="'.$SERVER['BASE'].THEME_PATH.'img/ico_enviando.jpg" '					
+	//,'pie'         =>'los campos con * son obligatorios'
+	,'tabla'         =>'recomendar'
+	,'campos'=>[							
+		[
+			'label'      =>'',
+			'campo'      =>'nombre_amigo',
+			'validacion' =>"required",
+			'placeholder'=>'Nombre de tu Amigo',
+		],						
+		[
+			'label'      =>'',
+			'campo'      =>'email_amigo',
+			'validacion' =>"required email",
+			'placeholder'=>'Email de tu Amigo',							
+		],
+		[
+			'label'      =>'Título de la página',
+			'campo'      =>'nombre_pagina',
+			'tipo'       =>'hidden',
+			'value'      =>'Polar Bear',
+		],	
+		[
+			'label'      =>'Dirección de la página',
+			'campo'      =>'url_pagina',
+			'tipo'       =>'hidden',
+			'value'      =>$SERVER['BASE'].$SERVER['url'],
+		]
+	],		
+				
 );
 					
-/*
-	var json=JSON.decode(ee,true);
-	new Element('div', {
-		'class': 'mensaje mensaje_'+json.t,
-		'html': json.m,
-		'id': 'mensaje_'+json.n										
-	}).inject(\$(json.n+'_form_body'), 'before');
-	\$0(json.n+'_form_body');
-	setTimeout(\"\$('mensaje_\"+json.n+\"').destroy(); \$1('\"+json.n+\"_form_body'); \",7000);	 
- */			
+	
 
 	
 if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -160,7 +141,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	if( $email_amigo['todos'] and $email_administrador['todos'] ){
 				
 			echo json_encode(array(
-						't'=>'exito'
+						't'=>'success'
 						,'m'=>$FORM['exito']
 						,'n'=>$FORM['nombre']								
 						));	
@@ -168,7 +149,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	} else {
 		
 			echo json_encode(array(
-						't'=>'error'
+						't'=>'danger'
 						,'m'=>$FORM['error']
 						,'n'=>$FORM['nombre']								
 						));						
@@ -178,5 +159,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	
 }				
 
-// $FORM['panel']='RECOMEDAR';
+
+
+
 

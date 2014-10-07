@@ -4,10 +4,20 @@
 ///////////////   LOADERS   ////////////////////
 /**********************************************/
 
+
+/*
+VIEWPORT
+ */
+//responsive
+// $HEAD['INCLUDE']['viewport']='width=device-width, initial-scale=1, user-scalable=no';
+//non responsive
+$HEAD['INCLUDE']['viewport']='width=device-width, initial-scale=1';
+
+
 /*
 VERSION
  */
-$HEAD['INCLUDE']['version']=$INCLUDE['version'];
+// $HEAD['INCLUDE']['version']=$INCLUDE['version'];
 
 /*
 CODE ANALITYCS
@@ -24,7 +34,7 @@ $HEAD['INCLUDES']['ico'][]='img/favicon.ico';
 //NORMALIZE
 //BOOTSTRAP
 //BOOTSTRAPTHEME
-$HEAD['INCLUDES']['css'][]='../../bootstrap-3.2.0-dist/css/bootstrap.css';
+$HEAD['INCLUDES']['css'][]='../../css/bootstrap-3.2.0-dist/css/bootstrap.css';
 // $HEAD['INCLUDES']['css'][]='../../bootstrap-3.2.0-dist/css/bootstrap-theme.css';
 
 $HEAD['INCLUDES']['css'][]='css/css.css';
@@ -39,178 +49,17 @@ $HEAD['INCLUDES']['external_css'][]="http://fonts.googleapis.com/css?family=Titi
 /**
  * MODERNIZER
  */
-$HEAD['INCLUDES']['js'][]='../../js/vendor/modernizr-2.6.2.min.js';
+$HEAD['INCLUDES']['js_head'][]='../../js/vendor/modernizr-2.6.2.min.js';
 
-
-if(1){
 
 	/**
 	 * VENDOR JQUERY
 	 */
-	$HEAD['INCLUDES']['js'][]='../../js/vendor/jquery-1.10.2.min.js';
-
-
+	// $HEAD['INCLUDES']['js_head'][]='../../js/vendor/jquery-1.10.2.min.js';
+	
 	/**
-	 * SLIDER : bxSlider
-	 * http://bxslider.com/
+	 * REQUIRE JS
 	 */
-	// if($HEAD['LOAD']['bxSlider']){
+	$HEAD['INCLUDES']['js'][]=['../../js/require.js','data-main="js/main.js"'];
 
-	// 	$HEAD['INCLUDES']['js'][]='../../js/vendor/sliders/jquery.bxslider.min.js';
-
-	// }
-
-	/**
-	 * SLIDER : unslider
-	 * http://unslider.com/
-	 */
-	if($HEAD['LOAD']['unslider']){
-
-		$HEAD['INCLUDES']['js'][]='../../js/vendor/sliders/unslider.min.js';
-
-	}
-
-	/**
-	 * ADVANCED SLIDER : flux
-	 */
-	if($HEAD['LOAD']['flux']){
-
-		$HEAD['INCLUDES']['js'][]='../../js/vendor/sliders/flux.js';
-
-	}
-
-	/**
-	 * FORM JQUERy
-	 */
-
-	if($HEAD['LOAD']['form']){
-		$HEAD['INCLUDES']['js'][]='../../js/vendor/form/jquery.form.min.js';
-	}
-
-
-
-
-}
-
-
-
-
-
-
-
-
-/**
- * DEPRECATED
- */
-
-if(0){
-
-	/**
-	 * VENDOR MOOTOOLS
-	 */
-	$HEAD['INCLUDES']['js'][]='js/mootools-core-1.3.2-full-compat-yc.js';
-	$HEAD['INCLUDES']['js'][]='js/mootools-more-1.3.2.1.js';
-
-
-	/**
-	 * JS
-	 */
-	$HEAD['INCLUDES']['js'][]='js/js.js';
-
-
-	// if($_SESSION['edicionweb']=='1' and $SERVER['LOCAL']=='1'){
-	// 	$HEAD['INCLUDES']['js'][]='js/mootools-core-1.3.2-full-compat-yc.js';
-	// 	$HEAD['INCLUDES']['js'][]='js/mootools-more-1.3.2.1.js';
-	// 	$HEAD['INCLUDES']['js'][]='js/js.js';
-	// }
-
-	// if($SERVER['browser']=='IE6'){
-	// 	$HEAD['INCLUDES']['js'][]='js/unitpngfix.js';
-	// }
-
-
-	// $JSC['script'][]="var clear='".$SERVER['BASE'].THEME_PATH."img/clear.gif'";
-
-	//web_render_general_config();
-
-
-	//JAVASCRIPT
-
-	/*
-	$HEAD['INCLUDES']['script'][]="var BASE='".$SERVER['BASE']."'";
-	$HEAD['INCLUDES']['script'][]="var MONEDA='".$COMMON['datos_root']['simbolo_moneda']."'";
-	$HEAD['INCLUDES']['script'][]="var LINK_BUSQUEDA='".procesar_url('index.php?modulo=pagin-items&tab=productos&buscar=')."'";
-	$HEAD['INCLUDES']['script'][]="var CARRITO_PAGINA='".procesar_url('index.php?modulo=app&tab=carrito')."'";
-	$HEAD['INCLUDES']['script'][]="var CARRITO_ENVIAR='".procesar_url('index.php?modulo=formularios&tab=pedido')."'";		
-	*/
-
-
-
-
-
-	/**
-	 * FORMULARIO
-	 */
-	if(isset($FORMULARIO) or $Load['formulario']==1){	
-		$HEAD['INCLUDES']['js'][]='js/lang/es.js';
-		$HEAD['INCLUDES']['js'][]='js/formcheck.js';
-		$HEAD['INCLUDES']['css'][]='css/theme/grey/formcheck.css'; //[blue,classic,green,grey,red,white]
-	}
-
-	/**
-	 * REMOOZ
-	 */
-	if(isset($REMOOZZ) or $Load['remoozz']==1){
-		$HEAD['INCLUDES']['js'][]='js/ReMooz.js';
-		$HEAD['INCLUDES']['css'][]='css/ReMooz.css';
-		$HEAD['INCLUDES']['css_ie6'][]='css/ReMoozIE6.css';
-		$HEAD['INCLUDES']['js'][]='js/_class.noobSlide.packed.js';
-	}		
-	/**
-	 * SLIDESHOW
-	 */
-	if(isset($SLIDESHOW) or isset($Load['slideshow'])){
-		$HEAD['INCLUDES']['js'][]='js/slideshow.js';
-		$HEAD['INCLUDES']['css'][]='css/slideshow/slideshow.css';
-		if(isset($KENBURNS)){
-		$HEAD['INCLUDES']['js'][]='js/slideshow.kenburns.js';
-		}
-		if(isset($LIGHTBOX)){
-		$HEAD['INCLUDES']['js'][]='js/lightbox.js';
-		$HEAD['INCLUDES']['css'][]='css/slideshow/lightbox.css';
-		}		
-	}
-	/**
-	 * SEXYLIGHTBOX
-	 */
-	if(isset($SEXYLIGHTBOX) or $Load['sexylightbox']==1){	
-		$HEAD['INCLUDES']['js'][]='js/sexylightbox/sexylightbox.v2.3.mootools.min.js';
-		$HEAD['INCLUDES']['css'][]='css/sexylightbox/sexylightbox.css';
-	}
-	/**
-	 * MOOTIPS
-	 */
-	if(isset($MOOTIPS) or $Load['mootips']==1){	
-		$HEAD['INCLUDES']['js'][]='js/MooTooltips.js';
-		$HEAD['INCLUDES']['css'][]='css/MooTooltips.css';
-	}
-	/**
-	 * IMAGE ZOOM
-	 */
-	if($Load['imagezoom']==1){	
-		$HEAD['INCLUDES']['js'][]='js/imagezoom.js';
-		$HEAD['INCLUDES']['css'][]='css/imagezoom/imagezoom.css';
-	}
-	/**
-	 * MOOBOX
-	 */
-	// if(0){
-	// 	$HEAD['INCLUDES']['js'][]='js/moodalbox.js';
-	// 	$HEAD['INCLUDES']['js'][]='css/moodalbox.css';	
-	// 	$HEAD['INCLUDES']['js'][]='js/Moobox.js';
-	// 	$HEAD['INCLUDES']['css'][]='css/Moobox.css';	
-	// }
-
-
-}
 

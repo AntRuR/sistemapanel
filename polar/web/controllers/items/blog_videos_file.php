@@ -33,9 +33,10 @@ $object=array_merge($object, paginacion(
 			,0
 			,array(
 				'foto:atributos'=>'src="http://i4.ytimg.com/vi/{codigo}/default.jpg" width="120" ',
-				'foto:rel'=>'sexylightbox[videos]',
-				'foto:url'=>'#TB_inline?width=480&height=385&background=#000&inlineId=video_{id}',
-				'foto:extra'=>array('video'=>array("{codigo}",'{id}',"480x385")),
+				// 'foto:rel'=>'sexylightbox[videos]',
+				'foto:url'=>'http://www.youtube.com/watch?v={codigo}',
+				// 'foto:url'=>'#TB_inline?width=480&height=385&background=#000&inlineId=video_{id}',
+				// 'foto:extra'=>array('video'=>array("{codigo}",'{id}',"480x385")),
 				
 				'esquema'=>'foto,texto',				
 			)							

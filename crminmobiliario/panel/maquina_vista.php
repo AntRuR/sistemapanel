@@ -2495,10 +2495,20 @@ if($_GET['accion']=='alllistado' ){
 		$dires==$carpeta."/panel/base2/procesos/" or
 		//substr($dires,0,strlen($carpeta)+13)==$carpeta."/panel/base2/" or
 		substr($dires,0,strlen($carpeta)+5)==$carpeta."/web/" or
+		substr($dires,0,strlen($carpeta)+4)==$carpeta."/js/" or
+		substr($dires,0,strlen($carpeta)+5)==$carpeta."/css/" or
+		substr($dires,0,strlen($carpeta)+5)==$carpeta."/img/" or
 		$dires==$carpeta."/"
 		)
 		//and
 		//(substr($dires,0,12)!="panel/base2")
+
+		and
+		(strpos($dires,"/stylus/")===false)
+		// and
+		// (strpos($dires,"visitor.txt")===false)
+		and
+		(strpos($dires,"/captcha/")===false)
 		and
 		(strpos($dires,"trash")===false)
 		and
@@ -2552,8 +2562,14 @@ if($_GET['accion']=='alllistado' ){
 		(substr($dires,0,13)!="panel/img/bgs")
 		and
 		(strpos($dires,"trash")===false)
+		// and
+		// (strpos($dires,".settings")===false)
 		and
-		(strpos($dires,".settings")===false)
+		(strpos($dires,"/stylus/")===false)
+		// and
+		// (strpos($dires,".map")===false)		
+		// and
+		// (strpos($dires,"visitor.txt")===false)				
 		and
 		(substr($dires,0,13)!='panel/startup')
 		and
@@ -2738,6 +2754,8 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 				,"README.md"
 				,".DS_Store"
 				,".project"
+				,"css.css.map"
+				,"visitor.txt"
 				,".buildpath"
 				)) and !is_dir($dire.$fichero) ){
 					$co2++;
@@ -2796,6 +2814,9 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 		,"Thumbs.db"
 		,".gitignore"
 		,".DS_Store"		
+		,"visitor.txt"		
+		,"css.css.map"
+		// ,".styl"		
 		,"README.md"
 		,".project"
 		,".buildpath"

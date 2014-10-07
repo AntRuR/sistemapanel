@@ -8,7 +8,7 @@ $ITEMS=$OBJECT[$PARAMS['conector']];
 
 ?>
 <div class="row">
-  <div class="<?php echo $PARAMS['classStyle'] ?>" >    
+  <div class="<?php echo $PARAMS['classStyle'] ?> slidesFlux" >    
       <?php  
 
       if($ITEMS['total']==0){ ?>

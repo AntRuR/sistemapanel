@@ -5134,3 +5134,214 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 
 	return array('word' => $word, 'time' => $now, 'image' => $img);
 }
+
+
+function paginacionnumerada($parametros,$campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
+
+	global $_GET;
+	$pagin=$_GET['pag'];
+	if($pagin==''){
+		$pagin=1;
+	}
+
+	if(is_array($parametros['item'])){
+
+		$wer=each($parametros['item']);
+
+	}
+
+	if($wer['value']!=''){
+
+		$visi=select($campos,$tabla," where ".$wer['key']."='".$wer['value']."' ",$debug,$opciones);
+
+		$tot=1;
+
+		$cm = array(
+				'filas'=>$visi,
+				'total'=>$tot,
+				'pagina'=>$pagin,
+				'anterior'=>"",
+				'siguiente'=>"",
+				'desde'=>1,
+				'hasta'=>$tot,
+				'tren'=>""
+		);
+
+		return $cm;
+
+	} else {
+
+		if($parametros['porpag']==0){
+
+			$visi=select($campos,$tabla,$donde." limit 0,100",$debug,$opciones,$concat);
+
+			$tot=sizeof($visi);
+
+			$cm = array(
+					'filas'=>$visi,
+					'pagina'=>$pagin,
+					'total'=>$tot,
+					'anterior'=>"",
+					'siguiente'=>"",
+					'desde'=>1,
+					'hasta'=>$tot,
+					'tren'=>""
+			);
+
+			return $cm;
+
+		} else {
+
+			//pagin
+			//porpag,anterior,siguiente,enlace
+			$porpag=$parametros['porpag'];
+			$anterior=$parametros['anterior'];
+			$siguiente=$parametros['siguiente'];
+			$enlace=$parametros['enlace'];
+			$separador=$parametros['separador'];
+			$onclick=$parametros['onclick'];
+			$pagina_disabled=$parametros['pagina_disabled'];
+			$tren_limite=($parametros['tren_limite'])?$parametros['tren_limite']:10;
+			$procesar_url=($parametros['procesar_url'])?$parametros['procesar_url']:0;
+			$tipo=($parametros['tipo'])?$parametros['tipo']:'default';
+
+
+			parse_str($enlace,$gets);
+			$gets=array_keys($gets);
+			$var_pag=$gets[sizeof($gets)-1];
+
+
+			if($pagin==''){
+				$pagin=1;
+			}
+
+			$total=contar($tabla,$donde,0);
+			//prin($tabla);
+			//prin($donde);
+			//prin($total);
+
+			$finpag=$total;
+			$inicio=$porpag*($pagin-1);
+
+			if($total>$porpag){
+
+				$visi=select($campos,$tabla,$donde." limit $inicio,$porpag",$debug,$opciones,$concat);
+
+				$finpag=sizeof($visi);
+
+				$prev_pag=$pagin-1;
+				$next_pag=$pagin+1;
+
+
+				if ($pagin==1) {
+					$prev="<span  class='linkarrowselec'>".$anterior."</span>";
+					$prevA="<li class='disabled'><a href='#'>".$anterior."</a></li>";
+				} else {
+					$prev=($anterior=='')?"":"<a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " class='linkarrow'>$anterior</a>";
+					$prevA=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " >$anterior</a></li>";
+				}
+
+				if ($total==($finpag+$inicio)) {
+					$next="<span class='linkarrowselec'>".$siguiente."</span>";
+					$nextA="<li class='disabled'><a href='#'>".$siguiente."</span></li>";
+				} else {
+					$next=($siguiente=='')?"":"<a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " class='linkarrow' >$siguiente</a>";
+					$nextA=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " >$siguiente</a></li>";
+				}
+
+			} else {
+
+				$visi=select($campos,$tabla,$donde,$debug,$opciones,$concat);
+
+			}
+			$sun=(int)(($total-1)/$porpag)+1;
+			for($i=1;$i<=$sun;$i++){
+				if($i==$pagin){
+					$raba[]="<span class='linkpagselec'>$i</span>";
+					$rabaA[]="<li class='active'><a href='#'>$i</a></li>";
+				} else {
+					$raba[]="<a class='linkpag' " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a>";
+					$rabaA[]="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
+				}
+			}
+			$marder=3;
+			$inicior=($pagin>$tren_limite-1-$marder)?($pagin-$tren_limite+$marder):0;
+			//$inicior=$pagin;
+			if(sizeof($raba)>$tren_limite){
+				for( $r = $inicior ;  $r < $inicior + $tren_limite  ; $r++ ){
+
+					if( $r==$inicior and $inicior>0 ){
+						$raba2[]=$raba[0];
+						$raba2A[]=$rabaA[0];
+					} else {
+						$raba2[]=$raba[$r];
+						$raba2A[]=$rabaA[$r];
+					}
+
+					if($raba[$r]!=''){
+						$ultimoraba=$raba[$r];
+						$ultimorabaA=$rabaA[$r];
+					}
+
+				}
+				if($ultimoraba!=$raba[sizeof($raba)-1]){
+					$raba2[]="<span class='linkarrowselec'>&nbsp;...&nbsp;</span>";
+					//$raba2[]=$raba[sizeof($raba)-2];
+					$raba2[]=$raba[sizeof($raba)-1];
+					$raba2A[]="<li class='disabled'><a href='#'>&nbsp;...&nbsp;</span>";
+					//$raba2[]=$raba[sizeof($raba)-2];
+					$raba2A[]=$rabaA[sizeof($raba)-1];
+				}
+				$raba=$raba2;
+				$rabaA=$raba2A;
+
+			}
+
+
+			$rabas=(sizeof($raba)>1)?implode($separador,$raba):"";
+			$rabasA=(sizeof($raba)>1)?implode($separador,$rabaA):"";
+
+			if($pagina_disabled){
+
+				$cm = array(
+						'filas'=>$visi,
+						'pagina'=>$pagin,
+						'total'=>$total
+				);
+
+			} else {
+
+				if($tipo=='bootstrap')
+					$cm = array(
+							'filas'=>$visi,
+							'pagina'=>$pagin,
+							'totalpaginas'=>sizeof($raba),
+							'total'=>$total,
+							'anterior'=>$prevA,
+							'siguiente'=>$nextA,
+							'desde'=>$inicio+1,
+							'hasta'=>$finpag+$inicio,
+							'tren'=>$rabasA
+					);
+				else
+					$cm = array(
+							'filas'=>$visi,
+							'pagina'=>$pagin,
+							'totalpaginas'=>sizeof($raba),
+							'total'=>$total,
+							'anterior'=>$prev,
+							'siguiente'=>$next,
+							'desde'=>$inicio+1,
+							'hasta'=>$finpag+$inicio,
+							'tren'=>$rabas
+					);
+
+			}
+
+			return $cm;
+
+		}
+
+	}
+
+}

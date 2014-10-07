@@ -32,10 +32,10 @@ $object=array_merge($object, paginacion(
 			,0
 			,array(
 				'fecha'=>array('fecha'=>array('{fecha}','5')),			
-				'foto:atributos'=>array('atributos'=>'blofot_imas,{fecha_creacion},{file},1,150x110,1'),
+				'foto:atributos'=>array('atributos'=>'blofot_imas,{fecha_creacion},{file},4,150x110,4'),
 				'foto:url'=>array('archivo'=>'blofot_imas,{fecha_creacion},{file},4'),
 				'foto:descripcion'=>'{foto_descripcion}',
-				'foto:rel'=>"rel='imagezoom[album]'",											
+				// 'foto:rel'=>"rel='imagezoom[album]'",											
 				'esquema'=>'foto',
 				
 					'foto_descripcion'=>'null',
@@ -46,25 +46,7 @@ $object=array_merge($object, paginacion(
 		)
 );
 
-$Load['imagezoom']=1;
 
-$HEAD['INCLUDES']['script'][]='
-window.addEvent("domready", function() {
-	initImageZoom({"loadImage":"'.$SERVER['BASE'].THEME_PATH.'css/imagezoom/images/loading.gif"});
-});   
-';
-
-//prin($object);
-
-//MENU
-
-/*
-if($ITEM['id_grupo']=='1'){
-	$COMMON['menu'] = web_re_procesar_menu($COMMON['menu'],"index.php?modulo=items&tab=rubros&acc=list&gru=1");
-} else {
-	$COMMON['menu'] = web_re_procesar_menu($COMMON['menu'],"index.php?modulo=items&tab=rubros&acc=list&gru=0");
-}
-*/
 
 $object['panel']=array('BLOG_FOTOS','BLOG_FOTOS_FOTOS');
 //////////////////////CONECTOR/////////////

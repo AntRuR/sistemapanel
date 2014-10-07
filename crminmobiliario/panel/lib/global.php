@@ -3,6 +3,7 @@
 header('Content-Type: text/html; charset=utf-8');
 
 
+
 $Array_Meses=array(1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre");
 $Array_Horas=array(0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm");
 
@@ -195,6 +196,11 @@ extract($vars_global);
 // echo '</pre>';
 // exit();
 
+$USU_IMG_DEFAULT=$vars_global['USU_IMG_DEFAULT']=$vars['GENERAL']['USU_IMG_DEFAULT']='img/blank.gif';
+
+
+
+
 if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME']=="127.0.0.1" or substr($_SERVER['SERVER_NAME'],0,7)=="192.168") {
 
 	$vars['LOCAL']['httpfiles']=($vars['GENERAL']['MODO_LOCAL_ARCHIVOS_REMOTOS']==1)?$vars['REMOTE']['httpfiles']:$vars['LOCAL']['httpfiles'];
@@ -282,7 +288,7 @@ $url_script=$script_A[sizeof($script_A)-1];
 $script_A = explode("/",$_SERVER['SCRIPT_FILENAME']);
 $file_script=$script_A[sizeof($script_A)-1];
 
-$script_A = explode("/",$_SERVER['PHP_SELF']);
+$script_A = explode("/",$_SERVER['SCRIPT_NAME']);
 unset($script_A[sizeof($script_A)-1]);
 $dir_script=implode("/",$script_A);
 
@@ -292,6 +298,10 @@ $SERVER['BASE']="http://".$_SERVER['HTTP_HOST'].$dir_script."/";
 $SERVER['RUTA']=$SERVER['BASE'].$SERVER['ARCHIVO'];
 $SERVER['ROOT']=$vars['LOCAL']['url_publica'];
 $SERVER['PANEL']=$SERVER['ROOT'].'/panel';
+// echo '<pre>'; print_r($vars_server['url_publica']); echo '</pre>';
+// echo '<pre>'; print_R("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']); echo '</pre>';
+$SERVER['PATH']=str_replace('//','/','/'.str_replace($vars_server['url_publica'],'',"http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
+// echo '<pre>'; print_r($SERVER['PATH']); echo '</pre>';
 
 $LOGIN=(!(strpos($_SERVER['SCRIPT_NAME'], "login.php")===false))?1:0;
 
@@ -657,4 +667,5 @@ define(HTML_MAIN_FIN,$HTML_MAIN_FIN);
 define(HTML_ALL_FIN,$HTML_ALL_FIN);
 
 $HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
+
 

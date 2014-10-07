@@ -1,0 +1,184 @@
+
+
+/**
+ * LAYOUT
+ */
+body
+	background #125586 url($IMAGES_PATH/body_bg.jpg) repeat-x fixed center 0
+	font-family: calibri,helvetica,arial,sans-serif,tahoma,verdana
+	font-size: 12px
+	margin-bottom 10px
+	header,
+	footer,
+	nav,
+	section.contenido
+		width: ($PAGE_WIDTH)px
+		margin 0 auto
+		position relative
+	nav
+		margin-top -58px				
+	section.contenido
+		background rgba(white, 0.5)
+
+
+
+/**
+ * COMMON : HEADER
+ */
+header
+	background rgba(white,0.7)
+	height: 117px
+	h1
+	h2
+	h3
+		display none
+	figure
+		position absolute
+		top 7px
+		left 7px
+		figcaption
+			position absolute
+			bottom 17px
+			left 94px	
+			width 800px	
+			h3
+				color #2C456B
+				font-size 1.05em
+				letter-spacing -0.1px
+				font-weight bold
+
+
+
+
+/**
+ * COMMON : MAIN MENU 
+ */		
+nav
+	z-index: 1000;
+	height 58px;
+	text-align right
+	> ul
+		list-style: none;
+		padding: 0;
+		margin: 0;			
+		display: inline-block;
+		text-align: center;
+		margin-right 10px
+		> li
+			position: relative;
+			margin: 0 12px;			
+			// background #FC0;	
+			background: url($IMAGES_PATH/menu_item_bg.png) repeat-x;					
+			border: 0;
+			padding: 0	
+			float: left
+			transition:all 0.5s linear;	
+			height 22px								
+			// border-radius: 10px 10px 0px 0px;
+			&:before
+				background: url($IMAGES_PATH/menu_item_left.png) no-repeat;
+				width: 40px;
+				content: "";
+				height: 22px;
+				position: absolute;
+				left: -22px;					
+			&:after				
+				background: url($IMAGES_PATH/menu_item_right.png) no-repeat;
+				width: 22px;
+				content: "";
+				height: 22px;
+				position: absolute;
+				right: -21px;
+				z-index: 26;				
+			a
+				height: auto;
+				color: white;
+				font-weight: bold;
+				padding: 4px 1px;
+				float: left;
+				white-space: nowrap;
+				font-family: 'Titillium Web','caviar_dreamsregular', "Helvetica Neue"
+				font-size: 0.9em;
+				text-transform: uppercase;
+				text-decoration: none;
+			// .selected,					
+			// &:hover
+			// 	transition:all 0.5s linear;					
+			// 	background #264F80
+			// 	a
+			// 		text-decoration: underline
+			> .area
+				position absolute
+				top 22px
+				left -20px
+				overflow hidden
+				box-shadow 4px 2px 10px rgba(#444,0.6)
+				> ul
+					margin-top -100%
+					display block
+					transition:all 0.3s linear;
+					> li
+						background white
+						border-radius 0 !important;
+						width 100% 
+						clear left
+						float left
+						border-top 1px solid #ccc
+						height auto
+						&:before
+						&:after
+							display none	
+						a
+							font-size: 1em;
+							padding: 9px 19px;
+			&.selected
+				a
+					color #9bd7ff			
+			&:hover
+				a
+					color #9bd7ff
+				.area
+					> ul
+						margin-top 0%
+						transition:all 0.3s linear;							
+						>li
+							a
+								color black
+								text-decoration: none;
+								width 100%
+								text-align left
+							&:hover
+								background #ccc
+								a
+									color black
+									text-decoration: underline;
+
+
+/**
+ * COMMON : FOOTER
+ */
+footer
+	background-color: #125586;
+	height: 50px;
+	padding: 15px 0;
+	color #FFF
+	.footer_menu
+		display none
+	.info
+		color: #CCC;
+		.copy
+			top: 0px;
+			left: 0px;	
+			text-align center	
+			width 100%	
+	.visitas
+		top: 15px;
+		right: 10px;			
+	.footer_by
+		top 22px;
+		left 45%;		
+		width 10%
+		display none
+		a
+			color #FFF
+

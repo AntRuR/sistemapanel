@@ -8,75 +8,62 @@ include_once("formularios/formularios.php");
 			,'titulo'=>"Contacto"
 			,'legend'=>"Déjanos tu Mensaje"
 			,'ajax'=>'1'
-			,'action'=>'ajax.php?mode=form&tab='.$PARAMS['this'].'&name='.$PARAMS['conector']
+			,'action'=>'ajax.php?mode=form&tab='.$PARAMS['conector'].'&name='.$PARAMS['conector']
 			//,'url'=>'index.php?modulo=app&tab=home'					
 			//,'action'=>'index.php?modulo=formulario&tab=contacto'
 			,'exito'=>'Gracias por su mensaje en breve nos estaremos comunicando con usted.'
 			,'error'=>'Ocurrió un error en el proceso de envio'				
-			,'submit'=>' type="submit" value="Enviar Mensaje" '	
+			,'submit'=>' type="submit" value="Enviar Mensaje" class="btn btn-primary btn-sm" '	
 			,'pie'=>'los campos con * son obligatorios'
-			/*CAMPOS-BEGIN*/
 										
 ,'tabla'=>'contacto'
-,'campos'=>array(
-	'apellidos'=>array(
-		'label'=>'Apellidos'
-		,'validacion'=>"validate['required']"
-	)	
-	,'nombre'=>array(
-		'label'=>'Nombre'
-		,'validacion'=>"validate['required']"
-	)	
-	,'telefono'=>array(
-		'label'=>'Teléfono Fijo'
-		,'validacion'=>"validate['phone']"
-	)
-	,'celular'=>array(
-		'label'=>'Celular'
-		,'validacion'=>"validate['phone']"
-	)	
-	,'email'=>array(
-		'label'=>'E-mail'
-		,'validacion'=>"validate['required','email']"
-	)
-	,'distrito'=>array(
+,'campos'=>[
+	'apellidos'=>[
+		'label'      =>'Apellidos',
+		'validacion' =>"required"
+	],	
+	'nombre'=>[
+		'label'      =>'Nombre',
+		'validacion' =>"required"
+	],	
+	'telefono'=>[
+		'label'      =>'Teléfono Fijo',
+		'validacion' =>"Tel"
+	],
+	'celular'=>[
+		'label'      =>'Celular',
+		'validacion' =>"Tel"
+	],	
+	'email'=>[
+		'label'      =>'E-mail',
+		'validacion' =>"Tel required"
+	],
+	'distrito'=>[
 		'label'=>'Distrito'
-	)		
-	,'provincia'=>array(
+	],		
+	'provincia'=>[
 		'label'=>'Provincia'
-	)						
+	],						
 			
-	,'como_se_entero'=>array(
-		'label'=>'Cómo se enteró de nosotros'
-		,'tipo'=>'input_combo'
-		,'opciones'=>array('1'=>'Web','2'=>'Páginas Amarillas','3'=>'Mailing','4'=>'Publicidad de vehículos','5'=>'Recomendación de clientes','6'=>'Redes Sociales (Facebook, Twitter)')		
-	)	
+	'como_se_entero'=>[
+		'label'    =>'Cómo se enteró de nosotros',
+		'tipo'     =>'input_combo',
+		'opciones' =>['1'=>'Web','2'=>'Páginas Amarillas','3'=>'Mailing','4'=>'Publicidad de vehículos','5'=>'Recomendación de clientes','6'=>'Redes Sociales (Facebook, Twitter)']
+	],
 
-	,'comentario'=>array(
-		'label'=>'Déjenos su consulta'
-		,'tipo'=>'textarea'
-		,'validacion'=>"validate['required'] autoinput"
-		//,'value'=>array('')
-	)		
-	,'captcha'=>array(
+	'comentario'=>[
+		'label'       =>'Déjenos su consulta'
+		,'tipo'       =>'textarea'
+		,'validacion' =>"required"
+		//,'value'=>['')
+	],		
+	'captcha'=>[
 		'tipo'=>'captcha'
-	)							
-)	
-					/*CAMPOS-END*/
+	]							
+],	
 					
-					,'complete'=>"							
-
-							var json=JSON.decode(ee,true);
-							new Element('div', {
-								'class': 'mensaje mensaje_'+json.t,
-								'html': json.m,
-								'id': 'mensaje_'+json.n										
-							}).inject(\$(json.n+'_form_body'), 'before');
-							\$0(json.n+'_form_body');
-							setTimeout(\"\$('mensaje_\"+json.n+\"').destroy(); \$1('\"+json.n+\"_form_body'); \",7000);							
-							
-					"							
-			);
+					
+);
 			
 						
 			$FORM=pre_proceso_form($FORM);
@@ -161,11 +148,12 @@ include_once("formularios/formularios.php");
 									"EMAIL QUE SE LE ENVIA AL USUARIO"=>$email_cliente['debug'],
 									"EMAIL QUE SE LE ENVIA AL ADMINISTRADOR"=>$email_administrador['debug']
 									),"../../debug/emails_".$FORM['nombre'].".html");
-								
+				
+
 				if( $email_cliente['todos'] and $email_administrador['todos'] ){
 								
 						echo json_encode(array(
-									't'=>'exito'
+									't'=>'success'
 									,'m'=>$FORM['exito']
 									,'n'=>$FORM['nombre']									
 									));	
@@ -173,7 +161,7 @@ include_once("formularios/formularios.php");
 				} else {
 					
 						echo json_encode(array(
-									't'=>'error'
+									't'=>'danger'
 									,'m'=>$FORM['error']
 									,'n'=>$FORM['nombre']
 									));	
@@ -189,7 +177,7 @@ include_once("formularios/formularios.php");
 			
 			}			
 
-$FORM['panel']='CONTACTO';
+
 
 $OBJECT[$PARAMS['conector']]=$FORM;
 

@@ -6,17 +6,18 @@ $panel_path="panel";
 
 include($web_path."/ajax_includes.php");
 
-chdir($web_path."/modulos");
-include("lib/include.php");
+chdir($web_path."/controllers");
+include("lib/helpers.php");
+
 
 switch($_GET['mode']){
 case "get":
 	include("ajax_get.php");
 break;
 case "form":
-	include("build/routes.php");
+	include("../build/routes.php");
 	include("loaddata.php");
-	include("panel.php");
+	// include("panel.php");
 	include(incluget("formularios/".$_GET['tab'].".php"));
 break;
 case "carrito":

@@ -16,6 +16,8 @@ $object['filas']=select(
 			)
 );
 
+// prin($object['filas']);
+
 $object['total']=sizeof($object['filas']);
 
 $object['vacio']='aún no hay fotos en el banner';
@@ -23,26 +25,6 @@ $object['vacio']='aún no hay fotos en el banner';
 
 
 
-$HEAD['LOAD']['flux']=true;
-
-$HEAD['INCLUDES']['script'][]="
-$( document ).ready(function() {
-
-	var tarray = new Array();
-	tarray.push('blinds');
-	// tarray.push('slide');
-
-	window.f = new flux.slider('.banner_main', {
-					    // autoplay: false,
-					    pagination: true,
-					    captions: true,
-					    // transitions: tarray,
-					    delay: 7000,					
-					});	
-
-});
-";
-   
 
 
 $OBJECT[$PARAMS['this']]=$object;

@@ -28,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 }
 echo $sn3;
 
-$rrr='110';
+$rrr='3';
 
 $needs=necesita_libs($objeto_tabla);
 
@@ -50,8 +50,12 @@ if($Local){ ?>
 */
 ?>
 <link href="<?php echo $sn2?>css/bootstrap.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo $sn2?>css/bootstrap-responsive.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo $sn2?>css/docs.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
+<!-- <link href="<?php echo $sn2?>css/bootstrap-responsive.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
+
+<!-- <link href="<?php echo $sn2?>css/material.min.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="<?php echo $sn2?>css/flat-ui.min.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
+
+<!-- <link href="<?php echo $sn2?>css/docs.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
 
 <link href="<?php echo $sn2?>css/css.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
 

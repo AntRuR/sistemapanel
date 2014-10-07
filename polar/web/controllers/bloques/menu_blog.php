@@ -4,26 +4,26 @@
 $ID_ITEM=$_GET['id'];
 
 
-$object=array();
+$object=[];
 
-$object['menu']=array(
-					array(
+$object['menu']=[
+					[
 							'label'=>"Noticias",
-							'url'=>'index.php?modulo=items&tab=blog_noticias&acc=list',
-					),
-					array(
+							'url'=>'index.php?modulo=items&tab=blog_noticias',
+					],
+					[
 							'label'=>"Comunicados",
-							'url'=>'index.php?modulo=items&tab=blog_actividades&acc=list',
-					),
-					array(
+							'url'=>'index.php?modulo=items&tab=blog_actividades',
+					],
+					[
 							'label'=>"Fotos",
-							'url'=>'index.php?modulo=items&tab=blog_fotos&acc=list'
-					),
-					array(
+							'url'=>'index.php?modulo=items&tab=blog_fotos'
+					],
+					[
 							'label'=>"Videos",
-							'url'=>'index.php?modulo=items&tab=blog_videos&acc=list',
-					),
-				 );
+							'url'=>'index.php?modulo=items&tab=blog_videos',
+					],
+				 ];
 								 
 $object['menu']=web_procesar_menu($object['menu']);
 
@@ -32,7 +32,7 @@ case "blog_noticias":
 
 	$object['header']=array(
 						'nombre'=>'Últimas Noticias',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_noticias&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_noticias'),
 					  );
 
 	$object['items']= select(
@@ -57,7 +57,7 @@ case "blog_noticias":
 		);
 	$object['footer']=array(
 						'nombre'=>'Ver Todas las Noticias',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_noticias&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_noticias'),
 					  );							
 
 break;
@@ -65,7 +65,7 @@ case "blog_actividades":
 
 	$object['header']=array(
 						'nombre'=>'Últimos Comunicados',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_actividades&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_actividades'),
 					  );
 	
 	$object['items']= select(
@@ -91,7 +91,7 @@ case "blog_actividades":
 		
 	$object['footer']=array(
 						'nombre'=>'Ver Todos los Comunicados',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_actividades&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_actividades'),
 					  );					  		
 
 break;
@@ -99,7 +99,7 @@ case "blog_fotos":
 
 	$object['header']=array(
 						'nombre'=>'Últimas Fotos',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_fotos&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_fotos'),
 					  );
 
 	$object['items']= select(
@@ -118,7 +118,7 @@ case "blog_fotos":
 			'url'=>array('url'=>array("index.php?modulo=items&tab=blog_fotos&acc=file&id={id}&friendly={nombre}")),
 			'foto'=>array('foto'=>array("id,file,foto_descripcion,fecha_creacion|blog_fotos_fotos|where id_grupo='{id}' and visibilidad='1' order by id asc limit 0,1",
 						"blofot_imas",
-						array('atributos'=>'2,50x50,1')
+						array('atributos'=>'2,50x50,0')
 						)),
 						
 			'esquema'=>'foto,fecha,nombre:h2',
@@ -127,7 +127,7 @@ case "blog_fotos":
 	// prin($object['items']);	
 	$object['footer']=array(
 						'nombre'=>'Ver Todos los Albumes',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_fotos&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_fotos'),
 						);			
 
 break;
@@ -135,7 +135,7 @@ case "blog_videos":
 
 	$object['header']=array(
 						'nombre'=>'Últimos Videos',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_videos&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_videos'),
 					  );
 
 	$object['items']= select(
@@ -162,7 +162,7 @@ case "blog_videos":
 
 	$object['footer'][]=array(
 						'nombre'=>'Ver Todos los Albumes',
-						'url'=>procesar_url('index.php?modulo=items&tab=blog_videos&acc=list'),
+						'url'=>procesar_url('index.php?modulo=items&tab=blog_videos'),
 						);
 
 break;

@@ -4,7 +4,7 @@
 	$object=[];
 
 	$object['menu']=[
-						['label'=>"Noticias", 		'more'=>'data-tab="notas"',	'class'=>'active'],
+						['label'=>"Noticias", 		'more'=>'data-tab="notas"',			'class'=>'active'],
 						['label'=>"Comunicados", 	'more'=>'data-tab="actividades"'],
 						['label'=>"Fotos", 			'more'=>'data-tab="fotos"'],
 						['label'=>"Videos", 		'more'=>'data-tab="videos"'],
@@ -27,7 +27,7 @@
 	
 	$object['notas']['footer']=array(
 											'nombre'=>'Todas las noticias',
-											'url'=>procesar_url("index.php?modulo=items&tab=blog_noticias&acc=list")
+											'url'=>procesar_url("index.php?modulo=items&tab=blog_noticias")
 											);
 
 
@@ -44,7 +44,7 @@
 	);
 	$object['actividades']['footer']=array(
 											'nombre'=>'Todas los Comunicados',
-											'url'=>procesar_url("index.php?".$filtro_param."modulo=items&tab=blog_actividades&acc=list")
+											'url'=>procesar_url("index.php?".$filtro_param."modulo=items&tab=blog_actividades")
 											);
 											
 												
@@ -63,7 +63,7 @@
 	
 	$object['fotos']['footer']=array(
 											'nombre'=>'Todos los Albumes',
-											'url'=>procesar_url("index.php?".$filtro_param."modulo=items&tab=blog_fotos&acc=list")
+											'url'=>procesar_url("index.php?".$filtro_param."modulo=items&tab=blog_fotos")
 											);
 											
 												
@@ -82,53 +82,11 @@
 	
 	$object['videos']['footer']=array(
 											'nombre'=>'Todos los Albumes',
-											'url'=>procesar_url("index.php?".$filtro_param."modulo=items&tab=blog_videos&acc=list")
+											'url'=>procesar_url("index.php?".$filtro_param."modulo=items&tab=blog_videos")
 											);	
 
 	
 
-
-
 $OBJECT[$PARAMS['this']]=$object;	
-
-
-
-
-
-foreach(['notas','actividades','fotos','videos'] as $tab){ 
-$HEAD['INCLUDES']['script'][]="
-$( document ).ready(function() {
-	var unslider_".$tab." = $('.".$PARAMS['this']." .".$tab." .slides').unslider({
-		fluid:true,
-		// dots:true,
-		delay:false,
-		speed:500,
-		keys:true,
-	});
-
-    \$('.".$PARAMS['this']." .".$tab." .arrow').click(function() {
-        var fn = this.className.split(' ')[1];
-        unslider_".$tab.".data('unslider')[fn]();
-    });	
-
-});
-";
-}
-
-
-$HEAD['INCLUDES']['script'][]="
-$( document ).ready(function() {
-	var tabs = \$( '.".$PARAMS['this']." .tabs' );
-	tabs.on('click','a',function() {
-	  \$( this ).parent().parent().find('li').removeClass( 'active' );
-	  \$( this ).parent().addClass( 'active' );
-	  tabs.parent().find( 'section' ).removeClass( 'show' );
-	  tabs.parent().find( '.' + \$( this ).data( 'tab' ) ).addClass( 'show' );
-	});
-	
-	tabs.find( 'li.active a' ).trigger('click');
-
-});
-";
 
 

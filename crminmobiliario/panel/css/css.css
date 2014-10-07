@@ -501,10 +501,11 @@ li.modificador:hover a.ie i {
 .bld input[type=text],
 .bld input[type=password],
 .bld textarea {
-  border: 1px solid #aaa;
+  /* outline: 1px solid #AAA !important; */
   background: #fafbd3;
   padding: 0 0px;
   border: 0;
+  /* width: 100%; */
 }
 .bld select {
   text-align: left;

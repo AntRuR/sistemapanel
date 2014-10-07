@@ -1,12 +1,8 @@
 <?php //á
+
 $THIS=$PARAMS['this'];
-$object=array();
 
-
-$secc=$SECCIONES[$_GET['sec']];
-$filtro_where=$secc['where'];
-$filtro_param=$secc['param'];
-$filtro_nombre=$secc['nombre'];
+$object=[];
 
 /*
 $object['archivos']= fila(
@@ -21,7 +17,7 @@ $object['archivos']= fila(
 */		
 	
 
-$object['menu'] = web_procesar_menu($object['menu'],"izquierda");
+// $object['menu'] = web_procesar_menu($object['menu'],"izquierda");
 
 //$object['menu'] = web_re_procesar_menu($object['menu'],'f');
 

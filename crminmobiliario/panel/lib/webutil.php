@@ -32,39 +32,50 @@ $INCLUDE=$HEAD['INCLUDE'];
 
 $html ='';
 $html.='<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"><!--<![endif]-->
+<!--[if lt IE 7]>      <html lang="es_ES" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="es_ES" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="es_ES" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="es_ES" class="no-js"> <!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="imagetoolbar" content="no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 ';
 if($HEAD['meta_descripcion']){ $html.='<meta name="description" content="'.$HEAD['meta_descripcion'].'" />
 '; }
 if($HEAD['meta_keywords']){ $html.='<meta name="keywords" content="'.$HEAD['meta_keywords'].'" />
 '; }
-//$html.='<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>';
-$html.='<meta http-equiv="content-language" content="es" />
-<meta name="robots" content="index,follow"/>
+$html.='<meta name="robots" content="index,follow"/>
 <meta name="googlebot" content="index, follow" />
 <title>'.$HEAD['titulo'].'</title>
 <base href="'.$SERVER['BASE'].'" />
 <link rel="canonical" href="'. $SERVER['URL'] .'" />
 ';
+
+/**
+ * FACEBOOK
+ */
 foreach($HEAD['facebook'] as $var=>$val){
 $html.='<meta property="'.$var.'" content="'.$val.'"/>
 ';}
 
-//INCLUDES
+/**
+ * OTHER METAS
+ */
 foreach($INCLUDES['meta'] as $var=>$val){
 $html.='<meta http-equiv="'.$var.'" content="'.$val.'"/>
 ';}
+
+/**
+ * FAVICON
+ */
 foreach($INCLUDES['ico'] as $file){
 $html.='<link rel="shortcut icon" href="'.$SERVER['BASE'].THEME_PATH.$file.$INCLUDE['version'].'" type="image/x-icon" />
 ';}
+
+/**
+ * WEB FONTS AND EXTERNAL CSS
+ */
 foreach($INCLUDES['external_css'] as $file){
 $html.='<link type="text/css" rel="stylesheet" href="'.$file.'" />
 ';}
@@ -1969,28 +1980,6 @@ function web_render_edit_toolbar($SELS){
 }
 
 
-function web_render_get_css($objs,$CLASSSELECTED){
-
-	global $SERVER;
-	global $HEAD;
-	global $SELECTORS;
-	global $SELECTED;
-	global $vars;
-	global $LIBRARIES;
-	global $WEBBLOQUES;
-	global $CLASSSELECTED;
-	global $CLASSPARAMETERS;
-	global $MASTERCOFIG;
-	list($local,$dos)=explode($vars['INTERNO']['CARPETA_PROYECTO'],$SERVER['BASE']);
-
-	$Ruta2 = $local.'/panel/csslib/';
-	$Ruta3 = "../../../panel/csslib/";
-
-	$HEAD['INCLUDES']['css'][]='lib/css.css';
-
-	$SELECTED=$CLASSSELECTED;
-
-}
 
 function web_selector_control($SELECTED,$THIS,$tipos,$debug=0){
 	// $tiposA=array();
@@ -2987,3 +2976,95 @@ function Titulo_Filtro($titulo,$value){
 	return $titulo.$MesesA[$month]." de ".$year;
 }
 
+
+function procesar_url($url,$debug=0){
+
+	global $URLS; global $MASTERCOFIG;
+	//	prin($URLS);
+
+	if(substr($url,-5)=='.html'){
+		return $url;
+	}
+
+	if($MASTERCOFIG['friendly_url']=='0'){
+
+		return $url;
+
+	}
+
+	if(isset($URLS[$url])){
+
+		$url=$URLS[$url];
+
+	} else {
+
+		$file="index.php?";
+		$url2=str_replace($file,"",$url);
+
+		parse_str($url2,$gets);
+		$url='';
+
+		/*	ANTIGUO*/
+		if( $gets['modulo']=='home' ){
+			if( $gets['tab']=='productos' ){
+				if( isset($gets['buscar']) ){
+					$url.='buscar/'.url_encode_seo($gets['buscar']);
+				} elseif( $gets['id_grupo']!='' ){
+					$url.='productos/'.url_encode_seo($gets['id_grupo']);
+				} else {
+					$url.='';
+				}
+				$slash=($url=='')?'':'/';
+				$url.=( ($gets['pag'])?$slash.$gets['pag']:"" );
+			}
+
+		} elseif($gets['modulo']=='item'){
+			if( $gets['tab']=='productos' ){
+				$url="producto/".$gets['id'];
+			}
+		}
+
+		/*ESPECIALES*/
+		if($gets['modulo']=='formularios' and $gets['tab']=='login' and $gets['redir']!=''){
+			$url.="index.php?modulo=formularios&tab=login&redir=".urlencode($gets['redir']);
+		}
+		/**/
+		elseif( $gets['modulo']=='items' ){
+			$url.=$gets['tab'];
+			//			$url.=( ($gets['grupo'])?"/".$gets['grupo']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):"" );
+			if( $gets['acc']=='file' ){
+				$url.=( ($gets['id'])?"/".$gets['id']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):"" );
+
+				$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+			} elseif( $gets['acc']=='list' ){
+				$url.=( ($gets['gru'])?"-".$gets['gru']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"categoria" ):"" );
+
+				$url.=( ($gets['fil'])?"/".$gets['fil'].(($gets['val'])?"/".$gets['val']."/".( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):''):'');
+
+				$url.=( ($gets['buscar'])?"/buscar=".$gets['buscar']:"" );
+
+				$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+			}
+		}
+		elseif( $gets['modulo']=='app' and $gets['tab']=='pages' ){
+			$url.=$gets['page'];
+			//$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+		}
+		elseif( $gets['modulo']=='app' ){
+			$url.=$gets['tab'];
+			//$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+		}
+		elseif( $gets['modulo']=='formularios'){
+			$url.=$gets['tab'];
+		}
+
+		if($debug==1){
+			prin($gets); prin($url);
+		}
+
+	}
+	$url=str_replace('&amp;','&',$url);
+
+	return $url;
+
+}

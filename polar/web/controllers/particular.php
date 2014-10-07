@@ -1,5 +1,5 @@
 <?php //á
-
+/*
 $PF=select("seccion,id,nombre,color",strtolower($vars['GENERAL']['PAGES']),"where visibilidad='1'");
 foreach($PF as $pf){ 
 $SECCIONES[$pf['seccion']]=array(
@@ -9,5 +9,4 @@ $SECCIONES[$pf['seccion']]=array(
 								'color'=>$pf['color'],								
 								); 
 }
-
-?>
+*/

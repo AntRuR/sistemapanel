@@ -5,9 +5,7 @@ $THIS=$PARAMS['this'];
 $ITEMS=$OBJECT[$PARAMS['this']];
 
 ?>
-
 <section class="<?php echo $PARAMS['classStyle']; ?>" >
-
 
     <div class="header">
         <h1><?php echo $ITEMS['titulo']; ?></h1>
@@ -18,48 +16,27 @@ $ITEMS=$OBJECT[$PARAMS['this']];
         <div class="div_fila">
         <?php web_render_combo($ITEMS['combo']); ?>
         </div>
-                
-		    <?php  
+
+	    <?php  
         if(sizeof($ITEMS['filas'])==0){ ?><p class="vacio"><?php echo $ITEMS['vacio']; ?></p><?php } else {
             ?>
-            <ul  class="listado_items">   
+            <ul  class="listado_items list">   
             <?php foreach($ITEMS['filas'] as $item){  ?>                                             
-                    <li class="listado_item">
-                         	<?php web_render_item($item,$item['esquema']); ?>								                  
-                    </li>							   
+                <li class="listado_item">
+                     <?php web_render_item($item,$item['esquema']); ?>								                  
+                </li>							   
             <?php } ?>
             </ul> 
             <?php 
-        }
+            }
         ?>
-    
-    <div class="barra_abajo">
-    	<div class="listado_paginacion">
-    	<?php echo $ITEMS['anterior']." ".$ITEMS['tren']." ".$ITEMS['siguiente']; ?>
-        <!--<a class="ver_todos">Ver todos los productos de esta categoría</a>-->
-        </div>
-   </div>  
+        <div class="barra_abajo">
+        	<div class="listado_paginacion">
+        	<?php echo $ITEMS['anterior']." ".$ITEMS['tren']." ".$ITEMS['siguiente']; ?>
+            <!--<a class="ver_todos">Ver todos los productos de esta categoría</a>-->
+            </div>
+       </div>  
 
-  </article>
+    </article>
 
-</section> 
-       
-
-	<?php /*
-	<script>
-	window.addEvent('domready', function() {
-	 
-		ReMooz.assign('.listado_items .listado_item a.foto', {
-			'origin': 'img',
-			'shadow': 'onOpenEnd', // fx is faster because shadow appears after resize animation ( alue can be true, onOpenEnd )
-			'resizeFactor': 0.8, // resize to maximum 80% of screen size
-			'cutOut': false, // don't hide the original
-			'opacityResize': 0.4, // opaque resize
-			'dragging': true, // disable dragging
-			'centered': true // resize to center of the screen, not relative to the source element
-		});
-	 
-	});
-	</script>
-    */ ?>
-    
+</section>

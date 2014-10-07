@@ -10,21 +10,17 @@ $ITEMS=$object['items'];
 foreach($ITEMS as $ITEM){
 ?>
 <aside class="<?php echo $PARAMS['classStyle']; ?>" >
-     
     
-		<?php
+        <?php
         if($ITEM['header']){ 
         echo '<div class="header">'; web_render_item($ITEM['header']); echo '</div>';
         }
         ?>
-             
         <div class="inner">
-		<?php web_render_tree_special($ITEM['menu'],'h3'); ?>
+                <?php web_render_menu($ITEM['menu'],[],'h3'); ?>
         </div>
-        
-        <?php
-        echo '<div class="footer"></div>';
-        ?>
+
+        <div class="footer"></div>
 		
 </aside>   	     
 <?php } ?>

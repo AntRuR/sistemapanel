@@ -7,7 +7,6 @@ $root_dir=getcwd();
 // include($web_path."/modulos/panel.php");
 
 chdir("$panel_path/");
-
 include "lib/global.php";	
 include "lib/conexion.php";
 require "lib/mysql3.php";
@@ -26,10 +25,8 @@ define('THEME_PATH',$web_path."/views/");
 
 //LOAD CONTROLLERS
 chdir("$web_path/controllers/");
-
 include("common.php"); //head.php//header.php//menu.php//footer.php
-
-web_render_comming($vars,$_SESSION);	
+// web_render_comming($vars,$_SESSION);	
 		
 chdir($root_dir);
 

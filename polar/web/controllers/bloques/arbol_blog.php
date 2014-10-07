@@ -1,6 +1,6 @@
 <?php //á
 
-$object=array();
+$object=[];
 
 
 $ID=($_GET['tab']=='textos_items')?$_GET['id']:'';
@@ -11,28 +11,28 @@ $object['items'][]=array(
 						'header'=>array(
 								'nombre'=>'Blog',
 								),
-						'menu'=>array_merge(array(
-										array(
-												'label'=>"Noticias",
-												'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_noticias&acc=list',
-												'nivel'=>'menu_nivel_2',												
-										),
-										array(
-												'label'=>"Comunicados",
-												'nivel'=>'menu_nivel_2',												
-												'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_actividades&acc=list',
-										),
-										array(
-												'label'=>"Fotos",
-												'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_fotos&acc=list',
-												'nivel'=>'menu_nivel_2',												
-										),
-										array(
-												'label'=>"Videos",
-												'url'=>'index.php?'.$filtro_param.'modulo=items&tab=blog_videos&acc=list',
-												'nivel'=>'menu_nivel_2',												
-										),																													
-									),(($extra)?$extra:array()))
+						'menu'=>array(
+									array(
+											'label' =>"Noticias",
+											'url'   =>procesar_url('index.php?modulo=items&tab=blog_noticias'),
+											'nivel' =>'menu_nivel_2',												
+									),
+									array(
+											'label' =>"Comunicados",
+											'nivel' =>'menu_nivel_2',												
+											'url'   =>procesar_url('index.php?modulo=items&tab=blog_actividades'),
+									),
+									array(
+											'label' =>"Fotos",
+											'url'   =>procesar_url('index.php?modulo=items&tab=blog_fotos'),
+											'nivel' =>'menu_nivel_2',												
+									),
+									array(
+											'label' =>"Videos",
+											'url'   =>procesar_url('index.php?modulo=items&tab=blog_videos'),
+											'nivel' =>'menu_nivel_2',												
+									),																													
+								)
 						);
 						
 					

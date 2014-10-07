@@ -37,7 +37,10 @@ $html='';
  * JS
  */
 foreach($INCLUDES['js'] as $file){
-$html.='<script type="text/javascript" src="'.$SERVER['BASE'].THEME_PATH.$file.$INCLUDE['version'].'"></script>
+$parts=(is_array($file))?$file:array($file);
+$file=$parts[0];
+$extra=$parts[1];
+$html.='<script type="text/javascript" src="'.$SERVER['BASE'].THEME_PATH.$file.'" '.$extra.'></script>
 ';}
 /**
  * JS INLINE
@@ -61,6 +64,13 @@ ga('create','".$INCLUDE['analytics_code']."');ga('send','pageview');
 </script>";
 }
 
+/**
+ * JS
+ */
+foreach($INCLUDES['js_after'] as $file){
+$html.='<script type="text/javascript" src="'.$SERVER['BASE'].THEME_PATH.$file.'"></script>
+';}
+
 echo $html;
 
 }
@@ -81,8 +91,10 @@ $html.='<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 ';
+if($INCLUDES['viewport'])
+$html.='<meta name="viewport" content="'.$INCLUDES['viewport'].'">';
+
 if($HEAD['meta_descripcion']){ $html.='<meta name="description" content="'.$HEAD['meta_descripcion'].'" />
 '; }
 if($HEAD['meta_keywords']){ $html.='<meta name="keywords" content="'.$HEAD['meta_keywords'].'" />
@@ -112,7 +124,7 @@ $html.='<meta http-equiv="'.$var.'" content="'.$val.'"/>
  * FAVICON
  */
 foreach($INCLUDES['ico'] as $file){
-$html.='<link rel="shortcut icon" href="'.$SERVER['BASE'].THEME_PATH.$file.$INCLUDE['version'].'" type="image/x-icon" />
+$html.='<link rel="shortcut icon" href="'.$SERVER['BASE'].THEME_PATH.$file.'" type="image/x-icon" />
 ';}
 
 /**
@@ -122,30 +134,54 @@ foreach($INCLUDES['external_css'] as $file){
 $html.='<link type="text/css" rel="stylesheet" href="'.$file.'" />
 ';}
 
+/**
+ * JS INLINE
+ */
+if(sizeof($INCLUDES['script_head'])>0){
+$html.="<script type='text/javascript'>\n";
+foreach($INCLUDES['script_head'] as $linea){
+$html.=$linea."\n";}
+$html.="</script>\n";}
+/**
+ * JS
+ */
+foreach($INCLUDES['js_head'] as $file){
+$parts=(is_array($file))?$file:array($file);
+$file=$parts[0];
+$extra=$parts[1];
+$html.='<script type="text/javascript" src="'.$SERVER['BASE'].THEME_PATH.$file.'" '.$extra.'></script>
+';}
 
-$cssmain='';
-$csss='';
+// $cssmain='';
+// $csss='';
+foreach($INCLUDES['css'] as $id=>$file){
+$html.='<link type="text/css" rel="stylesheet" href="'.$SERVER['BASE'].THEME_PATH.$file.'" />
+';
+}
+/*
 $cssnum=0;
 foreach($INCLUDES['css'] as $id=>$file){
-if($id=='base'){ $cssmain.='<link type="text/css" rel="stylesheet" href="'.$SERVER['BASE'].THEME_PATH.$file.$INCLUDE['version'].'" />
+if($id=='base'){ $cssmain.='<link type="text/css" rel="stylesheet" href="'.$SERVER['BASE'].THEME_PATH.$file.'" />
 '; } else {
 $sufig= "_". ( $cssnum++ );
-$csss.='<link type="text/css" rel="stylesheet" href="'.$SERVER['BASE'].THEME_PATH.$file.$INCLUDE['version'].$sufig.'" />
+$csss.='<link type="text/css" rel="stylesheet" href="'.$SERVER['BASE'].THEME_PATH.$file.$sufig.'" />
 ';
 }
 }
+*/
+/*
 foreach($INCLUDES['cssabs'] as $id=>$file){
 $sufig= "_". ( $cssnum++ );
 $csss.='<link type="text/css" id="'.$id.'" rel="stylesheet" href="'.$file.str_replace("?","&",$INCLUDE['version']).$sufig.'" />
 ';
-}
-$html.=$cssmain.$csss;
+}*/
+// $html.=$cssmain;
 /**
  * CSS IE 6
  */
 foreach($INCLUDES['css_ie6'] as $file){
 $html.='<!--[if lte IE 6]>
-<link type="text/css" rel="stylesheet" href="'.$SERVER['BASE'].THEME_PATH.$file.$INCLUDE['version'].'" />
+<link type="text/css" rel="stylesheet" href="'.$SERVER['BASE'].THEME_PATH.$file.'" />
 <![endif]-->
 ';}
 /**
@@ -170,6 +206,46 @@ echo $html;
 
 }
 
+function render_route($routes){
+
+	global $SERVER;
+	// $uri 
+	// prin($SERVER);
+	// prin($uri);
+	$uri=$SERVER['PATH'];
+	// prin($uri);
+	// Is there a literal match?  If so we're done
+	if (isset($routes[$uri]))
+	{
+		return $routes[$uri];
+	}
+
+	// Loop through the routes array looking for wild-cards
+	foreach ($routes as $key => $val)
+	{
+		// Convert wild-cards to RegEx
+		$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
+
+		// Does the RegEx match?
+		if (preg_match('#^'.$key.'$#', $uri))
+		{
+			// Do we have a back-reference?
+			if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
+			{
+				$val = preg_replace('#^'.$key.'$#', $val, $uri);
+			}
+			return $val;
+		}
+
+	}
+
+	// prin($SERVER);
+
+	// header('Location: '.$SERVER['BASE'].'404.html');
+
+	// exit();
+
+}	
 
 function web_re_procesar_menu($menu,$url){
 	foreach($menu as $mm=>$men){
@@ -180,43 +256,33 @@ function web_re_procesar_menu($menu,$url){
 	return $menu;
 }
 
-function web_procesar_menu($menu,$direccion="izquierda",$debug=false){
+function web_procesar_menu($menu,$debug=false){
+
+	// prin($menu);
 
 	if($debug) prin($menu);
 	global $_GET;
-	$men2=array(); $menu1=array(); $menu2=array();
+	$men2=array();
+
 
 	foreach($menu as $uu=>$men){
-		$men['lado']=isset($men['lado'])?$men['lado']:$direccion;
-		if($men['lado']=='izquierda'){
-		$menu1[]=$men;
-		} else {
-		$menu2[]=$men;
-		}
-	}
-	if(sizeof($menu1)>0){
-		$menu1[sizeof($menu1)-1]['ultimo']='ultimo';
-	}
-	if(sizeof($menu2)>0){
-		$menu2[sizeof($menu2)-1]['ultimo']='ultimo';
-		$menu2=array_reverse($menu2);
-	}
-	$menu=array_merge($menu1,$menu2);
-	foreach($menu as $uu=>$men){
 		$men3=$men;
-		if($men['class']==''){
-			$men3['class']=($men['default']=='1')?'selected':'';
+		if(empty($men['class']) and $men['default']=='1' ){
+			$men3['class']='selected';
 		} elseif(enhay($men['url'],'http:')){
-			$men3['class']='';
+			// $men3['class']='';
 		} elseif($men['class']=='selected'){
 			$men3['url']=procesar_url($men['url']);
 		} else {
+			// prin($men);
 			if($men['url']!=''){
 				$men3['url']=str_replace('indexhtml','index.html',procesar_url($men['url']));
+				// echo '<div>'.$men3['url'].'</div>';
 				$url=parse_url($men['url']);
 				parse_str($url['query'],$vvv);
 				unset($vvv['friendly']);
 				//unset($vvv['acc']);
+				// prin($vvv);
 				$sel=1;
 				foreach($vvv as $var=>$val){
 					if($_GET[$var]!=$val){
@@ -224,14 +290,23 @@ function web_procesar_menu($menu,$direccion="izquierda",$debug=false){
 					}
 				}
 				$men3['class']=($men['selected']==1 or $sel==1)?'selected':'';
-			} else {
+
+				if($men3['disabled']==1)
+					unset($men3['url']);
+
+			} /*else {
 				$men3['class']=($men['default']=='1')?'selected':'';
-			}
+			}*/
 		}
+
+		if(sizeof($men['menu'])>0){
+			$men3['menu']=web_procesar_menu($men['menu'],$debug);
+		}
+
 		$men2[$uu]=$men3;
 	}
 	if($debug) prin($men2);
-
+	// prin($men2);
 	return $men2;
 
 }
@@ -249,7 +324,7 @@ function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
 	elseif($obj['ul']=='div'){ $UL="div"; $LI="span"; $SPC="&nbsp;\n"; }
 
 	$html ="";
-	if($obj['area']) $html.="<div class='area_menu' ".( ($obj['id']!="")?"id='".$obj['id']."' ":'')." ".( ($obj['rel']!="")?"id='".$obj['rel']."' ":'')." >";
+	if($obj['area']) $html.="<div class='area' ".( ($obj['id']!="")?"id='".$obj['id']."' ":'')." ".( ($obj['rel']!="")?"id='".$obj['rel']."' ":'')." >";
 
 	// if($obj['lados_externos']==1){
 	// 	$html.="<div class='div_menu_izq'></div>\n";
@@ -277,7 +352,7 @@ function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
 
 			$more=($men['more'])?$men['more']:"";
 			if($tag) $html.="<$tag>";
-			$html.="<a title='".$men['label']."' $out ".( ($men['url'])?"href='".$men['url']."'":"" )." $more>";
+			$html.="<a title='".$men['label']."' $out ".( isset($men['url'])?"href='".$men['url']."'":"" )." $more>";
 			$html.=$men['label'];
 			$html.="</a>";
 			if($tag) $html.="</$tag>";
@@ -297,11 +372,11 @@ function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
 
 
 
-		if($e==sizeof($MENU)-1){
-			if($obj['lados_flotantes']==1){
-				$html.=($men['lado']=="derecha")?"<div class='div_menu_float_izq' style='float:right;'></div>\n":"<div class='div_menu_float_der'></div>\n";
-			}
-		}
+		// if($e==sizeof($MENU)-1){
+		// 	if($obj['lados_flotantes']==1){
+		// 		$html.=($men['lado']=="derecha")?"<div class='div_menu_float_izq' style='float:right;'></div>\n":"<div class='div_menu_float_der'></div>\n";
+		// 	}
+		// }
 
 		$e++;
 	}
@@ -402,35 +477,51 @@ function pre_proceso_form($FORM){
 }
 
 function web_render_form($FORM){
+
 	global $HEAD,$SERVER;
-	if($FORM['legend']!=''){ echo "<div class='legend camps'>".$FORM['legend']."</div>"; }
+	
+	echo '<ul>';
+
+	if($FORM['legend']!=''){ echo "<li class='legend'>".$FORM['legend']."</li>"; }
+    
     foreach($FORM['campos'] as $Campo=>$field){
 
-	//$field['before']=($field['before'])?$field['before']:$field['seccion'];
-	//$field['campos'][0]=($field['campos'][0])?$field['campos'][0]:array($Campo);
-	//$field['tipo']=($field['tipo'])?$field['tipo']:'input_text';
+	if(isset($field['campo']) && !is_array($field['campo'])) $field['campo']=array($field['campo']);
+
+	if(isset($field['value']) && !is_array($field['value'])) $field['value']=array($field['value']);
+	
+	$field['before']    =($field['before'])?$field['before']:$field['seccion'];
+
+	$field['campo'][0] =($field['campo'][0])?$field['campo'][0]:array($Campo);
+
+	$field['tipo']      =($field['tipo'])?$field['tipo']:'input_text';
+
 	$xtra=($field['next']=='1')?" next":"";
 
-    if($field['tipo']!='input_hidden' and $field['tipo']!='textarea_hidden'){ ?>
-		<?php if($field['before']!=''){ echo "<div class='camps before' >"; /*echo "<label class='name'>&nbsp;</label>";*/ echo "<span>".$field['before']."</strong></span></div>"; } ?>
+    if(!in_array($field['tipo'],['hidden','input_hidden','textarea_hidden'])){ ?>
+		<?php if($field['before']!=''){ echo "<li class=' before' >"; /*echo "<label >&nbsp;</label>";*/ echo "<span>".$field['before']."</strong></span></li>"; } ?>
 		<?php if($field['iniciodiv']!=''){ echo "<div class='sub_forms' id='".$field['iniciodiv']."'>";} ?>
-		<?php if($field['before_inner']!=''){ echo "<div class='camps before' ><label class='name'>&nbsp;</label><span>".$field['before_inner']."</strong></span></div>"; } ?>
-        <?php echo '<div class="camps'.$xtra.'" id="p_'.$FORM['nombre'].'_'.$field['campo'][0].'">'; ?>
+		<?php if($field['before_inner']!=''){ echo "<li class=' before' ><label >&nbsp;</label><span>".$field['before_inner']."</strong></span></li>"; } ?>
+        <?php echo '<li class="'.$field['campo'][0].' '.$xtra.'">'; ?>
         <?php if($field['label']!=''){ ?>
-        <label class="name" for="<?php echo $FORM['nombre']."_".$field['campo'][0];?>"><?php echo $field['label'];?>
-        <b><?php echo (!(strpos($field['validacion'],"required")===false))?"*":""; ?></b>
-        </label>
+        <label class="<?php echo (!(strpos($field['validacion'],"required")===false))?"required":""; ?>" for="<?php echo $field['campo'][0];?>"><?php echo $field['label'];?></label>
         <?php } ?>
     <?php } ?>
-    <?php switch($field['tipo']){
+    <?php 
+
+    switch($field['tipo']){
+    /**
+     * captcha
+     */
     case "captcha": ?>
-    <label class="name" >Verificación</label>
-    	<?php 
-    		@mkdir('../../../captcha');	
+    	<label>&nbsp;</label>
+    	<p>
+    	<?php
+    		@mkdir('captcha');
 			$cpch=create_captcha(
 				array(
-				'img_path'		=> '../../../captcha/',
-				'img_url'		=> $SERVER['BASE'].'/captcha/',
+				'img_path'		=> '../../captcha/',
+				'img_url'		=> $SERVER['BASE'].'captcha/',
 				// 'font_path'		=> './'.$this->config->item('captcha_fonts_path', 'tank_auth'),
 				// 'font_size'		=> $this->config->item('captcha_font_size', 'tank_auth'),
 				// 'img_width'		=> $this->config->item('captcha_width', 'tank_auth'),
@@ -442,18 +533,28 @@ function web_render_form($FORM){
 			$_SESSION['captchaword']=$cpch['word'];
 			echo $cpch['image'];
     	?><br>
-    	<input style="margin-left:105px; width:145px;" type="text" name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>" value="" />
-
+    	<input type="text" name="<?php echo $field['campo'][0];?>" <?php echo $field['validacion'];?> value="" />
+    	</p>
 	<?php
-    break;	
+    break;
+    /**
+     * constante
+     */
 	case "constante":
 	break;
+	/**
+	 * hidden
+	 */
     case "input_hidden": case "hidden":
 	foreach($field['campo'] as $ii=>$camp){ ?>
-    <input type="hidden" name="<?php echo $camp;?>" id="<?php echo $FORM['nombre']."_".$camp;?>" value="<?php echo $field['value'][$ii];?>" />
-    <?php } break;
+    <input type="hidden" name="<?php echo $camp;?>" value="<?php echo $field['value'][$ii];?>" />
+    <?php } 
+    break;
+	/**
+	 * hidden multiple
+	 */    
     case "input_multi_simple": case "multi_simple": ?>
-    <input type="hidden" name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" value="<?php echo $field['value'][0];?>" />
+    <input type="hidden" name="<?php echo $field['campo'][0];?>" value="<?php echo $field['value'][0];?>" />
     <div class='div_columna'>
     <?php foreach($field['opciones'] as $opcccion=>$opcion_select){ ?>
     <div class='div_fila'>
@@ -468,6 +569,9 @@ function web_render_form($FORM){
     </div>
 	<?php
 	break;
+	/**
+	 * radio
+	 */
     case "input_radio": case "radio": ?>
     <input type="hidden" name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" value="<?php echo $field['value'][0];?>" />
     <?php foreach($field['opciones'] as $opcccion=>$opcion_select){ ?>
@@ -480,6 +584,9 @@ function web_render_form($FORM){
     <label class="opcion opcion_<?php echo $FORM['nombre']."_".$field['campo'][0];?>" for="<?php echo $FORM['nombre']."_".$field['campo'][0]."_".$opcccion?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0]."_".$opcccion?>_for"><?php echo $opcion_select;?></label>
     <?php } ?>
     <?php break;
+    /**
+     *  fecha soon
+     */
 	case "input_fecha": case "fecha":
 	if($field['rango_anio']){
 		list($uuno,$ddos)=explode(",",$field['rango_anio']);
@@ -531,9 +638,12 @@ function web_render_form($FORM){
         </script>
     </span>
     <?php break;
+    /**
+     * foto soon
+     */
     case "input_foto": case "foto":
 	foreach($field['campo'] as $ii=>$camp){ ?>
-    <input type="hidden" style="width:100px;"  name="<?php echo $camp;?>" id="<?php echo $FORM['nombre']."_".$camp;?>" class="foto_control caja <?php echo $field['validacion'];?>" value="<?php echo $field['value'][$ii];?>"  />
+    <input type="hidden" name="<?php echo $camp;?>" class="<?php echo $camp;?> foto_control" <?php echo $field['validacion'];?> value="<?php echo $field['value'][$ii];?>"  />
     <?php
 	}
 	?>
@@ -556,14 +666,22 @@ function web_render_form($FORM){
 	});
 	</script>
     <?php break;
+    /**
+     * text
+     */
     case "input_text": ?>
-    <input type="text" name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>" value="<?php echo $field['value'][0];?>" <?php if($field['check_unique']!=''){ echo "onchange=\"check_unique(this,".$field['check_unique'].");\""; }?>
+    <input type="text" name="<?php echo $field['campo'][0];?>" id="<?php echo $field['campo'][0];?>" <?php echo $field['validacion'];?> value="<?php echo $field['value'][0];?>" 
+    <?php if($field['check_unique']!=''){ echo "onchange=\"check_unique(this,".$field['check_unique'].");\""; }?>
+    <?php echo ($field['placeholder'])?'placeholder="'.$field['placeholder'].'"':'';?>
     <?php echo ($field['onchange'])?'onchange="'.$field['onchange'].'"':'';?>
     <?php echo ($field['style'])?'style="'.$field['style'].'"':'';?>/>
-    <?php if($field['check_unique']!=''){ ?><small id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>_men" style="color:red;"></small><?php } ?>
+    <?php if($field['check_unique']!=''){ ?><small id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>_men" ></small><?php } ?>
     <?php break;
+    /**
+     * combo
+     */
     case "input_combo":case "combo": ?>
-    <select name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>" value="<?php echo $field['value'][0];?>"
+    <select name="<?php echo $field['campo'][0];?>" id="<?php echo $field['campo'][0];?>" <?php echo $field['validacion'];?> value="<?php echo $field['value'][0];?>"
     <?php echo ($field['onchange'])?'onchange="'.$field['onchange'].'"':'';?>
 	<?php echo ($field['style'])?'style="'.$field['style'].'"':'';?>
      />
@@ -571,8 +689,11 @@ function web_render_form($FORM){
     <?php foreach($field['opciones'] as $i=>$x){ ?><option <?php echo ($i==$field['value'][0])?"selected='selected'":""; ?> value="<?php echo $i;?>"><?php echo $x;?></option><?php } ?>
     </select>
     <?php break;
+    /**
+     * combo rango
+     */
     case "input_combo_rango": case "combo_rango": ?>
-    <select name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>" value="<?php echo $field['value'][0];?>" />
+    <select name="<?php echo $field['campo'][0];?>" class="<?php echo $field['campo'][0];?>" <?php echo $field['validacion'];?> value="<?php echo $field['value'][0];?>" />
     <option value=""></option>
     <?php
 	if($field['from']<$field['to']){
@@ -583,9 +704,12 @@ function web_render_form($FORM){
 	?>
     </select>
     <?php break;
+    /**
+     * precio
+     */
 	case "input_precio": case "precio": ?>
 	<span>
-    <select id="<?php echo $FORM['nombre'];?>_<?php echo $field['campo'][0];?>" name="<?php echo $field['campo'][0];?>">
+    <select class="<?php echo $field['campo'][0];?>" name="<?php echo $field['campo'][0];?>">
         <option value="1">Nuevo Sol</option>
         <option value="2">Dólar Estadounidense</option>
     </select>
@@ -601,23 +725,39 @@ function web_render_form($FORM){
 	?>
 	</script>
     <?php break;
+    /**
+     * password
+     */
     case "input_password": case "password":?>
-    <input type="password" name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>" value="<?php echo $field['value'][0];?>" />
+    <input type="password" name="<?php echo $field['campo'][0];?>" <?php echo $field['validacion'];?> value="<?php echo $field['value'][0];?>" />
     <?php break;
+    /**
+     * checkbox
+     */
     case "input_check": case "check": ?>
-    <input type="checkbox" name="<?php echo $field['campo'][0];?>" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="<?php echo $field['validacion'];?>" value="<?php echo $field['value'][0];?>" />
+    <input type="checkbox" name="<?php echo $field['campo'][0];?>" <?php echo $field['validacion'];?> value="<?php echo $field['value'][0];?>" />
     <?php break;
+    /**
+     * textarea
+     */
     case "textarea": case "input_textarea": ?>
-    <textarea name="<?php echo $field['campo'][0];?>" cols="30" rows="7" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>"
+    <textarea name="<?php echo $field['campo'][0];?>" cols="30" rows="7" <?php echo $field['validacion'];?>
     <?php echo ($field['style'])?'style="'.$field['style'].'"':'';?>
+    <?php echo ($field['placeholder'])?'placeholder="'.$field['placeholder'].'"':'';?>    
     ><?php echo $field['value'][0];?></textarea>
     <?php break;
+    /**
+     * hidden textarea
+     */
     case "textarea_hidden": case "input_textarea_hidden": ?>
-    <textarea name="<?php echo $field['campo'][0];?>" style="display:none;" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>" ><?php echo $field['value'][0];?></textarea>
+    <textarea name="<?php echo $field['campo'][0];?>" style="display:none;" <?php echo $field['validacion'];?> ><?php echo $field['value'][0];?></textarea>
     <?php break;
+    /**
+     * html soon
+     */
     case "input_html": case "html":
 	?>
-    <textarea title="html" name="<?php echo $field['campo'][0];?>" cols="30" rows="7" id="<?php echo $FORM['nombre']."_".$field['campo'][0];?>" class="caja <?php echo $field['validacion'];?>"
+    <textarea title="html" name="<?php echo $field['campo'][0];?>" cols="30" rows="7" <?php echo $field['validacion'];?>
     <?php echo ($field['style'])?'style="'.$field['style'].'"':'';?> ><?php echo $field['value'][0];?></textarea>
     <script>
 	var MOOEDITABLE;
@@ -630,8 +770,10 @@ function web_render_form($FORM){
 		});
 	});
     </script>
-    <?php break;
-	default:?>
+    <?php 
+    break;
+	default:
+	?>
     <span id="<?php echo $field['control'];?>_inner" class="control"></span>
     <script>
 	var <?php echo $field['control'];?>=$('<?php echo $field['control'];?>');
@@ -647,7 +789,7 @@ function web_render_form($FORM){
 	<?php break;
     }
 	if($field['after']!=''){ echo "<small>".$field['after']."</small>"; }
-    if($field['tipo']!='input_hidden' and $field['tipo']!='textarea_hidden'){ echo "</div>"; }
+    if(!in_array($field['tipo'],['hidden','input_hidden','textarea_hidden'])){ echo "</li>"; }
     if($field['findiv']=='1'){ echo "</div>";}
 
     ?>
@@ -655,95 +797,27 @@ function web_render_form($FORM){
     <?php
     }
 	if($FORM['condiciones']!=''){
-		echo "<div class='camps pie small'>
-		<div class='condiciones' >".$FORM['condiciones']."</div></div>";
+		echo "<li class='pie small'>
+		<div class='condiciones' >".$FORM['condiciones']."</div></li>";
 	}
 	?>
-    <div class="camps submit" id="p_<?php echo $FORM['nombre'].'_submit';?>">
-    <label class='name'>&nbsp;</label>
-    <input id="<?php echo $FORM['nombre'];?>_submit"  <?php echo $FORM['submit'];?> />
-	<?php  if($FORM['submiting']!=''){ ?><img id="<?php echo $FORM['nombre'];?>_submiting" <?php echo $FORM['submiting'];?> style="display:none;" /><?php } ?>
+    <li class="submit">
+    <label class="empty" >&nbsp;</label>
+    <input <?php echo $FORM['submit'];?> />
     <?php  echo $FORM['after_submit']; ?>
-    <!--<input type="reset" value="Cancelar"  />-->
-    </div>
+    </li>
     <?php
 		if($FORM['pie']!=''){ $pies=array(); $pies=explode("<br>",$FORM['pie']);
 			foreach($pies as $tt=>$pie){
-				echo "<div class='camps pie small' id='p_".$FORM['nombre']."_pie". ( ($tt=='0')?'':$tt ) ."'><label class='name'>&nbsp;</label>
-				<span class='small'>".$pie."</span></div>";
+				echo "<li class='pie'><label class='empty'>&nbsp;</label><span class='small'>".$pie."</span></li>";
 			}
 		}
 
-
+	echo '</ul>';
 
 }
 
-/*
-			$FORM['complete']="
-			var json=JSON.decode(ee,true);
-			new Element('div', {
-				'class': 'mensaje mensaje_'+json.t,
-				'html': json.m,
-				'id': 'mensaje_'+json.n
-			}).inject($(json.n+'_form_body'), 'before');
-			$0(json.n+'_form_body');
-			setTimeout('$(\'mensaje_'+json.n+'\').destroy();$1(\''+json.n+'_form_body\');',5000);
-			";
-*/
 
-function web_render_form_javascript($FORM){
-?>
-            <script type="text/javascript">
-                window.addEvent('domready', function(){
-                    $$('.autoinput').each(function(ee){
-                        ee.title=ee.value;
-                        ee.addEvent('blur',function(event){ if(ee.value=='') ee.value=ee.title; });
-                        ee.addEvent('focus',function(event){ if(ee.value==ee.title) ee.value=''; });
-                    });
-                    $('formulario_<?php echo $FORM['nombre'];?>').addEvent('submit', function(event){
-                        $$('#formulario_<?php echo $FORM['nombre'];?> .autoinput').each(function(ee) {
-                            if(ee.title==ee.value){ ee.value=''; }
-                        });
-                    });
-					$('formulario_<?php echo $FORM['nombre'];?>').addEvent('submit', function(event){
-						$$('#formulario_<?php echo $FORM['nombre'];?> textarea').each(function(el){
-						if (el.title =='html'){	el.value=MOOEDITABLE.getContent(); }
-						});
-                    });
-					var submit_temp_<?php echo $FORM['nombre'];?>;
-                    new FormCheck('formulario_<?php echo $FORM['nombre'];?>',{
-                        onSubmit:function() {
-						}
-                        ,submitByAjax:true
-                        ,onAjaxRequest:function() {
-                            $('<?php echo $FORM['nombre'];?>_submit').value="Enviando...";
-							submit_temp_<?php echo $FORM['nombre'];?>=$('<?php echo $FORM['nombre'];?>_submit').value;
-                            $('<?php echo $FORM['nombre'];?>_submit').disabled=true;
-							<?php if($FORM['submiting']!=''){ ?>
-                            $0('<?php echo $FORM['nombre'];?>_submit');
-                            $1('<?php echo $FORM['nombre'];?>_submiting');
-							<?php } ?>
-                        }
-                        ,onAjaxSuccess:function(ee) {
-                            $('formulario_<?php echo $FORM['nombre'];?>').reset();
-                            $('<?php echo $FORM['nombre'];?>_submit').value=submit_temp_<?php echo $FORM['nombre'];?>;
-                            $('<?php echo $FORM['nombre'];?>_submit').disabled=false;
-							<?php if($FORM['submiting']!=''){ ?>
-                            $1('<?php echo $FORM['nombre'];?>_submit');
-                            $0('<?php echo $FORM['nombre'];?>_submiting');
-							<?php } ?>
-							<?php echo $FORM['complete']; ?>
-
-                        }
-						,display : {
-							closeTipsButton : 1
-						}
-
-                    });
-                });
-            </script>
- <?php
-}
 
 function web_load_lib_mooeditable(){
 	global $HEAD;
@@ -1147,7 +1221,7 @@ echo "<div id='".$target."'><div id='".$target."_swf'></div></div>";
 
 }
 
-function web_render_swf_script($archivo,$target,$wxh){
+function ®webrender_swf_script($archivo,$target,$wxh){
 
 global $HEAD;
 
@@ -1517,9 +1591,9 @@ function web_selector($SES,$id_class){
 function web_render_edit_toolbar($SELS){
 
 	global $_SESSION; global $SERVER;
-	global $DEVEL;
+	global $MASTERCOFIG;
 
-echo ($DEVEL)?'<style>.sqm {
+echo ($MASTERCOFIG['DEVEL'])?'<style>.sqm {
 background-color: #34352E;
 color: #FFF;
 width: 9px;
@@ -2072,10 +2146,10 @@ function web_render_esquema($fila,$deep,$orientacion,$params=NULL,$just=NULL){
 
 	global $_SESSION;
 	global $SERVER;
+	global $URLS;
 
 	global $OBJECT;
-	global $LISTADO;
-	global $DEVEL;
+	global $MASTERCOFIG;
 
 	global $vars;
 
@@ -2098,14 +2172,14 @@ function web_render_esquema($fila,$deep,$orientacion,$params=NULL,$just=NULL){
 
 			// prin($blockclass);
 
-			$deep_class=($DEVEL)?' deep-'.$deep.' ':'';
+			$deep_class=($MASTERCOFIG['DEVEL'])?' deep-'.$deep.' ':'';
 
 			$div=( isset($params['tag']) ) ? $params['tag'] : 'div';
 
 			if(!empty($blockclass)) echo '<'.$div.' class="'.$blockclass.$deep_class.'">';
 
 			$comments='';
-			if($DEVEL){
+			if($MASTERCOFIG['DEVEL']){
 
 				if($blockclass) 
 					echo "<!--block : $blockclass-->\n";
@@ -2191,12 +2265,13 @@ function view($archivo,$params){
 
 	global $_SESSION;
 	global $SERVER;
-	
+	global $URLS;
 	global $OBJECT;
 	// global $LISTADO;
 	// global $FORMULARIO;
 	// global $DETAIL;
 	// global $FB;
+	global $COMMON;
 
 	global $HEAD;
 
@@ -2394,6 +2469,8 @@ function web_render_data($item,$ITEM,$style=1){
 }
 
 
+
+
 function web_item($item,$ITEM,$debug=0){
 
 	$ITEM=($ITEM!='')?$ITEM:(($item['esquema']!='')?$item['esquema']:'nombre');
@@ -2402,6 +2479,9 @@ function web_item($item,$ITEM,$debug=0){
 	if($debug) prin($ITEM);
 	if($debug) prin($item);
 	$ITEM=explode(",",$ITEM);
+
+	// prin($item);
+
 	foreach($ITEM as $est2){
 		//nombre:
 		unset($tag);unset($class); list($est,$tag,$class)=explode(":",$est2);
@@ -2417,12 +2497,8 @@ function web_item($item,$ITEM,$debug=0){
 
 		$extraclass=($Param['absoluto']==1)?" div_absoluto":'';
 
-		$thisDomain=1;
-		if(enhay($item['url'],'http://')){
-		if(enhay($item['url'],str_replace('http://','','cgtp.org.pe'))){	$thisDomain=1;	} else {	$thisDomain=0;	}
-		}
-
-		$Target=($thisDomain)?"":" target='_blank' ";
+		// $Target=(enhay($item['url'],'http://'))?"":" target='_blank' ";
+		// if(empty($item['url'])) $Target='';		
 
 		switch($est){
 
@@ -2445,7 +2521,7 @@ function web_item($item,$ITEM,$debug=0){
 					if($item['foto']['url']){
 					$html.=  "href=\"".$item['foto']['url']."\" $Target ";
 					$html.=  ($item['foto']['descripcion'])?" title=\"".$titulo."\" ":"";
-					$html.=  ($item['foto']['rel'])?" rel=\"".$item['foto']['rel']."\" ":"";
+					// $html.=  ($item['foto']['rel'])?" rel=\"".$item['foto']['rel']."\" ":"";
 					}
 					$html.=  ">";						
 				}
@@ -2496,16 +2572,17 @@ function web_item($item,$ITEM,$debug=0){
 				if($item['url']){ $html.= "<a class=\"$extraclass $class\" href=\"".$item['url']."\" $Target title='".$item['nombre']."'>"; }
 				elseif($item['onclick']){ $html.= "<a class=\"$extraclass $class\" href=\"#\" onclick='".$item['onclick'].";return false;' rel=\"nofollow\" title='".$item[$est]."'>"; }
 
-				if($item['src']!=''){
-				$html.='<img src="'. ( ($item['src-sel'] and $item['selected']=='selected')?$item['src-sel']:$item['src'] ).'" alt="'.$MENU_ITEM['label'].'" />';
+				// if($item['src']!=''){
+				// $html.='<img src="'. ( ($item['src-sel'] and $item['selected']=='selected')?$item['src-sel']:$item['src'] ).'" alt="'.$MENU_ITEM['label'].'" />';
+				// $html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
+				// } else {
 				$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
-				} else {
-				$html.=($Param['limit'])?limit_string($item['nombre'],$Param['limit']):$item['nombre'];
-				}
+				// }
 
 				if($item['url'] or $item['onclick']){ $html.= "</a>"; }
 				$html.= "</$tag>";
 				}
+				
 			break;
 
 			default:
@@ -2760,6 +2837,7 @@ function web_render_tree($MENU,$esquema,$debug=0){
 
 
 function web_render_tree_special($MENU,$esquema,$debug=0){
+
 	$ran=rand(0,10000);
 	$MENUU=array();
 	foreach($MENU as $ii=>$MENU_ITEM){
@@ -3208,5 +3286,121 @@ function Titulo_Filtro($titulo,$value){
 	$MesesA=array('1'=>'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre');
 	list($year,$month)=explode("-",$value);
 	return $titulo.$MesesA[$month]." de ".$year;
+}
+
+
+
+function procesar_url($url,$debug=0){
+
+	global $URLS; 
+	global $MASTERCOFIG;
+	global $rename_controller_flip;
+
+	$url0=$url;
+	// prin($MASTERCOFIG);
+
+	if(substr($url,-5)=='.html'){
+
+		return $url;
+
+	}
+
+	if($MASTERCOFIG['friendly_url']=='0'){
+
+		return $url;
+
+	}
+	// prin($URLS);
+	if(isset($URLS[$url])){
+
+		$url=$URLS[$url];
+
+	} else {
+
+		$file="index.php?";
+		$url2=str_replace($file,"",$url);
+
+		parse_str($url2,$gets);
+
+		if(isset($rename_controller_flip[$gets['tab']]))
+			$gets['tab']=$rename_controller_flip[$gets['tab']];
+
+		$url='';
+
+		/*	ANTIGUO*/
+		if( $gets['modulo']=='home' ){
+			if( $gets['tab']=='productos' ){
+				if( isset($gets['buscar']) ){
+					$url.='buscar/'.url_encode_seo($gets['buscar']);
+				} elseif( $gets['id_grupo']!='' ){
+					$url.='productos/'.url_encode_seo($gets['id_grupo']);
+				} else {
+					$url.='';
+				}
+				$slash=($url=='')?'':'/';
+				$url.=( ($gets['pag'])?$slash.$gets['pag']:"" );
+			}
+
+		} elseif($gets['modulo']=='item'){
+			if( $gets['tab']=='productos' ){
+				$url="producto/".$gets['id'];
+			}
+		}
+
+		/*ESPECIALES*/
+		if($gets['modulo']=='formularios' and $gets['tab']=='login' and $gets['redir']!=''){
+			$url.="index.php?modulo=formularios&tab=login&redir=".urlencode($gets['redir']);
+		}
+		/**/
+		elseif( $gets['modulo']=='items' ){
+			
+			$url.=$gets['tab'];
+			//			$url.=( ($gets['grupo'])?"/".$gets['grupo']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):"" );
+			if( $gets['acc']=='file' ){
+
+				$url.=( ($gets['id'])?"/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):"" ).'/'.$gets['id'];
+
+				$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+
+			} elseif( $gets['acc']=='list' ){
+
+				$url.=( ($gets['gru'])?"-".$gets['gru']."/". ( ($gets['friendly'])?url_friendly($gets['friendly']):"categoria" ):"" );
+
+				$url.=( ($gets['fil'])?"/".$gets['fil'].(($gets['val'])?"/".$gets['val']."/".( ($gets['friendly'])?url_friendly($gets['friendly']):"index.html" ):''):'');
+
+				$url.=( ($gets['buscar'])?"/buscar=".$gets['buscar']:"" );
+
+				$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+			}
+		}
+		elseif( $gets['modulo']=='app' and $gets['tab']=='pages' ){
+
+			$url.=$gets['page'];
+			//$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+		}
+		elseif( $gets['modulo']=='app' ){
+
+			$url.=$gets['tab'];
+			//$url.=( ($gets['pag'])?"/pag-".$gets['pag']:"" );
+		}
+		elseif( $gets['modulo']=='formularios'){
+
+			$url.=$gets['tab'];
+
+		}
+
+		if($debug==1){
+
+			prin($gets); prin($url);
+
+		}
+
+	}
+	$url=str_replace('&amp;','&',$url);
+
+	$URLS[$url0]=$url;
+
+	return $url;
+
 }
 

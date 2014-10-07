@@ -13,36 +13,34 @@ $ITEMS=$OBJECT[$PARAMS['this']];
         <h1><?php echo $ITEMS['titulo']; ?></h1>
     </div>
 
-         
 
     <article class="inner">
         
-        <div class="div_fila">
+        <div class="row">
         <?php web_render_combo($ITEMS['combo']); ?>
         </div>
                 
 		<?php  
         if(sizeof($ITEMS['filas'])==0){ ?><p class="vacio"><?php echo $ITEMS['vacio']; ?></p><?php } else {
             ?>
-            <ul  class="listado_items">   
+            <ul class="listado_items grid">   
             <?php foreach($ITEMS['filas'] as $item){  ?>                                             
-                    <li class="listado_item">
-                         	<?php web_render_item($item,$item['esquema']); ?>								                
-                    </li>							   
+                <li class="listado_item">
+                     <?php web_render_item($item,$item['esquema']); ?>								                
+                </li>							   
             <?php } ?>
             </ul> 
             <?php 
         }
         ?>
-    
-    <div class="barra_abajo">
-    	<div class="listado_paginacion">
-    	<?php echo $ITEMS['anterior']." ".$ITEMS['tren']." ".$ITEMS['siguiente']; ?>
-        <!--<a class="ver_todos">Ver todos los productos de esta categoría</a>-->
-        </div>
-   </div>  
+    </article> 
 
-  </article> 
+
+    <div class="footer">
+        <ul class="pagination">
+        <?php echo $ITEMS['anterior']." ".$ITEMS['tren']." ".$ITEMS['siguiente']; ?>
+        </ul>
+    </div>  
 
 </section> 
        

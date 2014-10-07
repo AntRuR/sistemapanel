@@ -6,14 +6,14 @@ $ITEM=$OBJECT[$PARAMS['conector']];
 ?>
 <div class="row">
     <div class="<?php echo $PARAMS['classStyle']; ?>">
-        <div class="tabs">
+        <div class="tabsAfterSlides tabs">
             <?php web_render_menu($ITEM['menu']); ?>    
         </div>
 
         <?php foreach(['notas','actividades','fotos','videos'] as $ii=>$tab){ ?>
         <section class="<?php echo $tab; ?> show">
             <div class="inner">
-                <div class="slides">
+                <div class="slides" data-delay="false">
                     <?php web_render_items($ITEM[$tab]['items']); ?>
                 </div>
             </div>

@@ -13,11 +13,14 @@ $ITEM=$OBJECT[$THIS];
     </div>
     <article class="inner">
 
-        <?php if($ITEM['foto']!=''){ ?>
-        <img  <?php echo $ITEM['get_atributos']; ?> />
-        <?php } ?>
+		<div class="content">
+
+        <?php if($ITEM['foto']!='') echo '<img '.$ITEM['get_atributos'].' />'; ?>
+        
         <?php echo $ITEM['texto']; ?>        
     
+    	</div>
+
     </article>
 
 </section>

@@ -1,87 +1,44 @@
 <?php //á
-
-// $DEVEL=1;
-
-
 /**********************************************/
 ////////////////////  BARS  ////////////////////
 /**********************************************/	
 
-$Block['header']="common/header.php";
+$Block['header'] ="common/header.php";
 
-$Block['nav']="common/menu.php";
-	  
-$Block['footer']="common/footer.php";
+$Block['nav']    ="common/menu.php";
+
+$Block['footer'] ="common/footer.php";
 
 $Block['bar_izquierda']=
 	[
-		"bloques/arbol_blog.php?classStyle=menu_left",//
-		"bloques/banner_enlaces.php",//V[x]	
-		"bloques/form_recomendar.php?conector=recomendar",//V[x]			
+		"bloques/arbol_blog.php?".http_build_query(['classStyle'=>'menu_left']),
+		"bloques/banner_enlaces.php",
+		"bloques/form_recomendar.php?".http_build_query(['conector'=>'recomendar']),
 	];
-
-
-
-
-// $Block['bar_home']="items/news_items_list.php";
 
 
 $Block['pre_footer']=
 			[
-				'col-lg-3 home_col1'=>[
-					"bloques/banner_enlaces.php",//V[x]	
-					"bloques/form_recomendar.php?conector=recomendar",//V[x]		
+				'col-xs-3 home_col1'=>[
+					"bloques/banner_enlaces.php",
+					"bloques/form_recomendar.php?".http_build_query(['conector'=>'recomendar']),
 				],
-				"bloques/blog.php?block=col-lg-6 home_col2",
-				"bloques/banner_enlaces.php?block=col-lg-3 home_col3&this=banner_enlaces2&conector=banner_enlaces2&classStyle=banner_enlaces2",//V[x]	
+				"bloques/blog.php?".http_build_query(['block'=>'col-xs-6 home_col2']),
+				"bloques/banner_enlaces.php?".http_build_query([
+														'block'		=>'col-xs-3 home_col3',
+														'this'		=>'banner_enlaces2',
+														'conector'	=>'banner_enlaces2',
+														'classStyle'=>'banner_enlaces2'
+														]),
 			];			
 
 /**********************************************/
-//////////////////  MODULOS  ///////////////////
+//////////////////  CONTROLLERS  ///////////////////
 /**********************************************/	
 
-// $Block['blank']='bloques/blank.php';
 
-// $Estructura['modulo=app&tab=blank']=
-// array(
-// 	'header'=>$Block['header'],	
-// 	'nav'=>$Block['nav'],	
-// 	'canvas'=>array(
-// 		$Block['blank'],
-// 		array(
-// 		 	$Block['blank']."?block=col-lg-3 hola",
-// 		 	$Block['blank']."?block=col-lg-9"
-// 		),
-// 		array(
-// 			$Block['blank']."?block=col-lg-3",//
-// 			$Block['blank']."?block=col-lg-3",//
-// 			'col-lg-6'=>array(
-// 				$Block['blank'],//
-// 				$Block['blank']	//
-// 			),
-// 		),
-// 		array(
-// 		 	$Block['blank']."?block=col-lg-6",
-// 		 	$Block['blank']."?block=col-lg-6"
-// 		),	
-// 		$Block['blank'],
-// 		array(
-// 		 	$Block['blank']."?block=col-lg-2",
-// 		 	$Block['blank']."?block=col-lg-2",
-// 		 	$Block['blank']."?block=col-lg-2",
-// 		 	$Block['blank']."?block=col-lg-1",
-// 		 	$Block['blank']."?block=col-lg-1",
-// 		 	$Block['blank']."?block=col-lg-1",
-// 		 	$Block['blank']."?block=col-lg-3"
-// 		),		
-// 		array(
-// 		 	$Block['blank']."?block=col-lg-9",
-// 		 	$Block['blank']."?block=col-lg-3"
-// 		),		
-// 	),		
-// 	'footer'=>$Block['footer'],	
-// 	$Block['blank'],			
-// );
+
+		
 
 
 
@@ -91,8 +48,8 @@ $Estructura['modulo=app&tab=home']=
 	'nav'		=>$Block['nav'],	
 	'canvas'	=>
 		[
-		 	"bloques/banner_main.php",//L[x]V[x]	//panel:banners_fotos,banners_fotos_fotos; medidas:(3:484x174)
-			//"MAIN",//L[x]V[x]			//panel:paginas(id=bienvenido)
+		 	"bloques/banner_main.php",
+			//"MAIN",
 			"items/servicios_items_list.php",	//
 
 			$Block['pre_footer'],
@@ -109,8 +66,11 @@ $Estructura['modulo=app&tab=pages']=
 	'canvas' 	=>
 		[	
 			[
-			'col-lg-2 page_col1'=>$Block['bar_izquierda'],	//
-			"MAIN?block=col-lg-10 page_col2&classStyle=page",//L[x]V[x]						//panel:paginas(id=$_GET[PAGE])
+			'col-xs-2 page_col1'=>$Block['bar_izquierda'],
+			"MAIN?".http_build_query([
+									'block'		=>'col-xs-10 page_col2',
+									'classStyle'=>'page',
+									]),
 			]
 		],
 	'footer'	=>$Block['footer'],			
@@ -124,9 +84,12 @@ array(
 	'canvas' 	=>
 		[	
 			[
-			'col-lg-2 page_col1'=>"bloques/menu_blog.php?classStyle=menu_left",	//
-			"MAIN?block=col-lg-10 page_col2&classStyle=page",//L[x]V[x]						//panel:paginas(id=$_GET[PAGE])
-			]
+			'col-xs-2 page_col1'=>"bloques/menu_blog.php?".http_build_query(['classStyle'=>'menu_left']),
+			"MAIN?".http_build_query([
+									'block'		=>'col-xs-10 page_col2',
+									'classStyle'=>'page',
+									]),
+			]				
 		],
 	'footer'=>$Block['footer'],		
 );
@@ -140,8 +103,11 @@ array(
 	'canvas' 	=>
 		[	
 			[		
-			'col-lg-2 page_col1'=>'bloques/menu_servicios.php?classStyle=menu_left',		//
-			"MAIN?block=col-lg-10 page_col2&classStyle=page",//L[x]V[x]						//panel:paginas(id=$_GET[PAGE])
+			'col-xs-2 page_col1'=>'bloques/menu_servicios.php?'.http_build_query(['classStyle'=>'menu_left']),
+			"MAIN?".http_build_query([
+									'block'		=>'col-xs-10 page_col2',
+									'classStyle'=>'page',
+									]),									
 			]
 		],
 	'footer'=>$Block['footer'],		
@@ -154,34 +120,83 @@ array(
 	'canvas' 	=>
 		[	
 			[		
-			'col-lg-2 page_col1'=>'bloques/menu_empresa.php?classStyle=menu_left',		//
-			"MAIN?block=col-lg-10 page_col2&classStyle=page",//L[x]V[x]						//panel:paginas(id=$_GET[PAGE])
+			'col-xs-2 page_col1'=>'bloques/menu_empresa.php?'.http_build_query(['classStyle'=>'menu_left']),
+			"MAIN?".http_build_query([
+									'block'		=>'col-xs-10 page_col2',
+									'classStyle'=>'page',
+									]),
+
 			]
 		],
 	'footer'=>$Block['footer'],		
 );
 
-$Estructura['modulo=formularios&tab={contacto,boletin,consultas}']=
+
+$Estructura['modulo=formularios&tab={contacto}']=
 array(
 	'header'	=>$Block['header'],	
 	'nav'		=>$Block['nav'],	
 	'canvas' 	=>
 		[	
 			[		
-			'col-lg-2 page_col1'=>$Block['bar_izquierda'],		//
-			"MAIN?block=col-lg-10 page_col2&classStyle=page",//L[x]V[x]						//panel:paginas(id=$_GET[PAGE])
+			'col-xs-2 page_col1'=>$Block['bar_izquierda'],		//
+			"MAIN?".http_build_query([
+									'block'		=>'col-xs-10 page_col2',
+									'classStyle'=>'page',
+									]),									
 			]
 		],	
 	'footer'=>$Block['footer'],
 );
 
 
+// $Block['blank']='bloques/blank.php';
 
-if(!$_GET){ $_GET=array('modulo'=>'app','tab'=>'home'); }
-if(!$_GET['sec']){ $_GET=array_merge(array('sec'=>'cgtp'),$_GET); }
-if($_GET['tab']=='contactenos'){ $_GET['tab']='contacto'; }
+// $Estructura['modulo=app&tab=blank']=
+// array(
+// 	'header'=>$Block['header'],	
+// 	'nav'=>$Block['nav'],	
+// 	'canvas'=>array(
+// 		$Block['blank'],
+// 		array(
+// 		 	$Block['blank']."?block=col-xs-3 hola",
+// 		 	$Block['blank']."?block=col-xs-9"
+// 		),
+// 		array(
+// 			$Block['blank']."?block=col-xs-3",//
+// 			$Block['blank']."?block=col-xs-3",//
+// 			'col-xs-6'=>array(
+// 				$Block['blank'],//
+// 				$Block['blank']	//
+// 			),
+// 		),
+// 		array(
+// 		 	$Block['blank']."?block=col-xs-6",
+// 		 	$Block['blank']."?block=col-xs-6"
+// 		),	
+// 		$Block['blank'],
+// 		array(
+// 		 	$Block['blank']."?block=col-xs-2",
+// 		 	$Block['blank']."?block=col-xs-2",
+// 		 	$Block['blank']."?block=col-xs-2",
+// 		 	$Block['blank']."?block=col-xs-1",
+// 		 	$Block['blank']."?block=col-xs-1",
+// 		 	$Block['blank']."?block=col-xs-1",
+// 		 	$Block['blank']."?block=col-xs-3"
+// 		),		
+// 		array(
+// 		 	$Block['blank']."?block=col-xs-9",
+// 		 	$Block['blank']."?block=col-xs-3"
+// 		),		
+// 	),		
+// 	'footer'=>$Block['footer'],	
+// 	$Block['blank'],			
+// );
 
 
-include("particular.php");
+
+
+
+// include("particular.php");
 
 

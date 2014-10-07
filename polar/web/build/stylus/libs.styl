@@ -10,29 +10,9 @@
 	&:after
 		clear: both
 
-/*cuadros*/
-.cuadro 
-	position:relative
-	height:auto
-	.barra_abajo
-		position:absolute
-		left:0px
-		bottom:0px !important
-		bottom:-1px
-		width:100%
-		height:auto
-		background-repeat:repeat-x
-		overflow:hidden
-		z-index:0
 
 
 /*filas*/
-.div_fila
-	clear:both
-	position:relative
-	display block
-	margin-bottom 10px
-
 .div_fila_margen 
 	margin-bottom:10px
 
@@ -90,23 +70,6 @@
 	background-position:0px 0px
 
 
-// /*left*/
-// .div_left 
-// 	background-color:none
-// 	height:auto !important
-// 	height:250px
-// 	min-height:250px
-// 	padding:0px
-// 	width:205px
-
-
-// /*right*/
-// .div_right 
-// 	height:auto !important
-// 	height:250px
-// 	min-height:250px
-// 	padding:0px
-// 	width:215px
 
 
 /*margenes*/	
@@ -156,126 +119,25 @@
 	font-size:1px
 
 
-/*bloque*/	
-.div_bloque 
-	float:left
-	height:auto
-	min-height:150px
 
 /*inner*/
 // .div_inner 
 // 	padding:10px 4%
 
 
-/*mensajes*/	
-.mensaje_info, 
-.mensaje_exito, 
-.mensaje_alerta, 
-.mensaje_error 
-	font-family:Arial
-	font-size:13px
-	border: 1px solid
-	margin: 6% 5%
-	padding:15px 10px 15px 50px
-	background-repeat: no-repeat
-	background-position: 10px center
-	color: #000
-	background-color: #FFF
 
 
-.mensaje_info 
-	background-image: url(../img/common/info.png)
-
-.mensaje_exito 
-	background-image: url(../img/common/exito.png)
-
-.mensaje_alerta 
-	background-image: url(../img/common/alerta.png)
-
-.mensaje_error 
-	background-image: url(../img/common/error.png)
-
-
-
-.div_col_1d1
-	width: ($page_width)px;
-	margin-right: 0px;
-	// padding 0 0 0 0px;
-	// background-color #ccc
-
-
-.div_col_1d2
-	width: ($col_1d2)px;
-	margin-right: ($col_margin)px;
-	// padding 0 0 0 0px
-	// background-color #ccc
-
-.div_col_2d2
-	width: ($col_2d2)px;
-	// background-color #ccc
-
-
-.div_col_1d3
-	width: ($col_1d3)px;
-	margin-right: ($col_margin)px;
-	// padding 0 0 0 0px
-	// background-color #ccc
-
-.div_col_2d3
-	width: ($col_2d3)px;
-	margin-right: ($col_margin)px;
-	// padding 0 0 0 0px
-	// background-color #ccc
-
-.div_col_3d3
-	width: ($col_3d3)px;
-	// padding 0 0 0 0px
-	// background-color #ccc
-
-
-
-.contenedor_slider_fijo
-	position: relative;
-	overflow: hidden;
-
-
-.contenedor_slider_movil
-	position: absolute;
-	div.slid 
-		float: left;
-		height: auto;
-		text-align: inherit;
-		li
-			clear: none !important;
-			float: left;
-			position: relative;
-			overflow: hidden;
 
 // *
 // 	transition:all 0.5s linear;
 
 
-/**
- * mixins
- */
-
-vendor(prop, args)
-	-webkit-{prop} args
-	-moz-{prop} args
-	{prop} args
-
-border-radius()
-	vendor('border-radius', arguments)
-
-box-shadow()
-	vendor('box-shadow', arguments)
 
 
 
 /**
  * some resets
  */
-
 table
 	border-collapse: collapse
 	border-spacing: 0
@@ -332,12 +194,14 @@ li
 	// max-width 100%
 
 /* selection */
-::selection
-	background 	#FFF200 !important
-	color #000 !important
+// ::selection
+// 	background 	#FFF200 !important
+// 	color #000 !important
 
 
+img[src='img/blank.gif']
+	background white
 
-
-
+a
+	cursor pointer
 

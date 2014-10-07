@@ -8,14 +8,9 @@ $FORM=$OBJECT[$PARAMS['conector']];
 
     <div class="inner" >
     
-        <!--FORM INICIO-->
-        <form id="formulario_<?php echo $FORM['nombre'];?>" method="post" name="<?php echo $FORM['nombre'];?>" class="formularios" action="<?php echo $FORM['action'];?>" >                          
-        <div id="<?php echo $FORM['nombre'];?>_form_body" class="form_body">        
+        <form method="post" name="<?php echo $FORM['nombre'];?>" class="<?php echo $FORM['nombre'];?>" action="<?php echo $FORM['action'];?>" >                          
         <?php web_render_form($FORM); ?>                         
-        </div>                               
-        <?php //web_render_form_javascript($FORM); ?>                    
         </form>
-        <!--FORM FIN--> 
     
     </div>
             

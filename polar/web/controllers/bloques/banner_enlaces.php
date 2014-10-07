@@ -50,27 +50,5 @@ $object['vacio']='aún no hay fotos en el banner';
 
 
 
-$HEAD['LOAD']['unslider']=true;
-
-$HEAD['INCLUDES']['script'][]="
-$( document ).ready(function() {
-	var unslider = $('.".$PARAMS['this']." .slides').unslider({
-		fluid:true,
-		// dots:true,
-		delay:10000,
-		speed:500,
-		keys:true,
-	});
-
-    $('.".$PARAMS['this']." .arrow').click(function() {
-        var fn = this.className.split(' ')[1];
-        unslider.data('unslider')[fn]();
-    });
-
-});
-";
-// prin($PARAMS['this']);
-
-// prin($object);
 $OBJECT[$PARAMS['this']]=$object;
 

@@ -2038,173 +2038,6 @@ function parametros_decode($string,$bbb){
 	return $string;
 }
 
-// function web_guardar_datos_htaccess($GET,$ALIAS){
-
-// 	global $URLS;
-// 	$file="../../.htaccess";
-
-// 	$css=implode("",file($file));
-
-// 	$tabs2=array();
-
-// 	if($GET['modulo']=='formularios'){
-// 		$VAR="url_".$GET['modulo'];
-// 		$TAB=$GET['tab'];
-// 	}elseif($GET['modulo']=='items'){
-// 		$VAR="url_".$GET['modulo'];
-// 		$TAB=$GET['tab'];
-// 	}elseif($GET['modulo']=='app' and $GET['tab']=='pages'){
-// 		$VAR="url_".$GET['tab'];
-// 		$TAB=$GET['page'];
-// 	}elseif($GET['modulo']=='app'){
-// 		$VAR="url_".$GET['modulo'];
-// 		$TAB=$GET['tab'];
-// 	}
-
-// 	if(isset($ALIAS[$TAB])){
-
-
-// 		list($one,$two)=explode("#".$VAR."-START",$css);
-// 		list($three,$four)=explode("#".$VAR."-END",$two);
-// 		$three=trim($three);
-
-// 		if($three!=''){
-
-// 			list($oneA,$twoA)=explode("(",$three);
-// 			list($threeA,$fourA)=explode(")",$twoA);
-// 			$tabs=array();
-// 			$tabs=explode("|",$threeA);
-// 			foreach($tabs as $tab){
-// 				if(!isset($ALIAS[$tab])){
-// 					if($tab!='vacio'){
-// 						$tabs2[]=$tab;
-// 					}
-// 				}
-// 			}
-// 			if(!in_array($TAB,$tabs2)){
-// 				if(!isset($ALIAS[$TAB])){
-// 					$tabs2[]=$TAB;
-// 				}
-// 			}
-// 			$xxx=(sizeof($tabs2)==0)?'vacio':implode("|",$tabs2);
-// 			$ttt=$oneA."(".$xxx.")".$fourA;
-// 			$css2=$one."#".$VAR."-START\n".$ttt."\n#".$VAR."-END".$four;
-
-// 			$f1=fopen($file,"w+");
-// 			fwrite($f1,$css2);
-// 			fclose($f1);
-
-// 		}
-
-// 		$css=implode("",file($file));
-
-// 		$getsss=array();
-// 		foreach($GET as $ggg=>$ett){
-// 		$getsss[]=$ggg."=".$ett;
-// 		}
-// 		$getss=implode("&",$getsss);
-
-// 		$VAR='varurl';
-// 		list($one,$two)=explode("#".$VAR."-START",$css);
-// 		list($three,$four)=explode("#".$VAR."-END",$two);
-
-// 		$threeA=explode("\n",$three);
-// 		$BBB=array();
-// 		foreach($threeA as $AAA){
-// 			list($oneB,$twoB)=explode(" ^",$AAA);
-// 			list($threeB,$fourB)=explode("\$ ",$twoB);
-// 			list($fiveB,$sixB)=explode(" [L]",$fourB);
-// 			if(trim($AAA)!=''){
-// 				if(in_array($threeB,$ALIAS)){
-// 					$BBB[$threeB]=$AAA;
-// 					$CCC[$threeB]="\$URLS['".trim($fiveB)."']='".$threeB."';";
-// 				}
-// 			}
-// 		}
-
-// 		$BBB[$ALIAS[$TAB]]="RewriteRule ^".$ALIAS[$TAB]."\$ index.php?".$getss." [L]";
-// 		$CCC[$ALIAS[$TAB]]="\$URLS['index.php?".$getss."']='".$ALIAS[$TAB]."';";
-
-// 		$ttt=implode("\n",$BBB);
-// 		$tttt=implode("\n",$CCC);
-
-// 		$css2=$one."#".$VAR."-START\n".$ttt."\n#".$VAR."-END".$four;
-// 		$f1=fopen($file,"w+");
-// 		fwrite($f1,$css2);
-// 		fclose($f1);
-
-// 		$VAR='URLS';
-// 		$FILE='../../web/modulos/urls.php';
-
-// 		$css=implode("",file($FILE));
-
-// 		list($one,$two)=explode("/*".$VAR."-START*/",$css);
-// 		list($three,$four)=explode("/*".$VAR."-END*/",$two);
-// 		$css2=$one."/*".$VAR."-START*/\n$tttt\n/*".$VAR."-END*/".$four;
-
-// 		$f1=fopen($FILE,"w+");
-// 		fwrite($f1,$css2);
-// 		fclose($f1);
-
-
-// 	} else {
-
-// 		list($one,$two)=explode("#".$VAR."-START",$css);
-// 		list($three,$four)=explode("#".$VAR."-END",$two);
-// 		$three=trim($three);
-
-// 		if($three!=''){
-
-// 			list($oneA,$twoA)=explode("(",$three);
-// 			list($threeA,$fourA)=explode(")",$twoA);
-// 			$tabs=array();
-// 			$tabs=explode("|",$threeA);
-// 			foreach($tabs as $tab){
-// 				if($tab!='vacio'){
-// 					$tabs2[]=$tab;
-// 				}
-// 			}
-// 			if(!in_array($TAB,$tabs2)){
-// 				$tabs2[]=$TAB;
-// 			}
-// 			$ttt=$oneA."(".implode("|",$tabs2).")".$fourA;
-
-// 			$css2=$one."#".$VAR."-START\n".$ttt."\n#".$VAR."-END".$four;
-
-// 			$f1=fopen($file,"w+");
-// 			fwrite($f1,$css2);
-// 			fclose($f1);
-
-// 		}
-
-// 	}
-// 	foreach($URLS as $LU=>$UR){
-// 		if(trim($UR)==''){
-// 			$HOMEURL=$LU;
-// 		}
-// 	}
-
-// 	if(isset($HOMEURL)){
-
-// 		$VAR='HOME';
-// 		$FILE='../../.htaccess';
-// 		$tttt="RewriteRule ^$ ".$HOMEURL." [L]";
-
-// 		$css=implode("",file($FILE));
-
-// 		list($one,$two)=explode("#".$VAR."-START",$css);
-// 		list($three,$four)=explode("#".$VAR."-END",$two);
-// 		$css2=$one."#".$VAR."-START\n$tttt\n#".$VAR."-END".$four;
-
-// 		$f1=fopen($FILE,"w+");
-// 		fwrite($f1,$css2);
-// 		fclose($f1);
-
-// 	}
-
-// }
-
-
 
 
 	$directoriS=array();
@@ -3957,8 +3790,8 @@ function PreProcessEstructura($Estructura){
 		parse_str($url,$u);
 		if($u['modulo']=='items' and $u['acc']==''){
 			$Estructura[$url."&acc=file"]=$Estr;
-			$Estructura[$url."&acc=list"]=$Estr;
-			unset($Estructura[$url]);
+			// $Estructura[$url]=$Estr;
+			// unset($Estructura[$url]);
 		}
 	}
 
@@ -3967,7 +3800,7 @@ function PreProcessEstructura($Estructura){
 		list($b,$b2)=explode("?",$b);
 		$b3=($b2!='')?'?'.$b2:'';
 		parse_str($a,$c);
-		if($c['modulo']=='items'){ $file=$c['modulo']."/".$c['tab']."_".$c['acc'].".php"; }
+		if($c['modulo']=='items'){ $file=$c['modulo']."/".$c['tab']."_".( ($c['acc'])?$c['acc']:'list' ).".php"; }
 		else { $file=$c['modulo']."/".$c['tab'].".php"; }
 		} else { $file=$b; }
 		return $file.$b3;
@@ -5128,9 +4961,223 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 
 	ImageJPEG($im, $img_path.$img_name);
 
-	$img = "<img src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
+	$img = "<img class=\"img_captcha\" src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
 
 	ImageDestroy($im);
 
 	return array('word' => $word, 'time' => $now, 'image' => $img);
 }
+
+
+
+function paginacionnumerada($parametros,$campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
+
+	global $_GET;
+	$pagin=$_GET['pag'];
+	if($pagin==''){
+		$pagin=1;
+	}
+
+	if(is_array($parametros['item'])){
+
+		$wer=each($parametros['item']);
+
+	}
+
+	if($wer['value']!=''){
+
+		$visi=select($campos,$tabla," where ".$wer['key']."='".$wer['value']."' ",$debug,$opciones);
+
+		$tot=1;
+
+		$cm = array(
+				'filas'=>$visi,
+				'total'=>$tot,
+				'pagina'=>$pagin,
+				'anterior'=>"",
+				'siguiente'=>"",
+				'desde'=>1,
+				'hasta'=>$tot,
+				'tren'=>""
+		);
+
+		return $cm;
+
+	} else {
+
+		if($parametros['porpag']==0){
+
+			$visi=select($campos,$tabla,$donde." limit 0,100",$debug,$opciones,$concat);
+
+			$tot=sizeof($visi);
+
+			$cm = array(
+					'filas'=>$visi,
+					'pagina'=>$pagin,
+					'total'=>$tot,
+					'anterior'=>"",
+					'siguiente'=>"",
+					'desde'=>1,
+					'hasta'=>$tot,
+					'tren'=>""
+			);
+
+			return $cm;
+
+		} else {
+
+			//pagin
+			//porpag,anterior,siguiente,enlace
+			$porpag=$parametros['porpag'];
+			$anterior=$parametros['anterior'];
+			$siguiente=$parametros['siguiente'];
+			$enlace=$parametros['enlace'];
+			$separador=$parametros['separador'];
+			$onclick=$parametros['onclick'];
+			$pagina_disabled=$parametros['pagina_disabled'];
+			$tren_limite=($parametros['tren_limite'])?$parametros['tren_limite']:10;
+			$procesar_url=($parametros['procesar_url'])?$parametros['procesar_url']:0;
+			$tipo=($parametros['tipo'])?$parametros['tipo']:'default';
+
+
+			parse_str($enlace,$gets);
+			$gets=array_keys($gets);
+			$var_pag=$gets[sizeof($gets)-1];
+
+
+			if($pagin==''){
+				$pagin=1;
+			}
+
+			$total=contar($tabla,$donde,0);
+			//prin($tabla);
+			//prin($donde);
+			//prin($total);
+
+			$finpag=$total;
+			$inicio=$porpag*($pagin-1);
+
+			if($total>$porpag){
+
+				$visi=select($campos,$tabla,$donde." limit $inicio,$porpag",$debug,$opciones,$concat);
+
+				$finpag=sizeof($visi);
+
+				$prev_pag=$pagin-1;
+				$next_pag=$pagin+1;
+
+
+				if ($pagin==1) {
+					$prev="<li><span>".$anterior."</span></li>";
+					$prevA="<li class='active'><a href='#'>".$anterior."</a></li>";
+				} else {
+					$prev=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " class='linkarrow'>$anterior</a></li>";
+					$prevA=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " >$anterior</a></li>";
+				}
+
+				if ($total==($finpag+$inicio)) {
+					$next="<li><span>".$siguiente."</span></li>";
+					$nextA="<li class='active'><a href='#'>".$siguiente."</a></li>";
+				} else {
+					$next=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " class='linkarrow' >$siguiente</a></li>";
+					$nextA=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " >$siguiente</a></li>";
+				}
+
+			} else {
+
+				$visi=select($campos,$tabla,$donde,$debug,$opciones,$concat);
+
+			}
+			$sun=(int)(($total-1)/$porpag)+1;
+			for($i=1;$i<=$sun;$i++){
+				if($i==$pagin){
+					$raba[]="<li class='active'><span>$i</span></li>";
+					$rabaA[]="<li class='active'><a href='#'>$i</a></li>";
+				} else {
+					$raba[]="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
+					$rabaA[]="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
+				}
+			}
+			$marder=3;
+			$inicior=($pagin>$tren_limite-1-$marder)?($pagin-$tren_limite+$marder):0;
+			//$inicior=$pagin;
+			if(sizeof($raba)>$tren_limite){
+				for( $r = $inicior ;  $r < $inicior + $tren_limite  ; $r++ ){
+
+					if( $r==$inicior and $inicior>0 ){
+						$raba2[]=$raba[0];
+						$raba2A[]=$rabaA[0];
+					} else {
+						$raba2[]=$raba[$r];
+						$raba2A[]=$rabaA[$r];
+					}
+
+					if($raba[$r]!=''){
+						$ultimoraba=$raba[$r];
+						$ultimorabaA=$rabaA[$r];
+					}
+
+				}
+				if($ultimoraba!=$raba[sizeof($raba)-1]){
+					$raba2[]="<li><span>&nbsp;...&nbsp;</span></li>";
+					//$raba2[]=$raba[sizeof($raba)-2];
+					$raba2[]=$raba[sizeof($raba)-1];
+					$raba2A[]="<li class='active'><a href='#'>&nbsp;...&nbsp;</a></li>";
+					//$raba2[]=$raba[sizeof($raba)-2];
+					$raba2A[]=$rabaA[sizeof($raba)-1];
+				}
+				$raba=$raba2;
+				$rabaA=$raba2A;
+
+			}
+
+
+			$rabas=(sizeof($raba)>1)?implode($separador,$raba):"";
+			$rabasA=(sizeof($raba)>1)?implode($separador,$rabaA):"";
+
+			if($pagina_disabled){
+
+				$cm = array(
+						'filas'=>$visi,
+						'pagina'=>$pagin,
+						'total'=>$total
+				);
+
+			} else {
+
+				if($tipo=='bootstrap')
+					$cm = array(
+							'filas'=>$visi,
+							'pagina'=>$pagin,
+							'totalpaginas'=>sizeof($raba),
+							'total'=>$total,
+							'anterior'=>$prevA,
+							'siguiente'=>$nextA,
+							'desde'=>$inicio+1,
+							'hasta'=>$finpag+$inicio,
+							'tren'=>$rabasA
+					);
+				else
+					$cm = array(
+							'filas'=>$visi,
+							'pagina'=>$pagin,
+							'totalpaginas'=>sizeof($raba),
+							'total'=>$total,
+							'anterior'=>$prev,
+							'siguiente'=>$next,
+							'desde'=>$inicio+1,
+							'hasta'=>$finpag+$inicio,
+							'tren'=>$rabas
+					);
+
+			}
+
+			return $cm;
+
+		}
+
+	}
+
+}
+
+
