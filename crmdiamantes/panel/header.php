@@ -25,7 +25,7 @@
 
 
 $_GET['filter']=str_replace(array('[today]'),array(date("Y-m-d")),($_GET['filter']));
-//prin($_GET['filter']);
+// prin($_GET['filter']);
 
 //echo "ADMIN:".$_COOKIE['admin'].'<br>';
 if(($SERVER['ARCHIVO']=='maquina.php') or ($_SESSION['edicionpanel']==1)){
@@ -66,15 +66,13 @@ $Open=(
 )?1:0;
 
 foreach($objeto_tabla as $item){
-	if($SERVER['ARCHIVO']==$item['archivo'].".php"){
+	if(enhay($SERVER['ARCHIVO'],$item['archivo'].".php")){
 		$this_grupo=$item['grupo'];
 		$this_me=$item['me'];
 	}
 }
 
 if($this_me){
-
-	$objeto_tabla=pre_procesar_tabla($objeto_tabla,$vars);
 
 	if($objeto_tabla[$this_me]['page']==1){
 		$filtrar_page2=1;	$_SESSION['page']=($_SESSION['page']!='' and in_array($_SESSION['page'],$IdPageS))?$_SESSION['page']:$IdPageS[0];
@@ -266,12 +264,14 @@ echo $HTML_MAIN_FIN;
 echo $HTML_ALL_FIN;
 exit();
 }
-//prin($SERVER);
+// prin($SERVER);
 ?>
 <script>
 function edit_init(se,na,va){
 new Request({url:"lib/edit_ini.php",method:'post',data:{seccion:se,name:na,value:va},onSuccess:function(eee){
-var url='<?php echo (enhay($SERVER['BASE'].$SERVER['URL'],"maquina.php"))?"maquina.php":$SERVER['BASE'].$SERVER['URL'].(($SERVER['PARAMS'])?'?'.$SERVER['PARAMS']."&":"?")."rd=".rand();?>'+((window.location.hash)?window.location.hash:'');
+var url='<?php 
+list($rurl,$rpath)=explode('?',$SERVER['RUTA']);
+echo (enhay($rurl,"maquina.php"))?"maquina.php":$rurl.(($rpath)?'?'.$rpath."&":"?")."rd=".rand();?>'+((window.location.hash)?window.location.hash:'');
 //alert(url);
 location.href=url;
 }}).send();
@@ -604,7 +604,7 @@ if($Local==1){
 
 $hhtml ='';
 list($titulo_strong,$dos)=explode("::",$vars['GENERAL']['html_title']);
-$hhtml.="<div class='menus' id='menumenu' >";
+$hhtml.="<div class='menus' >";
 //echo implode("<span class='pale' style='float:right;margin-bottom:-15px;'>|</span>",$menus_d);
 if($vars['GENERAL']['BACKUPADMIN']=='1'){
 $menus_d[]= "<a href='backup.php'>backup</a>";
@@ -633,46 +633,22 @@ window.addEvent('domready',function(){
 }
 if(file_exists($img_logo)){
 if(trim($img_logo)!=''){
-?><a href="./" class="logo_panel"><img src="<?php echo $img_logo?>" align="absmiddle" border="0" /> </a><?php
+?><a href="./" class="logo_panel"><img src="<?php echo $img_logo?>" align="absmiddle" border="0" /></a><?php
 }
-} ?>
+} 
+?>
+<a href="./" class="link_header"><?php echo str_replace("Panel de Administración","Sistema",$html_titulo);?></a>
+<?php
+// echo "<div>";
 
-	<div style="float: left; margin-bottom: 5px;">
-		<?php
-		/* ?><a href="./" style='text-transform:uppercase; margin-left:7px; display:block; '><?php echo $titulo_strong;?></a><?php */
-		?>
-		<a href="./" class="link_header"><?php echo str_replace("Panel de Administración","Sistema",$html_titulo);?>
-		</a>
-		<?php
-		?>
-	</div>
-	<?php
-	/*if($Local and !$LOGIN){
-	 if($Open){
-?><div class="mensaje_header" style="clear:right;">
-<b>
--ser proactivo<br />
--primero lo primero<br />
--trabajar con el fin en mente
-</b>
-</div><?php
-?><div class="mensaje_header">
-<b>
--el primer día tener una versión funcinal<br />
--el segundo día perfeccionarlo
-</b>
-</div><?php
-}
-}*/
-echo "<div>";
 if(
 $Open
 and ( substr($SERVER['BASE'],-7)=='custom/' or $SERVER['ARCHIVO']=='maquina.php' )
 and $_SESSION['edicionpanel']=='1'
 and (!in_array($_GET['accion'],array('config','alllistado')))
 ){
-echo "<div id='eth'>";
 
+echo "<div id='eth'>";
 if(substr($SERVER['BASE'],-7)=='custom/'){
 echo $EDITOR_TEXTUAL_CAMPOS;
 echo "<script> window.addEvent('domready',function(){ $('jjjson').focus(); }); </script>";
@@ -684,8 +660,8 @@ echo "<script> window.addEvent('domready',function(){ $('jjjsonproy').focus(); }
 }
 echo '<style>.dredre div textarea { height:16px;}</style>';
 }
-
 echo "</div>";
+
 if((substr($SERVER['BASE'],-7)=='custom/')){
 
 echo "<li id='quickcontrols' class='quickcontrols'>";
@@ -712,15 +688,13 @@ echo str_replace($Replace4Str,$Replace4Ico,$indice);
 echo "</a>";
 		}
 		echo "</td></tr></table>";
-
 	}
 }
 echo "<script>setqc('props',1);</script>";
 }
 echo "</li>";
 
-
-echo "</div>";
+// echo "</div>";
 
 $MEME=($_GET['me'])?$_GET['me']:$this_me;
 if( $_SESSION['edicionpanel']=='1' or 1){
@@ -832,9 +806,9 @@ include($objeto_tabla[$this_me]['onload_include']);
 echo $objeto_tabla[$this_me]['onload_script'];
 
 //prin($_COOKIE);
-
+/*
 if(!($_COOKIE['ap']!='' or $_COOKIE['admin']=='1' or in_array($SERVER['ARCHIVO'],$validos) or in_array($SERVER['ARCHIVO'],array('maquina.php','login.php','app.php')))){
 die("<div class='sinacceso'>No tiene permiso para acceder a éste módulo<br><a href='#' onclick='window.history.back();'>VOLVER</a></div>");
 }
-
+*/
 ?>

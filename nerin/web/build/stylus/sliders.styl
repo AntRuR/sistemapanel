@@ -1,0 +1,32 @@
+
+
+/**
+ * BLOCK SLICE
+ */
+.slice
+	.inner
+		.slides
+			overflow hidden
+			height auto !important			
+			ul
+				li
+					text-align center
+					float left
+	.arrow
+		cursor pointer
+		&.prev
+		&.next
+			&:hover
+				text-decoration none						
+	.prev:before
+	.next:after	
+		font-family icomoon
+		font-size 1.3em
+		vertical-align middle			
+	.prev:before
+		content "\e645"
+	.next	
+		float right
+		&:after
+			content "\e64f"	
+

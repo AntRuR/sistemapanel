@@ -3,7 +3,7 @@
 
 include("lib/global.php");
 include("lib/mysql3.php");
-include("lib/util.php");
+include("lib/util2.php");
 include("lib/webutil.php");
 
 

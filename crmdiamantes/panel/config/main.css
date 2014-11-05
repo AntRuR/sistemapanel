@@ -1,5 +1,4 @@
 a.link_header {
-	margin-top: 10px;
 	color: #CBCBCB;
 }
 
@@ -32,12 +31,10 @@ body { background: url("http://cdn.elcomercio.e3.pe/f/i/gb_caption_nota.png") re
  */
 
 .logo_panel {
-    /* margin-bottom: 15px; */
-    /* margin-top: 10px; */
+
 }
 
 a.link_header {
-	margin-top: 22px;
 	color: #CBCBCB;
 }
 
@@ -83,7 +80,6 @@ a.link_header,
 .bloque_titulo .titulo, .bloque_titulo .titulo a,
 ul.ul_menus li a {
     /* font-family: 'caviar_dreamsregular'; */
-    margin-left: 0px;
     letter-spacing: -0.05em;
 }
 .lead {
@@ -91,15 +87,7 @@ margin-bottom:0;
 }
 
 
-.logo_panel img {
-    /* height: 46px; */
-}
-
-a.link_header {
-    color: #666;
-    font-size: 15px;
-    margin-top: 8px;
-}    
+ 
 
 
 /**/
@@ -124,40 +112,20 @@ a.link_header {
 }
 
 
-.itms .tite a, .itms .itd a {
-    /* font-family: PTN57F !important; */
-}
-
-a, .alink {
-
-}
-
-.modificador_grilla .first_linea .nc {
-/*color:#999;*/
-}
 
 
-.bl .bd {
-/* font-family: 'caviar_dreamsregular' !important; */
-}
 .itms .itm .itd {
 /* font-family: PTN57F !important; */    
 text-transform: capitalize;
 font-size: 1em;
 }
-.modificador_grilla .first_linea .nc {
-font-family: PTN77F !important;        
-}
 
-.formulario label {
-/* font-family: PTN57F !important; */    
-}
+
+
 /**
  * modulo_productos_items
  */
-.modulo_productos_items .modificador .itms {
-    /* width: auto !important; */
-}
+
 #html_reporte {
     margin-top: 9px;
     
@@ -185,9 +153,6 @@ font-family: PTN77F !important;
     font-weight: bold !important;
     background-position: 0px -2px !important;
 }
-#html_reporte .reporte_ventas td.nombre:first-child  {
-
-}
 
 
 .modulo_productos_ventas .filters { display: none; }
@@ -200,30 +165,17 @@ font-family: PTN77F !important;
 
 td { background-color: #FFF; }
 
-#menumenu { /* margin-top: 4px; */ /* margin-bottom: -22px; */}
 
 
 .htmlenlista td { background-color: transparent; }
 
 @media (max-width: 800px) {
 
-    .logo_panel img {
-        margin-top: 0 !important;
-    }
-    .modulo_login a.link_header {
-    	/*margin-top: 35px;*/
-    }
-
-    a.link_header {
-
-        margin-top: 8px !important;
-
-    }
         
     .i_mm, .i_ff {
     margin-top: 2px !important;
 
     /* color: #FFA500 !important; */
-}    
+    }    
 
 }

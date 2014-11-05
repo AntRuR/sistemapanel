@@ -48,7 +48,7 @@ $object['total']=sizeof($object['filas']);
 
 $object['vacio']='aún no hay fotos en el banner';
 
-
+// prin($object);
 
 $OBJECT[$PARAMS['this']]=$object;
 

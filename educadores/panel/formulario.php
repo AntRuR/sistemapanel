@@ -1,11 +1,9 @@
 <?php
 
 include("objeto.php");
-
-
-
+	
 ?>
-<ul class="formulario">
+<ul class="formulario <?php echo ($_GET['view'])?'view':''; ?>">
 	<?php
 
 	?>

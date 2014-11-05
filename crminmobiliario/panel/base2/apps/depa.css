@@ -1,7 +1,8 @@
+.tab-pane a:hover { text-decoration: none; }
 
-.proyecto { font-family: 'caviar_dreamsregular'; }
+.proyecto { font-family: 'Roboto'; }
 
-.bloque h6 { font-family: 'caviar_dreamsregular'; }
+.bloque h6 { font-family: 'Roboto'; }
 
 .torres .bloque { width: 200px; float: left; margin-right: 10px; }
 
@@ -9,22 +10,70 @@
 
 .torre .inmu { 
 	display: block; text-align: center; color: #000; 
-    font-family: 'caviar_dreamsregular';
+    font-family: 'Helvetica';
+    position: relative;
+    font-weight: bold;
+    min-width: 190px;
+    font-size: 1.2em;
 }
 
-.departamentos .inmu { 
-	background-color: #E0FFC1;
+.depositos .inmu.disponible,
+.estacionamientos .inmu.disponible,
+.departamentos .inmu.disponible { 
+	background-color: rgba(121, 242, 121, 0.7);
+}
+.disponible a:hover {
+	text-decoration: underline;
 }
 
-.estacionamientos .inmu { 
-	background-color: #A6DBFF;
+.inmu.separado { 
+	background-color: rgba(244, 184, 76, 0.7);
+	cursor:not-allowed;
 }
 
-.depositos .inmu { 
-	background-color: #FFFF99;
-}	
-
-#cart .departamento { 
+.inmu.separado:before { 
+	content:"separado";
+	position: absolute;
+	font-weight: normal;
+	font-variant: small-caps;	
+	color:white;
+	right: 3px;
+}
+.inmu.vendido { 
+	background-color: rgba(253, 132, 132, 0.7);
+	cursor:not-allowed;
+}
+.inmu.vendido:before { 
+	content:"vendido";
+	position: absolute;
+	font-weight: normal;
+	font-variant: small-caps;
+	color:white;	
+	left: 3px;
+}
+.inmu.agregado:after {
+	font-family: 'icomoon';
+	content:"\e682";
+	position: absolute;
+	right: 3px;
+}
+.torre .labe {
+	text-align:right;
+	font-weight:bold;
+	text-transform: uppercase;
+}
+.torre .vals {
+	text-align: right;
+}
+.torre a.cerrar {
+	color:red;
+	font-size: 13px;
+}
+.nav li a {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+/*#cart .departamento { 
 	background-color: #E0FFC1;
 }
 
@@ -34,9 +83,9 @@
 
 #cart .deposito { 
 	background-color: #FFFF99;
-}	
+}	*/
 
-.torre .inmu:hover { background-color: #F4C4A6; }
+/*.torre .inmu:hover { background-color: #F4C4A6; }*/
 
 .jqibox { margin-top: -5px !important; }
 
@@ -71,3 +120,8 @@ margin-right:0 !important;
     display:none;
 }
 
+#cart table {
+	margin-right: 0;
+	margin-top: 149px;
+	width: 100%;
+}

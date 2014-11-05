@@ -1,4 +1,5 @@
-<?php
+<?php //á
+
 /*~ class.smtp.php
 .---------------------------------------------------------------------------.
 |  Software: PHPMailer - PHP email class                                    |

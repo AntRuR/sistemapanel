@@ -1,0 +1,43 @@
+
+/**
+ * FORM : DEFAULT
+ */
+form
+	text-align center
+	ul
+		display inline-block
+		li
+			text-align left
+			label.empty
+				display none			
+			&.legend
+				color #000
+				margin-bottom 10px
+				font-weight bold					
+				text-indent -20px
+			label
+				vertical-align top			
+				text-transform uppercase
+				width 180px
+				font-size 1em
+				color #666
+				&.required:after
+					content "*"
+					color red
+			input[type=text]
+			select
+			textarea
+				border 1px solid #ccc
+				max-width 100%			
+				width 220px	
+				font-size 1.1em
+			&.submit
+			&.pie	
+				text-align center				
+
+					
+	img
+		float left
+		margin 0 0 5px 0 !important
+	p
+		display inline-block	

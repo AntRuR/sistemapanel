@@ -27,8 +27,8 @@ $datos_tabla['expandir_vertical']='1'; ?>
 //alert('<?php echo $tbl?>');
 var tbl = "<?php echo $tbl?>";
 var MMEE="<?php echo $datos_tabla['me'];?>";
-var USU_IMG_DEFAULT="<?php echo $USU_IMG_DEFAULT;?>";<?php
-
+var USU_IMG_DEFAULT="<?php echo $USU_IMG_DEFAULT;?>";
+var json;<?php
 ?>function ax(accion,id,pag){
 switch(accion){
 case "set_fila_3":
@@ -91,7 +91,7 @@ if($('resaltar').value!=''){
 $($('resaltar').value).highlight('#FF0', '#FFF');
 var resal = $('resaltar').value;
 $($('resaltar').value).setStyles({'border-top':'1px solid #333','border-bottom':'1px solid #333','border-left':'1px solid #333','border-right':'1px solid #333'});
-setTimeout("\$('"+resal+"').setStyles({'border-top':'1px dashed #999','border-bottom':'1px dashed #fff','border-left':'1px solid #fff','border-right':'1px solid #fff'});",8000);
+setTimeout("\$('"+resal+"').setStyles({'border':'0px'});",8000);
 $('resaltar').value='';
 }
 ax('actualizar_total',this.value);
@@ -246,7 +246,8 @@ case "resetear":
 	}
 	break;
 	case "html":
-	?>mooeditable_<?php echo $tbcampA['campo']?>.setContent('');<?php
+	?>$('in_<?php echo $tbcampA['campo']?>').value='';<?php		 		
+	/* ?>mooeditable_<?php echo $tbcampA['campo']?>.setContent('');<?php */
 	break;
 	case "com":
 	if($tbcampA['radio']=='1' and is_array($tbcampA['opciones']) ){
@@ -275,7 +276,7 @@ case "resetear":
 	?>$('in_submit').value='Crear <?php echo $datos_tabla['nombre_singular']?>';<?php
 	?>$('in_submit').disabled=false;<?php
 	?>$('ed_save').value='Guardar <?php echo $datos_tabla['nombre_singular']?>';<?php
-	/*?>$('bloque_crear').setStyles({'display':'block'});<?php */
+	/*?>$('bloque_crear').setStyles({'display':''});<?php */
 	?>$('ed_save').disabled=false;<?php
 	?>if($('area_hijos')) $1('area_hijos');
 <?php if($_GET['OT']==''){ ?>if($('mode').value!='update'){
@@ -283,68 +284,6 @@ precrear_loaded=0;
 load_crear();
 }<?php } ?>
 break;
-<?php if($Open and ($datos_tabla['crear_pruebas']!='0') ){
-?>case "insertar_prueba":<?php
-?>var rann=Math.floor(100000*Math.random() + 1);<?php
-foreach($tbcampos as $tbcampA){
-		if($tbcampA['tipo']=='com'){
-		$opciones_select=(is_array($tbcampA['opciones']))?array_keys($tbcampA['opciones']):explode(",",$tbcampA['opciones']);
-		shuffle($opciones_select);
-		?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo $opciones_select[0];?>';<?php
-		} elseif($tbcampA['tipo']=='img'){
-				$IMASS=file("lib/fotos_prueba/". ( ($datos_tabla['archivo_pruebas']!='')?$datos_tabla['archivo_pruebas']:$vars['GENERAL']['fotos_de_prueba']) );
-				foreach($IMASS as $imm){
-					if(trim($imm)!=''){
-						$IMAGENES_PRUEBA[]=trim($imm);
-					}
-				}
-			shuffle($IMAGENES_PRUEBA);
-			?>upload_terminar('<?php echo $IMAGENES_PRUEBA[0];?>','<?php echo $tb?>','<?php echo $tbcampA['campo']?>',true);<?php
-		} elseif($tbcampA['tipo']=='pas'){
-			?>$('in_<?php echo $tbcampA['campo']?>').value='prueba';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_2').value='prueba';<?php
-		} elseif($tbcampA['tipo']=='hid'){
-			//
-		} elseif($tbcampA['tipo']=='txt'){
-			?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo ucfirst($tbcampA['campo'])." ".ucfirst($datos_tabla['nombre_singular']);?> '+rann+" "+Loren_ipsum;<?php
-		} elseif($tbcampA['tipo']=='fch'){
-			?>var pdia=Math.floor(28*Math.random() + 1);<?php
-			?>pdia=(pdia<10)?"0"+pdia:pdia;<?php
-			?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo date("Y");?>-<?php echo date("m");?>-'+pdia+' <?php echo date("H");?>:00:00';<?php
-		} else {
-
-			if($tbcampA['variable']=='float'){
-				?>$('in_<?php echo $tbcampA['campo']?>').value=rann;<?php
-			} else {
-
-				if(!(strpos($tbcampA['campo'],"email")===false)){
-					?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo strtolower($tbcampA['campo'])?>'+rann+'@prueba.com';<?php
-				} elseif(!(strpos($tbcampA['campo'],"precio")===false) ){
-					?>$('in_<?php echo $tbcampA['campo']?>').value=rann;<?php
-				} elseif(!(strpos($tbcampA['campo'],"codigo")===false) or !(strpos($tbcampA['campo'],"registro")===false) ){
-					?>$('in_<?php echo $tbcampA['campo']?>').value='0000000'+rann;<?php
-				} elseif(!(strpos($tbcampA['campo'],"telefono")===false)){
-					?>$('in_<?php echo $tbcampA['campo']?>').value='99999'+rann;<?php
-				} elseif(!(strpos($tbcampA['campo'],"edad")===false)){
-					?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo rand(20,49);?>';<?php
-				} else {
-					?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo ucfirst($tbcampA['campo'])." ".ucfirst($datos_tabla['nombre_singular']);?> '+rann+' '+Loren_ipsum;<?php
-				}
-
-			}
-
-		}
-} ?>
-break;
-case "insertar_prueba_rapida":
-if(Recargar=='ajax'){
-Recargar='sin_ajax';
-ax("insertar_prueba");
-$('insertar_prueba').innerHTML='creando.................................................';
-ax("insertar_interno");
-}
-break;
-<?php } ?>
 case "insertar":
 Recargar='ajax';
 ax("insertar_interno");
@@ -362,7 +301,8 @@ foreach($tbcampos as $tbcampA){
 	} elseif($tbcampA['tipo']=='img'){
 		?>upload_<?php echo $tbcampA['campo']?>	:  $v('upload_in_<?php echo $tbcampA['campo']?>'),<?php
 	} elseif($tbcampA['tipo']=='html'){
-		echo $tbcampA['campo']?>			:  mooeditable_<?php echo $tbcampA['campo']?>.getContent(),<?php
+		echo $tbcampA['campo']?>			:  CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData(),<?php
+		/* echo $tbcampA['campo']?>			:  mooeditable_<?php echo $tbcampA['campo']?>.getContent(),<?php */
 	} else {
 		echo $tbcampA['campo']?>			:  $v('in_<?php echo $tbcampA['campo']?>'),<?php
 	}
@@ -493,7 +433,7 @@ $('lc_'+id).addClass('oc');
 break;
 case "editar_completo_cancelar":
 $1('segunda_barra_2');
-if($('linea_buscador'))	$1('linea_buscador');
+// if($('linea_buscador'))	$1('linea_buscador');
 $('error_creacion').innerHTML='<span style="color:#000000;">los campos con * son obligatorios</span>';
 $0('titulo_editar');
 $1('titulo_crear');
@@ -504,18 +444,37 @@ abrir_crear(0);
 $1('inner');
 $('id_guardar').value='';
 ax("resetear",'');
-$('mode').value='insert';<?php
+$('mode').value='insert';<?php /*
 foreach($tbcampos as $tbcampA){ if($tbcampA['indicador']=='1' or $tbcampA['constante']=='1' or $tbcampA['noedit']=='1') continue;
 	if($tbcampA['tipo']=='sto'){
 		?>$("upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0").innerHTML=render_upload_sto('<?php echo $tb?>','<?php echo $tbcampA['campo']?>','','null');<?php
 	 } elseif($tbcampA['tipo']=='img'){
 		?>$("upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0").innerHTML=render_upload('<?php echo $tb?>','<?php echo $tbcampA['campo']?>','','<?php echo $USU_IMG_DEFAULT;?>');charge_multibox('mbb');<?php
-	 } elseif($tbcampA['tipo']=='html'){
-	 /* ?>  <?php echo $tbcampA['campo']?>			:  mooeditable.getContent(),<?php */
+	 } elseif($tbcampA['tipo']=='html2'){
+	    ?>  <?php echo $tbcampA['campo']?>			:  mooeditable.getContent(),<?php 
 	 } else {
 	 ?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php 
 	 }
- } ?>
+ } */ ?>
+break;
+case "vc":
+if($('abri_cerrar_crear')) $0('abri_cerrar_crear');
+Element('div', {
+'class' : 'sv',
+'html' : 'cargando...',
+'id':'sv_'+id
+}).inject($('i_'+id));
+if($('titulo_crear')){
+if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'display':''});
+ax("ec2",id);
+} else {
+new Request({'url':'formulario.php?view=1&OB='+MMEE+'&ran=1<?php echo ($datos_tabla['get_id'])?'&'.$datos_tabla['get_id']:'';?>&proceso=<?php echo $Proceso;?>',  method:'get', onSuccess:function(ee) {
+if($('bloque_content_crear'))$('bloque_content_crear').innerHTML=ee;
+pre_crear('ax("ec2","'+id+'","'+pag+'");');
+//ax("ec2",id,pag);
+//setTimeout(,3500);
+} } ).send();
+}
 break;
 case "ec":
 if($('abri_cerrar_crear')) $0('abri_cerrar_crear');
@@ -525,7 +484,7 @@ Element('div', {
 'id':'sv_'+id
 }).inject($('i_'+id));
 if($('titulo_crear')){
-if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'display':'block'});
+if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'display':''});
 ax("ec2",id);
 } else {
 new Request({'url':'formulario.php?OB='+MMEE+'&ran=1<?php echo ($datos_tabla['get_id'])?'&'.$datos_tabla['get_id']:'';?>&proceso=<?php echo $Proceso;?>',  method:'get', onSuccess:function(ee) {
@@ -582,12 +541,15 @@ if(pag!='nuevo'){<?php
 	}
 	}
 
- foreach($HHijos as $rrr=>$HHijoYY){
-	list($HHijo,$TipoHijo)=explode("|",$HHijoYY);
+/*
+foreach($HHijos as $rrr=>$HHijoYY){
+list($HHijo,$TipoHijo)=explode("|",$HHijoYY);
 ?>render_son('<?php echo $HHijo;?>',id,true,'<?php echo $TipoHijo;?>');<?php
-	}
+} 
+*/
 ?>}
 new Element('div',{'class':'refreshing','id':'cargando_dato_ec','html':'Cargando datos'}).inject($('bloque_content_crear'),'top');
+charge_multibox();
 break;
 case "ec3":
 var datos = {
@@ -599,10 +561,13 @@ debug:'0'
 };
 new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee) {
 	var json=eval("(" + ee + ")");<?php
+
 	if($_GET['load']){
 	$LoAd=($_GET['accion']=='update')?$_GET['load']:$_GET['load'];
 	if(($_GET['accion']=='update')){ ?>var load=eval('(<?php echo $LoAd;?>)'); <?php
-	} else { ?>var load=eval("(<?php echo str_replace("\"","'",$LoAd);?>)");<?php }
+	} else { 
+	echo 'var load=eval("(' .str_replace("\"","'",$LoAd). ')");';
+	}
 	?>Object.each(load, function(value, key){ eval("json."+key+"='"+value+"'"); });<?php
 	}
 
@@ -658,14 +623,17 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 			?>if(dhay==0){ <?php
 			list($ouno,$odos,$otre)=explode("|",$tbcampA['opciones']);
 			list($ouno1,$ouno2)=explode(",",$ouno);
-			?>new Request({url:'load_combo.php?s='+encodeURIComponent('<?php echo $ouno1.",concat(".str_replace(";",",",$ouno2).")"."|".$odos."|where id=";?>'+json.<?php echo $tbcampA['campo']?>)+'&s2=&camp=<?php echo $tbcampA['campo']?>',  method:'get', onSuccess:function(ee) {
-	var json=JSON.decode(ee,true);
-	new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':json[0][1],'selected':'selected'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom');
+
+			?>if(json.<?php echo $tbcampA['campo']?>!=null){ new Request({url:'load_combo.php?s='+encodeURIComponent('<?php echo $ouno1.",concat(".str_replace(";",",",$ouno2).")"."|".$odos."|where id=";?>'+json.<?php echo $tbcampA['campo']?>)+'&s2=&camp=<?php echo $tbcampA['campo']?>',  method:'get', onSuccess:function(ee) {
+	var json0=JSON.decode(ee,true); if(json0.length>0){ new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':json0[0][1],'selected':'selected'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); }
 	/*$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;*/
 	} } ).send();<?php
 			/*?>new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':'seleccionado'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); <?php**/
-			?>}<?php
+			?>}}<?php
 			?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
+			if($tbcampA['obj']){
+			?>$('in_<?php echo $tbcampA['campo']?>_obj').innerHTML=render_obj(json.<?php echo $tbcampA['campo']?>);<?php
+			}
 			if($tbcampA['directlink']){
 			?>$('in_<?php echo $tbcampA['campo']?>_dl').value=json.<?php echo $tbcampA['campo']?>_dl;<?php
 			}
@@ -676,7 +644,11 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 		?>$('in_<?php echo $tbcampA['campo']?>_check').checked=(json.<?php echo $tbcampA['campo']?>=='1')?true:false;<?php
 		?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
 		 } elseif($tbcampA['tipo']=='html'){
-			?>if(json.<?php echo $tbcampA['campo']?>)mooeditable_<?php echo $tbcampA['campo']?>.setContent(json.<?php echo $tbcampA['campo']?>);<?php
+			/* ?>if(json.<?php echo $tbcampA['campo']?>)$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php */
+			?>setTimeout(function(){ CKEDITOR.instances.in_<?php echo $tbcampA['campo']?>.setData(json.<?php echo $tbcampA['campo']?>); },1000);<?php
+			/*?>alert("tamano "+json.<?php echo $tbcampA['campo']?>.length);CKEDITOR.instances.in_<?php echo $tbcampA['campo']?>.insertHtml(json.<?php echo $tbcampA['campo']?>);<?php */
+
+			/* ?>if(json.<?php echo $tbcampA['campo']?>)mooeditable_<?php echo $tbcampA['campo']?>.setContent(json.<?php echo $tbcampA['campo']?>);<?php */
 		 } elseif($tbcampA['tipo']=='com'){
 
 		if($tbcampA['radio']=='1' and is_array($tbcampA['opciones'])){
@@ -754,7 +726,8 @@ case "guardar_cambios_interno":
 		 } elseif($tbcampA['tipo']=='img'){
 			?>upload_<?php echo $tbcampA['campo']?>	:  $v('upload_in_<?php echo $tbcampA['campo']?>'),<?php
 		 } elseif($tbcampA['tipo']=='html'){
-			echo $tbcampA['campo']?>:mooeditable_<?php echo $tbcampA['campo']?>.getContent(),<?php
+			echo $tbcampA['campo']?>:CKEDITOR.instances.in_<?php echo $tbcampA['campo']?>.getData(),<?php
+			/* echo $tbcampA['campo']?>:mooeditable_<?php echo $tbcampA['campo']?>.getContent(),<?php */
 		 } else {
 			echo $tbcampA['campo']?>:$v('in_<?php echo $tbcampA['campo']?>'),<?php
 		}
@@ -824,7 +797,8 @@ foreach($tbcampos as $tbcampA){ if($tbcampA['indicador']=='1' or $tbcampA['const
 	 } elseif($tbcampA['tipo']=='img'){
 		?>upload_<?php echo $tbcampA['campo']?>	:  $v('upload_in_<?php echo $tbcampA['campo']?>'),<?php
 	 } elseif($tbcampA['tipo']=='html'){
-		echo $tbcampA['campo']?>:mooeditable_<?php echo $tbcampA['campo']?>.getContent(),<?php
+	 	echo $tbcampA['campo']?>:CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData(), <?php
+		/* echo $tbcampA['campo']?>:mooeditable_<?php echo $tbcampA['campo']?>.getContent(),<?php */
 	 } else {
 		echo $tbcampA['campo']?>:$v('in_<?php echo $tbcampA['campo']?>'),<?php
 	}
@@ -856,7 +830,7 @@ ax("editar_completo_cancelar");
 $('resaltar').value='i_'+id;
 //alert('<?php echo $linkRecPagina;?>');
 ax("<?php echo $linkRecPagina;?>");
-location.href='<?php echo $SERVER['BASE'].$SERVER['URL'];?>#i_'+id;
+location.href='<?php echo $SERVER['RUTA'];?>#i_'+id;
 <?php } else { ?>parent.ax("recargar");parent.initMultiBox.close(); <?php }?>
 } else if(Recargar=='sin_ajax'){
 location.reload();
@@ -877,146 +851,131 @@ if($('edit_hidd').value.trim()!=id && $('edit_hidd').value.trim()!=''){	ax('e_a'
 $('edit_hidd').value=id;
 $0('lc_'+id);
 $1('lec_'+id);<?php
-			foreach($tblistado as $tbli){ 
+foreach($tblistado as $tbli){ 
 
-				if(
-					$tbli['indicador']=='1' or 
-					$tbli['noedit']=='1' or 
-					isset($tbli['directlink']) or
-					$datos_tabla['edicion_rapida']=='0'
-					)  continue;
+	if(
+		$tbli['indicador']=='1' or 
+		$tbli['noedit']=='1' or 
+		isset($tbli['directlink']) or
+		$datos_tabla['edicion_rapida']=='0'
+		)  continue;
 
-				if($tbli['listable']=='1' and $tbli['constante']!='1'){
+	if($tbli['listable']=='1' and $tbli['constante']!='1'){
 
-						   if($tbli['tipo']=='sto'){
-							?>$0('i_<?php echo $tbli['campo']?>_'+id);<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML=render_upload_sto('<?php echo $tb?>','<?php echo $tbli['campo']?>',id,$('txt_<?php echo $tb?>_<?php echo $tbli['campo']?>_name_'+id).value);<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-						    }
+	   if($tbli['tipo']=='sto'){
+		?>$0('i_<?php echo $tbli['campo']?>_'+id);<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML=render_upload_sto('<?php echo $tb?>','<?php echo $tbli['campo']?>',id,$('txt_<?php echo $tb?>_<?php echo $tbli['campo']?>_name_'+id).value);<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+	    }
 
-						   if($tbli['tipo']=='img'){
+	   if($tbli['tipo']=='img'){
 
-							?>$0('i_<?php echo $tbli['campo']?>_'+id);<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML=render_upload('<?php echo $tb?>','<?php echo $tbli['campo']?>',id,$('<?php echo $tb?>_file_<?php echo $tbli['campo']?>_'+id).src);setTimeout("charge_multibox('.mbb')",1000);<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-						   }
+		?>$0('i_<?php echo $tbli['campo']?>_'+id);<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML=render_upload('<?php echo $tb?>','<?php echo $tbli['campo']?>',id,$('<?php echo $tb?>_file_<?php echo $tbli['campo']?>_'+id).src);setTimeout("charge_multibox('.mbb')",1000);<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+	   }
 
-						   if(in_array($tbli['tipo'],array('pas'))){
+	   if(in_array($tbli['tipo'],array('pas'))){
 
-							?>var val=$('i_<?php echo $tbli['campo']?>_'+id+'_temp').value.trim();
-							$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="<input type='password' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"' value='"+val+"'/><br /><input type='password' style='margin-top:2px;' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"_2' value='"+val+"'/>";<?php
+		?>var val=$('i_<?php echo $tbli['campo']?>_'+id+'_temp').value.trim();
+		$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="<input type='password' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"' value='"+val+"'/><br /><input type='password' style='margin-top:2px;' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"_2' value='"+val+"'/>";<?php
 
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-							?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
-						   }
-
-
-						   if(in_array($tbli['tipo'],array('com'))){
-
-							?>var val=$('i_<?php echo $tbli['campo']?>_hido_'+id).value;<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML='<select  id="<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'" class="form_input" style="float:left;width:'+$('i_<?php echo $tbli['campo']?>_'+id).getStyle('width')+';" ><option></option><?php
-							$opciones_select=array();
-							$iti=(is_array($tbli['opciones']))?1:0;
-							$opciones_select=(is_array($tbli['opciones']))?$tbli['opciones']:explode(",",$tbli['opciones']);
-							foreach($opciones_select as $opcccion=>$opcion_select_a){
-							list($opcion_select,$color)=explode("|",$opcion_select_a);
-							?><option value="<?php echo ($iti)?$opcccion:$opcion_select;?>" '+ ( ("<?php echo ($iti)?$opcccion:$opcion_select;?>"==val)?'selected':'' ) +' ><?php echo str_replace("'","",$opcion_select)?></option><?php
-							}
-							?></select>';<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-							?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
-
-							}
-
-						   if(in_array($tbli['tipo'],array('hid')) and $tbli['opciones']!=''){
-							?>var val=$('i_<?php echo $tbli['campo']?>_hido_'+id).value;<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML='<select  id="<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'" class="form_input" style="float:left;width:'+$('i_<?php echo $tbli['campo']?>_'+id).getStyle('width')+';" ><option></option><?php
-							list($primO,$tablaO,$whereO)=explode("|",$tbli['opciones']);
-							list($idO,$camposO)=explode(",",$primO);
-							$camposOA=array();
-							$camposOA=explode(";",$camposO);
-							$oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato($whereO));
-
-							foreach($oopciones as $oooo2){
-							?><option value="<?php echo $oooo2[$idO];?>" '+ ( ("<?php echo $oooo2[$idO];?>"==val)?'selected':'' ) +' ><?php
-							//echo $oooo2[$camposOA[0]]
-							foreach($camposOA as $COA){ echo str_replace("'","",trim($oooo2[$COA]))." ";	}
-							?></option><?php
-							}
-
-							?></select>';<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-							?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
-						    }
-
-						    if(in_array($tbli['tipo'],array('inp','yot'))){
-
-							?>var val=$('i_<?php echo $tbli['campo']?>_'+id).innerHTML.trim().replace(/"/g,"&quot;");<?php
-
-							?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="<input style='float:left;width:"+$('i_<?php echo $tbli['campo']?>_'+id).getStyle('width')+";' type='text' onkeypress='if(event.keyCode==13){ ax(\"e_g\",\""+id+"\"); } if(event.keyCode==27){ ax(\"e_a\",\""+id+"\"); }' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"' value=\""+val+"\"/>";<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-							?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
-							}
-
-							if(in_array($tbli['tipo'],array('fch'))){
-							if($tbli['rango']){
-							list($uuno,$ddos)=explode(",",$tbli['rango']);
-							$FromYear = date("Y",strtotime($uuno));
-							$ToYear = date("Y",strtotime($ddos));
-							} else {
-							$FromYear = date("Y")-99;
-							$ToYear = date("Y")+1;
-							}
-
-							?>var val=$('i_<?php echo $tbli['campo']?>_'+id).innerHTML.trim();<?php
-							?>input_date('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id,'p_<?php echo $tbli['campo']?>_'+id,<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbli['time']?>');<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_d').setStyles({'clear':'none'});<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_m').setStyles({'clear':'none'});<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_a').setStyles({'clear':'none'});<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_t').setStyles({'clear':'none'});<?php
-							?>var fecha=$('<?php echo $tb?>_fchhid_<?php echo $tbli['campo']?>_'+id).value;<?php
-							?>var fechaa=new Array();var fechab=new Array();<?php
-							?>fechaa = fecha.split("-");if(fechaa[2]){fechab = fechaa[2].split(" ");<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_d').value=fechab[0];<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_m').value=fechaa[1];<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_a').value=fechaa[0];<?php
-							?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_t').value=fechab[1];}<?php
-							?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
-							?>fechaChange("<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id);<?php
-							}
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+		?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
+	   }
 
 
-							if(in_array($tbli['tipo'],array('txt'))){
-							?>var val=$('i_<?php echo $tbli['campo']?>_'+id).innerHTML.trim();<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="<textarea style='height:80px;width:100%;' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"' >"+val+"</textarea>";<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-							?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
-							}
+	   if(in_array($tbli['tipo'],array('com'))){
+
+		?>var val=$('i_<?php echo $tbli['campo']?>_hido_'+id).value;<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML='<select  id="<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'" class="form_input" style="float:left;width:'+$('i_<?php echo $tbli['campo']?>_'+id).getStyle('width')+';" ><option></option><?php
+		$opciones_select=array();
+		$iti=(is_array($tbli['opciones']))?1:0;
+		$opciones_select=(is_array($tbli['opciones']))?$tbli['opciones']:explode(",",$tbli['opciones']);
+		foreach($opciones_select as $opcccion=>$opcion_select_a){
+		list($opcion_select,$color)=explode("|",$opcion_select_a);
+		?><option value="<?php echo ($iti)?$opcccion:$opcion_select;?>" '+ ( ("<?php echo ($iti)?$opcccion:$opcion_select;?>"==val)?'selected':'' ) +' ><?php echo str_replace("'","",$opcion_select)?></option><?php
+		}
+		?></select>';<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+		?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
+
+		}
+
+	   if(in_array($tbli['tipo'],array('hid')) and $tbli['opciones']!=''){
+		?>var val=$('i_<?php echo $tbli['campo']?>_hido_'+id).value;<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML='<select  id="<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'" class="form_input" style="float:left;width:'+$('i_<?php echo $tbli['campo']?>_'+id).getStyle('width')+';" ><option></option><?php
+		list($primO,$tablaO,$whereO)=explode("|",$tbli['opciones']);
+		list($idO,$camposO)=explode(",",$primO);
+		$camposOA=array();
+		$camposOA=explode(";",$camposO);
+		$oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato($whereO));
+
+		foreach($oopciones as $oooo2){
+		?><option value="<?php echo $oooo2[$idO];?>" '+ ( ("<?php echo $oooo2[$idO];?>"==val)?'selected':'' ) +' ><?php
+		//echo $oooo2[$camposOA[0]]
+		foreach($camposOA as $COA){ echo str_replace("'","",trim($oooo2[$COA]))." ";	}
+		?></option><?php
+		}
+
+		?></select>';<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+		?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
+	    }
+
+	    if(in_array($tbli['tipo'],array('inp','yot'))){
+
+		?>var val=$('i_<?php echo $tbli['campo']?>_'+id).innerHTML.trim().replace(/"/g,"&quot;");<?php
+
+		?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="<input style='float:left;width:"+$('i_<?php echo $tbli['campo']?>_'+id).getStyle('width')+";' type='text' onkeypress='if(event.keyCode==13){ ax(\"e_g\",\""+id+"\"); } if(event.keyCode==27){ ax(\"e_a\",\""+id+"\"); }' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"' value=\""+val+"\"/>";<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+		?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
+		}
+
+		if(in_array($tbli['tipo'],array('fch'))){
+		if($tbli['rango']){
+		list($uuno,$ddos)=explode(",",$tbli['rango']);
+		$FromYear = date("Y",strtotime($uuno));
+		$ToYear = date("Y",strtotime($ddos));
+		} else {
+		$FromYear = date("Y")-99;
+		$ToYear = date("Y")+1;
+		}
+
+		?>var val=$('i_<?php echo $tbli['campo']?>_'+id).innerHTML.trim();<?php
+		?>input_date('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id,'p_<?php echo $tbli['campo']?>_'+id,<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbli['time']?>');<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_d').setStyles({'clear':'none'});<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_m').setStyles({'clear':'none'});<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_a').setStyles({'clear':'none'});<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_t').setStyles({'clear':'none'});<?php
+		?>var fecha=$('<?php echo $tb?>_fchhid_<?php echo $tbli['campo']?>_'+id).value;<?php
+		?>var fechaa=new Array();var fechab=new Array();<?php
+		?>fechaa = fecha.split("-");if(fechaa[2]){fechab = fechaa[2].split(" ");<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_d').value=fechab[0];<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_m').value=fechaa[1];<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_a').value=fechaa[0];<?php
+		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_t').value=fechab[1];}<?php
+		?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
+		?>fechaChange("<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id);<?php
+		}
 
 
-							if(in_array($tbli['tipo'],array('html'))){
-							?>var val=$('<?php echo $tb?>_htmlhid_<?php echo $tbli['campo']?>_'+id).value;<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="<textarea style='height:200px;background-color:#FFF;width:100%;' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"' >"+val+"</textarea>";<?php
-							?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-							?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
-
-							?>mooedit = $('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id).mooEditable({
-								actions: '<?php echo $MEactions;?>',
-								externalCSS: 'css/Editable.css',
-								baseCSS: '<?php echo $MEbaseCSS;?> <?php echo $tbli['css']?>'
-							});<?php
+		if(in_array($tbli['tipo'],array('txt'))){
+		?>var val=$('i_<?php echo $tbli['campo']?>_'+id).innerHTML.trim();<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="<textarea style='height:80px;width:100%;' id='<?php echo $tb?>_text_<?php echo $tbli['campo']?>_"+id+"' >"+val+"</textarea>";<?php
+		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+		?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'none'});<?php
+		}
 
 
-							}
-
-				}
-			} ?>
+	}
+} ?>
 break;
 case "e_a":
 $('cll_'+id).setStyles({'visibility':'visible'});
 $('i_'+id).removeClass('editar_rapido');
-if($('set_filas_4').getStyle('color')=='#000000'){	$('i_'+id).addClass('modificador_grilla'); 	}
+// if($('set_filas_4').getStyle('color')=='#000000'){	$('i_'+id).addClass('modificador_grilla'); 	}
 $('edit_hidd').value='';
 $1('lc_'+id);
 $0('lec_'+id);
@@ -1044,7 +1003,7 @@ $0('lec_'+id);
 				?>$1('i_<?php echo $tbli['campo']?>_'+id);<?php
 				?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML='';<?php
 				?>$0('p_<?php echo $tbli['campo']?>_'+id);<?php
-				?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+				?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':''});<?php
 
 
 			    }
@@ -1057,18 +1016,10 @@ $0('lec_'+id);
 
 				?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="";<?php
 				?>$0('p_<?php echo $tbli['campo']?>_'+id);<?php
-				?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
+				?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':''});<?php
 
 				}
 
-
-			   if(in_array($tbli['tipo'],array('html'))){
-
-				?>$('p_<?php echo $tbli['campo']?>_'+id).innerHTML="";<?php
-				?>$0('p_<?php echo $tbli['campo']?>_'+id);<?php
-				?>$('i_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
-
-				}
 
 
 	 }
@@ -1112,9 +1063,7 @@ Element('div', {
 var datos = {
 <?php foreach($tblistado as $tbli){ if($tbli['indicador']=='1' or $tbli['noedit']=='1') continue;
 	if($tbli['listable']=='1' and $tbli['constante']!='1'){
-		if(in_array($tbli['tipo'],array('html'))){
-			?>'<?php echo $tbli['campo']?>'			:  mooedit.getContent(),<?php
-		} elseif(in_array($tbli['tipo'],array('img'))){
+		if(in_array($tbli['tipo'],array('img'))){
 			?>upload_<?php echo $tbli['campo']?>	:  $v('upload_in_<?php echo $tbli['campo']?>_'+id),<?php
 		} elseif(in_array($tbli['tipo'],array('sto'))){
 			?>stoupload_<?php echo $tbli['campo']?>	:  $v('upload_in_<?php echo $tbli['campo']?>_'+id),<?php
@@ -1151,11 +1100,12 @@ break;
 }
 }
 <?php
+/*
 foreach($tbcampos as $tbcampA){
 	switch($tbcampA['tipo']){
 		case "html": ?>var mooeditable_<?php echo $tbcampA['campo']?>;<?php	break;
 	}
-} ?>
+} */ ?>
 precrear_loaded=0;
 function pre_crear(next){
 if(precrear_loaded){ if(next){ eval(next); } return;
@@ -1165,6 +1115,7 @@ if(precrear_loaded){ if(next){ eval(next); } return;
 
 	include("formulario_camposjs.php");
 
+	/*
     if($datos_tabla['creacion_hijo']){
     $Hijos=explode(",",$datos_tabla['creacion_hijo']);
     foreach($Hijos as $HijoD){
@@ -1183,7 +1134,7 @@ if(precrear_loaded){ if(next){ eval(next); } return;
     $HHijos[]=$HijoD;
     ?>render_son('<?php echo $Hijo;?>',999999000+$random(1,999),false,'<?php echo $TipoHijo;?>');<?php
     } }
-
+    */
 ?>
 precrear_loaded=1;
 
@@ -1194,7 +1145,7 @@ if(next){ eval(next); }
 function load_mass(){
 $1('cargando_form');
 new Request({url:'masss.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',  method:'get', onSuccess:function(ee) {
-$('bloque_content_mass').setStyles({'display':'block'});
+$('bloque_content_mass').setStyles({'display':''});
 $('bloque_content_mass').innerHTML=ee;
 charge_multibox('#bloque_content_mass .mb');
 //pre_crear();
@@ -1205,7 +1156,7 @@ $0('cargando_form');
 function load_crear(){
 $1('cargando_form');
 new Request({url:'formulario.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',  method:'get', onSuccess:function(ee) {
-$('bloque_content_crear').setStyles({'display':'block'});
+$('bloque_content_crear').setStyles({'display':''});
 $('bloque_content_crear').innerHTML=ee;
 charge_multibox('#bloque_content_crear .mb');
 pre_crear();
@@ -1216,7 +1167,7 @@ $0('cargando_form');
 function load_stat(){
 //$1('cargando_form');
 new Request({url:'estadistica.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',  method:'get', onSuccess:function(ee) {
-$('bloque_content_stat').setStyles({'display':'block'});
+$('bloque_content_stat').setStyles({'display':''});
 $('bloque_content_stat').innerHTML=ee;
 //pre_crear();
 //$0('cargando_form');
@@ -1226,7 +1177,7 @@ $('bloque_content_stat').innerHTML=ee;
 function load_repos(){
 //$1('cargando_form');
 new Request({url:'repos.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',evalScripts:true,  method:'get', onSuccess:function(ee) {
-$('bloque_content_repos').setStyles({'display':'block'});
+$('bloque_content_repos').setStyles({'display':''});
 $('bloque_content_repos').innerHTML=ee;
 //pre_crear();
 //$0('cargando_form');

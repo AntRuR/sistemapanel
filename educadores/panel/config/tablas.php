@@ -1665,6 +1665,9 @@ $objeto_tabla['BLOQUE_ENLACES']=array(
 		'edicion_completa'=> '1',
 		'web'			=> '0'
 );
+
+
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['BLOQUE_AGENDA']=array(
@@ -4017,7 +4020,7 @@ $objeto_tabla['BANNERS_FOTOS']=array(
 						'constante'		=> '1',
 						'size'			=> '20',
 						'width'			=> '130px',
-						'setup'			=> 'banner_main,banner_enlaces'
+						'setup'			=> 'banner_main,banner_enlaces,banner_enlaces2'
 				),
 				'nombre'		=>array(
 						'campo'			=> 'nombre',
@@ -4153,7 +4156,7 @@ $objeto_tabla['BANNERS2_FOTOS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Banners Especiales',
 		'me'			=> 'BANNERS2_FOTOS',
 		'orden'			=> '0',

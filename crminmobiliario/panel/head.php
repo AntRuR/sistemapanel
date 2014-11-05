@@ -1,8 +1,7 @@
-<?php //á
-?><!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="es">
 <head>
-<title><?php echo $html_title?></title>
+<title><?=(($MEEE['titulo'])?$MEEE['titulo']." - ":'').$html_title?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 <?php
@@ -26,21 +25,23 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 	$sn2="http://".$_SERVER['SERVER_NAME'].$sn[0]."/panel/";
 	$sn3='<base href="'.$sn2.'" />';
 }
+
 echo $sn3;
 
-$rrr='4';
+$rrr='20';
 
-$needs=necesita_libs($objeto_tabla);
+// prin($MEEE);
+
+$needs=necesita_libs($MEEE);
+
 
 //FAVICON
 if($Local){ ?>
-<link rel="shortcut icon"
-	href="<?php echo $sn2?>img/local.ico?r=<?php echo $rrr;?>" />
-<?php
-}else{ ?>
-<link rel="shortcut icon"
-	href="<?php echo $sn2?>img/remote.ico?r=<?php echo $rrr;?>" />
+<link rel="shortcut icon" href="<?php echo $sn2?>img/local.ico?r=<?php echo $rrr;?>" />
+<?php } else{ ?>
+<link rel="shortcut icon" href="<?php echo $sn2?>img/remote.ico?r=<?php echo $rrr;?>" />
 <?php }
+
 
 //MAIN LIBs
 /*?><link href="<?php echo $sn2?>css/css.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css"/><?php
@@ -49,6 +50,7 @@ if($Local){ ?>
 ?><script type="text/javascript" src="<?php echo $sn2?>js/js.js?r=<?php echo $rrr;?>"></script><?php
 */
 ?>
+
 <link href="<?php echo $sn2?>css/bootstrap.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
 <!-- <link href="<?php echo $sn2?>css/bootstrap-responsive.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
 
@@ -63,6 +65,7 @@ if($Local){ ?>
 ?>
 <link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $rrr;?>"
 	rel="stylesheet" type="text/css" media="print" />
+
 
 <link href="<?php echo $sn2?>config/main.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
 
@@ -164,56 +167,28 @@ else
 	<?php
 	}
 
+	// prin($needs);
 	//EDIT HTML
 	//if(1){
 	if($needs['html'] or $SERVER['ARCHIVO']=='pop.php'){
-	?>
-	<link rel="stylesheet" type="text/css"
-		href="<?php echo $sn2?>css/MooEditable.css">
-	<?php
-	?>
-	<link rel="stylesheet" type="text/css"
-		href="<?php echo $sn2?>css/MooEditable.Extras.css">
-	<?php
-	?>
-	<link rel="stylesheet" type="text/css"
-		href="<?php echo $sn2?>css/MooEditable.SilkTheme.css">
-	<?php
-	?>
-	<link rel="stylesheet" type="text/css"
-		href="<?php echo $sn2?>css/MooEditable.Table.css">
-	<?php
-	?>
-	<link rel="stylesheet" type="text/css"
-		href="<?php echo $sn2?>css/MooEditable.Forecolor.css">
-	<?php
-	?>
-	<script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.js"></script>
-	<?php
-	?>
-	<script type="text/javascript"
-		src="<?php echo $sn2?>js/MooEditable.UI.ButtonOverlay.js"></script>
-	<?php
-	?>
-	<script type="text/javascript"
-		src="<?php echo $sn2?>js/MooEditable.UI.MenuList.js"></script>
-	<?php
-	?>
-	<script type="text/javascript"
-		src="<?php echo $sn2?>js/MooEditable.Extras.js"></script>
-	<?php
-	?>
-	<script type="text/javascript"
-		src="<?php echo $sn2?>js/MooEditable.Table.js"></script>
-	<?php
-	?>
-	<script type="text/javascript"
-		src="<?php echo $sn2?>js/MooEditable.CleanPaste.js"></script>
-	<?php
-	?>
-	<script type="text/javascript"
-		src="<?php echo $sn2?>js/MooEditable.Forecolor.js"></script>
-	<?php
+
+	?><script type="text/javascript" src="<?php echo $sn2?>js/ckeditor/ckeditor.js"></script><?php	
+
+	/*
+	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/MooEditable.css"><?php
+	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/MooEditable.Extras.css"><?php
+	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/MooEditable.SilkTheme.css"><?php
+	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/MooEditable.Table.css"><?php
+	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/MooEditable.Forecolor.css"><?php
+	?><script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.js"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.UI.ButtonOverlay.js"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.UI.MenuList.js"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.Extras.js"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.Table.js"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.CleanPaste.js"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/MooEditable.Forecolor.js"></script	<?php	
+	*/
+
 	}
 
 	/*
@@ -238,6 +213,10 @@ else
 		min-height: 20px;
 	}
 	</style>
+
+<script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
+
+<script type="text/javascript" src="<?php echo $sn2?>js/jquery/require.js" data-main="js/jquery/main.js?r=1"></script>	
 	<?php
 
 }//END MOOTOOLS
@@ -246,7 +225,6 @@ else
 $LINK_COLOR_OPP=oppColour($LINK_COLOR);
 $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
-<script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
 <style>
 /*body {
 	background: fixed;
@@ -261,4 +239,5 @@ $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 <?php
 }
 ?>
+
 </head>

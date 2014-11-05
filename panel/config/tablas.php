@@ -397,7 +397,7 @@ $objeto_tabla['PROYECTOS']=array(
 						'validacion'	=> '1',
 						'width'			=> '160px',
 						'enlace'		=> 'base/ir_a_panel.php?id=[id]',
-						'controles'		=> '<a style="color:purple;" href="base/crear_hosting.php?id=[id]">Host</a>
+						'controles'		=> '<a style="color:purple;display:none;" href="base/crear_hosting.php?id=[id]">Host</a>
 						<a href="base/actualizar_panel.php?id=[id]">Panel</a>
 						<a style="color:green;" href="pop.php?app=crear_config&id=[id]">Config</a>
 						<a style="color:red;" href="pop.php?app=startup&id=[id]">Web</a>',

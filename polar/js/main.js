@@ -124,21 +124,25 @@ require([jspath+"/jquery-1.10.2.min.js"], function() {
 
 					var $slide 	  =$(this);
 
-				
-						var opt_delay = ($slide.data('delay')!=undefined)?$slide.data('delay'):10000;
-						// console.log(opt_delay);
+					if( $slide.find('li').length>1 ){
+					
+						var opt_delay = ($slide.data('delay')!=undefined)?$slide.data('delay'):10000,
+						    opt_dots  = ($slide.data('dots')!=undefined)?$slide.data('dots'):false,
+						    opt_keys  = ($slide.data('keys')!=undefined)?$slide.data('keys'):true;
 
 						var unslider = $slide.unslider({
 							fluid:false,
-							// dots:true,
+							dots:opt_dots,
 							delay:opt_delay,
 							speed:500,
-							keys:true,
+							keys:opt_keys,
 						});
 					    $slide.parent().parent().find('.arrow').click(function() {
 					        var fn = this.className.split(' ')[1];
 					        unslider.data('unslider')[fn]();
 					    });
+
+					}
 
 				}).promise().done( function(){  
 					

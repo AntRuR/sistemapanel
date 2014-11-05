@@ -9,7 +9,7 @@ mysql_select_db ($MYSQL_DB,$link);
 mysql_query("SET NAMES 'utf8'",$link);
 
 include("lib/mysql3.php");
-include("lib/util.php");
+include("lib/util2.php");
 if($vars['GENERAL']['esclavo']!='1'){
 	include("config/tablas.php");
 }

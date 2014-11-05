@@ -26,7 +26,6 @@ if(isset($_GET['buscar'])){
 }
 
 $file = $_GET['modulo'].".php"; //define modulo a incluir
-
 include($web_path."/includes.php"); // includes de web
 
 include("driver.php");

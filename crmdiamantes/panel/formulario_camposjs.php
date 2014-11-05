@@ -31,48 +31,7 @@ foreach($tbcampos as $tbcampA){
 			<?php }
 		break;
 		case "html":
-			?>mooeditable_<?php echo $tbcampA['campo']?> = $('in_<?php echo $tbcampA['campo']?>').mooEditable({
-					actions: '<?php echo $MEactions;?>',
-					externalCSS: 'css/Editable.css',
-					baseCSS: '<?php echo $MEbaseCSS;?> <?php echo $tbcampA['css']?>'
-				});
-			<?php if(sizeof($tbcampA['botones'])>0){ ?>
-			MooEditable.Actions.Mas_<?php echo $tbcampA['campo']?> = {
-					title: 'INSERTAR',
-					type: 'button-overlay',
-					options: {
-						mode: 'text',
-						overlayHTML: (function(){
-								var html = '';
-								<?php
-								if(!is_array($tbcampA['botones'])){
-									list($primO,$tablaO,$whereO)=explode("|",$tbcampA['botones']);
-									list($nombreO,$textoO)=explode(",",$primO);
-									$oopciones=select(array($nombreO,$textoO),$tablaO,procesar_dato($whereO));
-									//$ryr=0;
-									$tbcampA['botones']=array();
-									foreach($oopciones as $oOo){
-										//$ryr++;
-										//if(in_array($ryr,array(2,9))){
-										$tbcampA['botones'][$oOo[$nombreO]]=$oOo[$textoO];
-										//}
-									}
-								}
-								foreach($tbcampA['botones'] as $name=>$html){ echo 'html += "<a href=\'#\' rel=\'<!--'.$name.'-->'.
-								str_replace("\\\\\"","\\\"",str_replace("\"","\\\"",str_replace(array("\n","\r","\s","\t"),"",mooeditable_replace($html,$tbcampA['variables']))))
-								.'\'>'.$name.'</a>";
-';
-								}
-								?>
-								return html;
-							})()
-					},
-					command: function(buttonOverlay, e){
-						this.selection.insertContent($(e.target).get('rel'));
-					}
-				};
-			mooeditable_<?php echo $tbcampA['campo']?>.toolbar.addItem('Mas_<?php echo $tbcampA['campo']?>');
-			<?php }
+			?>var html_<?php echo $tbcampA['campo']?> = CKEDITOR.replace( '<?php echo $tbcampA['campo']?>' );<?php		
 		break;
 		case "hid":
 			if($tbcampA['directlink']!=''){

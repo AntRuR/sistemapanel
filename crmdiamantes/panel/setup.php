@@ -1,5 +1,4 @@
 <?php //á
-
 foreach($datos_tabla['form'] as $xamps){
 	$u0=0;
 	if($xamps['setup']!='' and $u0==0){ $u0=1;
@@ -15,4 +14,3 @@ foreach($datos_tabla['form'] as $xamps){
 		}
 	}
 }
-

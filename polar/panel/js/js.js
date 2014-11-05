@@ -1,5 +1,5 @@
 function $v(a){ return $(a).value; }
-function $1(a){ $(a).setStyles({"display":"block"}); }
+function $1(a){ $(a).setStyles({"display":""}); }
 function $0(a){ $(a).setStyles({"display":"none"}); }
 function $H(a,val){ $(a).innerHTML=val; }
 
@@ -174,6 +174,7 @@ function fechaChangeFilterRP(input){
 }*/
 
 function fechaChangeFilterST(input){
+
 	input=input.replace("fs_","");
 	var aa0=$('from_fs_'+input+'_a').value;
 	var mm0=$('from_fs_'+input+'_m').value;
@@ -184,6 +185,7 @@ function fechaChangeFilterST(input){
 	var time=(aa0==''||mm0==''||dd0==''||aa1==''||mm1==''||dd1=='')?'':input+"|"+aa0+"-"+mm0+"-"+dd0+"|"+aa1+"-"+mm1+"-"+dd1;
 	$('filtr_fs_'+input).value=time;
 	render_filderST(input);
+
 }
 
 function render_filderRP(input){
@@ -409,13 +411,13 @@ $('in_'+span).value=opc;
 function abrir_mass(set,save){
 	if($('titulo_mass')){
 		if(set=='1'){
-			$('bloque_content_mass').setStyles({'display':'block'});
+			$('bloque_content_mass').setStyles({'display':''});
 			//$('inner').setStyles({'display':'none'});
 			//load_crear();
 			//ax('resetear');
 		} else {
 			$('bloque_content_mass').setStyles({'display':'none'});
-			//$('inner').setStyles({'display':'block'});
+			//$('inner').setStyles({'display':''});
 		}
 	} else {
 		load_mass();
@@ -430,15 +432,15 @@ function abrir_mass(set,save){
 function abrir_crear(set,save){
 	if($('titulo_crear')){
 		if(set=='1'){
-			$('bloque_content_crear').setStyles({'display':'block'});
+			$('bloque_content_crear').setStyles({'display':''});
 			$('inner').setStyles({'display':'none'});
 			$('segunda_barra_2').setStyles({'display':'none'});
 			//load_crear();
 			ax('resetear');
 		} else {
 			$('bloque_content_crear').setStyles({'display':'none'});
-			$('inner').setStyles({'display':'block'});
-			$('segunda_barra_2').setStyles({'display':'block'});
+			$('inner').setStyles({'display':''});
+			$('segunda_barra_2').setStyles({'display':''});
 		}
 	} else {
 		load_crear();
@@ -454,14 +456,14 @@ function abrir_crear(set,save){
 function abrir_stat(set,save){
 	if($('titulo_stat')){
 		if(set=='1'){
-			$('bloque_content_stat').setStyles({'display':'block'});
+			$('bloque_content_stat').setStyles({'display':''});
 			$('inner').setStyles({'display':'none'});
 			$('segunda_barra_2').setStyles({'display':'none'});
 			//load_crear();
 		} else {
 			$('bloque_content_stat').setStyles({'display':'none'});
-			$('inner').setStyles({'display':'block'});
-			$('segunda_barra_2').setStyles({'display':'block'});
+			$('inner').setStyles({'display':''});
+			$('segunda_barra_2').setStyles({'display':''});
 		}
 		//alert('resetear');
 		//ax('resetear');
@@ -483,7 +485,7 @@ function abrir_stat(set,save){
 function abrir_repos(set,save){
 	if($('titulo_repos')){
 		if(set=='1'){
-			$('bloque_content_repos').setStyles({'display':'block'});
+			$('bloque_content_repos').setStyles({'display':''});
 			$('inner').setStyles({'display':'none'});
 			$('segunda_barra_2').setStyles({'display':'none'});
 			$('boton_excel').setStyles({'display':'none'});
@@ -492,10 +494,10 @@ function abrir_repos(set,save){
 			//load_crear();
 		} else {
 			$('bloque_content_repos').setStyles({'display':'none'});
-			$('inner').setStyles({'display':'block'});
-			$('segunda_barra_2').setStyles({'display':'block'});
-			$('boton_excel').setStyles({'display':'block'});
-			$('boton_imprimir').setStyles({'display':'block'});
+			$('inner').setStyles({'display':''});
+			$('segunda_barra_2').setStyles({'display':''});
+			$('boton_excel').setStyles({'display':''});
+			$('boton_imprimir').setStyles({'display':''});
 		}
 		//alert('resetear');
 		//ax('resetear');
@@ -1020,11 +1022,11 @@ new Request({url:"ajax_sql.php?f=login&debug=0&forge=1", method:'get', data:dato
 location.reload();
 } } ).send();
 }
-function load_directlink_filtro_inp(campo,tabla){
-new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+campo+','+campo+'|'+tabla+'|', {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
+function load_directlink_filtro_inp(campo,tabla,tablacampo){
+new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+campo+','+campo+'|'+tabla+'|', {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=tablacampo+'.'+campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
 }
-function load_directlink_filtro_com(campo,id,nombre,tabla,where){
-new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+id+','+nombre+'|'+tabla+'|'+where, {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
+function load_directlink_filtro_com(campo,id,nombre,tabla,where,tablacampo){
+new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+id+','+nombre+'|'+tabla+'|'+where, {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=tablacampo+'.'+campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
 }
 
 

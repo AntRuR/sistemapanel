@@ -11,6 +11,7 @@ body {
 /**
  * 004993
  */
+.id_menu_turismo,
 .id_menu_obras2,
 .id_menu_obras,
 .id_bloq_enlaces,
@@ -23,6 +24,7 @@ body {
 	width: auto;
 }
 
+.id_menu_turismo .div_inner,
 .id_menu_obras2 .div_inner,
 .id_menu_obras  .div_inner,
 .id_bloq_enlaces  .div_inner,
@@ -34,6 +36,7 @@ body {
 	border-left: 0px;
 	border-right: 0px;
 }
+.id_menu_turismo .barra_arriba,
 .id_menu_obras2 .barra_arriba,
 .id_menu_obras  .barra_arriba,
 .id_bloq_enlaces  .barra_arriba,
@@ -48,6 +51,11 @@ body {
 	padding-left: 10px;
 	padding-right: 0;
 }
+
+.id_menu_turismo .arriba_derecha ,
+.id_menu_turismo .arriba_izquierda,
+.id_menu_turismo .abajo_derecha ,
+.id_menu_turismo .abajo_izquierda,
 
 .id_menu_obras2 .arriba_derecha ,
 .id_menu_obras2 .arriba_izquierda,
@@ -87,6 +95,7 @@ body {
 	display: none !important;
 }
 
+.id_menu_turismo .barra_abajo,
 .id_menu_obras2 .barra_abajo,
 .id_menu_obras  .barra_abajo,
 .id_bloq_enlaces  .barra_abajo,

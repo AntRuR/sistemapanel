@@ -4,7 +4,7 @@ include("lib/compresionInicio.php");
 include("lib/global.php");
 include("lib/conexion.php");
 include("lib/mysql3.php");
-include("lib/util.php");
+include("lib/util2.php");
 //	include("lib/stripattributes.php");
 include("config/tablas.php");
 

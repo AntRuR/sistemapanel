@@ -4,7 +4,7 @@ include("lib/compresionInicio.php");
 include("lib/global.php");	
 include("lib/conexion.php");
 include("lib/mysql3.php");
-include("lib/util.php");
+include("lib/util2.php");
 include("config/tablas.php");
 include("lib/sesion.php");	
 include("lib/playmemory.php");
@@ -17,9 +17,10 @@ $JAVASCRIPT_FRAMEWORK="jquery";
 // $EXTRA_JSS[]="http://dl.dropboxusercontent.com/u/40036711/jquery.hovercard.min.js";
 // $EXTRA_JSS[]="base2/project_map.js";
 
-$EXTRA_CSSS[]="base2/apps/depa.css?v=1";
+$EXTRA_CSSS[]="base2/apps/depa.css?v=42";
 
 include("head.php");
+
 echo '<body class="quick">';
 echo "<div style='display:none;'>";
 //include($objeto_tabla[$this_me]['onload_include']);
@@ -31,22 +32,36 @@ echo $HTML_MAIN_INICIO;
 //echo $HTML_CONTENT_INICIO;
 // var_dump($objeto_tabla);
 
+if($_GET['p']==''){
+
+	// prin($SERVER);
+
+	$projects=select("id,nombre","productos_items","where visibilidad=1");
+
+	echo "<div style='margin-top:30px;' class='alert alert-error'>Primero debe de seleccionar un proyecto</div>";
+
+	echo '<select id="in_id_item" onchange="location.href=\''.$SERVER['BASE'].$SERVER['ARCHIVO_REAL'].'?p=\'+this.value;">';
+		echo '<option value="">Seleccione un proyecto</option>';
+		foreach($projects as $lin2){
+			echo '<option value="'.$lin2['id'].'">'.strtoupper($lin2['nombre']).'</option>';
+		}
+	echo '</select>';
+
+} else {
 
 $id_project=$_GET['p'];
-
 
 $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 ?>
 <!-- <h3 class='proyecto'><?php echo $proyecto['nombre'];?></h3> -->
-
-<!-- <input type="button" class="esquinabtn btn" value="Aceptar" >
- -->
-
+<!-- <input type="button" class="esquinabtn btn" value="Aceptar" >-->
+<input type="hidden" id="in_id_item" value="<?php echo $_GET['p']; ?>" >
 <div class="row-fluid">
 
 	<div class="span9">
 
+		<h3><?php echo $proyecto['nombre'];?></h3>
 		<ul class="nav nav-tabs" id="myTab">
 		  <li><a href="#departamentos" data-toggle="tab">Departamentos</a></li>
 		  <li><a href="#estacionamientos" data-toggle="tab">Estacionamientos</a></li>
@@ -65,7 +80,7 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 				foreach($torres as $it=>$torre){
 					
 					$inmuebles=select(
-						"id,numero,pvpromocion as precio",
+						"id,numero,pvpromocion as precio,id_status",
 						"productos_items_items",
 						"where id_subgrupo=".$torre['id']." order by numero asc",0);
 
@@ -94,7 +109,7 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 				foreach($torres as $it=>$torre){
 					
 					$inmuebles=select(
-						"id,numero,precio",
+						"id,numero,precio,id_status",
 						"productos_estacionamientos_items_items",
 						"where id_subgrupo=".$torre['id']." order by numero asc",0);
 
@@ -123,7 +138,7 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 				foreach($torres as $it=>$torre){
 					
 					$inmuebles=select(
-						"id,numero,precio",
+						"id,numero,precio,id_status",
 						"productos_depositos_items_items",
 						"where id_subgrupo=".$torre['id']." order by numero asc",0);
 
@@ -148,14 +163,22 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 	<div class="span3" style="min-height:200px;position: relative; padding-bottom:20px;">
 		<div id="cart"></div>
-		<button type="button" class="form_boton_1" id="fb1" onclick="record();" >Aceptar</button>
+		<button type="button" class="btn btn-small btn-primary" id="fb1" onclick="record();" >Aceptar</button>
 	</div>
 
 </div>
 
 <?php
 
+}
+
 function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
+
+	$status=[
+	'1'=>'disponible',
+	'2'=>'separado',
+	'3'=>'vendido',
+	];
 
 	$iii=array();
 
@@ -175,12 +198,14 @@ function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 		foreach($bb as $nn=>$bb)
 		{
 			$id=$bb['numero'];
-			$html.='<td class="bloq_inmu"><a class="inmu button" ';
+			$html.='<td class="bloq_inmu"><a  ';
 
 			if($tipo=='departamentos')
 			{
-				$html.='id="i'.$it.$bb['numero'].'" '; 
+				$html.='class="inmu button '.$status[$bb['id_status']].'" '; 
+				$html.='id="departamento'.$bb['id'].'" '; 
 	     		$html.='title="'.$nombre.' Departamento '.$bb['numero'].'" ';
+			    $html.='data-torre="'.$nombre.'" ';
 			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="departamento" ';
 			    $html.='data-ii="'.$bb['id'].'" ';
@@ -188,8 +213,10 @@ function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 			}
 	     	elseif($tipo=='estacionamientos')
 	     	{
-				$html.='id="e'.$it.$bb['numero'].'" '; 
+				$html.='class="inmu button '.$status[$bb['id_status']].'" '; 
+				$html.='id="estacionamiento'.$bb['id'].'" '; 
 	     		$html.='title="'.$nombre.' Estacionamiento '.$bb['numero'].'" ';
+			    $html.='data-torre="'.$nombre.'" ';
 			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="estacionamiento" ';
 			    $html.='data-ii="'.$bb['id'].'" ';
@@ -197,8 +224,10 @@ function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 	     	}
 	     	elseif($tipo=='depositos')	     	
 	     	{
-				$html.='id="d'.$it.$bb['numero'].'" '; 
+				$html.='class="inmu button '.$status[$bb['id_status']].'" '; 
+				$html.='id="deposito'.$bb['id'].'" '; 
 	     		$html.='title="'.$nombre.' Depositos '.$bb['numero'].'" ';
+			    $html.='data-torre="'.$nombre.'" ';
 			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="deposito" ';
 			    $html.='data-ii="'.$bb['id'].'" ';

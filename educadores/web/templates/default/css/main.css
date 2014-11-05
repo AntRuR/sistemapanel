@@ -153,9 +153,7 @@ h2.nombre a img { display: none; }
 
 
 .texto p a { 
-
 	color:blue !important; text-decoration: underline !important; 
-
 }
 form[action="index.php"] {
 	float: right;
@@ -163,6 +161,7 @@ form[action="index.php"] {
 }
 form[action="index.php"] .box {
 	border: 1px solid #00527D;
+	width:158px;
 }
 form[action="index.php"]  .button {
 	background-color: #004993;
@@ -190,3 +189,16 @@ form[action="index.php"]  .button {
     text-transform: capitalize;
     font-size: 1.5em;
 }
+
+#contenedor_slider_bloq_enlaces_0_buttons .but_prev,
+#contenedor_slider_bloq_enlaces_0_buttons .but_next
+ {
+ 	color:black;
+	font-weight: normal;
+	text-decoration: none; 	
+ }
+
+#contenedor_slider_banner_enlaces2_0_fijo .listado_item .foto {
+	width: 201px !important;
+	height:109px !important;
+} 

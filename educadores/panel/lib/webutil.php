@@ -2922,7 +2922,7 @@ function web_selected($menu,$GET){
 	return $Menu;
 }
 
-function web_render_page($this,$filtro=NULL){
+function web_render_page($this,$filtro=NULL,$opciones=NULL){
 
 	$result=fila(
 		"id,pagina,titulo,texto,foto,foto_descripcion,fecha_creacion"
@@ -2932,7 +2932,7 @@ function web_render_page($this,$filtro=NULL){
 		,array(
 				'carpeta'=>'pag_imas'
 				,'tamano'=>'2'
-				,'dimensionado'=>'250x250'
+				,'dimensionado'=>($opciones['foto_dimension'])?$opciones['foto_dimension']:'380x250'
 				//,'centrado'=>'1'
 				,'get_atributos'=>array('get_atributos'=>array(
 											'carpeta'=>'{carpeta}'

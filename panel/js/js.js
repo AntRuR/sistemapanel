@@ -1,5 +1,5 @@
 function $v(a){ return $(a).value; }
-function $1(a){ $(a).setStyles({"display":"block"}); }
+function $1(a){ $(a).setStyles({"display":""}); }
 function $0(a){ $(a).setStyles({"display":"none"}); }
 function $H(a,val){ $(a).innerHTML=val; }
 
@@ -174,6 +174,7 @@ function fechaChangeFilterRP(input){
 }*/
 
 function fechaChangeFilterST(input){
+
 	input=input.replace("fs_","");
 	var aa0=$('from_fs_'+input+'_a').value;
 	var mm0=$('from_fs_'+input+'_m').value;
@@ -184,6 +185,7 @@ function fechaChangeFilterST(input){
 	var time=(aa0==''||mm0==''||dd0==''||aa1==''||mm1==''||dd1=='')?'':input+"|"+aa0+"-"+mm0+"-"+dd0+"|"+aa1+"-"+mm1+"-"+dd1;
 	$('filtr_fs_'+input).value=time;
 	render_filderST(input);
+
 }
 
 function render_filderRP(input){
@@ -357,8 +359,9 @@ function load_combo(span,sql,value,after){
 function load_htmls(sql,value,after){
 	new Request({url:'load_datos.php?s='+encodeURIComponent(sql)+'&s2='+value,  method:'get', onSuccess:function(ee) {
 	var json=JSON.decode(ee,true);
-	Object.each(json, function(value, key){ eval("var mooo=mooeditable_"+key); mooo.setContent(value); });
-	// eval(value+"()");
+	Object.each(json, function(value, key){ 
+		eval("CKEDITOR.instances.in_"+key+".setData(value)");
+	});	// eval(value+"()");
  } } ).send();
 }
 function load_checks(sql,value,after){
@@ -409,13 +412,13 @@ $('in_'+span).value=opc;
 function abrir_mass(set,save){
 	if($('titulo_mass')){
 		if(set=='1'){
-			$('bloque_content_mass').setStyles({'display':'block'});
+			$('bloque_content_mass').setStyles({'display':''});
 			//$('inner').setStyles({'display':'none'});
 			//load_crear();
 			//ax('resetear');
 		} else {
 			$('bloque_content_mass').setStyles({'display':'none'});
-			//$('inner').setStyles({'display':'block'});
+			//$('inner').setStyles({'display':''});
 		}
 	} else {
 		load_mass();
@@ -430,20 +433,20 @@ function abrir_mass(set,save){
 function abrir_crear(set,save){
 	if($('titulo_crear')){
 		if(set=='1'){
-			$('bloque_content_crear').setStyles({'display':'block'});
+			$('bloque_content_crear').setStyles({'display':''});
 			$('inner').setStyles({'display':'none'});
-			$('segunda_barra_2').setStyles({'display':'none'});
+			// $('segunda_barra_2').setStyles({'display':'none'});
 			//load_crear();
 			ax('resetear');
 		} else {
 			$('bloque_content_crear').setStyles({'display':'none'});
-			$('inner').setStyles({'display':'block'});
-			$('segunda_barra_2').setStyles({'display':'block'});
+			$('inner').setStyles({'display':''});
+			// $('segunda_barra_2').setStyles({'display':''});
 		}
 	} else {
 		load_crear();
 		$('inner').setStyles({'display':'none'});
-		$('segunda_barra_2').setStyles({'display':'none'});
+		// $('segunda_barra_2').setStyles({'display':'none'});
 	}
 	if($('abrir_crear')){
 		$0(((set==1)?"abrir":"cerrar" )+"_crear");
@@ -454,14 +457,14 @@ function abrir_crear(set,save){
 function abrir_stat(set,save){
 	if($('titulo_stat')){
 		if(set=='1'){
-			$('bloque_content_stat').setStyles({'display':'block'});
+			$('bloque_content_stat').setStyles({'display':''});
 			$('inner').setStyles({'display':'none'});
-			$('segunda_barra_2').setStyles({'display':'none'});
+			// $('segunda_barra_2').setStyles({'display':'none'});
 			//load_crear();
 		} else {
 			$('bloque_content_stat').setStyles({'display':'none'});
-			$('inner').setStyles({'display':'block'});
-			$('segunda_barra_2').setStyles({'display':'block'});
+			$('inner').setStyles({'display':''});
+			// $('segunda_barra_2').setStyles({'display':''});
 		}
 		//alert('resetear');
 		//ax('resetear');
@@ -469,7 +472,7 @@ function abrir_stat(set,save){
 		//
 		load_stat();
 		$('inner').setStyles({'display':'none'});
-		$('segunda_barra_2').setStyles({'display':'none'});
+		// $('segunda_barra_2').setStyles({'display':'none'});
 		//alert('load_crear');
 
 	}
@@ -483,19 +486,19 @@ function abrir_stat(set,save){
 function abrir_repos(set,save){
 	if($('titulo_repos')){
 		if(set=='1'){
-			$('bloque_content_repos').setStyles({'display':'block'});
+			$('bloque_content_repos').setStyles({'display':''});
 			$('inner').setStyles({'display':'none'});
-			$('segunda_barra_2').setStyles({'display':'none'});
+			// $('segunda_barra_2').setStyles({'display':'none'});
 			$('boton_excel').setStyles({'display':'none'});
 			$('boton_imprimir').setStyles({'display':'none'});
 
 			//load_crear();
 		} else {
 			$('bloque_content_repos').setStyles({'display':'none'});
-			$('inner').setStyles({'display':'block'});
-			$('segunda_barra_2').setStyles({'display':'block'});
-			$('boton_excel').setStyles({'display':'block'});
-			$('boton_imprimir').setStyles({'display':'block'});
+			$('inner').setStyles({'display':''});
+			// $('segunda_barra_2').setStyles({'display':''});
+			$('boton_excel').setStyles({'display':''});
+			$('boton_imprimir').setStyles({'display':''});
 		}
 		//alert('resetear');
 		//ax('resetear');
@@ -503,7 +506,7 @@ function abrir_repos(set,save){
 		//
 		load_repos();
 		$('inner').setStyles({'display':'none'});
-		$('segunda_barra_2').setStyles({'display':'none'});
+		// $('segunda_barra_2').setStyles({'display':'none'});
 		$('boton_excel').setStyles({'display':'none'});
 		$('boton_imprimir').setStyles({'display':'none'});				
 		//alert('load_crear');
@@ -642,9 +645,9 @@ function upload_terminar(i,tab,camp,resized,crear_quick)
 function render_upload(tb,campo,id,img_default,il){
 
 	var id2=(id=='')?'':'_'+id;
-	var html='<div style="width:auto;float:left;position:relative; ">';
+	var html='<div class="divupl">';
 	if(img_default!=USU_IMG_DEFAULT){
-	html+='<a style="position:absolute;display:block;top:3px;right:10px;font-weight:bold;color:red;background-color:#FFF;padding:0 1px;"  onclick="eliminar_img_foto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar imágen">X</a>';
+	html+='<a class="elim" onclick="eliminar_img_foto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar imágen"></a>';
 	}
 	html+='<input type="hidden" id="upload_in_'+campo+id2+'" />'+
 	'<input type="hidden" id="image_'+campo+id2+'_temp"  value="'+img_default+'" />'+
@@ -681,9 +684,9 @@ function render_upload(tb,campo,id,img_default,il){
 function render_upload_sto(tb,campo,id,name){
 
 	var id2=(id=='')?'':'_'+id;
-	var html='<div style="width:auto;float:left;position:relative;">';
+	var html='<div class="divupl">';
 	if(name!=USU_IMG_DEFAULT && name!=''){
-	html+='<a style="position:absolute;display:block;top:3px;right:10px;font-weight:bold;color:red;background-color:#FFF;padding:0 1px;"  onclick="eliminar_img_sto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar">X</a>';
+	html+='<a class="elim" onclick="eliminar_img_sto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar">X</a>';
 	}
 	html+='<input type="hidden" id="upload_in_'+campo+id2+'" />'+
 	'<span id="txt_'+campo+id2+'_name" value="'+name+'" style="float:left;" ></span>'+
@@ -695,7 +698,7 @@ function render_upload_sto(tb,campo,id,name){
 		html+='<img src="img/cerrarfoto.gif" id="image_'+campo+id2+'_img_cerrar" class="upload_img_cerrar" '+
 		 'style="display:none;" onclick="reset_img_sto(\''+tb+'\',\''+campo+id2+'\');" title="cerrar"/>'+
 		'<span  class="upload_copiando2" style=" display:none;" id="image_'+campo+id2+'_copiando">'+
-			'<img src="img/load2.gif" />'+
+			// '<img src="img/load2.gif" />'+
 		'</span>'+
 		'<span class="upload_controles1" id="image_'+campo+id2+'_controles1">'+
 			'<span class="input_file_content">'+
@@ -1020,11 +1023,11 @@ new Request({url:"ajax_sql.php?f=login&debug=0&forge=1", method:'get', data:dato
 location.reload();
 } } ).send();
 }
-function load_directlink_filtro_inp(campo,tabla){
-new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+campo+','+campo+'|'+tabla+'|', {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
+function load_directlink_filtro_inp(campo,tabla,tablacampo){
+new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+campo+','+campo+'|'+tabla+'|', {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=tablacampo+'.'+campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
 }
-function load_directlink_filtro_com(campo,id,nombre,tabla,where){
-new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+id+','+nombre+'|'+tabla+'|'+where, {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
+function load_directlink_filtro_com(campo,id,nombre,tabla,where,tablacampo){
+new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+id+','+nombre+'|'+tabla+'|'+where, {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=tablacampo+'.'+campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
 }
 
 
@@ -1038,6 +1041,7 @@ function close_multibox(){
 	setTimeout("alert('ol');",1500);
 	setTimeout("initMultiBox.close();",2500);
 }
+
 function program_alert(ii){
 
 	$(ii+"_ined").addClass('prog');
@@ -1060,10 +1064,25 @@ function program_alert_remove(ii){
 }
 
 function load_ajax_in(where,get){
+	// console.log(where);
+	// console.log(get);
+	$(where).innerHTML='<div class="refreshing">cargando....</div>';
 	new Request({url:get,  method:'get', evalScripts:true,onSuccess:function(ee){
-			$(where).innerHTML=ee;
-			// if(typeof(colbac)=='function') eval(colbac);		
-		 } } ).send();	
+		$(where).innerHTML=ee;
+		// if(typeof(colbac)=='function') eval(colbac);		
+	} } ).send();	
+
 }
 
-
+function render_obj(objeto){
+ 	var json = eval(objeto);
+	console.log(json);
+	if(objeto==null) return '';
+ 	var html='<ul>';
+	for(var i=0;i<json.length;i++){
+		html+='<li>'+json[i].name + '</li>';
+	}
+	html+='</ul>';
+	return html;
+	// console.log(json);
+}

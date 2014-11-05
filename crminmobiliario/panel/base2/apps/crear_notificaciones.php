@@ -7,7 +7,7 @@ if(!isset($II)){
 	include("lib/global.php");
 	include("lib/conexion.php");
 	include("lib/mysql3.php");
-	include("lib/util.php");
+	include("lib/util2.php");
 	include("lib/webutil.php");
 	include("config/tablas.php");
 
@@ -33,7 +33,6 @@ if($TT=='productos_ventas_documentos'){
 			"v.id_cliente as id_cliente",
 			"v.id_usuario as id_usuario",
 			"v.user as user",
-			"v.id_jefe as id_jefe",
 			"d.id as id",
 			"d.monto as monto",
 			"d.fecha_vencimiento as fecha_vencimiento"
@@ -67,7 +66,6 @@ if($TT=='productos_ventas_documentos'){
 				'id_usuario'       =>$paranotificar['id_usuario'],
 				'user'       	   =>$paranotificar['user'],
 				'id_item'          =>$paranotificar['id_item'],
-				'id_jefe'          =>$paranotificar['id_jefe'],
 				'texto'            =>$paranotificar['texto'],
 				'estado'           =>'1',
 				'tipo'             =>$paranotificar['tipo'],
@@ -94,7 +92,6 @@ if($TT=='productos_ventas_documentos'){
 				'id_usuario'       =>$paranotificar['id_usuario'],
 				'user'       	   =>$paranotificar['user'],
 				'id_item'          =>$paranotificar['id_item'],				
-				'id_jefe'          =>$paranotificar['id_jefe'],
 				'texto'            =>$paranotificar['texto'],
 				'estado'           =>'1',
 				'tipo'             =>$paranotificar['tipo'],
@@ -122,7 +119,6 @@ elseif($TT=='ventas_mensajes'){
 			"v.id_cliente as id_cliente",
 			"v.id_usuario as id_usuario",
 			"v.user as user",
-			"v.id_jefe as id_jefe",
 			"d.id as id",
 			"d.alerta_fecha as fecha_vencimiento"
 			),
@@ -160,7 +156,6 @@ elseif($TT=='ventas_mensajes'){
 				'id_usuario'       =>$paranotificar['id_usuario'],
 				'user'       	   =>$paranotificar['user'],
 				'id_item'          =>$paranotificar['id_item'],
-				'id_jefe'          =>$paranotificar['id_jefe'],
 				'texto'            =>$paranotificar['texto'],
 				'estado'           =>'1',
 				'tipo'             =>$paranotificar['tipo'],
@@ -187,7 +182,6 @@ elseif($TT=='ventas_mensajes'){
 				'id_usuario'       =>$paranotificar['id_usuario'],
 				'user'       	   =>$paranotificar['user'],
 				'id_item'          =>$paranotificar['id_item'],				
-				'id_jefe'          =>$paranotificar['id_jefe'],
 				'texto'            =>$paranotificar['texto'],
 				'estado'           =>'1',
 				'tipo'             =>$paranotificar['tipo'],

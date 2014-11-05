@@ -372,6 +372,29 @@ function select_dato($campo,$tabla,$donde,$debug=0){
 		return false;
 	}
 }
+
+function getIdOrInsert($tabla,$where,$more_inserts=[]){
+
+	$where=[];
+	foreach($where as $var=>$val)
+		$where[]="$var='$val'";
+
+	$fila=select_fila("id",$tabla,"where ".implode(" and ",$where));
+
+	if($fila==false){
+
+		$insert=insert(array_merge($where,$more_inserts),$tabla);
+
+		return $insert['id'];
+
+	} else {
+
+		return $fila['id'];
+
+	}
+
+}
+
 function get_valores($key,$value,$tabla,$donde,$debug){
 	$matriz=select("$key,$value",$tabla,$donde,$debug);
 	$ret=array();

@@ -2,16 +2,17 @@
 /* */
 //////// MENU ///////
 
-
 $tablas_creadas=array();
 $sql = "show tables";
 $result=mysql_query($sql,$link);
 $total=mysql_num_rows($result);
 if($total>0){
 	while ($row = mysql_fetch_row($result)){
-			$tablas_creadas[] = $row[0];
+		$tablas_creadas[] = $row[0];
 	}
 }
+
+// prin($SERVER);
 
 if($mostrar_menu){
 
@@ -36,30 +37,18 @@ if($mostrar_menu){
 	}
 	prin($oottoo);
 	*/
-
 	foreach($objeto_tabla as $meit=>$item){
-
+		// prin($item);
 		$mmm = '';
-
-		if( $Open=='1' and $item['menu_label']=='' ){
-		$BGDD="#F8F895";
-		$ExtraStyle="font-weight:normal;text-transform:uppercase;letter-spacing:0px;font-size:8px;";
-		$ExtraStyle="";
-		}else{
-		$BGDD=$BGCOLOR_DESARROLLO.";border:1px solid red";
-		$ExtraStyle="";
-		}
 
 		if($item['menu_label']==''){	$item['menu_label']=$item['archivo'];	}
 
-		$classhijo=" hijomenu";
-		$classhijosel=" hijomenusel";
 		if( $item['menu']=='1' or ($Open=='1' and $item['menu_label']!='' ) or ($script_name=="maquina.php") ){
 
 			if(
 				(
-				file_exists($DIR_CUSTOM.$item['archivo'].".php")
-				and in_array($item['tabla'],$tablas_creadas)
+				// file_exists($DIR_CUSTOM.$item['archivo'].".php") and 
+				in_array($item['tabla'],$tablas_creadas)
 				and (!($item['disabled']=='1'))
 				)
 				or
@@ -75,28 +64,43 @@ if($mostrar_menu){
 				if($bbgg){ $BBB[]=$item['me']; }
 
 				if($item['seccion']){
+
 					$mmm.='<li class="seccion"><b>'.$item['seccion'].'</b></li>';
+
 				}
+				
+				// prin(  $item['archivo'].".php" .'=='.$item['archivo']);
+
+				$bitselected=( enhay( $script_name ,  $item['archivo'].".php" ) or ($script_name==$item['archivo_hijo'].".php") );
+
 				//$otto[]=$meit;
-				$mmm .="<li class='". ((($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php"))?"selected $classhijosel":" $classhijo ") ." ' style='" . ( ($bbgg)?"background-color:".$BGDD.";":(!in_array($item['tabla'],$tablas_creadas)?"background-color:#37F73B;":"")) . "'>";
+				$mmm .="<li". ( ($bitselected) ? ' class="selected"': '' ).">";
 
-				$mmm .="<a style='". ( ($bbgg)?"background-image:none;":"") . ( ( !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1') )?"color:;":'') . $ExtraStyle. "' href='".$DIR_CUSTOM.$item['archivo'].".php' >";
-				$mmm .=$item['menu_label'].$item['archivo_padre'];
-				$nume=contar($item['tabla'],"where 1 ".get_extra_filtro(array('user'=>$item['user'],'web'=>($filtrar_web)?$item['web']:0,'page'=>($filtrar_page)?$item['page']:0)));
-				$mmm.=" <span class='numero'>$nume</span>";
-				$mmm.="</a>";
+					$mmm .="<a href='".$DIR_CUSTOM.$item['archivo'].".php' >";
 
-				if($Open=='1'){
-					$mmm.="<a class='derech' href='maquina.php?me=".$item['me']."#blo_objetos' title='Editar Propiedades'>P</a>";
-					$mmm.="<a class='derech2' href='maquina.php?me=".$item['me']."#edicion_indices_sub' title='Editar Campos'>C";
+						$mmm .=$item['menu_label'].$item['archivo_padre'];
+
+						$nume=contar($item['tabla'],"where 1 ".get_extra_filtro(array('user'=>$item['user'],'web'=>($filtrar_web)?$item['web']:0,'page'=>($filtrar_page)?$item['page']:0)));
+
+						$mmm.="<span class='number'>$nume</span>";
+
 					$mmm.="</a>";
-				}
+
+					//DEVEL
+					if($Open=='1'){
+
+						$mmm.="<a class='derech' href='maquina.php?me=".$item['me']."#blo_objetos' title='Editar Propiedades'>P</a>";
+
+						$mmm.="<a class='derech2' href='maquina.php?me=".$item['me']."#edicion_indices_sub' title='Editar Campos'>C</a>";
+
+					}
 
 				$mmm.="</li>";
 
-
 			}
+
 		}
+
 		if( $script_name!="login.php" ){
 				//prin($item['app']);
 				if($item['app']!=''
@@ -106,42 +110,71 @@ if($mostrar_menu){
 				$item['app']=str_replace("'","\"",$item['app']);
 				$aps=explode("<a",$item['app']);
 				foreach($aps as $ap){ if(trim($ap)!=''){
-				$mmm.="<li class='".(($this_app_menu==$ap)?'hijomenusel selected':'hijomenu')."'>";
+
+				$bitselected=(enhay($ap,$script_name)); 	
+				// prin("$script_name == $ap");
+				$mmm='';
+				$mmm.="<li".(($bitselected)?" class='selected'":'').">";
 				$mmm.="<a".$ap;
 				$mmm.="</li>";
+
+				$menus[($item['grupo'])?$item['grupo']:'general'][]=[$mmm,$bitselected];
+
 				} }	}
 
 		}
-//		if($mmm!=''){ echo "<textarea>".$mmm."</textarea>"; }
 
-				if(  !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1') ){
-				$menus_2[]=array('h'=>$mmm,'g'=>$item['grupo']);
-				} else {
-				$menus_1[]=array('h'=>$mmm,'g'=>$item['grupo']);
+		// if($mmm!=''){ echo "<textarea>".$mmm."</textarea>"; }
+
+		if(  !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1')  ){
+
+			$menus_2[]=array('h'=>$mmm,'g'=>$item['grupo']);	
+
+		} else {
+		
+			$menus_1[]=array('h'=>$mmm,'g'=>$item['grupo']);
+
+		}
+
+		if($item['app']==''){
+
+			$menus[($item['grupo'])?$item['grupo']:'general'][]=[$mmm,$bitselected];
+
+		}
+
+		if($mmm!=''){
+			if(!in_array($item['grupo'],$grupi)){
+
+				$grupi[]=$item['grupo'];
+
+				if(trim($item['grupo'])!=''){
+				
+					$paddre=($ALIAS_GRUPO[$item['grupo']])?$ALIAS_GRUPO[$item['grupo']]:$item['grupo'];
+
+					$GrupLi[$item['grupo']]['open']="<li id='group_".$item['grupo']."' class='group {selected}". (($item['grupo']=='sistema')?" admincc":'') ."' >".
+					
+					"<a class='padre'>".
+					
+					"<i class='zzz ic_". str_replace(
+											array(" ",'á','é','í','ó',''), 
+											array("_",'a','e','i','o','u'), 
+											strtolower($paddre)
+											) . "'></i>".
+
+					$paddre .
+
+					"</a>";
+
+					$GrupLi[$item['grupo']]['close']="</li>";
+
 				}
+			}
+		}
 
-				$menus[($item['grupo'])?$item['grupo']:'general'][]=$mmm;
-				if($mmm!=''){
-					if(!in_array($item['grupo'],$grupi)){
-						$grupi[]=$item['grupo'];
-
-							if(trim($item['grupo'])!='' ){
-							$paddre=($ALIAS_GRUPO[$item['grupo']])?$ALIAS_GRUPO[$item['grupo']]:$item['grupo'];
-							$GrupLi[$item['grupo']]="<li id='idg_".$item['grupo']."' class='padre' >".
-							"<a ". (($item['grupo']=='sistema')?"class='admincc'":'') ."  >".
-							"<i class='zzz ic_". str_replace(
-													array(" ",'á','é','í','ó',''), 
-													array("_",'a','e','i','o','u'), 
-													strtolower($paddre)
-													) . "'></i>".							
- 							$paddre .
- 							"</a>".
- 							"</li>";
-							}
-					}
-				}
 
 	}
+
+	// prin($menus);
 
 	//prin($otto);
 
@@ -177,15 +210,26 @@ if($mostrar_menu){
 	if(sizeof($GrupLi)>0){
 		$ttmi=-1;
 		foreach($GrupLi as $ttm=>$gl){ $ttmi++;
-			$htmlmenu .= $gl;
+
+			$htmlmenu1='';
+
+			$htmlmenu0 = str_replace('{selected}','',$gl['open']); 
+
 			if(sizeof($menus[$ttm])>0){
+				
 				if($ttm==$this_grupo or $SERVER['ARCHIVO']=="maquina.php"){ $OpEn=$ttmi; }
-				$htmlmenu .= "<ul id='opcl_".$ttm."' class='opcl' >";
+
+				$htmlmenu1 .= "<div class='mcontent'><ul>";
 				foreach($menus[$ttm] as $menn){
-					$htmlmenu .=$menn;
+					$htmlmenu1 .=$menn[0]; if( $menn[1] or $SERVER['ARCHIVO_REAL']=='maquina.php' ){ $htmlmenu0 = str_replace('{selected}','selected',$gl['open']); }
 				}
-				$htmlmenu .= "</ul>";
+				$htmlmenu1 .= "</ul></div>";
 			}
+
+			$htmlmenu2 = $gl['close'];
+
+			$htmlmenu.=$htmlmenu0.$htmlmenu1.$htmlmenu2;
+
 		}
 	} else {
 		foreach($menus['general'] as $menn){
@@ -195,36 +239,28 @@ if($mostrar_menu){
 	$htmlmenu .='</ul>';
 
 
-	if($htmlmenu=="<ul id='menu_main' class='ul_menus'></ul>"  ){
-		echo "<ul class='ul_menus ul_menus_empty' id='ul_menus_empty'></ul>";
+	if(str_replace('Array','',$htmlmenu)=="<ul id='menu_main' class='ul_menus'></ul>"){
+
+		echo "<ul id='menu_main' class='ul_menus ul_menus_empty' id='ul_menus_empty'></ul>";
+
 	} else {
 
 		echo $htmlmenu;
 
-			if($SERVER['ARCHIVO']!='maquina.php'){
-			echo '<script>';
-			?>if(!Browser.Engine.webkit || 1){
+		/*
+		if($SERVER['ARCHIVO']!='maquina.php'){
+		echo '<script>';
+		?>if(!Browser.Engine.webkit || 1){
+			window.addEvent('domready', function(){ 
+				new Fx.Accordion('.ul_menus .padre', '.ul_menus .opcl',{initialDisplayFx :false,opacity:false,display:<?php echo ($OpEn)?$OpEn:"''"; ?>});
+			});
 
-				window.addEvent('domready', function(){ 
-
-					new Fx.Accordion('#menu_main .padre', '#menu_main .opcl',{initialDisplayFx :false,opacity:false,display:<?php echo ($OpEn)?$OpEn:"''"; ?>});
-					/* var accordion = new Accordion($$('.padre'),$$('.opcl'), { pre-MooTools More */
-					/*
-					var accordion = new Fx.Accordion($$('.padre'),$$('.opcl'), {
-						//opacity: 0,
-						//onActive: function(toggler) { toggler.setStyle('color', '#f30'); },
-						//onBackground: function(toggler) { toggler.setStyle('color', '#000'); }
-					});
-					*/
-				});
-
-			}<?php
-			echo '</script>';
-			}
+		}<?php
+		echo '</script>';
+		}
+		*/
 	}
 
 }
 
 
-//prin($SERVER);
-?>

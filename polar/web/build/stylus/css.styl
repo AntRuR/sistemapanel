@@ -9,7 +9,7 @@ vendorx-prefixes = webkit o moz official
 
 @import 'nib_fix'
 // @import 'normalize'
-// @import 'fonts'
+@import 'fonts'
 
 
 $IMAGES_PATH='../../../img'
@@ -109,7 +109,7 @@ $PAGE_WIDTH=982
 		width auto !important
 		padding 20px !important
 		font-size 1.5em !important	
-		font-family: 'Titillium Web','caviar_dreamsregular', "Helvetica Neue" !important
+		font-family: 'Titillium Web', "Helvetica Neue" !important
 		opacity 0.8 !important	
 		background #264F80 !important
 				
@@ -127,6 +127,9 @@ $PAGE_WIDTH=982
 		padding 3px 0
 		color white
 		text-transform uppercase
+		min-height 23px;
+	.vacio
+		text-align center	
 	.inner
 		background white	
 		height 110px
@@ -163,9 +166,12 @@ $PAGE_WIDTH=982
 		padding 3px 0
 		color white
 		text-transform uppercase
+		min-height 23px
 	.inner
 		background white	
 		height 240px
+		.vacio
+			text-align center
 		.slides
 			ul
 				li
@@ -203,7 +209,7 @@ $PAGE_WIDTH=982
 	text-align center
 	position relative
 	.listado_items
-		display inline-block
+		display block
 		.listado_item
 			text-align left
 			position: relative;

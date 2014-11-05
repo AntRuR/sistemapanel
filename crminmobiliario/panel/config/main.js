@@ -18,11 +18,39 @@ try {
 
 }
 
+var cart={};
+
 PROJECT = {  
 
     common : {
 
         init : function() {
+
+            if($("#in_id_item").val()=='' && parent.document.getElementById('in_id_item').value!=''){
+
+                location.href='base2/apps/depa.php?p='+parent.document.getElementById('in_id_item').value;
+
+                return;
+
+            }
+
+            parent.document.getElementById('in_id_item').value=$("#in_id_item").val();
+
+            parent.document.getElementById('in_id_item_button').href='base2/apps/depa.php?p='+$("#in_id_item").val();
+
+            if(parent.document.getElementById('in_pedido').value!=''){
+            
+                var pedido=eval("{"+parent.document.getElementById('in_pedido').value+"}");
+
+                $.each(pedido, function( index, ee ) {
+
+                    add_cart(ee.type,ee.price,ee.id,ee.num,ee.torre);
+
+                });
+
+            }
+
+            /*alert(parent.document.getElementById('in_id_item').value);*/
 
             $(".esquinabtn").on("click", function(event){
                 // var html = new Element('div#second');
@@ -34,123 +62,126 @@ PROJECT = {
 
             PROJECT.loadCss.init( "css/jquery-impromptu.css");
 
-            require(['vendor/jquery-impromptu'], function() {
+            var sololectura=(parent.document.getElementById('in_id_status').value==6 || parent.document.getElementById('in_id_status').value==7)
 
-                $(".button").on("click", function(event){
+            if(!sololectura){
 
-                    var current_state=0;
-                    var ii=$(this).data('ii');
-                    var type=$(this).data('type');
-                    var price=$(this).data('price');
-                    var titl=$(this).attr('title');
-                    var dis=$(this);
-                    var myPrompt = $.prompt(
-                        {
-                        state0:{
-                            position: { 
-                                container: '#'+$(this).attr('id'), 
-                                arrow: 'tl',                            
-                                x: 0, 
-                                y: 25, 
-                                width: 420 
-                            },          
-                            title:titl,
-                            html: "<div "
-                            +"id='icontent0' "
-                            +">"
-                            +'cargando....'
-                            +"</div>",
-                            buttons: { "cancelar": 0, "ver mas": 1, "agregar":2 },
-                            submit:function(e,v,m,f){
-                                if(v==0){ 
-                                    $.prompt.close();                                                               
+                require(['vendor/jquery-impromptu'], function() {
+
+                    $(".button.disponible").on("click", function(event){
+
+                        var current_state=0;
+                        var ii=$(this).data('ii');
+                        var type=$(this).data('type');
+                        var num=$(this).data('num');
+                        var torre=$(this).data('torre');
+                        var price=$(this).data('price');
+                        var titl=$(this).attr('title');
+                        var dis=$(this);
+                        var myPrompt = $.prompt(
+                            {
+                            state0:{
+                                position: { 
+                                    container: '#'+$(this).attr('id'), 
+                                    arrow: 'tl',                            
+                                    x: 0, 
+                                    y: 25, 
+                                    width: 420 
+                                },          
+                                title:titl,
+                                html: "<div "
+                                +"id='icontent0' "
+                                +">"
+                                +'cargando....'
+                                +"</div>",
+                                buttons: { "cancelar": 0, "ver mas": 1, "agregar":2 },
+                                submit:function(e,v,m,f){
+                                    if(v==0){ 
+                                        $.prompt.close();                                                               
+                                    }
+                                    if(v==1){
+                                        e.preventDefault();
+                                        current_state=1;
+                                        $.prompt.goToState('state1');
+                                    }
+                                    if(v==2){
+                                        $.prompt.close();
+                                        add_cart(type,price,ii,num,torre);
+                                    }
+                                    return false; 
                                 }
-                                if(v==1){
-                                    e.preventDefault();
-                                    current_state=1;
-                                    $.prompt.goToState('state1');
-                                }
-                                if(v==2){
-                                    $.prompt.close();
-                                    add_cart(type,price,ii);
-                                }
-                                return false; 
+                           },
+     
+                           state1:{
+                                position: { 
+                                    container: 'body', 
+                                    // arrow: 'tl',                            
+                                    x: 10, 
+                                    y: 10, 
+                                    width: 950
+                                },          
+                                title:titl,                        
+                                html: "<div id='icontent1'>cargando....</div>",
+                                buttons: { "cancelar": 0, "agregar":2 },
+                                submit:function(e,v,m,f){
+                                    if(v==0){ 
+                                        $.prompt.close();                                                               
+                                    }    
+                                    // if(v==1){
+                                    //     e.preventDefault();
+                                    //     current_state=2;
+                                    //     $.prompt.goToState('state2');
+                                    // }
+                                    if(v==2){
+                                        $.prompt.close();                                    
+                                        add_cart(type,price,ii,num,torre);
+                                    }
+                                    return false; 
+                                }                            
+                           }                    
+
+                        });  
+
+                        myPrompt.bind('promptloaded', function(e){ 
+                            
+                            if(current_state==0){
+
+                                $.ajax({
+                                    url: 'base2/apps/depa_ajax.php?type='+type+'&state=0&id='+ii,
+                                    type: 'GET',
+                                    success: function (data) {
+                                        $("#icontent0").empty();
+                                        $(data).appendTo("#icontent0");
+                                    }                                
+                                });   
+
+                            } 
+
+                        });
+
+                        myPrompt.bind('promptstatechanging', function(e){ 
+
+                            if(current_state>0){    
+
+                                $.ajax({
+                                    url: 'base2/apps/depa_ajax.php?type='+type+'&state=1&id='+ii,
+                                    type: 'GET',
+                                    success: function (data) {
+
+                                        $("#icontent1").empty();
+                                        $(data).appendTo("#icontent1");
+
+                                    }                                
+                                });  
                             }
-                       },
- 
-                       state1:{
-                            position: { 
-                                container: 'body', 
-                                // arrow: 'tl',                            
-                                x: 10, 
-                                y: 10, 
-                                width: 950
-                            },          
-                            title:titl,                        
-                            html: "<div "
-                            +"id='icontent1' "
-                            +">"
-                            +'cargando....'
-                            +"</div>",
-                            buttons: { "cancelar": 0, "agregar":2 },
-                            submit:function(e,v,m,f){
-                                if(v==0){ 
-                                    $.prompt.close();                                                               
-                                }    
-                                // if(v==1){
-                                //     e.preventDefault();
-                                //     current_state=2;
-                                //     $.prompt.goToState('state2');
-                                // }
-                                if(v==2){
-                                    $.prompt.close();                                    
-                                    add_cart(type,price,ii);
-                                }
-                                return false; 
-                            }                            
-                       }                    
 
-                    });  
+                        });                                      
 
-                    myPrompt.bind('promptloaded', function(e){ 
-                        
-                        if(current_state==0){
+                    });              
 
-                            $.ajax({
-                                url: 'base2/apps/depa_ajax.php?type='+type+'&state=0&id='+ii,
-                                type: 'GET',
-                                success: function (data) {
-                                    $("#icontent0").empty();
-                                    $(data).appendTo("#icontent0");
-                                }                                
-                            });   
+                });
 
-                        } 
-
-                    });
-
-                    myPrompt.bind('promptstatechanging', function(e){ 
-
-                        if(current_state>0){    
-
-                            $.ajax({
-                                url: 'base2/apps/depa_ajax.php?type='+type+'&state=1&id='+ii,
-                                type: 'GET',
-                                success: function (data) {
-
-                                    $("#icontent1").empty();
-                                    $(data).appendTo("#icontent1");
-
-                                }                                
-                            });  
-                        }
-
-                    });                                      
-
-                });              
-
-            });
-
+            }
 
             // /**
             //  * favoris and acquise
@@ -681,38 +712,64 @@ UTIL = {
 $(document).on('ready', UTIL.init);
 
 
-var cart=new Array();
 var iii=0;
 
-function add_cart(type,price,ii){
 
-    cart[iii]={'type':type,'price':price,'id':ii}
-    iii++;
+
+function add_cart(type,price,ii,num,torre){
+
+    cart[type+ii]={'type':type,'price':price,'id':ii,'name':torre+' - '+type+' '+num,'num':num,'torre':torre};
+    // console.log(cart[type+ii]);
+    console.log(cart);
+    render_cart();
+
+}
+
+function delete_item(index){
+
+    delete cart[index];
+
     render_cart();
 
 }
 
 function render_cart(){
 
+    // console.log(cart);
     var html='<table class="table table-condensed table-bordered torre">';
     var price=0;
-    for(var i=0;i<cart.length;i++){
-      ee=cart[i];
-      price = price + ee.price;
-      html+="<tr id='"+ee.type+ee.id+"' class='"+ee.type+"'><td>"+ee.type+" "+ee.id+"</td><td style='text-align:right;font-weight:bold;'>"+ee.price+"</td></tr>";
-      // console.log( "type: " + ee.type + " "+"id: " + ee.id );
-    }
-    html+="<tr id='total' ><td>TOTAL</td><td style='text-align:right;font-weight:bold;'>"+price+"</td></tr>";
+    // for(var i=0;i<cart.length;i++){
+    //   ee=cart[i];
+    //   price = price + ee.price;
+    //   html+="<tr id='"+ee.type+ee.id+"' class='"+ee.type+"'><td>"+ee.type+" "+ee.num+"</td><td style='text-align:right;font-weight:bold;'>"+ee.price+"</td></tr>";
+    // }
+
+    $('.inmu').removeClass('agregado');
+
+    // console.log("cart");
+    // console.log(cart);
+    $.each(cart, function( index, ee ) {
+        $('#'+ee.type+ee.id).addClass('agregado');
+        price += Number(ee.price);
+
+        html+="<tr class='"+ee.type+"'><td class='labe'>"+ee.name+"</td><td class='vals'>"+ee.price+"</td><td><a class='cerrar' title='cerrar' onclick=\"delete_item('"+ee.type+ee.id+"');\">X</a></td></tr>";
+    });
+
+    html+="<tr id='total' ><td class='labe'>TOTAL</td><td class='vals'>"+price+"</td><td></td></tr>";
+
     html+="</table>";
+
+    html=(price==0)?'':html;
+
     // console.log(html);
     // document.getElementById('cart').innerHTML=html;
     $('#cart').html(html);
 
-    if(cart.length>0){
-        $('.esquinabtn').show();
+    if(price>0 && !sololectura){
+        // $('.esquinabtn').show();
         $('#fb1').show();
     } else {
-        $('.esquinabtn').hide();        
+        // $('.esquinabtn').hide();        
         $('#fb1').hide();
     }
 
@@ -799,23 +856,47 @@ function render_cart(){
 
 function record()
 {
-
     var total_price=0;
     cart_s= new Array();
+    // console.log('cart');
+    // console.log(cart);
+    /*
     for(var i=0;i<cart.length;i++){
-        cart_s[i]="{\"type\":\""+cart[i].type+"\",\"price\":\""+cart[i].price+"\",\"id\":\""+cart[i].id+"\"}";
-        total_price+=eval(cart[i].price);
+        cart_s[i]="{\"type\":\""+cart[i].type+"\",\"price\":\""+cart[i].price+"\",\"id\":\""+cart[i].id+"\",\"num\":\""+cart[i].num+"\",\"torre\":\""+cart[i].torre+"\"}";
+        console.log(cart_s[i]);
+        // console.log(cart[i].type);
+        // console.log(cart[i].id);
+        // if(cart[i].type=='departamento'){
+        //     parent.document.getElementById('in_id_item_item').value=cart[i].id;
+        // } else if(cart[i].type=='estacionamiento'){
+        //     parent.document.getElementById('in_id_item_estacionamiento').value=cart[i].id;
+        // } else if(cart[i].type=='deposito'){
+        //     parent.document.getElementById('in_id_item_deposito').value=cart[i].id;
+        // }
     }
+    */
+    var i=0;
+    $.each(cart, function( index, ee ) {
+        cart_s[i++]="{\"type\":\""+ee.type+"\",\"price\":\""+ee.price+"\",\"id\":\""+ee.id+"\",\"name\":\""+ee.name+"\",\"num\":\""+ee.num+"\",\"torre\":\""+ee.torre+"\"}";
+        // console.log(cart_s[i]);
+        total_price += Number(ee.price);
+    });    
 
-    parent.document.getElementById('in_pedido').value='['+ cart_s.join(',')+']';
+    var string_cart='['+ cart_s.join(',')+']';
+
+    parent.document.getElementById('in_pedido').value=string_cart;
+
+    parent.document.getElementById('in_pedido_obj').innerHTML=render_obj(string_cart);
 
     parent.document.getElementById('in_pvlista').value=total_price;
+
     parent.document.getElementById('in_pvpromocion').value=total_price;
 
     parent.initMultiBox.close();
     parent.initMultiBox.close();
     parent.initMultiBox.close();
     parent.initMultiBox.close();
+
     // 
     // var closesecure = function (){
 
@@ -833,4 +914,17 @@ function record()
 
 }
 
+
+function render_obj(objeto){
+    var json = eval(objeto);
+    console.log(json);
+    if(objeto==null) return '';
+    var html='<ul>';
+    for(var i=0;i<json.length;i++){
+        html+='<li>'+json[i].name + '</li>';
+    }
+    html+='</ul>';
+    return html;
+    // console.log(json);
+}
 

@@ -143,7 +143,7 @@ if( $tabla_sesion!='' and $sesion_id!='' and $sesion_password!='' and $sesion_lo
 	$usuario_id_sesion       = $_SESSION['usuario_id'];
 
 	if($usuario_id_sesion=='' and $LoadWithoutSession!=1){
-		header("Location: " . ((!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)) ? "../login.php" : "login.php" ) );
+		header("Location: " . ((!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)) ? "../login.php" : "../login.php" ) );
 	}
 
 }

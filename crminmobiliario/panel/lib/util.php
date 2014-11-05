@@ -4129,7 +4129,7 @@ $ALL.=$obj.",\n";
 	//prin($_GET['conf']);
 	//$fffilter="";
 	//prin($_GET['filter']);
-	//prin($permisos);
+	// prin($permisos);
 	//echo urlencode("alerta=".urlencode("alerta=1,2"));
 	if(trim($permisos)=='' or trim($permisos)=='*'){
 		return $objeto_tabla;
@@ -4523,9 +4523,9 @@ return $dos;
 
 function get_dims_crearforeig($aa=NULL){
 	if($aa!=NULL){
-	return "width:750,height:400";
+	return "width:1000,height:400";
 	} else {
-	return "width:900,height:530";
+	return "width:1000,height:530";
 	}
 }
 

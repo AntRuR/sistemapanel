@@ -292,16 +292,19 @@ $script_A = explode("/",$_SERVER['SCRIPT_NAME']);
 unset($script_A[sizeof($script_A)-1]);
 $dir_script=implode("/",$script_A);
 
+// list($url_script,$url_variables)=explode("?",$url_script);
+
 $SERVER['URL']=$url_script;
-$SERVER['ARCHIVO']=$file_script;
+$SERVER['ARCHIVO']=$url_script;
+$SERVER['ARCHIVO_REAL']=$file_script;
 $SERVER['BASE']="http://".$_SERVER['HTTP_HOST'].$dir_script."/";
-$SERVER['RUTA']=$SERVER['BASE'].$SERVER['ARCHIVO'];
 $SERVER['ROOT']=$vars['LOCAL']['url_publica'];
 $SERVER['PANEL']=$SERVER['ROOT'].'/panel';
 // echo '<pre>'; print_r($vars_server['url_publica']); echo '</pre>';
 // echo '<pre>'; print_R("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']); echo '</pre>';
 $SERVER['PATH']=str_replace('//','/','/'.str_replace($vars_server['url_publica'],'',"http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
 // echo '<pre>'; print_r($SERVER['PATH']); echo '</pre>';
+$SERVER['RUTA']=$SERVER['ROOT'].$SERVER['PATH'];
 
 $LOGIN=(!(strpos($_SERVER['SCRIPT_NAME'], "login.php")===false))?1:0;
 

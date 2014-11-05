@@ -37,7 +37,10 @@ $Block['bar_izquierda']=array(
 		// "bloques/banner_departamentos.php",//
 		// "bloques/banner_publicidad_1.php?page=1",//
 		// "bloques/banner_publicidad_2.php?page=1",//
-		"bloques/print_novedades.php",//		
+		"bloques/print_novedades.php",//
+
+		"bloques/banner_enlaces2.php?page=1",//V[x]	
+
 		// "bloques/form_recomendar.php?conector=recomendar",//V[x]		
 		// "bloques/print_redes_sociales.php",//V[x]		
 		"bloques/izquierda_facebook.php",//		

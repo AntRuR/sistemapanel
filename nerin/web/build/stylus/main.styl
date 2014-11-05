@@ -1,0 +1,479 @@
+/*
+cd /Applications/MAMP/htdocs/sistemapanel/nerin
+stylus -w -c -u nib -m web/build/stylus/main.styl -o css/
+*/
+
+vendorx-prefixes = webkit moz official
+
+$IMAGES_PATH='../img'
+
+@import 'nib'
+
+@import 'nib_fix'
+// @import 'normalize'
+@import 'fonts'
+
+//
+@import 'libs'
+
+//measures
+@import 'layout'
+
+//blocks
+@import 'blocks'
+
+//header, canvas, footer
+@import 'common'
+
+//menus
+@import 'menus'
+
+//sliders
+@import 'sliders'
+
+//forms
+@import 'forms'
+
+//grids
+@import 'grid'
+
+
+
+// @import 'default'
+
+
+
+
+
+
+
+/**
+ * HOME
+ */
+
+
+
+
+/**
+ * 	HOME : MAIN BANNER
+ */
+.banner_main
+	margin-bottom 10px	
+	ul
+		height 383px
+		overflow hidden		
+		li
+			width 980px
+			height 383px
+			float left
+			.texto
+				position absolute
+				bottom 0
+				left 0
+				padding 10px 20px
+				font-size 1.6em
+				background #000
+				color white
+				opacity 0.6
+				width 100%
+				box-sizing border-box 
+			&:after
+				content ""
+				background: url($IMAGES_PATH/logo.jpg) no-repeat;
+				bottom 65px
+				right 20px
+				width 156px
+				height 180px
+				position absolute				
+	// unslider		
+	ol.dots
+		position absolute
+		right 5px
+		bottom 5px
+		li.dot
+			background #D9D9D9
+			color black
+			float left
+			width 20px
+			height @width
+			text-align center
+			line-height @width
+			vertical-align middle
+			margin (@width/4)
+			border-radius (@width/2)
+			cursor pointer
+			&:hover
+			&.active
+				background #00669B
+				color white
+		
+	// flux
+	/*
+	ul.pagination
+		position absolute
+		right 5px
+		bottom 35px
+		z-index 1001
+		li
+			background black
+			color white
+			float left
+			width 20px
+			height @width
+			text-align center
+			line-height @width
+			vertical-align middle
+			margin (@width/4)
+			border-radius (@width/2)
+			cursor pointer
+			&:hover
+			&.current
+				background red	
+	.caption
+		width auto !important
+		padding 20px !important
+		font-size 1.5em !important	
+		font-family: 'Titillium Web', "Helvetica Neue" !important
+		opacity 0.8 !important	
+		background #264F80 !important
+	*/		
+		
+
+				
+/**
+ * HOME : bloque : Left Banner
+ */
+
+.banner_enlaces
+	// background white
+	.inner
+		height 110px
+		li
+			width 100%			
+			.foto
+				text-align center
+				
+
+/**
+ * HOME : bloque : Right Banner
+ */
+
+.banner_enlaces2
+	// background white
+	.inner
+		height 240px	
+		li
+			width 100%			
+			.foto
+				text-align center
+
+
+/**
+ * HOME : bloque : ITEMS
+ */
+
+
+
+
+/**
+ * HOME : bloque :  BLOG
+ */
+
+.blog
+	.tabs
+		ul
+			background #0c2b7d
+			padding 6px 0 0
+			// float left
+			text-align center
+			li
+				line-height 1em
+				background #0188BE
+				list-style none
+				display inline-block
+				margin 0 7px
+				// float left
+				> a
+					padding 1px 10px
+					color white
+					font-size 0.8em
+					float left
+					cursor pointer
+					text-transform uppercase
+			.active 
+				a
+					color #FC0
+	section		
+		background #DDD
+		overflow hidden
+		position relative
+		padding 15px 30px 0px
+		.inner
+			height 219px !important				
+			.slides
+				width 100% !important
+				> ul
+					> li
+						float left
+						width 100%
+						.nombre
+							// font-size 1.2em
+							color #264F80
+							font-weight bold
+						.fecha
+							font-weight bold	
+						.texto
+							font-size 1.1em
+						.foto
+							width 100%
+							text-align center
+							float left	
+							img
+								width auto
+								height 120px									
+		.footer
+			margin 0 -30px
+			background #0c2b7d
+			color white
+			padding 4px 4px
+			text-align center
+			span.nombre
+				display inline-block
+				padding 3px 0
+			.prev
+				float left
+		&.show	
+			display block
+		
+
+/**
+ * HOME : bloque : form : RECOMENDAR
+ */
+
+.form_recomendar
+	text-align center
+	// border 1px solid #125586
+	background #EBF8FF
+	padding 6px 10px
+	margin-bottom 10px
+	form
+		ul
+			display block
+			li
+				text-align center			
+	.inner
+		.legend
+			font-weight normal
+			text-indent 0px
+			margin-bottom 0
+		input
+			margin-top 6px
+
+		// input[type=submit]
+		// 	padding 4px	
+
+
+
+/**
+ * PAGES
+ */
+
+
+
+
+		
+/**
+ * PAGES : MENU BLOG
+ */
+.menu_left.menu_blog
+	border 0
+	border-radius 0
+	margin-bottom 10px
+	ul
+		text-align center
+		background #0188BE
+		li
+			display inline-block
+			a
+				color #FFCC00
+				padding 4px 3px
+				display inline-block
+				letter-spacing -0.3px
+				font-size 1em
+			&:hover	
+			&.selected
+				a
+					color white		
+
+
+/**
+ * PROYECTOS
+ */
+
+/**
+ * rows
+ */
+.row_skyblue
+	background #5ab4e6	
+
+
+
+/**
+ * HOME : proyectos_ejecucion
+ */
+.proyectos_ejecucion
+	.inner
+		ul
+			li
+				padding 10px 38px 0
+				width 100%
+				.foto
+					margin-bottom 10px
+					display block
+					text-align center
+				.pretitulo
+					font-weight bold
+					margin-bottom 3px
+		a
+			color white		
+	.arrow	
+		position absolute
+		top 22%
+		color white
+		font-size 2.5em
+		&:prev
+		&:next
+			&:hover
+				color #9bd7ff	
+		&.prev
+			left 0px
+			&:before
+				content "\e651"
+		&.next
+			right 0px	
+			&:after
+				content "\e654"	
+				
+
+.proyectos_realizados
+	.tabs
+		ul
+			text-align left
+			li
+				margin 0 2px 0 0
+				display inline-block
+				a
+					background #5E5B58
+					padding 3px 13px
+					color white
+					font-size 0.9em
+					text-transform uppercase
+					display block
+				&.active
+					a	
+						background transparent
+						color white
+						text-decoration underline
+	section		
+		height 220px
+		.inner
+			height auto
+			.listado_items
+				.listado_item
+					padding 10px 38px 0
+					.sub_item
+						display inline-block
+						width 33%
+						padding 0 2%
+	.arrow	
+		position absolute
+		top 22%
+		color white
+		font-size 2.5em
+		&:prev
+		&:next
+			&:hover
+				color #9bd7ff	
+		&.prev
+			left 0px
+			&:before
+				content "\e651"
+		&.next
+			right 0px	
+			&:after
+				content "\e654"							
+
+
+
+
+.proyectos_detalle
+	background #2e63af
+	overflow hidden
+	height auto
+	.header
+		text-align left
+	.tabs
+		ul
+			text-align left
+			li
+				margin 0 2px 0 0
+				display inline-block
+				a
+					background #5e5b58
+					padding 3px 13px
+					color white
+					font-size 0.9em
+					text-transform uppercase
+					display block
+				&.active
+					a	
+						background #2e63af
+						color white
+						text-decoration underline
+	section		
+		background #2e63af
+		height auto
+		.inner
+			background #2e63af
+			height auto
+			min-height 270px
+			padding 20px
+			.listado_items
+				.listado_item
+					width 100%
+					padding 10px 38px
+					.sub_item
+						display inline-block
+						width 33%
+						padding 10px 2%
+	.arrow	
+		position absolute
+		top 36%
+		color white
+		font-size 2.5em
+		&:prev
+		&:next
+			&:hover
+				color #9bd7ff	
+		&.prev
+			left 0px
+			&:before
+				content "\e651"
+		&.next
+			right 0px	
+			&:after
+				content "\e654"	
+				
+
+
+/**
+ * temporal
+ */
+.tab_is_empresa_items
+	.download
+		display none
+
+
+
+
+

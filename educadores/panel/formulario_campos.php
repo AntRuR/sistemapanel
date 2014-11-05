@@ -8,17 +8,23 @@ prin($_COOKIE);
 prin($_SERVER);
 */
 
-//prin($tbcampos);
+// if($_GET['view']==1){
+// 	foreach($tbcampos as $uu=>&$tbcampA){
+// 		$tbcampA['frozen']=1;
+// 	}
+// }
 
 echo '<div id="group_general" class="groups">';
 
 foreach($tbcampos as $uu=>$tbcampA){
+
 	if($tbcampA['load']!=''){
 		$uno=explode("|",$tbcampA['load']); $Loads[]=$uno[0];
 	}
 	if($EdicionPanel){
 		$tbcampos[$uu]['constante']=0;
 	}
+
 }
 
 $INPS=array();
@@ -98,6 +104,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 				}
 
 				if($mostrarli){ 
+
 					?>
 	<li style="<?php echo $tbcampA['listyle']?>" id="id_in_<?php echo $tbcampA['campo']?>" class="linea_form <?php echo $Derecha; ?>"><?php
 
@@ -155,7 +162,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 							echo '<span id="in_'.$tbcampA['campo'].'_span" >';
 							echo ($value!='')?$value:"&nbsp;";
 							echo '</span>';
-							break;
+						break;
 					}
 					echo "</div>";
 
@@ -167,18 +174,18 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
                 switch($tbcampA['tipo']){
 
                 	case "id":
-                		?><input disabled type="text"
-		id="in_<?php echo $tbcampA['campo']?>" class="form_input"
-		style="width: 50px;" />
-	<?php
-	break;
-case "img":	case "sto":
+                	?><input disabled type="text"
+						id="in_<?php echo $tbcampA['campo']?>" class="form_input"
+						style="width: 50px;" />
+					<?php
+					break;
+					case "img":	case "sto":
 
-	?><div style="float: left; height: auto;"
-			id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0">
-			<?php
-			?></div>
-		<?php
+					?><div style="float: left; height: auto;"
+					id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0">
+					<?php
+					?></div>
+					<?php
 
                     break;
                     case "inp":
@@ -245,9 +252,9 @@ case "img":	case "sto":
 
                             ?><div class='floatinput <?php
 							echo ($tbcampA['tipo']=='html')?" mooedit":"";
-							?>'><textarea <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
+							?>'><textarea class="ckeditor" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
                             ?>style=" <?php
-							echo ($tbcampA['tipo']=='html')?'background-color:#FFF; ':"";
+							echo ($tbcampA['tipo']=='html')?'background-color:#FFF; height:400px; ':"";
 							echo ($tbcampA['tipo']=='yot')?'width:300px;height:100px; ':"";
 							echo ($tbcampA['style']!='')?str_replace(",","; ",$tbcampA['style']).' ':'';
 							?>" autocomplete="off" rows="6"><?php
@@ -440,7 +447,7 @@ case "img":	case "sto":
 				if($mostrarli){
 				?></li>
 	<?php
-				}
+	}
 }
 echo '</div>';
 

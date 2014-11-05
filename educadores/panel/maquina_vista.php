@@ -174,7 +174,7 @@ ANÁLISIS
 	} else {
 		echo "<a href='maquina.php?check=ftp'>checkear conexión FTP y crear directorios de imagenes</a>";
 	}
-	echo " | <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?accion=creararchivostablaall'>CREAR TODO</a>";
+	echo " | <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?accion=creararchivostablaall'>CREAR TODAS LAS TABLAS</a>";
 
 ?>
 </div>
@@ -191,15 +191,15 @@ $(el).removeClass('painton');
 //if($_GET['me']==''){
 
 
-		$archivos2=array();
-		@mkdir("./$DIR_CUSTOM");
-		$directorio = dir("./$DIR_CUSTOM");
-		while($fichero=$directorio->read()) {
-			if($fichero!='.' and $fichero!='..'){
-			$archivos2[]=$fichero;
-			}
-		}
-		$directorio->close();
+		// $archivos2=array();
+		// @mkdir("./$DIR_CUSTOM");
+		// $directorio = dir("./$DIR_CUSTOM");
+		// while($fichero=$directorio->read()) {
+		// 	if($fichero!='.' and $fichero!='..'){
+		// 	$archivos2[]=$fichero;
+		// 	}
+		// }
+		// $directorio->close();
 
 
 		$tablas_creadas2=$tablas_creadas;
@@ -227,9 +227,7 @@ $(el).removeClass('painton');
 				<th>Propiedades</th>
 				<th>Objeto</th>
 				<th>Label<br>Menú</th>
-				<th>Archivo</th>
 				<th>Tabla</th>
-				<th>Ambos</th>
 				<th>Grupo</th>
 				<th>alias</th>
 				<th>Seccion</th>
@@ -265,10 +263,10 @@ foreach($objeto_tabla as $ot){
 			$archivo1=$ot['archivo'].".php";
 			$archivo2=$ot['archivo']."_vista.php";
 
-			$archivos_creados = (file_exists($DIR_CUSTOM.$archivo1))?true:false;
+			// $archivos_creados = (file_exists($DIR_CUSTOM.$archivo1))?true:false;
 
 			$tabla_creada	  = (in_array($ot['tabla'],$tablas_creadas))?true:false;
-			$ambos_creados = ($archivos_creados and $tabla_creada)?true:false;
+			$ambos_creados = ($tabla_creada)?true:false;
 
 			if($vars['GENERAL']['FILE_DEFAULT']=='maquina.php' and $ambos_creados and $ot['menu']=='1' and $primer_archivo==1){
 				$primer_archivo=0;
@@ -286,9 +284,9 @@ foreach($objeto_tabla as $ot){
 				$Color=color::rgb2hex(array($cR,$cG,$cB));
 				$BgColor=oppColour($Color);
 				if($rty%2==0){
-					$Cc=$Color;
-					$Color=$BgColor;
-					$BgColor=$Cc;
+					$Cc      =$Color;
+					$Color   =$BgColor;
+					$BgColor =$Cc;
 				}
 
 				$bordegrupo='bordegrupo';
@@ -332,7 +330,7 @@ foreach($objeto_tabla as $ot){
 			echo $ot['menu_label'];
 			echo '</td>';
 
-			echo '<td >' . ( ($archivos_creados)?"<span class='creado'><img src='img/ico_yes.gif'/></span> <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=borrararchivos&maquina=1'>del</a>&nbsp;<a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=recreararchivos&maquina=1'>redo</a>":"<span class='nocreado'><img src='img/ico_no.gif'/></span> <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=creararchivos&maquina=1' >crea</a>"). '</td>';
+			// echo '<td >' . ( ($archivos_creados)?"<span class='creado'><img src='img/ico_yes.gif'/></span> <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=borrararchivos&maquina=1'>del</a>&nbsp;<a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=recreararchivos&maquina=1'>redo</a>":"<span class='nocreado'><img src='img/ico_no.gif'/></span> <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=creararchivos&maquina=1' >crea</a>"). '</td>';
 
 			echo '<td>';
 
@@ -350,22 +348,22 @@ foreach($objeto_tabla as $ot){
 
 			}
 
-
 			echo '</td>';
-			echo '<td>';
 
-			if($ot['bloqueado']=='1'){
-				echo ( $tabla_creada and $archivos_creados )?'':'<a href="'.$SERVER['BASE'].$SERVER['ARCHIVO'].'?me='.$ot['me'].'&accion=creararchivostabla&maquina=1" style="color:#000;" >crear archivos y tablas</a>';
-			} else {
-				if ( $tabla_creada and $archivos_creados ){
-					echo '<a href="'.$SERVER['BASE'].$SERVER['ARCHIVO'].'?me='.$ot['me'].'&accion=borrararchivostabla&maquina=1" >del</a>';
-				}
-				if ( !$tabla_creada and !$archivos_creados ){
-					echo '<a href="'.$SERVER['BASE'].$SERVER['ARCHIVO'].'?me='.$ot['me'].'&accion=creararchivostabla&maquina=1" >crea</a>';
-				}
-			}
+			// echo '<td>';
 
-			echo '</td>';
+			// if($ot['bloqueado']=='1'){
+			// 	echo ( $tabla_creada and $archivos_creados )?'':'<a href="'.$SERVER['BASE'].$SERVER['ARCHIVO'].'?me='.$ot['me'].'&accion=creararchivostabla&maquina=1" style="color:#000;" >crear archivos y tablas</a>';
+			// } else {
+			// 	if ( $tabla_creada and $archivos_creados ){
+			// 		echo '<a href="'.$SERVER['BASE'].$SERVER['ARCHIVO'].'?me='.$ot['me'].'&accion=borrararchivostabla&maquina=1" >del</a>';
+			// 	}
+			// 	if ( !$tabla_creada and !$archivos_creados ){
+			// 		echo '<a href="'.$SERVER['BASE'].$SERVER['ARCHIVO'].'?me='.$ot['me'].'&accion=creararchivostabla&maquina=1" >crea</a>';
+			// 	}
+			// }
+
+			// echo '</td>';
 
 			echo '<td class="grup" style="border:#'.$BgColor.' 1px solid;color:#'.$BgColor.';background-color:#'.$Color.';"
 			ondblclick="edit2(\''.$ot['me'].'\',\'grupo\',this)" >';
@@ -429,25 +427,24 @@ foreach($objeto_tabla as $ot){
 			  echo "</td>";
 			  echo (in_array($ta,$tablas_multiopciones))?"<td style='text-align:left;' class='small'><b><a style='color:red;'>".strtoupper($ta)."</a></b></td>":"<td style='text-align:left;'>".$ta." <span style='color:red;'>(".  contar($ta,"where 1") . ")</span></td>";
 			  echo "<td></td>";
-			  echo "<td></td>";
 			  echo "<td><span class='creado'>creado</span> <a href='#' onclick='javascript:eliminar(\"".$ta."\",this,\"borrartabla\");return false;' >borrar</a></td>";
 			  echo "<td></td>";
 			  echo "</tr>";
 			}
 
-			foreach($archivos6 as $ar){
-			  echo "<tr>";
-			  echo "<td style='text-align:left;'>$row</td>"; $row++;
-			  echo "<td></td>";
-			  echo "<td></td>";
+			// foreach($archivos6 as $ar){
+			//   echo "<tr>";
+			//   echo "<td style='text-align:left;'>$row</td>"; $row++;
+			//   echo "<td></td>";
+			//   echo "<td></td>";
 
-			  echo "<td style='text-align:left;'>".$ar."</td>";
-			  echo "<td></td>";
-			  echo "<td><span class='creado'>creado</span> <a href='#' onclick='javascript:eliminar(\"".$ar."\",this,\"borrararchivo\");return false;' >borrar</a></td>";
-			  echo "<td></td>";
-			  echo "<td></td>";
-			  echo "</tr>";
-			}
+			//   echo "<td style='text-align:left;'>".$ar."</td>";
+			//   echo "<td></td>";
+			//   echo "<td><span class='creado'>creado</span> <a href='#' onclick='javascript:eliminar(\"".$ar."\",this,\"borrararchivo\");return false;' >borrar</a></td>";
+			//   echo "<td></td>";
+			//   echo "<td></td>";
+			//   echo "</tr>";
+			// }
 
 		}
 
@@ -766,16 +763,25 @@ echo "<br>";
 }
 
 if($_GET['accion']=='updatecode' ){
+
 	if($vars['INTERNO']['ID_PROYECTO']!=''){
 
 		if($vars['INTERNO']['ID_PROYECTO']=='0'){
+
 			$urll = $SERVER['BASE']."base/actualizar_panel.php?id=".$_GET['proy'];
+
 		} else {
+
 			$urll = str_replace($vars['INTERNO']['CARPETA_PROYECTO']."/","",$SERVER['BASE'])."base/actualizar_panel.php?id=".$vars['INTERNO']['ID_PROYECTO'];
+
 		}
+
 		echo file_get_contents($urll);
+		
 		if(!$_GET['reload']=='no'){
+
 			redireccionar_load_referer();
+
 		}
 	}
 }
@@ -2495,10 +2501,20 @@ if($_GET['accion']=='alllistado' ){
 		$dires==$carpeta."/panel/base2/procesos/" or
 		//substr($dires,0,strlen($carpeta)+13)==$carpeta."/panel/base2/" or
 		substr($dires,0,strlen($carpeta)+5)==$carpeta."/web/" or
+		substr($dires,0,strlen($carpeta)+4)==$carpeta."/js/" or
+		substr($dires,0,strlen($carpeta)+5)==$carpeta."/css/" or
+		substr($dires,0,strlen($carpeta)+5)==$carpeta."/img/" or
 		$dires==$carpeta."/"
 		)
 		//and
 		//(substr($dires,0,12)!="panel/base2")
+
+		and
+		(strpos($dires,"/stylus/")===false)
+		// and
+		// (strpos($dires,"visitor.txt")===false)
+		and
+		(strpos($dires,"/captcha/")===false)
 		and
 		(strpos($dires,"trash")===false)
 		and
@@ -2552,8 +2568,14 @@ if($_GET['accion']=='alllistado' ){
 		(substr($dires,0,13)!="panel/img/bgs")
 		and
 		(strpos($dires,"trash")===false)
+		// and
+		// (strpos($dires,".settings")===false)
 		and
-		(strpos($dires,".settings")===false)
+		(strpos($dires,"/stylus/")===false)
+		// and
+		// (strpos($dires,".map")===false)		
+		// and
+		// (strpos($dires,"visitor.txt")===false)				
 		and
 		(substr($dires,0,13)!='panel/startup')
 		and
@@ -2738,6 +2760,8 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 				,"README.md"
 				,".DS_Store"
 				,".project"
+				,"css.css.map"
+				,"visitor.txt"
 				,".buildpath"
 				)) and !is_dir($dire.$fichero) ){
 					$co2++;
@@ -2796,6 +2820,9 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 		,"Thumbs.db"
 		,".gitignore"
 		,".DS_Store"		
+		,"visitor.txt"		
+		,"css.css.map"
+		// ,".styl"		
 		,"README.md"
 		,".project"
 		,".buildpath"
@@ -3517,7 +3544,7 @@ foreach($objeto_tabla as $ME=>$ot){
 	$sqli= script_create_table($objeto_tabla[$ME]);
 	mysql_query($sqli,$link);
 
-
+/*
 	$f1=fopen($DIR_CUSTOM.$objeto_tabla[$ME]['archivo'].".php","w+");
 	$html="<?php
 chdir(\"../\");
@@ -3544,6 +3571,8 @@ include(\"lib/compresionFinal.php\");
 	fclose($f1);
 
 	@unlink($DIR_CUSTOM.$objeto_tabla[$_GET['me']]['archivo']."_vista.php");
+
+	*/
 
 	}
 

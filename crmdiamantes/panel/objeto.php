@@ -1,12 +1,20 @@
 <?php
 if(isset($_GET['ran']) and $_GET['ran']!=''){
+
 	//include("lib/compresionInicio.php");	/*para Content-Encoding*/
 	include("lib/includes.php");
 
-	if($_GET['OT']){
-	foreach($objeto_tabla as $oo=>$ot){
-	if($ot['tabla']==$_GET['OT']){ $_GET['OB']=$oo; continue; }
+
+	$file2OBJ=[];
+	$tabla2OBJ=[];
+	foreach($objeto_tabla as $mememe=>$ot){
+		$file2OBJ[$ot['archivo']]=$mememe;
+		$tabla2OBJ[$ot['tabla']]=$mememe;
 	}
+
+
+	if($_GET['OT']){
+		$_GET['OB']=$tabla2OBJ[$_GET['OT']];
 	}
 
 	$this_me=$_GET['OB'];

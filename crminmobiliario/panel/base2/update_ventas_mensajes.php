@@ -24,7 +24,7 @@ update(array('estado'=>''),"ventas_mensajes","where alerta_fecha='0000-00-00 00:
 <?php
 
 $res = mysql_query("select now()"); 
-echo "<div style='color:#fff;'>".mysql_result($res,0,0)."</div>";
+// echo "<div style='color:#fff;'>".mysql_result($res,0,0)."</div>";
 
 $ventas=select("id,user","ventas_items","where order by id desc limit 0,200");
 

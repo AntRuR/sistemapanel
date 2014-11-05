@@ -2,13 +2,13 @@
 
 function render_style(){
 
-	$style['table']    ='style="font-size: 10px !important; "';
-	$style['section']  ='style="font-size: 10px; font-weight: bold; padding: 5px 0; text-align: center;"';
+	$style['table']    ='style=""';
+	$style['section']  ='style=" font-weight: bold; padding: 5px 0; text-align: center;"';
 	$style['valor']    ='style="color: #000; padding: 3px 0 3px 5px; width: 170px;"';
 	$style['variable'] ='style="width: 90px;"';
 	$style['foto']     ='style="background-color: #AAA; display: inline-block; height: 162px; width: 310px;"';
 	$style['ficha']    ='style="top:0;"';
-	$style['head']    ='style="font-weight:bold;text-decoration:underline;font-size:10px;padding-bottom:10px;"';
+	$style['head']    ='style="font-weight:bold;text-decoration:underline;padding-bottom:10px;"';
 	$style['bold']    ='style="font-weight:bold;"';
 
 	$style['line5']=$style['line']	  ='<table width="98%" border="0" style="border:0;"><tr><td height="5"></td></tr></table>';
@@ -81,6 +81,8 @@ function render_caracteristicas_inmueble($linea){
 
 function render_caracteristicas_proyecto($linea){
 
+		// prin($linea['item']);
+
 		$style=render_style();
 
 		$html='';
@@ -90,7 +92,7 @@ function render_caracteristicas_proyecto($linea){
 		
 		$html.='<tr><td class="section"  '.$style['head'].'>CARACTERICTICAS DEL PROYECTO</td></tr>';
 
-		$html.="<tr><td>".$linea['item']['descripction5']."</td></tr>";
+		$html.="<tr><td>".$linea['item']['descripcion5']."</td></tr>";
 
 		$html.='</table>';
 
@@ -400,6 +402,7 @@ function extract_estacionamiento($id){
 
 
 function render_total($linea,$suma){
+
 
 	$style=render_style();
 

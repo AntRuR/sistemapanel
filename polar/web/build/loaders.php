@@ -44,7 +44,7 @@ $HEAD['INCLUDES']['css'][]='css/css.css';
  * WEB FONTS
  */
 // $HEAD['INCLUDES']['external_css'][]="http://fonts.googleapis.com/css?family=Cantarell";
-$HEAD['INCLUDES']['external_css'][]="http://fonts.googleapis.com/css?family=Titillium+Web";
+// $HEAD['INCLUDES']['external_css'][]="http://fonts.googleapis.com/css?family=Titillium+Web";
 
 /**
  * MODERNIZER

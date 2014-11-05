@@ -31,6 +31,8 @@ foreach($tbcampos as $tbcampA){
 			<?php }
 		break;
 		case "html":
+			?>var html_<?php echo $tbcampA['campo']?> = CKEDITOR.replace( '<?php echo $tbcampA['campo']?>' );<?php
+			/*
 			?>mooeditable_<?php echo $tbcampA['campo']?> = $('in_<?php echo $tbcampA['campo']?>').mooEditable({
 					actions: '<?php echo $MEactions;?>',
 					externalCSS: 'css/Editable.css',
@@ -72,7 +74,7 @@ foreach($tbcampos as $tbcampA){
 					}
 				};
 			mooeditable_<?php echo $tbcampA['campo']?>.toolbar.addItem('Mas_<?php echo $tbcampA['campo']?>');
-			<?php }
+			<?php } */
 		break;
 		case "hid":
 			if($tbcampA['directlink']!=''){

@@ -1,0 +1,6 @@
+<?php 
+
+/*OPCIONES-START*/
+/*OPCIONES-END*/
+
+?>

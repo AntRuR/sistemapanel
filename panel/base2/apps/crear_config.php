@@ -5,7 +5,7 @@ if($_GET['ajax']=='1'){
 	include("lib/global.php");
 	include("lib/conexion.php");
 	include("lib/mysql3.php");
-	include("lib/util.php");
+	include("lib/util2.php");
 	include("lib/webutil.php");
 	include("config/tablas.php");
 	include("lib/sesion.php");

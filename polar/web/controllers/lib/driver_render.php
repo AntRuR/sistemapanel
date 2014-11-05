@@ -10,6 +10,8 @@ $_GET=array_merge($_GET,$gets);
 if(isset($rename_controller[$_GET['tab']]))
 	$_GET['tab']=$rename_controller[$_GET['tab']];
 
+$_SERVER['QUERY_STRING']=http_build_query($_GET);
+
 // prin($_GET);
 
 // $EstructuraCero=$Estructura;

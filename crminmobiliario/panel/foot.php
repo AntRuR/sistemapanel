@@ -3,9 +3,9 @@ if($JAVASCRIPT_FRAMEWORK=="jquery"){
 ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
-<!-- <script src="js/plugins.js"></script>
- --><script src="js/vendor/bootstrap.min.js"></script>
-<script src="config/main.js"></script>
+<!-- <script src="js/plugins.js"></script>-->
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="config/main.js?r=99"></script>
 
 <?php } else { 
 
@@ -40,6 +40,7 @@ if($needs['img'] or 1){
 <script>
 var initMultiBox;
 function charge_multibox(MB){
+	// console.log('recargar charge_multibox:'+MB);
 	/*if(MB=='.mbb'){ alert(MB); }*/
 	$$(".ToolTips").empty();
 	$$(".ToolTips").dispose();

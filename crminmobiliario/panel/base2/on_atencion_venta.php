@@ -1,9 +1,39 @@
 <?php //á 
-$fila=fila("saldo_inmobiliaria,saldo_inmobiliaria_cuotas,saldo_ahorro,saldo_ahorro_cuotas,id_canal,id_cliente,id_item,pedido,forma_pago,pvlista,pvpromocion,porcentaje_cuota_inicial,cuota_inicial,saldo_financiar,separacion,id_banco,id_sectorista,id_usuario,id_jefe","ventas_items","where id=".$_GET['id']);
+
+// echo "</div><div style='text-align:left;'>";
+
+$fila=fila("
+	id,
+	saldo_inmobiliaria,
+	saldo_inmobiliaria_cuotas,
+	saldo_ahorro,
+	saldo_ahorro_cuotas,
+	id_canal,
+	id_cliente,
+	id_item,
+	pedido,
+	forma_pago,
+	pvlista,
+	pvpromocion,
+	porcentaje_cuota_inicial,
+	cuota_inicial,
+	saldo_financiar,
+	separacion,
+	id_banco,
+	id_sectorista,
+	id_usuario",
+	
+	"ventas_items",
+	
+	"where id=".$_GET['id'],
+
+	0);
+
 ?>
 <script>
 window.addEvent('domready',function(){
 
+	$('in_id_ventas_item').value           ='<?php echo $fila['id']; ?>';
 	$('in_id_cliente').value               ='<?php echo $fila['id_cliente']; ?>';
 	$('in_id_item').value                  ='<?php echo $fila['id_item']; ?>';
 	$('in_pedido').value                   ='<?php echo $fila['pedido']; ?>';
@@ -17,7 +47,6 @@ window.addEvent('domready',function(){
 	$('in_id_banco').value                 ='<?php echo $fila['id_banco']; ?>';
 	$('in_id_sectorista').value            ='<?php echo $fila['id_sectorista']; ?>';
 	$('in_id_usuario').value               ='<?php echo $fila['id_usuario']; ?>';
-	$('in_id_jefe').value                  ='<?php echo $fila['id_jefe']; ?>';
 	$('in_id_canal').value                 ='<?php echo $fila['id_canal']; ?>';
 
 	$('in_saldo_inmobiliaria').value         ='<?php echo $fila['saldo_inmobiliaria']; ?>';

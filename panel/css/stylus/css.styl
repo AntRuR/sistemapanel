@@ -1,12 +1,31 @@
+/*
+cd /Applications/MAMP/htdocs/sistemapanel/panel
+stylus -w -c -u nib -m css/stylus/css.styl -o css
+
+*/
+
+vendorx-prefixes = webkit o moz official
+
+@import nib
+
+// @import nib_fix
+
 @import fonts
-@import normalize
 
-color_1=#E1ECED // bg barra principal
-color_2=#CF6A27 // color secundario
-color_3=navy // color de links
-color_4=#333   // color de bg menú
-color_5=white // color de letra de menú
+// @import normalize
 
+color_0=#000 // color negro general
+color_1=rgba(#E1ECED,0.5) // bg barra principal
+
+// color_1=rgba(#5ab4e6,0.1) // bg barra principal
+
+color_2=#CF6A27 // color secundario // el naranja
+color_3=#136cb2 // color de links // el azul
+color_4=#283442   // color de bg menú
+color_5=white // #fea100 // color de letra de menú // el blanco
+color_6=#fefef5 // #fea100 // color amarillo de resaltado
+
+$verde=#89BC58;
 // color_3=navy
 // color_2=complement(color_3)
 // color_1=#eee
@@ -86,10 +105,12 @@ label
   padding-left:5px
 
 
-#inner_span_num2,
-.spa2n
-  color: color_2
-  font-weight: normal
+#inner_span_num
+  display inline-block
+  padding 7px 0
+  .spa2n
+    color color_2    
+    font-weight: normal
 
 .pestanias_izquieda 
   a
@@ -120,12 +141,10 @@ label
   color: #259CE0
 
 body
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,calibri
+  font-family: 'Roboto',"Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,calibri
   font-size: 12px
-  color: #333333
+  color: color_0
   width: 100%
-  margin-left: auto
-  margin-right: auto
   text-align: center
   background-color: #F9F9F9
   background-image: none !important
@@ -136,28 +155,33 @@ body
   margin-right: auto
   width: 100%
   max-width: MAX_WIDTH
-  width: auto
-  text-align: center
+  text-align: left
   position: relative
   margin-top: 0px
-  overflow: hidden
+  // overflow: hidden
   border-radius: 8px
-
-.contenido_principal
+  background white
   padding: 0px 0.5%
-  height: auto
-  min-height: 30px
-  position: relative
-  z-index: 1
-  text-align: left
-  clear: left
-  float: left
-  width: 99%
+  border-radius: 8px
+  display inline-block
+  box-sizing border-box
+
+
+
+// .contenido_principal
+//   padding: 0px 0.5%
+//   height: auto
+//   min-height: 30px
+//   position: relative
+//   z-index: 1
+//   text-align: left
+//   clear: left
+//   float: left
+//   width: 99%
 
 #inner
-  background-color: #FBFBFB
-  float: left
-  width: 100%
+  background-color inherit
+  display inline-block
 
 .esqi
   position: absolute
@@ -167,21 +191,17 @@ body
   display: block
   z-index: 10
 
-#div_contenedor
-  height: auto
-  margin-left: auto
-  margin-right: auto
-  text-align: left
-  float: left
-  position: relative
-  -moz-border-radius: 8px
-  -webkit-border-radius: 8px
-  -ms-border-radius: 8px
-  -khtml-border-radius: 8px
-  border-radius: 8px
-  background: #FFF
-  border: 0
-  width: 100%
+// #div_contenedor
+//   height: auto
+//   margin-left: auto
+//   margin-right: auto
+//   text-align: left
+//   float: left
+//   position: relative
+//   border-radius: 8px
+//   background: #FFF
+//   border: 0
+//   width: 100%
 
 form
   margin: 0px
@@ -214,26 +234,21 @@ a:hover
   padding: 4px 16px
   text-align: center
   text-transform: uppercase
-  background-color: #4B8CF7
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4B8CF7),color-stop(3.5, #222222) )
-  background-image: -moz-linear-gradient(center top, #4B8CF7 0%, #222222 350%)
+  background linear-gradient(top, #4B8CF7, #222)  
   color: #FFFFFF
   margin-right: 10px
 
 .bloque_titulo
-  margin-bottom: 0
+  margin-bottom: 10px
   min-height: 30px
   padding: 9px 5px 3px
   font-weight: bold
   height: auto
-  -moz-border-radius: 6px 6px 0 0
-  -webkit-border-radius: 6px 6px 0 0
-  -ms-border-radius: 6px 6px 0 0
-  -khtml-border-radius: 6px 6px 0 0
   border-radius: 6px 6px 0 0
-
-.bloque_titulo .titulo
-  font-size: 2.1em
+  border-width: 1px
+  background: color_1 !important
+  .titulo
+    font-size: 2.1em
 
 .bl
   padding-left: 0px !important
@@ -242,18 +257,15 @@ a:hover
   border-top: 0
   border-left: 1px solid #FFF
   border-right: 1px solid #FFF
-  color: #000000
   line-height: 122%
   clear: left
   float: none
   position: relative
   padding-bottom: 0px
   transition: all 0.5s linear
-  -webkit-transition: all 0.5s linear
+  width 100%
 
-li.modificador:hover
-  background-image: none
-  border: 1px solid #94C1C5
+
 
 li.modificador_linea:hover,
 li.modificador_grilla:hover
@@ -262,11 +274,10 @@ li.modificador_grilla:hover
 li.modificador:hover a.ie i
   color: #000 !important
   transition: all 0.5s linear
-  -webkit-transition: all 0.5s linear
 
 .bl .bld
   float: left
-  overflow: hidden
+  // overflow: hidden
   padding: 2px 0 3px
   border-left: 1px solid #F0F0F0
   margin: 0x
@@ -289,10 +300,39 @@ li.modificador:hover a.ie i
     a
       text-align: left
       float: left
-      text-decoration: none
       margin: 0px !important
     &:hover
       text-decoration: underline
+    .pt
+      height: auto
+      position: relative
+      float: left
+      overflow: visible
+      padding-right: 2px
+      display: none
+      padding-left: 1px
+    input[type=text]
+    input[type=password]
+    textarea
+      background color_6
+    input[type=text]
+    input[type=password]
+      box-sizing border-box
+      height 30px
+    select
+      text-align: left
+      clear: left
+      float: left
+      background: color_6
+    select.form_input_fecha:nth-child(1)      
+      margin-right: -23px
+      margin-left: -6px   
+    select.form_input_fecha:nth-child(2)      
+      margin-right: -23px
+      margin-left: 0   
+    select.form_input_fecha:nth-child(3)      
+      margin-right: -23px
+      margin-left: 0                  
   .pale
     float: left
     width: 1px
@@ -315,30 +355,10 @@ li.modificador:hover a.ie i
     white-space: normal
     font-size: 1.1em
     word-wrap: break-word
+    overflow hidden
+    height auto
 
-.bld 
-  .pt
-    height: auto
-    position: relative
-    float: left
-    overflow: visible
-    padding-right: 2px
-    display: none
-    padding-left: 1px
-  input[type=text],
-  input[type=password],
-  textarea
-    border: 1px solid #AAA
-    background: #FAFBD3
-    padding: 0 0px
-    border: 0
-  select
-    text-align: left
-    clear: left
-    float: left
-    background: #FAFBD3
-    margin-right: -13px
-    margin-left: -9px
+
 
 a
   .bl1
@@ -365,163 +385,211 @@ a
   line-height: 122%
   background-color: #FFF
   box-shadow: 0px 0px 10px #efefef inset
-  -webkit-box-shadow: 0px 0px 10px #efefef inset
-  -moz-box-shadow: 0px 0px 10px #efefef inset
   height: auto
   overflow: hidden
   position: relative
 
-.formulario .linea_form
-  margin-bottom: 0.5em
-  width: 98%
-  height: auto
-  overflow: hidden
-  clear: left
 
-.formulario #linea_crear
-  padding-top: 5px
 
-.formulario .linea_derecha
-  float: left
-  width: auto
-  clear: none
 
-.formulario .linea_derecha_espacio
-  float: left
-  width: auto
-  clear: none
-  margin-right: 20px
+/**
+ * FORMULARIO
+ */
 
-.formulario .linea_derecha label,
-.formulario .linea_derecha_espacio label
-  width: auto
-  margin-right: 10px
-
-.formulario .linea_derecha .form_input,
-.formulario .linea_derecha_espacio .form_input
-  width: auto
-
-.formulario .linea_derecha_inicio
-  float: left
-  width: auto
-
-.formulario .linea_derecha_50,
-.formulario .linea_derecha_100,
-.formulario .linea_derecha_150
-  float: left
-  width: auto
-  clear: none
-  margin-right: 20px
-
-.formulario .linea_derecha_50 label,
-.formulario .linea_derecha_100 label,
-.formulario .linea_derecha_150 label
-  margin-right: 10px
-
-.formulario .linea_derecha_50 label
-  width: 50px
-
-.formulario .linea_derecha_100 label
-  width: 100px
-
-.formulario .linea_derecha_150 label
-  width: 150px
-
-.formulario .linea_derecha_align,
-.formulario .linea_derecha_align_inicio,
-.formulario .linea_derecha_align_espacio
-  position: relative
-  padding-top: 20px
-  float: left
-  width: auto
-  clear: none
-  margin-right: 5px
-  overflow: visible
-
-.formulario .linea_derecha_align label,
-.formulario .linea_derecha_align_inicio label,
-.formulario .linea_derecha_align_espacio label
-  position: absolute
-  top: 0px
-  width: auto
-  height: auto
-  padding-left: 0px
-  font-size: 11px
-  white-space: nowrap
-
-.formulario .linea_derecha_align .form_input,
-.formulario .linea_derecha_align_inicio .form_input,
-.formulario .linea_derecha_align_espacio .form_input
-  margin-left: 0px
-
-.formulario .linea_derecha_align_inicio
-  padding-left: 118px
-  clear: left
-
-.formulario .linea_derecha_align_espacio
-  margin-right: 20px
-
-.formulario
+.formulario 
   height: auto
   display: block
-  padding: 20px 0 20px 3px
-
-.formulario .in_span
-  float: left
-  height: auto
-
-.formulario .in_span span
-  float: left
-  max-width: 600px
-  overflow: hidden
-  white-space: pre-wrap
-  height: auto
-  background: #F9F9F9
-
-.formulario .form_input
-  border: 1px solid #BDC7D8
-  color: #333
-  width: 175px
-
-.formulario textarea.form_input
-  min-width: 580px
-
-.formulario select.form_input
-  width: auto
-  min-height: 19px
-
-.formulario input.form_input
-  height: 20px
-
-.formulario textarea.form_input
-  height: 100px
-
-.formulario .form_input input,
-.formulario .form_input select
-  height: 18px
-
-.formulario .form_input input[type="radio"]
-  margin-right: 4px
-  margin-left: 4px
-
-.formulario select.form_input_fecha
-  width: 58px
-  margin-right: 0px
-  margin-top: 4px
-
-.formulario label
-  float: left
-  clear: left
-  width: 110px
-  padding-left: 20px
-  font-weight: bold
-  position: relative
-  font-style: italic
-  font-size: 1.1.1em
-  color: #666
-  letter-spacing: -0.1px
-  vertical-align: middle
-  font-family: PTN57F !important
+  padding: 20px 0 20px 3px  
+  margin-bottom 10px
+  #error_creacion
+    padding: 5px 0; 
+    font-size: 12px;
+    display inline-block
+    span
+      color color_2
+        b
+          color black
+  .upl
+    display inline-block
+    position relative
+    .elim
+      position absolute
+      right 7px
+      top -5px
+      &:before
+        content "\e681"
+        color red
+        font-family icomoon
+        font-size 7px
+  .enviar
+    float right
+    &:before
+      font-family 'icomoon'
+      content "\f0da"
+  .bootones
+    float left
+    margin-right 10px
+    max-height 400px
+    overflow auto
+    width 92px
+    li
+      margin-bottom 5px
+      a
+        text-align left
+        text-transform uppercase
+        width auto
+      & + textarea
+        display none    
+      &.insert  
+        font-weight bold
+        text-align center
+        font-family Helvetica
+        color #777
+        margin-top 34px
+        &:after
+          font-family 'icomoon'
+          content "\f0da"
+          font-size 16px
+          line-height 100%
+          vertical-align sub
+          margin-left 3px
+  .bootones + div       
+    float left
+  .floatinput
+    display inline-block    
+  .linea_form
+    margin-bottom: 0.5em
+    height: auto
+    overflow: hidden
+    clear: left
+    float none
+  #linea_crear
+    padding-top: 5px
+  .linea_derecha
+    float: left
+    width: auto
+    clear: none
+  .linea_derecha_espacio
+    float: left
+    width: auto
+    clear: none
+    margin-right: 20px
+  .linea_derecha label,
+  .linea_derecha_espacio label
+    width: auto
+    margin-right: 10px
+    .form_input
+      width: auto
+  .linea_derecha_inicio
+    float: left
+    width: auto
+  .linea_derecha_50,
+  .linea_derecha_100,
+  .linea_derecha_150
+    float: left
+    width: auto
+    clear: none
+    margin-right: 20px
+    label
+      margin-right: 10px
+  .linea_derecha_50 
+    label
+      width: 50px
+  .linea_derecha_100 
+    label
+      width: 100px
+  .linea_derecha_150 
+    label
+      width: 150px
+  .linea_derecha_align,
+  .linea_derecha_align_inicio,
+  .linea_derecha_align_espacio
+    position: relative
+    padding-top: 20px
+    float: left
+    width: auto
+    clear: none
+    margin-right: 5px
+    overflow: visible
+    label
+      position: absolute
+      top: 0px
+      width: auto
+      height: auto
+      padding-left: 0px
+      font-size: 11px
+      white-space: nowrap
+    .form_input
+      margin-left: 0px
+  .linea_derecha_align_inicio
+    padding-left: 118px
+    clear: left
+  .linea_derecha_align_espacio
+    margin-right: 20px
+  .in_span
+    float: left
+    height: auto
+    span
+      float: left
+      max-width: 600px
+      overflow: hidden
+      white-space: pre-wrap
+      height: auto
+      background: #F9F9F9
+      font-size 1.2em
+  .form_input
+    border: 1px solid #BDC7D8
+    color: #333
+    width: 175px
+  textarea.form_input
+    min-width: 580px
+  select.form_input
+    width: auto
+    min-height: 19px
+  input.form_input
+    height: 20px
+  textarea.form_input
+    height: 100px
+  .form_input 
+    input,
+    select
+      height: 18px
+    input[type="radio"]
+      margin-right: 4px
+      margin-left: 4px
+  select.form_input_fecha
+    width: auto
+    margin-right: 0px
+  label
+    clear: left
+    display inline-block
+    width: 110px
+    padding-left: 20px
+    // font-weight: bold
+    position: relative
+    font-size: 1em
+    color: color_2
+    // letter-spacing -0.06em
+    vertical-align top
+    overflow hidden
+    text-transform uppercase
+    &.vali:after
+      content '*'
+      color black
+      top 1px
+      right 0px
+      position relative
+  .obj
+    display inline-block
+    margin-left 30px
+    margin-bottom 10px
+    li
+      font-size: 1.1em
+      font-weight: normal
+      border: 1px solid #bdc7d8
+      margin-top: -1px
+      padding: 6px 30px
+    // font-family: PTN57F !important
 
 a.edot
   color: #F00 !important
@@ -594,8 +662,6 @@ a.ie i
   z-index: 2
   width: 150px
   text-align: center
-  font-family: Tahoma
-  margin-top: -26px
 
 .refreshing2
   position: absolute
@@ -609,19 +675,17 @@ a.ie i
   width: 150px
   text-align: center
   right: 0px
-  top: -23px
 
 ul.ul_menus_empty
   font-family: 'icomoon'
   color: #666 !important
   box-shadow: none !important
-
-ul.ul_menus_empty:before
-  content: "\f06a"
-  font-size: 10em
-  position: absolute
-  top: 112px
-  left: 31%
+  &:before
+    content: "\f06a"
+    font-size: 10em
+    position: absolute
+    top: 112px
+    left: 31%
 
 ul.ul_menus_empty_no:before
   content: "\e618"
@@ -629,112 +693,88 @@ ul.ul_menus_empty_no:before
 ul.ul_menus_empty_si:before
   content: "\e602"
 
-/*menu*/
-ul
-  &.ul_menus
-    margin: 0px 0 10px 0
-    clear: left
-    position: relative
-    list-style: none
-    padding: 0px
-    min-height: 10px
-    height: auto !important
-    width: MENU_WIDTH
-    float: left
-    transition: all 0.5s linear
-    -webkit-transition: all 0.5s linear
-    box-shadow: 1px 1px 5px #eee
-    li
-      margin: 0
-      float: left
-      height: auto
-      padding: 0
-      position: relative
-      border: 0px
-      &.selected
-        background-color: color_1
-        color: #000        
-      a
-        font-weight: normal
-        span.numero
-          font-size: 0.7em
-          font-weight: normal
-          float: right
-          margin: 2px 4px 0 0
-          color: color_2          
-      &.padre,
-      &.padre:hover
-        border-bottom: 1px solid #FFF
-        padding-bottom: 0
-        background: color_4
-        a
-          text-transform: uppercase
-          color: color_5
-      &.seccion,    
-      &.seccion:hover
-        background: none !important
-        border-bottom: 1px solid white
-        b
-          color: color_2
-          display: block
-          float: left
-          font-size: 1.2em
-          font-variant: small-caps
-          margin-top: 5px
-          padding-left: 0
-          margin-left: 8px
-      &:hover
-        background-color: color_1
-        a
-          text-decoration: underline
-          i
-            text-decoration: none
-    a
-      text-decoration: none
-      display: block
-      text-align: left
-    .opcl
-      clear: left
-    .open
-      display: block
-      float: left
-      height: auto
-      padding-bottom: 15px
-      width: 100%
+
+
+/**
+ * menu izquierda
+ */
+.ul_menus
+  margin: 0px 0 10px 0
+  clear: left
+  position: relative
+  list-style: none
+  padding: 0px
+  min-height: 10px
+  height: auto !important
+  width: MENU_WIDTH
+  float: left
+  transition all 1s ease-out
+  box-shadow 1px 1px 5px #eee
+  li.group
+    clear left
+    a.padre
+      border-bottom: 1px solid #FFF
+      padding: 6px 0px 6px 7px
+      background: color_4
+      text-transform: uppercase
+      color: color_5    
+      display block
+    .mcontent
+      overflow hidden
+      ul
+        margin-top -500%
+        margin-bottom -500%
+        transition all 1s ease-out
+        li
+          width: 100%
+          clear left
+          border-bottom: 1px dotted #DDDDDD
+          overflow hidden
+          a
+            display: block
+            text-align: left     
+            padding: 0.6em 5px 0.6em 8px
+            font-size: 1.1em
+            font-weight normal
+            line-height 1.3em             
+            span.number
+              font-size: 0.7em
+              font-weight: normal
+              float: right
+              margin: 2px 4px 0 0
+              color: color_2        
+          &:hover 
+            background-color: color_1  
+          &.selected
+            background-color: color_1
+            color: #000          
+        li.seccion,    
+        li.seccion:hover
+          background: none !important
+          border-bottom: 1px solid white
+          b
+            color: color_2
+            font-size: 1.2em
+            font-variant: small-caps
+            margin-top: 5px
+            padding-left: 0
+            margin-left: 8px
+    &.selected
+      .mcontent
+        ul
+          margin-top 0
+          margin-bottom 0
+          transition all 1s ease-out
+
+
+/**
+ * menu superior
+ */
 
 
 
-#menumenu
-  width: 100%
-  clear: none
-  z-index: 401 !important
-
-
-
-.ul_menus 
-  li 
-    div.submenu
-      position: absolute
-      height: auto
-      width: 100%
-      background-color: #FFF
-      border-top: 1px solid #999
-      border-left: 1px solid #999
-      border-right: 1px solid #000
-      border-bottom: 1px solid #000
-      display: none
-      z-index: 2
-    &:hover 
-      div.submenu
-        display: block
-    div.submenu 
-      a
-        color: #000000
-        display: block
-        padding-left: 5px
-        text-align: left
 .menus
-  margin: 0px 0 0
+  margin: 0px 0 -22px
   height: auto
   float: right
   clear: left
@@ -744,20 +784,25 @@ ul
   strong,
   a,
   li
-    margin: 0
     text-decoration: none
     float: right
     height: auto
-    padding: 0px 5px
+    padding: 0px
     position: relative
     border: 0px
   strong
     padding: 1px 6px
     text-transform: uppercase
+  li
+    margin: 0    
   a
+    line-height: 20px
+    vertical-align: middle    
+    margin: 0 5px
     &:hover
       text-decoration: underline
       background-color: color_1
+      background: inherit      
     .selected  
       background-color: color_1
       color: #000       
@@ -771,23 +816,17 @@ ul
 
 
 a.link_header
-  font-weight: bold
-  font-size: 18px
-  font-family: 'caviar_dreamsregular',"Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow","lucida grande"
-  float: left
-  margin-left: 1px
+  display inline-block
+  //font-family: 'caviar_dreamsregular',"Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow","lucida grande"
   opacity: 1
-  margin-top: 4px
-  float: none
-  display: block
   letter-spacing: 0px
-  padding: 0px 6px
   font-weight: bold
-  text-shadow: 0 1px 0 #fff
-  text-shadow: 0 0 0 transparent, 0 1px 0 #fff
+  // text-shadow: 2px 1px 2px rgba(0,0,0,0.2)
+  // text-shadow: 0 0 0 transparent, 0 1px 0 #fff
   padding: 0 0
-  font-size: 2em
+  font-size: 1.6em
   font-weight: bold
+  color #666
 
 .tbl
   font-size: 8px
@@ -856,13 +895,14 @@ a.ico_clip
 .segunda_barra
   border-top: 1px solid #FFF
   font-size: 1.1em
-  padding: 5px 0 4px 7px
-  text-align: right
+  padding: 0px 0 5px 2px
+  text-align: left
   min-height: 8px
   height: auto
   clear: none
-  display: inline-block
-  width: 99%
+  // display: inline-block
+  // width: 100%
+  box-sizing border-box
 
 .foot
   padding: 5px 13px
@@ -1122,73 +1162,66 @@ a.objetos
 
 
 
-.tbl td b span
-  font-weight: normal
-  color: #F83F07
+.tbl 
+  td b span
+    font-weight: normal
+    color: #F83F07
+  th
+    background-color: #F2F2F2
+    border-right: 1px solid #333333
+    border-top: 0 none
+    color: #040404
+    font-size: 10px
+    font-weight: normal
+    line-height: 90%
+    padding: 1px 2px
+    text-align: center
+    text-transform: uppercase
+  td    
+    a.letra
+      float: left
+      font-weight: weight
+      height: auto
+      margin-left: 0px
+      margin-right: 0px
+      margin-top: 1px
+      overflow: hidden
+      text-decoration: none
+      width: auto
+      text-transform: uppercase
+      line-height: 12px
+      padding: 0 0px
+      outline: 1px solid #FFF
+    a img
+      height: 12px
+      margin: 0 0 -3px
+    a.onon
+      background: #CCF7C5
+      color: #0D0000
+    a.offoff
+      background: #F8927D
+      color: black
+    span.creado,
+    a.creado
+      color: #009900
+    span.nocreado
+      color: #990000
+  .grup
+    opacity: 1 !important
+  tr.disabled td.big b a
+    color: #666
+    font-size: 10px
 
-.tbl th
-  background-color: #F2F2F2
-  border-right: 1px solid #333333
-  border-top: 0 none
-  color: #040404
-  font-size: 10px
-  font-weight: normal
-  line-height: 90%
-  padding: 1px 2px
-  text-align: center
-  text-transform: uppercase
+  tr.disabled td
+    opacity: 0.3
 
-.tbl td a.letra
-  float: left
-  font-weight: weight
-  height: auto
-  margin-left: 0px
-  margin-right: 0px
-  margin-top: 1px
-  overflow: hidden
-  text-decoration: none
-  width: auto
-  text-transform: uppercase
-  line-height: 12px
-  padding: 0 0px
-  outline: 1px solid #FFF
+  tr.painton td
+    opacity: 1
+    border-top: 1px solid #000
+    border-bottom: 1px solid #000
 
-.tbl td a img
-  height: 12px
-  margin: 0 0 -3px
-
-.tbl td a.onon
-  background: #CCF7C5
-  color: #0D0000
-
-.tbl td a.offoff
-  background: #F8927D
-  color: black
-
-.tbl .grup
-  opacity: 1 !important
-
-.tbl td span.creado,
-.tbl td a.creado
-  color: #009900
-
-.tbl td span.nocreado
-  color: #990000
-
-.tbl tr.disabled td.big b a
-  color: #666
-  font-size: 10px
-
-.tbl tr.disabled td
-  opacity: 0.3
-
-.tbl tr.painton td
-  opacity: 1
-  border-top: 1px solid #000
-  border-bottom: 1px solid #000
-
-.tbl tr.disabled td.big
-  opacity: 1
+  tr.disabled td.big
+    opacity: 1
 
 
 
@@ -1197,9 +1230,9 @@ div.loading2
   clear: both
   text-align: center
   font-weight: bold
-  background-color: #09C
-  padding: 1% 0
-  font-size: 2em
+  background-color: rgba(#09C,0.5)
+  padding: 4em 0
+  font-size: 3em
 
 .segunda_linea
   font-size: 11px
@@ -1247,9 +1280,8 @@ a.expanlink
   height: 7px
   background: transparent url(../img/ico_expan.png) no-repeat top right
   display: block
-
-a.expanlink:hover
-  background: transparent url(../img/ico_colap.png) no-repeat top right
+  &:hover
+    background: transparent url(../img/ico_colap.png) no-repeat top right
 
 a.colaplink
   position: absolute
@@ -1259,14 +1291,13 @@ a.colaplink
   height: 7px
   background: transparent url(../img/ico_colap.png) no-repeat top right
   display: block
-
-a.colaplink:hover
-  background: transparent url(../img/ico_expan.png) no-repeat top right
+  &:hover
+    background: transparent url(../img/ico_expan.png) no-repeat top right
 
 
 .modificador_grilla a.first_linea_exl,
 .modificador_grilla .first_linea_exl
-  top: 53px !important
+  top: 41px !important
 
 
 
@@ -1314,6 +1345,8 @@ li.bl:hover .oc a
   overflow: hidden
   clear: left
   font-style: 12px
+  input
+    width 100px
 
 .bl .lc
   height: auto
@@ -1333,6 +1366,8 @@ li.bl:hover .oc a
   position: relative
   float: right
   margin-top: 6px
+  margin-left -30px
+  padding-left 0px !important
 
 .bl .lc
   padding-left: 3px
@@ -1368,9 +1403,9 @@ li.bl:hover .oc a
   padding-top: 3px
 
 .bl:hover
-  margin-left: -80px
+  // margin-left: -80px
   visibility: visible
-  padding-left: 80px !important
+  // padding-left: 80px !important
 
 .modificador_linea
   clear: left
@@ -1388,40 +1423,50 @@ li.bl:hover .oc a
     display: block
 
 .modificador 
-  padding: 0px 0 0px 0
-  border: 1px solid #eee
+  padding: 0px 0 30px 0
   border-bottom: 1px solid #ddd
-  -moz-border-radius: 6px 0px 0px 6px
-  -webkit-border-radius: 6px 0px 0px 6px
-  -ms-border-radius: 6px 0px 0px 6px
-  -khtml-border-radius: 6px 0px 0px 6px
-  border-radius: 6px 0px 0px 6px
-  margin-bottom: 10px  
+  border-radius: 6px
+  box-shadow 0 1px 2px rgba(0,0,0,0.4)
+  border 1px solid #f6f6f5;
+  min-height 116px
+  margin-bottom 20px
+  // -webkit-linear-gradient(bottom,#e8e8e8 0,#f2f2f1 50%)
+  // background linear-gradient(bottom,rgba(#e8e8e8,0.1),rgba(#f2f2f1,0.1))
+  // &:hover
+  //   background-image: none
+  //   border: 1px solid #94C1C5  
   .bld
     clear: left
     margin-left: 0px
-    padding: 0px 0px
-    border-bottom: 1px solid #EEF0F7
+    border-bottom: 1px solid #eee
+    border-left 0
     min-height: 0px
-    padding-left: 1px
+    padding 3px 1px
+    input[type=text],
+    input[type=password],
+    textarea
+      border 1px solid #ccc
+    select.form_input_fecha
+      margin 0 !important     
+    .pt
+      width auto !important  
+  .bld:last-child
+    border-bottom 0
   .lchk
     background: none
-    margin-bottom: -17px
-    margin-left: -4px
+    margin-bottom: -30px
+    margin-left: 3px
     position: relative
     z-index: 10
   .lchk .nc
     display: none !important
-  .bld:hover
-    background-color: #F8F8F8
+  // .bld:hover
+  //   background-color: #F8F8F8
   .nd
     padding-left: 0px !important
   .bld .nc
-    padding-top: 2px
-    padding-bottom: 2px
-    line-height: 100%
     width: 120px
-    color: lighten(color_2,40%)
+    color: color_2
     text-transform: uppercase
     font-weight: bold
     font-size: 0.9em
@@ -1429,8 +1474,8 @@ li.bl:hover .oc a
     font-style: normal
     word-wrap: break-word
     padding-left: 6px
-  .bld:hover .nc
-    color: #000
+  // .bld:hover .nc
+  //   color: #000
   .bld .sp
     display: block
   .truc
@@ -1445,9 +1490,9 @@ li.bl:hover .oc a
 .modificador_grilla
   clear: left
   height: auto
-  padding-bottom: 12px
+  padding-bottom: 10px
   margin-bottom: 0px
-  padding-top: 12px
+  padding-top: 10px
   .nc
     position: absolute
     top: 0px
@@ -1457,10 +1502,17 @@ li.bl:hover .oc a
     height: 20px
     float: left
     padding-left: 0px
-    overflow: hidden
+    // overflow: hidden
   .bld
     border-left: 0
     border-left: 1px solid #DDD
+    .pt
+      overflow hidden
+      margin-top -5px      
+  .bld a.z
+    float none
+    text-align center
+    display block
   .mn
     background-color: inherit
     color: #333
@@ -1477,11 +1529,12 @@ li.bl:hover .oc a
     display inline-block
   .first_linea
     height: 60px !important    
+    margin-top -12px
     .bld
       padding-top: 37px
-      height: 20px
+      height: 34px
+      overflow hidden
     .nc
-      font-family: PTN77F,"Helvetica Neue",Helvetica,Arial,sans-serif
       position: absolute
       top: 0px
       left: 0px
@@ -1491,26 +1544,17 @@ li.bl:hover .oc a
       width: 100%
       z-index: 1
       font-style: normal
-      padding: 1px 0px 1px 1px
-      font-weight: normal
-      font-weight: bold
-      font-size: 1em
-      text-shadow: 0 0 0 transparent, 0 1px 0 #fff
-      padding: 4px 0
-      border: 1px solid #CCC
-      border-bottom-color: #aaa
-      background-image: -moz-linear-gradient(top, #fff 0, #EDEDED 100%)
-      background-image: -ms-linear-gradient(top, #fff 0, #EDEDED 100%)
-      background-image: -o-linear-gradient(top, #fff 0, #EDEDED 100%)
-      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(100%, #EDEDED) )
-      background-image: -webkit-linear-gradient(top, #fff 0, #EDEDED 100%)
-      background-image: linear-gradient(to bottom, #fff 0, #EDEDED 100%)
+      padding: 2px 0 6px
+      border: 1px solid #ccc
+      border-bottom-color: #eee
+      background linear-gradient(top, #EDEDED, white, #EDEDED)
       height: 16px
       overflow: hidden
       color: #666464
       text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75)
       word-break: break-all
       border-left-color: #fff
+      // letter-spacing: -1.6px;
       &:hover
         z-index: 2
     .suprimir
@@ -1521,7 +1565,7 @@ li.bl:hover .oc a
   .lc1.lc
     padding-top: 38px
     border-top: 1px solid #ccc
-    top: 12px
+    top: 0px
   .truc
     display: none
    .f_e
@@ -1534,6 +1578,11 @@ li.bl:hover .oc a
     padding-top: 41px
   .first_linea .hid2
     padding-top: 37px
+  .bd
+    height 20px     
+    font-size 1em 
+    white-space nowrap
+    text-overflow ellipsis
 
 
 .bl:nth-child(even)
@@ -1546,13 +1595,9 @@ li.bl:hover .oc a
   height: auto
   max-height: 150px
   overflow: auto
-  line-height: 95%
+  // line-height: 95%
   p
     margin: 0px 0
-
-.htmlenlista p,
-.htmlenlista table td
-  font-size: 0.8em !important
 
 
 .itms
@@ -1565,12 +1610,13 @@ li.bl:hover .oc a
   float: left
   .itm
     clear: left
-    background: #F6F6F6
+    background: rgba(#F6F6F6,0.3)
     padding-left: 10px
     float: left
     margin-bottom: 2px
     .itd
       // width: 100px
+      box-sizing border-box
       float: left
       color: #444
       word-wrap: break-word
@@ -1581,23 +1627,35 @@ li.bl:hover .oc a
       font-size: 1em
       text-overflow: ellipsis
       white-space: nowrap
+      min-height 20px
+      a
+        float none
+        display inline
+        &.z
+          display block
+          text-align center
       select
         word-wrap: normal
   .hitm
     background-image: none !important
-    background-color: #EEE !important
+    background-color: rgba(#EEE,0.7) !important
     .itd
-      color: #000 !important
+      color: #333 !important
       font-weight: bold
-      font-size: 0.85em !important
+      font-size: 1em !important
       overflow: hidden
       border-right: 1px solid #FFF
       line-height: 9px !important
       padding: 6px 0
+      font-family Helvetica
+      box-sizing border-box
+      text-transform lowercase !important
   .itmedit
     .formi
-      width: 99%
+      width: 100%
       border: 1px solid #BDC7D8
+      display block
+      box-sizing border-box
       // font-size: 10px
     textarea
       width: 100%
@@ -1605,11 +1663,10 @@ li.bl:hover .oc a
       font-size: 12px !important
   .tite
     border-bottom: 0
-    font-variant: small-caps
     font-weight: normal
     margin-bottom: 2px
     float: none
-    padding-top: 5px
+    // padding-top: 5px
 
 
 .itms 
@@ -1620,8 +1677,8 @@ li.bl:hover .oc a
     margin: 0 !important
     border-right: 1px solid #EDEFF4 !important
     font-size: 1em
-    &:hover
-      text-decoration: underline
+    // &:hover
+    //   text-decoration: underline
 
 
 .hid1
@@ -1634,14 +1691,16 @@ li.bl:hover .oc a
   max-width: 450px
 
 .modificador 
+  &.bl:nth-child(even)
+    background-color: #FFF
   .itms
-    margin-left: 3px
+    margin-left: 0px
     margin-right: 0px
     clear: none
     padding-left: 0px
     float: left
     margin-bottom: 20px
-    margin-top: 3px
+    // margin-top: 3px
     .itm
       padding-left: 1px
       float: left
@@ -1651,7 +1710,7 @@ li.bl:hover .oc a
       padding-top: 5px
       padding-bottom: 4px
       &:nth-child(even)
-        background: #EDEFF4
+        background: rgba(#EDEFF4,0.3)
   .hid0
     width: auto !important
     margin-top: 2px !important
@@ -1698,7 +1757,6 @@ li.bl:hover .oc a
     display: block
   .hid2
     display: none
-
 
 .modificador_linea 
   .lineal 
@@ -1752,11 +1810,12 @@ li.bl:hover .oc a
 .bld a.fmf,
 a.fmf
   font-weight: bold
-  font-size: 1.02em !important
+  font-size: 1em !important
   text-transform: uppercase
   letter-spacing: -0.03em
   color: color_3 !important
   text-decoration: underline
+  font-family Helvetica
 
 .bld a.fmf:hover,
 a.fmf:hover
@@ -1787,55 +1846,47 @@ a.fmf:hover
   /* width: auto !important; */
   height: auto
 
+
+
+.barbar2
+  height: auto
+  margin-bottom: 8px
+  margin-top: 7px
+  #buscar
+    margin-right: 5px
+.z
+  float: right    
+
 .blo_filtros
   float: left
   width: auto
   height: auto
   padding-left: 5px
-
-.barbar2
-  background: none
-  border-bottom: 0px solid #999999
-  float: left
-  height: auto
-  margin-bottom: 8px
-  width: 100%
-  margin-top: 7px
-
-.barbar2 #linea_buscador #buscar
-  margin-right: 5px
-
-.blo_filtros a
-  background-color: #EEE
-  border: 1px outset #FFF
-  border-top: 1px solid #BBB
-  border-bottom: 0
-  float: left
-  font-size: 12px
-  margin-left: 0px
-  margin-top: 3px
-  margin-bottom: -1px
-  padding: 1px 4px 1px
-  text-decoration: none
-  text-transform: capitalize
-  color: #000
-  -moz-border-radius: 5px 5px 0px 0px
-  -webkit-border-radius: 5px 5px 0px 0px
-  -ms-border-radius: 5px 5px 0px 0px
-  -khtml-border-radius: 5px 5px 0px 0px
-  border-radius: 5px 5px 0px 0px
-
-.blo_filtros a:hover,
-.blo_filtros a.selected
-  background-color: #FFF
-  border: 1px outset #999
-  border-top: 1px solid #999
-  border-bottom: 1px solid #FFF
-  color: #000
-
-.blo_filtros b
-  float: left
-  margin: 3px 0px 0px 1px
+  a
+    background-color: #EEE
+    border: 1px outset #FFF
+    border-top: 1px solid #BBB
+    border-bottom: 0
+    float: left
+    font-size: 12px
+    margin-left: 0px
+    margin-top: 3px
+    margin-bottom: -1px
+    padding: 1px 4px 1px
+    text-decoration: none
+    text-transform: capitalize
+    color: #000
+    border-radius: 5px 5px 0px 0px
+    &:hover,
+    &.selected
+      background-color: #FFF
+      border: 1px outset #999
+      border-top: 1px solid #999
+      border-bottom: 1px solid #FFF
+      color: #000
+  b
+    float: left
+    margin: 3px 0px 0px 1px
 
 .cd a
   text-decoration: none
@@ -1847,12 +1898,7 @@ a.fmf:hover
   text-decoration: none
   font-size: 1em
 
-li.editar_rapido
-  height: auto
-  background-color: #EDF7FF
 
-li.editar_rapido:hover
-  background-color: #EDF7FF !important
 
 .editar_rapido .cd
   visibility: hidden
@@ -1864,10 +1910,10 @@ li.editar_rapido:hover
   text-transform: capitalize
 
 .linea_hijo div
-  float: left
   height: auto
   width: 680px
   margin-top: 6px
+  display inline-block
 
 .linea_hijo div iframe
   width: 100%
@@ -1983,13 +2029,12 @@ a.linkpag
   -moz-box-shadow: 1px 3px 4px #999999
 
 .inner_span_tren
-  float: right
   text-align: right
+  float right
 
-.inner_span_tren .train
-  float: right
-  width: auto
-  height: auto
+// .inner_span_tren .train
+//   width: auto
+//   height: auto
 
 a.ico_Crear
   text-decoration: none
@@ -2014,9 +2059,9 @@ a.ico_Crear:hover
 .nohay
   text-align: center
   padding: 15% 0 !important
-  width: 100%
-  color: #666666
-  font-size: 16px
+  // color: color_2
+  font-size: 1.5em
+  background rgba(#F9F9F9,.5)
 
 .bloque_titulo .titulo,
 .bloque_titulo .titulo a
@@ -2024,11 +2069,11 @@ a.ico_Crear:hover
   font-weight: normal
   letter-spacing: 0px
   float: left
-  font-size: 2.3em
+  // font-size: 2.3em
 
 .bloque_titulo .titulo
-  color: #000000 !important
-  float: none
+  color: #000 !important
+  float: none !important
 
 .bloque_titulo a:hover
   text-decoration: underline
@@ -2259,65 +2304,20 @@ a.ico_CargarCombo
   height: 8px
   display: block
 
-.ul_menus li.hijomenu
-  width: 100% !important
-  margin-left: 0% !important
-  border-bottom: 1px dotted #DDDDDD
 
-#menumenu a
-  text-decoration: none
-  line-height: 20px
-  vertical-align: middle
 
-#menumenu a:hover
-  text-decoration: underline
-  background: inherit
 
 a.derech
-  background-color: #ccc !important
-  float: right
-  font-size: 11px
-  height: auto
-  padding: 0 4px
-  width: auto
-  z-index: 1
-  text-decoration: none
-  position: relative
+a.derech2
+  background #ccc !important
+  float right
+  font-size 1em !important
+  padding 1px 2px !important
+  margin-left 1px
+  margin-top -17px
 
-.ul_menus li.hijomenusel a.derech,
-.ul_menus a.derech
-  float: none
-  position: absolute
-  right: 14px
-  border-bottom: 1px dotted #DDDDDD
-  top: 25%
-  width: 8px
-  height: auto
-  background-color: #333 !important
-  color: #fff !important
-  z-index: 4
-  font-size: 10px
-  opacity: 0.2
 
-.ul_menus li.hijomenusel a.derech2,
-.ul_menus a.derech2
-  position: absolute
-  right: 1px
-  top: 25%
-  border-bottom: 1px dotted #DDDDDD
-  width: auto
-  height: auto
-  background-color: #333 !important
-  color: #fff !important
-  z-index: 4
-  font-size: 10px
-  opacity: 0.2
 
-.ul_menus li:hover a.derech
-  opacity: 1
-
-.ul_menus li:hover a.derech2
-  opacity: 1
 
 .barfiltro
   background-color: #FFC
@@ -2335,6 +2335,7 @@ a.derech
   padding: 6px 0 6px 19px
   text-align: left
   float: left
+  
 
 .lineax
   font-size: 1px
@@ -2349,7 +2350,6 @@ a.derech
 
 .floatinput
   position: relative
-  float: left
 
 .config_table
   font-size: 1em
@@ -2430,7 +2430,6 @@ div.loading
   float: none
   margin-left: MENU_WIDTH + MARGIN_MENU
   transition: all 0.5s linear
-  -webkit-transition: all 0.5s linear
 
 div.segunda_linea,
 div.loading
@@ -2455,15 +2454,7 @@ div.loading
   z-index: 1
   margin-left: -2px
 
-ul.ul_menus li
-  width: 100%
-  border-bottom: 1px dotted #DDDDDD
 
-ul.ul_menus li a
-  font-family: 'caviar_dreamsregular',"Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow", sans-serif
-  padding: 0.6em 5px 0.6em 8px
-  font-size: 1.1em
-  font-weight: bold
 
 .foot
   float: none
@@ -2490,18 +2481,15 @@ ul.ul_menus li a
   padding: 0 0 0 5px
 
 .logo_panel
-  float: left
-  clear: left
   border: 0
-  margin-bottom: 2px
-  margin-right: 10px
-
-.logo_panel img
-  opacity: 1
-  height: 30px
-
-.logo_panel:hover img
-  opacity: 1
+  margin 10px 10px 10px 0
+  display inline-block
+  img
+    opacity: 1
+    height: 30px
+    vertical-align bottom
+  &:hover img
+    opacity: 1
 
 #porpage
   border: 1px solid #8B8A8A
@@ -2564,7 +2552,7 @@ table.photos td img
   color: #C0C0C0
   float: right
   font-weight: normal
-  margin: 0px 2px 0 3px
+  margin: 1px 4px
   width: 15%
   padding-right: 20px
 
@@ -2572,7 +2560,7 @@ table.photos td img
   opacity: 0.2
 
 #ordenable
-  min-height: 50px
+  min-height 0px
 
 .boton_right
   float: right
@@ -2716,7 +2704,6 @@ li.menudown:hover ul.li_cabecera
   cursor: pointer
   color: red !important
   transition: all 1s linear
-  -webkit-transition: all 1s linear
 
 .mooeditable-ui-button-overlay .overlay-content
   padding: 1px !important
@@ -2780,39 +2767,48 @@ li.bl
   font-style: normal
 
 .filters
-  float: left
+  background #FCFCFC
+  float: none
+  // margin-top 7px
+  select
+    display inline-block
+    // margin: 0 -1px 5px 0px
+    border: 1px solid #ccc
+    font-size: 1em
+    text-align: justify
+    color: #999
+    max-width: 140px
+    option
+      font-weight: normal
+      background-color: #FFF
+      color: #000
+      &.empty
+        color: #999999
+      &.filyer
+        font-weight: bold   
+  .filfchspan
+    float none;
+    padding .3em .7em;
+    font-weight: bold;
+    text-transform: uppercase;
+    vertical-align: top;
+    display: inline-block;       
+  .byother
+    clear left
+    select
+      margin-left: 2px
+    // select:first-child
+      // margin-left: 0
+  .inuse1
+  .inuse2
+  .inuse3
+  .inuse      
+    color: #000 !important
+    font-weight: bold !important
+    border: 1px solid #333 !important
+  .inuse
+    background-color: color_6 !important  
 
-.filters select
-  float: left
-  margin: 0 -1px 5px 0px
-  border: 1px solid #ccc
-  font-size: 1em
-  text-align: justify
-  color: #999
-  max-width: 140px
-
-.filters .byother select
-  margin-left: 10px
-
-.filters .byother select:first-child
-  margin-left: 0
-
-.filters select option
-  font-weight: normal
-  background-color: #FFF
-  color: #000
-
-.filters select option.empty
-  color: #999999
-
-.filters select option.filyer
-  font-weight: bold
-
-.inuse
-  color: #000 !important
-  font-weight: bold !important
-  border: 1px solid #333 !important
-  background-color: #DCFCF9 !important
 
 ul.supra_menu
   border-bottom: 0px solid #333333
@@ -2832,20 +2828,7 @@ ul.supra_menu li
   padding: 0 0
   border: 1px solid #ccc
   border-bottom-color: #aaa
-  background-image: -moz-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: -ms-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: -o-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff),
-		color-stop(100%, #e0e0e0) )
-  background-image: -webkit-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: linear-gradient(to bottom, #fff 0, #e0e0e0 100%)
-  -moz-border-radius: 3px
-  -webkit-border-radius: 3px
-  border-radius: 3px
-  -moz-box-shadow: inset 0 0 1px #fff
-  -ms-box-shadow: inset 0 0 1px #fff
-  -o-box-shadow: inset 0 0 1px #fff
-  -webkit-box-shadow: inset 0 0 1px #fff
+  background linear-gradient(top, white, #e0e0e0)    
   box-shadow: inset 0 0 1px #fff
   border-radius: 8px 8px 0 0
   float: left
@@ -2871,20 +2854,8 @@ ul.supra_menu li:hover
   color: #fff
   background-color: #454545
   border-color: #333 #333 #000
-  text-shadow: 0 1px 0 rgba(0, 0, 0, .45)
-  text-shadow: 0 0 0 transparent, 0 1px 0 rgba(0, 0, 0, .45)
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45)
-  -ms-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45)
-  -o-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45)
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45)
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45)
-  background-image: -moz-linear-gradient(top, #474747 0, #2b2b2b 100%)
-  background-image: -ms-linear-gradient(top, #474747 0, #2b2b2b 100%)
-  background-image: -o-linear-gradient(top, #474747 0, #2b2b2b 100%)
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #474747),
-		color-stop(100%, #2b2b2b) )
-  background-image: -webkit-linear-gradient(top, #474747 0, #2b2b2b 100%)
-  background-image: linear-gradient(to bottom, #474747 0, #2b2b2b 100%)
+  background linear-gradient(top, #474747, #2b2b2b)
   color: #FFFFFF
   text-shadow: 0 0 0 transparent, 0 1px 0 rgba(0, 0, 0, 0.45)
 
@@ -2894,11 +2865,10 @@ ul.supra_menu li:hover a
 
 .ico_opcion
   float: left
-  padding: 0 3px
+  padding: 1px 3px
+  line-height 1.3em
+  text-transform capitalize
 
-.bloque_titulo
-  border-width: 1px 1px 1px !important
-  background: color_1 !important
 
 a.ico_Crear
   color: #FFFFFF !important
@@ -2944,6 +2914,7 @@ a.ico_Crear
 .ma-container li strong
   color: red
 
+/*
 .filfchspan
   float: left
   padding: 0px 5px 0 15px
@@ -2951,13 +2922,14 @@ a.ico_Crear
   text-transform: uppercase
   vertical-align: middle
   line-height: 30px
+*/  
 
 .cr_pl
   bottom: -17px
   clear: left
   position: absolute
   padding: 0 5px
-  right: 34px
+  right: 7px
   text-align: right
   background-color: #EDEFF4
   border-left: 1px solid #D2D9E7
@@ -2993,26 +2965,21 @@ a.ico_Crear
   height: 18px
 
 .fst
-  background: #FFF
-  float: left
-  width: 100%
-  li
-    border-bottom: 1px dotted #BBBBBB
-    clear: left
-    min-height: 20px
-    padding-top: 4px
-    text-transform: uppercase
-    float: left
-    label
-      float: left
-      width: 125px
-      b
-        color: #9A9A9A
-        font-style: italic
-        text-transform: lowercase
-    input
-      .rad
-        float: right
+  float left
+  width 100%
+  .nav
+    li
+      float left
+      min-height: 20px
+      input
+        .rad
+          float: right
+      a
+        background #FAF9F9
+        label
+          padding-left 0          
+      input:checked + a
+          background rgba(color_4,0.1)
 
 .m_user 
   strong
@@ -3031,6 +2998,7 @@ a.crearforeig
     content: "\e685"
     color: color_3
     margin: 0 0 0 4px
+    font-size 10px
 
 a.updateforeig
   background-image: url('../img/ico_editarcomplete.png')
@@ -3061,13 +3029,12 @@ div.prin pre
   float: left
 
 #html_reporte
-  float: left
+  float none
+  width auto !important
   .reporte
     min-width: 600px
     td,
     th
-      font-size: 1em
-      padding: 0 3px
       text-align: right
     th,
     tr.head 
@@ -3076,7 +3043,6 @@ div.prin pre
     td
       .nombre
         max-width: 300px
-        padding: 2px 10px
         text-align: left
         min-width: 240px
     a
@@ -3227,22 +3193,11 @@ div.prin pre
   color: #555
   font-weight: bold
   font-size: 9px
-  text-shadow: 0 1px 0 #fff
   text-shadow: 0 0 0 transparent, 0 1px 0 #fff
   padding: 0 0
   border: 1px solid #ccc
   border-bottom-color: #aaa
-  background-image: -moz-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: -ms-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: -o-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff),
-		color-stop(100%, #e0e0e0) )
-  background-image: -webkit-linear-gradient(top, #fff 0, #e0e0e0 100%)
-  background-image: linear-gradient(to bottom, #fff 0, #e0e0e0 100%)
-  -moz-box-shadow: inset 0 0 1px #fff
-  -ms-box-shadow: inset 0 0 1px #fff
-  -o-box-shadow: inset 0 0 1px #fff
-  -webkit-box-shadow: inset 0 0 1px #fff
+  background linear-gradient(top, white, #e0e0e0)
   box-shadow: inset 0 0 1px #fff
   height: 16px
   overflow: hidden
@@ -3265,55 +3220,67 @@ i
 
 
 
-body.quick #div_allcontent
-  min-width: 0
-
-body.quick .contenido_principal
-  background: none !important
-  box-shadow: none
-
 body.quick
   background: #FFF !important
+  font-size 12px
+  margin-top 5px
+  #div_allcontent
+    min-width: 0
+  .contenido_principal
+    background: none !important
+    box-shadow: none
+    border-radius: 0
+  .formulario
+    border: 0
+    padding: 0px 0 0px 0px
+    label
+      padding-top: 0px
+      padding-bottom: 0px
+      padding-left: 5px
+      font-weight: normal
+  .boton_right
+    display: none
+  .titulo_formulario
+    font-size: 1.4em
+    font-weight: bold
+    margin: 0
+    padding: 0 3px
+    text-transform: uppercase
 
-body.quick .contenido_principal
-  border-radius: 0
 
-body.quick .formulario
-  border: 0
-  padding: 0px 0 0px 0px
-
-body.quick .formulario label
-  padding-top: 0px
-  padding-bottom: 0px
-  padding-left: 5px
-  font-weight: normal
-
-body.quick .boton_right
-  display: none
-
-body.quick .titulo_formulario
-  font-size: 1.4em
-  font-weight: bold
-  margin: 0
-  padding: 0 3px
-  text-transform: uppercase
 
 .MultiBoxContainer
-  background: none repeat scroll 0 0 #FFFFFF !important
-  border: 5px solid #FFFFFF !important
-  border-radius: 10px 10px 10px 10px !important
-  box-shadow: 0 2px 7px #666 !important
+  background rgba(color_1,0.3) !important
   position: absolute !important
   text-align: left !important
   z-index: 103 !important
+  box-shadow 0 1px 2px rgba(0,0,0,0.6) !important
+  border-radius 12px !important
+  border 1px solid #f6f6f5 !important
+  // border: 5px solid #FFFFFF !important
+  // background linear-gradient(bottom, #E8e8e8, #F2F2F1) !important     
+
 
 .MultiBoxClose
   right: -5px !important
   top: -5px !important
+  background none !important
+  &:before
+    font-family: 'icomoon'    
+    content "\e681"
+    font-size 16px
+    left 0px
+    top 7px
+    color #666
+    position absolute
+    &:hover
+      color color_2
 
 .cvl
-  border: 1px solid #C18A3A !important
-  border-radius: 5px 5px 5px 5px
+  .formi
+    border: 1px solid #C18A3A !important
+    // border-radius: 5px 5px 5px 5px
+    // box-sizing content-box
 
 .alert-oblig
   color: red
@@ -3348,19 +3315,17 @@ a
 /*FIX*/
 .bl:hover
   margin-left: 0px
-  padding-left: 0px !important
+  // padding-left: 0px !important
 
 div.menu_colapsed ul.ul_menus
   margin-right: -100%
   transition: all 0.5s linear
-  -webkit-transition: all 0.5s linear
   opacity: 0
 
 div.menu_colapsed div.div_bloque_cuerpo
   margin-left: 0px
   background: #FFF
   transition: all 0.5s linear
-  -webkit-transition: all 0.5s linear
 
 .modulo_login	#msino
   display: none
@@ -3390,9 +3355,10 @@ i.z
   font-family: 'icomoon'
   color: #666 !important
   font-size: 1.3em
-  margin-right: 9px !important
+  margin-right: 5px !important
 
 .bld .z
+  float none
   font-size: 0.9em
 
 .itl:hover,
@@ -3414,6 +3380,7 @@ a.z:hover
 .ico_star_10,
 .i_e,
 .i_ec,
+.i_ev,
 .i_d,
 .i_x,
 .i_o,
@@ -3455,6 +3422,7 @@ a.z:hover
   overflow: hidden
   line-height: 100%
   background: #EEE !important
+  margin-top 3px !important
 
 .ico_Guardar,
 .ico_Cancelar
@@ -3467,9 +3435,13 @@ a.z:hover
 .i_ec:before
   content: "\e606"
 
+.i_ev:before
+  content: "\e601"
+  color:#5ab4e6
+  
 .i_e:before,
 .i_ec:before
-  color: #98A313
+  color: $verde
 
 .i_d:before
   content: "\e612"
@@ -3591,7 +3563,7 @@ a.z:hover
 
 .ico_Excel:before
   content: "\e69e"
-  /*color:#98A313;*/
+  /*color:$verde;*/
 
 .ico_yes:before
   content: "\e682"
@@ -3652,7 +3624,7 @@ a.z:hover
 .i_mm
   padding-left: 20px !important
   float: right
-  margin-top: 20px !important
+  margin-top: 17px !important
   display: none
   margin-left: 15px
   margin-bottom: 5px
@@ -3663,7 +3635,7 @@ a.z:hover
 .i_ff
   padding-left: 27px !important
   float: right
-  margin-top: 20px !important
+  margin-top: 17px !important
   display: none
   width: auto
   margin-bottom: 5px
@@ -3698,6 +3670,9 @@ a.z:hover
 .ico_search:before
   content: "\e63e"
   color: #ccc
+  position relative
+  top 5px
+  right 2px
 
 .ico_reportes:before
   content: "\e68d"
@@ -3709,8 +3684,7 @@ a.z:hover
 .ico_crea:before
   content: "\e60e"
 
-.barbar2 .z
-  float: right
+
 
 .ico_Arriba
   background: transparent url(../img/ico_arriba.gif) no-repeat scroll 0px	0px
@@ -3778,9 +3752,13 @@ i.zzz:before:hover
   content: "\e60e"
   color: #04C
 
+.i_form_create
+.i_form_edit
+  float none
+
 .i_form_edit:before
   content: "\e606"
-  color: #98A313
+  color: $verde
 
 .i_form_cancel:before
   content: "\e681"
@@ -3794,13 +3772,186 @@ i.zzz:before:hover
 .modificador .lc .z
   padding-bottom: 12px !important
 
+li.selectd 
+  &:hover
+  &:nth-child(even)  
+  &:nth-child(odd)  
+    background-color color_6 !important  
+
+
+.nav    
+  margin-bottom 0px;
+
+
+/**
+DETAILS
+**/
+.title_detail
+  text-transform uppercase
+  font-family Helvetica
+  font-weight bold
+  font-size 1.5em
+  margin 15px 0 5px 3px
+  color #999
+  
+.detail
+  .ldd
+    width auto
+    float left
+    padding-right 15px
+  .tite
+    font-variant initial    
+    a
+      font-family Helvetica
+      text-decoration underline
+      font-weight bold
+  .hid0
+  .hid1  
+    margin-top 5px !important
+    margin-bottom 5px !important
+  .itms
+    .hitm .itd
+      font-size 1em
+      line-height inherit  
+    .hid1
+      display block    
+    .hitm
+      a
+        display none   
+  .itms.padre 
+    .hitm
+      a
+        display inline
+  .itms_cont
+    width auto    
+    float left
+    overflow auto
+    clear left
+  .legend
+      padding: 10px 0 10px 4px;
+      clear: left;
+      background: #f8f8f8 !important;
+      width: 100%;
+      margin: 10px 0 !important;  
+      text-transform uppercase
+      border 0
+  a.ie
+    position relative
+    top 0
+    right 0
+    i
+      position relative
+      top 0
+      right 8px
+    &:hover
+      text-decoration none
+  .lec
+    width 100%
+    top 0
+    right 0 
+    position relative         
+  .lc
+    margin-left -34px !important  
+    // width 50%
+    right 0
+    top 0
+  .lid 
+    display none 
+  .bl
+    padding-left 20px !important
+    padding-left 10px !important
+    box-sizing border-box
+    min-height: 400px;
+    padding-bottom: 50px;    
+    // box-shadow 0 0 10px #efefef inset
+    .bld
+      padding-bottom 10px
+      &.ltxt
+        .nc
+        .bd
+          width 100% !important
+          max-width 100% !important          
+      .nc
+        padding-left 2px
+      .pt
+        min-width 200px  
+    .bld:hover
+      text-decoration none !important      
+    .bd
+      width: auto !important;
+      display: inline-block;
+      max-width: 80%;    
+      min-width 100px !important
+    .linea_derecha
+      float: left
+      width: auto
+      clear: none !important
+      .nc
+        width auto !important
+        padding-right 15px
+        padding-left 15px
+      .bd
+        min-width 100px
+    .linea_derecha_inicio
+      float: left
+      width: auto
+    .mn
+      font-size 1em  
+    .htmlenlista
+      max-height 100%    
+      p
+        margin 0.5em 0
+        line-height inherit
+        text-transform initial
+        // font-size 1.1em
+  .braz
+  .expanlink
+  .colaplink    
+    display none    
+  .itms_cont      
+    .itms
+      clear left !important    
+  // .lifmf
+  //   width 100% !important
+  //   .bl
+  //     width 100% !important
+  //   .nc
+  //     display none      
+      
+
+
+/**
+POPUP
+**/   
+.popup
+  .formulario
+    padding-top 10px
+  .bloque_content_crear
+    box-shadow none
+  
+
+li.editar_rapido
+li.editar_rapido:hover
+  background-color: #EDF7FF !important
+
+
+
+
+
+/***********************************************************
+ ********************** MEDIA QUERY ************************
+***********************************************************/
+
 @media (max-width: 800px)
   
+  .inner_span_tren
+    float none
+
   body
     font-size 14px
 
-  ul.ul_menus li a
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,calibri  
+  // ul.ul_menus li a
+  //   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,calibri  
 
   .modificador.bl .bd
     min-width: 0 !important
@@ -3810,11 +3961,11 @@ i.zzz:before:hover
     padding: 1px 5px 0 5px
 
   .modificador .braz,
-.modificador .itl,
-.modificador .itr,
-.modificador a .zz,
-.modificador a.z
-    font-size: 1.6em
+  .modificador .itl,
+  .modificador .itr,
+  .modificador a .zz,
+  .modificador a.z
+      font-size: 1.6em
 
   #msino
     display: none
@@ -3822,42 +3973,38 @@ i.zzz:before:hover
   #dfilters
     display: none
 
-  #menu_main
+  .ul_menus
     display: none
     width: 100%
     min-height: 0
-
-  #menu_main li a
-    font-size: 1em
-    padding-top: 10px
-    padding-bottom: 10px
-    line-height: 1em
-    letter-spacing: 0
-
-  #menu_main li.padre a
-    font-size: 1.1em
+    li a
+      font-size: 1em
+      padding-top: 10px
+      padding-bottom: 10px
+      line-height: 1em
+      letter-spacing: 0
+    li.padre a
+      font-size: 1.1em
 
   .div_bloque_cuerpo
     margin-left: 0px !important
     clear: both
     width: 100% !important
 
-  #menu_main li.hijomenusel,
-  #menu_main li.hijomenu
-    width: 100% !important
-    margin-left: 0 !important
-    overflow: hidden
-    border-bottom: 1px solid #000
-    font-size: 20px
-    padding: 0
-    /* background: #ccc; */
-    text-transform: uppercase
+  .ul_menus 
+    li.group
+      a.padre  
+        font-size: 1.6em !important      
+      .mcontent
+        ul
+          li
+            overflow: hidden
+            padding: 0
+            a
+              font-size: 1.3em
+              text-transform: uppercase
+              
 
-  #menu_main li:hover
-    text-decoration: none !important
-
-  #menu_main .numero
-    display: none
 
   .seccion
     width: auto !important
@@ -3870,18 +4017,18 @@ i.zzz:before:hover
     visibility: visible
     padding-left: 0px !important
 
-  .menus b,
-  .menus strong,
-  .menus a,
-  .menus li
-    font-size: 1em
-    margin-right: 0px
-    padding-right: 2px
-    padding-left: 2px
-    font-weight: normal
+  .menus 
+    b,
+    strong,
+    a,
+    li
+      font-size: 1em
+      margin-right: 0px
+      padding-right: 2px
+      padding-left: 2px
+      font-weight: normal
 
-  .ul_menus li.hijomenusel
-    border-radius: 0
+
 
   .foot
     padding-top: 1px
@@ -3897,9 +4044,9 @@ i.zzz:before:hover
     padding-left: 17px
     padding-right: 17px
 
-  .contenido_principal
-    padding-bottom: 0px
-    margin-bottom: 0px
+  // .contenido_principal
+  //   padding-bottom: 0px
+  //   margin-bottom: 0px
 
   #div_allcontent
     width: 100% !important
@@ -3913,31 +4060,30 @@ i.zzz:before:hover
 
   .bloque_titulo
     border-style: none !important
-    float: left
-    width: 98%
     margin-left: 0%
     margin-right: 0%
+    border-radius 0
 
-  .contenido_principal
-    border-color: #FFF !important
+  // .contenido_principal
+  //   border-color: #FFF !important
 
   .logo_panel img
     height: 30px !important
-    margin-top: 13px !important
 
   a.link_header
     font-size: 12px !important
     margin-top: 20px !important
     letter-spacing: -0.05em !important
-    color: #000 !important
+    color: #666 !important
 
-  .formulario textarea.form_input,
-  .formulario .linea_derecha .form_input,
-  .formulario .linea_derecha_espacio .form_input
-    max-width: 65%
-
-  .formulario label
-    padding-left: 2px
+  .monitor
+    .formulario 
+      textarea.form_input,
+      .linea_derecha .form_input,
+      .linea_derecha_espacio .form_input
+        max-width: 65%
+      label
+        padding-left: 2px
 
   .legend
     margin-left: 0 !important
@@ -3984,7 +4130,9 @@ i.zzz:before:hover
       background: none !important
       border: 1px #fff solid !important
     .bld
-      background-image: none
+      background-image none
+      margin-right -35px
+          
 
 
   a.z
@@ -4001,8 +4149,7 @@ i.zzz:before:hover
   // .itms .itm .itd
   //   font-size: 1.2em !important
 
-  ul.ul_menus li.padre
-    font-size: 1.3em !important
+
 
   body
     background-color: #FFF !important
@@ -4027,48 +4174,55 @@ i.zzz:before:hover
   ul.ul_menus_empty:before
     display: none
 
-  .formulario 
-    .linea_form
-      width 100%;    
-      clear left
-      label
-        width 90px
-        padding-left 12px
-        margin-right 0px
-        text-transform uppercase
-        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,calibri        
-        font-style normal
-    textarea
-      max-width 100% !important
-      width 90% !important
-      min-width 50% !important        
-    input[type=text].form_input,
-    select.form_input
-      // max-width 100% !important
-      width 84% !important
-      // min-width 50% !important  
-    select.form_input_fecha
-      width 58px !important; 
+  .monitor
+    .formulario 
+      .linea_form
+        width 100%;    
+        clear left
+        label
+          width 90px
+          padding-left 12px
+          margin-right 0px
+          text-transform uppercase
+          // font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"Arial Narrow",Helvetica,calibri        
+          font-style normal
+      textarea
+        max-width 100% !important
+        width 90% !important
+        min-width 50% !important        
+      input[type=password].form_input,
+      input[type=text].form_input,
+      select.form_input
+        // max-width 100% !important
+        width 84% !important
+        // min-width 50% !important  
+      select.form_input_fecha
+        width 58px !important; 
       
 
   .floatinput
     float none  
     clear left
-    margin-left 12px
 
   // .lc a:before
   //   font-size: 1.2em
 
-
+/***********************************************************
+ ********************** MEDIA QUERY ************************
+***********************************************************/
 
 @media (max-width: 600px)
 
-  .formulario       
-    input[type=text].form_input,
-    select.form_input
-      width 64% !important
-    select.form_input_fecha
-      width 58px !important     
+  .monitor
+    .formulario       
+      input[type=password].form_input,
+      input[type=text].form_input,
+      select.form_input
+        width 64% !important
+        box-sizing border-box
+        height 28px
+      select.form_input_fecha
+        width 58px !important     
 
 
 

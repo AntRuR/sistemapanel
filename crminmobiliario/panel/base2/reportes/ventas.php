@@ -202,10 +202,13 @@ foreach($projects as $iusu2=>$lin2)
 	$tipo='departamentos';
 	$row[$l][]=$unidades[$tipo]['4'];
 	$row[$l][]=$suma[$tipo]['4'];
+
 	$row[$l][]=$unidades[$tipo]['3'];
 	$row[$l][]=$suma[$tipo]['3'];
+
 	$row[$l][]=$unidades[$tipo]['2'];
 	$row[$l][]=$suma[$tipo]['2'];
+	
 	$row[$l][]=$unidades[$tipo]['1'];
 	$row[$l][]=$suma[$tipo]['1'];
 

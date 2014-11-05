@@ -112,7 +112,7 @@ if($_REQUEST['v_o']=='FEEDBACK'){
 
 			<div class="linea_form">
 				<label>&nbsp;</label> <span id="linea_crear"> <input
-					id="fee_in_submit" class="form_boton_1" value="Crear comentario"
+					id="fee_in_submit" class="btn  btn-primary" value="Crear comentario"
 					style="float: left;" onclick="feedback();" type="button">
 
 				</span>

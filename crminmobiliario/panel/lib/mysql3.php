@@ -93,7 +93,7 @@ function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
 							,($argumentos['wxh'])?procesar_llaves($fila2,$argumentos['wxh']):procesar_llaves($fila2,$argumentos['2'])
 							);
 							break;
-						case "sub_select": case "matriz": case "filas":
+						case "sub_select": case "matriz": case "filas": case "select":
 							$fila2[$dd]=select(
 							($argumentos['campos'])?$argumentos['campos']:$argumentos['0']
 							,($argumentos['tabla'])?$argumentos['tabla']:$argumentos['1']
@@ -372,6 +372,29 @@ function select_dato($campo,$tabla,$donde,$debug=0){
 		return false;
 	}
 }
+
+function getIdOrInsert($tabla,$where,$more_inserts=[]){
+
+	$where=[];
+	foreach($where as $var=>$val)
+		$where[]="$var='$val'";
+
+	$fila=select_fila("id",$tabla,"where ".implode(" and ",$where));
+
+	if($fila==false){
+
+		$insert=insert(array_merge($where,$more_inserts),$tabla);
+
+		return $insert['id'];
+
+	} else {
+
+		return $fila['id'];
+
+	}
+
+}
+
 function get_valores($key,$value,$tabla,$donde,$debug){
 	$matriz=select("$key,$value",$tabla,$donde,$debug);
 	$ret=array();
@@ -413,6 +436,7 @@ function update($campos_array,$tabla,$where,$debug=0){
 	global $link;
 	foreach($campos_array as $tt=>$ll){
 		switch(trim($ll)){
+			case "CASE": $ppp[]="$tt=CASE"; break;
 			case "NULL": $ppp[]="$tt=NULL"; break;
 			case "now()": $ppp[]="$tt='".date("Y-m-d H:i:s")."'"; break;
 			case "++": $ppp[]="$tt=$tt+1"; break;
@@ -440,6 +464,27 @@ function delete($tabla,$where,$debug=0){
 
 	global $link;
 	$consulta="delete from $tabla $where";
+	if($debug==1){
+		prin($consulta.";");
+	}
+	if(mysql_query($consulta,$link)){
+		$return =array('success'=>1);
+	}
+	else { $return =array('success'=>0,'error'=>mysql_error());
+	}
+	/*
+	 if($debug==1){
+	prin($consulta);
+	}
+	*/
+	return $return;
+
+}
+
+function truncate($tabla,$debug=0){
+
+	global $link;
+	$consulta="truncate table $tabla";
 	if($debug==1){
 		prin($consulta.";");
 	}
@@ -563,7 +608,7 @@ function fecha_formato($ff,$op=0){
 		case "5b": //23-09-2009
 			$fecha=date("Y-m-d",$unix);
 		case "5c": //23-09-2009
-			$fecha=date("d",$unix)." <span style='font-variant:small-caps;'>".$Array_Meses0[date("n",$unix)]."</span> ".date("y",$unix);
+			$fecha=date("d",$unix)." <span>".$Array_Meses0[date("n",$unix)]."</span> ".date("y",$unix);
 			break;
 		case "6": //23-09-09
 			$fecha=date("d-m-y",$unix);
@@ -922,16 +967,7 @@ function prin($array,$bg=NULL){
 	if($_SERVER['HTTP_X_REQUESTED_WITH']=='XMLHttpRequest' and 0){
 		echo print_r($array);
 	} else {
-		echo "<div style='background-color: #333333 !important;
-    border-radius: 3px 3px 3px 3px;
-    color: #FFFFFF !important;
-    float: left;
-    font-size: 9px;
-    margin-bottom: 1px;
-    padding: 2px 5px;
-    position: relative;
-    text-align: left;
-    z-index: 1;'><pre".( ($bg)?" style='background-color:".$bg." !important;color:#".oppColour($bg)." !important;'":"").">"; print_r($array); echo "</pre></div>";
+		echo "<div><pre".( ($bg)?" style='background-color:".$bg." !important;color:#".oppColour($bg)." !important;'":"").">"; print_r($array); echo "</pre></div>";
 	}
 
 }

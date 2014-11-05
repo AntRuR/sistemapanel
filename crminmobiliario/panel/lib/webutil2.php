@@ -2142,7 +2142,7 @@ function web_selector_control($SELECTED,$THIS,$tipos,$debug=0){
 	// }
 }
 
-function web_render_esquema($fila,$deep,$orientacion,$params=NULL,$just=NULL){
+function web_render_esquema($fila,$index,$deep,$orientacion,$params=NULL,$just=NULL){
 
 	global $_SESSION;
 	global $SERVER;
@@ -2155,12 +2155,27 @@ function web_render_esquema($fila,$deep,$orientacion,$params=NULL,$just=NULL){
 
 	if(!is_array($fila)){ 
 		
-		if( ( !is_null($just) and $just==$fila ) or ( is_null($just) )	)
+		if($MASTERCOFIG['DEVEL']){
+
+			if(!file_exists("../../../".$params['view'])) 
+				echo '<div class="alert alert-danger">no existe '.$params['view']."</div>";
+
+			if(!file_exists("../../../".$params['controller'])) 
+				echo '<div class="alert alert-danger">no existe '.$params['controller']."</div>";
+
+		}		
+
+		if( ( !is_null($just) and $just==$fila ) or ( is_null($just) )	){
+
 			view($fila,$params);
+
+		}
 
 	} else {
 
-		if(sizeof($fila)>1 and $deep>1 and $orientacion) echo '<div class="row">';
+		$anotherrowclass=(is_numeric($index))?'':' '.$index;
+
+		if(sizeof($fila)>1 and $deep>1 and $orientacion) echo '<div class="row'.$anotherrowclass.'">';
 
 		foreach($fila as $jj=>$columna){
 
@@ -2204,7 +2219,7 @@ function web_render_esquema($fila,$deep,$orientacion,$params=NULL,$just=NULL){
 			}
 
 
-			web_render_esquema($columna,$deep+1,!($orientacion), $params, $just);
+			web_render_esquema($columna,$jj,$deep+1,!($orientacion), $params, $just);
 
 			if(!empty($blockclass))	echo '</'.$div.'>';
 
@@ -2916,17 +2931,22 @@ function web_render_items($items,$esquema,$debug=0,$step=1){
 		$n=sizeof($items);
 
 		$i=0;
+
 		while($i<$n){
 
 			$html.='<li class="listado_item">';
 
 			for($j=0;$j<$step;$j++){
 
+				if($step>1) $html.='<div class="sub_item">';
+
 				$item=$items[$i++];
 
 				$esquema=($esquema!='')?$esquema:(($item['esquema']!='')?$item['esquema']:'nombre');
 
 				$html.=web_item($item,$esquema,$debug);
+
+				if($step>1) $html.='</div>';
 
 			}
 

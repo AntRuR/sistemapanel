@@ -1,11 +1,15 @@
 <?php //á
+
+// prin($_GET);
+
 if($_GET['ajax']=='1'){
+	
 	chdir("../../");	
 	include("lib/global.php");
 	include("lib/conexion.php");
 	include("lib/mysql3.php");
-	include("lib/util.php");
-	include("lib/webutil.php");
+	include("lib/util2.php");
+	include("lib/webutil2.php");
 	include("config/tablas.php");
 
 	include("lib/sesion.php");
@@ -13,9 +17,12 @@ if($_GET['ajax']=='1'){
 	include("lib/class.phpmailer.php");
 
 	define("THEME_PATH","web/templates/".$vars['GENERAL']['template']."/");	
+	
 	include("../web/modulos/common.php");
 	include("../web/modulos/formularios/formularios.php");
-} 
+
+}
+
 include("lib/simple_html_dom.php");
 include("config/library.php");
 
@@ -24,7 +31,7 @@ include("config/library.php");
 	//if($_GET['id']!=''){
 
 		$linea=select_fila(
-							array('id_cliente','pedido','id_item','id_usuario','id_status','pedido','cuota_inicial','saldo_financiar','separacion','pvpromocion'),
+							array('id','id_cliente','pedido','id_item','id_usuario','id_status','pedido','cuota_inicial','saldo_financiar','separacion','pvpromocion'),
 							'ventas_items',
 							'where id='.$_GET['id'],
 							0,
@@ -35,10 +42,10 @@ include("config/library.php");
 								//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
 								'item'		=>array('fila'=>array('nombre,descripcion5','productos_items','where id="{id_item}"')),							
 								// 'item_item'	=>array('fila'=>array('nombre,numero,id_items_tipo','productos_items_items','where id="{id_items_item}"')),							
-								'cuenta'	=>array('fila'=>array('nombre,logo,fecha_creacion,dominio','envios_cuentas','where id="{id_cuenta_email}"',0,
-										array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
-									)
-								),							
+								// 'cuenta'	=>array('fila'=>array('nombre,logo,fecha_creacion,dominio','envios_cuentas','where id="{id_cuenta_email}"',0,
+								// 		array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
+								// 	)
+								// ),							
 							)							
 						);
 
@@ -222,7 +229,7 @@ include("config/library.php");
 							'size'			=> '250',	
 							'derecha'		=> '1',
 							'constante'		=> ($_GET['id']=='')?'0':'1',
-							'default'		=> $linea['usuario']['nombre']." ".$linea['usuario']['apellidos']."&lt;".$linea['usuario']['email']."&gt;",
+							'default'		=> ($linea['usuario']['email']=='')?dato("valor","configuraciones_root","where variable='email_from'"):$linea['usuario']['nombre']." ".$linea['usuario']['apellidos']."&lt;".$linea['usuario']['email']."&gt;",
 						),
 						'mailto'		=>array(
 							'campo'			=> 'mailto',
@@ -243,14 +250,14 @@ include("config/library.php");
 							'style'			=> 'width:400px;',							
 							'size'			=> '250',	
 							'derecha'		=> '1',
-							'default'		=> ($_GET['id']=='')?'Cotización':'Cotización &quot;'.$linea['item']['nombre'].' - '.$linea['item_item']['nombre'].' '.$linea['item_item']['numero'].'&quot;'
+							'default'		=> ($_GET['id']=='')?'Cotización':'Cotización &quot;'.$linea['item']['nombre'].'&quot;'
 						),
 
 						'texto'			=>array(
 							'campo'			=> 'texto',
 							'label'			=> '',
 							'tipo'			=> 'html',
-							'style'			=> 'width:650px;height:400px;',
+							'style'			=> 'width:750px;height:400px;',
 							'width'			=> '100px',
 							'derecha'		=> '1',
 							//'css'			=> 'table { width:100%; margin-bottom:10px; background:none; } table td, table th { border:0 !important; padding:0px !importat;}',
@@ -270,7 +277,7 @@ include("config/library.php");
 								'INMUEBLE'          =>$linea['item']['nombre'].' - '.$linea['item_item']['nombre'].' '.$linea['item_item']['numero'],
 								'FICHA'             =>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
 								'FIRMA'             =>str_replace("'","\"",$linea['usuario']['firma']),
-								//'IMPRIMIR'        =>str_replace("'","\"","<a href='http://".(($linea['cuenta']['dominio'])?$linea['cuenta']['dominio']:"www.vehiculos.com.pe")."/index.php?modulo=items&tab=productos_imprimir&acc=file&id=".$linea['id_item']."&id_cliente=".$linea['id_cliente']."'>IMPRIMIR</a>"),
+								'IMPRIMIR'          =>str_replace("'","\"","<a href='http://crminmobiliario.info/cotizacion/".$linea['id']."'>IMPRIMIR</a>"),
 
 							)
 					),
@@ -278,17 +285,21 @@ include("config/library.php");
 		);
 		// prin($tbcampos);
 		//prin($Productos[$linea['id_item']]);
-		?>
+	?>
+
+	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>		
 	<div>
 		<?php
 		?>	
-		<div class="bloque_content_crear" style="width:659px;" >
+		<div class="bloque_content_crear" style="width:800px;" >
 	    <ul class="formulario">
 		<?php 
 		include('formulario_campos.php'); ?>
 		<li id="linea_crear" class="linea_form " >
+		
 		<label>&nbsp;</label>
-		<input type="button" onclick="enviar();" style="float:left;" value="Enviar" class="form_boton_1" id="in_submit">
+		<input type="button" onclick="enviar();" value="Enviar Email" class="btn btn-primary enviar" id="in_submit">
+
 		</li>
 		</ul>
 	    </div>
@@ -297,23 +308,24 @@ include("config/library.php");
 		<?php include("formulario_camposjs.php"); ?>
 		</script>
 	    <script>
-	    var Bot={};
-		//Bot=<?php //echo json_encode($Botones); ?>;
-		var html='';
-		var gr='';
-		for(var i=0;i<Bot.length;i++){
-			if(gr!=Bot[i].g){
-			html+='<b>'+Bot[i].g+'</b>'; gr=Bot[i].g;
-			}
-			html+='<a href="#" onclick="mooeditable_texto.selection.insertContent(Bot['+i+'].h);return false;">';
-			if(Bot[i].t){html+='<img src="'+Bot[i].t+'"/>';}
-			html+=Bot[i].n;
-			html+='</a>';
-		}
-		$('botones').innerHTML=html;
+	 //    var Bot={};
+		// //Bot=<?php //echo json_encode($Botones); ?>;
+		// var html='';
+		// var gr='';
+		// for(var i=0;i<Bot.length;i++){
+		// 	if(gr!=Bot[i].g){
+		// 	html+='<b>'+Bot[i].g+'</b>'; gr=Bot[i].g;
+		// 	}
+		// 	html+='<a href="#" onclick="mooeditable_texto.selection.insertContent(Bot['+i+'].h);return false;">';
+		// 	if(Bot[i].t){html+='<img src="'+Bot[i].t+'"/>';}
+		// 	html+=Bot[i].n;
+		// 	html+='</a>';
+		// }
+		// $('botones').innerHTML=html;
 
 		function enviar(){
-			var msg=mooeditable_texto.getContent();
+
+			var msg=CKEDITOR.instances.in_texto.getData();
 			crear_loading("Enviando");
 			new Request({url:"base2/apps/enviar_cotizacion.php?id=<?php echo $_GET['id'];?>&ajax=1",method:'post',data:{'msg':msg,'subject':$('in_asunto').value},onSuccess:function(eee){
 
@@ -321,6 +333,7 @@ include("config/library.php");
 			window.close();
 
 			}}).send();		
+
 		}
 
 		function crear_loading(string){	
@@ -358,18 +371,18 @@ include("config/library.php");
 		<style>
 
 
-		.formulario label { width:50px; text-align:left; text-transform:uppercase; } 
-		.bloque_content_crear { float:left; }
+		/*.formulario label { width:50px; text-align:left; text-transform:uppercase; } */
+/*		.bloque_content_crear { float:left; }
 		.columna_derecha { float:left; height:500px; overflow:auto; }
 		.columna_derecha b { float:left; clear:left; }
 		.columna_derecha a { float:left; clear:left; text-decoration:none; height:17px; width:140px; overflow:hidden; background:#FFF; border:1px solid #DDD; text-align:left; margin-bottom:0px; padding-left:3px; }
 		.columna_derecha a:hover { background-color:#FFC; }	
 		.columna_derecha a img { height:12px; margin-right:3px; }
-		#linea_crear input { float:right !important; }
+		#linea_crear input { float:right !important; }*/
 		</style> 
 
 	</div>
 <script language="JavaScript" type="text/javascript"> 
 	window.moveTo(0,0); 
-	window.resizeTo(1100,750); 
+	window.resizeTo(900,750); 
 </script> 

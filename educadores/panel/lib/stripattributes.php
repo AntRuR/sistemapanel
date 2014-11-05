@@ -1,4 +1,5 @@
-<?php
+<?php //á
+
 
 function reg_escape( $str )
 {

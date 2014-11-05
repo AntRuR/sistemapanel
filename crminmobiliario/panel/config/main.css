@@ -22,47 +22,25 @@ body { background: #F5F8FA!important ;}
 
  */
 
-.logo_panel {
 
-    margin-bottom: 5px;
-
-}
 
 a.link_header {
-
-	margin-top: 22px;
 
 	color: #CBCBCB;
 
 }
 
-#menumenu a {
 
-    /* color: #fff; */
-
-}    
 
 /**
  * MENU
  */
 
-ul.ul_menus li a {
-	font-family: PTN57F, "Helvetica Neue",Helvetica,Arial,sans-serif,;
-}
-
-ul.ul_menus li.padre {
+.ul_menus li.group a.padre {
     background: #AEBC91;
-
 }
 
 
-
-.menus a.selected, 
-
-ul.ul_menus li.selected {
-
-
-}
 
 
 
@@ -75,13 +53,6 @@ ul.ul_menus li:hover {
 
 }
 
-ul.ul_menus a:hover {
-
-	/* text-decoration: underline !important; */
-
-	/* color: #000 !important; */
-
-}
 
 ul.ul_menus li.seccion b {
 
@@ -124,7 +95,6 @@ ul.ul_menus li.seccion b {
 
 .modulo_login .div_bloque_cuerpo {
     margin-left: 23%;
-    margin-top: 23px;
 }
 
 /*body,*/
@@ -133,9 +103,6 @@ ul.ul_menus li.seccion b {
     border-color: #E1E8ED !important;
 }
 
-.modulo_login #div_allcontent {
-    /* border: 1px solid #099; */ 
-}
 .lead {
 margin-bottom:0;
 }
@@ -146,9 +113,7 @@ margin-bottom:0;
 }
 
 a.link_header {
-    color: #666;
     font-size: 22px;
-    margin-top: 43px;
 }    
 
 
@@ -180,9 +145,6 @@ a.link_header {
 text-transform: capitalize;
 }
 
-.formulario label {
-/* font-family: PTN57F !important; */    
-}
 
 #html_reporte {
     margin-top: 9px;
@@ -225,28 +187,13 @@ text-transform: capitalize;
 
 td { background-color: #FFF; }
 
-#menumenu { /* background: #000; */}
-
 
 .htmlenlista td { background-color: transparent; }
 
 @media (max-width: 800px) {
-    .logo_panel img {
-        margin-top: 0 !important;
-    }
-    .contenido_principal {
-        /*border-color:#FFF !important;*/
-    }
+
     body { 
         background: #FFF !important ;
     }
-    a.link_header {
-
-        margin-top: 15px !important;
-
-    }    
-    .i_mm, .i_ff {
-    margin-top: 10px !important;
-
-    }
+  
 }

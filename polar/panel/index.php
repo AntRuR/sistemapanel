@@ -1,12 +1,42 @@
 <?php //á
 
 include("lib/includes.php");
-if(file_exists($DIR_CUSTOM.$FILE_DEFAULT)){
 
+$FILES=explode($_SERVER['SCRIPT_NAME'],$_SERVER['PHP_SELF']);
+$FILE=str_replace("/","",$FILES[1]);
+
+$file2OBJ=[];
+
+foreach($objeto_tabla as $mememe=>$ot){
+	// prin("/".$ot['archivo']);
+	// prin($FILES[1]);
+	$file2OBJ[$ot['archivo']]=$mememe;
+	if($ot['archivo']==$FILE) {
+		$MEEE=$objeto_tabla[$ot['me']];
+		continue;
+	}
+}
+
+if(isset($MEEE)){
+
+	// prin(sizeof($MEEE));
+	$this_me=$MEEE['me'];
+	
+	$objeto_tabla = pre_procesar_tabla($objeto_tabla,$vars);
+
+	$MEEE = $objeto_tabla[$this_me];
+	// $MEEE = $objeto_tabla[$this_me]);
+
+}
+
+//REDIRECCIONES
+if(!isset($MEEE)){
 
 	$permisos=$PERMISOS_USUARIO;
 	if(trim($permisos)=='' or trim($permisos)=='*'){
+		
 		header("Location: ".$DIR_CUSTOM.$FILE_DEFAULT);
+
 	} else {
 		//prin($permisos);
 		$permisos=str_replace("\n","",$permisos);
@@ -28,6 +58,37 @@ if(file_exists($DIR_CUSTOM.$FILE_DEFAULT)){
 
 	}
 
-} else {
-	header("Location: maquina.php");
 }
+
+// prin($_GET);
+// exit();
+
+// div_contenedor
+// contenido_principal
+
+include("lib/compresionInicio.php");
+
+include("head.php"); ?>
+
+<body class="monitor modulo_<?=$FILE;?>">
+
+	<div id="div_allcontent" class="div_allcontent <?=(  ($SERVER['ARCHIVO']!='login.php') and $_COOKIE['men'] )?'menu_colapsed':''  ?>">
+
+		<?php include("header.php"); ?>
+
+		<div class="line_content">
+
+			<?php include("menu.php"); ?>
+
+			<?php include("vista.php"); ?>
+
+		</div>
+
+		<?php include("foot.php"); ?>
+
+
+	</div>
+
+</body>
+</html>
+<?php include("lib/compresionFinal.php");

@@ -5,7 +5,7 @@ if($_GET['ajax']=='1'){
 	include("lib/global.php");
 	include("lib/conexion.php");
 	include("lib/mysql3.php");
-	include("lib/util.php");
+	include("lib/util2.php");
 	include("lib/webutil.php");
 	include("config/tablas.php");
 	include("lib/sesion.php");
@@ -65,6 +65,12 @@ case "confirm":
 		or
 		(!(strpos($directorio,$Carpeta."/web")===false))
 		or
+		(!(strpos($directorio,$Carpeta."/css")===false))
+		or
+		(!(strpos($directorio,$Carpeta."/img")===false))
+		or
+		(!(strpos($directorio,$Carpeta."/js")===false))						
+		or
 		(!(strpos($directorio,$Carpeta."/swf")===false))
 		){
 			$director[]=$directorio;
@@ -72,7 +78,7 @@ case "confirm":
 	}
 
 	$directorios=$director;
-	//var_dump($directorios);
+	// prin($directorios);exit();
 	foreach($directorios as $directorio){
 
 		mkdir(str_replace($Carpeta,$this_project['carpeta'],$directorio));

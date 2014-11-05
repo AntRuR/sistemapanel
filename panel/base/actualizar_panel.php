@@ -5,7 +5,7 @@ chdir("../");
 include("lib/global.php");
 include("lib/conexion.php");
 include("lib/mysql3.php");
-include("lib/util.php");
+include("lib/util2.php");
 include("config/tablas.php");
 include("lib/sesion.php");
 include("lib/playmemory.php");
@@ -207,14 +207,56 @@ foreach($items as $item){
 			"panel/css/MooTooltips/",
 			"panel/js/",
 			"panel/js/vendor/",
+			"panel/js/jquery/",
+			"panel/js/jquery/vendor/",	
+					
+			"panel/js/ckeditor/",			
+			"panel/js/ckeditor/lang/",			
+			"panel/js/ckeditor/plugins/",			
+			"panel/js/ckeditor/plugins/a11yhelp/",			
+			"panel/js/ckeditor/plugins/a11yhelp/dialogs/",			
+			"panel/js/ckeditor/plugins/a11yhelp/dialogs/lang/",			
+			"panel/js/ckeditor/plugins/clipboard/",			
+			"panel/js/ckeditor/plugins/clipboard/dialogs/",			
+			"panel/js/ckeditor/plugins/dialog/",			
+			"panel/js/ckeditor/plugins/image/",			
+			"panel/js/ckeditor/plugins/image/dialogs/",			
+			"panel/js/ckeditor/plugins/image/images/",			
+			"panel/js/ckeditor/plugins/link/",			
+			"panel/js/ckeditor/plugins/link/dialogs/",			
+			"panel/js/ckeditor/plugins/link/images/",			
+			"panel/js/ckeditor/plugins/link/images/hipi/",			
+			"panel/js/ckeditor/plugins/magicline/",			
+			"panel/js/ckeditor/plugins/magicline/images/",			
+			"panel/js/ckeditor/plugins/magicline/images/hipi/",			
+			"panel/js/ckeditor/plugins/pastefromword/",			
+			"panel/js/ckeditor/plugins/pastefromword/filter/",			
+			"panel/js/ckeditor/plugins/scayt/",			
+			"panel/js/ckeditor/plugins/scayt/dialogs/",			
+			"panel/js/ckeditor/plugins/specialchar/",			
+			"panel/js/ckeditor/plugins/specialchar/dialogs/",			
+			"panel/js/ckeditor/plugins/specialchar/dialogs/lang",			
+			"panel/js/ckeditor/plugins/table/",			
+			"panel/js/ckeditor/plugins/table/dialogs/",			
+			"panel/js/ckeditor/plugins/tabletools/",
+			"panel/js/ckeditor/plugins/tabletools/dialogs/",
+			"panel/js/ckeditor/plugins/wsc/",									
+			"panel/js/ckeditor/plugins/wsc/dialogs/",									
+			"panel/js/ckeditor/skins/",			
+			"panel/js/ckeditor/skins/kama/",			
+			"panel/js/ckeditor/skins/kama/images/",			
 			//"panel/js/MooEditable12/",
 			//"panel/js/MooEditable13/",
-			"panel/removerbom/");
+			// "panel/removerbom/"
+			);
 
+	// prin($dirs);
+	// exit();
 	//	$dirs=array("img/");
 	@mkdir($item['carpeta']);
 	foreach($dirs as $dir){
 		@mkdir($item['carpeta']."/".$dir);
+		if(!file_exists($dir)) die("no existe $dir");
 		$directorio = dir($dir);
 		while($fichero=$directorio->read()) {
 			if($fichero!='.' and $fichero!='..' and $fichero!='desktop.ini' and !is_dir($dir.$fichero) ){
