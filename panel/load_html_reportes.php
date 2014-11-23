@@ -11,7 +11,7 @@ include("config/tablas.php");
 include("lib/reports.php");
 }
 	//echo getcwd();
-	//var_dump($_GET); exit();
+	// var_dump($_GET); exit();
 
 
 
@@ -88,4 +88,3 @@ include("lib/reports.php");
 if($_GET['ajax']!='0'){
 include("lib/compresionFinal.php");	/*para Content-Encoding*/
 }
-?>

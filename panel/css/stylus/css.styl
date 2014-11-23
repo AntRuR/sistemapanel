@@ -20,7 +20,7 @@ color_1=rgba(#E1ECED,0.5) // bg barra principal
 // color_1=rgba(#5ab4e6,0.1) // bg barra principal
 
 color_2=#CF6A27 // color secundario // el naranja
-color_3=#136cb2 // color de links // el azul
+color_3=#136CB2 // color de links // el azul
 color_4=#283442   // color de bg menú
 color_5=white // #fea100 // color de letra de menú // el blanco
 color_6=#fefef5 // #fea100 // color amarillo de resaltado
@@ -358,7 +358,10 @@ li.modificador:hover a.ie i
     overflow hidden
     height auto
 
-
+.currency
+  text-align right
+  display block
+  padding-right 3px
 
 a
   .bl1
@@ -527,10 +530,10 @@ a
   .linea_derecha_align_espacio
     margin-right: 20px
   .in_span
-    float: left
     height: auto
+    display inline-block
+    float none
     span
-      float: left
       max-width: 600px
       overflow: hidden
       white-space: pre-wrap
@@ -1099,6 +1102,10 @@ ul.listado
 pre
   margin: 0px
 
+.tabla_objetos
+  margin-top 10px
+  
+
 a.objetos
   float: left
   background-color: #999999
@@ -1370,7 +1377,7 @@ li.bl:hover .oc a
   padding-left 0px !important
 
 .bl .lc
-  padding-left: 3px
+  padding-right 3px
 
 .lec
   width: 120px
@@ -1525,8 +1532,8 @@ li.bl:hover .oc a
     bottom: 0px
     top: none
   .itms_cont
-    margin-right -100%  
     display inline-block
+    margin-right -100%
   .first_linea
     height: 60px !important    
     margin-top -12px
@@ -1535,11 +1542,11 @@ li.bl:hover .oc a
       height: 34px
       overflow hidden
     .nc
+      font-family Helvetica
       position: absolute
       top: 0px
       left: 0px
       display: block
-      text-transform: uppercase
       border-bottom: 0px
       width: 100%
       z-index: 1
@@ -1554,6 +1561,8 @@ li.bl:hover .oc a
       text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75)
       word-break: break-all
       border-left-color: #fff
+      font-size 1em
+      text-align center
       // letter-spacing: -1.6px;
       &:hover
         z-index: 2
@@ -1650,6 +1659,10 @@ li.bl:hover .oc a
       font-family Helvetica
       box-sizing border-box
       text-transform lowercase !important
+      text-align center
+      a
+        text-align left
+        display block
   .itmedit
     .formi
       width: 100%
@@ -1675,8 +1688,15 @@ li.bl:hover .oc a
     a
     text-decoration: none
     margin: 0 !important
-    border-right: 1px solid #EDEFF4 !important
+    border-right: 1px solid #d2d9e7 !important
     font-size: 1em
+    padding 2px 0
+    span.z
+      float none
+      display inline-block
+      &:before
+        font-size 0.7em
+      
     // &:hover
     //   text-decoration: underline
 
@@ -1693,11 +1713,21 @@ li.bl:hover .oc a
 .modificador 
   &.bl:nth-child(even)
     background-color: #FFF
+  &.bl
+    .bd
+      width auto !important
+      overflow visible
+  .itms_cont
+    margin-top 2px
+    float left
+    margin-left 10px
   .itms
     margin-left: 0px
     margin-right: 0px
     clear: none
     padding-left: 0px
+    padding-top 3px
+    padding-bottom 3px
     float: left
     margin-bottom: 20px
     // margin-top: 3px
@@ -1932,7 +1962,7 @@ a.fmf:hover
   height: 365px
 
 a.linkstitu
-  float: left
+  float: right !important
   font-size: 1em !important
   font-weight: normal !important
   margin-right: 13px
@@ -2060,7 +2090,7 @@ a.ico_Crear:hover
   text-align: center
   padding: 15% 0 !important
   // color: color_2
-  font-size: 1.5em
+  font-size: 1.2em
   background rgba(#F9F9F9,.5)
 
 .bloque_titulo .titulo,
@@ -3029,6 +3059,7 @@ div.prin pre
   float: left
 
 #html_reporte
+  padding-left 19px
   float none
   width auto !important
   .reporte
@@ -3040,15 +3071,20 @@ div.prin pre
     tr.head 
       td
         font-weight: bold
-    td
-      .nombre
+    tr    
+      td.nombre
         max-width: 300px
         text-align: left
-        min-width: 240px
+        // min-width: 240px
     a
       .linkstitu
         float: right
 
+
+.bloque_content_repos
+  .formulario
+    .nav
+      margin-left 19px
 
 
 #load_html_estadistica
@@ -3684,6 +3720,16 @@ a.z:hover
 .ico_crea:before
   content: "\e60e"
 
+.ico_play
+  font-family: 'icomoon'
+  font-size: 1em 
+  &:after
+    content: "\e64f";
+    color: #df1b1c;
+    position: relative;
+    top: 5px;
+    right: 0px;
+    font-size: 1.5em;
 
 
 .ico_Arriba
@@ -3796,8 +3842,8 @@ DETAILS
   
 .detail
   .ldd
-    width auto
-    float left
+    display block
+    float none
     padding-right 15px
   .tite
     font-variant initial    
@@ -3882,6 +3928,8 @@ DETAILS
       display: inline-block;
       max-width: 80%;    
       min-width 100px !important
+      .currency
+        text-align left
     .linea_derecha
       float: left
       width: auto
@@ -3942,7 +3990,7 @@ li.editar_rapido:hover
  ********************** MEDIA QUERY ************************
 ***********************************************************/
 
-@media (max-width: 800px)
+@media screen and (max-width: 800px)
   
   .inner_span_tren
     float none
@@ -4211,7 +4259,7 @@ li.editar_rapido:hover
  ********************** MEDIA QUERY ************************
 ***********************************************************/
 
-@media (max-width: 600px)
+@media screen and (max-width: 600px)
 
   .monitor
     .formulario       

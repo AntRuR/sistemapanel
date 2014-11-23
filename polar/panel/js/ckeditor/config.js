@@ -41,7 +41,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.defaultLanguage = 'es';
 
-	config.height = '800px';
+	config.height = '400px';
 
 
 };

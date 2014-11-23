@@ -2090,7 +2090,7 @@ var mya = new Sortables($('lili_campos'), {
 		if(element.checked){ files[idfile]=element.value; idfile++; }
 	});
 	//alert('?accion='+accion+'&proy='+clien.join(",")+'&files='+files.join(",")+'&rand='+Math.random());
-	location.href='<?php echo $SERVER['BASE'].$SERVER['ARCHIVO'];?>?accion='+accion+'&proy='+clien.join(",")+'&files='+files.join(",")+'&rand='+Math.random();
+	location.href='<?php echo $SERVER['BASE'].$SERVER['ARCHIVO_REAL'];?>?accion='+accion+'&proy='+clien.join(",")+'&files='+files.join(",")+'&rand='+Math.random();
 
 	}
 
@@ -3202,7 +3202,7 @@ foreach($proyectoB as $ppppp=>$proyectoC){
 	echo "<ul class='listado'>";
 	echo "<div>";
 	echo "<a href='#' onclick=\"selec('_todos');return false;\" rel='nofollow' style='margin-left:0px;color:green;' >Todos</a>";
-	echo "<a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?accion=alllistado&rann=".( rand() )."'>recargar</a>";
+	echo "<a href='".$SERVER['BASE'].$SERVER['ARCHIVO_REAL']."?accion=alllistado&rann=".( rand() )."'>recargar</a>";
 	echo "<a href='#' onclick=\"selec('_ul_0');return false;\" rel='nofollow'>ninguno</a>";
 	echo "<a href='#' onclick=\"selec('_ul_2');return false;\" rel='nofollow'>2</a>";
 	echo "<a href='#' onclick=\"selec('_ul_5');return false;\" rel='nofollow'>5</a>";

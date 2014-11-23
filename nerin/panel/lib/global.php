@@ -1,11 +1,11 @@
 <?php //á
-
+if(!isset($_GET['format']))
 header('Content-Type: text/html; charset=utf-8');
 
 
 
-$Array_Meses=array(1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre");
-$Array_Horas=array(0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm");
+$Array_Meses=[1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"];
+$Array_Horas=[0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm"];
 
 $FORMSCLASS=array(
 	'1'=>'linea_derecha_inicio',
@@ -212,7 +212,8 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$SERVER['LOCAL']=1;
 	$LOCAL=1;
 	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
-	error_reporting(E_ALL);
+	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 
 } else {
 	$vars_server=$vars['REMOTE'];

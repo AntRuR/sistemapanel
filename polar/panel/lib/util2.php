@@ -1,6 +1,7 @@
 <?php
 
 
+
 function procesar_objeto_tabla($array){
 
 	//prin($array);
@@ -86,10 +87,17 @@ function procesar_objeto_tabla($array){
 			or in_array($camp['campo'],array('conf'))
 			){
 			if($camp['campo']==$array['group']){
-			$firstCampo=$camp;
+				$firstCampo=$camp;
 			} else {
-			$campos['list'][]=$camp;
-			$query[]=$camp['campo'];
+				$campos['list'][]=$camp;
+				if($camp['inlist']){
+					$inlist=explode(";",$camp['inlist']);
+					foreach($inlist as $inlis){
+						$query[]=$array['campos'][$inlis]['campo'];
+					}
+				} else {
+					$query[]=$camp['campo'];
+				}
 			}
 		}
 
@@ -988,7 +996,7 @@ function redireccionar(){
 
 		@header("Location: ".$SERVER['BASE']."maquina.php");
 		//die("<html><body onload=\"location.href='".$SERVER['BASE']."maquina.php?';\"></body></html>");
-		echo "<script>window.addEvent('domready',function(){ location.href='".$SERVER['BASE']."maquina.php?'; });</script>";
+		echo "<script>window.addEvent('domready',function(){ location.href='".$SERVER['BASE']."maquina.php'; });</script>";
 
 	} else {
 		if($_GET['me']==''){
@@ -1220,7 +1228,7 @@ $Acampos[]="CREATE TABLE IF NOT EXISTS `".$tablerel."` (`id_".$obta['tabla']."` 
 
 		} else {
 
-			if(( $camp['size']!='' or $camp['variable']!='' ) and in_array($camp['tipo'],array('inp','txt'))){
+			if(( $camp['size']!='' or $camp['variable']!='' ) and in_array($camp['tipo'],array('inp','txt','hid'))){
 
 				$variable	=($camp['variable']!='')?$camp['variable']	:"varchar";
 				$size		=($camp['size']!='')	?$camp['size']		:(($camp['tipo']=='inp')?"80":"800");
@@ -1233,11 +1241,14 @@ $Acampos[]="CREATE TABLE IF NOT EXISTS `".$tablerel."` (`id_".$obta['tabla']."` 
 						}
 					} else {
 					if(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size'] and get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable']){
-					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable )."(".$camp['size']."); ";
+					$camp['size']=($camp['size']!='')?"(".$camp['size'].")":$camp['size'];
+					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$camp['size']."; ";
 					} elseif(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size']){
-					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ) ."(".$camp['size']."); ";
+					$camp['size']=($camp['size']!='')?"(".$camp['size'].")":$camp['size'];
+					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$camp['size']."; ";
 					} elseif(get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable'] and $camp['variable']!=''){
-					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ) ."(".$size."); ";
+					$size=($size!='')?"(".$size.")":$size;						
+					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$size."; ";
 					}
 
 					}
@@ -2210,7 +2221,7 @@ function procesar_controles_html($controles){
 		$pre=(substr($SERVER['browser'],0,2)=='IE')?"../":"";
 		list($tres,$cuatro,$cinco)=explode($comilla,$dos);
 		list($siete,$ocho)=explode($cuatro.$comilla,$dos);
-		if( (!(strpos($cuatro,"base")===false)) or (!(strpos($cuatro,"base2")===false)) or (!(strpos($cuatro,"../index.php")===false)) or (!(strpos($cuatro,"pop.php")===false)) ){
+		if( (!(strpos($cuatro,"base")===false)) or (!(strpos($cuatro,"base2")===false)) or (!(strpos($cuatro,"../")===false)) or (!(strpos($cuatro,"pop.php")===false)) ){
 		$aaaa=$uno."href=".$comilla.$pre.$cuatro.$comilla." rel=".$comilla.get_dims_crearforeig().$comilla." ".$ocho;
 		$aaaa=str_replace("<a class=\"linkstitu\"","<a class=\"linkstitu mb\"",$aaaa);
 //		$aaaa=$uno."onclick=".$comilla."javascript:procesar_recargar(".$comilla2.$pre.$cuatro.$comilla2.");return false;".$comilla." ".$ocho;
@@ -2336,9 +2347,10 @@ function fileExists($path){
  }
 
 function str_control($dts){
-$ratI=5.9; $ratM=21; $ratIM=16;
-$rti=explode("<img",$dts);
-$rti=(sizeof($rti)==0)?0:sizeof($rti)-1;
+$ratI=5.9; $ratM=21; $ratIM=19;
+// $rti=explode("<img",$dts);
+// $rti=(sizeof($rti)==0)?0:sizeof($rti)-1;
+$rti=substr_count($dts, 'zz');
 $ret = trim(strip_tags(str_replace(array("\n","\r","\s","\t","<img"),array("","","","","<img"),$dts)));
 //prin(strlen(trim($ret)));
 //echo "<textarea>".$ret."</textarea>";
@@ -2730,13 +2742,15 @@ function render_foreig_foto($obj,$id){
 	//echo "|$obj|$id|";
 }
 function render_foreig_subs($obj0,$id,$urd){
-	
+
 	global $objeto_tabla;
 	global $Array_Meses;
 	global $Array_Horas;
 	global $LOCAL;
 	global $vars;
 	global $PERMISOS_USUARIO;
+
+
 
 	//var_dump($PERMISOS_USUARIO);
 
@@ -2844,12 +2858,17 @@ function render_foreig_subs($obj0,$id,$urd){
 					}
 				$wwww=str_replace("px","",$objeto_tabla[$obj['obj']]['campos'][$camP]['width']);
 				$wwww=($wwww)?$wwww:100;
-				$wwwwt=$wwwwt+$wwww+6;
+				$wwwwt=$wwwwt+$wwww+1;
 			}
 			$wwwwt=$wwwwt+2;
 
 			echo '<div class="itms_cont" >';
-			echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
+
+			// prin($obj0);
+			// prin($id);
+			// prin($urd);
+
+			echo '<div class="itms loco '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
 
 			$pluralIma=$objeto_tabla[$obj['obj']]['nombre_plural'];
 			//prin($plural);
@@ -2912,15 +2931,15 @@ function render_foreig_subs($obj0,$id,$urd){
 							case "com":
 								$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 								list($valoor,$color)=explode("|",$valoor);
-								$valoor=($valoor!='')?$valoor:"&nbsp;";
+								$valoor=($valoor!='')?strtolower($valoor):"";
 								switch($valoor){
-									case "comentario":echo "&nbsp;<a title='comentario' class='ico_tack z ico_list'></a>"; break;
-									case "soporte":echo "&nbsp;<a title='soporte' class='ico_clip z ico_list'></a>"; break;
-									case "enviado":echo "&nbsp;<a title='enviado' class='ico_left z ico_list'></a>"; break;
-									case "recibido":echo "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
-									case "si":echo "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
-									case "no":echo "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
-									default; echo "<span class='ico_opcion' ".(($color)?"style='color:white;background-color:".$color.";":"")."'>".$valoor."</span>"; break;
+									case "comentario":echo "<a title='comentario' class='ico_tack z ico_list'></a>"; break;
+									case "soporte":echo "<a title='soporte' class='ico_clip z ico_list'></a>"; break;
+									case "enviado":echo "<a title='enviado' class='ico_left z ico_list'></a>"; break;
+									case "recibido":echo "<a title='recibido' class='ico_right z ico_list'></a>"; break;
+									case "si":echo "<a title='si' class='ico_yes z ico_list'></a>"; break;
+									case "no":echo "<a title='no' class='ico_no z ico_list'></a>"; break;
+									default; echo "<span class='label' ".(($color)?"style='color:white;background-color:".$color.";'":"").">".$valoor."</span>"; break;
 								}
 							break;
 							case "hid":
@@ -2929,19 +2948,23 @@ function render_foreig_subs($obj0,$id,$urd){
 								$camposOA=array();
 								$camposOA=explode(";",$camposO);
 								$bufy='';
+								$color0='';
 								foreach($camposOA as $COA){
-								$bufy.= select_dato($COA,$tablaO,"where ".$idO."='".$linea[$camP]."'")." ";
+								$ddatt= select_dato($COA,$tablaO,"where ".$idO."='".$linea[$camP]."'")." ";
+								if($COA=='color' and trim($ddatt)!=''){ $color0=$ddatt; }
+								else $bufy.=$ddatt;
 								}
 								if($objeto_tabla[$obj['obj']]['campos'][$camP]['tip_foreig']=='1'){
 								$adiv0='<a class="tipper" href="custom/'.$tablaO.'.php?i='.$linea[$camP].'" rel="{ajax:\'ajax_sql.php?v_t='.$tablaO.'&v_d='.$idO.'%3D'.$linea[$camP].'&f=get_quick\'}">';
 								$adiv1='</a>';
-								} else { $adiv0=''; $adiv1=''; }
-
-								echo (trim($bufy)!='')?$adiv0.$bufy.$adiv1:'&nbsp;';
+								} else { 
+								$adiv0=($color0!='')?"<span class='label' style='background:$color0;color:white;' >":''; $adiv1=($color0!='')?'</span>':''; 
+								}
+								echo (trim($bufy)!='')?$adiv0.$bufy.$adiv1:'';
 							break;
 							case "fcr":	case "fch":
 							$fech=fecha_formato($linea[$camP],($objeto_tabla[$obj['obj']]['campos'][$camP]['formato'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['formato']:'0b');
-							echo '<span class="fche">'.(($fech!='')?$fech:"&nbsp;")."</span>";
+							echo '<span class="fche">'.(($fech!='')?$fech:"")."</span>";
 							break;
 							case "html":
 							echo ($linea[$camP]!='')?"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>":"&nbsp;";
@@ -3011,7 +3034,7 @@ function render_foreig_subs($obj0,$id,$urd){
 						*/
 						break;
 						case "com":
-						echo "&nbsp;";
+						echo "";
 						/*
 							$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 							list($valoor,$color)=explode("|",$valoor);
@@ -3023,7 +3046,7 @@ function render_foreig_subs($obj0,$id,$urd){
 								case "recibido":echo "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
 								case "si":echo "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 								case "no":echo "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
-								default; echo "<span class='ico_opcion' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
+								default; echo "<span class='label' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
 							}
 						*/
 						break;
@@ -3069,21 +3092,21 @@ function render_foreig_subs($obj0,$id,$urd){
 						}
 
 						$html='';
-						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:45px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:52px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=1; $i<=31;$i++){
 						if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("d"))?"selected":""; }
 						$html.="<option value='". sprintf("%02d",$i) ."' $selected >".$i."</option>";
 						}
 						$html.= "</select>";
-						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:46px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:53px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=1; $i<=12;$i++){
 						if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("m"))?"selected":""; }
 						$html.="<option value='". sprintf("%02d",$i) ."' $selected >".substr($Array_Meses[$i],0,3)."</option>";
 						}
 						$html.= "</select>";
-						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:50px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:57px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=$toYear; $i>=$fromYear;$i--){
 						if($tbcampA['default']=='now()'){ $selected=($i==date("Y"))?"selected":""; }
@@ -3093,7 +3116,7 @@ function render_foreig_subs($obj0,$id,$urd){
 
 
 						if($tbcampA['time']){
-						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:53px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:60px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=0; $i<=24;$i++){
 						$html.="<option value='".sprintf("%02d",$i)."' >".$Array_Horas[$i]."</option>";
@@ -3151,6 +3174,27 @@ function render_foreig_file($obj0,$linea,$urd){
 
 	// prin($linea);
 
+	// global $objeto_tabla;
+	// global $Array_Meses;
+	// global $Array_Horas;
+	// global $LOCAL;
+	// global $vars;
+	// global $PERMISOS_USUARIO;
+
+
+
+	// //var_dump($PERMISOS_USUARIO);
+
+	// $permisos=explode(",",$PERMISOS_USUARIO);
+	// foreach($permisos as $permiso){
+	// list($objeto,$params)=explode("?",trim($permiso));
+	// parse_str($params,$paras);
+	// $persos[$objeto]=$paras;
+	// }
+
+	// foreach($campS2 as $ccc=>$cccc){ if(trim($cccc)==''){ unset($campS2[$ccc]); } }
+
+	// prin($linea);
 	foreach($linea as $ii=>$Line){
 	$aa[]="[".$ii."]";
 	$bb[]=$Line;
@@ -3158,12 +3202,13 @@ function render_foreig_file($obj0,$linea,$urd){
 	}
 	//prin($linea);
 	$obj0['tipo']['0']['href']=str_replace($aa,$bb,$obj0['tipo']['0']['href']);
-	/*
-	prin($obj0);
-	prin($id);
-	prin($urd);
-	return '';
-	*/
+	
+	// prin($obj0);
+	// prin($id);
+	// prin($urd);
+	// return '';
+	
+	// prin($obj0);
 
 	global $objeto_tabla;
 	foreach($obj0 as $obj2){
@@ -3190,6 +3235,14 @@ function render_foreig_file($obj0,$linea,$urd){
 					$campS[]=$lis['campo'];
 					}
 				}
+
+			global $tbquery0;
+			$campS0=[];
+			foreach($campS as $campSeach){
+				if(!in_array($campSeach,$tbquery0)) { $campS0[]=$campSeach; }
+			}
+			$campS=$campS0;
+
 			$classLineal=0;
 			if(sizeof($campS)==1){
 				if($objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='img'){ $classLineal=1; }
@@ -3219,7 +3272,7 @@ function render_foreig_file($obj0,$linea,$urd){
 							$datos_tabla['tabla'],
 							$query_where,0);
 
-			echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).'" style="margin-right:-800px;">';
+			echo '<div class="itms padre '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).'" style="margin-right:-800px;">';
 
 
 			$pluralIma=$objeto_tabla[$obj['obj']]['nombre_singular'];
@@ -3239,6 +3292,7 @@ function render_foreig_file($obj0,$linea,$urd){
 
 			if(sizeof($lineas)>0 or 1){
 			if(sizeof($campS)>1){
+			// prin($campS);	
 			echo '<div class="itm hitm hid2" >';
 				foreach($campS as $cp=>$camP){
 
@@ -3272,7 +3326,7 @@ function render_foreig_file($obj0,$linea,$urd){
 					case "com":
 						$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 						list($valoor,$color)=explode("|",$valoor);
-						$valoor=($valoor!='')?$valoor:"&nbsp;";
+						$valoor=($valoor!='')?$valoor:"";
 						switch($valoor){
 							case "comentario":echo "&nbsp;<a title='comentario' class='ico_tack z ico_list'></a>"; break;
 							case "soporte":echo "&nbsp;<a title='soporte' class='ico_clip z ico_list'></a>"; break;
@@ -3280,7 +3334,7 @@ function render_foreig_file($obj0,$linea,$urd){
 							case "recibido":echo "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
 							case "si":echo "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 							case "no":echo "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
-							default; echo "<span class='ico_opcion' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
+							default; echo "<span class='label' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
 						}
 					break;
 					case "hid":
@@ -4328,6 +4382,35 @@ function web2panel($obj){
 	}
 
 	return $obj2;
+}
+
+if(!function_exists('json_decode'))
+{
+    function json_decode($json)
+    {
+        $comment = false;
+        $out = '$x=';
+        for ($i=0; $i<strlen($json); $i++)
+        {
+            if (!$comment)
+            {
+                if (($json[$i] == '{') || ($json[$i] == '['))
+                    $out .= ' array(';
+                else if (($json[$i] == '}') || ($json[$i] == ']'))
+                    $out .= ')';
+                else if ($json[$i] == ':')
+                    $out .= '=>';
+                else
+                    $out .= $json[$i];
+            }
+            else
+                $out .= $json[$i];
+            if ($json[$i] == '"' && $json[($i-1)]!="\\")
+                $comment = !$comment;
+        }
+        eval($out . ';');
+        return $x;
+    }
 }
 
 if(!function_exists('json_encode')){

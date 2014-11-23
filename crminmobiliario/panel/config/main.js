@@ -20,6 +20,8 @@ try {
 
 var cart={};
 
+var sololectura;
+
 PROJECT = {  
 
     common : {
@@ -62,7 +64,9 @@ PROJECT = {
 
             PROJECT.loadCss.init( "css/jquery-impromptu.css");
 
-            var sololectura=(parent.document.getElementById('in_id_status').value==6 || parent.document.getElementById('in_id_status').value==7)
+            sololectura=(parent.document.getElementById('in_id_status').value==6 || parent.document.getElementById('in_id_status').value==7);
+
+            // alert(sololectura);
 
             if(!sololectura){
 
@@ -752,7 +756,9 @@ function render_cart(){
         $('#'+ee.type+ee.id).addClass('agregado');
         price += Number(ee.price);
 
-        html+="<tr class='"+ee.type+"'><td class='labe'>"+ee.name+"</td><td class='vals'>"+ee.price+"</td><td><a class='cerrar' title='cerrar' onclick=\"delete_item('"+ee.type+ee.id+"');\">X</a></td></tr>";
+        html+="<tr class='"+ee.type+"'><td class='labe'>"+ee.name+"</td><td class='vals'>"+ee.price+"</td><td>"+
+         ( (sololectura) ? "" : "<a class='cerrar' title='cerrar' onclick=\"delete_item('"+ee.type+ee.id+"');\">X</a>" ) +
+         "</td></tr>";
     });
 
     html+="<tr id='total' ><td class='labe'>TOTAL</td><td class='vals'>"+price+"</td><td></td></tr>";
@@ -765,6 +771,8 @@ function render_cart(){
     // document.getElementById('cart').innerHTML=html;
     $('#cart').html(html);
 
+    // alert(price);
+    // alert(sololectura);
     if(price>0 && !sololectura){
         // $('.esquinabtn').show();
         $('#fb1').show();

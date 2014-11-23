@@ -2,6 +2,7 @@
 
 // echo "</div><div style='text-align:left;'>";
 
+
 $fila=fila("
 	id,
 	saldo_inmobiliaria,
@@ -29,6 +30,54 @@ $fila=fila("
 
 	0);
 
+	
+	if(sizeof(json_decode($fila['pedido']))>0){
+		echo '<table class="tabla_objetos table table-bordered">
+		<thead>
+		<tr>
+		<th>Inmuebles</th>
+		<th>Precio</th>
+		<th>Estado</th>
+		</tr>
+		</thead>
+		<tbody>
+		';
+		$proceder=1;
+
+		foreach(json_decode($fila['pedido']) as $pedido){
+
+			if($pedido->type=="departamento")
+				$tt="productos_items_items";
+			elseif($pedido->type=="estacionamiento")
+				$tt="productos_estacionamientos_items_items";
+			elseif($pedido->type=="deposito")
+				$tt="productos_depositos_items_items";
+
+			$fila0=fila("id_status",$tt,"where id=".$pedido->id,0,['status'=>['fila'=>['nombre,color','productos_stock_status','where id={id_status}',0]]]);						
+			// prin($fila);
+			
+			echo '<tr>';		
+			echo '<td>'.$pedido->name.'</td>';
+			echo '<td>'.$pedido->price.'</td>';
+			echo '<td><span style="color:white;background:'.$fila0['status']['color'].';">'.$fila0['status']['nombre'].'</span></td>';
+			echo '</tr>';
+
+			if(in_array($fila0['id_status'],[3,4]) and $proceder==1){ $proceder=0; } 
+
+		}
+		echo '</tbody>
+		</table>';
+	}
+
+	if(!$proceder){
+
+		echo '<div class="alert alert-danger">El inmueble que desea vender ya está separado o vendido</div>';
+
+		exit();
+
+	}
+
+
 ?>
 <script>
 window.addEvent('domready',function(){
@@ -36,7 +85,6 @@ window.addEvent('domready',function(){
 	$('in_id_ventas_item').value           ='<?php echo $fila['id']; ?>';
 	$('in_id_cliente').value               ='<?php echo $fila['id_cliente']; ?>';
 	$('in_id_item').value                  ='<?php echo $fila['id_item']; ?>';
-	$('in_pedido').value                   ='<?php echo $fila['pedido']; ?>';
 	$('in_forma_pago').value               ='<?php echo $fila['forma_pago']; ?>';
 	$('in_pvlista').value                  ='<?php echo $fila['pvlista']; ?>';
 	$('in_pvpromocion').value              ='<?php echo $fila['pvpromocion']; ?>';
@@ -44,10 +92,7 @@ window.addEvent('domready',function(){
 	$('in_cuota_inicial').value            ='<?php echo $fila['cuota_inicial']; ?>';
 	$('in_saldo_financiar').value          ='<?php echo $fila['saldo_financiar']; ?>';
 	$('in_separacion').value               ='<?php echo $fila['separacion']; ?>';
-	$('in_id_banco').value                 ='<?php echo $fila['id_banco']; ?>';
-	$('in_id_sectorista').value            ='<?php echo $fila['id_sectorista']; ?>';
 	$('in_id_usuario').value               ='<?php echo $fila['id_usuario']; ?>';
-	$('in_id_canal').value                 ='<?php echo $fila['id_canal']; ?>';
 
 	$('in_saldo_inmobiliaria').value         ='<?php echo $fila['saldo_inmobiliaria']; ?>';
 	$('in_saldo_inmobiliaria_cuotas').value  ='<?php echo $fila['saldo_inmobiliaria_cuotas']; ?>';

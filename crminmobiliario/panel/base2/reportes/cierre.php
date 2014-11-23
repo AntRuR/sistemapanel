@@ -43,21 +43,25 @@
 
 	if($_GET['format']!='excel'){
 
-		echo '<select onchange="load_ajax_in(\'html_reporte\',this.value);">';
+		echo '<select onchange="if(this.value!=\'\'){load_ajax_in(\'html_reporte\',this.value);}">';
 			echo '<option>Seleccione un proyecto</option>';
-		foreach($projects as $lin2){
-			echo '<option '. ( ($_GET['id_item']==$lin2['id'])?'selected':'' ) .' value="'.$SERVER['ARCHIVO_REAL'].'?'.urldecode(http_build_query($output)).'&id_item='.$lin2['id'].'">'.strtoupper($lin2['nombre']).'</option>';
-		}
+			foreach($projects as $lin2){
+				echo '<option '. ( ($_GET['id_item']==$lin2['id'])?'selected':'' ) .' value="'.$SERVER['ARCHIVO_REAL'].'?'.urldecode(http_build_query($output)).'&id_item='.$lin2['id'].'">'.
+					 strtoupper($lin2['nombre']).
+					 '</option>';
+			}
 		echo '</select>';
 
 	}
 
-function format_excel($num)
-{
-	// $num= 100 * round( 1*$num / 100 ) ;
-	$num=number_format($num,2,'.',',');
-	return $num;
-}
+
+
+	function format_excel($num)
+	{
+		// $num= 100 * round( 1*$num / 100 ) ;
+		$num=number_format($num,2,'.',',');
+		return $num;
+	}
 
 // prin($_GET);
 
@@ -66,7 +70,7 @@ if($_GET['id_item']!=''){
 
 	$total=contar("productos_items_items","where id_item=".$_GET['id_item'],0);
 
-	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,2) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",1);
+	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
 
 	if(sizeof($items_items0)==0){
 		
@@ -75,8 +79,8 @@ if($_GET['id_item']!=''){
 
 	} else {
 
-		// $estacionamientos_items0=select("id,id_status,venta_precio,venta_fecha","productos_estacionamientos_items_items","where id_status in (3,2) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
-		// $depositos_items0=select("id,id_status,venta_precio,venta_fecha","productos_depositos_items_items","where id_status in (3,2) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+		// $estacionamientos_items0=select("id,id_status,venta_precio,venta_fecha","productos_estacionamientos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+		// $depositos_items0=select("id,id_status,venta_precio,venta_fecha","productos_depositos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
 
 		// prin($estacionamientos_items0);
 		$publicidades=select("fecha_creacion2","publicidades","where id_item=".$_GET['id_item']." order by fecha_creacion2 asc");
@@ -139,11 +143,11 @@ if($_GET['id_item']!=''){
 		foreach($intervalos as $yy=>$interva)
 		{
 
-			$items_items_bloque=select("area_construida,id,id_status,venta_precio,area_construida","productos_items_items","where id_status in (3,2) and id_item=".$_GET['id_item']." and date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' order by venta_fecha asc",0);
+			$items_items_bloque=select("area_construida,id,id_status,venta_precio,area_construida","productos_items_items","where id_status in (3,4) and id_item=".$_GET['id_item']." and date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' order by venta_fecha asc",0);
 
-			$num_atenciones=contar("ventas_items","where id_item=".$_GET['id_item']." and date(fecha_creacion) between '".$interva['from']."' and '".$interva['to']."' ",0);
+			$num_atenciones=contar("ventas_items","where id_canal in (2) and id_item=".$_GET['id_item']." and date(fecha_creacion) between '".$interva['from']."' and '".$interva['to']."' ",0);
 
-			$num_separaciones=contar("productos_items_items","where id_item=".$_GET['id_item']." and  id_status in (3,2)  and date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' ",0);
+			$num_separaciones=contar("productos_items_items","where id_item=".$_GET['id_item']." and  id_status in (3,4)  and date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' ",0);
 
 
 			$inversion_mes=0;
@@ -285,13 +289,13 @@ if($_GET['id_item']!=''){
 		/// BODY
 		foreach($tamanos as $ttt=>$tamano){
 			$l++;
-			$row[$l][]=array(($ttt==0)?'AVISOS EL COMERCIO':'','','class=muted head"');
+			$row[$l][]=array(($ttt==0)?'AVISOS EL COMERCIO':'','','');
 			$row[$l][]=array($tamano);
 			foreach($intervalos as $iii=>$yy){
-				$row[$l][]=array($datos[$iii][$ttt]['0']);
+				$row[$l][]=array(number_format($datos[$iii][$ttt]['0'], 2, '.', ','));
 				$row[$l][]=array($datos[$iii][$ttt]['1']);
 			}
-			$row[$l][]=array($datos[$ttt]['suma']);
+			$row[$l][]=array(number_format($datos[$ttt]['suma'], 2, '.', ','));
 		}
 
 
@@ -299,13 +303,13 @@ if($_GET['id_item']!=''){
 		$row[$l][]=array('TOTAL INVERSION EN DIARIO EL COMERCIO','class=nombre colspan=2','class=warning');
 		foreach($intervalos as $iii=>$yy){
 			$row[$l][]=array('');
-			$row[$l][]=array($datos[$iii]['inversion']);
+			$row[$l][]=array(number_format($datos[$iii]['inversion'], 2, '.', ','));
 		}
-		$row[$l][]=array($datos['suma']['inversion']);
+		$row[$l][]=array(number_format($datos['suma']['inversion'], 2, '.', ','));
 
 
 		$l++;
-		$row[$l][]=array('N° DE VISITAS','class=nombre colspan=2','class=muted head"');
+		$row[$l][]=array('N° DE VISITAS','class=nombre colspan=2','');
 		foreach($intervalos as $iii=>$yy){
 			$row[$l][]=array('');
 			$row[$l][]=array($datos[$iii]['num_atenciones']);
@@ -313,7 +317,7 @@ if($_GET['id_item']!=''){
 		$row[$l][]=array($datos['suma']['num_atenciones']);
 
 		$l++;
-		$row[$l][]=array('N° DE SEPARACIONES','class=nombre colspan=2','class=muted head"');
+		$row[$l][]=array('N° DE SEPARACIONES','class=nombre colspan=2','');
 		foreach($intervalos as $iii=>$yy){
 			$row[$l][]=array('');
 			$row[$l][]=array($datos[$iii]['num_separaciones']);
@@ -322,7 +326,7 @@ if($_GET['id_item']!=''){
 
 
 		$l++;
-		$row[$l][]=array('RELACION VISITAS/SEPARACIONES','class=nombre colspan=2','class=muted head"');
+		$row[$l][]=array('RELACION VISITAS/SEPARACIONES','class=nombre colspan=2','');
 		foreach($intervalos as $iii=>$yy){
 			$row[$l][]=array('');
 			$row[$l][]=array($datos[$iii]['relacion']);
@@ -334,18 +338,18 @@ if($_GET['id_item']!=''){
 		$row[$l][]=array('COSTO VISITA','class=nombre colspan=2','class=warning');
 		foreach($intervalos as $iii=>$yy){
 			$row[$l][]=array('');
-			$row[$l][]=array($datos[$iii]['costo_visita']);
+			$row[$l][]=array(number_format($datos[$iii]['costo_visita'], 2, '.', ','));
 		}
-		$row[$l][]=array($datos['suma']['costo_visita']);
+		$row[$l][]=array(number_format($datos['suma']['costo_visita'], 2, '.', ','));
 
 
 		$l++;
 		$row[$l][]=array('COSTO SEPARACIONES','class=nombre colspan=2','class=warning');
 		foreach($intervalos as $iii=>$yy){
 			$row[$l][]=array('');
-			$row[$l][]=array($datos[$iii]['costo_separacion']);
+			$row[$l][]=array(number_format($datos[$iii]['costo_separacion'], 2, '.', ','));
 		}
-		$row[$l][]=array($datos['suma']['costo_separacion']);
+		$row[$l][]=array(number_format($datos['suma']['costo_separacion'], 2, '.', ','));
 
 
 		// $seccion['TABLA1'] =$row;

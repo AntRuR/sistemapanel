@@ -31,21 +31,6 @@ var USU_IMG_DEFAULT="<?php echo $USU_IMG_DEFAULT;?>";
 var json;<?php
 ?>function ax(accion,id,pag){
 switch(accion){
-case "set_fila_3":
-$("exl_"+id).setStyles({'display':''});
-$("cll_"+id).setStyles({'display':'none'});<?php
-if($datos_tabla['expandir_vertical']=='1') {?>
- $('i_'+id).removeClass('modificador');
-$('i_'+id).removeClass('modificador');
-if($('set_filas_3').getStyle('color')=='#000000' || $('set_filas_1').getStyle('color')=='#000000' || $('set_filas_2').getStyle('color')=='#000000'){
-$('i_'+id).removeClass('modificador_grilla');
-$('i_'+id).addClass('modificador_linea');
-} else {
-$('i_'+id).removeClass('modificador_linea');
-$('i_'+id).addClass('modificador_grilla');
-}<?php
- } ?>
-break;
 case "set_fila_2":
 $("exl_"+id).setStyles({'display':'none'});
 $("cll_"+id).setStyles({'display':''});<?php
@@ -64,6 +49,17 @@ $('i_'+id).removeClass('modificador');
 $('i_'+id).removeClass('modificador_linea');
 $('i_'+id).removeClass('modificador_grilla');<?php
 } ?>
+break;
+case "set_fila_3":
+$("exl_"+id).setStyles({'display':''});
+$("cll_"+id).setStyles({'display':'none'});<?php
+if($datos_tabla['expandir_vertical']=='1') {?>
+$('i_'+id).removeClass('modificador');
+$('i_'+id).removeClass('modificador');
+<?php
+ } ?>
+$('i_'+id).removeClass('modificador_linea');
+$('i_'+id).addClass('modificador_grilla'); 
 break;
 case "actualizar_total":
 if($('inner_span_num'))
@@ -158,6 +154,9 @@ $('resaltar').value='';
 ax('actualizar_total',this.value);
 $0('refresh');
 } } ).send();
+break;
+case "excel":
+location.href="vista.php?OB="+MMEE+"&filter="+id+"&format=excel&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>"+(($('ffilter')?'&filter='+$('ffilter').value:''));
 break;
 case "pagina":
 $1('refresh');
@@ -809,7 +808,7 @@ echo $datos_tabla['fed']?>			:  "now()",<?php
 if($_GET['L']==''){ ?>v_d : "where <?php echo $datos_tabla['id']?>='"+id+"' "<?php }
 else{ ?>v_d : "where <?php echo $datos_tabla['id']?>='<?php echo $_GET['L'];?>' "<?php }
 ?>};
-new Request({url:"ajax_sql.php?<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=update&debug=0", method:'post', data:datos, onSuccess:function(ee) {
+new Request({url:"ajax_sql.php?<?php echo (isset($_GET['proceso']))?'proceso='.$_GET['proceso'].'&':'' ?>f=update&debug=0", method:'post', data:datos, onSuccess:function(ee) {
 var pagg=new Array();
 if(pag){
 pagg=pag.split('=');
@@ -830,6 +829,7 @@ ax("editar_completo_cancelar");
 $('resaltar').value='i_'+id;
 //alert('<?php echo $linkRecPagina;?>');
 ax("<?php echo $linkRecPagina;?>");
+// alert("<?php echo $SERVER['RUTA'];?>");
 location.href='<?php echo $SERVER['RUTA'];?>#i_'+id;
 <?php } else { ?>parent.ax("recargar");parent.initMultiBox.close(); <?php }?>
 } else if(Recargar=='sin_ajax'){
@@ -943,7 +943,7 @@ foreach($tblistado as $tbli){
 		}
 
 		?>var val=$('i_<?php echo $tbli['campo']?>_'+id).innerHTML.trim();<?php
-		?>input_date('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id,'p_<?php echo $tbli['campo']?>_'+id,<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbli['time']?>');<?php
+		?>input_date('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id,'p_<?php echo $tbli['campo']?>_'+id,<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbli['time']?>','<?php echo $tbli['months']?>');<?php
 		?>$('p_<?php echo $tbli['campo']?>_'+id).setStyles({'display':'block'});<?php
 		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_d').setStyles({'clear':'none'});<?php
 		?>$('<?php echo $tb?>_text_<?php echo $tbli['campo']?>_'+id+'_m').setStyles({'clear':'none'});<?php

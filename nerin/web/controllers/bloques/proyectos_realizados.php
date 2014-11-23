@@ -29,8 +29,7 @@ foreach($object['menu'] as $menu){
         fecha_creacion,
         nombre as titulo,
         ciudad,
-        fecha,
-        'Nombre del Proyecto' as pretitulo
+        fecha
         ",
         'productos_items',
         "where 1 and id_subgrupo='".$menu['id']."' and  visibilidad='1' order by id asc limit 0,100",
@@ -45,7 +44,7 @@ foreach($object['menu'] as $menu){
                                     )
                         ),
             'url'=>array('url'=>array('modulo=items&tab=proyectos&acc=file&id={id}&friendly={titulo}')),
-            'esquema'=>'foto,pretitulo,titulo,ciudad,fecha'
+            'esquema'=>'foto,titulo,ciudad,fecha'
         ]      
     );
     // prin($object[$menu['id']]['filas']);

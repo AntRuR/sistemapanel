@@ -314,7 +314,7 @@ location.href=url;
 		} else {
 
 			$mmmM = "<li class='menudown'>";
-			$mmmM.= "<a href='maquina.php' style='text-transform:uppercase;'>MASTER</a>";
+			$mmmM.= "<a href='maquina.php'>MASTER</a>";
 			if( ( $Open or $Local==1 )){
 				if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
 
@@ -370,8 +370,10 @@ location.href=url;
 			$menus_d['master'] = $mmmM;
 
 			if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
-				$mmmM = "<li class='menudown'><a href='custom/usuarios_acceso.php'>";
-				$mmmM.=  "CORE";
+
+				$mmmM = "<li class='menudown'>";
+				$mmmM.= "<a href='usuarios_acceso.php'>CORE</a>";
+
 				if( ( $Open or $Local==1 )){
 					$mmenuu= '<ul class="li_cabecera">';
 					foreach($objeto_tabla as $ooott){

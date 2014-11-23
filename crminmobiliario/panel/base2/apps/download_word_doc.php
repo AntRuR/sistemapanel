@@ -10,7 +10,7 @@ chdir("../../");
 include("lib/global.php");	
 include("lib/conexion.php");
 include("lib/mysql3.php");
-include("lib/util.php");
+include("lib/util2.php");
 
 
 $rr=fila(
@@ -21,13 +21,14 @@ $rr=fila(
 	"contratos",
 	"where nombre='".$_GET['nombre']."'",
 	0,
-	array(
-		'doc'=>array('archivo'=>array('ctr_doc','{fecha_creacion}','{file}'))
-	)	
+	[
+		'doc'=>['archivo'=>['ctr_doc','{fecha_creacion}','{file}']]
+	]	
 	);
 
 
 list($uno,$dos) = explode("imagenes_dir",$rr['doc']);
+
 $rr['doc']="../imagenes_dir".$dos;
 
 // prin($rr);
@@ -45,22 +46,22 @@ $PHPWord = new PHPWord();
 
 $document = $PHPWord->loadTemplate($rr['doc']);
 
-$document->setValue('Value1', 'Sun');
-$document->setValue('Value2', 'Mercury');
-$document->setValue('Value3', 'Venus');
-$document->setValue('Value4', 'Earth');
-$document->setValue('Value5', 'Mars');
-$document->setValue('Value6', 'Jupiter');
-$document->setValue('Value7', 'Saturn');
-$document->setValue('Value8', 'Uranus');
-$document->setValue('Value9', 'Neptun');
-$document->setValue('Value10', 'Pluto');
-$document->setValue('weekday', date('l'));
-$document->setValue('time', date('H:i'));
-
+$document->setValue('Value1'	, 'Sun');
+$document->setValue('Value2'	, 'Mercury');
+$document->setValue('Value3'	, 'Venus');
+$document->setValue('Value4'	, 'Earth');
+$document->setValue('Value5'	, 'Mars');
+$document->setValue('Value6'	, 'Jupiter');
+$document->setValue('Value7'	, 'Saturn');
+$document->setValue('Value8'	, 'Uranus');
+$document->setValue('Value9'	, 'Neptun');
+$document->setValue('Value10'	, 'Pluto');
+$document->setValue('weekday'	, date('l'));
+$document->setValue('time'		, date('H:i'));
 // $document->save('asalvo.docx');
 
 $filenameout = $rr['nombre'].".docx";
+
 
 $filename = 'temp.docx';
 $document->save($filename);

@@ -201,16 +201,16 @@ foreach($projects as $iusu2=>$lin2)
 	
 	$tipo='departamentos';
 	$row[$l][]=$unidades[$tipo]['4'];
-	$row[$l][]=$suma[$tipo]['4'];
+	$row[$l][]=number_format($suma[$tipo]['4'], 2, '.', ',');
 
 	$row[$l][]=$unidades[$tipo]['3'];
-	$row[$l][]=$suma[$tipo]['3'];
+	$row[$l][]=number_format($suma[$tipo]['3'], 2, '.', ',');
 
 	$row[$l][]=$unidades[$tipo]['2'];
-	$row[$l][]=$suma[$tipo]['2'];
+	$row[$l][]=number_format($suma[$tipo]['2'], 2, '.', ',');
 	
 	$row[$l][]=$unidades[$tipo]['1'];
-	$row[$l][]=$suma[$tipo]['1'];
+	$row[$l][]=number_format($suma[$tipo]['1'], 2, '.', ',');
 
 
 	$l++;//second line
@@ -220,13 +220,13 @@ foreach($projects as $iusu2=>$lin2)
 
 	$tipo='estacionamientos';
 	$row[$l][]=$unidades[$tipo]['4'];
-	$row[$l][]=$suma[$tipo]['4'];
+	$row[$l][]=number_format($suma[$tipo]['4'], 2, '.', ',');
 	$row[$l][]=$unidades[$tipo]['3'];
-	$row[$l][]=$suma[$tipo]['3'];
+	$row[$l][]=number_format($suma[$tipo]['3'], 2, '.', ',');
 	$row[$l][]=$unidades[$tipo]['2'];
-	$row[$l][]=$suma[$tipo]['2'];
+	$row[$l][]=number_format($suma[$tipo]['2'], 2, '.', ',');
 	$row[$l][]=$unidades[$tipo]['1'];
-	$row[$l][]=$suma[$tipo]['1'];
+	$row[$l][]=number_format($suma[$tipo]['1'], 2, '.', ',');
 
 
 	$l++;//third line
@@ -236,13 +236,13 @@ foreach($projects as $iusu2=>$lin2)
 
 	$tipo='depositos';
 	$row[$l][]=$unidades[$tipo]['4'];
-	$row[$l][]=$suma[$tipo]['4'];
+	$row[$l][]=number_format($suma[$tipo]['4'], 2, '.', ',');
 	$row[$l][]=$unidades[$tipo]['3'];
-	$row[$l][]=$suma[$tipo]['3'];
+	$row[$l][]=number_format($suma[$tipo]['3'], 2, '.', ',');
 	$row[$l][]=$unidades[$tipo]['2'];
-	$row[$l][]=$suma[$tipo]['2'];
+	$row[$l][]=number_format($suma[$tipo]['2'], 2, '.', ',');
 	$row[$l][]=$unidades[$tipo]['1'];
-	$row[$l][]=$suma[$tipo]['1'];
+	$row[$l][]=number_format($suma[$tipo]['1'], 2, '.', ',');
 
 
 
@@ -259,29 +259,35 @@ foreach($projects as $iusu2=>$lin2)
 
 	$suma_soles['total']=$suma_soles['1']+$suma_soles['2']+$suma_soles['3']+$suma_soles['4'];
 
-	$suma_proyectos['total']+=$row[$l][]=$suma_soles['total'];
+	$row[$l][]=number_format($suma_soles['total'], 2, '.', ',');
 	$row[$l][]='';
-	$suma_proyectos['4']+=$row[$l][]=$suma_soles['4'];
+	$row[$l][]=number_format($suma_soles['4'], 2, '.', ',');
 	$row[$l][]='';
-	$suma_proyectos['3']+=$row[$l][]=$suma_soles['3'];
+	$row[$l][]=number_format($suma_soles['3'], 2, '.', ',');
 	$row[$l][]='';
-	$suma_proyectos['2']+=$row[$l][]=$suma_soles['2'];
+	$row[$l][]=number_format($suma_soles['2'], 2, '.', ',');
 	$row[$l][]='';
-	$suma_proyectos['1']+=$row[$l][]=$suma_soles['1'];
+	$row[$l][]=number_format($suma_soles['1'], 2, '.', ',');
+
+	$suma_proyectos['total']+=$suma_soles['total'];
+	$suma_proyectos['4']+=$suma_soles['4'];
+	$suma_proyectos['3']+=$suma_soles['3'];
+	$suma_proyectos['2']+=$suma_soles['2'];
+	$suma_proyectos['1']+=$suma_soles['1'];
 
 
 	$l++;//third line
 	$row[$l][]=array('<b>TOTAL EN DÓLARES</b>','class=nombre');	
 
-	$row[$l][]=$tipo_cambio*$suma_soles['total'];
+	$row[$l][]=number_format($tipo_cambio*$suma_soles['total'], 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=$tipo_cambio*$suma_soles['4'];
+	$row[$l][]=number_format($tipo_cambio*$suma_soles['4'], 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=$tipo_cambio*$suma_soles['3'];
+	$row[$l][]=number_format($tipo_cambio*$suma_soles['3'], 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=$tipo_cambio*$suma_soles['2'];
+	$row[$l][]=number_format($tipo_cambio*$suma_soles['2'], 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=$tipo_cambio*$suma_soles['1'];
+	$row[$l][]=number_format($tipo_cambio*$suma_soles['1'], 2, '.', ',');
 
 	$l++;//third line
 	$row[$l][]=array('<b>Estado de Alcance</b>','class=nombre');	
@@ -336,29 +342,30 @@ foreach($projects as $iusu2=>$lin2)
 	$row[$l][]=array('<b>TOTAL EN SOLES</b>','class=nombre','class=warning');	
 
 
-	$row[$l][]=$suma_proyectos['total'];
+	$row[$l][]=number_format($suma_proyectos['total'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$suma_proyectos['4'];
+	$row[$l][]=number_format($suma_proyectos['4'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$suma_proyectos['3'];
+	$row[$l][]=number_format($suma_proyectos['3'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$suma_proyectos['2'];
+	$row[$l][]=number_format($suma_proyectos['2'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$suma_proyectos['1'];
+	$row[$l][]=number_format($suma_proyectos['1'], 2, '.', ',');
 
 
 	$l++;//third line
 	$row[$l][]=array('<b>TOTAL EN DÓLARES</b>','class=nombre');	
 
-	$row[$l][]=$tipo_cambio*$suma_proyectos['total'];
+	$row[$l][]=number_format($tipo_camnio*$suma_proyectos['total'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$tipo_cambio*$suma_proyectos['4'];
+	$row[$l][]=number_format($tipo_camnio*$suma_proyectos['4'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$tipo_cambio*$suma_proyectos['3'];
+	$row[$l][]=number_format($tipo_camnio*$suma_proyectos['3'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$tipo_cambio*$suma_proyectos['2'];
+	$row[$l][]=number_format($tipo_camnio*$suma_proyectos['2'], 2, '.', ',');
 	$row[$l][]='';
-	$row[$l][]=$tipo_cambio*$suma_proyectos['1'];
+	$row[$l][]=number_format($tipo_camnio*$suma_proyectos['1'], 2, '.', ',');
+
 
 	$l++;//third line
 	$row[$l][]=array('<b>Estado de Alcance</b>','class=nombre');	

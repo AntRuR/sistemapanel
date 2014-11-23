@@ -1,10 +1,13 @@
 <?php //á
-
 include("lib/includes.php");
 
-$FILES=explode($_SERVER['SCRIPT_NAME'],$_SERVER['PHP_SELF']);
-$FILE=str_replace("/","",$FILES[1]);
 
+
+$FILES=explode($_SERVER['SCRIPT_NAME'],$_SERVER['PHP_SELF']);
+$FILE=(!empty($FILES[1]))?$FILES[1]:$_SERVER['ORIG_PATH_INFO'];
+$FILE=str_replace("/","",$FILE);
+
+//ORIG_PATH_INFO
 $file2OBJ=[];
 
 foreach($objeto_tabla as $mememe=>$ot){
@@ -29,15 +32,17 @@ if(isset($MEEE)){
 
 }
 
+
 //REDIRECCIONES
 if(!isset($MEEE)){
 
 	$permisos=$PERMISOS_USUARIO;
 	if(trim($permisos)=='' or trim($permisos)=='*'){
-		
-		header("Location: ".$DIR_CUSTOM.$FILE_DEFAULT);
+
+		header("Location: ". $DIR_CUSTOM.$FILE_DEFAULT);
 
 	} else {
+
 		//prin($permisos);
 		$permisos=str_replace("\n","",$permisos);
 		$permisos=explode(",",$permisos);
@@ -54,7 +59,7 @@ if(!isset($MEEE)){
 		}
 		$FILE_DEFAULT=($sepuede)?$FILE_DEFAULT:$objeto_tabla[$Permitidos[0]]['archivo'].".php";
 
-		header("Location: ".$DIR_CUSTOM.$FILE_DEFAULT);
+		header("Location: ". $DIR_CUSTOM.$FILE_DEFAULT);
 
 	}
 

@@ -136,7 +136,7 @@ function procesar_objeto_tabla($array){
 		$campos['where_id']    	=	'';
 	}
 	*/
-	//prin($camp['where_id']);
+	// prin($camp['where_id']);
 	return $campos;
 
 }
@@ -2931,7 +2931,7 @@ function render_foreig_subs($obj0,$id,$urd){
 							case "com":
 								$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 								list($valoor,$color)=explode("|",$valoor);
-								$valoor=($valoor!='')?strtolower($valoor):"&nbsp;";
+								$valoor=($valoor!='')?strtolower($valoor):"";
 								switch($valoor){
 									case "comentario":echo "<a title='comentario' class='ico_tack z ico_list'></a>"; break;
 									case "soporte":echo "<a title='soporte' class='ico_clip z ico_list'></a>"; break;
@@ -2939,7 +2939,7 @@ function render_foreig_subs($obj0,$id,$urd){
 									case "recibido":echo "<a title='recibido' class='ico_right z ico_list'></a>"; break;
 									case "si":echo "<a title='si' class='ico_yes z ico_list'></a>"; break;
 									case "no":echo "<a title='no' class='ico_no z ico_list'></a>"; break;
-									default; echo "<span class='ico_opcion' ".(($color)?"style='color:white;background-color:".$color.";":"")."'>".$valoor."</span>"; break;
+									default; echo "<span ".(($color)?" class='label' style='color:white;background-color:".$color.";'":"").">".$valoor."</span>"; break;
 								}
 							break;
 							case "hid":
@@ -2958,7 +2958,7 @@ function render_foreig_subs($obj0,$id,$urd){
 								$adiv0='<a class="tipper" href="custom/'.$tablaO.'.php?i='.$linea[$camP].'" rel="{ajax:\'ajax_sql.php?v_t='.$tablaO.'&v_d='.$idO.'%3D'.$linea[$camP].'&f=get_quick\'}">';
 								$adiv1='</a>';
 								} else { 
-								$adiv0=($color0!='')?"<span class='ico_opcion' style='background:$color0;color:white;' >":''; $adiv1=($color0!='')?'</span>':''; 
+								$adiv0=($color0!='')?"<span class='label' style='background:$color0;color:white;' >":''; $adiv1=($color0!='')?'</span>':''; 
 								}
 								echo (trim($bufy)!='')?$adiv0.$bufy.$adiv1:'';
 							break;
@@ -2975,7 +2975,14 @@ function render_foreig_subs($obj0,$id,$urd){
 							echo ($linea[$camP]!='')?nl2br($linea[$camP]):"&nbsp;";
 							break;
 							default:
-							echo ($linea[$camP]!='')?$linea[$camP]:"&nbsp;";
+								switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
+								case "currency":
+								echo '<span class="currency">'.number_format(($linea[$camP]!='')?$linea[$camP]:"", 2, '.', ',').'</span>';
+								break;
+								default:
+								echo ($linea[$camP]!='')?$linea[$camP]:"";
+								break;
+								}							
 							break;
 						} //switch tipo
 						echo '</div>';
@@ -2997,7 +3004,16 @@ function render_foreig_subs($obj0,$id,$urd){
 								if($bottoms[$camP]=='SUM'){
 									$SUM=0;
 									foreach($lineas as $linea){ $SUM+=$linea[$camP]; }
-									echo $SUM;
+
+										switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
+										case "currency":
+										echo '<span class="currency">'.number_format(($SUM!='')?$SUM:"", 2, '.', ',').'</span>';
+										break;
+										default:
+										echo $SUM;
+										break;
+										}	
+
 								} else {
 									echo ($bottoms[$camP])?$bottoms[$camP]:"&nbsp;";
 								}
@@ -3034,7 +3050,7 @@ function render_foreig_subs($obj0,$id,$urd){
 						*/
 						break;
 						case "com":
-						echo "&nbsp;";
+						echo "";
 						/*
 							$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 							list($valoor,$color)=explode("|",$valoor);
@@ -3046,7 +3062,7 @@ function render_foreig_subs($obj0,$id,$urd){
 								case "recibido":echo "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
 								case "si":echo "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 								case "no":echo "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
-								default; echo "<span class='ico_opcion' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
+								default; echo "<span class='label' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
 							}
 						*/
 						break;
@@ -3326,7 +3342,7 @@ function render_foreig_file($obj0,$linea,$urd){
 					case "com":
 						$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 						list($valoor,$color)=explode("|",$valoor);
-						$valoor=($valoor!='')?$valoor:"&nbsp;";
+						$valoor=($valoor!='')?$valoor:"";
 						switch($valoor){
 							case "comentario":echo "&nbsp;<a title='comentario' class='ico_tack z ico_list'></a>"; break;
 							case "soporte":echo "&nbsp;<a title='soporte' class='ico_clip z ico_list'></a>"; break;
@@ -3334,7 +3350,7 @@ function render_foreig_file($obj0,$linea,$urd){
 							case "recibido":echo "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
 							case "si":echo "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 							case "no":echo "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
-							default; echo "<span class='ico_opcion' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
+							default; echo "<span class='label' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
 						}
 					break;
 					case "hid":
@@ -3918,9 +3934,9 @@ function pre_procesar_objeto_tabla_0($me){
 			$me['campos']['user']['default']=$_SESSION['usuario_id'];
 			if($TIPO_USUARIO=='2'){
 			$getchildren=getChildren($objeto_tabla,$tabla_sesion_datos,$_SESSION['usuario_datos_id']);
-			$extra_filtro.=($getchildren)?" and user in (".$getchildren.") ":'';
+			$extra_filtro.=($getchildren)?" and ".$me['tabla'].".user in (".$getchildren.") ":'';
 			} else {
-			$extra_filtro.=" and user='".$_SESSION['usuario_id']."' ";
+			$extra_filtro.=" and ".$me['tabla'].".user='".$_SESSION['usuario_id']."' ";
 			}
 		}
 	}

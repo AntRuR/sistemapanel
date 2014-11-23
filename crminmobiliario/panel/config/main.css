@@ -16,20 +16,6 @@ body { background: #F5F8FA!important ;}
 
 
 
-/**
-
- * HEADER
-
- */
-
-
-
-a.link_header {
-
-	color: #CBCBCB;
-
-}
-
 
 
 /**
@@ -37,7 +23,9 @@ a.link_header {
  */
 
 .ul_menus li.group a.padre {
-    background: #AEBC91;
+
+    background: #004532;
+    
 }
 
 

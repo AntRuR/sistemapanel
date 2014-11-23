@@ -43,11 +43,13 @@ include("objeto.php");
 
     include("formulario_campos.php");
 
+    /*
+    
     ?>
 	<div id='area_hijos'>
 		<?php
 
-		if($datos_tabla['creacion_hijo']){
+	if($datos_tabla['creacion_hijo']){
     $Hijos=explode(",",$datos_tabla['creacion_hijo']);
     foreach($Hijos as $HijoD){
 
@@ -85,7 +87,9 @@ include("objeto.php");
     }
 }
 ?></div>
-	<?php
+	<?php 
+
+	*/
 
 
 
@@ -93,11 +97,9 @@ include("objeto.php");
 	<li class="linea_form linea_form_mensaje" style="color:#FF0000; <?php if($_GET['block']=='form'){ echo "display:none;"; } ?>" ><?php
 	?><label>&nbsp;</label>
 	<?php
-	?><span id="error_creacion"
-		style="visibility:; float: left; padding: 5px 0; font-size: 12px;"><?php
+	?><span id="error_creacion"><?php
 		if($numShowValCamps>0){
-        ?><span style="color: #222222;">los campos con * son
-				obligatorios</span>
+        ?><span>los campos con <b>*</b> son obligatorios</span>
 		<?php
 		}
 		?></span>
@@ -116,21 +118,23 @@ include("objeto.php");
 	<?php
 	if($Proceso=='login'){
             ?><input type="button" id="in_submit" class="btn  btn-primary"
-		value="Entrar" style="float: left;" onclick="ax('login','');" />
+		value="Entrar"  onclick="ax('login','');" />
 	<?php
             } else {
             ?><input type="button" id="in_submit" class="btn  btn-primary"
 		value="Crear <?php echo $datos_tabla['nombre_singular']?>"
-		style="float: left;" onclick="ax('insertar','');" />
+		onclick="ax('insertar','');" />
 	<?php
             }
+            /*
             if($Open and ($datos_tabla['crear_pruebas']!='0') ){
             ?><input type="button" id="in_submit_prueba"
 		class="btn  btn-primary desarrollo"
 		value="Crear <?php echo $datos_tabla['nombre_singular']?> de prueba"
 		onclick="ax('insertar_prueba','');" />
 	<?php
-            }
+            } 
+            */
 
             ?></li>
 	<?php
@@ -144,7 +148,7 @@ include("objeto.php");
 	<?php
 	?><input type="button" id="ed_save" class="btn  btn-primary"
 		value="Guardar <?php echo $datos_tabla['nombre_singular']?>"
-		style="float: left;" <?php
+		 <?php
 		?>
 		onclick="ax('guardar_completo',$v('id_guardar'))" />
 	<?php

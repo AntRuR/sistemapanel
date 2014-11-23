@@ -76,6 +76,12 @@ $camposOA=explode(";",$camposO);
 
 $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO)),0);
 
+ if( 
+ 	 !isset($tbcampA['opciones']) 
+ 	 and !isset($tbcampA['combo']) 
+ 	 and !isset($tbcampA['foreig']) 
+   ){ $mostrarli=0; }
+
 /*
  if(!($tbcampA['combo']=='1' or $GGET!='')){
 						$mostrarli=0;
@@ -109,13 +115,13 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 	<li style="<?php echo $tbcampA['listyle']?>" id="id_in_<?php echo $tbcampA['campo']?>" class="linea_form <?php echo $Derecha; ?>"><?php
 
 		?><label for="in_<?php echo $tbcampA['campo']?>"
-		id="la_<?php echo $tbcampA['campo']?>"><?php
+		id="la_<?php echo $tbcampA['campo']?>" <?php echo ($tbcampA['validacion']=='1')?'class="vali"':'';?> ><?php
 		echo $tbcampA['label'];
 		//prin($tbcampA);
 		if($EdicionPanel){ ?><a class='edot'
 			onclick='tog("<?php echo $tbcampA['campo']?>");return false;'>&diams;</a>
 			<?php }
-			if($tbcampA['validacion']=='1'){ ?>*<?php }?> </label> <?php
+			?></label><?php
 				}
 
 				if($datos_tabla['crear_quick']=='1'){
@@ -137,12 +143,14 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 					}
 					break; */
 						case "hid":
+							// prin($tbcampA['opciones']);
 							list($primO,$tablaO)=explode("|",$tbcampA['opciones']);
 							list($idO,$camposO)=explode(",",$primO);
 							$camposOA=array();
 							$camposOA=explode(";",$camposO);
 							$bufy='';
-							foreach($camposOA as $COA){
+						foreach($camposOA as $COA){
+						if($COA=='color') continue;	
 						$bufy.= select_dato($COA,$tablaO,"where ".$idO."='".$value."'")." ";
 						}
 						echo '<span id="in_'.$tbcampA['campo'].'_span">';
@@ -181,10 +189,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 					break;
 					case "img":	case "sto":
 
-					?><div style="float: left; height: auto;"
-					id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0">
-					<?php
-					?></div>
+					?><div class="upl" id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0"></div>
 					<?php
 
                     break;
@@ -239,8 +244,8 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
                     break;
                     case "paslogin":
 
-                            ?><div><input type="password" id="in_<?php echo $tbcampA['campo']?>" class="form_input" autocomplete="off" <?php
-                            ?>onkeyup=" if(event.keyCode=='13'){ ax('login',''); } " /></div><?php
+                            ?><input type="password" id="in_<?php echo $tbcampA['campo']?>" class="form_input" autocomplete="off" <?php
+                            ?>onkeyup=" if(event.keyCode=='13'){ ax('login',''); } " /><?php
 
                     break;
                     case "fch":
@@ -250,21 +255,69 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
                     break;
                     case "html": case "txt": case "yot":
 
+                    		$bootones='';
+
+
+                            if($tbcampA['tipo']=='html'){
+
+								if(sizeof($tbcampA['botones'])>0){ 
+								
+									if(!is_array($tbcampA['botones'])){
+										list($primO,$tablaO,$whereO)=explode("|",$tbcampA['botones']);
+										list($nombreO,$textoO)=explode(",",$primO);
+										$oopciones=select(array($nombreO,$textoO),$tablaO,procesar_dato($whereO),0);
+										//$ryr=0;
+										$tbcampA['botones']=array();
+										foreach($oopciones as $oOo){
+											//$ryr++;
+											//if(in_array($ryr,array(2,9))){
+											$tbcampA['botones'][$oOo[$nombreO]]=$oOo[$textoO];
+											//}
+										}
+									}
+									$ri=0;
+
+
+									$bootones.='<li class="insert">INSERTAR</li>';
+									foreach($tbcampA['botones'] as $name=>$html){ 
+									$ri++;	
+									$bootones.='<li><a class="btn btn-small" onclick="CKEDITOR.instances.in_'.$tbcampA['campo'].'.insertHtml(document.getElementById(\'booton_'.$tbcampA['campo'].'_'.$ri.'\').value);">'.$name.'</a></li>';
+									$bootones.='<textarea id="booton_'.$tbcampA['campo'].'_'.$ri.'">'.mooeditable_replace($html,$tbcampA['variables']).'</textarea>';
+	// 								echo 'html += "<a href=\'#\' rel=\'<!--'.$name.'-->'.
+	// 								str_replace("\\\\\"","\\\"",str_replace("\"","\\\"",str_replace(array("\n","\r","\s","\t"),"",mooeditable_replace($html,$tbcampA['variables']))))
+	// 								.'\'>'.$name.'</a>";
+	// ';
+	
+									}
+
+									if(sizeof($oopciones)==0){ 
+
+									$bootones.='<li>no hay texto <br>para insertar</li>';
+
+									}
+
+									$bootones='<ul class="bootones">'.$bootones.'</ul>';
+
+
+								}
+
+                            }                    		
+
                             ?><div class='floatinput <?php
-							echo ($tbcampA['tipo']=='html')?" mooedit":"";
-							?>'><textarea class="ckeditor" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
+							echo ($tbcampA['tipo']=='html')?" ":"";
+							?>'><?php echo ($bootones!='')?$bootones:''; ?><div><textarea class="ckeditor" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
                             ?>style=" <?php
 							echo ($tbcampA['tipo']=='html')?'background-color:#FFF; height:400px; ':"";
 							echo ($tbcampA['tipo']=='yot')?'width:300px;height:100px; ':"";
 							echo ($tbcampA['style']!='')?str_replace(",","; ",$tbcampA['style']).' ':'';
 							?>" autocomplete="off" rows="6"><?php
                             echo ($tbcampA['tipo']=='html')?(($tbcampA['default']=='')?'<p></p>':$tbcampA['default']):$tbcampA['default'];?></textarea><?php
-                            ?></div><?php
+                            ?></div></div><?php
 
                     break;
                     case "multicom":
 
-                            ?><div class="form_input" style="float:left; border:0; background:none;"><?php
+                            ?><div class="form_input" style="float:none;display:inline-block; border:0; background:none;"><?php
                             foreach($opciones_select as $opcccion=>$opcion_select_a){ list($opcion_select,$color)=explode("|",$opcion_select_a);
                             ?><div><?php
                             ?><strong><?php echo $opcion_select;?></strong><?php
@@ -282,7 +335,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
                     break;
 					case "bit":
 
-						?><div class="form_input" style="float:left; border:0; background:none;width:auto;"><?php
+						?><div class="form_input" style="float:none;display:inline-block; ; border:0; background:none;width:auto;"><?php
 						?><input id="in_<?php echo $tbcampA['campo']?>" type="hidden" name="<?php echo $tbcampA['campo']?>" <?php
 						?>value="<?php echo ($tbcampA['default']=="1")?'1':(($tbcampA['default']=="0")?'0':'');?>" /><?php
 						?><input <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?>  type="checkbox" <?php
@@ -301,7 +354,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 							$iti=(is_array($tbcampA['opciones']))?1:0;
 							$opciones_select=(is_array($tbcampA['opciones']))?$tbcampA['opciones']:explode(",",$tbcampA['opciones']);
 
-                            ?><div class="form_input" style="float:left; border:0; background:none;"><?php
+                            ?><div class="form_input" style="float:none;display:inline-block; ; border:0; background:none;"><?php
                             ?><input id="in_<?php echo $tbcampA['campo']?>" type="hidden" name="<?php echo $tbcampA['campo']?>"  /><?php
                             foreach($opciones_select as $opcccion=>$opcion_select){
                             ?><strong><?php echo $opcion_select;?></strong><?php
@@ -328,11 +381,11 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 								$iti=(is_array($tbcampA['opciones']))?1:0;
 								$opciones_select=(is_array($tbcampA['opciones']))?$tbcampA['opciones']:explode(",",$tbcampA['opciones']);
 								foreach($opciones_select as $opcccion=>$opcion_select_a){ list($opcion_select,$color)=explode("|",$opcion_select_a);
-								$vvvval=($iti)?fixEncoding($opcccion):fixEncoding($opcion_select);
+								$vvvval=($iti)?$opcccion:$opcion_select;
 								$Htm.='<option '.( ($color)?"style='color:".$color.";'":"" ).' value="'.$vvvval.'" ';
 								$Htm.=($vvvval==$tbcampA['default'])?"selected":"";
 								$Htm.=' >';
-								$Htm.= fixEncoding($opcion_select);
+								$Htm.= $opcion_select;
 								$Htm.= '</option>';
 								}
 								echo $Htm;
@@ -382,7 +435,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 
 								foreach($LoaDs as $LoaDd){
 
-								if(enhay($LoaDd,"|checks|")){
+								if(enhay(trim($LoaDd),"|checks|")){
 								$looop=explode("|checks|",trim($LoaDd));
 								?>load_checks('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>','<?php echo $tbcampA['afterload']?>');<?php
 								}	
@@ -411,7 +464,10 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 								?> ><option selected="selected"></option><?php
 									foreach($oopciones as $oooo2){
 									?><option <?php echo ($GGET==$oooo2[$idO] or $tbcampA['default']==$oooo2[$idO])?"selected":"";?> value="<?php echo $oooo2[$idO]?>" ><?php
-									foreach($camposOA as $COA){	echo fixEncoding($oooo2[$COA])." ";	}
+									foreach($camposOA as $COA){	
+										if($COA=='color') continue;
+										echo $oooo2[$COA]." ";	
+									}
 									?></option><?php
 									}
 								?></select><?php
@@ -422,16 +478,25 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 
 						} else {
 
-                            ?><span style='float:left;<?php echo ($tbcampA['style']=='')?'':" ".str_replace(",",";",$tbcampA['style'])?>'><?php
-	                            foreach($oopciones as $oooo2){ if($GGET==$oooo2['id']){
-								foreach($camposOA as $COA){	echo fixEncoding($oooo2[$COA])." ";	}
-								//echo $oooo2['nombre'];
-								} }
+                            ?><span style='float:none;display:inline-block; ;<?php echo ($tbcampA['style']=='')?'':" ".str_replace(",",";",$tbcampA['style'])?>'><?php
+	                            foreach($oopciones as $oooo2){ 
+	                            	if($GGET==$oooo2['id']){
+										foreach($camposOA as $COA){ 
+											if($COA=='color') continue;
+											echo $oooo2[$COA]." ";	
+										}
+										//echo $oooo2['nombre'];
+									} 
+								}
                             ?></span><?php
 							?><input type="hidden" id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
 							?>value="<?php echo $GGET;?>" /><?php
 							if($tbcampA['load']!=''){
 							$looop=explode("||",$tbcampA['load']);
+							}
+
+							if($tbcampA['obj']){
+								echo '<span id="in_'.$tbcampA['campo'].'_obj" class="obj"></span>';
 							}
 
                         }

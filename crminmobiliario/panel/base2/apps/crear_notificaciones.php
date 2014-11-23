@@ -197,8 +197,9 @@ elseif($TT=='ventas_mensajes'){
 
 
 }
-	// prin($paranotificar);
-	// exit();
+
+// prin($paranotificar);
+// exit();
 
 
 

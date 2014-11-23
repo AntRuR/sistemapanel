@@ -1,11 +1,11 @@
 <?php //á
-
+if(!isset($_GET['format']))
 header('Content-Type: text/html; charset=utf-8');
 
 
 
-$Array_Meses=array(1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre");
-$Array_Horas=array(0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm");
+$Array_Meses=[1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"];
+$Array_Horas=[0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm"];
 
 $FORMSCLASS=array(
 	'1'=>'linea_derecha_inicio',
@@ -211,6 +211,8 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$Local=1;
 	$SERVER['LOCAL']=1;
 	$LOCAL=1;
+	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 
 } else {
@@ -298,7 +300,7 @@ $SERVER['URL']=$url_script;
 $SERVER['ARCHIVO']=$url_script;
 $SERVER['ARCHIVO_REAL']=$file_script;
 $SERVER['BASE']="http://".$_SERVER['HTTP_HOST'].$dir_script."/";
-$SERVER['ROOT']=$vars['LOCAL']['url_publica'];
+$SERVER['ROOT']=$vars_server['url_publica'];
 $SERVER['PANEL']=$SERVER['ROOT'].'/panel';
 // echo '<pre>'; print_r($vars_server['url_publica']); echo '</pre>';
 // echo '<pre>'; print_R("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']); echo '</pre>';

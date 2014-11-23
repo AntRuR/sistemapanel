@@ -10,13 +10,12 @@ include("lib/compresionInicio.php");
 include("objeto.php");
 include("head.php");
 echo '<body class="quick">';
-echo "<div style='display:none;'>";
-include($objeto_tabla[$this_me]['onload_include']);
-echo $objeto_tabla[$this_me]['onload_script'];
-echo "</div>";
+
 echo $HTML_ALL_INICIO;
 echo $HTML_MAIN_INICIO;
 
+include($objeto_tabla[$this_me]['onload_include']);
+echo $objeto_tabla[$this_me]['onload_script'];
 
 if($_GET['accion']=='custom'){
 

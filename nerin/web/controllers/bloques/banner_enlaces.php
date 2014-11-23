@@ -16,7 +16,7 @@ if($PARAMS['this']=='banner_enlaces'){
 				,0
 				,array(
 					'foto:url'		=> '{url}',
-					'foto:atributos'=> array('atributos'=>'banfot_imas,{fecha_creacion},{file},4,204x110,1'),
+					'foto:atributos'=> array('atributos'=>'banfot_imas,{fecha_creacion},{file},6,204x110,1'),
 					'esquema'		=> 'foto'
 				)
 	);
@@ -35,7 +35,7 @@ if($PARAMS['this']=='banner_enlaces'){
 				,0
 				,array(
 					'foto:url'		=> '{url}',
-					'foto:atributos'=> array('atributos'=>'banfot_imas,{fecha_creacion},{file},4,245x120,1'),
+					'foto:atributos'=> array('atributos'=>'banfot_imas,{fecha_creacion},{file},6,245x120,1'),
 					'esquema'		=> 'foto'
 				)
 	);

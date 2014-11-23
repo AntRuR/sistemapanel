@@ -1,5 +1,6 @@
 <?php
 
+
 	$seccion=array();
 
 	//FIRST SELECT THE PROJECT
@@ -21,7 +22,6 @@
 		$projects2[]=$lin2;
 
 	}	
-
 	$projects=$projects2;
 
 	parse_str($SERVER['PARAMS'], $output);
@@ -30,10 +30,10 @@
 
 	if($_GET['format']!='excel'){
 
-		echo '<select onchange="load_ajax_in(\'html_reporte\',this.value);">';
+		echo '<select onchange="if(this.value!=\'\'){load_ajax_in(\'html_reporte\',this.value);}">';
 			echo '<option>Seleccione un proyecto</option>';
 		foreach($projects as $lin2){
-			echo '<option '. ( ($_GET['id_item']==$lin2['id'])?'selected':'' ) .' value="'.$SERVER['ARCHIVO'].'?'.http_build_query($output).'&id_item='.$lin2['id'].'">'.strtoupper($lin2['nombre']).'</option>';
+			echo '<option '. ( ($_GET['id_item']==$lin2['id'])?'selected':'' ) .' value="'.$SERVER['ARCHIVO_REAL'].'?'.http_build_query($output).'&id_item='.$lin2['id'].'">'.strtoupper($lin2['nombre']).'</option>';
 		}
 		echo '</select>';
 
@@ -48,16 +48,21 @@ function format_excel($num)
 
 
 
+
 if($_GET['id_item']!=''){
 
 	$total=contar("productos_items_items","where id_item=".$_GET['id_item'],0);
 
-	// prin($total);
-	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,2) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
-	$estacionamientos_items0=select("id,id_status,venta_precio,venta_fecha","productos_estacionamientos_items_items","where id_status in (3,2) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
-	$depositos_items0=select("id,id_status,venta_precio,venta_fecha","productos_depositos_items_items","where id_status in (3,2) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
 
-	// prin($estacionamientos_items0);
+	// prin($total);
+	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+	$estacionamientos_items0=select("id,id_status,venta_precio,venta_fecha","productos_estacionamientos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+	$depositos_items0=select("id,id_status,venta_precio,venta_fecha","productos_depositos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+
+
+	// prin($items_items0);
+
+	// exit();
 
 	$items_items0_total=0;
 	foreach($items_items0 as $iiittt){
@@ -78,6 +83,8 @@ if($_GET['id_item']!=''){
 	$items_items            =select("area_construida,id,id_status,venta_precio,area_construida","productos_items_items","where id_item=".$_GET['id_item']." order by venta_fecha asc",0);
 	$estacionamientos_items =select("id,id_status,venta_precio,area_construida","productos_estacionamientos_items_items","where id_item=".$_GET['id_item']." order by venta_fecha asc",0);
 	$depositos_items        =select("id,id_status,venta_precio,area_construida","productos_depositos_items_items","where id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+
+	// prin($items_items);
 	
 	// prin($items_items);
 	// prin($estacionamientos_items);
@@ -86,20 +93,28 @@ if($_GET['id_item']!=''){
 	$from=$items_items0[0]['venta_fecha']; $items_items0final=end($items_items0);
 	$to=$items_items0final['venta_fecha'];
 
-	// prin(array($from,$to));
+	if(!$from or !$to){ die("aún no hay items vendidos."); }
+
+	// prin([$from,$to]);
+	// exit();
+
 	$intervalos=crear_intervalos_con_labels('M',$from,$to);
+
 	
 	// prin($intervalos);
+
 
 	$year='';
 	$acumulado=1;
 	$datos=array();
 	// $acumulado['2']=$acumulado['3']=$acumulado['4']=0;
 	$num_acumulado=$area_acumulada=$precio_acumulado=0;
+
+
 	foreach($intervalos as $yy=>$interva)
 	{
 
-		$items_items_bloque=select("area_construida,id,id_status,venta_precio,area_construida","productos_items_items","where id_status in (3,2) and id_item=".$_GET['id_item']." and date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' order by venta_fecha asc",0);
+		$items_items_bloque=select("area_construida,id,id_status,venta_precio,area_construida","productos_items_items","where id_status in (3,4) and id_item=".$_GET['id_item']." and date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' order by venta_fecha asc",0);
 		// prin($items_items_bloque);
 		$area=$precio=0;
 		foreach($items_items_bloque as $iib){
@@ -115,7 +130,7 @@ if($_GET['id_item']!=''){
 		// prin($acumulado);
 
 		$TC=2.81;
-		$PPP=900;
+		$PPP=2000;
 
 		$datos[$yy]=array(
 						
@@ -127,12 +142,14 @@ if($_GET['id_item']!=''){
 						'5'=>$TC,
 						'6'=>format_excel($precio_acumulado/$area_acumulada),
 						'7'=>format_excel(($precio_acumulado/$area_acumulada)/$TC),
+						'13'=>($precio_acumulado/$area_acumulada)/$TC,
 
 						'8'=>format_excel( 100*(sizeof($items_items_bloque) / $total) ),
 						'9'=>format_excel( 100*( $num_acumulado / $total ) ) ,
 						'10'=>format_excel( 100*( ( $num_acumulado / $total ) / ($yy+1)) ),
 						//extra
 						'11'=>format_excel(($precio/$area)/$TC),	
+						'12'=>($precio/$area)/$TC,	
 						);
 
 		if($interva['year']!=$year ){
@@ -163,7 +180,7 @@ if($_GET['id_item']!=''){
 	
 
 
-
+//aqui
 
 	//TABLA 1
 	unset($row);
@@ -195,70 +212,70 @@ if($_GET['id_item']!=''){
 
 	/// BODY
 	$l++;
-	$row[$l][]=array('1','','class=muted head"');
+	$row[$l][]=array('1','','');
 	$row[$l][]=array('N° DPTOS VENDIDOS EN EL MES');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['1'];
 	}
 
 	$l++;
-	$row[$l][]=array('2','','class=muted head"');
+	$row[$l][]=array('2','','');
 	$row[$l][]=array('N° DPTOS VENDIDOS ACUMULADOS');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['2'];
 	}
 
 	$l++;
-	$row[$l][]=array('3','','class=muted head"');
+	$row[$l][]=array('3','','');
 	$row[$l][]=array('AREA DPTOS VENDIDA');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['3'];
 	}
 
 	$l++;
-	$row[$l][]=array('4','','class=muted head"');
+	$row[$l][]=array('4','','');
 	$row[$l][]=array('VALOR DE VENTA DPTOS ACUMULADO');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['4'];
 	}
 
 	$l++;
-	$row[$l][]=array('5','','class=muted head"');
+	$row[$l][]=array('5','','');
 	$row[$l][]=array('T.CAMBIO');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['5'];
 	}	
 
 	$l++;
-	$row[$l][]=array('6','','class=muted head"');
+	$row[$l][]=array('6','','');
 	$row[$l][]=array('PREC. PROM S/.');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['6'];
 	}	
 
 	$l++;
-	$row[$l][]=array('7','','class=muted head"');
+	$row[$l][]=array('7','','');
 	$row[$l][]=array('PREC. PROM $');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['7'];
 	}
 
 	$l++;
-	$row[$l][]=array('8','','class=muted head"');
+	$row[$l][]=array('8','','');
 	$row[$l][]=array('VENTAS DEL MES %');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['8'];
 	}		
 			
 	$l++;
-	$row[$l][]=array('9','','class=muted head"');
+	$row[$l][]=array('9','','');
 	$row[$l][]=array('ALCANCE DE VENTAS ACUMULADO');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['9'];
 	}	
 
 	$l++;
-	$row[$l][]=array('10','','class=muted head"');
+	$row[$l][]=array('10','','');
 	$row[$l][]=array('VELOCIDAD DE VENTA MENSUAL');
 	foreach($intervalos as $iii=>$yy){
 		$row[$l][]=$datos[$iii]['10'];
@@ -278,22 +295,22 @@ if($_GET['id_item']!=''){
 	//TABLA 2
 	$datos2=array(
 		'1'=>array(
-			'1'=>$datos['0']['11'],
-			'2'=>$datos['0']['11']-$PPP,
-			'3'=>100*format_excel( ($datos['0']['11']-$PPP)/$PPP ).'%',
+			'1'=>format_excel($datos['0']['12']),
+			'2'=>format_excel($datos['0']['12']-$PPP),
+			'3'=>100*format_excel( ($datos['0']['12']-$PPP)/$PPP ).'%',
 			),
 		'2'=>array(
-			'1'=>$datos[$total-1]['11'],
-			'2'=>$datos[$total-1]['11']-$PPP,
-			'3'=>100*format_excel( ($datos[$total-1]['11']-$PPP)/$PPP ).'%',
+			'1'=>format_excel($datos[$total-1]['12']),
+			'2'=>format_excel($datos[$total-1]['12']-$PPP),
+			'3'=>100*format_excel( ($datos[$total-1]['12']-$PPP)/$PPP ).'%',
 			),
 		'3'=>array(
-			'1'=>$PPP,
-			'2'=>$datos[$total-1]['7']-$PPP,
-			'3'=>100*format_excel( ($datos[$total-1]['7']-$PPP)/$PPP ).'%',
+			'1'=>format_excel($PPP),
+			'2'=>format_excel($datos[$total-1]['13']-$PPP),
+			'3'=>100*format_excel( ($datos[$total-1]['13']-$PPP)/$PPP ).'%',
 			),
 		'4'=>array(
-			'1'=>$datos[$total-1]['7'],
+			'1'=>format_excel($datos[$total-1]['13']),
 			'2'=>'0',
 			'3'=>'0.00%',
 			)					
@@ -317,26 +334,26 @@ if($_GET['id_item']!=''){
 		$row[$l][]=array('PORCENTUALES','class=nombre');
 
 	$l++;
-	$row[$l][]=array('PRECIO PROMEDIO MES DE LANZAMIENTO','class=nombre','class="muted head"');
+	$row[$l][]=array('PRECIO PROMEDIO MES DE LANZAMIENTO','class=nombre','');
 		$row[$l][]=array($datos2['1']['1'],'class=nombre');
 		$row[$l][]=array($datos2['1']['2'],'class=nombre');
 		$row[$l][]=array($datos2['1']['3'],'class=nombre');
 
 	$l++;
-	$row[$l][]=array('PRECIO PROMEDIO MES DE CIERRE','class=nombre','class="muted head"');
+	$row[$l][]=array('PRECIO PROMEDIO MES DE CIERRE','class=nombre','');
 		$row[$l][]=array($datos2['2']['1'],'class=nombre');
 		$row[$l][]=array($datos2['2']['2'],'class=nombre');
 		$row[$l][]=array($datos2['2']['3'],'class=nombre');
 
 	$l++;
-	$row[$l][]=array('PRECIO PROMEDIO PLANIFICADO','class=nombre','class="muted head"');
+	$row[$l][]=array('PRECIO PROMEDIO PLANIFICADO','class=nombre','');
 		$row[$l][]=array($datos2['3']['1'],'class=nombre');
 		$row[$l][]=array($datos2['3']['2'],'class=nombre');
 		$row[$l][]=array($datos2['3']['3'],'class=nombre');	
 
 
 	$l++;
-	$row[$l][]=array('PRECIO PROMEDIO PONDERADO DE CIERRRE','class=nombre','class="muted head"');
+	$row[$l][]=array('PRECIO PROMEDIO PONDERADO DE CIERRRE','class=nombre','');
 		$row[$l][]=array($datos2['4']['1'],'class=nombre');
 		$row[$l][]=array($datos2['4']['2'],'class=nombre');
 		$row[$l][]=array($datos2['4']['3'],'class=nombre');
@@ -377,24 +394,24 @@ if($_GET['id_item']!=''){
 
 	//BODY
 	$l++;
-	$row[$l][]=array('DEPARTAMENTOS','class=nombre','class="muted head"');
+	$row[$l][]=array('DEPARTAMENTOS','class=nombre','');
 		$row[$l][]=array($datos3['1']['1'],'class=nombre');
 
 	$l++;
-	$row[$l][]=array('ESTACIONAMIENTOS','class=nombre','class="muted head"');
+	$row[$l][]=array('ESTACIONAMIENTOS','class=nombre','');
 		$row[$l][]=array($datos3['2']['1'],'class=nombre');
 
 	$l++;
-	$row[$l][]=array('DEPOSITOS','class=nombre','class="muted head"');
+	$row[$l][]=array('DEPOSITOS','class=nombre','');
 		$row[$l][]=array($datos3['3']['1'],'class=nombre');
 
 
 	$l++;
-	$row[$l][]=array('TOTAL S/.','class=nombre','class="muted head"');
+	$row[$l][]=array('TOTAL S/.','class=nombre','');
 		$row[$l][]=array($datos3['4']['1'],'class=nombre');
 
 	$l++;
-	$row[$l][]=array('TOTAL USA $','class=nombre','class="muted head"');
+	$row[$l][]=array('TOTAL USA $','class=nombre','');
 		$row[$l][]=array($datos3['5']['1'],'class=nombre');
 
 

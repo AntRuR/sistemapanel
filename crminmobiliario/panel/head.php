@@ -28,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 
 echo $sn3;
 
-$rrr='20';
+$rrr='51';
 
 // prin($MEEE);
 
@@ -63,11 +63,10 @@ if($Local){ ?>
 
 <?php
 ?>
-<link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $rrr;?>"
-	rel="stylesheet" type="text/css" media="print" />
-
 
 <link href="<?php echo $sn2?>config/main.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
+
+<link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" media="print" />
 
 <?php
 

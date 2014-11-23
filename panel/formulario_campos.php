@@ -305,7 +305,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato((($wh
 
                             ?><div class='floatinput <?php
 							echo ($tbcampA['tipo']=='html')?" ":"";
-							?>'><?php echo ($bootones!='')?$bootones:''; ?><div><textarea class="ckeditor" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
+							?>'><?php echo ($bootones!='')?$bootones:''; ?><div><textarea class="ckeditor form_input" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
                             ?>style=" <?php
 							echo ($tbcampA['tipo']=='html')?'background-color:#FFF; height:400px; ':"";
 							echo ($tbcampA['tipo']=='yot')?'width:300px;height:100px; ':"";

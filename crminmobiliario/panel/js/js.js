@@ -82,7 +82,7 @@ function fechaChange(input){
 	$(input).value=time;
 }
 
-function input_date(id_input,id_span,fromYear,toYear,sethoras){
+function input_date(id_input,id_span,fromYear,toYear,sethoras,justmonth){
 	var meses = new Array();
 	var horas = new Array();
 
@@ -124,35 +124,48 @@ function input_date(id_input,id_span,fromYear,toYear,sethoras){
 	horas[22]="10pm";
 	horas[23]="11pm";
 
-	var html = "<select id='"+id_input+"_d' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
-	html+= "<option></option>";
-	for(var i=1; i<=31;i++){
-	html+="<option value='"+ ( (i<10)?"0"+i:i) +"'>"+i+"</option>";
+	var html = "";
+
+	if(justmonth=='1'){
+
+		html+= "<input id='"+id_input+"_d' type='hidden' value='01' />";
+
+	} else {
+
+		html+= "<select id='"+id_input+"_d' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+		html+= "<option></option>";
+		for(var i=1; i<=31;i++){
+		html+= "<option value='"+ ( (i<10)?"0"+i:i) +"'>"+i+"</option>";
+		}
+		html+= "</select>";
+
 	}
-	html+= "</select>";
 
 	html+= "<select id='"+id_input+"_m' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
 	html+= "<option></option>";
 	for(var i=1; i<=12;i++){
-	html+="<option value='"+ ( (i<10)?"0"+i:i) +"'>"+meses[i]+"</option>";
+	html+= "<option value='"+ ( (i<10)?"0"+i:i) +"'>"+meses[i]+"</option>";
 	}
 	html+= "</select>";
+
 	html+= "<select id='"+id_input+"_a' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
 	html+= "<option></option>";
 	for(var i=toYear; i>=fromYear;i--){
-	html+="<option value='"+i+"'>"+i+"</option>";
+	html+= "<option value='"+i+"'>"+i+"</option>";
 	}
+	html+= "</select>";
+
 	if(sethoras=='1'){
-	html+= "</select>";
-	html+= "<select id='"+id_input+"_t' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
-	html+= "<option></option>";
-	for(var i=0; i<24;i++){
-	html+="<option value='"+ ( (i<10)?"0"+i:i) +"'>"+horas[i]+"</option>";
-	}
-	html+= "</select>";
+		html+= "<select id='"+id_input+"_t' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+		html+= "<option></option>";
+		for(var i=0; i<24;i++){
+		html+= "<option value='"+ ( (i<10)?"0"+i:i) +"'>"+horas[i]+"</option>";
+		}
+		html+= "</select>";
 	} else {
-	html+= "<input id='"+id_input+"_t' type='hidden' />";
+		html+= "<input id='"+id_input+"_t' type='hidden' />";
 	}
+
 	html+= "<input id='"+id_input+"' type='hidden' />";
 
 	$(id_span).innerHTML=html;
@@ -193,7 +206,11 @@ function render_filderRP(input){
 	var file='';
 	var vurl='f=';
 	if($('filtr_fs_'+input)){ vurl+=$('filtr_fs_'+input).value; }
-	$$('.option_report_file').each(function(ee){ if($(ee).checked){ file=$(ee).value; } });
+	$$('.option_report_file').each(function(ee){ 
+		if($(ee).checked){ 
+			file=$(ee).value;
+		} 
+	});
 	if(file=='') return;
 
 	vurl = vurl + '&file='+file;
@@ -210,14 +227,16 @@ function render_filderST(input)
 	if(!$('obfs'))
 		render_filderRP(input); return;
 
+	alert(9);
+	
 	var url='b=';
 	var vurl;
 	url+=''+$('obfs').value;
 	url+='|'+$('filtr_fs_orderby').value+'|';
 	if($('filtr_fs_'+input)){ url+=$('filtr_fs_'+input).value; }
 	vurl=url;
-	url="load_estadistica.php?"+url;
-	swfobject.embedSWF("js/open-flash-chart.swf", "my_chart","550", "380", "9.0.0", "expressInstall.swf",{"data-file":url} );
+	// url="load_estadistica.php?"+url;
+	// swfobject.embedSWF("js/open-flash-chart.swf", "my_chart","550", "380", "9.0.0", "expressInstall.swf",{"data-file":url} );
 	load_html_estadistica(vurl);
 }
 function load_html_estadistica(vurl){

@@ -1,9 +1,9 @@
 <?php
-/*
-var_dump($SERVER);
-var_dump($_SERVER);
-exit();
-*/
+
+// prin($SERVER);
+// prin($_SERVER);
+// exit();
+
 
 $_GET['ob']='VENTAS_ITEMS';
 
@@ -248,21 +248,24 @@ function render_excel_old($row){
 	exit();
 }
 
-$ordby='id_usuario';
+
+
+$ordby='ventas_items.id_usuario';
 
 
 
 
 if($date!=''){
-	$where="where visibilidad!=0 and date($date) between '$from' and '$to'";
+	$where="where ventas_items.visibilidad!=0 and date(ventas_items.$date) between '$from' and '$to'";
 } else {
-	$where="where visibilidad!=0 ";
+	$where="where ventas_items.visibilidad!=0 ";
 }
 
 $bisi = (substr($to,0,4)%4==0)?1:0;
 $rango=Difer2($from,$to);
 
 $division = intval($rango/7);
+
 $resto = $rango%7;
 
 if($resto>0){
@@ -311,6 +314,8 @@ foreach($usuarios as $usu){
 	$ID_USU2[$usu['id']]=$usu['id_jefe'];
 }
 
+// prin($tipo);
+// prin($intervalos);
 
 foreach($intervalos as $vv){
 
@@ -318,9 +323,10 @@ foreach($intervalos as $vv){
 	{
 
 		$llll=select(
-					"$ordby as nombre, count(*) as total,id_jefe",
+					"$ordby as nombre, count(*) as total,usuarios.id_jefe as id_jefe",
 					$datos_tabla['tabla'],
-					"where visibilidad!=0 and date($date)='$vv'
+					"left join usuarios on ventas_items.id_usuario=usuarios.id
+					where ventas_items.visibilidad!=0 and date(ventas_items.$date)='$vv'
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);
@@ -333,9 +339,10 @@ foreach($intervalos as $vv){
 	} else {
 
 		$llll=select(
-					"$ordby as nombre, count(*) as total,id_jefe",
-					$datos_tabla['tabla'],
-					"where visibilidad!=0 and date($date) between '".str_replace("|","' and '",$vv)."'
+					"$ordby as nombre, count(*) as total,usuarios.id_jefe as id_jefe",
+					"ventas_items",
+					"left join usuarios on ventas_items.id_usuario=usuarios.id 
+					where ventas_items.visibilidad!=0 and date(ventas_items.$date) between '".str_replace("|","' and '",$vv)."'
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);
@@ -366,9 +373,7 @@ foreach($intervalos as $vv){
 
 }
 
-
-
-
+// prin($line);
 
 foreach($line as $iusu2=>$lin2){
 
@@ -382,7 +387,7 @@ foreach($line as $iusu2=>$lin2){
 	$row[$l][]=array('Vendedor','class=nombre','class="head muted"');
 	foreach($intervalos as $ii=>$la)
 		$row[$l][]=$LLL[$ii];
-	$row[$l][]='N';
+	$row[$l][]='<span title="días de trabajo">N</span>';
 	$row[$l][]='Total';
 	$row[$l][]='Prom Vend/Día';
 

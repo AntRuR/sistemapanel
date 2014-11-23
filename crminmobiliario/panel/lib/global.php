@@ -1,11 +1,11 @@
 <?php //á
-
+if(!isset($_GET['format']))
 header('Content-Type: text/html; charset=utf-8');
 
 
 
-$Array_Meses=array(1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre");
-$Array_Horas=array(0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm");
+$Array_Meses=[1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"];
+$Array_Horas=[0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm"];
 
 $FORMSCLASS=array(
 	'1'=>'linea_derecha_inicio',
@@ -212,7 +212,8 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$SERVER['LOCAL']=1;
 	$LOCAL=1;
 	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
-	error_reporting(E_ALL);
+	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 
 } else {
 	$vars_server=$vars['REMOTE'];
@@ -253,32 +254,32 @@ extract($vars_server_ftp);
 
 define(CLAV,"guillermolozan");
 
-$DEPARTAMENTOS_PERU = array(
-							"Amazonas",
-							"Áncash",
-							"Apurímac",
-							"Arequipa",
-							"Ayacucho",
-							"Cajamarca",
-							"Callao",
-							"Cusco",
-							"Huancavelica",
-							"Huánuco",
-							"Ica",
-							"Junín",
-							"La Libertad",
-							"Lambayeque	",
-							"Lima",
-							"Loreto",
-							"Madre de Dios",
-							"Moquegua",
-							"Pasco",
-							"Piura",
-							"Puno",
-							"San Martín",
-							"Tacna",
-							"Tumbes"
-							);
+$DEPARTAMENTOS_PERU = [
+						"Amazonas",
+						"Áncash",
+						"Apurímac",
+						"Arequipa",
+						"Ayacucho",
+						"Cajamarca",
+						"Callao",
+						"Cusco",
+						"Huancavelica",
+						"Huánuco",
+						"Ica",
+						"Junín",
+						"La Libertad",
+						"Lambayeque	",
+						"Lima",
+						"Loreto",
+						"Madre de Dios",
+						"Moquegua",
+						"Pasco",
+						"Piura",
+						"Puno",
+						"San Martín",
+						"Tacna",
+						"Tumbes"
+						];
 
 $script_B = explode("?",$_SERVER['REQUEST_URI']);
 if($script_B[1]){ $SERVER['PARAMS']=$script_B[1]; }
@@ -305,7 +306,7 @@ $SERVER['PANEL']=$SERVER['ROOT'].'/panel';
 // echo '<pre>'; print_R("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']); echo '</pre>';
 $SERVER['PATH']=str_replace('//','/','/'.str_replace($vars_server['url_publica'],'',"http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
 // echo '<pre>'; print_r($SERVER['PATH']); echo '</pre>';
-$SERVER['RUTA']=$SERVER['ROOT'].$SERVER['PATH'];
+$SERVER['RUTA']=str_replace('http:/','http://',str_replace('//','/',$SERVER['ROOT'].$SERVER['PATH']));
 
 $LOGIN=(!(strpos($_SERVER['SCRIPT_NAME'], "login.php")===false))?1:0;
 

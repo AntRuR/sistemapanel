@@ -4,15 +4,15 @@ foreach($tbcampos as $tbcampA){
 	switch($tbcampA['tipo']){
 		case "fch":
 			if($tbcampA['rango']){
-			list($uuno,$ddos)=explode(",",$tbcampA['rango']);
-			$FromYear = date("Y",strtotime($uuno));
-			$ToYear = date("Y",strtotime($ddos));
+				list($uuno,$ddos)=explode(",",$tbcampA['rango']);
+				$FromYear = date("Y",strtotime($uuno));
+				$ToYear = date("Y",strtotime($ddos));
 			} else {
-			$FromYear = date("Y")-99;
-			$ToYear = date("Y")+1;
+				$FromYear = date("Y")-99;
+				$ToYear = date("Y")+1;
 			}
 			?>
-			input_date('in_<?php echo $tbcampA['campo']?>','in_<?php echo $tbcampA['campo']?>_span',<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbcampA['time'];?>');
+			input_date('in_<?php echo $tbcampA['campo']?>','in_<?php echo $tbcampA['campo']?>_span',<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbcampA['time'];?>','<?php echo $tbcampA['months'];?>');
 			<?php if(trim($tbcampA['default'])!=''){
 			if(trim($tbcampA['default'])=="now()"){ $tbcampA['default']=date("Y-m-d H:i:s"); }
 			if(trim($tbcampA['default'])=="tomorrow()"){ $tbcampA['default']=date("Y-m-d H:i:s",strtotime("+1 day")); }

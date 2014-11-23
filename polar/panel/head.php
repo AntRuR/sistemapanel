@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-<title><?=strtoupper($MEEE['titulo'])." - ".$html_title?></title>
+<title><?=(($MEEE['titulo'])?$MEEE['titulo']." - ":'').$html_title?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 <?php
@@ -28,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 
 echo $sn3;
 
-$rrr='5';
+$rrr='31';
 
 // prin($MEEE);
 
@@ -63,11 +63,10 @@ if($Local){ ?>
 
 <?php
 ?>
-<link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $rrr;?>"
-	rel="stylesheet" type="text/css" media="print" />
-
 
 <link href="<?php echo $sn2?>config/main.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
+
+<link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" media="print" />
 
 <?php
 
@@ -213,6 +212,10 @@ else
 		min-height: 20px;
 	}
 	</style>
+
+<script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
+
+<script type="text/javascript" src="<?php echo $sn2?>js/jquery/require.js" data-main="js/jquery/main.js?r=1"></script>	
 	<?php
 
 }//END MOOTOOLS
@@ -221,7 +224,6 @@ else
 $LINK_COLOR_OPP=oppColour($LINK_COLOR);
 $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
-<script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
 <style>
 /*body {
 	background: fixed;
@@ -236,5 +238,5 @@ $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 <?php
 }
 ?>
-<script type="text/javascript" src="<?php echo $sn2?>js/jquery/require.js" data-main="js/jquery/main.js?r=11"></script>
+
 </head>

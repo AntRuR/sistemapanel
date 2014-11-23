@@ -179,12 +179,13 @@ function insertAtenciones(){
 		insert(
 			[
 			'fecha_creacion' =>$atencion['fecha'],
-			"id_item"        =>$id_item,//
+			// "id_item"        =>$id_item,//
 			'id_grupo'       =>$venta['id'],
-			"id_cliente"     =>$clienteId,
+			// "id_cliente"     =>$clienteId,
 			'texto'          =>$atencion['seguimiento'],
 			]
 			,'ventas_mensajes'
+			,1
 			);
 
 	}

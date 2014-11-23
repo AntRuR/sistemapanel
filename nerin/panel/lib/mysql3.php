@@ -436,6 +436,7 @@ function update($campos_array,$tabla,$where,$debug=0){
 	global $link;
 	foreach($campos_array as $tt=>$ll){
 		switch(trim($ll)){
+			case "CASE": $ppp[]="$tt=CASE"; break;
 			case "NULL": $ppp[]="$tt=NULL"; break;
 			case "now()": $ppp[]="$tt='".date("Y-m-d H:i:s")."'"; break;
 			case "++": $ppp[]="$tt=$tt+1"; break;
@@ -607,7 +608,7 @@ function fecha_formato($ff,$op=0){
 		case "5b": //23-09-2009
 			$fecha=date("Y-m-d",$unix);
 		case "5c": //23-09-2009
-			$fecha=date("d",$unix)." <span style='font-variant:small-caps;'>".$Array_Meses0[date("n",$unix)]."</span> ".date("y",$unix);
+			$fecha=date("d",$unix)." <span>".$Array_Meses0[date("n",$unix)]."</span> ".date("y",$unix);
 			break;
 		case "6": //23-09-09
 			$fecha=date("d-m-y",$unix);

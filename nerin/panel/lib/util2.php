@@ -2931,7 +2931,7 @@ function render_foreig_subs($obj0,$id,$urd){
 							case "com":
 								$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 								list($valoor,$color)=explode("|",$valoor);
-								$valoor=($valoor!='')?strtolower($valoor):"&nbsp;";
+								$valoor=($valoor!='')?strtolower($valoor):"";
 								switch($valoor){
 									case "comentario":echo "<a title='comentario' class='ico_tack z ico_list'></a>"; break;
 									case "soporte":echo "<a title='soporte' class='ico_clip z ico_list'></a>"; break;
@@ -2939,7 +2939,7 @@ function render_foreig_subs($obj0,$id,$urd){
 									case "recibido":echo "<a title='recibido' class='ico_right z ico_list'></a>"; break;
 									case "si":echo "<a title='si' class='ico_yes z ico_list'></a>"; break;
 									case "no":echo "<a title='no' class='ico_no z ico_list'></a>"; break;
-									default; echo "<span class='ico_opcion' ".(($color)?"style='color:white;background-color:".$color.";":"")."'>".$valoor."</span>"; break;
+									default; echo "<span class='label' ".(($color)?"style='color:white;background-color:".$color.";'":"").">".$valoor."</span>"; break;
 								}
 							break;
 							case "hid":
@@ -2958,7 +2958,7 @@ function render_foreig_subs($obj0,$id,$urd){
 								$adiv0='<a class="tipper" href="custom/'.$tablaO.'.php?i='.$linea[$camP].'" rel="{ajax:\'ajax_sql.php?v_t='.$tablaO.'&v_d='.$idO.'%3D'.$linea[$camP].'&f=get_quick\'}">';
 								$adiv1='</a>';
 								} else { 
-								$adiv0=($color0!='')?"<span class='ico_opcion' style='background:$color0;color:white;' >":''; $adiv1=($color0!='')?'</span>':''; 
+								$adiv0=($color0!='')?"<span class='label' style='background:$color0;color:white;' >":''; $adiv1=($color0!='')?'</span>':''; 
 								}
 								echo (trim($bufy)!='')?$adiv0.$bufy.$adiv1:'';
 							break;
@@ -3034,7 +3034,7 @@ function render_foreig_subs($obj0,$id,$urd){
 						*/
 						break;
 						case "com":
-						echo "&nbsp;";
+						echo "";
 						/*
 							$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 							list($valoor,$color)=explode("|",$valoor);
@@ -3046,7 +3046,7 @@ function render_foreig_subs($obj0,$id,$urd){
 								case "recibido":echo "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
 								case "si":echo "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 								case "no":echo "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
-								default; echo "<span class='ico_opcion' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
+								default; echo "<span class='label' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
 							}
 						*/
 						break;
@@ -3092,21 +3092,21 @@ function render_foreig_subs($obj0,$id,$urd){
 						}
 
 						$html='';
-						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:45px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:52px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=1; $i<=31;$i++){
 						if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("d"))?"selected":""; }
 						$html.="<option value='". sprintf("%02d",$i) ."' $selected >".$i."</option>";
 						}
 						$html.= "</select>";
-						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:46px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:53px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=1; $i<=12;$i++){
 						if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("m"))?"selected":""; }
 						$html.="<option value='". sprintf("%02d",$i) ."' $selected >".substr($Array_Meses[$i],0,3)."</option>";
 						}
 						$html.= "</select>";
-						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:50px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:57px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=$toYear; $i>=$fromYear;$i--){
 						if($tbcampA['default']=='now()'){ $selected=($i==date("Y"))?"selected":""; }
@@ -3116,7 +3116,7 @@ function render_foreig_subs($obj0,$id,$urd){
 
 
 						if($tbcampA['time']){
-						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:53px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:60px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						for($i=0; $i<=24;$i++){
 						$html.="<option value='".sprintf("%02d",$i)."' >".$Array_Horas[$i]."</option>";
@@ -3326,7 +3326,7 @@ function render_foreig_file($obj0,$linea,$urd){
 					case "com":
 						$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
 						list($valoor,$color)=explode("|",$valoor);
-						$valoor=($valoor!='')?$valoor:"&nbsp;";
+						$valoor=($valoor!='')?$valoor:"";
 						switch($valoor){
 							case "comentario":echo "&nbsp;<a title='comentario' class='ico_tack z ico_list'></a>"; break;
 							case "soporte":echo "&nbsp;<a title='soporte' class='ico_clip z ico_list'></a>"; break;
@@ -3334,7 +3334,7 @@ function render_foreig_file($obj0,$linea,$urd){
 							case "recibido":echo "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
 							case "si":echo "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
 							case "no":echo "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
-							default; echo "<span class='ico_opcion' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
+							default; echo "<span class='label' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
 						}
 					break;
 					case "hid":

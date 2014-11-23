@@ -4,7 +4,7 @@ include("objeto.php");
 //prin($_GET);
 $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 ?>
-<ul class="formulario fst">
+<ul class="formulario fst ">
 	<?php
 
 	?>
@@ -37,7 +37,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			$html_filter.= '<li>
 			<input name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
 			'onchange="if(this.checked){ render_filderRP({FECHA},this); } " '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
-			<label for="rp_'.$rt.'" class="alink">'.$rrrr['1'].'</label>
+			<a><label for="rp_'.$rt.'" class="alink">'.$rrrr['1'].'</label></a>
 			</li>';
 			if($rpt==0) $defaultfilter='rp_'.$rt;
 			$rpt++;
@@ -145,14 +145,14 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	</div>
 
 
-	<ul style='width: 174px; float: left; margin-top: 10px; <?php if(sizeof($reportes)==1){ echo "display:none;"; } ?>'>
+	<ul class='nav nav-tabs' style='<?php if(sizeof($reportes)==1){ echo "display:none;"; } ?>'>
 		<?php
 		echo str_replace("{FECHA}","'".$terfilSTFECHA."'",$html_filter);
 		//echo $html_filter;
 		?>
 	</ul>
 
-	<div style='margin-left: 5px; min-height: 380px; padding: 10px;' id="html_reporte"><?php
+	<div id="html_reporte"><?php
 		/*
 		$rrrr=explode("=",$reportes['0']);
 		$_GET['f']=$Fechaaa['0']."||";

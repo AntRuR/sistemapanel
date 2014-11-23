@@ -264,12 +264,14 @@ echo $HTML_MAIN_FIN;
 echo $HTML_ALL_FIN;
 exit();
 }
-//prin($SERVER);
+// prin($SERVER);
 ?>
 <script>
 function edit_init(se,na,va){
 new Request({url:"lib/edit_ini.php",method:'post',data:{seccion:se,name:na,value:va},onSuccess:function(eee){
-var url='<?php echo (enhay($SERVER['BASE'].$SERVER['URL'],"maquina.php"))?"maquina.php":$SERVER['BASE'].$SERVER['URL'].(($SERVER['PARAMS'])?'?'.$SERVER['PARAMS']."&":"?")."rd=".rand();?>'+((window.location.hash)?window.location.hash:'');
+var url='<?php 
+list($rurl,$rpath)=explode('?',$SERVER['RUTA']);
+echo (enhay($rurl,"maquina.php"))?"maquina.php":$rurl.(($rpath)?'?'.$rpath."&":"?")."rd=".rand();?>'+((window.location.hash)?window.location.hash:'');
 //alert(url);
 location.href=url;
 }}).send();
@@ -804,9 +806,9 @@ include($objeto_tabla[$this_me]['onload_include']);
 echo $objeto_tabla[$this_me]['onload_script'];
 
 //prin($_COOKIE);
-
+/*
 if(!($_COOKIE['ap']!='' or $_COOKIE['admin']=='1' or in_array($SERVER['ARCHIVO'],$validos) or in_array($SERVER['ARCHIVO'],array('maquina.php','login.php','app.php')))){
 die("<div class='sinacceso'>No tiene permiso para acceder a éste módulo<br><a href='#' onclick='window.history.back();'>VOLVER</a></div>");
 }
-
+*/
 ?>

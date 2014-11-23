@@ -1,21 +1,12 @@
 <?php
 $LoadWithoutSession='1';
 include("objeto.php");
-//prin($_GET);
 $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 ?>
 <ul class="formulario fst ">
-	<?php
 
-	?>
 	<div class="sv" id="load" style="display: none; top: -30px; left: 0px;">cargando...</div>
-	<?php
-	?>
-	<h1 class="titulo_formulario" id="titulo_repos">
-		<?php
-		?>
-		Reportes
-	</h1>
+	<h1 class="titulo_formulario" id="titulo_repos">Reportes</h1>
 	<?php
 
 	$reportes=explode("&",$datos_tabla['repos']);
@@ -26,6 +17,8 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 		}
 	}
 
+	// prin($qus);
+
 	//$html_filter='<input type="hidden" id="obfs" value="'.$_GET['OB'].'" >';
 	//$html_filter.='<input type="hidden" id="filtr_fs_orderby" value="" >';
 
@@ -33,19 +26,29 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	$defaultfilter='';
 	foreach($reportes as $rt=>$reporte)
 	{
-			$rrrr=explode("=",$reporte);
-			$html_filter.= '<li>
-			<input name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
-			'onchange="if(this.checked){ render_filderRP({FECHA},this); } " '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
-			<a><label for="rp_'.$rt.'" class="alink">'.$rrrr['1'].'</label></a>
-			</li>';
-			if($rpt==0) $defaultfilter='rp_'.$rt;
-			$rpt++;
+		$rrrr=explode("=",$reporte);
+		$rrrr0=explode("|",$rrrr['1']);
+		$rrrr1=explode(",",$rrrr0['1']);
+		$html_filter.= '<li>
+		<input name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
+		'onchange="if(this.checked){ render_filderRP({FECHA},this); } " '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
+		<a><label for="rp_'.$rt.'" class="alink">'.$rrrr0['0'].'</label></a>
+		</li>';
+		if($rpt==0) $defaultfilter='rp_'.$rt;
+		$rpt++;
 	}
+	// prin($);
+	// prin($reportes);
 
-	foreach($qus as $querie){
+	foreach($qus as $blatacampo=>$querie){
+
+		$blata=($querie['tabla']!='')?$querie['tabla']:$tbl;
+
 		//if(in_array($querie['tipo'],array('fch','fcr'))){
-		if(in_array($querie['tipo'],array('fcr'))){
+
+		if(in_array($querie['campo'],$rrrr1))
+		
+		if(in_array($querie['tipo'],array('fcr','fch'))){
 
 			$Fechaaa[]=$querie['campo'];
 
@@ -70,7 +73,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			$tt=str_replace("'","",trim($dos['1']));
 			$fftt=$ff."|".$tt;
 
-			$html_filter_fecha="<div style='clear:left;'>";
+			$html_filter_fecha="<div style='display:inline-block;'>";
 
 			$html_filter_fecha.="<select ".(($FiL[$querie['campo']]!='')?"class='inuse'":"")."  onchange=\"betweenST('".$querie['campo']."',this.value);fechaChangeFilterST('".$querie['campo']."');\">";
 
@@ -134,13 +137,121 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			$html_filter_fecha.="</div>";
 			$terfilSTFECHA=$querie['campo'];
 
+
+
+		} elseif(in_array($querie['tipo'],array('hid','user')) and ($querie['opciones'])){
+
+
+			/*
+			if($querie['select_multiple']=='1'){
+
+				$html_filter='';
+
+				list($uno,$slex)=explode("=",$FiL[$blata][$querie['campo']]);
+				$selex=explode(",",$slex);
+
+
+				list($primO,$tablaO,$whereO)=explode("|",$querie['opciones']);
+				$whereO=str_replace("where 0","where 1",$whereO);
+				//echo "$primO,$tablaO,$whereO";
+				list($idO,$camposO)=explode(",",$primO);
+
+				$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,(($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO));
+				$html_filter.="<ul class=qsm>";
+				$html_filter.="<input type='hidden' value='".urlencode($FiL[$blata][$querie['campo']])."' id='filtr_".$querie['campo']."'>";
+				//$html_filter.="<li ".(($FiL[$blata][$querie['campo']]!='')?"class='qsml inuse'":"qsml")." id='filtr_".$querie['campo']."' onchange=\"render_filder();\">";
+				$html_filter.="<li class='qsml ".(($FiL[$blata][$querie['campo']]!='')?"inuse":"")."' >".$querie['label']."</li>";
+				//$html_filter.="<label value='' class='empty'>".$querie['label']."</label>";
+				$html_filter.="<div class='con'>";
+				foreach($oopciones as $pppooo){
+				$quer=urlencode($tbl.".".$querie['campo']."=".$pppooo[$idO]);
+				$html_filter.="<li class='qsml ".((in_array($pppooo[$idO],$selex))?"smcheck":"")."'>";
+				$html_filter.="<input class='filtr_".$querie['campo']."' value=\"".$pppooo[$idO]."\" type='checkbox' id='filtr_".$querie['campo']."__".$pppooo[$idO]."' onchange=\"rf('".$querie['campo']."');\" ".((in_array($pppooo[$idO],$selex))?"checked":"").">";
+				$html_filter.="<label for='filtr_".$querie['campo']."__".$pppooo[$idO]."' ".(($quer==urlencode($FiL[$blata][$querie['campo']]))?'selected':'')." >".$pppooo['value']."</label>";
+				$html_filter.="</li>";
+				}
+				$html_filter.="</div>";
+				$html_filter.="</ul>";
+
+				//$html_filter.="</select>";
+				$terfil[$blata][]=$querie['campo'];
+
+				$html_filter_A[$querie['campo']]=$html_filter;
+
+			} elseif($querie['dlquery']=='1'){
+
+				$html_filter='';
+
+				list($primO,$tablaO,$whereO)=explode("|",$querie['opciones']);
+				$whereO=str_replace("where 0","where 1",$whereO);
+				list($prim0id,$prim0nombre)=explode(",",$primO);
+
+				// prin($FiL[$blata][$querie['campo']]);
+
+				$html_filter.="<span class='filfchspan'>".$querie['label']."</span>";
+				$html_filter.="<input type='text' id='filtr_".$querie['campo']."_dl' ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." value='";
+
+				$fila=fila(array("CONCAT_WS(' ',". str_replace(";",",",$prim0nombre) .") as v"),$tablaO,"where id='".str_replace($blata.".".$querie['campo']."%3D","",urlencode($FiL[$blata][$querie['campo']]))."'",0);
+
+				$html_filter.=$fila['v'];
+				$html_filter.="' onchange=\"render_filder();\" >";-
+
+				$html_filter.="<input type='hidden' id='filtr_".$querie['campo']."' value='".urlencode($FiL[$blata][$querie['campo']])."' >";
+				$html_filter.="<input type='hidden' id='filtr_".$querie['campo']."' value=\"load_directlink_filtro_com('".$querie['campo']."','".$prim0id."','".$prim0nombre."','".$tablaO."','".$whereO."','".$blata."');\" class='jsloads' >";
+
+				//$html_filter.="<script>load_directlink_filtro_inp('".$querie['campo']."','".$objeto_tabla[$this_me]['tabla']."');</script>";
+				$terfil[$blata][]=$querie['campo'];
+
+				$html_filter_A[$querie['campo']]=$html_filter;
+
+			} else { */
+
+
+				if(1){
+
+					$html_filtro='';
+
+					list($primO,$tablaO,$whereO)=explode("|",$querie['opciones']);
+					$whereO=str_replace("where 0","where 1",$whereO);
+					//echo "$primO,$tablaO,$whereO";
+					list($idO,$camposO)=explode(",",$primO);
+
+					$camposO=str_replace(";color", "", $camposO);
+					$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,(($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO));
+
+					$html_filtro.="<label>".$querie['label']."</label>";
+
+					$html_filtro.="<select style='width:".(($querie['width'])?$querie['width']:'100px').";' ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." id='filtr_fs_".$querie['campo']."' onchange=\"render_filderST();\">";
+					$html_filtro.="<option value='' class='empty'>".$querie['label']."</option>";
+					foreach($oopciones as $pppooo){
+						$quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
+						$html_filtro.="<option ".(($quer==urlencode($FiL[$blata][$querie['campo']]))?'selected':'')." value=\"".$quer."\">".$pppooo['value']."</option>";
+					}
+					$html_filtro.="</select>";
+
+					$terfil[$blata][]=$querie['campo'];
+					
+					// prin($html_filtro);
+
+					$html_filter_A[$querie['campo']]=$html_filtro;	
+
+
+				}			
+
+			// }
+
 		}
+
+
+
 	}
+
+	// prin($html_filter_fecha_A);
 
 	?>
 	<div class='filters' style='width: 100%;'>
 		<div style='padding: 1px 0 0 20px;'>
-			<?php echo $html_filter_fecha; ?>
+			<?php echo $html_filter_fecha.implode("\n",$html_filter_A); ?>
 		</div>
 	</div>
 

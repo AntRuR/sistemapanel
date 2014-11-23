@@ -584,38 +584,42 @@ function fecha_formato($ff,$op=0){
 	switch($op){
 		case "0": //23-set-2009
 			$fecha=date("d",$unix)."-".$Array_Meses0[date("n",$unix)]."-".date("y",$unix);
+		break;	
 		case "0b": //23-set
 			$fecha=(date("Y",$unix)==date("Y"))?date("d",$unix)."-".$Array_Meses0[date("n",$unix)]:date("d",$unix)."-".$Array_Meses0[date("n",$unix)]."-".date("Y",$unix);
-			break;
+		break;
 		case "1": //Miércoles, 23 de Setiembre
 			$fecha=ucfirst($Array_Semanas0[date("D",$unix)]).", ".date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)]);
-			break;
+		break;
 		case "2":
 			$fecha=ucfirst($Array_Semanas0[date("D",$unix)]).", ".date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)])." de ".date("Y",$unix);
-			break;
+		break;
 		case "2_en": //Miércoles, 23 de Setiembre de 2009
 			$fecha=ucfirst($Array_Semanas0_en[date("D",$unix)]).", ".ucfirst($Array_Meses1_en[date("n",$unix)])." ".date("jS",$unix)." ".date("Y",$unix);
-			break;
+		break;
 		case "3": //Miércoles, 23 de Set
 			$fecha=ucfirst($Array_Semanas0[date("D",$unix)]).", ".date("j",$unix)." de ".ucfirst($Array_Meses0[date("n",$unix)]);
-			break;
+		break;
 		case "4": //Setiembre 2009
 			$fecha=ucfirst($Array_Meses1[date("n",$unix)])." ".date("Y",$unix);
-			break;
+		break;
+		case "4b": //Set 2009
+			$fecha=ucfirst($Array_Meses0[date("n",$unix)])." ".date("Y",$unix);
+		break;		
 		case "5": //23-09-2009
 			$fecha=date("d-m-Y",$unix);
-			break;
+		break;
 		case "5b": //23-09-2009
 			$fecha=date("Y-m-d",$unix);
 		case "5c": //23-09-2009
 			$fecha=date("d",$unix)." <span>".$Array_Meses0[date("n",$unix)]."</span> ".date("y",$unix);
-			break;
+		break;
 		case "6": //23-09-09
 			$fecha=date("d-m-y",$unix);
-			break;
+		break;
 		case "7": //hoy 12:53 pm
 			$fecha=str_replace(array(date("d-m-y"),date("d-m-y",strtotime("yesterday"))),array("hoy","ayer"),date("d-m-y g:ia",$unix));
-			break;
+		break;
 
 		case "7b": //hoy 12:53 pm
 			$fecha='<i title="'.ucfirst($Array_Semanas0[date("D",$unix)]).", ".date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)])." de ".date("Y",$unix)." / ".date("g:i a",$unix).'">';
@@ -631,7 +635,7 @@ function fecha_formato($ff,$op=0){
 						str_replace(array(date("j-m-y"),date("j-m-y",strtotime("yesterday"))),array("hoy","ayer"),date("j-m-y ga",$unix)))));
 			}
 			$fecha.='</i>';
-			break;
+		break;
 		case "7d": //hoy 12:53 pm
 			$fecha='<i title="'.ucfirst($Array_Semanas0[date("D",$unix)]).", ".date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)])." de ".date("Y",$unix)." / ".date("g:i a",$unix).'">';
 			if(date("y",$unix)==date("y")){
@@ -646,32 +650,31 @@ function fecha_formato($ff,$op=0){
 						str_replace(array(date("j-m-y"),date("j-m-y",strtotime("yesterday"))),array("hoy","ayer"),date("j-m-y ga",$unix)))));
 			}
 			$fecha.='</i>';
-			break;
+		break;
 		case "7c": //Miércoles, 23 de Setiembre de 2009
 			$fecha=ucfirst($Array_Semanas0[date("D",$unix)]).", ".date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)])." de ".date("Y",$unix)." / ".date("g:i a",$unix);
-			break;
-			break;
+		break;
 		case "7_en": //hoy 12:53 pm
 			$fecha=str_replace(array(date("d-m-y"),date("d-m-y",strtotime("yesterday"))),array("today","yesterday"),date("d-m-y g:i a",$unix));
-			break;
+		break;
 		case "8": //23-09-09 12:53 pm
 			$fecha=date("d-m-y g:i a",$unix);
-			break;
+		break;
 		case "8b": //23 de Setiembre de 2009
 			$fecha=date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)])." de ".date("Y - g:i a",$unix);
-			break;			
+		break;			
 		case "9": //hace 10 seg
 			$fecha=calcular_tiempo($unix);
-			break;
+		break;
 		case "10": //23 de Setiembre de 2009
 			$fecha=date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)])." de ".date("Y",$unix);
-			break;
+		break;
 		case "11": //23/09/2009
 			$fecha=date("d/m/Y",$unix);
-			break;
+		break;
 		case "12": //23 de Setiembre
 			$fecha=date("j",$unix)." de ".ucfirst($Array_Meses1[date("n",$unix)]);
-			break;
+		break;
 	}
 
 	if(trim($ff)==''){

@@ -359,8 +359,9 @@ function load_combo(span,sql,value,after){
 function load_htmls(sql,value,after){
 	new Request({url:'load_datos.php?s='+encodeURIComponent(sql)+'&s2='+value,  method:'get', onSuccess:function(ee) {
 	var json=JSON.decode(ee,true);
-	Object.each(json, function(value, key){ eval("var mooo=mooeditable_"+key); mooo.setContent(value); });
-	// eval(value+"()");
+	Object.each(json, function(value, key){ 
+		eval("CKEDITOR.instances.in_"+key+".setData(value)");
+	});	// eval(value+"()");
  } } ).send();
 }
 function load_checks(sql,value,after){
@@ -644,9 +645,9 @@ function upload_terminar(i,tab,camp,resized,crear_quick)
 function render_upload(tb,campo,id,img_default,il){
 
 	var id2=(id=='')?'':'_'+id;
-	var html='<div style="width:auto;float:left;position:relative; ">';
+	var html='<div class="divupl">';
 	if(img_default!=USU_IMG_DEFAULT){
-	html+='<a style="position:absolute;display:block;top:3px;right:10px;font-weight:bold;color:red;background-color:#FFF;padding:0 1px;"  onclick="eliminar_img_foto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar imágen">X</a>';
+	html+='<a class="elim" onclick="eliminar_img_foto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar imágen"></a>';
 	}
 	html+='<input type="hidden" id="upload_in_'+campo+id2+'" />'+
 	'<input type="hidden" id="image_'+campo+id2+'_temp"  value="'+img_default+'" />'+
@@ -683,9 +684,9 @@ function render_upload(tb,campo,id,img_default,il){
 function render_upload_sto(tb,campo,id,name){
 
 	var id2=(id=='')?'':'_'+id;
-	var html='<div style="width:auto;float:left;position:relative;">';
+	var html='<div class="divupl">';
 	if(name!=USU_IMG_DEFAULT && name!=''){
-	html+='<a style="position:absolute;display:block;top:3px;right:10px;font-weight:bold;color:red;background-color:#FFF;padding:0 1px;"  onclick="eliminar_img_sto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar">X</a>';
+	html+='<a class="elim" onclick="eliminar_img_sto(\''+tb+'\',\''+campo+id2+'\');return false;"  title="eliminar">X</a>';
 	}
 	html+='<input type="hidden" id="upload_in_'+campo+id2+'" />'+
 	'<span id="txt_'+campo+id2+'_name" value="'+name+'" style="float:left;" ></span>'+
@@ -1040,6 +1041,7 @@ function close_multibox(){
 	setTimeout("alert('ol');",1500);
 	setTimeout("initMultiBox.close();",2500);
 }
+
 function program_alert(ii){
 
 	$(ii+"_ined").addClass('prog');
@@ -1066,15 +1068,16 @@ function load_ajax_in(where,get){
 	// console.log(get);
 	$(where).innerHTML='<div class="refreshing">cargando....</div>';
 	new Request({url:get,  method:'get', evalScripts:true,onSuccess:function(ee){
-			$(where).innerHTML=ee;
-			// if(typeof(colbac)=='function') eval(colbac);		
-		 } } ).send();	
+		$(where).innerHTML=ee;
+		// if(typeof(colbac)=='function') eval(colbac);		
+	} } ).send();	
 
 }
 
 function render_obj(objeto){
-	if(objeto=='') return '';
  	var json = eval(objeto);
+	console.log(json);
+	if(objeto==null) return '';
  	var html='<ul>';
 	for(var i=0;i<json.length;i++){
 		html+='<li>'+json[i].name + '</li>';

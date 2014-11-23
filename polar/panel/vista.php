@@ -6,158 +6,198 @@ include("setup.php");
 // prin($SERVER);
 // prin($_SERVER);
 
+$DeRecha=[
+''=>'linea_derecha_inicio',
+'1'=>'linea_derecha_inicio',
+'2'=>'linea_derecha_inicio',
+];
+
+
+
+
 $joinss=[];
 
 if( in_array($_GET['verdesarrollo'],array('1','0')) ){
+
 	$_SESSION['verdesarrollo']=$_GET['verdesarrollo'];
 	redireccionar_a($_SERVER['HTTP_REFERER']);
+
 }
+
 
 if(1){
 
-// $_GET['conf']=(is_null($_GET['conf']))?$_GET['conf2']:$_GET['conf'];
-if($_GET['conf2']){
-// var_dump($datos_tabla);
-$_GET['conf']=urldecode($_GET['conf2']);
-$confes=explode("&",$_GET['conf']);
-// prin($confes);
-foreach($confes as $confe){
-	list($uno,$dos)=explode("=",$confe);
-	if(enhay($uno,"|")){
-		// var_dump($uno);
-		list($tres,$cuatro)=explode("|",$uno);
-		$objeto_tabla[$_REQUEST['OB']]['campos'][$tres][$cuatro]=$dos;
-	} else {
-		$objeto_tabla[$_REQUEST['OB']][$uno]=$dos;
+
+	if($_GET['conf2']){
+		// var_dump($datos_tabla);
+		$_GET['conf']=urldecode($_GET['conf2']);
+		$confes=explode("&",$_GET['conf']);
+		// prin($confes);
+		foreach($confes as $confe){
+			list($uno,$dos)=explode("=",$confe);
+			if(enhay($uno,"|")){
+				
+				//var_dump($uno);
+				list($tres,$cuatro)=explode("|",$uno);
+				$objeto_tabla[$_REQUEST['OB']]['campos'][$tres][$cuatro]=$dos;
+
+			} else {
+
+				$objeto_tabla[$_REQUEST['OB']][$uno]=$dos;
+
+			}
+		}
+
+		if(isset($_GET['conf2'])) unset($_GET['conf2']);
+
+		$datos_tabla = procesar_objeto_tabla($objeto_tabla[$_REQUEST['OB']]);
+
 	}
-}
 
-if(isset($_GET['conf2'])) unset($_GET['conf2']);
-
-$datos_tabla = procesar_objeto_tabla($objeto_tabla[$_REQUEST['OB']]);
-// $datos_tabla;
-// var_dump($datos_tabla);
-}
+// prin($datos_tabla);
 
 
 
-if(isset($datos_tabla['por_linea']) and $datos_tabla['por_linea']>3){ $datos_tabla['set_fila_fijo']='1';  }
-if($datos_tabla['set_fila_fijo']){	$_COOKIE[$tb.'_colap']=$datos_tabla['set_fila_fijo']; $ocultar_opciones_filas=1;	}
-$_COOKIE[$tb.'_colap']=(isset($_COOKIE[$tb.'_colap']))?$_COOKIE[$tb.'_colap']:(($datos_tabla['por_linea']>1)?1:(($tblistadosize>6)?4:1));
-$ocultaresquina=($tblistadosize<8)?1:0;
+	if(isset($datos_tabla['por_linea']) and $datos_tabla['por_linea']>3){ 
+		$datos_tabla['set_fila_fijo']='1';  
+	}
+	if($datos_tabla['set_fila_fijo']){	
+		$_COOKIE[$tb.'_colap']=$datos_tabla['set_fila_fijo']; 
+		$ocultar_opciones_filas=1;	
+	}
+	$_COOKIE[$tb.'_colap']=(isset($_COOKIE[$tb.'_colap']))?$_COOKIE[$tb.'_colap']:(($datos_tabla['por_linea']>1)?1:(($tblistadosize>6)?4:1));
 
-?><!-- INICIO AJAX --><?php
+	$ocultaresquina=($tblistadosize<8)?1:0;
 
-if(!isset($_GET['ran']) or $_GET['ran']==''){
 
-	/*
-	?><style><?php
-	 if($datos_tabla['crear_label']!='x'){ ?> .formulario label { width:<?php echo $datos_tabla['crear_label']?>; }<?php }
-	 if($datos_tabla['crear_txt']!=''){ ?>.formulario .form_input, .formulario .in_span span  { width:<?php echo $datos_tabla['crear_txt']?>; }<?php }
-	 if($datos_tabla['altura_listado']!=''){ ?>.bl .bd { height:<?php echo $datos_tabla['altura_listado']?>; }.bl .bd { height:auto; }<?php }
-	 $porr_linea=($datos_tabla['por_linea']=='')?'100':((ceil(100/$datos_tabla['por_linea']))-1);
-	 ?>.bl { float:left; clear:none; width:<?php echo $porr_linea;?>%;   }<?php
-	?></style><script></script><?php
-	*/
 
-	echo '<input type="hidden" id="resaltar"  />';
 
-    if($_GET['block']!='form'){
-	echo '<div class="div_bloque_cuerpo" '. ( ($datos_tabla['width_listado'])?"style=\"width:".$datos_tabla['width_listado'].";\"":"" ) .' >';
-	echo '<div class="refreshing2" id="cargando_form" style="display:none;">cargando</div>';
-	//echo "<div>ocho</div>";
-	//echo show_parent($_GET,$objeto_tabla,$datos_tabla['me']);
+	if(!isset($_GET['ran']) or $_GET['ran']==''){
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//		formulario inicio 		//////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//EVAL
+		if(isset($datos_tabla['script'])){
+			
+			eval($datos_tabla['script']);
 
-		if($Open){ $datos_tabla['crear']='1'; }
-		//prin($SERVER);
-		echo '<div class="bloque_titulo">';
+		}
+
+		/*
+		?><style><?php
+		 if($datos_tabla['crear_label']!='x'){ ?> .formulario label { width:<?php echo $datos_tabla['crear_label']?>; }<?php }
+		 if($datos_tabla['crear_txt']!=''){ ?>.formulario .form_input, .formulario .in_span span  { width:<?php echo $datos_tabla['crear_txt']?>; }<?php }
+		 if($datos_tabla['altura_listado']!=''){ ?>.bl .bd { height:<?php echo $datos_tabla['altura_listado']?>; }.bl .bd { height:auto; }<?php }
+		 $porr_linea=($datos_tabla['por_linea']=='')?'100':((ceil(100/$datos_tabla['por_linea']))-1);
+		 ?>.bl { float:left; clear:none; width:<?php echo $porr_linea;?>%;   }<?php
+		?></style><script></script><?php
+		*/
+
+		echo '<input type="hidden" id="resaltar"  />';
+
+	    if($_GET['block']!='form'){
+
+			echo '<div class="div_bloque_cuerpo" '. ( ($datos_tabla['width_listado'])?"style=\"width:".$datos_tabla['width_listado'].";\"":"" ) .' >';
+			echo '<div class="refreshing2" id="cargando_form" style="display:none;">cargando</div>';
+			//echo "<div>ocho</div>";
+			//echo show_parent($_GET,$objeto_tabla,$datos_tabla['me']);
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//		formulario inicio 		//////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			if($Open){ $datos_tabla['crear']='1'; }
+			//prin($SERVER);
+			echo '<div class="bloque_titulo">';
 
 			$saved[$datos_tabla['me']]['crearopen']=($saved[$datos_tabla['me']]['crearopen']=='')?0:$saved[$datos_tabla['me']]['crearopen'];
 
 
 			if($datos_tabla['repos']!=''){
 
-			?><span id="abri_cerrar_repos"><?php
-            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#repos" id="abrir_repos" <?php
-            ?>onclick="abrir_repos('1','0');" <?php
-            ?>class="btn btn-small" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['repos']=='1')?"display:none;":""?>" <?php
-            ?>><i class="itl ico_reportes"></i>reportes</a><?php
+				?><span id="abri_cerrar_repos"><?php
+	            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#repos" id="abrir_repos" <?php
+	            ?>onclick="abrir_repos('1','0');" <?php
+	            ?>class="btn btn-small" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['repos']=='1')?"display:none;":""?>" <?php
+	            ?>><i class="itl ico_reportes"></i>reportes</a><?php
 
-            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#repos" id="cerrar_repos" <?php
-            ?>onclick="abrir_repos('0','0');" <?php
-            ?>class="btn btn-small btn-inverse" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['repos']=='1')?"":"display:none;"?>" <?php
-            ?>>cerrar reportes</a> <?php
-			?></span><?php
+	            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#repos" id="cerrar_repos" <?php
+	            ?>onclick="abrir_repos('0','0');" <?php
+	            ?>class="btn btn-small btn-inverse" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['repos']=='1')?"":"display:none;"?>" <?php
+	            ?>>cerrar reportes</a> <?php
+				?></span><?php
+
             }
 
 
 			if($datos_tabla['mass_actions']!=''){
 
-			?><span id="abri_cerrar_mass"><?php
-            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#mass" id="abrir_mass" <?php
-            ?>onclick="abrir_mass('1','0');" <?php
-            ?>class="btn btn-small" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['mass']=='1')?"display:none;":""?>" <?php
-            ?>>Acciones</a><?php
+				?><span id="abri_cerrar_mass"><?php
+	            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#mass" id="abrir_mass" <?php
+	            ?>onclick="abrir_mass('1','0');" <?php
+	            ?>class="btn btn-small" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['mass']=='1')?"display:none;":""?>" <?php
+	            ?>>Acciones</a><?php
 
-            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#mass" id="cerrar_mass" <?php
-            ?>onclick="abrir_mass('0','0');" <?php
-            ?>class="btn btn-small btn-inverse" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['mass']=='1')?"":"display:none;"?>" <?php
-            ?>>cerrar acciones</a> <?php
-			?></span><?php
+	            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#mass" id="cerrar_mass" <?php
+	            ?>onclick="abrir_mass('0','0');" <?php
+	            ?>class="btn btn-small btn-inverse" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['mass']=='1')?"":"display:none;"?>" <?php
+	            ?>>cerrar acciones</a> <?php
+				?></span><?php
+
             }
+
 
 			if($datos_tabla['stat']=='1'){
 
-			?><span id="abri_cerrar_stat"><?php
-            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#stat" id="abrir_stat" <?php
-            ?>onclick="abrir_stat('1','0');" <?php
-            ?>class="btn btn-small" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['stat']=='1')?"display:none;":""?>" <?php
-            ?>>gráficos</a><?php
+				?><span id="abri_cerrar_stat"><?php
+	            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#stat" id="abrir_stat" <?php
+	            ?>onclick="abrir_stat('1','0');" <?php
+	            ?>class="btn btn-small" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['stat']=='1')?"display:none;":""?>" <?php
+	            ?>>gráficos</a><?php
 
-            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#stat" id="cerrar_stat" <?php
-            ?>onclick="abrir_stat('0','0');" <?php
-            ?>class="btn btn-small btn-inverse" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['stat']=='1')?"":"display:none;"?>" <?php
-            ?>>cerrar gráficos</a> <?php
-			?></span><?php
+	            ?><a href="custom/<?php echo $SERVER['ARCHIVO'];?>#stat" id="cerrar_stat" <?php
+	            ?>onclick="abrir_stat('0','0');" <?php
+	            ?>class="btn btn-small btn-inverse" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['stat']=='1')?"":"display:none;"?>" <?php
+	            ?>>cerrar gráficos</a> <?php
+				?></span><?php
+
             }
+
 
 			if(!($datos_tabla['crear']=='0' or $tblistadosize=='0' )){
-			//prin($SERVER);
-            ?><span id="abri_cerrar_crear"><?php
-            ?><a href="custom/<?php echo $SERVER['URL'];?>#create" id="abrir_crear" <?php
-            ?>onclick="abrir_crear('1','0');" <?php
-            ?>class="btn btn-small btn-primary" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['crearopen']=='1')?"display:none;":""?>" <?php
-            ?>><i class="itr ico_crea"></i>crear <?php echo $datos_tabla['nombre_singular']?></a><?php
+				//prin($SERVER);
+	            ?><span id="abri_cerrar_crear"><?php
+	            ?><a href="custom/<?php echo $SERVER['URL'];?>#create" id="abrir_crear" <?php
+	            ?>onclick="abrir_crear('1','0');" <?php
+	            ?>class="btn btn-small btn-primary" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['crearopen']=='1')?"display:none;":""?>" <?php
+	            ?>><i class="itr ico_crea"></i>crear <?php echo $datos_tabla['nombre_singular']?></a><?php
 
-            ?><a href="custom/<?php echo $SERVER['URL'];?>#list" id="cerrar_crear" <?php
-            ?>onclick="abrir_crear('0','0');" <?php
-            ?>class="btn btn-small btn-inverse" <?php
-            ?>style=" <?php echo ($saved[$datos_tabla['me']]['crearopen']=='1')?"":"display:none;"?>" <?php
-            ?>>cancelar crear</a> <?php
-			?></span><?php
+	            ?><a href="custom/<?php echo $SERVER['URL'];?>#list" id="cerrar_crear" <?php
+	            ?>onclick="abrir_crear('0','0');" <?php
+	            ?>class="btn btn-small btn-inverse" <?php
+	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['crearopen']=='1')?"":"display:none;"?>" <?php
+	            ?>>cancelar crear</a> <?php
+				?></span><?php
+
 			}
 
+			/*
 			if($Open and ($datos_tabla['crear_pruebas']!='0' and $EdicionPanel) ){
 
-            ?><a onclick="ax('insertar_prueba_rapida',''); return false;" <?php
-            ?>class="linkstitu" <?php
-            ?>id="insertar_prueba" <?php
-            ?>style=" background-color:<?php echo $BGCOLOR_DESARROLLO;?>; color:#000; display:none;" <?php
-            ?>>Crear <?php echo $datos_tabla['nombre_singular']?> de prueba</a><?php
-            ?><script>window.addEvent('domready',function(){	$1("insertar_prueba");	});</script><?php
+	            ?><a onclick="ax('insertar_prueba_rapida',''); return false;" <?php
+	            ?>class="linkstitu" <?php
+	            ?>id="insertar_prueba" <?php
+	            ?>style=" background-color:<?php echo $BGCOLOR_DESARROLLO;?>; color:#000; display:none;" <?php
+	            ?>>Crear <?php echo $datos_tabla['nombre_singular']?> de prueba</a><?php
+	            ?><script>window.addEvent('domready',function(){	$1("insertar_prueba");	});</script><?php
 
             }
+            */
 
             if(trim($datos_tabla['controles'])!=''){ echo procesar_controles_html($datos_tabla['controles']); }
 
@@ -167,25 +207,29 @@ if(!isset($_GET['ran']) or $_GET['ran']==''){
 
 			if($datos_tabla['exportar_gm']=='1'){
 
-			?><a href="#" onclick="javascript:exportar_gm();return false;" <?php
-			?>class="btn btn-small" <?php
-			?>title="Descargar Base para Group Mail"><i class="itl ico_gm"></i>
-			Exportar Group Mail</a><script>function exportar_gm(){ var url='exportar_gm.php?me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); location.href=url; }</script> <?php
+				?><a href="#" onclick="javascript:exportar_gm();return false;" <?php
+				?>class="btn btn-small" <?php
+				?>title="Descargar Base para Group Mail"><i class="itl ico_gm"></i>
+				Exportar Group Mail</a><script>function exportar_gm(){ var url='exportar_gm.php?me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); location.href=url; }</script> <?php
+
 			}
 
 			if($datos_tabla['exportar_excel']=='1'){
 
-			?><a href="#" id="boton_imprimir" onclick="javascript:window.print();return false;" <?php
-			?>class="btn btn-small" <?php
-			?>title="Imprimir"><i class="itl ico_Print"></i>Imprimir</a><?php
+				?><a href="#" id="boton_imprimir" onclick="javascript:$('div_allcontent').addClass('menu_colapsed');window.print();return false;" <?php
+				?>class="btn btn-small" <?php
+				?>title="Imprimir"><i class="itl ico_Print"></i>Imprimir</a><?php
 
-			?><a href="#" id="boton_excel" onclick="javascript:exportar_excel();return false;" <?php
-			?>class="btn btn-small" <?php
-			?>title="Descargar Excel"><i class="itl ico_Excel"></i>Exportar Excel</a><script>function exportar_excel(){ var url='exportar_excel.php?conf=<?php echo urlencode($_GET['conf']); ?>&me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); location.href=url; }</script> <?php
+				?><a href="#" id="boton_excel" onclick="javascript:ax('excel');return false;" <?php
+				?>class="btn btn-small" <?php
+				?>title="Descargar Excel"><i class="itl ico_Excel"></i>Exportar Excel</a><?php
+
 			}
 
 			if($datos_tabla['importar_csv']=='1'){
-			echo '<a href="#" rel="nofollow" onclick="javascrip:procesar_recargar(\'importar_csv.php?conf='.$_GET['conf'].'&me='.$datos_tabla['me']."&".$SERVER['PARAMS'].'\');return false;" class="btn btn-small" title="Importar CSV"><i class="itl ico_Excel"></i>Importar CSV</a>';
+
+				echo '<a href="#" rel="nofollow" onclick="javascrip:procesar_recargar(\'importar_csv.php?conf='.$_GET['conf'].'&me='.$datos_tabla['me']."&".$SERVER['PARAMS'].'\');return false;" class="btn btn-small" title="Importar CSV"><i class="itl ico_Excel"></i>Importar CSV</a>';
+
 			}
 
 			?><a id="msino"></a><script>window.addEvent('domready',function(){ $("msino").addEvent('click',function(){ 
@@ -205,8 +249,8 @@ if(!isset($_GET['ran']) or $_GET['ran']==''){
 	} else {
 
 
-	$_COOKIE[$tb.'_colap']=0;
 
+	/*
 	?><style>
 	#segunda_barra_2 { float:left; width:38%; clear:none; #margin-top:10px; margin-top:0px; }
 	.bl { width:99%;#width:95%; }
@@ -221,50 +265,44 @@ if(!isset($_GET['ran']) or $_GET['ran']==''){
 	.contenido_principal { border:0; padding-right:0px; }
 	#segunda_barra_3 { display:none;}
 	.form_boton_1 {
-background-color:#FF0000;
-background-image: -webkit-gradient(
+	background-color:#FF0000;
+	background-image: -webkit-gradient(
     linear,
     left top,
     left bottom,
     color-stop(0, #FF0000),
     color-stop(1, #000000)
-);
-background-image: -moz-linear-gradient(
-    center top,
-    #FF0000 0%,
-    #000000 100%
-);
+	);
+	background-image: -moz-linear-gradient(
+	    center top,
+	    #FF0000 0%,
+	    #000000 100%
+	);
 	color:#FFF; padding-top:2px; padding-bottom:2px; border:0; position:relative; }
 	.formulario { #padding-left:10px; }
 	#contenido_principal {
     border-radius: 0;
     box-shadow:	none;
 	}
-	.bloque_content_crear { /*background-color:#FFF;*/ }
 
-	<?php
-	//$display_barra='display:none;';
-	if($_GET['tipo']=='listado'){ $_COOKIE[$tb.'_colap']=4; ?>
-    #div_allcontent { width:98%; }
-	<?php } else { 	$_COOKIE[$tb.'_colap']=0; ?>
-    #div_allcontent { width:680px; min-width:0%; }
-	.bloque_content_crear { width:50%; float:left; }
-	.formulario label { width:99%; }
-	.formulario .form_input { width:99%; }
-	<?php } ?>
+    </style>
+    <?php */
 
-    </style><?php
 
-    	}
+	$_COOKIE[$tb.'_colap']=($_GET['tipo']=='listado')?4:0;
 
-		?><div id="bloque_content_crear" class="bloque_content_crear"><?php
-		if( ($Proceso=='login') or ($_GET['block']=='form') or ($datos_tabla['crear_quick']=='1') ){ include("formulario.php");
+
+	}
+
+	?><div id="bloque_content_crear" class="bloque_content_crear"><?php
+	if( ($Proceso=='login') or ($_GET['block']=='form') or ($datos_tabla['crear_quick']=='1') ){ 
+		include("formulario.php");
 		?><script>window.addEvent('load',function(){ pre_crear(); });</script><?php
-		} ?></div><?php
+	} ?></div><?php
 
-		?><div id="bloque_content_stat" class="bloque_content_stat"></div><?php
-		?><div id="bloque_content_mass" class="bloque_content_mass"></div><?php
-		?><div id="bloque_content_repos" class="bloque_content_repos"></div><?php
+	?><div id="bloque_content_stat" class="bloque_content_stat"></div><?php
+	?><div id="bloque_content_mass" class="bloque_content_mass"></div><?php
+	?><div id="bloque_content_repos" class="bloque_content_repos"></div><?php
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//		formulario fin 		//////////////////////////////////////////////////////////////////////////////
@@ -274,9 +312,14 @@ background-image: -moz-linear-gradient(
 
 
 
-    echo '<div class="inner_listado"  id="inner" style=" width:100%; ';
+    echo '<div class="inner_listado '.
+	     ( ($_GET['i']!='')?' detail':'' )
+    .'"  id="inner" style=" width:100%; ';
 
-	if($_GET['block']=='form' and $_GET['tipo']!='listado'){ echo 'width:50%; float:left;'; }
+	if($_GET['block']=='form' and $_GET['tipo']!='listado'){ 
+		echo 'width:50%; float:left;'; 
+	}
+
 	echo '" >';
 
 
@@ -310,10 +353,55 @@ background-image: -moz-linear-gradient(
 			$tblistado_end=[];
 			// prin($tblistado);
 
+
+			if(isset($_GET['format']) and sizeof($objeto_tabla[$this_me]['more'])>0 ){
+
+				foreach($objeto_tabla[$this_me]['campos'] as $campo){
+
+					if($campo['tipo']=='hid' and isset($campo['opciones']) and enhay($campo['opciones'],'||') ){
+
+						list($ouno,$odos)=explode("||",$campo['opciones']);
+						list($otres,$ocuat)=explode("|",$ouno);
+						$moremore[$ocuat]=explode(';',$odos);
+
+					}
+
+				}
+
+				// prin($moremore);
+				foreach($moremore as $ore=>$ero){
+					$adicionales=explode(",",$objeto_tabla[$this_me]['more'][$ore]);
+					foreach($adicionales as $uurl){
+						$diran=parse_url($uurl);
+						$ero2=[];
+						parse_str($diran['query'], $output);
+						foreach($ero as $eero){
+							if($eero!=$diran['path']) $ero2[]=$eero."?listable=1&after=".$output['after'];
+						}
+						$objeto_tabla[$this_me]['more'][$ore]=$objeto_tabla[$this_me]['more'][$ore].",\n".implode(",\n",$ero2);
+						// prin($ero2);
+						// prin($diran['path']);
+						// $eero=[];
+						// foreach($ero as $eroo){
+
+						// }
+						// if(!in_array($diran['path'],$ero)){
+						// 	$eero=
+						// }
+					}
+				}
+
+			}
+
+			// prin($objeto_tabla[$this_me]['more']);
+
+			// exit();
+
 			foreach($objeto_tabla[$this_me]['more'] as $blata=>$querries){
 
 				$querrie=explode(",",$querries);
-				// prin($querrie);
+				//prin($querrie);
+				
 				foreach($querrie as $querrie1){
 
 					list($querrie1uno,$querrie1dos)=explode('?',trim($querrie1));
@@ -395,23 +483,29 @@ background-image: -moz-linear-gradient(
 			// prin($objeto_tabla[$this_me]['campos']);
 
 			//prin(sizeof($objeto_tabla[$this_me]['campos']));
+			
 			foreach($objeto_tabla[$this_me]['campos'] as $ddff=>$df){
 
 				if($df['queries']=='1'){
 				
 					$queries[$ddff]=$df;
 					if(isset($queries_after[$ddff])){
+
 						foreach($queries_after[$ddff] as $ffdd){
+
 							$queries[$ffdd[0]]=$ffdd[1];
+
 						}
+
 					}
 
 				}
 
 			}
 
-			$queries=array_merge($queries,$queries_end);
+			// prin($queries);
 
+			$queries=array_merge($queries,$queries_end);
 
 
 			parse_str($_GET['filter'],$FiL0);
@@ -449,7 +543,7 @@ background-image: -moz-linear-gradient(
 		// prin($queries);
 
 		// prin($FiL);
-
+		
 		foreach($queries as $blatacampo=>$querie){
 
 			$blata=($querie['tabla']!='')?$querie['tabla']:$tbl;
@@ -521,7 +615,7 @@ background-image: -moz-linear-gradient(
 						// prin($FiL[$blata][$querie['campo']]);
 
 						$html_filter.="<span class='filfchspan'>".$querie['label']."</span>";
-						$html_filter.="<input style='float:left;' type='text' id='filtr_".$querie['campo']."_dl' ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." value='";
+						$html_filter.="<input type='text' id='filtr_".$querie['campo']."_dl' ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." value='";
 
 						$fila=fila(array("CONCAT_WS(' ',". str_replace(";",",",$prim0nombre) .") as v"),$tablaO,"where id='".str_replace($blata.".".$querie['campo']."%3D","",urlencode($FiL[$blata][$querie['campo']]))."'",0);
 
@@ -547,7 +641,7 @@ background-image: -moz-linear-gradient(
 
 						$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,(($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO));
 
-						$html_filter.="<select ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." id='filtr_".$querie['campo']."' onchange=\"render_filder();\">";
+						$html_filter.="<select style='width:".(($querie['width'])?$querie['width']:'100px').";' ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." id='filtr_".$querie['campo']."' onchange=\"render_filder();\">";
 						$html_filter.="<option value='' class='empty'>".$querie['label']."</option>";
 						foreach($oopciones as $pppooo){
 						$quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
@@ -645,43 +739,50 @@ background-image: -moz-linear-gradient(
 
 		}
 			
+			if($_GET['format']!='excel'){
 
 
-			?>
-			<script>
-			function rf(filter){
-				var j=0;
-				var eles = new Array();
-				$$('.filtr_'+filter).each(function(ele) {
-					if(ele.checked){
-						eles[j]=ele.value;
-						j++;
-					}
-				});
-				$('filtr_'+filter).value=(j==0)?'':encodeURIComponent(filter+'='+eles.join(','));
-				render_filder();
-			}
-			function render_filder(){
-			var url='';
-			<?php 
-			foreach($terfil as $nameblata => $blata){
-				foreach($blata as $tert){
-				//echo "if($('filtr_".$tert."').value!=''){ url+=' and '+$('filtr_".$tert."').value; }\n";
-				echo "if($('filtr_".$tert."').value!=''){ url+=encodeURIComponent('".$nameblata."[]='+$('filtr_".$tert."').value+'&'); }\n";
-				//echo "if($('filtr_".$tert."').value!=''){ url+='".$tert."='+$('filtr_".$tert."').value+'&'; }\n";
-			} } ?>
-			$('ffilter').value=url;
-			url=url+'&conf=<?php echo urlencode($_GET['conf'])?>';
-			// console.log(url)
-			// alert(url);
-			ax("pagina_filter",url,1);
-			//location.href="custom/<?php echo $datos_tabla['archivo']; ?>.php?filter="+url;
-			}
-			</script>
-			<?php
+				?>
+				<script>
+				function rf(filter){
+					var j=0;
+					var eles = new Array();
+					$$('.filtr_'+filter).each(function(ele) {
+						if(ele.checked){
+							eles[j]=ele.value;
+							j++;
+						}
+					});
+					$('filtr_'+filter).value=(j==0)?'':encodeURIComponent(filter+'='+eles.join(','));
+					render_filder();
+				}
+				function render_filder(){
+				var url='';
+				<?php 
+				foreach($terfil as $nameblata => $blata){
+					foreach($blata as $tert){
+					//echo "if($('filtr_".$tert."').value!=''){ url+=' and '+$('filtr_".$tert."').value; }\n";
+					echo "if($('filtr_".$tert."').value!=''){ url+=encodeURIComponent('".$nameblata."[]='+$('filtr_".$tert."').value+'&'); }\n";
+					//echo "if($('filtr_".$tert."').value!=''){ url+='".$tert."='+$('filtr_".$tert."').value+'&'; }\n";
+				} } ?>
+				$('ffilter').value=url;
+				url=url+'&conf=<?php echo urlencode($_GET['conf'])?>';
+				// console.log(url)
+				// alert(url);
+				ax("pagina_filter",url,1);
+				//location.href="custom/<?php echo $datos_tabla['archivo']; ?>.php?filter="+url;
+				}
+				</script>
+				<?php
+
+
+			}//NO EXCEL
+
 
 		}
+
 		if($Open==1 and 0){
+
 		$filtros1=array(); $filtros2=array(); $filtros3=array();
 		$filtros1=explode(";",$datos_tabla['filtros']);
 		$filtros2=explode(";",$datos_tabla['filtros_extra']);
@@ -730,245 +831,263 @@ background-image: -moz-linear-gradient(
 			echo "<div class='barfiltro'>$BarFiltro</div>";
 		}
 
-		// echo "<div style='font-size:0px;line-height:0px;'>&nbsp;</div>";
+		/*prin($tblistadosize);	*/
+
 	    if($tblistadosize!='0'){
-		if($_GET['i']!=''){
 
-			//$busqueda_query = " ".$_GET['filter']." ";
-			$busqueda_query = " and id = '".$_GET['i']."' ";
-			$linkPagina = "pagina_file";
-			$linkRecPagina = "recargar_file";
-			$vvvalos = $_GET['i'];
-			$_COOKIE[$tb.'_colap']='2';
+			if($_GET['i']!=''){
 
-		}elseif($_GET['filter']!=''){
+				//$busqueda_query = " ".$_GET['filter']." ";
+				$busqueda_query = " and ".$tbl.".id = '".$_GET['i']."' ";
+				$linkPagina = "pagina_file";
+				$linkRecPagina = "recargar_file";
+				$vvvalos = $_GET['i'];
+				$_COOKIE[$tb.'_colap']='2';
+				$datos_tabla['order_by']='';
 
-			//$busqueda_query = " ".$_GET['filter']." ";
+			}elseif($_GET['filter']!=''){
+
+				//$busqueda_query = " ".$_GET['filter']." ";			
+				$query_filter_parts=query_filter($FiL);
+				foreach($query_filter_parts['joins'] as $joi){
+					$joinss[$joi]=$joi;
+				}
+				// $join_query = "\n".implode("\n",);
+				$busqueda_query = " and ( ".$query_filter_parts['filter']." ) ";
+				$linkPagina = "pagina_filter";
+				$linkRecPagina = "recargar_filter";
+				$vvvalos = $_GET['filter'];
+
+			}elseif($FilTro!=''){
+
+				$busqueda_query = " and ( ".$FilTro." ) ";
+				$linkPagina = "pagina_filtro";
+				$linkRecPagina = "recargar_filtro";
+				$vvvalos = $FilTro_l;
+
+			} elseif($_GET['buscar']!=''){
+
+				$busqueda_query = search_query($datos_tabla['fulltext'],$datos_tabla['like'],$datos_tabla['id'],$_GET['buscar']);
+				$linkPagina = "pagina_buscar";
+				$linkRecPagina = "recargar_buscar";
+				$vvvalos = $_GET['buscar'];
+
+			} else {
+
+				$busqueda_query = "";
+				$linkPagina = "pagina";
+				$linkRecPagina = "recargar";
+				$vvvalos = "";
+
+			}
+
+	//		prin($datos_tabla);
+			//update_tags($objeto_tabla[$this_me],162);
+			/*
+			$tbcampos	=	$datos_tabla['form'];
+			$tblistado	=	$datos_tabla['list'];
+			$tbquery	=   $datos_tabla['query'];
+			*/
 			
-			$query_filter_parts=query_filter($FiL);
-			foreach($query_filter_parts['joins'] as $joi){
-				$joinss[$joi]=$joi;
-			}
-			// $join_query = "\n".implode("\n",);
+			/*prin($datos_tabla['query']);*/
 
-			$busqueda_query = " and ( ".$query_filter_parts['filter']." ) ";
-			$linkPagina = "pagina_filter";
-			$linkRecPagina = "recargar_filter";
-			$vvvalos = $_GET['filter'];
+			if($_GET['i']!='' ){
 
-		}elseif($FilTro!=''){
+				//$tblistado	=	$datos_tabla['list'] = $datos_tabla['form'];
+				$tblistado	=	$datos_tabla['list']=$MEEE['campos'];
 
-			$busqueda_query = " and ( ".$FilTro." ) ";
-			$linkPagina = "pagina_filtro";
-			$linkRecPagina = "recargar_filtro";
-			$vvvalos = $FilTro_l;
+				//$array=$MEEE;
+				/*prin($datos_tabla['list']);*/
 
-		} elseif($_GET['buscar']!=''){
+				if(is_array($datos_tabla['list']))
+				foreach($datos_tabla['list'] as $tyt=>$camp){
+			
+					if( $camp['disabled']=='1' ){ continue; }
 
+					if( 
+						in_array($camp['tipo'],['fed','pos','vis','cal']) 
+						and $camp['listable']!='1'
+					){ continue; }
 
-			$busqueda_query = search_query($datos_tabla['fulltext'],$datos_tabla['like'],$datos_tabla['id'],$_GET['buscar']);
-			$linkPagina = "pagina_buscar";
-			$linkRecPagina = "recargar_buscar";
-			$vvvalos = $_GET['buscar'];
+					if( 
+						in_array($camp['tipo'],['hid']) and !isset($camp['opciones']) and $camp['foreig']!=1
+					){ continue; }
 
-		} else {
+					
+					if( $camp['campo']!=$array['group'] and $camp['autotags']!='1' ){
 
-			$busqueda_query = "";
-			$linkPagina = "pagina";
-			$linkRecPagina = "recargar";
-			$vvvalos = "";
+						/*prin($camp);*/
 
-		}
+						$tblistado[$tyt]['listable']='1';
+						$datos_tabla['list'][$tyt]['listable']='1';
+						$query[]=$camp['campo'];
 
-//		prin($datos_tabla);
-		//update_tags($objeto_tabla[$this_me],162);
-		/*
-		$tbcampos	=	$datos_tabla['form'];
-		$tblistado	=	$datos_tabla['list'];
-		$tbquery	=   $datos_tabla['query'];
-		*/
-		if($_GET['i']!=''){
+					}
 
-		//$tblistado	=	$datos_tabla['list'] = $datos_tabla['form'];
-		$tblistado	=	$datos_tabla['list']=$MEEE['campos'];
+				}
+				
+				
+				$tbquery= $datos_tabla['query']= implode(",",$query);
 
-		//$array=$MEEE;
-		if(is_array($datos_tabla['list']))
-		foreach($datos_tabla['list'] as $tyt=>$camp){
-			if($camp['disabled']=='1'){ continue; }
-			if($camp['campo']!=$array['group'] and $camp['autotags']!='1'){
-				//$objeto_tabla[$ME]['campos'][$camp['campo']]['listable']='1';
-				$tblistado[$tyt]['listable']='1';
-				$datos_tabla['list'][$tyt]['listable']='1';
-				$query[]=$camp['campo'];
+			
 			}
 
-		}
-
-		$tbquery= $datos_tabla['query']= implode(",",$query);
-
-		}
 
 
 
+			$tbquery_items=explode(',',$tbquery);	
+			$tbquery=[];
+			foreach($tbquery_items as $tbquery_item)
+			{
+				$tbquery[]=$tbl.".".$tbquery_item." as ".$tbquery_item;
+			}
+			foreach($listable_end as $tblque)
+			{
+				$joinss[$tblque['tabla']]=$tblque['tabla'];
+				$tbquery[]=$tblque['tabla'].".".$tblque['campo']." as ".$tblque['campo'];	
+				$tbquery0[]=$tblque['campo'];
+			}
+			$join_query='';
+			// prin($joinss);
+			foreach($joinss as $joi_)
+			{
+				$join_query.="\n left join ".$joi_." on ".$datos_tabla['joins'][$joi_]." ";
+			}
 
 
-			//prin(sizeof($objeto_tabla[$this_me]['campos']));
-			// foreach($objeto_tabla[$this_me]['campos'] as $ddff=>$df){
-				
-			// 	if($df['queries']=='1'){
-				
-			// 		$queries[$ddff]=$df;
-			// 		if(isset($listable_after[$ddff])){
-			// 			foreach($listable_after[$ddff] as $ffdd){
-			// 				$queries[$ffdd[0]]=$ffdd[1];
-			// 			}
-			// 		}
-
-			// 	}
-
-			// }
-
-			// $queries=array_merge($queries,$listable_end);
+			/*			
+			$joins[$FA0]=" left join ".$FA0." on ".$joi[$FA0]." ";
+			prin(sizeof($tbcampos));
+			prin(sizeof($tblistado));
+			prin(sizeof($query));
+			*/
+			//prin($SERVER);
+			//prin($vars['GENERAL']['mostrar_toolbars']);
 
 
 
 
+			if($_GET['format']=='excel'){		
 
-		$tbquery_items=explode(',',$tbquery);		
-		$tbquery=[];
-		foreach($tbquery_items as $tbquery_item){
-			$tbquery[]=$tbl.".".$tbquery_item." as ".$tbquery_item;
-		}
-		foreach($listable_end as $tblque){
-			$joinss[$tblque['tabla']]=$tblque['tabla'];
-			$tbquery[]=$tblque['tabla'].".".$tblque['campo']." as ".$tblque['campo'];			
-		}
-		$join_query='';
-		// prin($joinss);
-		foreach($joinss as $joi_){
-			$join_query.="\n left join ".$joi_." on ".$datos_tabla['joins'][$joi_]." ";
-		}
+				include('excel.php');
+			
+			} else {
+
+				$pagina_items=paginacion(
+										[
+											'separador'    =>''
+											,'porpag'      =>($LOCAL and $vars['GENERAL']['mostrar_toolbars'])?20:$datos_tabla['por_pagina']
+											,'anterior'    =>'&laquo;'
+											,'siguiente'   =>'&raquo;'
+											,'enlace'      =>"#"
+											,'onclick'     =>"ax(\"". $linkPagina ."\",\"". urlencode($vvvalos) ."\",PAG);return false;"
+											/*,'onclick':'go_page'*/
+											,'tren_limite' =>'10'
+											,'tipo'        =>'bootstrap'
+										],
+										$tbquery,
+										$tbl,
+										$join_query.
+										"\n where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'].
+										"\n order by "
+										. ( ($FilTro_o=='')?'':$FilTro_o."," )
+										. ( ($datos_tabla['group'])?' '.$datos_tabla['group'].' desc, ':'' )
+										. ( ($datos_tabla['order_by']=='')? (  $tbl.".".$datos_tabla['id']." ". (($datos_tabla['orden']=='1')?"desc":"asc") ):$datos_tabla['order_by'] )
+										,
+										(0 or ($_GET['debug']=='1'))
+										);
 
 
-		/*			
-		$joins[$FA0]=" left join ".$FA0." on ".$joi[$FA0]." ";
-		prin(sizeof($tbcampos));
-		prin(sizeof($tblistado));
-		prin(sizeof($query));
-		*/
-		//prin($SERVER);
-		//prin($vars['GENERAL']['mostrar_toolbars']);
-		$pagina_items=paginacion(
-								[
-									'separador'    =>''
-									,'porpag'      =>($LOCAL and $vars['GENERAL']['mostrar_toolbars'])?20:$datos_tabla['por_pagina']
-									,'anterior'    =>'&laquo;'
-									,'siguiente'   =>'&raquo;'
-									,'enlace'      =>"#"
-									,'onclick'     =>"ax(\"". $linkPagina ."\",\"". urlencode($vvvalos) ."\",PAG);return false;"
-									/*,'onclick':'go_page'*/
-									,'tren_limite' =>'10'
-									,'tipo'        =>'bootstrap'
-								],
-								$tbquery,
-								$tbl,
-								$join_query.
-								"\n where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'].
-								"\n order by "
-								. ( ($FilTro_o=='')?'':$FilTro_o."," )
-								. ( ($datos_tabla['group'])?' '.$datos_tabla['group'].' desc, ':'' )
-								. ( ($datos_tabla['order_by']=='')? (  $datos_tabla['id']." ". (($datos_tabla['orden']=='1')?"desc":"asc") ):$datos_tabla['order_by'] )
-								,
-								0);
+			}
 
-		//var_dump($pagina_items); exit();
-		
-		$lineas          = $pagina_items['filas'];
-		$paginas_linea   = $pagina_items['tren'];
-		$anterior_linea  = $pagina_items['anterior'];
-		$siguiente_linea = $pagina_items['siguiente'];
-		
-		$total_linea     = $pagina_items['total'];
-		$desde_linea     = $pagina_items['desde'];
-		$hasta_linea     = $pagina_items['hasta'];
-		
-		$lineassize      =sizeof($lineas);
 
-		echo '<input type="hidden" id="ffilter" style="width:500px;" value="'.urlencode($_GET['filter']).'" >';
 
-        echo '<input type="hidden" id="pagina" value="'.(($_GET['pag']=='')?"1":$_GET['pag']).'"  />';
-        //echo '<input type="text" id="tipolista" value="'.$linkRecPagina.'"  />';
-        echo '<input type="hidden" id="edit_hidd"  />';
 
-        // echo '<div style="position:relative;height:auto;float:left;width:100%;">';
+			$lineas          = $pagina_items['filas'];
+			$paginas_linea   = $pagina_items['tren'];
+			$anterior_linea  = $pagina_items['anterior'];
+			$siguiente_linea = $pagina_items['siguiente'];
+			
+			$total_linea     = $pagina_items['total'];
+			$desde_linea     = $pagina_items['desde'];
+			$hasta_linea     = $pagina_items['hasta'];
+			
+			$lineassize      =sizeof($lineas);
 
-        echo '<div class="refreshing" id="refresh" style="display:none;">cargando......</div>';
+			echo '<input type="hidden" id="ffilter" style="width:500px;" value="'.urlencode($_GET['filter']).'" >';
 
-		if($lineassize!=0 or $_GET['buscar']!='' or $_GET['filter']!=''){
+	        echo '<input type="hidden" id="pagina" value="'.(($_GET['pag']=='')?"1":$_GET['pag']).'"  />';
+	        //echo '<input type="text" id="tipolista" value="'.$linkRecPagina.'"  />';
+	        echo '<input type="hidden" id="edit_hidd"  />';
 
-        // echo '<div style="'.$display_barra.'">';
+	        // echo '<div style="position:relative;height:auto;float:left;width:100%;">';
 
-		$vars['GENERAL']['controles_listados']=($vars['GENERAL']['controles_listados'])?$vars['GENERAL']['controles_listados']:1;
+	        echo '<div class="refreshing" id="refresh" style="display:none;">cargando......</div>';
 
-		// echo '<div class="barbar2">';
+			if($lineassize!=0 or $_GET['buscar']!='' or $_GET['filter']!=''){
 
-		if($ocultar_opciones_filas!=1){
+	        // echo '<div style="'.$display_barra.'">';
 
-        /* ?><span style=" <?php echo ($ocultar_opciones_filas==1)?'display:none;':''; ?>"><?php */
+			$vars['GENERAL']['controles_listados']=($vars['GENERAL']['controles_listados'])?$vars['GENERAL']['controles_listados']:1;
 
-		   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='2'){?>brasselected<?php }?>" <?php
-	        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','2');return false;" <?php
-	        ?>title="Vista de Resúmen" <?php
-	        echo (in_array($vars['GENERAL']['controles_listados'],array('1','2')))?'':'style="display:none;"';
-	        ?>id="set_filas_2"></a><?php
+			// echo '<div class="barbar2">';
 
-		   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='1'){?>brasselected<?php }?>" <?php
-	        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','1');return false;" <?php
-	        ?>title="Filas en Bloque" <?php
-	        echo (in_array($vars['GENERAL']['controles_listados'],array('1','3')))?'':'style="display:none;"';
-	        ?>id="set_filas_1"></a><?php
+			if($ocultar_opciones_filas!=1){
 
-		   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='3'){?>brasselected<?php }?>" <?php
-	        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','3');return false;" <?php
-	        ?>title="Vista de Filas" <?php
-	        ?>id="set_filas_3"></a><?php
+	        /* ?><span style=" <?php echo ($ocultar_opciones_filas==1)?'display:none;':''; ?>"><?php */
 
-	        ?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='4'){?>brasselected<?php }?>" <?php
-	        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','4');return false;" <?php
-	        ?>title="Vista de tabla" <?php
-	        echo (in_array($vars['GENERAL']['controles_listados'],array('1','3')))?'':'style="display:none;"';
-	        ?>id="set_filas_4" style="text-decoration:none;"></a><?php
+			   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='2'){?>brasselected<?php }?>" <?php
+		        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','2');return false;" <?php
+		        ?>title="Vista de Resúmen" <?php
+		        echo (in_array($vars['GENERAL']['controles_listados'],array('1','2')))?'':'style="display:none;"';
+		        ?>id="set_filas_2"></a><?php
 
-		/* ?></span><?php */
-		
-		}
+			   	/* ?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='1'){?>brasselected<?php }?>" <?php
+		        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','1');return false;" <?php
+		        ?>title="Filas en Bloque" <?php
+		        echo (in_array($vars['GENERAL']['controles_listados'],array('1','3')))?'':'style="display:none;"';
+		        ?>id="set_filas_1"></a><?php */
 
-		if(sizeof($datos_tabla['fulltext'])>0 or sizeof($datos_tabla['like'])>0){
-		?><form action="<?php echo "custom/".$datos_tabla['archivo'].".php";?>" method="get"
-		onsubmit="if($v('buscar')=='buscar <?php echo $datos_tabla['nombre_singular'];?>'){ return false; }"
-		><?php
-			?><div id="linea_buscador"><?php
-				?><span class="z ico_search"></span><input type="text" class="<?php echo ($_GET['buscar']!='')?"inuse":"";?>"  <?php
-				?>value='<?php echo $_GET['buscar'];?>' autocomplete="off" <?php
-				?>placeholder="buscar <?php echo $datos_tabla['nombre_singular'];?>"<?php
-				?>id="buscar" name="buscar" /><?php
-				/* ?><input type="submit" value="buscar" <?php
-				onclick="ax('buscar',$v('buscar'),'buscar <?php echo $datos_tabla['nombre_singular'];?>');"
-				?>style="background-color:#000; color:#FFF; padding:0px 2px 0px 0px; font-size:18px; text-transform:uppercase;float:left; border:0; margin-right:10px; font-weight:bold; display:none;" /> <?php */
-				?><span id="buscar_span"></span><?php
-			?></div><?php
-		?></form><?php
-		}
+			   	/* ?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='3'){?>brasselected<?php }?>" <?php
+		        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','3');return false;" <?php
+		        ?>title="Vista de Filas" <?php
+		        ?>id="set_filas_3"></a><?php */
 
-		/**
-		 * FILTROS
-		 */
-		$html_filter="<div class='byother'>".implode("\n",$html_filter_A)."</div>";
+		        ?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='4'){?>brasselected<?php }?>" <?php
+		        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','4');return false;" <?php
+		        ?>title="Vista de tabla" <?php
+		        echo (in_array($vars['GENERAL']['controles_listados'],array('1','3')))?'':'style="display:none;"';
+		        ?>id="set_filas_4" style="text-decoration:none;"></a><?php
 
-		echo "<div class='filters' id='dfilters' >".
-			 implode("\n",$html_filter_fecha_A).$html_filter.
-			 "</div>";
+			/* ?></span><?php */
+			
+			}
+
+			if(sizeof($datos_tabla['fulltext'])>0 or sizeof($datos_tabla['like'])>0){
+			?><form action="<?php echo "custom/".$datos_tabla['archivo'].".php";?>" method="get"
+			onsubmit="if($v('buscar')=='buscar <?php echo $datos_tabla['nombre_singular'];?>'){ return false; }"
+			><?php
+				?><div id="linea_buscador"><?php
+					?><span class="z ico_search"></span><input type="text" class="<?php echo ($_GET['buscar']!='')?"inuse":"";?>"  <?php
+					?>value='<?php echo $_GET['buscar'];?>' autocomplete="off" <?php
+					?>placeholder="buscar <?php echo $datos_tabla['nombre_singular'];?>"<?php
+					?>id="buscar" name="buscar" /><?php
+					/* ?><input type="submit" value="buscar" <?php
+					onclick="ax('buscar',$v('buscar'),'buscar <?php echo $datos_tabla['nombre_singular'];?>');"
+					?>style="background-color:#000; color:#FFF; padding:0px 2px 0px 0px; font-size:18px; text-transform:uppercase;float:left; border:0; margin-right:10px; font-weight:bold; display:none;" /> <?php */
+					?><span id="buscar_span"></span><?php
+				?></div><?php
+			?></form><?php
+			}
+
+			/**
+			 * FILTROS
+			 */
+			$html_filter="<div class='byother'>".implode("\n",$html_filter_A)."</div>";
+
+			echo "<div class='filters' id='dfilters' >".
+				 implode("\n",$html_filter_fecha_A).$html_filter.
+				 "</div>";
 
 		}
 
@@ -998,6 +1117,8 @@ background-image: -moz-linear-gradient(
 
 		}
 
+		echo ($_GET['i']!='')?'<div class="title_detail">'.$datos_tabla['nombre_singular']." #".$_GET['i'].'</div class="title_detail">':'';
+
 		echo '<ul class="listado_grilla">';
 
 		//$lineas=array($lineas[0]);
@@ -1012,48 +1133,60 @@ background-image: -moz-linear-gradient(
 
 
 		foreach($tblistado as $tbli){
-		if($tbli['tipo']=='html'){ $needs['html']=1; }
-		if($tbli['cuantity']=='1'){ $hascuantity=1; $cuantities[]=$tbli['campo']; }
+
+			if($tbli['tipo']=='html'){ $needs['html']=1; }
+			if($tbli['cuantity']=='1'){ $hascuantity=1; $cuantities[]=$tbli['campo']; }
+
 		}
 
 		if($hascuantity==1 and $lineassize>1){
-		echo "<table class='tblcalculo'>";
-		echo "<tr><td></td><td class=nombre>m�nimo</td><td class=nombre>m�ximo</td><td class=nombre>media</td></tr>";
-		foreach($cuantities as $cutt){
-		echo "<tr><td class=nombre>$cutt</td>";
-		echo "<td class=valor>";
-		$valor = dato("min($cutt)",$tbl,"where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'],0);
-		echo intval($valor*100)/100;
-		echo "</td>";
-		echo "<td class=valor>";
-		$valor = dato("max($cutt)",$tbl,"where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'],0);
-		echo intval($valor*100)/100;
-		echo "</td>";
-		echo "<td class=valor>";
-		$valor = dato("avg($cutt)",$tbl,"where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'],0);
-		echo intval($valor*100)/100;
-		echo "</td>";
-		echo "</tr>";
-		//echo "<div>nunca jamas quiere decir tal vez</div>";
+
+			echo "<table class='tblcalculo'>";
+			echo "<tr><td></td><td class=nombre>m�nimo</td><td class=nombre>m�ximo</td><td class=nombre>media</td></tr>";
+			foreach($cuantities as $cutt){
+
+				echo "<tr><td class=nombre>$cutt</td>";
+				echo "<td class=valor>";
+				$valor = dato("min($cutt)",$tbl,"where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'],0);
+				echo intval($valor*100)/100;
+				echo "</td>";
+				echo "<td class=valor>";
+				$valor = dato("max($cutt)",$tbl,"where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'],0);
+				echo intval($valor*100)/100;
+				echo "</td>";
+				echo "<td class=valor>";
+				$valor = dato("avg($cutt)",$tbl,"where 1 $EXTRA_FILTRO $busqueda_query ".$datos_tabla['where_id'],0);
+				echo intval($valor*100)/100;
+				echo "</td>";
+				echo "</tr>";
+				//echo "<div>nunca jamas quiere decir tal vez</div>";
+				
+			}
+			echo "</table>";
+
 		}
-		echo "</table>";
-		}
+
 		$datos_tabla['edicion_completa']=($datos_tabla['edicion_completa']!='')?$datos_tabla['edicion_completa']:( (($needs['html']) or($numero_de_campo_en_lista>$limite_campos_en_lista))?1:0 );
 
 		$datos_tabla['edicion_rapida']=($datos_tabla['edicion_rapida']!='')?$datos_tabla['edicion_rapida']:( (($needs['html']) or($numero_de_campo_en_lista>$limite_campos_en_lista))?0:1 );
 
 		$urd=0;
+
 		$groupvalue='';
 
 		//PRE
-		if($datos_tabla['mass_actions']!=''){
+		if($datos_tabla['mass_actions']!='')
+		{
 			$tblistado=array_merge(array(array('listable'=>'1','campo'=>'check','tipo'=>'check')), $tblistado);
 		}
 
-		foreach($tblistado as $tbli){
+		foreach($tblistado as $tbli)
+		{
 			$pdfrom[]="[".$tbli['campo']."]";
 		}
-        foreach($lineas as $tete=>$linea){
+        foreach($lineas as $tete=>$linea)
+        {
+        /*prin($linea);	*/
 		$ct=array();
 		$ConF=array();
 		/*
@@ -1094,6 +1227,9 @@ background-image: -moz-linear-gradient(
 			echo '<div class="lc '. ( ($urd=='1')?"lc1 ":" " ) . ( ($datos_tabla['vis']!='')?(($linea[$datos_tabla['vis']]=='0')?"oc":""):'' ).'" id="lc_'.$linea[$datos_tabla['id']].'">';
 
 
+            if(!isset($_GET['i'])){ ?><a  id="av_<?php echo $linea[$datos_tabla['id']]?>" href="custom/<?php echo $datos_tabla['archivo'].".php?i=".$linea[$datos_tabla['id']]; ?>" class="bl1 itr i_ev z" title="ver <?php echo $datos_tabla['nombre_singular'];?>" ></a><?php }
+
+
 
 			if($ct['eliminar']=='1'){
 			echo '<a  id="ad_'.$linea[$datos_tabla['id']].'" onclick="ax(\'x\',\''.$linea[$datos_tabla['id']].'\');return false;" class="bl1 itr i_x z" title="eliminar '.$datos_tabla['nombre_singular'].'" ></a>';
@@ -1111,6 +1247,7 @@ background-image: -moz-linear-gradient(
                         ?><a  id="as_<?php echo $linea[$datos_tabla['id']]?>" onclick="ax('star','<?php echo $linea[$datos_tabla['id']]?>'); return false;" class="bl1 itr ico_star_<?php echo ($linea[$datos_tabla['cal']])?$linea[$datos_tabla['cal']]:'0';?> z" <?php  echo 'rel="'. ( ($linea[$datos_tabla['cal']]==5)?'0':($linea[$datos_tabla['cal']]+1) ).'"'; ?> title="calificar <?php echo $datos_tabla['nombre_singular'];?>" ></a><?php
 
                      }
+
 
 					if($datos_tabla['editar']=='1'){
 
@@ -1202,30 +1339,34 @@ background-image: -moz-linear-gradient(
 							//prin($linea);
 							if($urd==1){
 								if($tbli['controles']!=''){
-								list($tbli['controles'],$controles)=getControles($tbli['controles'],$objeto_tabla);
-								//prin($controles);
-								$controlEs[$tbli['campo']]=$tbli['controles'];
-								$load_foto[$tbli['campo']]=$controles['foto'][0]['obj'];
-								if($controles['file']){ 	$load_file[$tbli['campo']]=$controles['file']; }
-								if($controles['subs']){ 	$load_subs[$tbli['campo']]=$controles['subs']; }
-								if($controles['mensajes']){ $load_mensajes[$tbli['campo']]=$controles['mensajes']; }
+									list($tbli['controles'],$controles)=getControles($tbli['controles'],$objeto_tabla);
+									//prin($controles);
+									$controlEs[$tbli['campo']]=$tbli['controles'];
+									$load_foto[$tbli['campo']]=$controles['foto'][0]['obj'];
+									if($controles['file']){ 	$load_file[$tbli['campo']]=$controles['file']; }
+									if($controles['subs']){ 	$load_subs[$tbli['campo']]=$controles['subs']; }
+									if($controles['mensajes']){ $load_mensajes[$tbli['campo']]=$controles['mensajes']; }
 								}
 							}
 
 							$SuprimirLabel=(
-											strtolower($tbli['label'])=='nombre'
-											or strtolower($tbli['label'])==strtolower($datos_tabla['nombre_singular'])
-											or $tbli['label']=='T�tulo'
-											or strtolower($tbli['label'])=='foto'
-											or strtolower($tbli['label'])=='fecha'
-											or strtolower($tbli['label'])=='vista'
-											or strtolower($tbli['label'])=='email'
-											or strtolower($tbli['label'])=='estado'
-											or strtolower($tbli['label'])=='web'
-											or strtolower($tbli['label'])=='categoría'
-											or strtolower($tbli['label'])=='tipo'
-											or strtolower($tbli['listhtml'])=='1'
-											or strtolower($tbli['campo'])==strtolower($datos_tabla['group'])
+											(
+												strtolower($tbli['label'])=='nombre'
+												or strtolower($tbli['label'])==strtolower($datos_tabla['nombre_singular'])
+												or $tbli['label']=='Título'
+												or strtolower($tbli['label'])=='foto'
+												or strtolower($tbli['label'])=='fecha'
+												or strtolower($tbli['label'])=='vista'
+												or strtolower($tbli['label'])=='email'
+												or strtolower($tbli['label'])=='estado'
+												or strtolower($tbli['label'])=='web'
+												or strtolower($tbli['label'])=='categoría'
+												or strtolower($tbli['label'])=='tipo'
+												or strtolower($tbli['listhtml'])=='1'
+												or strtolower($tbli['campo'])==strtolower($datos_tabla['group'])
+											)
+											and 
+												$tbli['listable']=='1'											
 											)?1:0;
 
 							$nuevoDad='';
@@ -1239,7 +1380,8 @@ background-image: -moz-linear-gradient(
 
 							if($fefe==1){
 							$Firstmain=(
-											enhay(strtolower($tbli['label']),'nombre')
+											strtolower($tbli['label'])=='fecha'
+											or enhay(strtolower($tbli['label']),'nombre')
 											or strtolower($tbli['label'])==strtolower($datos_tabla['nombre_singular'])
 											or $tbli['label']=='Título'
 											or strtolower($tbli['label'])=='código'
@@ -1252,9 +1394,10 @@ background-image: -moz-linear-gradient(
 							} else $Firstmain=0;
 
 							$nomodificar=(
-											strtolower($tbli['label'])=='fecha'
-											or strtolower($tbli['label'])=='email'
+											//strtolower($tbli['label'])=='fecha' or
+											strtolower($tbli['label'])=='email'
 											)?1:0;
+
 							$poner_title=(
 											(
 											$tbli['tipo']!='com'
@@ -1269,7 +1412,18 @@ background-image: -moz-linear-gradient(
 							$tbli['controles']=($tbli['control']=='0')?'':procesar_controles_html($controlEs[$tbli['campo']]);
 
 							$tbli['width']=($tbli['width']=='' or $tbli['width']=='0px')?"":"width:".$tbli['width'].";";
-                            echo '<li class="bld '. (($tbli['tipo']=='check')?'lchk':'').' '.(($tbli['listclass'])?$tbli['listclass']:'').' '.$nuevoDad.'" >';
+
+							echo ($tbli['legend']!='' and $_GET['i']!='')?'<li class="bld legend">'.$tbli['legend'].'</li>':'';
+
+
+                            echo '<li class="bld '.
+                             ( ($_GET['i']!='')?$DeRecha[$tbli['derecha']]:'' ).' '.
+                             (($Firstmain and !$nomodificar and $tbli['listhtml']!='1')?'lifmf':'').' '.
+                             (($tbli['tipo']=='check')?'lchk':'').' '.
+                             (($tbli['tipo']=='id')?'lid':'').' '.
+                             ((in_array($tbli['tipo'],['txt','html']))?'ltxt':'').' '.
+                             (($tbli['listclass'])?$tbli['listclass']:'').' '.
+                             $nuevoDad.'" >';
 
 							if($tbli['tipo']=='inp' and $load_foto[$tbli['campo']]!=''){
 																		$obj=$load_foto[$tbli['campo']];
@@ -1281,7 +1435,7 @@ background-image: -moz-linear-gradient(
 							{
 								?><b class="nc sp"><?php
 								if($urd=='1'){
-?><input type=checkbox onchange="var s=(this.checked)?true:false; s2=(this.checked)?'add':'remove'; $$('.chk').each(function(cc){ $(cc).checked=s; if(s){ $('i_'+$(cc).getAttribute('data-chk')).addClass('selectd'); } else { $('i_'+$(cc).getAttribute('data-chk')).removeClass('selectd'); } });" ><?php
+									?><input type=checkbox onchange="var s=(this.checked)?true:false; s2=(this.checked)?'add':'remove'; $$('.chk').each(function(cc){ $(cc).checked=s; if(s){ $('i_'+$(cc).getAttribute('data-chk')).addClass('selectd'); } else { $('i_'+$(cc).getAttribute('data-chk')).removeClass('selectd'); } });" ><?php
 								} else {
 									?>&nbsp;<?php
 								}
@@ -1292,6 +1446,7 @@ background-image: -moz-linear-gradient(
 
 							//IMG
 							if($tbli['tipo']=='img'){
+									/*prin($linea);*/
 									echo '<b class="nc '.(($SuprimirLabel)?'sp':'').'" '.( ($urd=='1')?' title="'.$tbli['label'].'" ':'').' >'.$tbli['label'].'&nbsp;';
 									if($urd=='1' and $EdicionPanel){ ?><a class='edot' onclick='tog("<?php echo $tbli['campo']?>");return false;'>&diams;</a><?php }
 									echo '</b>';
@@ -1422,6 +1577,8 @@ background-image: -moz-linear-gradient(
 									if($urd=='1' and $EdicionPanel){ ?><a class='edot' onclick='tog("<?php echo $tbli['campo']?>");return false;'>&diams;</a><?php }
 									echo '</b>';
 
+									// prin([$tbli['label'],$Firstmain]);
+
                                     if($tbli['extra']!='')
 									echo "<span style='float:left;margin:0 3px; font-size:11px; '>".procesar_dato($tbli['extra'],$linea[$datos_tabla['id']])."</span>";
 									if($tbli['tipo']=='yot'){
@@ -1454,17 +1611,19 @@ background-image: -moz-linear-gradient(
 									}
 									} else {
 										if($Firstmain)
-										$adiv0.= "onclick=\"ax('vc','".$linea[$datos_tabla['id']]."');return false;\" href=\"custom/".$datos_tabla['archivo'].".php?i=".$linea[$datos_tabla['id']]."\" ";										
+										$adiv0.= "href=\"custom/".$datos_tabla['archivo'].".php?i=".$linea[$datos_tabla['id']]."\" ";																				
+										/*$adiv0.= "onclick=\"ax('vc','".$linea[$datos_tabla['id']]."');return false;\" href=\"custom/".$datos_tabla['archivo'].".php?i=".$linea[$datos_tabla['id']]."\" ";										*/
 									}
 									
 
 									$adiv1= '';
 									switch($tbli['tipo']){
+										
 										case "fch":case "fcr":
 										$adiv1.= fecha_formato($linea[$tbli['campo']],($tbli['formato'])?$tbli['formato']:'0b')."<input type='hidden' value='".substr($linea[$tbli['campo']],0,13)."' id='".$tb."_fchhid_".$tbli['campo']."_".$linea[$datos_tabla['id']]."' >";
 										break;
 										case "html":
-										if($tbli['listhtml']=='1'){	$adiv1.= "<div class='htmlenlista'>".stripslashes($linea[$tbli['campo']])."</div>"; } else {
+										if($tbli['listhtml']=='1' or $_GET['i']!=''){	$adiv1.= "<div class='htmlenlista'>".stripslashes($linea[$tbli['campo']])."</div>"; } else {
 										$adiv1.= substr(strip_tags($linea[$tbli['campo']]),0,3000);
 										}
 										$adiv1.= "<textarea style='".(($tbli['width'])?'width:'.$tbli['width'].';':'')."display:none;' id='".$tb."_htmlhid_".$tbli['campo']."_".$linea[$datos_tabla['id']]."'  >".stripslashes($linea[$tbli['campo']])."</textarea>";
@@ -1476,10 +1635,13 @@ background-image: -moz-linear-gradient(
 										$camposOA=array();
 										$camposOA=explode(";",$camposO);
 										$bufy='';
+										$color0='';
 										foreach($camposOA as $COA){
-										$bufy.= select_dato($COA,$tablaO,"where ".$idO."='".$linea[$tbli['campo']]."'")." ";
+										$ddatt= select_dato($COA,$tablaO,"where ".$idO."='".$linea[$tbli['campo']]."'",0)." ";
+										if($COA=='color' and trim($ddatt)!=''){ $color0=$ddatt; $use_color=1; }
+										else $bufy.=$ddatt;
 										}
-										$adiv1.= $bufy;
+										$adiv1.= ($color0!='')?"<span class='label' style='background:$color0;color:white;' >".$bufy."</span>":$bufy;
 										$adiv0.= ( $poner_title )?"title=\"".addslashes($bufy)."\"":"";
 										break;
 										case "bit":
@@ -1489,6 +1651,7 @@ background-image: -moz-linear-gradient(
 											case "0":$adiv1.= "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
 										}
 										break;
+										
 										case "com":
 										$adiv1.= '<input type="hidden" value="'.$linea[$tbli['campo']].'" id="i_'.$tbli['campo'].'_hido_'.$linea[$datos_tabla['id']].'" />';
 										if(is_array($tbli['opciones'])){
@@ -1497,25 +1660,35 @@ background-image: -moz-linear-gradient(
 											array('�','�','�','�','�'),
 											array('a','e','i','o','u'),
 											strtolower($opppp))){
-										case "comentario":							$adiv1.= "&nbsp;<a title='enviado' class='ico_tack z ico_list'></a>"; break;
-										case "soporte":								$adiv1.= "&nbsp;<a title='soporte' class='ico_clip z ico_list'></a>"; break;
-										case "enviado":								$adiv1.= "&nbsp;<a title='enviado' class='ico_left z ico_list'></a>"; break;
-										case "recibido":							$adiv1.= "&nbsp;<a title='recibido' class='ico_right z ico_list'></a>"; break;
-										case "si":case "sí":						$adiv1.= "&nbsp;<a title='si' class='ico_yes z ico_list'></a>"; break;
-										case "no":									$adiv1.= "&nbsp;<a title='no' class='ico_no z ico_list'></a>"; break;
+										case "comentario":							$adiv1.= "<a title='enviado' class='ico_tack z ico_list'></a>"; break;
+										case "soporte":								$adiv1.= "<a title='soporte' class='ico_clip z ico_list'></a>"; break;
+										case "enviado":								$adiv1.= "<a title='enviado' class='ico_left z ico_list'></a>"; break;
+										case "recibido":							$adiv1.= "<a title='recibido' class='ico_right z ico_list'></a>"; break;
+										case "si":case "sí":						$adiv1.= "<a title='si' class='ico_yes z ico_list'></a>"; break;
+										case "no":									$adiv1.= "<a title='no' class='ico_no z ico_list'></a>"; break;
 										case "nuevos soles":case "soles": 			$adiv1.= "S/."; break;
 										case "dolares":case "dolares americanos": 	$adiv1.= "\$US"; break;
-										default : 									$adiv1.= "<span style='color:$color;'>".$opppp."</span>";	break;
+										default : 									$adiv1.= "<span class='label' ". ( ($color!='')?" style='background:$color;color:white;' ":"" ) . ">".$opppp."</span>";	break;
 											}
 										} else {
 										$adiv0.= ( $poner_title )?"title=\"".addslashes($linea[$tbli['campo']])."\"":"";
+
 										$adiv1.= $linea[$tbli['campo']];
+
 										}
 										break;
 
 										default:
 										$adiv0.= ( $poner_title )?"title=\"".addslashes($linea[$tbli['campo']])."\"":"";
-										$adiv1.= $linea[$tbli['campo']];
+
+										if($tbli['inlist']){
+											$inlist=explode(';',$tbli['inlist']);
+											foreach($inlist as $inlis){
+												$adiv1.= $linea[$inlis]." ";												
+											}
+										} else {
+											$adiv1.= $linea[$tbli['campo']];
+										}
 										break;
 
 									}
@@ -1528,6 +1701,7 @@ background-image: -moz-linear-gradient(
 									//echo ($tbli['foreig'])?"�":"";
 									?><div class="pt" id="p_<?php echo $tbli['campo']?>_<?php echo $linea[$datos_tabla['id']]?>" style=" <?php echo $tbli['width']; ?>"></div><?php
 									if($tbli['controles']){
+										/*echo '<textarea>'.$dts.'</textarea>';*/
 									echo "<div class='cd' ". ( ($hayfotoexterna)?$sizeE[$tbli['campo']]:$sizeF[$tbli['campo']]).">";
                                     //echo str_replace($pdfrom,$pdto,procesar_dato($dts,$linea[$datos_tabla['id']]));
                                     echo $dts;
