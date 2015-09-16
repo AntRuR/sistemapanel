@@ -4,6 +4,8 @@
 .buildpath
 .metadata
 .settings
+.DS_Store
+
 
 #colesinmobiliaria/*
 comercialelsiglo/*
