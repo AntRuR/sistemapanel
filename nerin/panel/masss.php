@@ -35,10 +35,9 @@ foreach($tbcampos as $tc=>$camp){
 	?><label>&nbsp;</label>
 	<?php
 	?><span id="error_creacion"
-		style="visibility:; float: left; padding: 5px 0; font-size: 12px;"><?php
+		style="padding: 5px 0; font-size: 12px;"><?php
 		if($numShowValCamps>0){
-        ?><span style="color: #222222;">los campos con * son
-				obligatorios</span>
+        ?><span style="color: #222222;">los campos con * son obligatorios</span>
 		<?php
 		}
 		?></span>
@@ -46,19 +45,16 @@ foreach($tbcampos as $tc=>$camp){
 	?></li>
 	<?php
 
-
 	?>
-	<li class="linea_form" id="linea_crear"><?php
-	if($_GET['block']!='form'){
-            ?><label>&nbsp;</label>
-	<?php } ?>
+	<li class="linea_form" id="linea_crear">
+
+		<?php if($_GET['block']!='form'){ ?><label>&nbsp;</label><?php } ?>
 
 		<input type="hidden" id="mode" value="mass" />
 
-		<input type="button" id="in_submit" class="form_boton_1" value="Guardar cambios" style="float: left;" onclick="ax('guardar_cambios','');" />
+		<input type="button" id="in_submit" class="btn btn-primary" value="Guardar cambios" onclick="ax('guardar_cambios','');" />
 
-		</li>
-
+	</li>
 </ul>
 <style>
 .bloque_content_crear {

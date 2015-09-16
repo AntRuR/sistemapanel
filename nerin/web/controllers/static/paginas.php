@@ -1,6 +1,4 @@
 <?php //á
-?>
-<?php
 
 //COLUMNA 1
 
@@ -10,5 +8,3 @@ include("bloques/bar_columna_1.php");
 
 include("bloques/bar_fila_2.php");
 
-
-?>

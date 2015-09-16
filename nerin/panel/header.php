@@ -298,6 +298,12 @@ location.href=url;
 
 	}
 
+	// prin($vars['INTERNO']['CARPETA_PROYECTO']);
+	$url_publica0=explode("panel",str_replace('sistemapanel','frame',getcwd()));
+	if(file_exists($url_publica0[0])) 
+		$url_publica=str_replace('sistemapanel','frame',$url_publica);
+
+	// prin($url_publica);
 
 	$menus_d['goweb'] = "<a href='".str_replace("127.0.0.1","localhost",$url_publica)."' target='_top' ></span>WEB</a>";
 	/*
@@ -314,7 +320,7 @@ location.href=url;
 		} else {
 
 			$mmmM = "<li class='menudown'>";
-			$mmmM.= "<a href='maquina.php' style='text-transform:uppercase;'>MASTER</a>";
+			$mmmM.= "<a href='maquina.php'>MASTER</a>";
 			if( ( $Open or $Local==1 )){
 				if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
 
@@ -370,8 +376,10 @@ location.href=url;
 			$menus_d['master'] = $mmmM;
 
 			if((strpos($_SERVER['SCRIPT_NAME'], "login.php")===false)){
-				$mmmM = "<li class='menudown'><a href='custom/usuarios_acceso.php'>";
-				$mmmM.=  "CORE";
+
+				$mmmM = "<li class='menudown'>";
+				$mmmM.= "<a href='usuarios_acceso.php'>CORE</a>";
+
 				if( ( $Open or $Local==1 )){
 					$mmenuu= '<ul class="li_cabecera">';
 					foreach($objeto_tabla as $ooott){
@@ -739,14 +747,13 @@ else
 } } ).send();
 }
 
-</script>
-	<?php
-}
+</script><?php
 
 }
 
-if($objeto_tabla[$this_me]['crear_quick']=='1'){ ?>
-	<style>
+}
+
+if($objeto_tabla[$this_me]['crear_quick']=='1'){ ?><style>
 #titulo_crear {
 	display: none;
 }
@@ -802,7 +809,8 @@ echo '</ul>';
 //prin($_SESSION);
 //prin($SERVER);
 //prin($_COOKIE);
-include($objeto_tabla[$this_me]['onload_include']);
+echo "&nbsp;";
+// include_once($objeto_tabla[$this_me]['onload_include']);
 echo $objeto_tabla[$this_me]['onload_script'];
 
 //prin($_COOKIE);

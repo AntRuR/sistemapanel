@@ -4371,6 +4371,7 @@ i.zzz {
 .ic_core:before,
 .ic_configuracion:before,
 .ic_config:before {content: "\e64a";	}
+.ic_atenciones:before,
 .ic_ventas:before {content: "\e61c";	}
 .ic_geoposicion:before {content: "\e624";	}
 .ic_productos:before {content: "\e61a";	}

@@ -4,23 +4,23 @@ foreach($tbcampos as $tbcampA){
 	switch($tbcampA['tipo']){
 		case "fch":
 			if($tbcampA['rango']){
-			list($uuno,$ddos)=explode(",",$tbcampA['rango']);
-			$FromYear = date("Y",strtotime($uuno));
-			$ToYear = date("Y",strtotime($ddos));
+				list($uuno,$ddos)=explode(",",$tbcampA['rango']);
+				$FromYear = date("Y",strtotime($uuno));
+				$ToYear = date("Y",strtotime($ddos));
 			} else {
-			$FromYear = date("Y")-99;
-			$ToYear = date("Y")+1;
+				$FromYear = date("Y")-99;
+				$ToYear = date("Y")+1;
 			}
 			?>
-			input_date('in_<?php echo $tbcampA['campo']?>','in_<?php echo $tbcampA['campo']?>_span',<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbcampA['time'];?>');
+			input_date('in_<?php echo $tbcampA['campo']?>','in_<?php echo $tbcampA['campo']?>_span',<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbcampA['time'];?>','<?php echo $tbcampA['months'];?>');
 			<?php if(trim($tbcampA['default'])!=''){
-			if(trim($tbcampA['default'])=="now()"){ $tbcampA['default']=date("Y-m-d H:i:s"); }
-			if(trim($tbcampA['default'])=="tomorrow()"){ $tbcampA['default']=date("Y-m-d H:i:s",strtotime("+1 day")); }
+			if(trim($tbcampA['default'])=="now()"){ $tbcampA['default']=($tbcampA['time']==1 or $tbcampA['time']==2)?date("Y-m-d H:00:00"):date("Y-m-d H:i:s"); }
+			if(trim($tbcampA['default'])=="tomorrow()"){ $tbcampA['default']=($tbcampA['time']==1 or $tbcampA['time']==2)?date("Y-m-d H:00:00",strtotime("+1 day")):date("Y-m-d H:i:s",strtotime("+1 day")); }
 			?>
 			$('in_<?php echo $tbcampA['campo']?>_d').value='<?php echo substr($tbcampA['default'],8,2);?>';
 			$('in_<?php echo $tbcampA['campo']?>_m').value='<?php echo substr($tbcampA['default'],5,2);?>';
 			$('in_<?php echo $tbcampA['campo']?>_a').value='<?php echo substr($tbcampA['default'],0,4);?>';
-			$('in_<?php echo $tbcampA['campo']?>_t').value='<?php echo substr($tbcampA['default'],11,2);?>';
+			$('in_<?php echo $tbcampA['campo']?>_t').value='<?php echo substr($tbcampA['default'],11,8);?>';
 			$('in_<?php echo $tbcampA['campo']?>').value='<?php echo $tbcampA['default']?>';
 			<?php } ?>
 			<?php if($tbcampA['frozen']=='1'){ ?>

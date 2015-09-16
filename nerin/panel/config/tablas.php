@@ -1141,7 +1141,301 @@ $objeto_tabla['SERVICIOS_ITEMS']=array(
 		'page'			=> '0',
 		'creacion_hijo'	=> 'news_fotos'
 );
+
 /******************************************************************************************************************************************************/
+
+
+
+$objeto_tabla['GALLERIES_PHOTOS']=array(
+		'titulo'		=> 'Galerías de Fotos',
+		'nombre_singular'=> 'galería',
+		'nombre_plural'	=> 'galerias',
+		'tabla'			=> 'galleries_photos',
+		'archivo'		=> 'galleries_photos',
+		'archivo_hijo'	=> 'galleries_photos_photos',
+		'prefijo'		=> 'galfot',
+		'eliminar'		=> '0',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'visibilidad'	=> '1',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Galerías de Fotos',
+		'me'			=> 'GALLERIES_PHOTOS',
+		'orden'			=> '0',
+		'app'			=> '
+		<a href="custom/galleries_photos_photos.php?id=1">Clientes</a>
+		',			
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'url'		=>array(
+						'campo'			=> 'url',
+						'label'			=> 'Url',
+						'tipo'			=> 'inp',
+						'width'			=> '200px',
+						// 'unique'		=> '1',
+						'listable'		=> '1',
+						// 'validacion'	=> '1',
+						// 'constante'		=> '1',
+						// 'setup'			=> 'galeria-1,galeria-2',
+						'disabled'		=> '1'
+				),				
+				'fecha'			=>array(
+						'campo'			=> 'fecha',
+						'label'			=> 'Fecha',
+						'tipo'			=> 'fch',
+						'width'			=> '200px',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'formato'		=> '10',
+						'default'		=> 'now()',
+				),
+				'name'		=>array(
+						'campo'			=> 'name',
+						'label'			=> 'Nombre',
+						'width'			=> '200px',
+						'unique'		=> '0',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						// 'constante'		=> '1',
+						'controles'		=> '<a  rel="subs" href="custom/galleries_photos_photos.php?id=[id]">{select count(*) from galleries_photos_photos where id_grupo=[id]}  fotos</a>
+
+							'
+				),
+				'html'			=>array(
+						'campo'			=> 'html',
+						'label'			=> 'Texto',
+						'tipo'			=> 'html',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'width'			=> '400px',
+						'style'			=> 'height:200px;'
+				),					
+				'page'			=>array(
+						'campo'			=> 'page',
+						'tipo'			=> 'page'
+				)
+		),
+		'grupo'			=> 'contenidos',
+		'por_linea'		=> '1',
+		'seccion'		=> '',
+		'disabled'		=> '0',
+		'page'			=> '0'
+);
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['GALLERIES_PHOTOS_PHOTOS']=array(
+		'titulo'		=> 'Fotos : {select name from galleries_photos where id=[id]}',
+		'nombre_singular'=> 'foto',
+		'nombre_plural'	=> 'fotos',
+		'tabla'			=> 'galleries_photos_photos',
+		'archivo'		=> 'galleries_photos_photos',
+		'prefijo'		=> 'galfotfot',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'crear_label'	=> '200px',
+		'crear_txt'		=> '400px',
+		'altura_listado'	=> '60px',
+		'visibilidad'	=> '1',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '0',
+		'menu_label'	=> '',
+		'por_pagina'	=> '56',
+		'me'			=> 'GALLERIES_PHOTOS_PHOTOS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'weight'		=>array(
+						'campo'			=> 'weight',
+						'label'			=> 'Peso',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '100px',
+						'validacion'	=> '0',
+						'variable'		=> 'float',
+						'derecha'		=> '1',
+						'style'			=> 'width:100px;',
+				),					
+				'id_grupo'		=>array(
+						'campo'			=> 'id_grupo',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[id]',
+						'foreig'		=> '1',
+						'foreigkey'		=> 'GALLERIES_PHOTOS'
+				),
+				'file'			=>array(
+						'campo'			=> 'file',
+						'label'			=> 'Foto',
+						'tipo'			=> 'img',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'prefijo'		=> 'galfot',
+						'carpeta'		=> 'galfot_imas',
+						'tamanos'		=> '150x120,219x102,219x110,961x302',
+						'tamano_listado'	=> '1',
+						'width'			=> '150px',
+						'style'			=> 'width:150px,height:auto,'
+				),
+				'name'=>array(
+						'campo'			=> 'name',
+						'label'			=> '',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '207px'
+				),
+				'url'			=>array(
+						'campo'			=> 'url',
+						'label'			=> 'Url',
+						'tipo'			=> 'inp',
+						'width'			=> '200px',
+						'style'			=> 'width:200px;',
+						'listable'		=> '1',
+						'disabled'		=> '1'
+				),
+				'page'			=>array(
+						'campo'			=> 'page',
+						'tipo'			=> 'page'
+				)
+		),
+		'grupo'			=> 'contenidos',
+		'por_linea'		=> '5',
+		'disabled'		=> '0',
+		'page'			=> '0'
+);
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['LINKS']=array(
+		'titulo'		=> 'Enlaces',
+		'nombre_singular'=> 'enlace',
+		'nombre_plural'	=> 'enlaces',
+		'tabla'			=> 'links',
+		'archivo'		=> 'links',
+		'prefijo'		=> 'link',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '670px',
+		'altura_listado'	=> 'auto',
+		'visibilidad'	=> '1',
+		'buscar'		=> '1',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'menu_label'	=> 'Enlaces',
+		'por_pagina'	=> '20',
+		'me'			=> 'LINKS',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'weight'		=>array(
+						'campo'			=> 'weight',
+						'label'			=> 'Peso',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '100px',
+						'validacion'	=> '0',
+						'variable'		=> 'float',
+						'derecha'		=> '1',
+						'style'			=> 'width:100px;',
+				),					
+				'name'		=>array(
+						'campo'			=> 'name',
+						'label'			=> 'Título',
+						'unique'		=> '0',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'like'			=> '1',
+						'width'			=> '230px',
+						'style'			=> 'width:75%;',
+				),
+				'url'		=>array(
+						'campo'			=> 'url',
+						'label'			=> 'Url',
+						'tipo'			=> 'inp',
+						'width'			=> '400px',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'style'			=> 'width:75%;',
+
+				),
+				'page'			=>array(
+						'campo'			=> 'page',
+						'tipo'			=> 'page'
+				)
+		),
+		'grupo'			=> 'contenidos',
+		'edicion_completa'=> '1',
+		'alias_grupo'	=> '',
+		'edicion_rapida'	=> '1',
+		'page'			=> '0',
+		'disabled'		=> '0',
+);
+
 
 $objeto_tabla['NEWS_FOTOS']=array(
 		'titulo'		=> 'Fotos de {select nombre from news_items where id=[id]}',
@@ -2791,7 +3085,7 @@ $objeto_tabla['BLOG_NOTICIAS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '1',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Noticias',
 		'por_pagina'	=> '20',
 		'me'			=> 'BLOG_NOTICIAS',
@@ -2899,7 +3193,7 @@ $objeto_tabla['BLOG_ACTIVIDADES']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '1',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Comunicados',
 		'por_pagina'	=> '20',
 		'me'			=> 'BLOG_ACTIVIDADES',
@@ -3089,7 +3383,7 @@ $objeto_tabla['BLOG_VIDEOS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Albumes de videos',
 		'me'			=> 'BLOG_VIDEOS',
 		'orden'			=> '0',
@@ -3247,7 +3541,7 @@ $objeto_tabla['BLOG_FOTOS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Albumes de Fotos',
 		'me'			=> 'BLOG_FOTOS',
 		'orden'			=> '0',
@@ -3414,7 +3708,7 @@ $objeto_tabla['BLOG_LINKS_ADICIONALES']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Links Adicionales',
 		'por_pagina'	=> '56',
 		'me'			=> 'BLOG_LINKS_ADICIONALES',
@@ -4340,7 +4634,7 @@ $objeto_tabla['BANNERS_FOTOS']=array(
 						'constante'		=> '1',
 						'size'			=> '20',
 						'width'			=> '130px',
-						'setup'			=> 'home,empresa,servicios,postventa,responsabilidad'
+						'setup'			=> 'home,empresa,servicios,postventa,responsabilidad,pie'
 				),
 				'nombre'		=>array(
 						'campo'			=> 'nombre',
@@ -4943,16 +5237,16 @@ $objeto_tabla['RECOMENDAR']=array(
 				'nombre_usuario'	=>array(
 						'campo'			=> 'nombre_usuario',
 						'label'			=> 'Nombre',
-						'tipo'			=> 'inp',
-						'listable'		=> '1',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'width'			=> '300px'
 				),
 				'email_usuario'	=>array(
 						'campo'			=> 'email_usuario',
 						'label'			=> 'Email',
-						'tipo'			=> 'inp',
-						'listable'		=> '1',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'width'			=> '300px'
 				),
@@ -4960,8 +5254,8 @@ $objeto_tabla['RECOMENDAR']=array(
 						'campo'			=> 'nombre_pagina',
 						'label'			=> 'Página',
 						'tipo'			=> 'inp',
-						'listable'		=> '1',
-						'validacion'	=> '1',
+						'listable'		=> '0',
+						'validacion'	=> '0',
 						'width'			=> '300px'
 				),
 				'url_pagina'	=>array(
@@ -4975,9 +5269,9 @@ $objeto_tabla['RECOMENDAR']=array(
 				'foto_pagina'	=>array(
 						'campo'			=> 'foto_pagina',
 						'label'			=> 'archivo',
-						'tipo'			=> 'inp',
-						'listable'		=> '1',
-						'validacion'	=> '1',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
 						'width'			=> '300px'
 				)
 		),
@@ -5839,7 +6133,9 @@ $objeto_tabla['CONFIGURACIONES_ROOT']=array(
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
-						'width'			=> '200px'
+						'width'			=> '200px',
+						'size'			=> '500'
+
 				)
 		),
 		'grupo'			=> 'sistema',

@@ -1,10 +1,10 @@
 <?php //á
-	include("lib/global.php");	
-	include("lib/conexion.php");
-	include("lib/mysql3.php");
-	include("lib/util2.php");
+	include_once("lib/global.php");	
+	include_once("lib/conexion.php");
+	include_once("lib/mysql3.php");
+	include_once("lib/util2.php");
 	if($vars['GENERAL']['esclavo']!='1'){	
-		include("config/tablas.php");
+		include_once("config/tablas.php");
 	}
-	include("lib/sesion.php");	
-	include("lib/playmemory.php");
+	include_once("lib/sesion.php");	
+	include_once("lib/playmemory.php");

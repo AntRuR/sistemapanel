@@ -26,16 +26,21 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	$defaultfilter='';
 	foreach($reportes as $rt=>$reporte)
 	{
-		$rrrr=explode("=",$reporte);
-		$rrrr0=explode("|",$rrrr['1']);
-		$rrrr1=explode(",",$rrrr0['1']);
+
+		$rrrr 	= explode("=",$reporte);
+		$rrrr0	= explode("|",$rrrr['1']);
+		$rrrr1	= explode(",",$rrrr0['1']);
+
 		$html_filter.= '<li>
-		<input name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
+		<input style="display:none;" name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
 		'onchange="if(this.checked){ render_filderRP({FECHA},this); } " '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
-		<a><label for="rp_'.$rt.'" class="alink">'.$rrrr0['0'].'</label></a>
+		<label for="rp_'.$rt.'" class="alink">'.$rrrr0['0'].'</label>
 		</li>';
+		
 		if($rpt==0) $defaultfilter='rp_'.$rt;
+
 		$rpt++;
+
 	}
 	// prin($);
 	// prin($reportes);
@@ -57,7 +62,8 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			//$last =dato($querie['campo'],$tbl,"where 1 order by ".$querie['campo']." desc limit 0,1");
 			$last=dato('max('.$querie['campo'].')',$tbl,"where ".$querie['campo']."!=0",0);
 			$last=(!$last)?date("Y-m-d"):$last;
-			//prin($first);
+			
+
 
 			$FromYear = substr($first,0,4);
 			$FromMonth = substr($first,5,2);
@@ -65,7 +71,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			//$ToYear = substr($last,0,4);
 			$ToYear = date("Y");
 
-			//prin($FiL[$querie['campo']]);
+			// prin($FiL[$querie['campo']]);
 
 			$uno=explode("between",$FiL[$querie['campo']]);
 			$dos=explode("and",$uno[1]);
@@ -73,14 +79,19 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			$tt=str_replace("'","",trim($dos['1']));
 			$fftt=$ff."|".$tt;
 
+			// $fftt=substr($first,0,10)."|".substr($last,0,10);
+			// prin($fftt);
+
 			$html_filter_fecha="<div style='display:inline-block;'>";
 
-			$html_filter_fecha.="<select ".(($FiL[$querie['campo']]!='')?"class='inuse'":"")."  onchange=\"betweenST('".$querie['campo']."',this.value);fechaChangeFilterST('".$querie['campo']."');\">";
+			$html_filter_fecha.="<select rel='".$querie['campo']."' class='stfilters ".(($FiL[$querie['campo']]!='')?"inuse":"")."' onchange=\"betweenST('".$querie['campo']."',this.value);fechaChangeFilterST('".$querie['campo']."');\">";
 
 			$opciones_fechas=opciones_fechas($querie);
 
 			foreach($opciones_fechas as $of){
+
 				$html_filter_fecha.="<option value='".$of['value']."' ".(($of['value']==$fftt)?'selected':'')." ".(($of['class']!='')?"class='".$of['class']."'":'').">".$of['label']."</option>";
+
 			}
 
 			/*
@@ -131,12 +142,13 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 
 			$html_filter_fecha.="</select>";
 
-
+			$FiL['fs_'.$querie['campo']]=substr($first,0,10)."|".substr($last,0,10);
+			// prin("$FromYear,$ToYear");
 			$html_filter_fecha.=input_date_filtroST('fs_'.$querie['campo'],$FromYear,$ToYear,($FiL[$querie['campo']])?$FiL[$querie['campo']]:"date(fecha_consulta) between '".substr($first,0,10)."' and '".substr($last,0,10)."'");
 
 			$html_filter_fecha.="</div>";
-			$terfilSTFECHA=$querie['campo'];
 
+			$terfilSTFECHA=$querie['campo'];
 
 
 		} elseif(in_array($querie['tipo'],array('hid','user')) and ($querie['opciones'])){
@@ -207,7 +219,6 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			} else { */
 
 
-				if(1){
 
 					$html_filtro='';
 
@@ -219,12 +230,13 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 					$camposO=str_replace(";color", "", $camposO);
 					$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,(($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO));
 
-					$html_filtro.="<label>".$querie['label']."</label>";
+					$html_filtro.="<label style='width:auto;padding-right:10px;'>".$querie['label']."</label>";
 
-					$html_filtro.="<select style='width:".(($querie['width'])?$querie['width']:'100px').";' ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." id='filtr_fs_".$querie['campo']."' onchange=\"render_filderST();\">";
+					$html_filtro.="<select rel='".$querie['campo']."' style='width:".(($querie['width'])?$querie['width']:'100px').";' class='stfilters ".( ($FiL[$blata][$querie['campo']]!='')?"inuse":"" )."' id='filtr_fs_".$querie['campo']."' onchange=\"render_filderST();\">";
 					$html_filtro.="<option value='' class='empty'>".$querie['label']."</option>";
 					foreach($oopciones as $pppooo){
-						$quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
+						// $quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
+						$quer=$pppooo[$idO];
 						$html_filtro.="<option ".(($quer==urlencode($FiL[$blata][$querie['campo']]))?'selected':'')." value=\"".$quer."\">".$pppooo['value']."</option>";
 					}
 					$html_filtro.="</select>";
@@ -236,7 +248,6 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 					$html_filter_A[$querie['campo']]=$html_filtro;	
 
 
-				}			
 
 			// }
 
@@ -275,9 +286,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	?></div>
 
 </ul>
-<script type="text/javascript">
-	<?php if($defaultfilter!='' and  0){ ?> $('<?php echo $defaultfilter; ?>').fireEvent('checked'); <?php } ?>
-</script>
+<input type='hidden' id="evalScripts_repo" value="<?php if($defaultfilter!=''){ ?> $('<?php echo $defaultfilter; ?>').checked=true; render_filderRP('',$('<?php echo $defaultfilter; ?>'));<?php } ?>" >
 <style>
 .bloque_content_stat {
 	display: block;

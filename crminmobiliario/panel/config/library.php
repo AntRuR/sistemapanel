@@ -79,33 +79,119 @@ function render_caracteristicas_inmueble($linea){
 	return $html;
 }
 
-function render_caracteristicas_proyecto($linea){
+function render_proyecto_name($linea){
 
-		// prin($linea['item']);
 
-		$style=render_style();
+	$style=render_style();
 
-		$html='';
-			$html.=$style['enclosure_open'];
+	$html='';
 
-		$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
-		
-		$html.='<tr><td class="section"  '.$style['head'].'>CARACTERICTICAS DEL PROYECTO</td></tr>';
+	$html.=$style['enclosure_open'];
 
-		$html.="<tr><td>".$linea['item']['descripcion5']."</td></tr>";
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
+	
+	$html.='<tr><td class="section"  width="17%" '.$style['head'].'>PROYECTO</td>';
 
-		$html.='</table>';
+	$html.="<td>".$linea['item']['nombre']."</td></tr>";
 
-			$html.=$style['enclosure_close'];
+	$html.='</table>';
 
-		$html.=$style['line'];
+	$html.=$style['enclosure_close'];
+
+	$html.=$style['line'];
 
 	return $html;
+
+}
+
+
+function render_promocion($linea){
+
+	$style=render_style();
+
+	$html='';
+
+	$html.=$style['enclosure_open'];
+
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
+	
+	$html.='<tr><td class="section"  width="17%" '.$style['head'].'>Promoción</td>';
+
+	$html.="<td>".$linea['promocion']['texto']."</td></tr>";
+
+	$html.='</table>';
+
+	$html.=$style['enclosure_close'];
+
+	$html.=$style['line'];
+
+	return $html;
+
+}
+
+
+function render_caracteristicas_proyecto($linea){
+
+	// prin($linea['item']);
+
+	$style=render_style();
+
+	$html='';
+
+	$html.=$style['enclosure_open'];
+
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
+	
+	$html.='<tr><td class="section"  '.$style['head'].'>CARACTERICTICAS DEL PROYECTO</td></tr>';
+
+	$html.="<tr><td>".$linea['item']['descripcion5']."</td></tr>";
+
+	// $html.="<tr><td>".$linea['promocion']['texto']."</td></tr>";
+
+	$html.='</table>';
+
+	$html.=$style['enclosure_close'];
+
+	$html.=$style['line'];
+
+	return $html;
+
+}
+
+function render_caracteristicas_proyecto_imprimir($linea){
+
+	// prin($linea['item']);
+
+	$style=render_style();
+
+	$html='';
+
+	$html.=$style['enclosure_open'];
+
+	$html.="<table ".$style['table']." width='650px' cellpadding=0 cellspacing=0 border=1 >";
+	
+	$html.='<tr><td class="section"  '.$style['head'].'>CARACTERICTICAS DEL PROYECTO</td></tr>';
+
+	$html.="<tr><td>".$linea['item']['descripcion5']."</td></tr>";
+
+	// $html.="<tr><td>".$linea['promocion']['texto']."</td></tr>";
+
+	$html.='</table>';
+
+	$html.=$style['enclosure_close'];
+
+	$html.=$style['line'];
+
+	return $html;
+
 }
 
 function render_firma($linea){
+
 	$html='';
+
 	return $html;
+
 }
 
 function extract_departamentos($id){
@@ -179,7 +265,9 @@ function render_cliente($linea){
 
 	$html.="<tr>
 	<td ".$style['variable'].">CLIENTE</td>
-	<td ".$style['valor']." colspan=3>".strtoupper($linea['cliente']['nombre']." ".$linea['cliente']['apellidos'])."</td>
+	<td ".$style['valor'].">".strtoupper($linea['cliente']['nombre']." ".$linea['cliente']['apellidos'])."</td>
+	<td ".$style['variable'].">DNI</td>
+	<td ".$style['valor'].">".$linea['cliente']['dni']."</td>	
 	</tr>";
 
 	$html.="<tr>
@@ -251,6 +339,34 @@ function render_vendedor($linea){
 	<td ".$style['valor']." colspan=3>".strtoupper($linea['usuario']['nombre']." ".$linea['usuario']['apellidos'])."</td>
 	</tr>";
 
+
+	$sectorista_banco=$linea['banco']['nombre'];
+
+	if($linea['id_sectorista']==''){	
+		$sectorista_nombre=$linea['sectorista_nombre'];
+		$sectorista_email=$linea['sectorista_email'];
+		$sectorista_telefono=$linea['sectorista_telefono'];
+	} else {
+		$sectorista_nombre=$linea['sectorista']['nombre'].' '.$linea['sectorista']['apellidos'];
+		$sectorista_email=$linea['sectorista']['email'];
+		$sectorista_telefono=$linea['sectorista']['telefono'];
+	}
+
+	$html.="<tr>
+	<td ".$style['variable'].">SECTORISTA</td>
+	<td ".$style['valor'].">".$sectorista_nombre."</td>
+	<td ".$style['variable'].">BANCO</td>
+	<td ".$style['valor'].">".$sectorista_banco."</td>
+	</tr>";
+
+	$html.="<tr>
+	<td ".$style['variable'].">EMAIL</td>
+	<td ".$style['valor'].">".$sectorista_email."</td>
+	<td ".$style['variable'].">TELEFONO</td>
+	<td ".$style['valor'].">".$sectorista_telefono."</td>
+	</tr>";
+
+
 	$html.='</table>';
 
 		$html.=$style['enclosure_close'];
@@ -293,7 +409,9 @@ function render_departamentos($producto,$precio){
 	$html.="<tr>
 	<td colspan=2></td>
 	<td colspan=3 ".$style['bold'].">PRECIO FINAL</td>
-	<td ".$style['bold']." align=right>".$style['moneda']." ".$producto['pvpromocion']."</td>
+	<td align=right style='text-align:right;font-weight:bold;'>".$style['moneda']." ".
+	number_format($producto['pvpromocion'], 2, '.', ',').
+	"</td>
 	</tr>";	
 
 	$html.="<tr>
@@ -361,8 +479,10 @@ function render_departamentos($producto,$precio){
 function extract_depositos($id){
 
 	$product= fila(
-	        "id,id_item,id_items_estacionamiento_tipo,id_subgrupo,numero,nombre,tipo,precio,area,descripcion,id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,tags,fecha_creacion"
-	        ,"productos_estacionamientos_items_items"
+	        "id,id_item,
+	        id_items_deposito_tipo,
+	        id_subgrupo,numero,nombre,tipo,precio,area,descripcion,id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,tags,fecha_creacion"
+	        ,"productos_depositos_items_items"
 		    ,"where id='$id' and visibilidad='1'"
 	        ,0
 	    	,array(
@@ -382,8 +502,10 @@ function extract_depositos($id){
 function extract_estacionamiento($id){
 
 	$product= fila(
-	        "id,id_item,id_items_deposito_tipo,id_subgrupo,numero,nombre,tipo,precio,area,descripcion,id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,tags,fecha_creacion"
-	        ,"productos_depositos_items_items"
+	        "id,id_item,
+	        id_items_estacionamiento_tipo,
+	        id_subgrupo,numero,nombre,tipo,precio,area,descripcion,id_status,venta_factura,venta_precio,venta_fecha,venta_abono,venta_total_facturas,venta_id_cliente,venta_id_vendedor,codigo,method,tags,fecha_creacion"
+	        ,"productos_estacionamientos_items_items"
 		    ,"where id='$id' and visibilidad='1'"
 	        ,0
 	    	,array(
@@ -412,19 +534,27 @@ function render_total($linea,$suma){
 
 	$html.="<tr>
 	<td ".$style['head'].">PRECIO TOTAL</td>
-	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".$suma."</td>
+	<td width=100 align=right style='text-align:right;' >".$style['moneda']." ".
+	number_format($suma, 2, '.', ',').
+	"</td>
 	</tr>";		
 	$html.="<tr>
 	<td>SEPARACIÓN</td>
-	<td align=right>".$style['moneda']." ".$linea['separacion']."</td>
+	<td align=right style='text-align:right;'>".$style['moneda']." ".
+	number_format($linea['separacion'], 2, '.', ',').
+	"</td>
 	</tr>";		
 	$html.="<tr>
 	<td>CUOTA INICIAL</td>
-	<td align=right>".$style['moneda']." ".$linea['cuota_inicial']."</td>
+	<td align=right style='text-align:right;'>".$style['moneda']." ".
+	number_format($linea['cuota_inicial'], 2, '.', ',').
+	"</td>
 	</tr>";		
 	$html.="<tr>
 	<td>SALDO A FINANCIAR</td>
-	<td align=right>".$style['moneda']." ".$linea['saldo_financiar']."</td>
+	<td align=right style='text-align:right;'>".$style['moneda']." ".
+	number_format($linea['saldo_financiar'], 2, '.', ',').
+	"</td>
 	</tr>";		
 				
 	$html.='</table>';
@@ -452,7 +582,9 @@ function render_depositos($producto,$precio){
 	$html.="<tr>
 	<td colspan=2></td>
 	<td colspan=2 ".$style['bold'].">PRECIO FINAL</td>
-	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".$precio."</td>
+	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".
+	number_format($precio, 2, '.', ',').	
+	"</td>
 	</tr>";	
 
 	$html.='</table>';
@@ -481,8 +613,10 @@ function render_estacionamiento($producto,$precio){
 
 	$html.="<tr>
 	<td colspan=2></td>
-	<td colspan=2 ".$style['bold'].">PRECIO FINAL</td>
-	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".$precio."</td>
+	<td colspan=2 ".$style['bold']." >PRECIO FINAL</td>
+	<td width=100 ".$style['bold']." align=right >".$style['moneda']." ".
+	number_format($precio, 2, '.', ',').	
+	"</td>
 	</tr>";		
 	
 	$html.='</table>';

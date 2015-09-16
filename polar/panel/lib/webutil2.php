@@ -92,8 +92,8 @@ $html.='<html lang="es">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 ';
-if($INCLUDES['viewport'])
-$html.='<meta name="viewport" content="'.$INCLUDES['viewport'].'">';
+if($INCLUDE['viewport'])
+$html.='<meta name="viewport" content="'.$INCLUDE['viewport'].'">';
 
 if($HEAD['meta_descripcion']){ $html.='<meta name="description" content="'.$HEAD['meta_descripcion'].'" />
 '; }
@@ -206,6 +206,7 @@ echo $html;
 
 }
 
+
 function render_route($routes){
 
 	global $SERVER;
@@ -317,6 +318,7 @@ function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
 
 	$obj['ul']=(isset($obj['ul']))?$obj['ul']:"ul";
 	$obj['id']=(isset($obj['id']))?$obj['id']:'';
+	$obj['class']=(isset($obj['class']))?' class="'.$obj['class'].'"':'';
 	$obj['rel']=(isset($obj['rel']))?$obj['rel']:'';
 	$obj['area']=(isset($obj['area']))?$obj['area']:NULL;
 
@@ -333,8 +335,10 @@ function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
     
 	// $tag=($obj['id']=='menu_main')?'h2':$tag;
 
-    $html.="<$UL>";
+    $html.="<$UL".$obj['class'].">";
+
 	$e=0;
+
 	foreach($MENU as $i=>$men){
 
 		$out=($men['target']=='_blank')?" target='_blank' ":'';
@@ -343,18 +347,26 @@ function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
 
 		$iii=($men['id'])?$men['id']:$i+1;
 
+		$lbl=$i.'_menu';
+
 		// $class="li ".$men['class']." ".$men['classadicional'];
-		$html.= $SPC."<$LI "
+		
+		if(sizeof($men['menu'])>0)
+			$html.="<input type='checkbox' name='menu' id='".$lbl."' >";
+
+		$html.= $SPC
+			 ."<$LI "
 			 .( ($obj['id']!="")?"id='".$obj['id']."_".$iii."'":'')." "
 			 .((trim($men['class'])=='')?"":"class='".trim($men['class'])."'")
 			 ." >";
 
-
 			$more=($men['more'])?$men['more']:"";
 			if($tag) $html.="<$tag>";
+			if(sizeof($men['menu'])>0) $html.="<label for='".$lbl."'>";
 			$html.="<a title='".$men['label']."' $out ".( isset($men['url'])?"href='".$men['url']."'":"" )." $more>";
 			$html.=$men['label'];
 			$html.="</a>";
+			if(sizeof($men['menu'])>0) $html.="</label>";
 			if($tag) $html.="</$tag>";
 
 		$html.=($obj['id']=='menu_main')?'</h2>':'';
@@ -364,6 +376,8 @@ function web_render_menu($MENU,$obj=NULL,$tag=NULL,$extra=NULL){
 			$obj_sub=$obj;
 			$obj_sub['return']=1;
 			$obj_sub['area']=1;
+
+
 			// $obj_sub['id']=$obj['id'].'_'.$iii;
 			$html.=web_render_menu($men['menu'],$obj_sub,'h4');
 		}

@@ -1,1 +1,0 @@
-[25-Mar-2014 05:42:54 UTC] PHP Fatal error:  Call to undefined function session_unregister() in /home/inkatation/public_html/prueba_hotel/cp/logout.php on line 3

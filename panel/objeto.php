@@ -1,12 +1,13 @@
 <?php
+
 if(isset($_GET['ran']) and $_GET['ran']!=''){
 
 	//include("lib/compresionInicio.php");	/*para Content-Encoding*/
 	include("lib/includes.php");
 
 
-	$file2OBJ=[];
-	$tabla2OBJ=[];
+	$file2OBJ=array();
+	$tabla2OBJ=array();
 	foreach($objeto_tabla as $mememe=>$ot){
 		$file2OBJ[$ot['archivo']]=$mememe;
 		$tabla2OBJ[$ot['tabla']]=$mememe;
@@ -35,15 +36,23 @@ if(isset($_GET['ran']) and $_GET['ran']!=''){
 		$_GET['conf']=$vArs['params'];
 
 		//prin($objeto_tabla['PRODUCTOS_TRASLADOS']['procesos']['2']['disabled']);
+
+
 		$objeto_tabla=pre_procesar_tabla($objeto_tabla,$vars);
+
+
+		// prin($objeto_tabla['PRODUCTOS_ENTREGAS']);
+
 		//prin($objeto_tabla['PRODUCTOS_TRASLADOS']['procesos']['2']['disabled']);
 
 	//prin($objeto_tabla[$this_me]['campos']['fecha_recepcion']);
 	}
 
+
 	$MEEE=$objeto_tabla[$_GET['OB']];
 	//prin(99);
 	//prin(sizeof($objeto_tabla[$this_me]['campos']));
+	// prin($objeto_tabla[$this_me]['campos']);
 
 	$Proceso=$_GET['proceso'];
 
@@ -53,12 +62,24 @@ if(isset($_GET['ran']) and $_GET['ran']!=''){
 
 $EdicionPanel=($Open and $_SESSION['edicionpanel']=='1')?1:0;
 
+
 /// procesar campos
 list($MEEE,$EXTRA_FILTRO) = pre_procesar_objeto_tabla_0($MEEE);
+
+
 // prin($MEEE);
 
 $datos_tabla = procesar_objeto_tabla($MEEE);
-// prin($datos_tabla);
+
+// prin($datos_tabla['user']);
+
+// foreach($datos_tabla['form'] as $ccan){
+// 	if($ccan['campo']=='user'){
+// 		prin($ccan);;
+// 	}
+// }
+
+
 verificar_tabla($datos_tabla['tabla']);
 
 
@@ -107,5 +128,4 @@ if($Proceso=='login'){
 }
 
 $tblistadosize=sizeof($tblistado);
-
 

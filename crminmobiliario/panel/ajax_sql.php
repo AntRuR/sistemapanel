@@ -452,13 +452,20 @@ switch($_GET['f']){
 			} else {
 				if($c!='v_t' and $c!='v_d' and $c!='v_o'){
 					$vv=removeemptytags($v);
-					$array[$c]=($vv=='')?'NULL':$vv;
+
+					if($objeto_tabla[$_REQUEST['v_o']]['campos'][$c]['format']=='currency'){
+						$array[$c]=($vv=='')?'NULL':str_replace(",", "", $vv);
+					} else {
+						$array[$c]=($vv=='')?'NULL':$vv;						
+					}
+
 				}
 			}
 		}
 		//echo "<pre>"; print_r($imagenes); echo "</pre>";
 		//$_GET['debug']=1;
 		$ret=update($array,$tbl,str_replace("\\'","'",$_POST['v_d']),$_GET['debug']);
+
 		foreach($imagenes as $i=>$imas){
 			//echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id2;
 			eliminar_imagenes($datos_tabla,$_POST['v_d']);

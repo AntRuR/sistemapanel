@@ -3268,8 +3268,16 @@ function render_foreig_subs($obj0,$id,$urd){
 						if($tbcampA['time']){
 						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:53px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
-						for($i=0; $i<=24;$i++){
-						$html.="<option value='".sprintf("%02d",$i)."' >".$Array_Horas[$i]."</option>";
+						if($tbcampA['time']=='1'){
+							for($i=0; $i<=24;$i++){
+								$html.="<option value='".sprintf("%02d",$i).":00:00' >".$Array_Horas[$i]."</option>";
+							}
+						} elseif($tbcampA['time']=='2'){
+							for($i=0; $i<=24;$i++){
+								for($jk=0; $jk<=3;$jk++){
+									$html.="<option value='".sprintf("%02d",$i).":".sprintf("%02d",$jk*15).":00' >".$Array_Horas[$i]."</option>";
+								}
+							}
 						}
 						$html.= "</select>";
 						} else {

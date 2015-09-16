@@ -23,8 +23,8 @@ CKEDITOR.editorConfig = function( config ) {
 		// { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		// { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align' ] },
-		// { name: 'styles' },
-		{ name: 'colors' },
+		{ name: 'styles' },
+		// { name: 'colors' },
 		// { name: 'about' }
 	];
 
@@ -41,7 +41,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.defaultLanguage = 'es';
 
-	config.height = '400px';
+	config.height = '800px';
 
 
 };

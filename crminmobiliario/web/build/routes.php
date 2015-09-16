@@ -19,7 +19,8 @@ $URLS=[];
 $routes=[
 
 	/* home */
-	'/$' => 'modulo=app&tab=home',
+	'/$' => 'modulo=app&tab=redir&url=panel',
+	// '/$' => 'modulo=app&tab=home',
 	// 'index.php' => 'modulo=app&tab=home',
 
 	/* formularios */
@@ -28,8 +29,8 @@ $routes=[
 	/*servicios, empresa*/
 
 		/* detail */
-		'/(cotizacion)/(:any)$' => 'modulo=items&tab=$1&acc=file&id_venta=$2',
-	
+		'/(cotizacion)/(:any)/imprimir$' => 'modulo=items&tab=$1&acc=file&id_venta=$2&imprimir=1',
+		'/(cotizacion)/(:any)$' => 'modulo=items&tab=$1&acc=file&id_venta=$2',	
 ];
 
 
@@ -39,8 +40,8 @@ $routes=[
 
 
 $rename_controller=[
-	''		   =>'home',
-	'cotizacion'      =>'productos_imprimir',
+	''				=>'home',
+	'cotizacion'	=>'productos_imprimir',
 ];
 
 

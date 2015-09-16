@@ -15,7 +15,7 @@ array(
 $object['menu']=[
 					[
 						'label'=>'Inicio',
-						'url'=>'index.php?modulo=app&tab=home',
+						'url'=>'',
 					],
 					[
 						'label'=>'Empresa',

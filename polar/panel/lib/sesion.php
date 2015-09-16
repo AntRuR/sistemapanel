@@ -64,10 +64,11 @@ $_SESSION['usuario_datos_nombre']=($NombreCompleto)?$NombreCompleto:dato($sesion
 
 $Permisos=fila($sesion_permisos,$tabla_sesion,"where $sesion_id='".$_SESSION['usuario_id']."'",0,
 array('permisos'=>array('fila'=>array($campos_permisos,$tabla_permisos,'where id={'.$sesion_permisos.'}',0))));
-$TIPO_USUARIO	 =$Permisos['permisos']['multiusuario'];
-$PERMISOS_USUARIO=$Permisos['permisos']['texto'];
-$PERMISOS_PAGE=$Permisos['permisos']['per_pages'];
-$PERMISOS_WEBS=$Permisos['permisos']['per_webs'];
+
+$TIPO_USUARIO     =$Permisos['permisos']['multiusuario'];
+$PERMISOS_USUARIO =$Permisos['permisos']['texto'];
+$PERMISOS_PAGE    =$Permisos['permisos']['per_pages'];
+$PERMISOS_WEBS    =$Permisos['permisos']['per_webs'];
 
 // prin($PERMISOS_USUARIO);
 $PU=explode(",",$PERMISOS_USUARIO);
@@ -177,4 +178,3 @@ if($objeto_tabla[$vars_global['WEBS']] and $vars_global['MULTIWEBS']=='1'){
 }
 
 //prin($_SESSION);
-?>

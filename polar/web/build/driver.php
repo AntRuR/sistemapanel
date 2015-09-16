@@ -65,13 +65,11 @@ $Estructura['modulo=app&tab=pages']=
 	'nav'		=>$Block['nav'],	
 	'canvas' 	=>
 		[	
-			[
 			'col-xs-2 page_col1'=>$Block['bar_izquierda'],
 			"MAIN?".http_build_query([
 									'block'		=>'col-xs-10 page_col2',
 									'classStyle'=>'page',
 									]),
-			]
 		],
 	'footer'	=>$Block['footer'],			
 ];
@@ -83,13 +81,11 @@ array(
 	'nav'		=>$Block['nav'],	
 	'canvas' 	=>
 		[	
-			[
 			'col-xs-2 page_col1'=>"bloques/menu_blog.php?".http_build_query(['classStyle'=>'menu_left']),
 			"MAIN?".http_build_query([
 									'block'		=>'col-xs-10 page_col2',
 									'classStyle'=>'page',
 									]),
-			]				
 		],
 	'footer'=>$Block['footer'],		
 );
@@ -102,13 +98,11 @@ array(
 	'nav'		=>$Block['nav'],	
 	'canvas' 	=>
 		[	
-			[		
 			'col-xs-2 page_col1'=>'bloques/menu_servicios.php?'.http_build_query(['classStyle'=>'menu_left']),
 			"MAIN?".http_build_query([
 									'block'		=>'col-xs-10 page_col2',
 									'classStyle'=>'page',
 									]),									
-			]
 		],
 	'footer'=>$Block['footer'],		
 );
@@ -119,14 +113,12 @@ array(
 	'nav'		=>$Block['nav'],
 	'canvas' 	=>
 		[	
-			[		
 			'col-xs-2 page_col1'=>'bloques/menu_empresa.php?'.http_build_query(['classStyle'=>'menu_left']),
 			"MAIN?".http_build_query([
 									'block'		=>'col-xs-10 page_col2',
 									'classStyle'=>'page',
 									]),
 
-			]
 		],
 	'footer'=>$Block['footer'],		
 );
@@ -138,13 +130,11 @@ array(
 	'nav'		=>$Block['nav'],	
 	'canvas' 	=>
 		[	
-			[		
 			'col-xs-2 page_col1'=>$Block['bar_izquierda'],		//
 			"MAIN?".http_build_query([
 									'block'		=>'col-xs-10 page_col2',
 									'classStyle'=>'page',
 									]),									
-			]
 		],	
 	'footer'=>$Block['footer'],
 );

@@ -337,8 +337,10 @@ $objeto_tabla['PROYECTOS']=array(
 		'crear_pruebas'	=> '0',
 		'menu'			=> '1',
 		'menu_label'	=> 'Proyectos',
-		'controles'		=> '<a href="base/actualizar_panel.php">actualizar todos los paneles</a>
-		<a href="base/proceso_analisis.php">procesar análisis</a>',
+		'controles'		=> '
+		<a href="base/actualizar_panel.php">actualizar todos los paneles</a>
+		<a href="base/proceso_analisis.php">procesar análisis</a>
+		',
 		'exportar_excel'	=> '1',
 		'por_pagina'	=> '50',
 		'me'			=> 'PROYECTOS',
@@ -437,7 +439,7 @@ $objeto_tabla['PROYECTOS']=array(
 						'campo'			=> 'dominio',
 						'label'			=> 'ftp host',
 						'tipo'			=> 'inp',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'width'			=> '100px',
 						'like'			=> '1',
@@ -449,7 +451,7 @@ $objeto_tabla['PROYECTOS']=array(
 						'campo'			=> 'ftp_user',
 						'label'			=> 'ftp user',
 						'tipo'			=> 'inp',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'width'			=> '100px',
 						'derecha'		=> '2',
@@ -460,7 +462,7 @@ $objeto_tabla['PROYECTOS']=array(
 						'campo'			=> 'ftp_pass',
 						'label'			=> 'ftp pass',
 						'tipo'			=> 'inp',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'width'			=> '100px',
 						'derecha'		=> '2',
@@ -471,7 +473,7 @@ $objeto_tabla['PROYECTOS']=array(
 						'campo'			=> 'ftp_root',
 						'label'			=> 'ftp root',
 						'tipo'			=> 'inp',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'width'			=> '100px',
 						'default'		=> '/www/',
@@ -526,6 +528,21 @@ $objeto_tabla['PROYECTOS']=array(
 						'derecha'		=> '2'
 				),
 
+				'tipo_web'			=>array(
+						'campo'			=> 'tipo_web',
+						'label'			=> 'Tipo de web',
+						'tipo'			=> 'com',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'opciones'		=>array(
+								'1'			=> 'classic|orange',
+								'2'			=> 'frame|red'
+						),
+						'default'		=> '1',
+						'width'			=> '140px',
+						'derecha'		=> '2'
+				),				
+
 				'seguro'		=>array(
 						'campo'			=> 'seguro',
 						'label'			=> 'secure',
@@ -547,14 +564,14 @@ $objeto_tabla['PROYECTOS']=array(
 						'label'			=> 'develop',
 						'tipo'			=> 'bit',
 						'radio'			=> '1',
-						'listable'		=> '1',
+						'listable'		=> '0',
 						'validacion'	=> '0',
 						'opciones'		=>array(
 								'1'			=> 'si',
 								'0'			=> 'no'
 						),
 						'default'		=> '0',
-						'width'			=> '40px',
+						'width'			=> '140px',
 						'derecha'		=> '2'
 				),
 
@@ -569,7 +586,7 @@ $objeto_tabla['PROYECTOS']=array(
 								'3'			=> '3DProyecta'
 						),
 						'default'		=> '1',
-						'width'			=> '40px',
+						'width'			=> '140px',
 						'derecha'		=> '2',
 						'listable'		=> '1'
 				),

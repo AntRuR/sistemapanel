@@ -2,6 +2,7 @@
 
 $THIS=$PARAMS['this'];
 $FORM=$OBJECT[$PARAMS['conector']];
+// prin($FORM);
 
 ?>
 <div class="<?php echo $PARAMS['classStyle'] ?>" > 

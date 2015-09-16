@@ -5,13 +5,27 @@ $THIS=$PARAMS['this'];
 $ITEM=$OBJECT[$PARAMS['conector']];
 ?>
 <div class="row">
-    <div class="<?php echo $PARAMS['classStyle']; ?>">
+    <div class="<?php echo $PARAMS['classStyle']; ?>" style="text-align:center;">
 
-        <div class="header">
+        <div class="header" style='display:inline-block;'>
         <?php echo $ITEM['header']; ?>
         </div>
 
-        <div class="tabsAfterSlides tabs">
+        <?php //prin($ITEM['menu']);
+        echo "<select onchange=\"javascript:\$('.tabsAfterSlides [data-tab='+this.value+']').trigger('click');\" 
+        style='display:inline-block;margin-left:20px;'>";
+        foreach($ITEM['menu'] as $tab){ 
+            echo "<option ".
+             ( ($tab['class']=='active')?'selected':'') .
+             " value=".str_replace("data-tab=","",$tab['more']).">".
+            $tab['label'].
+            "</option>"; 
+        }
+        echo "</select>";
+
+        ?>
+
+        <div class="tabsAfterSlides tabs" style="display:none;">
             <?php web_render_menu($ITEM['menu']); ?>    
         </div>
 
@@ -23,7 +37,7 @@ $ITEM=$OBJECT[$PARAMS['conector']];
                         $ITEM[$tab['id']]['filas'],
                         $ITEM[$tab['id']]['filas'][0]['esquema'],
                         0,
-                        3); ?>
+                        2); ?>
                     </div>
                     <a class="arrow prev"></a>
                     <a class="arrow next"></a>                

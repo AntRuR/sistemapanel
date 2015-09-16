@@ -31,6 +31,16 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Address',			element: 'address' },
 	*/
 
+	{ name: 'titulo rojo',	element: 'div',		styles: { 'color': 'red','font-size':'50px', 'font-family':'Arial' } },
+	{ name: 'titulo azul',	element: 'div',		styles: { 'color': '#0065C8', 'font-size':'30px', 'font-family':'Arial' } },
+	
+	{ name: 'texto rojo',	element: 'span',		styles: { 'color': 'red' } },
+	{ name: 'texto azul',	element: 'span',		styles: { 'color': '#0065C8' } },
+
+	{ name: 'resaltado amarillo',	element: 'div',		styles: { 'color': '#000000','background-color':'#ffff33' } },
+	{ name: 'resaltado verde',	element: 'div',		styles: { 'color': '#000000','background-color':'#5CB900' } },
+
+
 	{ name: 'Italic Title',		element: 'h2', styles: { 'font-style': 'italic' } },
 	{ name: 'Subtitle',			element: 'h3', styles: { 'color': '#aaa', 'font-style': 'italic' } },
 	{

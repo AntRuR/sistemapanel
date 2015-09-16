@@ -7,7 +7,6 @@ $ITEMS=$OBJECT[$PARAMS['conector']];
 // prin($ITEMS);
 
 ?>
-<div class="row">
   <div class="<?php echo $PARAMS['classStyle'] ?> slidesFlux" >    
       <?php  
 
@@ -23,4 +22,3 @@ $ITEMS=$OBJECT[$PARAMS['conector']];
 
       ?>           
   </div>
-</div>

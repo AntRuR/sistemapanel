@@ -24,10 +24,6 @@ if(!function_exists('str_getcsv2')) {
     }
 }
 
-echo 'update';
-
-exit();
-
 $csvv=file("tramites2014b.csv");
 
 $csv=implode("",$csvv);
@@ -200,11 +196,11 @@ foreach($buf as $linea)
 
 
 
-                    // 'fecha_para_revision'
-                    // 'fecha_firma'
-                    // 'fecha_tramite'
-                    // 'fecha_listo'
-                    // 'fecha_entrega'
+                // 'fecha_para_revision'
+                // 'fecha_firma'
+                // 'fecha_tramite'
+                // 'fecha_listo'
+                // 'fecha_entrega'
     
 
     $inventa=insert(array(

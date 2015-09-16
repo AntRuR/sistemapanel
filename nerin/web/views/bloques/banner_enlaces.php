@@ -4,7 +4,11 @@ $THIS=$PARAMS['this'];
 
 $ITEMS=$OBJECT[$PARAMS['conector']];
 
-// prin($PARAMS);
+$number=[
+'banner_enlaces1'=>'1',
+'banner_enlaces2'=>'2',
+'banner_enlaces3'=>'4',
+];
 
 ?>
 <div class="<?php echo $PARAMS['classStyle'] ?>" > 
@@ -21,7 +25,12 @@ $ITEMS=$OBJECT[$PARAMS['conector']];
       </ul>
       <?php } else {
 
-      web_render_items($ITEMS['filas'],$ITEMS['filas'][0]['esquema'],0,($PARAMS['this']=='banner_enlaces2')?2:1);
+      web_render_items(
+        $ITEMS['filas'],
+        $ITEMS['filas'][0]['esquema'],
+        0,
+        $number[$THIS]
+        );
 
       }
 

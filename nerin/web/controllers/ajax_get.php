@@ -1,6 +1,8 @@
 <?php //á
+
 switch($_GET['get']){
 case "modelos":
+
 $items= select(
         "id as i,nombre as n"
         ,"modelos"
@@ -17,6 +19,7 @@ $items= select(
 echo json_encode($items);		
 break;
 case "subcategorias":
+
 $ID=select_dato("id","productos_grupos","where nombre='".url_decode_seo($_GET['id'])."'");
 $items= select(
         "id as i,nombre as n"

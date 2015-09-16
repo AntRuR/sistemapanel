@@ -5,6 +5,18 @@ var_dump($_SERVER);
 exit();
 */
 
+// prin($_SESSION);
+
+$extra_query='';
+
+$id_permiso=dato('id_permisos','usuarios_acceso','where id='.$_SESSION['usuario_id'],0);
+if($id_permiso==20){
+$query=dato('query','usuarios3','where id_sesion='.$_SESSION['usuario_id'],0);
+$extra_query=' and id in ('.$query.')';
+}
+
+
+
 $_GET['ob']='VENTAS_ITEMS';
 
 list($date,$from,$to)=explode("|",$_GET['f']);
@@ -300,9 +312,11 @@ $intervalos=crear_intervalos($tipo,$from,$to);
 $VV=array();
 $data = array();
 
-$usuarios2=select("id,nombre,apellidos","usuarios2","where 1");
+$usuarios2=select("id,nombre,apellidos,id_ptoventa","usuarios2","where 1 ".$extra_query,0,array(
+	'pto'=>array('fila'=>array('nombre','productos_ptoventa','where id={id_ptoventa}'))
+	));
 foreach($usuarios2 as $usu){
-	$USU2[$usu['id']]=$usu['nombre']." ".$usu['apellidos'];
+	$USU2[$usu['id']]=$usu['nombre']." ".$usu['apellidos']." - ".$usu['pto']['nombre'];
 }
 
 $usuarios=select("id,nombre,apellidos,id_jefe","usuarios","where 1 order by id_jefe");
@@ -366,9 +380,79 @@ foreach($intervalos as $vv){
 
 }
 
+// prin($line);
 
+/*
+
+Surquillo – Jonny Castillo
+
+Surquillo Livianos – Nestor Voto
+
+La Marina – Juan Seminario
+
+Ayllón – Rocío Ríos
+
+San Luis – Miguel Romero
+
+Plaza Lima Norte – Pedro Elguera
+
+Los Olivos – Edgar Ramón
+
+Total Lima
+
+DDP – AQP – Raquel Perez
+
+DDP - AQP 2 – Renzo Lopez
+
+DDP – Huancayo – Rolando Galarza
+
+DDP – Chincha – Franklin Neumman
+
+Total Centro Sur
+
+DDP – Trujillo – Renzo Tagle
+
+Total Nor Oriente
+
+ */
+
+// prin($USU2);
 
 // prin($line);
+
+$line22=array();
+
+$line22[8]=$line[8]; unset($line[8]);
+$line22[16]=$line[16]; unset($line[16]);
+$line22[4]=$line[4]; unset($line[4]);
+$line22[5]=$line[5]; unset($line[5]);
+$line22[21]=$line[21]; unset($line[21]);
+$line22[6]=$line[6]; unset($line[6]);
+$line22[19]=$line[19]; unset($line[19]);
+
+
+$line22[15]=$line[15]; unset($line[15]);
+$line22[12]=$line[12]; unset($line[12]);
+$line22[18]=$line[18]; unset($line[18]);
+$line22[17]=$line[17]; unset($line[17]);
+
+
+$line22[20]=$line[20]; unset($line[20]);
+
+$line22[10]=$line[10]; unset($line[10]);
+$line22[11]=$line[11]; unset($line[11]);
+$line22[22]=$line[22]; unset($line[22]);
+
+// prin($line);
+
+foreach($line as $indixxe => $linee){
+
+	$line22[$indixxe]=$line[$indixxe];
+
+}
+
+
+$line=$line22;
 
 foreach($line as $iusu2=>$lin2){
 

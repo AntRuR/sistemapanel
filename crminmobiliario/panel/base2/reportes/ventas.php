@@ -158,7 +158,8 @@ foreach($projects as $iusu2=>$lin2)
 	// if(trim($USU2[$iusu2])=='') continue;
 	$row[$l][]=array('<b>VENTAS EN PROYECTO '.strtoupper(dato('nombre','productos_items','where id='.$lin2['id'])).' DESDE EL '.$fromD.'-'.$fromM.'-'.$fromY.' AL '.$toD.'-'.$toM.'-'.$toY.'</b>','class=nombre colspan='. (($_GET['format']=='excel')?'10':'8') ,'class=success');
 
-	$row[$l][]=($_GET['format']=='excel')?'':array('<a class="linkstitu itr ico_Excel" title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel">Exportar Excel</a>','colspan="2" style="text-align:center;"');
+	// $row[$l][]=($_GET['format']=='excel')?'':array('<a class="linkstitu itr ico_Excel" title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel"></a>','colspan="2" style="text-align:center;"');
+	$row[$l][]=($_GET['format']=='excel')?'':array('<a class="linkstitu itr " title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel"></a>','colspan="2" style="text-align:center;"');
 
 	$l++;//title
 	// if(trim($USU2[$iusu2])=='') continue;
@@ -279,15 +280,15 @@ foreach($projects as $iusu2=>$lin2)
 	$l++;//third line
 	$row[$l][]=array('<b>TOTAL EN DÓLARES</b>','class=nombre');	
 
-	$row[$l][]=number_format($tipo_cambio*$suma_soles['total'], 2, '.', ',');
+	$row[$l][]=number_format($suma_soles['total']/$tipo_cambio, 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=number_format($tipo_cambio*$suma_soles['4'], 2, '.', ',');
+	$row[$l][]=number_format($suma_soles['4']/$tipo_cambio, 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=number_format($tipo_cambio*$suma_soles['3'], 2, '.', ',');
+	$row[$l][]=number_format($suma_soles['3']/$tipo_cambio, 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=number_format($tipo_cambio*$suma_soles['2'], 2, '.', ',');
+	$row[$l][]=number_format($suma_soles['2']/$tipo_cambio, 2, '.', ',');
 	$row[$l][]='-00';
-	$row[$l][]=number_format($tipo_cambio*$suma_soles['1'], 2, '.', ',');
+	$row[$l][]=number_format($suma_soles['1']/$tipo_cambio, 2, '.', ',');
 
 	$l++;//third line
 	$row[$l][]=array('<b>Estado de Alcance</b>','class=nombre');	
@@ -308,6 +309,165 @@ foreach($projects as $iusu2=>$lin2)
 
 }
 
+
+
+//NUEVO
+
+foreach($projects as $iusu2=>$lin2)
+{
+
+	$suma=$sumap=$unidades=$area=array();
+
+	$_items=array(1,2,3,4);
+	$_tipos=array('departamentos','estacionamientos','depositos');
+
+	foreach($_tipos as $_tipo){
+		foreach($_items as $_item){
+			$suma[$_tipo][$_item]=$sumap[$_tipo][$_item]=$unidades[$_tipo][$_item]=0;
+		}	
+	}
+
+	$num_depas=contar("productos_items_items","where id_item=".$lin2['id']);
+	
+	$num_estac=contar("productos_estacionamientos_items_items","where id_item=".$lin2['id']);
+	
+	$num_depos=contar("productos_depositos_items_items","where id_item=".$lin2['id']);
+
+	if($num_depas*1+$num_estac*1+$num_depos*1==0) continue;
+
+	$depas=select("pvpromocion,pvlista,id_status,area_total,area_construida","productos_items_items","where id_item=".$lin2['id'],0);
+	foreach($depas as $item){
+		$sumap['departamentos'][$item['id_status']]+=$item['pvlista'];
+		$suma['departamentos'][$item['id_status']]+=$item['pvpromocion'];
+		$unidades['departamentos'][$item['id_status']]++;
+		$area['departamentos'][$item['id_status']]+=$item['area_total'];
+	}
+	
+	$estacionamientos=select("precio,pvlista,id_status,area","productos_estacionamientos_items_items","where id_item=".$lin2['id']);
+	foreach($estacionamientos as $item){
+		$sumap['estacionamientos'][$item['id_status']]+=$item['pvlista'];
+		$suma['estacionamientos'][$item['id_status']]+=$item['precio'];
+		$unidades['estacionamientos'][$item['id_status']]++;		
+		$area['departamentos'][$item['id_status']]+=$item['area'];
+	}
+
+	$depositos=select("precio,id_status","productos_depositos_items_items","where id_item=".$lin2['id']);
+	foreach($depositos as $item){ 
+		$sumap['depositos'][$item['id_status']]+=$item['precio'];
+		$suma['depositos'][$item['id_status']]+=$item['precio'];
+		$unidades['depositos'][$item['id_status']]++;		
+	}
+
+	unset($row);
+	$l=0;//title
+	// if(trim($USU2[$iusu2])=='') continue;
+	$row[$l][]=array('<b>RESUMEN DE VENTAS '.strtoupper(dato('nombre','productos_items','where id='.$lin2['id'])).' DESDE EL '.$fromD.'-'.$fromM.'-'.$fromY.' AL '.$toD.'-'.$toM.'-'.$toY.'</b>','class=nombre colspan=3' ,'class=success');
+
+	// $row[$l][]=($_GET['format']=='excel')?'':array('<a class="linkstitu itr ico_Excel" title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel"></a>','colspan="2" style="text-align:center;"');
+	$row[$l][]=($_GET['format']=='excel')?'':array('<a class="linkstitu itr " title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel"></a>','colspan="2" style="text-align:center;"');
+
+	$l++;//title
+	// if(trim($USU2[$iusu2])=='') continue;
+	$row[$l][]=array('<b>DECRIPCIÓN</b>','class=nombre','class=info');
+	$row[$l][]=array('<b>VALOR VENTAS PLANIFICADAS EN SOLES</b>','class=nombre');
+	$row[$l][]=array('<b>VALOR VENTAS REALES EN SOLES</b>','class=nombre');
+	$row[$l][]=array('<b>DESVIACION</b>','class=nombre');
+
+	$l++;
+
+	$total_departamentos_vendidos=$suma['departamentos']['4'];
+	$total_departamentos_planificados=$sumap['departamentos']['4'];
+
+	$row[$l][]=array('<b>TOTAL VENTA DE DEPARTAMENTOS</b>','class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_vendidos, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_planificados, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_vendidos - $total_departamentos_planificados, 2, '.', ','),'class=nombre');
+
+	$l++;
+
+	$total_estacionamientos_vendidos=$suma['estacionamientos']['4'];
+	$total_estacionamientos_planificados=$sumap['estacionamientos']['4'];
+
+	$row[$l][]=array('<b>TOTAL VENTA DE ESTACIONAMIENTOS</b>','class=nombre');
+	$row[$l][]=array(number_format($total_estacionamientos_vendidos, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_estacionamientos_planificados, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_estacionamientos_vendidos - $total_estacionamientos_planificados, 2, '.', ','),'class=nombre');
+
+	$l++;
+
+	$row[$l][]=array('<b>TOTAL VENTAS EN SOLES</b>','class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_vendidos + $total_estacionamientos_vendidos, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_planificados + $total_estacionamientos_planificados, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_vendidos + $total_estacionamientos_vendidos - $total_departamentos_planificados - $total_estacionamientos_planificados, 2, '.', ','),'class=nombre','class=warning');
+
+
+
+	$seccion[$iusu2."r"]=$vendes[]=$row;
+
+
+	unset($row);
+	$l=0;//title
+	// if(trim($USU2[$iusu2])=='') continue;
+	$row[$l][]=array('<b>DETERMINACION DEL PRECIO PROMEDIO DEL CIERRE DE LOS PRODUCTOS '.strtoupper(dato('nombre','productos_items','where id='.$lin2['id'])).' DESDE EL '.$fromD.'-'.$fromM.'-'.$fromY.' AL '.$toD.'-'.$toM.'-'.$toY.'</b>','class=nombre colspan=4' ,'class=success');
+
+	// $row[$l][]=($_GET['format']=='excel')?'':array('<a class="linkstitu itr ico_Excel" title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel"></a>','colspan="2" style="text-align:center;"');
+	$row[$l][]=($_GET['format']=='excel')?'':array('<a class="linkstitu itr " title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel"></a>','colspan="2" style="text-align:center;"');
+
+	$l++;//title
+	// if(trim($USU2[$iusu2])=='') continue;
+	$row[$l][]=array('<b>NUMERO DE PRODUCTOS</b>','class=nombre colspan=2','class=info');
+	$row[$l][]=array('<b>VALOR VENTA PROMEDIO POR PRODUCTO EN SOLES</b>','class=nombre');
+	$row[$l][]=array('<b>VALOR VENTA PROMEDIO POR PRODUCTO EN USA$</b>','class=nombre');
+	$row[$l][]=array('<b>VALOR VENTA PROMEDIO EN USA$ POR M2</b>','class=nombre');
+
+	$l++;
+
+	$row[$l][]=array('CANTIDAD','class=nombre');
+	$row[$l][]=array('UNIDAD','class=nombre');
+	$row[$l][]=array('','class=nombre');
+	$row[$l][]=array('','class=nombre');
+	$row[$l][]=array('TCP=2.775','class=nombre');
+
+	$total_departamentos_vendidos_promedio=$total_departamentos_vendidos / $unidades['departamentos']['4'];
+
+	$total_estacionamientos_vendidos_promedio=$total_estacionamientos_vendidos / $unidades['estacionamientos']['4'];
+
+	$l++;
+
+	$row[$l][]=array(number_format($area['departamentos']['4'], 2, '.', ','),'class=nombre');
+	$row[$l][]=array('M2','class=nombre');
+	$row[$l][]=array('','class=nombre');
+	$row[$l][]=array('','class=nombre');
+	$row[$l][]=array($total_departamentos_vendidos_promedio/$area['departamentos']['4'],'class=nombre');
+
+	$l++;
+
+
+	$row[$l][]=array($unidades['departamentos']['4'],'class=nombre');
+	$row[$l][]=array('DPTOS','class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_vendidos_promedio, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_departamentos_vendidos_promedio/$tipo_cambio, 2, '.', ','),'class=nombre');
+	$row[$l][]=array('','class=nombre');
+
+	$l++;
+
+
+	$row[$l][]=array($unidades['estacionamientos']['4'],'class=nombre');
+	$row[$l][]=array('ESTACIONAMIENTOS','class=nombre');
+	$row[$l][]=array(number_format($total_estacionamientos_vendidos_promedio, 2, '.', ','),'class=nombre');
+	$row[$l][]=array(number_format($total_estacionamientos_vendidos_promedio/$tipo_cambio, 2, '.', ',')/$tipo_cambio,'class=nombre');
+	$row[$l][]=array('','class=nombre');	
+
+
+
+
+
+	$seccion[$iusu2."s"]=$vendes[]=$row;
+
+
+}
+// FIN NUEVO
+ 
 
 //RESUMEN
 

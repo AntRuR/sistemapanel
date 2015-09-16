@@ -6,24 +6,26 @@ $tablas_creadas=array();
 $sql = "show tables";
 $result=mysql_query($sql,$link);
 $total=mysql_num_rows($result);
-if($total>0){
-	while ($row = mysql_fetch_row($result)){
+if($total>0)
+{
+	while ($row = mysql_fetch_row($result))
+	{
 		$tablas_creadas[] = $row[0];
 	}
 }
 
 // prin($SERVER);
 
-if($mostrar_menu){
+if($mostrar_menu)
+{
 
 	$menus=array();
 	$menus_1=array();
 	$menus_2=array();
 
 
-
-
-	foreach($objeto_tabla as $item){
+	foreach($objeto_tabla as $item)
+	{
 		if(isset($item['alias_grupo']) and ($item['alias_grupo']!='') ){	$ALIAS_GRUPO[$item['grupo']]=$item['alias_grupo'];	}
 	}
 
@@ -37,13 +39,18 @@ if($mostrar_menu){
 	}
 	prin($oottoo);
 	*/
-	foreach($objeto_tabla as $meit=>$item){
+	foreach($objeto_tabla as $meit=>$item)
+	{
 		// prin($item);
 		$mmm = '';
 
-		if($item['menu_label']==''){	$item['menu_label']=$item['archivo'];	}
+		if($item['menu_label']=='')
+		{	
+			$item['menu_label']=$item['archivo'];
+		}
 
-		if( $item['menu']=='1' or ($Open=='1' and $item['menu_label']!='' ) or ($script_name=="maquina.php") ){
+		if( $item['menu']=='1' or ($Open=='1' and $item['menu_label']!='' ) or ($script_name=="maquina.php") )
+		{
 
 			if(
 				(
@@ -56,14 +63,16 @@ if($mostrar_menu){
 				!in_array($item['tabla'],$tablas_creadas) and $Open
 				)
 
-				){
+				)
+				{
 
 				$bbgg = ( !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1') )?1:0;
 
 
 				if($bbgg){ $BBB[]=$item['me']; }
 
-				if($item['seccion']){
+				if($item['seccion'])
+				{
 
 					$mmm.='<li class="seccion"><b>'.$item['seccion'].'</b></li>';
 
@@ -74,7 +83,7 @@ if($mostrar_menu){
 				$bitselected=( enhay( $script_name ,  $item['archivo'].".php" ) or ($script_name==$item['archivo_hijo'].".php") );
 
 				//$otto[]=$meit;
-				$mmm .="<li". ( ($bitselected) ? ' class="selected"': '' ).">";
+				$mmm .="<li". ( ($bitselected) ? ' class="selected"': '' ) .">";
 
 					$mmm .="<a href='".$DIR_CUSTOM.$item['archivo'].".php' >";
 
@@ -87,7 +96,8 @@ if($mostrar_menu){
 					$mmm.="</a>";
 
 					//DEVEL
-					if($Open=='1'){
+					if($Open=='1')
+					{
 
 						$mmm.="<a class='derech' href='maquina.php?me=".$item['me']."#blo_objetos' title='Editar Propiedades'>P</a>";
 
@@ -101,26 +111,35 @@ if($mostrar_menu){
 
 		}
 
-		if( $script_name!="login.php" ){
-				//prin($item['app']);
-				if($item['app']!=''
-				//temporal
-				//and trim($mmm)!=''
-				){
+		if( $script_name!="login.php" )
+		{
+			//prin($item['app']);
+			if($item['app']!=''
+			//temporal
+			//and trim($mmm)!=''
+			){
+
 				$item['app']=str_replace("'","\"",$item['app']);
+
 				$aps=explode("<a",$item['app']);
-				foreach($aps as $ap){ if(trim($ap)!=''){
+				
+				foreach($aps as $ap)
+				{ 
+					if(trim($ap)!='')
+					{
 
-				$bitselected=(enhay($ap,$script_name)); 	
-				// prin("$script_name == $ap");
-				$mmm='';
-				$mmm.="<li".(($bitselected)?" class='selected'":'').">";
-				$mmm.="<a".$ap;
-				$mmm.="</li>";
+						$bitselected=(enhay($ap,$script_name)); 	
+						// prin("$script_name == $ap");
+						$mmm='';
+						$mmm.="<li".(($bitselected)?" class='selected'":'').">";
+						$mmm.="<a".$ap;
+						$mmm.="</li>";
 
-				$menus[($item['grupo'])?$item['grupo']:'general'][]=[$mmm,$bitselected];
+						$menus[($item['grupo'])?$item['grupo']:'general'][]=array($mmm,$bitselected);
 
-				} }	}
+					} 
+				}	
+			}
 
 		}
 
@@ -136,18 +155,19 @@ if($mostrar_menu){
 
 		}
 
-		if($item['app']==''){
-
-			$menus[($item['grupo'])?$item['grupo']:'general'][]=[$mmm,$bitselected];
-
+		if($item['app']=='')
+		{
+			$menus[($item['grupo'])?$item['grupo']:'general'][]=array($mmm,$bitselected);
 		}
 
-		if($mmm!=''){
-			if(!in_array($item['grupo'],$grupi)){
-
+		if($mmm!='')
+		{
+			if(!in_array($item['grupo'],$grupi))
+			{
 				$grupi[]=$item['grupo'];
 
-				if(trim($item['grupo'])!=''){
+				if(trim($item['grupo'])!='')
+				{
 				
 					$paddre=($ALIAS_GRUPO[$item['grupo']])?$ALIAS_GRUPO[$item['grupo']]:$item['grupo'];
 
@@ -170,8 +190,6 @@ if($mostrar_menu){
 				}
 			}
 		}
-
-
 	}
 
 	// prin($menus);
@@ -207,20 +225,27 @@ if($mostrar_menu){
 */
 
 	$htmlmenu .= "<ul id='menu_main' class='ul_menus". ( ($SERVER['ARCHIVO']=="maquina.php" and $_GET['accion']=='' )?' ul_menus_fixed':'' ) ."'>";
-	if(sizeof($GrupLi)>0){
+	if(sizeof($GrupLi)>0)
+	{
+
 		$ttmi=-1;
-		foreach($GrupLi as $ttm=>$gl){ $ttmi++;
+		foreach($GrupLi as $ttm=>$gl)
+		{
+
+			$ttmi++;
 
 			$htmlmenu1='';
 
-			$htmlmenu0 = str_replace('{selected}','',$gl['open']); 
+			$htmlmenu0 = str_replace('{selected}','',$gl['open']);
 
-			if(sizeof($menus[$ttm])>0){
+			if(sizeof($menus[$ttm])>0)
+			{
 				
 				if($ttm==$this_grupo or $SERVER['ARCHIVO']=="maquina.php"){ $OpEn=$ttmi; }
 
 				$htmlmenu1 .= "<div class='mcontent'><ul>";
-				foreach($menus[$ttm] as $menn){
+				foreach($menus[$ttm] as $menn)
+				{
 					$htmlmenu1 .=$menn[0]; if( $menn[1] or $SERVER['ARCHIVO_REAL']=='maquina.php' ){ $htmlmenu0 = str_replace('{selected}','selected',$gl['open']); }
 				}
 				$htmlmenu1 .= "</ul></div>";
@@ -231,13 +256,17 @@ if($mostrar_menu){
 			$htmlmenu.=$htmlmenu0.$htmlmenu1.$htmlmenu2;
 
 		}
+
 	} else {
-		foreach($menus['general'] as $menn){
+
+		foreach($menus['general'] as $menn)
+		{
 			$htmlmenu .=$menn;
 		}
-	}
-	$htmlmenu .='</ul>';
 
+	}
+
+	$htmlmenu .='</ul>';
 
 	if(str_replace('Array','',$htmlmenu)=="<ul id='menu_main' class='ul_menus'></ul>"){
 

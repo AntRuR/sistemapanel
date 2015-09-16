@@ -23,6 +23,7 @@ $tablassincro="&tablas=".implode(",",$tblsinc);
 $mmenuu.= '<ul class="li_cabecera">';
 //$mmenuu.= '<li><a href="'.$SERVER['PANEL'].'" class="links_menu iconos ico_home" style="float:none;display:block;margin:0 1px;width:auto;" title="home"></a></li>';
 $mmenuu.= '<li><a href="maquina.php?tab=documentos" class="links_menu" title="documentos">docs</a></li>';
+$mmenuu.= '<li><a href="maquina.php?tab=procesos" class="links_menu" title="procesos">procesos</a></li>';
 $mmenuu.= '<li><a href="maquina.php?accion=config" class="links_menu" title="config" style="background-color:#FFF; color:#000;">conf ('.$get_num_vars.')</a></li>';
 $mmenuu.= '<li><a href="maquina.php?edicionpanel='. ( ($_SESSION['edicionpanel']=='1')?'0':'1' ).'" class="links_menu" style="background-color:'.( ($_SESSION['edicionpanel']=='1')?'#09A707':'#DE1010').';color:#FFF;" title="'.( ($_SESSION['edicionpanel']=='1')?'apagar':'encender').' edición panel">panel</a></li>';
 

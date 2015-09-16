@@ -78,13 +78,14 @@ function fechaChange(input){
 	var mm=$(input+'_m').value;
 	var dd=$(input+'_d').value;
 	var tt=$(input+'_t').value;
-	var time=(aa==''||mm==''||dd=='')?'':aa+'-'+mm+'-'+dd+' '+((tt=='')?'00':tt)+':00:00';
+	var time=(aa==''||mm==''||dd=='')?'':aa+'-'+mm+'-'+dd+' '+((tt=='')?'00:00:00':tt);
 	$(input).value=time;
 }
 
-function input_date(id_input,id_span,fromYear,toYear,sethoras){
+function input_date(id_input,id_span,fromYear,toYear,sethoras,justmonth){
 	var meses = new Array();
 	var horas = new Array();
+	var horas2= new Array();
 
 	meses[1]="Ene";
 	meses[2]="Feb";
@@ -124,35 +125,157 @@ function input_date(id_input,id_span,fromYear,toYear,sethoras){
 	horas[22]="10pm";
 	horas[23]="11pm";
 
-	var html = "<select id='"+id_input+"_d' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
-	html+= "<option></option>";
-	for(var i=1; i<=31;i++){
-	html+="<option value='"+ ( (i<10)?"0"+i:i) +"'>"+i+"</option>";
+	horas2[0]="12:00am";
+	horas2[1]="12:15am";
+	horas2[2]="12:30am";
+	horas2[3]="12:45am";
+	horas2[4]="1:00am";
+	horas2[5]="1:15am";
+	horas2[6]="1:30am";
+	horas2[7]="1:45am";
+	horas2[8]="2:00am";
+	horas2[9]="2:15am";
+	horas2[10]="2:30am";
+	horas2[11]="2:45am";
+	horas2[12]="3:00am";
+	horas2[13]="3:15am";
+	horas2[14]="3:30am";
+	horas2[15]="3:45am";
+	horas2[16]="4:00am";
+	horas2[17]="4:15am";
+	horas2[18]="4:30am";
+	horas2[19]="4:45am";
+	horas2[20]="5:00am";
+	horas2[21]="5:15am";
+	horas2[22]="5:30am";
+	horas2[23]="5:45am";
+	horas2[24]="6:00am";
+	horas2[25]="6:15am";
+	horas2[26]="6:30am";
+	horas2[27]="6:45am";
+	horas2[28]="7:00am";
+	horas2[29]="7:15am";
+	horas2[30]="7:30am";
+	horas2[31]="7:45am";
+	horas2[32]="8:00am";
+	horas2[33]="8:15am";
+	horas2[34]="8:30am";
+	horas2[35]="8:45am";
+	horas2[36]="9:00am";
+	horas2[37]="9:15am";
+	horas2[38]="9:30am";
+	horas2[39]="9:45am";
+	horas2[40]="10:00am";
+	horas2[41]="10:15am";
+	horas2[42]="10:30am";
+	horas2[43]="10:45am";
+	horas2[44]="11:00am";
+	horas2[45]="11:15am";
+	horas2[46]="11:30am";
+	horas2[47]="11:45am";
+	horas2[48]="12:00pm";
+	horas2[49]="12:15pm";
+	horas2[50]="12:30pm";
+	horas2[51]="12:45pm";
+	horas2[52]="1:00pm";
+	horas2[53]="1:15pm";
+	horas2[54]="1:30pm";
+	horas2[55]="1:45pm";
+	horas2[56]="2:00pm";
+	horas2[57]="2:15pm";
+	horas2[58]="2:30pm";
+	horas2[59]="2:45pm";
+	horas2[60]="3:00pm";
+	horas2[61]="3:15pm";
+	horas2[62]="3:30pm";
+	horas2[63]="3:45pm";
+	horas2[64]="4:00pm";
+	horas2[65]="4:15pm";
+	horas2[66]="4:30pm";
+	horas2[67]="4:45pm";
+	horas2[68]="5:00pm";
+	horas2[69]="5:15pm";
+	horas2[70]="5:30pm";
+	horas2[71]="5:45pm";
+	horas2[72]="6:00pm";
+	horas2[73]="6:15pm";
+	horas2[74]="6:30pm";
+	horas2[75]="6:45pm";
+	horas2[76]="7:00pm";
+	horas2[77]="7:15pm";
+	horas2[78]="7:30pm";
+	horas2[79]="7:45pm";
+	horas2[80]="8:00pm";
+	horas2[81]="8:15pm";
+	horas2[82]="8:30pm";
+	horas2[83]="8:45pm";
+	horas2[84]="9:00pm";
+	horas2[85]="9:15pm";
+	horas2[86]="9:30pm";
+	horas2[87]="9:45pm";
+	horas2[88]="10:00pm";
+	horas2[89]="10:15pm";
+	horas2[90]="10:30pm";
+	horas2[91]="10:45pm";
+	horas2[92]="11:00pm";	
+	horas2[93]="11:15pm";	
+	horas2[94]="11:30pm";	
+	horas2[95]="11:45pm";
+
+	var html = "";
+
+	if(justmonth=='1'){
+
+		html+= "<input id='"+id_input+"_d' type='hidden' value='01' />";
+
+	} else {
+
+		html+= "<select id='"+id_input+"_d' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+		html+= "<option></option>";
+		for(var i=1; i<=31;i++){
+		html+= "<option value='"+ ( (i<10)?"0"+i:i) +"'>"+i+"</option>";
+		}
+		html+= "</select>";
+
 	}
-	html+= "</select>";
 
 	html+= "<select id='"+id_input+"_m' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
 	html+= "<option></option>";
 	for(var i=1; i<=12;i++){
-	html+="<option value='"+ ( (i<10)?"0"+i:i) +"'>"+meses[i]+"</option>";
+	html+= "<option value='"+ ( (i<10)?"0"+i:i) +"'>"+meses[i]+"</option>";
 	}
 	html+= "</select>";
+
 	html+= "<select id='"+id_input+"_a' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
 	html+= "<option></option>";
 	for(var i=toYear; i>=fromYear;i--){
-	html+="<option value='"+i+"'>"+i+"</option>";
+	html+= "<option value='"+i+"'>"+i+"</option>";
 	}
+	html+= "</select>";
+
 	if(sethoras=='1'){
-	html+= "</select>";
-	html+= "<select id='"+id_input+"_t' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
-	html+= "<option></option>";
-	for(var i=0; i<24;i++){
-	html+="<option value='"+ ( (i<10)?"0"+i:i) +"'>"+horas[i]+"</option>";
+		html+= "<select id='"+id_input+"_t' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+		html+= "<option></option>";
+		for(var i=0; i<24;i++){
+		html+= "<option value='"+ ( (i<10)?"0"+i:i) +":00:00'>"+horas[i]+"</option>";
+		}
+		html+= "</select>";
+	} 
+	else if(sethoras=='2'){
+		var iii=0;
+		html+= "<select id='"+id_input+"_t' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+		html+= "<option></option>";
+		for(var i=0; i<24;i++){
+		for(var i2=0; i2<4;i2++){
+		html+= "<option value='"+ ( (i<10)?"0"+i:i) +":"+ ( (i2*15<10)?"0"+i2*15:i2*15) +":00'>"+horas2[iii++]+"</option>";
+		}
+		}
+		html+= "</select>";
+	} 
+	else {
+		html+= "<input id='"+id_input+"_t' type='hidden' />";
 	}
-	html+= "</select>";
-	} else {
-	html+= "<input id='"+id_input+"_t' type='hidden' />";
-	}
+
 	html+= "<input id='"+id_input+"' type='hidden' />";
 
 	$(id_span).innerHTML=html;
@@ -182,7 +305,8 @@ function fechaChangeFilterST(input){
 	var aa1=$('to_fs_'+input+'_a').value;
 	var mm1=$('to_fs_'+input+'_m').value;
 	var dd1=$('to_fs_'+input+'_d').value;
-	var time=(aa0==''||mm0==''||dd0==''||aa1==''||mm1==''||dd1=='')?'':input+"|"+aa0+"-"+mm0+"-"+dd0+"|"+aa1+"-"+mm1+"-"+dd1;
+	// var time=(aa0==''||mm0==''||dd0==''||aa1==''||mm1==''||dd1=='')?'':input+"|"+aa0+"-"+mm0+"-"+dd0+"|"+aa1+"-"+mm1+"-"+dd1;
+	var time=(aa0==''||mm0==''||dd0==''||aa1==''||mm1==''||dd1=='')?'':aa0+"-"+mm0+"-"+dd0+"|"+aa1+"-"+mm1+"-"+dd1;
 	$('filtr_fs_'+input).value=time;
 	render_filderST(input);
 
@@ -191,13 +315,33 @@ function fechaChangeFilterST(input){
 function render_filderRP(input){
 
 	var file='';
-	var vurl='f=';
-	if($('filtr_fs_'+input)){ vurl+=$('filtr_fs_'+input).value; }
-	$$('.option_report_file').each(function(ee){ if($(ee).checked){ file=$(ee).value; } });
+
+	var vurl='';
+
+
+	$$('.stfilters').each(function(ee){ 
+		if( $(ee).getProperty('id') == undefined ){
+			// alert( 'filtr_fs_'+input );
+			vurl+='&'+$(ee).getProperty('rel')+'='+$('filtr_fs_'+$(ee).getProperty('rel')).value;
+			
+		} else {
+			vurl+='&'+$(ee).getProperty('rel')+'='+$(ee).value;
+			// alert('&'+$(ee).getProperty('rel')+'='+$(ee).value);
+		}
+	});
+
+
+	// if($('filtr_fs_'+input)){ vurl+=$('filtr_fs_'+input).value; }
+	$$('.option_report_file').each(function(ee){ 
+		if($(ee).checked){ 
+			file=$(ee).value;
+		} 
+	});
 	if(file=='') return;
 
-	vurl = vurl + '&file='+file;
-	vurl="load_html_reportes.php?"+vurl;
+	vurl = 'file='+file + vurl;
+
+	vurl ="load_html_reportes.php?"+vurl;
 
 	new Request({url:vurl,  method:'get', evalScripts:true,onSuccess:function(ee){
 		$("html_reporte").innerHTML=ee;
@@ -216,8 +360,8 @@ function render_filderST(input)
 	url+='|'+$('filtr_fs_orderby').value+'|';
 	if($('filtr_fs_'+input)){ url+=$('filtr_fs_'+input).value; }
 	vurl=url;
-	url="load_estadistica.php?"+url;
-	swfobject.embedSWF("js/open-flash-chart.swf", "my_chart","550", "380", "9.0.0", "expressInstall.swf",{"data-file":url} );
+	// url="load_estadistica.php?"+url;
+	// swfobject.embedSWF("js/open-flash-chart.swf", "my_chart","550", "380", "9.0.0", "expressInstall.swf",{"data-file":url} );
 	load_html_estadistica(vurl);
 }
 function load_html_estadistica(vurl){
@@ -507,8 +651,8 @@ function abrir_repos(set,save){
 		load_repos();
 		$('inner').setStyles({'display':'none'});
 		// $('segunda_barra_2').setStyles({'display':'none'});
-		$('boton_excel').setStyles({'display':'none'});
-		$('boton_imprimir').setStyles({'display':'none'});				
+		if($('boton_excel')) $('boton_excel').setStyles({'display':'none'});
+		if($('boton_imprimir')) $('boton_imprimir').setStyles({'display':'none'});				
 		//alert('load_crear');
 
 	}
@@ -1086,3 +1230,27 @@ function render_obj(objeto){
 	return html;
 	// console.log(json);
 }
+
+function multi(name){
+	var tor = new Array();
+	var i=0;
+	$$(".multisele_"+name).each(function(ee){ 
+		if($(ee).checked){ 
+			tor[i++]=$(ee).value;
+		}
+	});
+	$('in_'+name).value=tor.join(',');
+
+}
+
+function render_multi(name,values){
+	// console.log(values);
+	if(values!=null){
+		var vales=values.split(',');
+		for(var i=0; i<vales.length;i++){
+		// console.log(name+'_'+vales[i]);
+		$(name+'_'+vales[i]).checked=true;	
+		}
+	}
+}
+

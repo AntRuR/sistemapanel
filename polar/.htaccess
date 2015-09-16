@@ -222,7 +222,7 @@ AddDefaultCharset utf-8
  	# panel
 	RewriteRule ^(panel|sistema|sistemas)/?$ panel/ [L,r=301,NC]
 	# temporal
-	RewriteRule ^index.php$ home [L,r=301,NC]
+	# RewriteRule ^index.php$ home [L,r=301,NC]
 
 	# url SEO
 	RewriteCond $1 !^(ajax\.php|index\.php|captcha|js|css|robots\.txt|humans\.txt)  

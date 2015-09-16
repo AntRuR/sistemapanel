@@ -20,7 +20,9 @@ color_1=rgba(#E1ECED,0.5) // bg barra principal
 // color_1=rgba(#5ab4e6,0.1) // bg barra principal
 
 color_2=#CF6A27 // color secundario // el naranja
-color_3=#136CB2 // color de links // el azul
+// color_2=#FA4B2A;
+color_3=#004B91 // color de links // el azul
+// color_3=#136CB2 // color de links // el azul
 color_4=#283442   // color de bg menú
 color_5=white // #fea100 // color de letra de menú // el blanco
 color_6=#fefef5 // #fea100 // color amarillo de resaltado
@@ -146,7 +148,7 @@ body
   color: color_0
   width: 100%
   text-align: center
-  background-color: #F9F9F9
+  background-color: white !important
   background-image: none !important
   padding 0
 
@@ -213,7 +215,7 @@ a,
   text-decoration: none
 
 a:hover
-  color: #CC6600
+  color: color_2
   text-decoration: underline
 
 .alink
@@ -245,8 +247,8 @@ a:hover
   font-weight: bold
   height: auto
   border-radius: 6px 6px 0 0
-  border-width: 1px
-  background: color_1 !important
+  border: 1px rgba(black,0.1) solid !important
+  // background: color_1 !important
   .titulo
     font-size: 2.1em
 
@@ -284,7 +286,7 @@ li.modificador:hover a.ie i
   position: relative
   width: auto
   height: auto
-  min-height: 14px
+  min-height: 31px
 
 .modificador_linea.bl .bld
   height: 1.5em
@@ -325,13 +327,13 @@ li.modificador:hover a.ie i
       float: left
       background: color_6
     select.form_input_fecha:nth-child(1)      
-      margin-right: -23px
+      margin-right: -24px
       margin-left: -6px   
     select.form_input_fecha:nth-child(2)      
-      margin-right: -23px
+      margin-right: -24px
       margin-left: 0   
     select.form_input_fecha:nth-child(3)      
-      margin-right: -23px
+      margin-right: -50px
       margin-left: 0                  
   .pale
     float: left
@@ -359,9 +361,9 @@ li.modificador:hover a.ie i
     height auto
 
 .currency
-  text-align right
+  text-align right !important
   display block
-  padding-right 3px
+  // padding-right 3px !important
 
 a
   .bl1
@@ -434,7 +436,7 @@ a
     margin-right 10px
     max-height 400px
     overflow auto
-    width 92px
+    width 15%
     li
       margin-bottom 5px
       a
@@ -457,7 +459,8 @@ a
           vertical-align sub
           margin-left 3px
   .bootones + div       
-    float left
+    float left     
+    width 83%    
   .floatinput
     display inline-block    
   .linea_form
@@ -736,8 +739,8 @@ ul.ul_menus_empty_si:before
           a
             display: block
             text-align: left     
-            padding: 0.6em 5px 0.6em 8px
-            font-size: 1.1em
+            padding: .5em 5px .5em 8px
+            font-size: 1.2em
             font-weight normal
             line-height 1.3em             
             span.number
@@ -1368,12 +1371,12 @@ li.bl:hover .oc a
   padding-top: 11px
 
 .modificador .lc
-  width: 30px
+  width: 28px
   top: 30px
   position: relative
   float: right
   margin-top: 6px
-  margin-left -30px
+  margin-left -39px
   padding-left 0px !important
 
 .bl .lc
@@ -1497,7 +1500,7 @@ li.bl:hover .oc a
 .modificador_grilla
   clear: left
   height: auto
-  padding-bottom: 10px
+  padding-bottom: 9px
   margin-bottom: 0px
   padding-top: 10px
   .nc
@@ -1533,7 +1536,7 @@ li.bl:hover .oc a
     top: none
   .itms_cont
     display inline-block
-    margin-right -100%
+    margin-right -200%
   .first_linea
     height: 60px !important    
     margin-top -12px
@@ -1588,7 +1591,7 @@ li.bl:hover .oc a
   .first_linea .hid2
     padding-top: 37px
   .bd
-    height 20px     
+    height 22px     
     font-size 1em 
     white-space nowrap
     text-overflow ellipsis
@@ -1663,6 +1666,12 @@ li.bl:hover .oc a
       a
         text-align left
         display block
+      a.popup
+        &:before
+          font-family 'icomoon'    
+          content "\e615"
+          width 15px
+          display inline-block
   .itmedit
     .formi
       width: 100%
@@ -1679,6 +1688,12 @@ li.bl:hover .oc a
     font-weight: normal
     margin-bottom: 2px
     float: none
+    a.popup
+      &:before
+        font-family 'icomoon'    
+        content "\e615"
+        width 15px
+        display inline-block    
     // padding-top: 5px
 
 
@@ -1862,7 +1877,15 @@ a.fmf:hover
 
 .editar_rapido .ldd .od
   display: block
+  
 
+.editar_rapido 
+  .ldd
+    height: auto !important
+  .first_linea .bld, .first_linea
+    height: auto !important
+    
+    
 .truc
   float: right
   width: 120px
@@ -2516,7 +2539,9 @@ div.loading
   display inline-block
   img
     opacity: 1
-    height: 30px
+    // height: 30px
+    max-width 150px
+    max-height 30px
     vertical-align bottom
   &:hover img
     opacity: 1
@@ -2591,6 +2616,8 @@ table.photos td img
 
 #ordenable
   min-height 0px
+  // overflow-y hidden
+  // overflow-x auto
 
 .boton_right
   float: right
@@ -3004,13 +3031,16 @@ a.ico_Crear
       input
         .rad
           float: right
-      a
-        background #FAF9F9
-        label
-          padding-left 0          
-      input:checked + a
-          background rgba(color_4,0.1)
-
+      label
+        padding 10px
+        box-sizing border-box          
+        min-height 60px
+        border-radius 5px 5px 0px 0px
+        background-color: #eee;
+        margin-right: 1px;        
+      input:checked + label
+        color: #fff !important;
+        background-color: #0088cc;
 .m_user 
   strong
     padding-left: 17px !important
@@ -3290,7 +3320,7 @@ body.quick
   position: absolute !important
   text-align: left !important
   z-index: 103 !important
-  box-shadow 0 1px 2px rgba(0,0,0,0.6) !important
+  box-shadow 1px 1px 20px rgba(0,0,0,0.6) !important
   border-radius 12px !important
   border 1px solid #f6f6f5 !important
   // border: 5px solid #FFFFFF !important
@@ -3330,6 +3360,7 @@ body.quick
 
 .modificador .ldd
   background: none !important
+  padding-right 40px
 
 .ToolTips
   background-color: transparent
@@ -3389,9 +3420,9 @@ strong.z,
 span.z,
 i.z
   font-family: 'icomoon'
-  color: #666 !important
-  font-size: 1.3em
-  margin-right: 5px !important
+  color: inherit !important
+  font-size: 1em !important
+  margin-right: 0.2em !important
 
 .bld .z
   float none
@@ -3586,7 +3617,8 @@ a.z:hover
 .ico_gm:before
   content: "\e6b3"
   color: #0E8A2E
-
+  font-family: 'icomoon'
+  
 .ico_Print:before
   content: "\e629"
   /*color:#136CB2;*/
@@ -3756,11 +3788,15 @@ i.zzz
 .ic_config:before
   content: "\e64a"
 
-.ic_ventas:before
+.ic_atenciones:before
   content: "\e61c"
+
+.ic_ventas:before
+  content: "\e61e"
 
 .ic_geoposicion:before
   content: "\e624"
+
 
 .ic_productos:before
   content: "\e61a"
@@ -3774,6 +3810,8 @@ i.zzz
 .ic_contenidos:before
   content: "\e61f"
 
+.ic_inmueble:before,
+.ic_inmuebles:before,
 .ic_proyectos:before
   content: "\e623"
 
@@ -3983,6 +4021,26 @@ li.editar_rapido:hover
   background-color: #EDF7FF !important
 
 
+.justlist
+  .menus,
+  .ul_menus,
+  .foot.bloque,
+  #ic_menu,
+  #ic_filters,
+  .logo_panel,
+  .link_header,
+  .filters,
+  .bloque_titulo #boton_imprimir,
+  .bloque_titulo #boton_excel,
+  #linea_buscador,
+  #buscar,
+  #msino  
+    display none
+  .div_bloque_cuerpo
+    margin-left 0  
+    margin-top -13px
+  .ToolTips
+    margin-right -100% !important
 
 
 
@@ -4281,4 +4339,26 @@ li.editar_rapido:hover
 
   
 
+
+.multisele
+  display inline-block
+  width auto 
+  height auto 
+  margin-left 3px
+  margin-bottom 1em
+  input
+    margin-right 1em
+  label
+    width auto
+    color black 
+    padding-left 0  
+
+
+.inner_listado
+  min-height 70vh    
+
+
+.modulo_login  
+  .inner_listado
+    min-height 0
 

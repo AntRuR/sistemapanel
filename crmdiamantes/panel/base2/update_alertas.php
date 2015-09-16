@@ -28,20 +28,26 @@ function ondlselect(id){
 		new Request({url:'base2/checkowner.php?cl='+id,  method:'get', onSuccess:function(ee) { 
 
 			var json=eval("(" + ee + ")");
-
+			// debugger;
 			//alert(json.user+' = <?php echo $_SESSION['usuario_id'];?>');
 
 			if(json.user!='<?php echo $_SESSION['usuario_id'];?>'){
 
 				//alert('de otro usuario');
+				console.log(ee);
+				console.log('pertenece a otro usuario');
 
 				$('span_id_cliente_dl').innerHTML='<span style="float:right;margin-left:4px;">es obligatorio validar los datos antes de grabar</span> <a rel="width:750,height:400" class="mb updateforeig" style="float:right !important;margin:0 !important;" href="formulario_quick.php?OT=clientes&amp;ran=1&amp;proceso=&amp;parent=VENTAS_ITEMS&amp;load='+encodeURIComponent(ee)+'"></a>';
 
 				$('in_id_cliente').value='';
 
+
 			} else {
 
 				$('span_id_cliente_dl').innerHTML='<a rel="width:750,height:400" class="mb crearforeig" style="float:right !important;margin:0 !important;" href="formulario_quick.php?OT=clientes&amp;ran=1&amp;proceso=&amp;parent=VENTAS_ITEMS"></a>';
+
+				console.log(ee);
+				console.log('le pertenece');
 
 			}
 

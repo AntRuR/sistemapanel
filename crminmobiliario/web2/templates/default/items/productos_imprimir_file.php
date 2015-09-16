@@ -48,7 +48,7 @@ table { font-size: 15px; border: 1px solid #ccc; border-radius: 5px; }
                     <div class="div_absoluto header-imprimir">
 					<?php 
 
-						echo "<img src='panel/config/logo.jpg' style='height:60px;'/>";
+						echo "<img src='panel/config/logo.jpg' style='height:60px;width:auto;'/>";
 
                     ?>
 					<div>

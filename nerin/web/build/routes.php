@@ -54,7 +54,10 @@ $routes=[
 
 		/* list filter / val */
 		'/(noticias|comunicados|fotos|videos)/(fecha)/(:any)/(:any)' => 'modulo=items&tab=$1&fil=$2&val=$3&friendly=$4',
+
 		
+		'/(clientes)$' => 'modulo=items&tab=$1',
+
 ];
 
 

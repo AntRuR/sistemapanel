@@ -6,7 +6,7 @@ $FORM=$OBJECT[$PARAMS['conector']]=array(
 
 	'nombre'         =>$PARAMS['conector']
 	//,'titulo'      =>'Recomienda a un amigo'
-	,'legend'        =>'Recomienda a un amigo'
+	,'legend'        =>'Recomienda'
 	,'ajax'          =>'1'
 	,'action'        =>'ajax.php?mode=form&tab='.$PARAMS['conector'].'&name='.$PARAMS['conector']	
 	//	,'url'       =>'index.php?modulo=app&tab=home'
@@ -18,27 +18,23 @@ $FORM=$OBJECT[$PARAMS['conector']]=array(
 	//,'pie'         =>'los campos con * son obligatorios'
 	,'tabla'         =>'recomendar'
 	,'campos'=>[							
-		[
+		'nombre_amigo'=>[
 			'label'      =>'',
-			'campo'      =>'nombre_amigo',
 			'validacion' =>"required",
 			'placeholder'=>'Nombre de tu Amigo',
 		],						
-		[
+		'email_amigo'=>[
 			'label'      =>'',
-			'campo'      =>'email_amigo',
 			'validacion' =>"required email",
 			'placeholder'=>'Email de tu Amigo',							
 		],
-		[
+		'nombre_pagina'=>[
 			'label'      =>'Título de la página',
-			'campo'      =>'nombre_pagina',
 			'tipo'       =>'hidden',
-			'value'      =>'Polar Bear',
+			'value'      =>'Nering',
 		],	
-		[
+		'url_pagina'=>[
 			'label'      =>'Dirección de la página',
-			'campo'      =>'url_pagina',
 			'tipo'       =>'hidden',
 			'value'      =>$SERVER['BASE'].$SERVER['url'],
 		]
@@ -47,16 +43,21 @@ $FORM=$OBJECT[$PARAMS['conector']]=array(
 );
 					
 	
+$FORM=pre_proceso_form($FORM);
 
+// prin($FORM);
 	
 if($_SERVER['REQUEST_METHOD']=='POST'){
+
+	// prin($_POST);
 			
 	//body_mensaje
 	$body_mensaje="";
 	foreach($FORM['campos'] as $CAMP){
+		if($CAMP['tipo']=='captcha') continue;
 		$data_insert[$CAMP['campo']['0']]=$_POST[$CAMP['campo']['0']];
 		switch($CAMP['tipo']){
-			case "input_text": case "input_hidden": $body_mensaje.="<tr><td nowrap><b>".$CAMP['label'].":</b></td><td style='padding-left:10px;'>".$_POST[$CAMP['campo']['0']]."</td></tr>"; break;
+			case "input_text": $body_mensaje.="<tr><td nowrap><b>".$CAMP['label'].":</b></td><td style='padding-left:10px;'>".$_POST[$CAMP['campo']['0']]."</td></tr>"; break;
 			case "textarea": $body_mensaje.="<tr><td colspan=2><b>".$CAMP['label'].":</b></td></tr><tr><td colspan=2>".$_POST[$CAMP['campo']['0']]."</td></tr>"; break;
 		}
 	}
@@ -159,6 +160,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	
 }				
 
+$OBJECT[$PARAMS['conector']]=$FORM;
+
+// prin($FORM);
 
 
 

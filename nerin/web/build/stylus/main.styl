@@ -2,7 +2,7 @@
 cd /Applications/MAMP/htdocs/sistemapanel/nerin
 stylus -w -c -u nib -m web/build/stylus/main.styl -o css/
 */
-
+9996eb7
 vendorx-prefixes = webkit moz official
 
 $IMAGES_PATH='../img'
@@ -80,10 +80,11 @@ $IMAGES_PATH='../img'
 			&:after
 				content ""
 				background: url($IMAGES_PATH/logo.jpg) no-repeat;
-				bottom 65px
+				background-size: 109px 126px;
+				bottom 20px
 				right 20px
-				width 156px
-				height 180px
+				width 109px
+				height 126px
 				position absolute				
 	// unslider		
 	ol.dots
@@ -303,7 +304,7 @@ $IMAGES_PATH='../img'
 			&:hover	
 			&.selected
 				a
-					color white		
+					color black		
 
 
 /**
@@ -324,9 +325,13 @@ $IMAGES_PATH='../img'
 .proyectos_ejecucion
 	.inner
 		ul
-			li
-				padding 10px 38px 0
+			display block
+			height 222px
+			align-items: center;
+		li
+				padding 31px 38px 0
 				width 100%
+				vertical-align middle		
 				.foto
 					margin-bottom 10px
 					display block
@@ -335,10 +340,10 @@ $IMAGES_PATH='../img'
 					font-weight bold
 					margin-bottom 3px
 		a
-			color white		
+			color black		
 	.arrow	
 		position absolute
-		top 22%
+		top 28%
 		color white
 		font-size 2.5em
 		&:prev
@@ -365,14 +370,14 @@ $IMAGES_PATH='../img'
 				a
 					background #5E5B58
 					padding 3px 13px
-					color white
+					color black
 					font-size 0.9em
 					text-transform uppercase
 					display block
 				&.active
 					a	
 						background transparent
-						color white
+						color black
 						text-decoration underline
 	section		
 		height 220px
@@ -383,12 +388,13 @@ $IMAGES_PATH='../img'
 					padding 10px 38px 0
 					.sub_item
 						display inline-block
-						width 33%
-						padding 0 2%
+						width 50%
+						padding 23px 2% 0
+						vertical-align top
 	.arrow	
 		position absolute
-		top 22%
-		color white
+		top 31%
+		color black
 		font-size 2.5em
 		&:prev
 		&:next

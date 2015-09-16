@@ -1,4 +1,5 @@
 <?php //á
+// prin('ax');
 ?><script>
 var styleinfi='<?php
 	if($SERVER['browser']=='Firefox'){
@@ -81,7 +82,8 @@ if($needs['mootooltips']){
 break;
 case "recargar":
 $1('refresh');
-new Request({url:"vista.php?OB="+MMEE+"&pag="+$v('pagina')+"&ran=1<?php echo $datos_tabla['get_id']?>",  method:'get', onSuccess:function(ee) {
+new Request({url:"vista.php?OB="+MMEE+"&pag="+$v('pagina')+"<?php echo $datos_tabla['get_id'].'&'.$SERVER['PARAMS']?>&ran=1",  method:'get', onSuccess:function(ee) {
+// console.log(ee);
 $('inner').innerHTML=ee;
 if($('resaltar').value!=''){
 $($('resaltar').value).highlight('#FF0', '#FFF');
@@ -199,12 +201,15 @@ foreach($tbcampos as $tbcampA){
 	 } elseif($tbcampA['tipo']=='pas'){
 		?>	if($v('in_<?php echo $tbcampA['campo']?>').trim()==''){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; }
 		if($v('in_<?php echo $tbcampA['campo']?>').trim()!=$v('in_<?php echo $tbcampA['campo']?>_2').trim()){ show_error(2,''); ret=false; } <?php
+	 } elseif($tbcampA['tipo']=='html'){ 
+	 	// ?>console.log( CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData() );<?php
+		?>if( CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData() =='' || CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData() =='<p></p>' ){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; } <?php
 	 } else {
 		?>if($v('in_<?php echo $tbcampA['campo']?>').trim()==''){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; } <?php
 	 }
  }
 }
-?> return ret;
+?>  return ret;
 break;
 case "resetear":
 <?php
@@ -339,6 +344,8 @@ parent.ax("recargar");
 } else { ?>
 ax("<?php echo $linkRecPagina;?>");
 if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'opacity':'1'});
+// alert('debe cerrar');
+abrir_crear('0','0');
 <?php } ?>
 } else if(Recargar=='sin_ajax'){
 location.reload();
@@ -609,7 +616,7 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 			?>$('in_<?php echo $tbcampA['campo']?>_a').value=fechaaa.substring(0,4);<?php
 			?>$('in_<?php echo $tbcampA['campo']?>_m').value=fechaaa.substring(5,7);<?php
 			?>$('in_<?php echo $tbcampA['campo']?>_d').value=fechaaa.substring(8,10);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_t').value=fechaaa.substring(11,13);<?php
+			?>$('in_<?php echo $tbcampA['campo']?>_t').value=fechaaa.substring(11,19);<?php
 			?>$('in_<?php echo $tbcampA['campo']?>').value=fechaaa;<?php
 			?>}<?php
 		} elseif($tbcampA['tipo']=='hid'){
@@ -636,6 +643,9 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 			if($tbcampA['directlink']){
 			?>$('in_<?php echo $tbcampA['campo']?>_dl').value=json.<?php echo $tbcampA['campo']?>_dl;<?php
 			}
+			if($tbcampA['multi']=='1'){
+				?>render_multi('<?php echo $tbcampA['campo']?>',json.<?php echo $tbcampA['campo']?>);<?php
+			}				
 		} elseif($tbcampA['tipo']=='pas'){
 			?>$('in_<?php echo $tbcampA['campo']?>_2').value=json.<?php echo $tbcampA['campo']?>;<?php
 			?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
@@ -1086,7 +1096,8 @@ var json=eval("(" + ee + ")");
 if(json.success=='1'){
 ax('e_a',id);
 $('sv_'+id).destroy();
-$('resaltar').value='i_'+id;
+$('resaltar').value='i_'+id; 
+// console.log("<?php echo $linkRecPagina;?>");
 ax("<?php echo $linkRecPagina;?>");
 <?php if($needs['img']){ ?>charge_multibox();<?php } ?>
 } else if(json.success=='0'){
@@ -1176,9 +1187,10 @@ $('bloque_content_stat').innerHTML=ee;
 
 function load_repos(){
 //$1('cargando_form');
-new Request({url:'repos.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',evalScripts:true,  method:'get', onSuccess:function(ee) {
+new Request({url:'repos.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',  method:'get', onSuccess:function(ee) {
 $('bloque_content_repos').setStyles({'display':''});
 $('bloque_content_repos').innerHTML=ee;
+eval($('evalScripts_repo').value);
 //pre_crear();
 //$0('cargando_form');
 } } ).send();

@@ -70,7 +70,7 @@ if($_GET['id_item']!=''){
 
 	$total=contar("productos_items_items","where id_item=".$_GET['id_item'],0);
 
-	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,4) and venta_fecha!='0000-00-00 00:00' and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
 
 	if(sizeof($items_items0)==0){
 		

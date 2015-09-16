@@ -14,7 +14,7 @@ array(
 
 $object['menu']=[
 					[
-						'label' =>'Home',
+						'label' =>'Inicio',
 						'url'   =>'index.php?modulo=app&tab=home',
 					],
 					[
@@ -68,6 +68,11 @@ $object['menu']=[
 					// 	'url'   =>'index.php?modulo=formularios&tab=compra-de-terrenos',
 					// 	'label' =>'Compra de Terremos',
 					// ],					
+					[
+						'url'   =>'index.php?modulo=items&tab=clientes',
+						'label' =>'Clientes',
+					],	
+
 					[
 						'url'   =>'index.php?modulo=formularios&tab=contacto',
 						'label' =>'Contáctenos',

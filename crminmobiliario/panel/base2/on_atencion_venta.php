@@ -1,5 +1,7 @@
 <?php //á 
 
+// prin($_GET);
+
 // echo "</div><div style='text-align:left;'>";
 
 
@@ -53,7 +55,22 @@ $fila=fila("
 			elseif($pedido->type=="deposito")
 				$tt="productos_depositos_items_items";
 
+
 			$fila0=fila("id_status",$tt,"where id=".$pedido->id,0,['status'=>['fila'=>['nombre,color','productos_stock_status','where id={id_status}',0]]]);						
+
+
+			if($tt=='productos_items_items'){
+				$id_item_item=$pedido->id;
+			}
+			if($tt=='productos_estacionamientos_items_items'){
+				$id_estacionamientos_item_item=$pedido->id;
+			}
+			if($tt=='productos_depositos_items_items'){
+				$id_depositos_item_item=$pedido->id;
+			}
+
+
+
 			// prin($fila);
 			
 			echo '<tr>';		
@@ -77,27 +94,31 @@ $fila=fila("
 
 	}
 
-
+// prin($fila);
 ?>
 <script>
 window.addEvent('domready',function(){
 
-	$('in_id_ventas_item').value           ='<?php echo $fila['id']; ?>';
-	$('in_id_cliente').value               ='<?php echo $fila['id_cliente']; ?>';
-	$('in_id_item').value                  ='<?php echo $fila['id_item']; ?>';
-	$('in_forma_pago').value               ='<?php echo $fila['forma_pago']; ?>';
-	$('in_pvlista').value                  ='<?php echo $fila['pvlista']; ?>';
-	$('in_pvpromocion').value              ='<?php echo $fila['pvpromocion']; ?>';
-	$('in_porcentaje_cuota_inicial').value ='<?php echo $fila['porcentaje_cuota_inicial']; ?>';
-	$('in_cuota_inicial').value            ='<?php echo $fila['cuota_inicial']; ?>';
-	$('in_saldo_financiar').value          ='<?php echo $fila['saldo_financiar']; ?>';
-	$('in_separacion').value               ='<?php echo $fila['separacion']; ?>';
-	$('in_id_usuario').value               ='<?php echo $fila['id_usuario']; ?>';
+	// alert('<?php echo $fila['forma_pago']; ?>');
+
+	$('in_id_ventas_item').value           	 ='<?php echo $fila['id']; ?>';
+	// $('in_id_cliente').value               	 ='<?php echo $fila['id_cliente']; ?>';
+	// $('in_id_item').value                  	 ='<?php echo $fila['id_item']; ?>';
+	$('in_forma_pago').value               	 ='<?php echo $fila['forma_pago']; ?>';
+	$('in_pvlista').value                  	 ='<?php echo $fila['pvlista']; ?>';
+	$('in_pvpromocion').value              	 ='<?php echo $fila['pvpromocion']; ?>';
+	$('in_porcentaje_cuota_inicial').value 	 ='<?php echo $fila['porcentaje_cuota_inicial']; ?>';
+	$('in_cuota_inicial').value            	 ='<?php echo $fila['cuota_inicial']; ?>';
+	$('in_saldo_financiar').value          	 ='<?php echo $fila['saldo_financiar']; ?>';
+	$('in_separacion').value               	 ='<?php echo $fila['separacion']; ?>';
+	$('in_id_usuario').value               	 ='<?php echo $fila['id_usuario']; ?>';
 
 	$('in_saldo_inmobiliaria').value         ='<?php echo $fila['saldo_inmobiliaria']; ?>';
 	$('in_saldo_inmobiliaria_cuotas').value  ='<?php echo $fila['saldo_inmobiliaria_cuotas']; ?>';
 	$('in_saldo_ahorro').value               ='<?php echo $fila['saldo_ahorro']; ?>';
 	$('in_saldo_ahorro_cuotas').value        ='<?php echo $fila['saldo_ahorro_cuotas']; ?>';
+
+	$('in_id_item_item').value        		 ='<?php echo $id_item_item; ?>';
 
 	// $('in_forma_pago').fireEvent('change');
 	if($('in_forma_pago').value=='1'){

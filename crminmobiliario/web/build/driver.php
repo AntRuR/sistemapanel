@@ -33,7 +33,7 @@ array(
 );
 
 
-
+//
 $Estructura['modulo=formularios&tab={contacto}']=
 array(
 //	'header'	=>$Block['header'],	
@@ -53,6 +53,8 @@ array(
 );
 
 
+//
+$Estructura['modulo=app&tab=redir']=array("MAIN");
 
 
 

@@ -19,7 +19,7 @@ $URLS=[];
 $routes=[
 
 	/* home */
-	'/home$' => 'modulo=app&tab=home',
+	'/$' => 'modulo=app&tab=home',
 	// 'index.php' => 'modulo=app&tab=home',
 
 	/* formularios */
@@ -79,7 +79,7 @@ $rename_controller_flip = array_flip($rename_controller);
 /***************  COMMON LINK  ****************/
 /**********************************************/
 
-$COMMON['url_home']           =procesar_url('index.php?modulo=app&tab=home');
+$COMMON['url_home']           =procesar_url('');
 $COMMON['url_contactenos']    =procesar_url('index.php?modulo=formularios&tab=contacto');
 $COMMON['url_boletin']        =procesar_url('index.php?modulo=formularios&tab=boletin');
 

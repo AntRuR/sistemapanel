@@ -70,7 +70,7 @@ if($extension == "jpg" || $extension == "gif" || $extension == "jpeg" || $extens
 
     if($img_valida == true)
     {
-	    if($file_size < 1024*1024*2)// 2Mb
+	    if($file_size < 1024*1024*20)// 20Mb
 	    {
             // si el temporal se subi correctamente hacer copias a imagesgrupos_temp
 	        if (is_uploaded_file($file_temp))
@@ -104,7 +104,7 @@ if($extension == "jpg" || $extension == "gif" || $extension == "jpeg" || $extens
 	    {
 	        ?>
 	        <script>
-	        parent.upload_err('<?php echo _("máximo 2Mb")?>','<?php echo $tb?>','<?php echo $campo?>');
+	        parent.upload_err('<?php echo _("máximo 20Mb")?>','<?php echo $tb?>','<?php echo $campo?>');
 	        </script>
 	        <?php
 	    }

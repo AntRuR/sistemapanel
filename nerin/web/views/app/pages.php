@@ -17,8 +17,11 @@ $ITEM=$OBJECT[$THIS];
 
         <?php if($ITEM['foto']!='') echo '<img '.$ITEM['get_atributos'].' />'; ?>
         
-        <?php echo $ITEM['texto']; ?>        
+        <?php echo $ITEM['texto'];?>        
     
+			<?php if($_GET['page']=='servicio-post-venta'){ ?>
+			<a class="btn btn-primary btn-sm pull-right" href="<?php echo $COMMON['url_contactenos'];?>">CONTACTO</a>
+			<?php } ?>
     	</div>
 
     </article>

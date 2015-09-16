@@ -14,13 +14,20 @@
     position: relative;
     font-weight: bold;
     min-width: 190px;
-    font-size: 1.2em;
+    font-size: 1em;
+}
+
+.torre .inmu .pares { 
+	font-weight: normal;
+	color: #333;
+	font-size: 11px;
 }
 
 .depositos .inmu.disponible,
 .estacionamientos .inmu.disponible,
 .departamentos .inmu.disponible { 
 	background-color: rgba(121, 242, 121, 0.7);
+	min-height: 20px;
 }
 .disponible a:hover {
 	text-decoration: underline;
@@ -31,6 +38,20 @@
 	cursor:not-allowed;
 }
 
+#estacionamientos .bloque, 
+#depositos .bloque { clear: left;}
+
+#estacionamientos .torre .inmu,
+#depositos .torre .inmu {
+   min-width: 40px;	
+}
+
+#estacionamientos .torre .inmu .pares,
+#depositos .torre .inmu .pares {
+	display:none;
+}
+
+/*
 .inmu.separado:before { 
 	content:"separado";
 	position: absolute;
@@ -38,19 +59,19 @@
 	font-variant: small-caps;	
 	color:white;
 	right: 3px;
-}
+}*/
 .inmu.vendido { 
 	background-color: rgba(253, 132, 132, 0.7);
 	cursor:not-allowed;
 }
-.inmu.vendido:before { 
+/*.inmu.vendido:before { 
 	content:"vendido";
 	position: absolute;
 	font-weight: normal;
 	font-variant: small-caps;
 	color:white;	
 	left: 3px;
-}
+}*/
 .inmu.agregado:after {
 	font-family: 'icomoon';
 	content:"\e682";
@@ -124,4 +145,39 @@ margin-right:0 !important;
 	margin-right: 0;
 	margin-top: 149px;
 	width: 100%;
+}
+body.quick {
+	padding-bottom: 50px;
+}
+body.quick .leyenda {
+	position: absolute;
+	bottom: 0px
+	left 0px;
+}
+body.quick .leyenda .inmu {
+	min-width: 20px;
+	min-height: 21px;
+}
+#myCarousel .item {
+	text-align: center;
+	line-height: 650px;
+	vertical-align: middle;
+}
+#myCarousel {
+	margin-bottom: 0px;
+}
+#myCarousel .item img {
+	max-height: 650px;
+	display: inline-block;
+}
+#jqistate_state1 .jqibuttons {
+	position: absolute;
+	right: 20px;
+	top: 10px;
+}
+.table-condensed th, .table-condensed td {
+	padding: 2px 5px;
+}
+#icontent1 h4 {
+	margin:9px 0;
 }

@@ -44,7 +44,7 @@
 							,'campo'=>array('texto')
 							,'tipo'=>'textarea'
 							,'validacion'=>"validate['required']"
-							,'value'=>array("Hola, te recomiendo visitar la página web MYHOUSE ASESORESINMOBILIARIOS\n\nmyhouse.com.pe	")							
+							,'value'=>array("Hola, te recomiendo visitar la página web NERING\n\nnering.net	")							
 							//,'value'=>array('')
 						)
 														

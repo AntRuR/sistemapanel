@@ -1,4 +1,0 @@
-panel
-=====
-readme
-ERP CORE

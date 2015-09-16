@@ -31,34 +31,58 @@ include("config/library.php");
 	//if($_GET['id']!=''){
 
 		$linea=select_fila(
-							array('id','id_cliente','pedido','id_item','id_usuario','id_status','pedido','cuota_inicial','saldo_financiar','separacion','pvpromocion'),
+							array(
+							"id",
+							"id_cliente",
+							"id_item",
+							"id_usuario",
+							"id_status",
+							"id_nivel",
+							"id_canal",
+							"forma_pago",
+							"pvlista",
+							"pvpromocion",
+							"porcentaje_cuota_inicial",
+							"cuota_inicial",
+							"separacion",
+							"saldo_financiar",
+							"id_banco",
+							"id_sectorista",
+							"pedido",
+							'sectorista_nombre','sectorista_email','sectorista_telefono','id_banco','id_sectorista',
+							'id_promocion'
+							),
 							'ventas_items',
 							'where id='.$_GET['id'],
 							0,
 							array(
-								'cliente'	=>array('fila'=>array('nombre,apellidos,genero,email,dni','clientes','where id="{id_cliente}"')),
-								'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
+								'cliente'	=>array('fila'=>array('empresa,nombre,apellidos,genero,email,dni,telefono,telefono_oficina,celular_claro,celular_movistar,nextel','clientes','where id="{id_cliente}"')),
+								'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma,telefono_oficina,celular_claro,celular_movistar','usuarios','where id="{id_usuario}"')),
+								// 'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
 								//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
 								//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
-								'item'		=>array('fila'=>array('nombre,descripcion5','productos_items','where id="{id_item}"')),							
+								'item'		=>array('fila'=>array('nombre,descripcion5','productos_items','where id="{id_item}"',0)),							
 								// 'item_item'	=>array('fila'=>array('nombre,numero,id_items_tipo','productos_items_items','where id="{id_items_item}"')),							
 								// 'cuenta'	=>array('fila'=>array('nombre,logo,fecha_creacion,dominio','envios_cuentas','where id="{id_cuenta_email}"',0,
 								// 		array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
 								// 	)
 								// ),							
+								'sectorista'=>array('fila'=>array('nombre,apellidos,email,telefono','bancos_sectoristas','where id="{id_sectorista}"')),
+								'banco'=>array('fila'=>array('nombre','bancos','where id="{id_banco}"')),
+								'promocion'=>array('fila'=>array('texto','promociones','where id="{id_promocion}"')),
 							)							
 						);
 
 
-		// prin($linea);
+	// prin($linea);
 
 
 
 
-	$style=render_style();
+	$styles=render_style();
 
 
-	// $tableProps='width="100%" cellpadding="0" cellspacing="0" border="0" ';						
+	// $tableProps='width="100%" cellpadding="0" cellspacing="0" border="0" ';	ÏÏ					
 
 
 		// $producto['ficha']=fix_ficha($producto['ficha']);
@@ -117,11 +141,20 @@ include("config/library.php");
 
 		$pblocks[]=render_total($linea,$suma);
 
+
+		if($linea['id_promocion']!=''){
+
+			$pblocks[]=render_promocion($linea);
+
+		}
+
 		$pblocks[]=render_vendedor($linea);
 
 		// $pblocks[]=render_caracteristicas_inmueble($pdepartamentos['0']);
 
 		$pblocks[]=render_caracteristicas_proyecto($linea);
+
+		// prin($pdepartamentos);
 
 		$pblocks[]=render_plano(extract_departamentos($pdepartamentos['0']['id']),$pdepartamentos['0']['price']);
 
@@ -138,7 +171,7 @@ include("config/library.php");
 		
 
 		$Producto=str_replace("\\\"","\"",$html);
-
+		// echo $Producto;
 
 
 			if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -195,13 +228,14 @@ include("config/library.php");
 				$email_cliente=enviar_email(
 							array(
 							'emails'=>array(
+											'ecanevello@schgrupo.com',
 											'guillermolozan@gmail.com',
 											$linea['cliente']['email'],
 											$linea['usuario']['email'],
 											'wtavara@prodiserv.com',
 											)
 							,'Subject'=>$_POST['subject']
-							,'body'=>$_POST['msg'].$styles
+							,'body'=>$_POST['msg'].$style
 							,'From'=>$linea['usuario']['email']
 							,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos'] 
 							,'Logo'=>$linea['cuenta']['logo']
@@ -257,7 +291,7 @@ include("config/library.php");
 							'campo'			=> 'texto',
 							'label'			=> '',
 							'tipo'			=> 'html',
-							'style'			=> 'width:750px;height:400px;',
+							'style'			=> 'width:650px;height:400px;',
 							'width'			=> '100px',
 							'derecha'		=> '1',
 							//'css'			=> 'table { width:100%; margin-bottom:10px; background:none; } table td, table th { border:0 !important; padding:0px !importat;}',
@@ -277,8 +311,7 @@ include("config/library.php");
 								'INMUEBLE'          =>$linea['item']['nombre'].' - '.$linea['item_item']['nombre'].' '.$linea['item_item']['numero'],
 								'FICHA'             =>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
 								'FIRMA'             =>str_replace("'","\"",$linea['usuario']['firma']),
-								'IMPRIMIR'          =>str_replace("'","\"","<a href='http://crminmobiliario.info/cotizacion/".$linea['id']."'>IMPRIMIR</a>"),
-
+								'IMPRIMIR'          =>str_replace("'","\"","<a href='http://crmsche.info/cotizacion/".$linea['id']."/imprimir'>IMPRIMIR</a>"),
 							)
 					),
 
@@ -291,7 +324,7 @@ include("config/library.php");
 	<div>
 		<?php
 		?>	
-		<div class="bloque_content_crear" style="width:800px;" >
+		<div class="bloque_content_crear" style="width:1000px;" >
 	    <ul class="formulario">
 		<?php 
 		include('formulario_campos.php'); ?>
@@ -384,5 +417,5 @@ include("config/library.php");
 	</div>
 <script language="JavaScript" type="text/javascript"> 
 	window.moveTo(0,0); 
-	window.resizeTo(900,750); 
+	window.resizeTo(1080,750); 
 </script> 

@@ -1,5 +1,28 @@
 <?php
 
+function tipo_cambio($from,$to){
+
+	$compras=select(
+		"compra",
+		"tipo_cambio",
+		"where
+		date(periodo) between '".$from."' and '".$to."' ",
+		0
+		);
+
+	if($compras==false) return 2.81;
+
+	$num=sizeof($compras);
+	$sum=0;
+	foreach($compras as $compra){
+		$sum+=$compra['compra'];
+	}
+
+	$compra=round($sum/$num,2);
+
+	return $compra;
+
+}
 
 	$seccion=array();
 
@@ -55,9 +78,9 @@ if($_GET['id_item']!=''){
 
 
 	// prin($total);
-	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
-	$estacionamientos_items0=select("id,id_status,venta_precio,venta_fecha","productos_estacionamientos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
-	$depositos_items0=select("id,id_status,venta_precio,venta_fecha","productos_depositos_items_items","where id_status in (3,4) and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+	$items_items0=select("id,id_status,venta_precio,venta_fecha","productos_items_items","where id_status in (3,4) and venta_fecha!='0000-00-00 00:00' and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+	$estacionamientos_items0=select("id,id_status,venta_precio,venta_fecha","productos_estacionamientos_items_items","where id_status in (3,4) and venta_fecha!='0000-00-00 00:00' and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
+	$depositos_items0=select("id,id_status,venta_precio,venta_fecha","productos_depositos_items_items","where id_status in (3,4) and venta_fecha!='0000-00-00 00:00' and venta_fecha is not null and id_item=".$_GET['id_item']." order by venta_fecha asc",0);
 
 
 	// prin($items_items0);
@@ -114,7 +137,14 @@ if($_GET['id_item']!=''){
 	foreach($intervalos as $yy=>$interva)
 	{
 
-		$items_items_bloque=select("area_construida,id,id_status,venta_precio,area_construida","productos_items_items","where id_status in (3,4) and id_item=".$_GET['id_item']." and date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' order by venta_fecha asc",0);
+		$items_items_bloque=select(
+									"area_construida,id,id_status,venta_precio,area_construida",
+									"productos_items_items",
+									"where 
+									id_status in (3,4) and 
+									id_item=".$_GET['id_item']." and
+									date(venta_fecha) between '".$interva['from']."' and '".$interva['to']."' 
+									order by venta_fecha asc",0);
 		// prin($items_items_bloque);
 		$area=$precio=0;
 		foreach($items_items_bloque as $iib){
@@ -129,7 +159,8 @@ if($_GET['id_item']!=''){
 
 		// prin($acumulado);
 
-		$TC=2.81;
+		$TC=tipo_cambio($interva['from'],$interva['to']);
+
 		$PPP=2000;
 
 		$datos[$yy]=array(
@@ -148,17 +179,21 @@ if($_GET['id_item']!=''){
 						'9'=>format_excel( 100*( $num_acumulado / $total ) ) ,
 						'10'=>format_excel( 100*( ( $num_acumulado / $total ) / ($yy+1)) ),
 						//extra
-						'11'=>format_excel(($precio/$area)/$TC),	
+						'11'=>format_excel( ($precio/$area)/$TC ),
 						'12'=>($precio/$area)/$TC,	
 						);
 
 		if($interva['year']!=$year ){
+
 			$year=$interva['year'];
 			$yyy[]=$interva['year'];
 			if($acumulado!=1)$nnn[]=$acumulado;
 			$acumulado=1;
+
 		} else {
+
 			$acumulado++;
+
 		}
 
 	}

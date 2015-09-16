@@ -24,12 +24,23 @@ body { background: #F5F8FA!important ;}
 
 .ul_menus li.group a.padre {
 
-    background: #004532;
+    /*background: #004532;*/
+    background: #3579B6;
     
 }
 
+#msino:before,
+a:hover,
+.formulario label,
+.ul_menus li.group .mcontent ul li.seccion b, 
+.ul_menus li.group .mcontent ul li.seccion:hover b {
+    color : #fc065d;
+}
 
-
+.bloque_titulo,
+.ul_menus li.group .mcontent ul li.selected {
+    background: #d0e6ef !important;
+}
 
 
 
@@ -87,9 +98,9 @@ ul.ul_menus li.seccion b {
 
 /*body,*/
 
-.formulario, .bloque_titulo {
+/*.formulario, .bloque_titulo {
     border-color: #E1E8ED !important;
-}
+}*/
 
 .lead {
 margin-bottom:0;
@@ -165,10 +176,10 @@ text-transform: capitalize;
 }
 
 
-.modulo_productos_ventas .filters { display: none; }
+/*.modulo_productos_ventas .filters { display: none; }*/
 .modulo_productos_ventas .bloque_content_repos input { display: none; }
 .modulo_productos_ventas .fst li label { width: 160px !important; }
-.modulo_productos_ventas .fst li input[type="radio"]:checked+label{ color: #CF6A27 !important; } 
+/*.modulo_productos_ventas .fst li input[type="radio"]:checked+label{  } */
 
 
 .reporte_corto { width: 670px !important; }

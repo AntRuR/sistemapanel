@@ -28,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 
 echo $sn3;
 
-$rrr='51';
+$rrr='89';
 
 // prin($MEEE);
 
@@ -169,9 +169,9 @@ else
 	// prin($needs);
 	//EDIT HTML
 	//if(1){
-	if($needs['html'] or $SERVER['ARCHIVO']=='pop.php'){
+	if($needs['html'] or $SERVER['ARCHIVO_REAL']=='pop.php'){
 
-	?><script type="text/javascript" src="<?php echo $sn2?>js/ckeditor/ckeditor.js"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/ckeditor/ckeditor.js?r=<?php echo $rrr;?>"></script><?php	
 
 	/*
 	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/MooEditable.css"><?php

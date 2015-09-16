@@ -80,6 +80,8 @@ $OpcionesTabla['ventas_alertas']['cumplido'][1]='si';
 $OpcionesTabla['ventas_alertas']['cumplido'][0]='no';
 $OpcionesTabla['ventas_cuentas']['enabled'][1]='si';
 $OpcionesTabla['ventas_cuentas']['enabled'][0]='no';
+$OpcionesTabla['usuarios3']['genero'][1]='Masculino';
+$OpcionesTabla['usuarios3']['genero'][2]='Femenino';
 $OpcionesTabla['usuarios2']['genero'][1]='Masculino';
 $OpcionesTabla['usuarios2']['genero'][2]='Femenino';
 $OpcionesTabla['usuarios']['genero'][1]='Masculino';
@@ -89,6 +91,7 @@ $OpcionesTabla['usuarios']['status'][2]='Cesado';
 $OpcionesTabla['usuarios_permisos']['multiusuario'][2]='Multi Grupo';
 $OpcionesTabla['usuarios_permisos']['multiusuario'][1]='Multi Total';
 $OpcionesTabla['usuarios_permisos']['multiusuario'][0]='Individual';
+$OpcionesTabla['usuarios_permisos']['multiusuario'][3]='Registro';
 /*OPCIONES-END*/
 
 ?>

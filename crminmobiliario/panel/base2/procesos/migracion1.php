@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * 
+ descripción de migración 1
+ * 
+ */
 
 function ReiniciarAtenciones(){
 

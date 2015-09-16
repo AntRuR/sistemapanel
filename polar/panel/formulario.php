@@ -2,6 +2,8 @@
 
 include("objeto.php");
 	
+// prin($datos_tabla);
+
 ?>
 <ul class="formulario <?php echo ($_GET['view'])?'view':''; ?>">
 	<?php

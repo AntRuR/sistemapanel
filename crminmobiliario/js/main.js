@@ -25,6 +25,7 @@ require([jspath+"/jquery-1.10.2.min.js"], function() {
 			require([jspath+"/lightbox/jquery.magnific-popup.min.js"], function() {
 				
 				loadCss(csspath+"/lightbox/magnific-popup.css");
+
 				$('.image-gallery').magnificPopup({
 			        delegate: 'a',
 					type:'image',
@@ -78,7 +79,7 @@ require([jspath+"/jquery-1.10.2.min.js"], function() {
 			            	return element.find('img');
 			            }
 			        },					
-				});		        		
+				});
 
 			});
 

@@ -94,7 +94,7 @@ foreach($lineas as $key=>$linea)
             // // [IMPORT] => 1,1/3/14,F/ 003-6875,INVERSIONES COMERCIALES JF S.A.C.,NO TIENE OC ,INCAPOWER B30,LHBP41TR1DN210159,"11,030.80",PROVINCIA,J.MALPARTIDA,,PROVINCIA NO SE HACE TRAMITE ,,,,
 
 
-    
+
 
 // echo "csv: ".sizeof($buf)."<br>";
 

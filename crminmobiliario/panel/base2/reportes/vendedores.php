@@ -1,5 +1,5 @@
 <?php
-
+// prin($_GET);
 // prin($SERVER);
 // prin($_SERVER);
 // exit();
@@ -7,7 +7,17 @@
 
 $_GET['ob']='VENTAS_ITEMS';
 
-list($date,$from,$to)=explode("|",$_GET['f']);
+$date='fecha_creacion';
+
+$context='';
+
+if($_GET['id_item']!=''){
+
+	$context="and id_item='".$_GET['id_item']."'";
+	
+}
+
+list($from,$to)=explode("|",$_GET['fecha_creacion']);
 
 
 $OBJ=$datos_tabla=procesar_objeto_tabla($objeto_tabla[$_GET['ob']]);
@@ -293,7 +303,8 @@ if($rango<=30){
 } elseif($rango>90 and ( ($rango<=366 and $bisi=1) or ($rango<=365 and $bisi=0) ) ){
 	$op=array('M','D'); //2,3,4
 } elseif($rango>365){
-	$op=array('A','M'); //2,3,4
+	$op=array('M','D'); //2,3,4
+	// $op=array('A','M'); //2,3,4
 }
 
 
@@ -326,7 +337,10 @@ foreach($intervalos as $vv){
 					"$ordby as nombre, count(*) as total,usuarios.id_jefe as id_jefe",
 					$datos_tabla['tabla'],
 					"left join usuarios on ventas_items.id_usuario=usuarios.id
-					where ventas_items.visibilidad!=0 and date(ventas_items.$date)='$vv'
+					where 
+					ventas_items.visibilidad!=0 
+					and date(ventas_items.$date)='$vv'
+					$context
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);
@@ -342,7 +356,10 @@ foreach($intervalos as $vv){
 					"$ordby as nombre, count(*) as total,usuarios.id_jefe as id_jefe",
 					"ventas_items",
 					"left join usuarios on ventas_items.id_usuario=usuarios.id 
-					where ventas_items.visibilidad!=0 and date(ventas_items.$date) between '".str_replace("|","' and '",$vv)."'
+					where 
+					ventas_items.visibilidad!=0 
+					and date(ventas_items.$date) between '".str_replace("|","' and '",$vv)."'
+					$context
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);

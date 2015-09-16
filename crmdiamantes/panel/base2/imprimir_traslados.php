@@ -12,16 +12,9 @@ header ("Pragma: no-cache");
 
 */
 
-/*
+// die('wait');
 
-echo "<pre>";
-
-print_r(array($SS,$PP,$II,$TT,$II,$LL));
-
-echo "</pre>";
-
-*/
-
+if(0)
 if($LL['numero_guia']!=''){
 
 	$numguia=$LL['numero_guia'];
@@ -68,6 +61,8 @@ function render_file($OO,$LL){
 
 $LL=showRenderData($OO,$LL);
 
+
+
 $max=0;
 
 $ttt=0;
@@ -84,7 +79,6 @@ $OOOO[$ttt][]=$obj;
 
 }
 
-//prin($MAX);
 
 $html='';
 
@@ -150,6 +144,7 @@ $content.=render_file($OO,$LL);
 
 $LL0=$LL;
 
+
 // prin($LL0);
 
 $LL=showRenderData($OO,$LL);
@@ -175,7 +170,9 @@ $LL['ruc']=$LL['ruc'];
 
 
 $TEMP=fila(array("direccion as v"),"productos_ubicaciones","where id=".$LL0['id_ubicacion_llegada'],0);
-// prin($TEMP);
+if($TEMP['v']==NULL)
+$TEMP=fila(array("nombre as v"),"productos_ubicaciones","where id=".$LL0['id_ubicacion_llegada'],0);
+
 
 $LL['id_ubicacion_llegada']=$TEMP['v'];
 
@@ -315,7 +312,7 @@ table.cuadro td.valuewhite { font-weight:normal; width:580px;font-size: 12px; co
 
 <page style="font-size: 10px">
 
-<div class="codigo">copia: '.$numguia.'</div>
+<div class="codigo">copia: '.$LL['numero_guia'].'</div>
 
 
 
@@ -466,7 +463,7 @@ table.cuadro td.valuewhite { font-weight:normal; width:580px;font-size: 12px; co
 </page>';
 
 
-
+	if(0)
 	if($subir==1){
 
 	switch($_SESSION['usuario_id']){

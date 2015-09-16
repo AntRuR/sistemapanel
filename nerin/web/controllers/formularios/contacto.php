@@ -16,58 +16,58 @@ include_once("formularios/formularios.php");
 			,'submit'=>' type="submit" value="Enviar Mensaje" class="btn btn-primary btn-sm" '	
 			,'pie'=>'los campos con * son obligatorios'
 										
-,'tabla'=>'contacto'
-,'campos'=>[
-	'apellidos'=>[
-		'label'      =>'Apellidos',
-		'validacion' =>"required"
-	],	
-	'nombre'=>[
-		'label'      =>'Nombre',
-		'validacion' =>"required"
-	],	
-	'telefono'=>[
-		'label'      =>'Teléfono Fijo',
-		'validacion' =>"Tel"
-	],
-	'celular'=>[
-		'label'      =>'Celular',
-		'validacion' =>"Tel"
-	],	
-	'email'=>[
-		'label'      =>'E-mail',
-		'validacion' =>"Tel required"
-	],
-	'distrito'=>[
-		'label'=>'Distrito'
-	],		
-	'provincia'=>[
-		'label'=>'Provincia'
-	],						
-			
-	'como_se_entero'=>[
-		'label'    =>'Cómo se enteró de nosotros',
-		'tipo'     =>'input_combo',
-		'opciones' =>['1'=>'Web','2'=>'Páginas Amarillas','3'=>'Mailing','4'=>'Publicidad de vehículos','5'=>'Recomendación de clientes','6'=>'Redes Sociales (Facebook, Twitter)']
-	],
+	,'tabla'=>'contacto'
+	,'campos'=>[
+		'apellidos'=>[
+			'label'      =>'Apellidos',
+			'validacion' =>"required"
+		],	
+		'nombre'=>[
+			'label'      =>'Nombre',
+			'validacion' =>"required"
+		],	
+		'telefono'=>[
+			'label'      =>'Teléfono Fijo',
+			'validacion' =>"Tel"
+		],
+		'celular'=>[
+			'label'      =>'Celular',
+			'validacion' =>"Tel"
+		],	
+		'email'=>[
+			'label'      =>'E-mail',
+			'validacion' =>"Tel required"
+		],
+		'distrito'=>[
+			'label'=>'Distrito'
+		],		
+		'provincia'=>[
+			'label'=>'Provincia'
+		],						
+				
+		'como_se_entero'=>[
+			'label'    =>'Cómo se enteró de nosotros',
+			'tipo'     =>'input_combo',
+			'opciones' =>['1'=>'Web','2'=>'Páginas Amarillas','3'=>'Mailing','4'=>'Publicidad de vehículos','5'=>'Recomendación de clientes','6'=>'Redes Sociales (Facebook, Twitter)']
+		],
 
-	'comentario'=>[
-		'label'       =>'Déjenos su consulta'
-		,'tipo'       =>'textarea'
-		,'validacion' =>"required"
-		//,'value'=>['')
-	],		
-	// 'captcha'=>[
-	// 	'tipo'=>'captcha'
-	// ]							
-],	
+		'comentario'=>[
+			'label'       =>'Déjenos su consulta'
+			,'tipo'       =>'textarea'
+			,'validacion' =>"required"
+			//,'value'=>['')
+		],		
+		// 'captcha'=>[
+		// 	'tipo'=>'captcha'
+		// ]							
+	],	
 					
 					
 );
 			
 						
 			$FORM=pre_proceso_form($FORM);
-		
+			
 			
 			if($_SERVER['REQUEST_METHOD']=='POST'){
 						
@@ -81,7 +81,7 @@ include_once("formularios/formularios.php");
 				// 	exit();
 
 				// }	
-
+				// prin($_POST);
 				//body_mensaje
 				$body_mensaje="";
 				foreach($FORM['campos'] as $CAMP){
@@ -177,7 +177,7 @@ include_once("formularios/formularios.php");
 			
 			}			
 
-
+// prin($FORM);
 
 $OBJECT[$PARAMS['conector']]=$FORM;
 

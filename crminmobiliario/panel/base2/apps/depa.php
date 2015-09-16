@@ -11,13 +11,14 @@ include("lib/playmemory.php");
 
 include("objeto.php");
 
+// prin($_GET);
 
 $JAVASCRIPT_FRAMEWORK="jquery";
 
 // $EXTRA_JSS[]="http://dl.dropboxusercontent.com/u/40036711/jquery.hovercard.min.js";
 // $EXTRA_JSS[]="base2/project_map.js";
 
-$EXTRA_CSSS[]="base2/apps/depa.css?v=42";
+$EXTRA_CSSS[]="base2/apps/depa.css?v=71";
 
 include("head.php");
 
@@ -74,13 +75,15 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 				<?php
 
+				$avista=array('1'=>'Int','2'=>'Ext');
+
 				$torres=select("id,nombre","productos_subgrupos","where id_item=".$id_project);
 
 				echo "<ul class='torres'>";
 				foreach($torres as $it=>$torre){
 					
 					$inmuebles=select(
-						"id,numero,pvpromocion as precio,id_status",
+						"id,numero,pvpromocion as precio,id_status,vista,area_construida,area_total",
 						"productos_items_items",
 						"where id_subgrupo=".$torre['id']." order by numero asc",0);
 
@@ -99,30 +102,44 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 			</div>
 
+		<?php 
+
+		$tipos=array('1'=>'Piso 1','2'=>'Sótano 1','3'=>'Sótano 2','4'=>'Sótano 3','5'=>'Sótano 4');
+
+		?>
+
 			<div class="tab-pane" id="estacionamientos">
 
 				<?php
 
-				$torres=select("id,nombre","productos_subgrupos","where id_item=".$id_project);
+				$torres=select("id,nombre","productos_subgrupos","where id_item=".$id_project,0);
 
-				echo "<ul class='torres'>";
 				foreach($torres as $it=>$torre){
-					
-					$inmuebles=select(
-						"id,numero,precio,id_status",
-						"productos_estacionamientos_items_items",
-						"where id_subgrupo=".$torre['id']." order by numero asc",0);
 
-					// $inmuebles=sample_inmuebles();//DEMO
-					if(sizeof($inmuebles)==0) continue;
+					echo "<ul class='torres'>";
 
-					echo  "<li class='bloque'>"
-						 ."<h6>".$torre['nombre']."</h6>"
-						 .render_inmuebles($inmuebles,$torre['nombre'],$it,"estacionamientos")
-						 ."</li>";
+					foreach($tipos as $idtipo=>$tipo){ 
+
+							$inmuebles=select(
+								"id,numero,precio,id_status,tipo",
+								"productos_estacionamientos_items_items",
+								"where id_subgrupo=".$torre['id']." and tipo=".$idtipo." order by numero asc",0);
+
+							// $inmuebles=sample_inmuebles();//DEMO
+							if(sizeof($inmuebles)==0) continue;
+
+							// echo "|".sizeof($inmuebles)."|";
+
+							echo  "<li class='bloque'>"
+								 ."<h6>".$torre['nombre']." - ".$tipo."</h6>"
+								 .render_inmuebles($inmuebles,$torre['nombre'],$it,"estacionamientos")
+								 ."</li>";
+
+					}
+
+					echo "</ul>";
 
 				}
-				echo "</ul>";
 
 				?>
 
@@ -134,24 +151,30 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 				$torres=select("id,nombre","productos_subgrupos","where id_item=".$id_project);
 
-				echo "<ul class='torres'>";
 				foreach($torres as $it=>$torre){
 					
-					$inmuebles=select(
-						"id,numero,precio,id_status",
-						"productos_depositos_items_items",
-						"where id_subgrupo=".$torre['id']." order by numero asc",0);
+					echo "<ul class='torres'>";
 
-					// $inmuebles=sample_inmuebles();//DEMO
-					if(sizeof($inmuebles)==0) continue;
+					foreach($tipos as $idtipo=>$tipo){ 
 
-					echo  "<li class='bloque'>"
-						 ."<h6>".$torre['nombre']."</h6>"
-						 .render_inmuebles($inmuebles,$torre['nombre'],$it,"depositos")
-						 ."</li>";
+						$inmuebles=select(
+							"id,numero,precio,id_status,tipo",
+							"productos_depositos_items_items",
+							"where id_subgrupo=".$torre['id']." and tipo=".$idtipo." order by numero asc",0);
+
+						// $inmuebles=sample_inmuebles();//DEMO
+						if(sizeof($inmuebles)==0) continue;
+
+						echo  "<li class='bloque'>"
+							 ."<h6>".$torre['nombre']."</h6>"
+							 .render_inmuebles($inmuebles,$torre['nombre'],$it,"depositos")
+							 ."</li>";
+
+					}
+
+					echo "</ul>";
 
 				}
-				echo "</ul>";
 
 				?>
 
@@ -174,67 +197,92 @@ $proyecto=fila("nombre","productos_items","where id=".$id_project);
 
 function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 
+	global $avista;
+
 	$status=[
 	'1'=>'disponible',
 	'2'=>'separado',
 	'3'=>'vendido',
+	'4'=>'vendido',
 	];
 
 	$iii=array();
 
 	foreach($inmuebles as $inm)
 	{	
+		if($tipo=="departamentos"){
+
 			$piso=intval($inm['numero']*0.01);
 			$iii[$piso][$inm['numero']]=$inm;
+
+		} else {
+
+			if(is_numeric(substr($inm['numero'],0,1)))
+				$iii[0][$inm['numero']]=$inm;
+			else {
+				$letra=substr($inm['numero'],0,1);
+				$numer=substr($inm['numero'],1);
+				$numer=str_pad($numer, 3, "0", STR_PAD_LEFT);
+				$iii[0][$letra.$numer]=$inm;				
+			}
+		}
 	}
+
+	if($iii[0])
+		ksort($iii[0]);
+		
+	// if($tipo=="estacionamientos")
+	// prin($iii);
+
+	foreach($iii as $pp=>$bbb){
+		$rrrr[]=sizeof($bbb);
+	}
+
+	$maxpiso=max($rrrr);
 
 	$html ='
 	<table class="table table-condensed table-bordered torre '.$tipo.'">';
-	foreach($iii as $pp=>$bb)
+
+	foreach($iii as $pp=>$bbb)
 	{
 		// $img='http://crminmobiliario.info/imagenes_dir/proitefot_imas/2013/06/05/proitefot_1370416347_357x558_1.jpg';
 		// $texto="lorem ipsum lorem ipsum lorem ipsum ipsum lorem ipsum lorem ipsum ";
 		$html.='<tr>';
-		foreach($bb as $nn=>$bb)
+		foreach($bbb as $nn=>$bb)
 		{
 			$id=$bb['numero'];
-			$html.='<td class="bloq_inmu"><a  ';
+			$html.='<td class="bloq_inmu" '. ( ( sizeof($bbb)==1 )?'colspan="'.$maxpiso.'"':'' ) .' ><a  ';
 
 			if($tipo=='departamentos')
 			{
-				$html.='class="inmu button '.$status[$bb['id_status']].'" '; 
 				$html.='id="departamento'.$bb['id'].'" '; 
 	     		$html.='title="'.$nombre.' Departamento '.$bb['numero'].'" ';
-			    $html.='data-torre="'.$nombre.'" ';
-			    $html.='data-price="'.$bb['precio'].'" ';
-			    $html.='data-type="departamento" ';
-			    $html.='data-ii="'.$bb['id'].'" ';
-			    $html.='data-num="'.$bb['numero'].'" ';	     	
+			    $html.='data-type="departamento" ';    	
 			}
 	     	elseif($tipo=='estacionamientos')
 	     	{
-				$html.='class="inmu button '.$status[$bb['id_status']].'" '; 
 				$html.='id="estacionamiento'.$bb['id'].'" '; 
 	     		$html.='title="'.$nombre.' Estacionamiento '.$bb['numero'].'" ';
-			    $html.='data-torre="'.$nombre.'" ';
-			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="estacionamiento" ';
-			    $html.='data-ii="'.$bb['id'].'" ';
-			    $html.='data-num="'.$bb['numero'].'" ';
 	     	}
 	     	elseif($tipo=='depositos')	     	
 	     	{
-				$html.='class="inmu button '.$status[$bb['id_status']].'" '; 
 				$html.='id="deposito'.$bb['id'].'" '; 
 	     		$html.='title="'.$nombre.' Depositos '.$bb['numero'].'" ';
-			    $html.='data-torre="'.$nombre.'" ';
-			    $html.='data-price="'.$bb['precio'].'" ';
 			    $html.='data-type="deposito" ';
-			    $html.='data-ii="'.$bb['id'].'" ';
-			    $html.='data-num="'.$bb['numero'].'" ';
 	     	}	
 
-			$html.='>'.$bb['numero'].'</a></td>';
+			$html.='class="inmu button '.$status[$bb['id_status']].'" '; 
+		    $html.='data-torre="'.$nombre.'" ';
+		    $html.='data-price="'.$bb['precio'].'" ';
+		    $html.='data-ii="'.$bb['id'].'" ';
+		    $html.='data-num="'.$bb['numero'].'" ';
+
+			$html.='>'.$bb['numero'].' <span class="pares">(';
+			$html.=$avista[$bb['vista']].' ';
+			$html.=$bb['area_total'].'m2)</span>';
+			// $html.=' '.$bb['id_status'];
+			$html.='</a></td>';
 
 		}
 		$html.='</tr>';
@@ -263,6 +311,28 @@ function render_inmuebles($inmuebles,$nombre,$it,$tipo="departamentos"){
 include("foot.php");
 echo $HTML_MAIN_FIN;
 echo $HTML_ALL_FIN;
+?>
+<div class="leyenda">
+	<div>Leyenda</div>
+	<table class="table table-condensed table-bordered torre departamentos">
+	<tr>
+		<td class="bloq_inmu">
+			disponible
+			<a class="inmu button disponible"></a>			
+		</td>
+		<td class="bloq_inmu">
+			separado
+			<a class="inmu button separado"></a>						
+		</td>
+		<td class="bloq_inmu">
+			vendido
+			<a class="inmu button vendido"></a>						
+		</td>		
+	</tr>
+	</table>
+
+</div>	
+<?php
 echo '</body>';
 echo '</html>';
 include("lib/compresionFinal.php");

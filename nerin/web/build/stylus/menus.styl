@@ -4,12 +4,14 @@
  * COMMON : MAIN MENU 
  */		
 nav
-	background white
+	background-color #fff !important	
 	z-index: 1000;
 	height auto;
 	text-align center
 	padding 5px 0
 	> ul
+		input[type=checkbox]
+			display none
 		list-style: none;
 		padding: 0;
 		margin: 0;			
@@ -19,12 +21,16 @@ nav
 		// margin-right 10px
 		> li
 			position: relative;
-			margin: 0 1px;			
-			background: linear-gradient(#2E63AF, #568CCE, #2E63AF);					
+			margin: 0 1px;	
+			background-color #fff !important		
+			// background: linear-gradient(#2E63AF, #568CCE, #2E63AF);					
 			border: 0;
 			padding: 0	
 			float left
 			transition:all 0.5s linear;	
+			label
+				margin-bottom 0
+				display block
 			// height 22px								
 			// border-radius: 10px 10px 0px 0px;
 			// &:before
@@ -44,10 +50,10 @@ nav
 			// 	z-index: 26;				
 			a
 				height: auto;
-				color: white;
+				color: #3963b7;
 				font-weight: bold;
 				// padding: 6px 18px;
-				padding: 6px 34px;
+				padding: 6px 27px;
 				float: left;
 				white-space: nowrap;
 				font-family: 'Titillium Web',"Helvetica Neue"
@@ -87,10 +93,10 @@ nav
 							padding: 9px 19px;
 			&.selected
 				a
-					color #9bd7ff			
+					color black			
 			&:hover
 				a
-					color #9bd7ff
+					color black
 				.area
 					> ul
 						margin-top 0%

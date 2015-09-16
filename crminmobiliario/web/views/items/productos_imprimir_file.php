@@ -5,7 +5,6 @@ $THIS=$PARAMS['this'];
 $linea=$DETAIL[$PARAMS['this']];
 
 // prin($linea);
-
 ?>
 
 
@@ -22,7 +21,7 @@ $linea=$DETAIL[$PARAMS['this']];
                     <div class="div_absoluto header-imprimir">
 					<?php 
 
-						echo "<img src='panel/config/logo.jpg' style='height:60px;'/>";
+						echo "<img src='panel/config/logo.jpg' style='height:60px;width:auto;'/>";
 
                     ?>
 					<div>
@@ -72,31 +71,31 @@ $linea=$DETAIL[$PARAMS['this']];
 
 						if($_GET['id_mensaje']){
 
-						$fecha=dato("fecha_creacion","ventas_mensajes","where id='".$_GET['id_mensaje']."'");
+							$fecha=dato("fecha_creacion","ventas_mensajes","where id='".$_GET['id_mensaje']."'");
 
-                        echo '<table width="260" border="0"><tbody>
+	                        echo '<table width="260" border="0"><tbody>
 
-                        <tr><td style="border:1px solid #ddd;" align="center">';
+	                        <tr><td style="border:1px solid #ddd;" align="center">';
 
-                        echo fecha_formato($fecha,2);
+	                        echo fecha_formato($fecha,2);
 
-                        echo '</td></tr>
+	                        echo '</td></tr>
 
-                        </tbody></table>';
+	                        </tbody></table>';
 
 						} else {
 
-						$fecha=dato("fecha_creacion","ventas_items","where id='".$_GET['id_venta']."'");
+							$fecha=dato("fecha_creacion","ventas_items","where id='".$_GET['id_venta']."'");
 
-                        echo '<table width="260" border="0"><tbody>
+	                        echo '<table width="260" border="0"><tbody>
 
-                        <tr><td style="border:1px solid #ddd;" align="center">';
+	                        <tr><td style="border:1px solid #ddd;" align="center">';
 
-                        echo fecha_formato($fecha,2);
+	                        echo fecha_formato($fecha,2);
 
-                        echo '</td></tr>
+	                        echo '</td></tr>
 
-                        </tbody></table>';						
+	                        </tbody></table>';						
 
 						}
 
@@ -122,28 +121,33 @@ $FFILA=$linea=$fila=select_fila(
 					"porcentaje_cuota_inicial",
 					"cuota_inicial",
 					"separacion",
+					"saldo_financiar",
 					"id_banco",
 					"id_sectorista",
-					"pedido"
+					"pedido",
+					'sectorista_nombre','sectorista_email','sectorista_telefono','id_banco','id_sectorista',
+					'id_promocion'
 					),
 					'ventas_items',
 					'where id='.$_GET['id_venta'],
 					0,
 					array(
-						'cliente'	=>array('fila'=>array('empresa,nombre,apellidos,genero,email,dni','clientes','where id="{id_cliente}"')),
-						'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
+						'cliente'	=>array('fila'=>array('empresa,nombre,apellidos,genero,email,dni,telefono,telefono_oficina,celular_claro,celular_movistar,nextel','clientes','where id="{id_cliente}"')),
+						'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma,telefono_oficina,celular_claro,celular_movistar','usuarios','where id="{id_usuario}"')),
 						//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
 						//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
-						'item'		=>array('fila'=>array('nombre,descripcion5','productos_items','where id="{id_item}"')),							
+						'item'		=>array('fila'=>array('nombre,descripcion5','productos_items','where id="{id_item}"',0)),							
 						// 'item_item'	=>array('fila'=>array('nombre,numero,id_items_tipo','productos_items_items','where id="{id_items_item}"')),							
 						'cuenta'	=>array('fila'=>array('nombre,logo,fecha_creacion,dominio','envios_cuentas','where id="{id_cuenta_email}"',0,
 								array('logo'=>array('archivo'=>array('log_imas','{fecha_creacion}','{logo}')))	
 							)
 						),							
+						'sectorista'=>array('fila'=>array('nombre,apellidos,email,telefono','bancos_sectoristas','where id="{id_sectorista}"')),
+						'banco'=>array('fila'=>array('nombre','bancos','where id="{id_banco}"')),						
+						'promocion'=>array('fila'=>array('texto','promociones','where id="{id_promocion}"')),
 					)							
 				);
-// prin($linea);
-
+// prin($linea);exit();
 $telefonos_fijos=$telefonos_moviles=array();
 
 if($linea['cliente']['telefono']!='')$telefonos_fijos[]=$linea['cliente']['telefono'];
@@ -169,9 +173,8 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 		$html='';
 
 
+		$pblocks=[];
 
-
-		$pblocks=array();
 
 		/**
 		 * INMUEBLE
@@ -185,6 +188,10 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 		
 		$pblocks[]=render_cliente($linea);
 
+
+		$pblocks[]=render_proyecto_name($linea);
+
+
 		$pedido=json_decode($linea['pedido']);
 		// prin($linea['pedido']);
 		// prin($pedido);
@@ -194,39 +201,71 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 		$pdepositos=array();
 		$pestacionamientos=array();
 
+		$suma=0;
 		foreach($pedido as $pedi){
 			switch($pedi->type){
 				case "departamento":
-					$pdepartamentos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+					$pdepartamentos[]=[
+						'id'	=>$pedi->id,
+						'price'	=>$pedi->price,
+					];
 				break;
 				case "estacionamiento":
-					$pestacionamientos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+					$pestacionamientos[]=[
+						'id'	=>$pedi->id,
+						'price'	=>$pedi->price,
+					];
 				break;
 				case "deposito":
-					$pdepositos[]=array('id'=>$pedi->id,'price'=>$pedi->price);
+					$pdepositos[]=[
+						'id'	=>$pedi->id,
+						'price'	=>$pedi->price,
+					];
 				break;						
 			}
-
+			$suma=$suma+$pedi->price;
 		}
 
 		foreach($pdepartamentos as $pdep)
-			$pblocks[]=render_departamentos(extract_departamentos($pdep['id']));
+			$pblocks[]=render_departamentos(extract_departamentos($pdep['id']),$pdep['price']);
 
 		foreach($pdepositos as $pdep)
-			$pblocks[]=render_depositos(extract_depositos($pdep['id']));
+			$pblocks[]=render_depositos(extract_depositos($pdep['id']),$pdep['price']);
 
 		foreach($pestacionamientos as $pdep)
-			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']));	
-		
+			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']),$pdep['price']);	
+
 		$pblocks[]=render_total($linea,$suma);
+
+
+		if($linea['id_promocion']!=''){
+
+			$pblocks[]=render_promocion($linea);
+
+		}
+
 
 		$pblocks[]=render_vendedor($linea);
 
-		$pblocks[]=render_plano(extract_departamentos($pdepartamentos['0']['id']),$pdepartamentos['0']['price']);
 
+		if($_GET['imprimir']!='1'){
+
+			$pblocks[]=render_plano(extract_departamentos($pdepartamentos['0']['id']),$pdepartamentos['0']['price']);
+
+		}
+
+		// prin($linea);
 		// $pblocks[]=render_caracteristicas_inmueble($pdepartamentos['0']);
 
-		$pblocks[]=render_caracteristicas_proyecto($linea);
+		if($_GET['imprimir']=='1'){
+
+			$pblocks[]=render_caracteristicas_proyecto_imprimir($linea);
+
+		} else {
+
+			$pblocks[]=render_caracteristicas_proyecto($linea);
+
+		}
 
 		$pblocks[]=render_firma($linea);
 

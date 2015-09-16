@@ -39,7 +39,7 @@ foreach($object['menu'] as $menu){
                                             "file,fecha_creacion|productos_fotos|where id_item='{id}' and visibilidad='1' order by id desc limit 0,1"
                                             ,"profot_imas"
                                             ,array( 
-                                                     'atributos'=>'3,158x174,0'
+                                                     'atributos'=>'4,158x100,0'
                                             )
                                     )
                         ),

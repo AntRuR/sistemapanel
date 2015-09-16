@@ -15,7 +15,7 @@ a.link_header {
 
 
 
-body { background: url("http://cdn.elcomercio.e3.pe/f/i/gb_caption_nota.png") repeat !important; }
+/*body { background: url("http://cdn.elcomercio.e3.pe/f/i/gb_caption_nota.png") repeat !important; }*/
 
 
 .main_content { 
@@ -178,4 +178,11 @@ td { background-color: #FFF; }
     /* color: #FFA500 !important; */
     }    
 
+}
+
+.modulo_usuarios3 .itms_cont {
+    display: none;
+}
+.permiso_20 #menu_main .number {
+    display:none;
 }
