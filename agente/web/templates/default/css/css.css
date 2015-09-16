@@ -1,0 +1,695 @@
+/*<?php header("Content-type: text/css"); ?>*/
+/*********************RESET**********************/
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
+/*p,blockquote{margin:0;padding:0;}*/
+/*strong{font-style:inherit;font-weight:inherit;}*/
+p{margin:10px 0;padding:0}
+
+
+/************************************************/
+/***************** LAYOUT Y LIBS ****************/
+/************************************************/
+
+/*general*/
+	html, body {background:#000;}
+	body {
+		font-family:				Verdana;
+		font-size:					11px;
+		color: 						#000;
+		width:						100%;
+		margin-left:				auto;
+		margin-right:				auto;
+		text-align: 				center;
+		margin-top:					0px;
+		margin-bottom:				5px;
+	}
+	form {
+		margin:0px;	padding:0px;
+	}
+	a {
+		color:#0149AB; 	text-decoration:none;
+	}
+	
+	a:hover {
+		color:#888; 	text-decoration:underline !important;
+	}
+	
+	address { display:inline; }
+
+/*layaout*/
+	#div_allcontent {
+		margin-left:auto;
+		margin-right:auto;
+		width:900px; /* IMPORTANTE */
+		text-align:center; 
+		position:relative;
+		z-index:0;
+	}
+	.contenido_principal {
+		float:left;
+		padding:0px;
+		height:auto;
+		position:relative;
+		z-index:1;
+		text-align:left;
+		overflow:hidden;
+		/*	background: transparent url(../img/bg_content.gif) repeat-y scroll; */
+		width:100%;
+	}
+	#div_contenedor {
+		width:100%;
+		background-color:#FFFFFF;
+		height:auto;
+		margin-left:auto;
+		margin-right:auto;
+		text-align:left;
+		float:left; 
+		position:relative; 
+	}
+
+/*cuadros*/
+	.cuadro { 
+	position:relative; width:100%; height:auto;	background-repeat:repeat-y; overflow:hidden;
+	}	
+	.cuadro .barra_arriba { 
+	position:absolute; left:0px; top:0px; width:100%; height:auto;	background-repeat:repeat-x; overflow:hidden;
+	}
+	.cuadro .arriba_izquierda {
+	position:absolute; left:0px; top:0px; background-repeat:no-repeat; overflow:hidden;
+	}
+	.cuadro .arriba_derecha {
+	position:absolute; right:0px !important; right:-1px; top:0px; background-repeat:repeat-x; overflow:hidden;
+	}
+	.cuadro .barra_abajo { 
+	position:absolute; left:0px; bottom:0px !important; bottom:-1px; width:100%; height:auto; background-repeat:repeat-x; overflow:hidden;
+	}
+	.cuadro .abajo_izquierda {
+	position:absolute; left:0px; bottom:0px !important; bottom:-1px; background-repeat:repeat-x; overflow:hidden;
+	}
+	.cuadro .abajo_derecha {
+	position:absolute; right:0px !important; right:-1px; bottom:0px !important; bottom:-1px; background-repeat:repeat-x; overflow:hidden;
+	}
+	
+/*filas*/
+	.div_fila {
+	clear:both; float:left; width:100%; height:auto; position:relative;
+	}
+	
+/*columnas*/	
+	.div_columna {
+	float:left; height:auto; position:relative;
+	}
+	
+/*mensajes*/	
+.mensaje_info, .mensaje_exito, .mensaje_alerta, .mensaje_error {   
+       font-family:Arial, Helvetica, sans-serif; font-size:13px; border: 1px solid;   
+       margin: 10px 0px; padding:15px 10px 15px 50px; background-repeat: no-repeat; background-position: 10px center;   
+}   
+.mensaje_info {   
+       color: #00529B; background-color: #BDE5F8; background-image: url(../img/common/info.png);   
+}   
+.mensaje_exito {   
+       color: #4F8A10; background-color: #DFF2BF; background-image:url(../img/common/exito.png);   
+}   
+.mensaje_alerta {   
+       color: #9F6000; background-color: #FEEFB3; background-image: url(../img/common/alerta.png);   
+}   
+.mensaje_error {   
+       color: #D8000C; background-color: #FFBABA; background-image: url(../img/common/error.png);   
+}   
+
+/*formularios*/	
+	.formularios .mensaje {
+	
+	}
+	.formularios legend { 
+	font-weight:bold;
+	padding:15px 0 20px 0;
+	}
+	.formularios p {
+	margin:0px 0 10px;
+	}
+	.formularios p label {
+	float: left;
+	text-align: right;
+	margin-right: 50px;
+	display: block;
+	width:70px; /*default*/
+	}
+	.formularios p.camps input, 
+	.formularios p.camps textarea {
+	border: 1px solid #999;
+	width:200px; /*default*/
+	font-size:11px; padding:2px; color:#333333;
+	} 
+	.formularios p.camps textarea {
+	height:100px;
+	}
+	.formularios p.submit input { 
+	padding:0 10px; font-size:12px;
+	}	
+
+/*slider*/
+	.contenedor_slider_fijo { position:relative; overflow:hidden; }
+	.contenedor_slider_movil { position:absolute }
+	.contenedor_slider_movil div.slid { float:left; height:auto; }
+
+/************ FIN DE LAYOUT Y LIBS *************/
+
+
+
+/************************************************/
+/****************** HEADER *********************/
+/************************************************/
+
+/*contenedor*/
+	#div_header { 
+	clear:both; position:relative; width:100%; height:102px;
+	background: #FFF;
+	}
+
+/*elementos*/
+	#header_logo {
+	position:absolute; width:202px; height:86px; left:10px; top:6px;
+	background: transparent url(../img/logo.jpg) repeat-x scroll;
+	}	
+	#header_eslogan{
+	position:absolute; width:300px; height:70px; right:154px; top:17px; text-align:left;
+	font-size:16px; line-height:107%; font-weight:bold; color:#FFCC38;
+	}
+	#header_contactenos{
+	position:absolute; width:94px; height:18px; right:0px; bottom:0px;
+	color:#000000; font-size:12px; padding:2px 0 0 335px;
+	background: #DDD url(../img/header_contactenos.jpg) 325px 5px no-repeat;
+	}	
+	#header_bloque_1 {
+	position:absolute; width:429px; height:102px; right:0px; top:0px;
+	background: #FFF url(../img/header_bloque_1.jpg)
+	}
+
+/****************** FIN HEADER ***************/
+
+
+/************************************************/
+/************************ FOOTER ******************/
+/************************************************/
+
+/*contenedor*/
+	#div_footer { 
+	clear:both; position:relative; width:100%; height:110px; background:#0048AA;
+	}
+/*elementos*/
+	#by_prodiserv { 
+	position:absolute; height:auto; right:28px; top:85px; text-align:right;
+	}
+	#by_prodiserv a {
+	font-size:10px;color:#ccc; text-decoration:underline;
+	}
+	#footer_bloque_1 {
+	position:absolute; width:500px; height:64px; right:28px; top:29px; text-align:right;
+	color:#FFF; font-weight:bold; font-size:13px;
+	}
+
+/******************* FIN FOOTER *******************/
+
+
+
+/************************************************/
+/********************** MENU ********************/
+/************************************************/
+
+/*contenedor*/
+	#div_menu {
+	height:21px;clear:left;overflow:hidden;
+	background: #FFCC38 url(../img/div_menu.jpg) right 3px no-repeat;
+	border-bottom:2px solid #0048AA;
+	}
+/*contenedor*/
+	#div_menu ul { 
+	list-style:none; padding:0; margin:0;
+	}
+	#div_menu ul li { 
+	border-right:1px solid #FFF;
+	text-align:center; height:21px; float:left;
+	}
+	#div_menu ul li.ultimo { 
+	border-right:0;
+	}
+	#div_menu ul li a {
+	font-size:11px; color:#333;
+	padding:2px 15px 0;height:19px;float:left;
+	}
+	#div_menu ul li.selected a {
+	color:#000; background-color:#DDDDDD;
+	}
+	#div_menu ul li a:hover {
+	color:#000; background-color:#DDDDDD; text-decoration:underline;
+	}
+
+/******************* FIN MENU *******************/
+
+
+
+
+
+
+/************************************************/
+/******************** HOME **********************/
+/************************************************/
+
+/*LAYOUT*/
+
+#div_home_main {  width:66%;  }
+
+#div_home_right { width:34%; background-color:#EDF0FA; margin-top:-2px; 
+margin-right:0 !important; margin-right:-5px; overflow:hidden; 
+}
+
+#div_home_right_bloques { padding:0 25px; }
+
+/*BUSCADOR HOME*/
+
+#div_home_main #div_bloque_buscador { 
+width:100%; position:relative; height:142px; background-color:#EDF0FA
+}
+#div_home_main #buscador_aviso,
+#div_home_main #buscador_tipo {
+position:absolute; left:36px;font-size:12px; width:135px;
+}
+#div_home_main #buscador_aviso {
+top:39px;
+}
+#div_home_main #buscador_tipo {
+top:84px;
+}
+#div_home_main #label_buscador_departamento {
+position:absolute; left:208px; top:8px; color:#0149B6; text-decoration:underline; font-weight:bold;
+}
+
+#div_home_main #div_buscador_departamento,
+#div_home_main #div_buscador_provincia,
+#div_home_main #div_buscador_distrito {
+position:absolute; left:208px; 
+}
+#div_home_main #div_buscador_departamento select,
+#div_home_main #div_buscador_provincia select,
+#div_home_main #div_buscador_distrito select {
+width:224px; font-size:12px;
+}
+#div_home_main #div_buscador_departamento {
+top:39px;
+}
+#div_home_main #div_buscador_provincia {
+top:73px;
+}
+#div_home_main #div_buscador_distrito {
+top:105px;
+}
+#div_home_main #buscador_submit {
+position:absolute; left:469px; top:73px; 
+display:block; width:68px; height:20px; padding-top:2px;
+color:#FFFFFF; font-weight:bold; text-align:center;
+background:transparent url(../img/boton_1.jpg) no-repeat;
+}
+
+/*BUSCADOR LEFT*/
+
+
+#div_left #div_bloque_buscador { 
+position:relative; height:auto; background-color:#EDF0FA; padding:20px 18px 10px 18px;
+}
+#div_left #buscador_aviso,
+#div_left #buscador_tipo {
+font-size:12px; width:135px; clear:left; margin-bottom:10px;
+}
+#div_left #label_buscador_departamento {
+color:#0149B6; text-decoration:underline; font-weight:bold; margin-bottom:10px; display:block;
+}
+
+#div_left #div_buscador_departamento,
+#div_left #div_buscador_provincia,
+#div_left #div_buscador_distrito {
+margin-bottom:10px;}
+#div_left #div_buscador_departamento select,
+#div_left #div_buscador_provincia select,
+#div_left #div_buscador_distrito select {
+width:155px; font-size:12px;
+}
+#div_left #buscador_submit {
+display:block; width:68px; height:18px; padding-top:4px;
+color:#FFFFFF; font-weight:bold; text-align:center;
+background:transparent url(../img/boton_1.jpg) no-repeat;
+margin:0 auto;
+}
+
+
+/*LISTADO*/
+.div_listado {
+/*background-color:#FFFFFF;*/
+}
+#listado_titulo { background-color:#FFCC38; height:32px; position:relative; }
+#listado_titulo h1{ 
+position:absolute; top: 11px; left: 32px;
+color:#0048AA;font-weight:bold; font-size:12px; 
+}
+.listado_paginacion { background:#E2E2E2 url(../img/listado_paginacion.jpg) repeat-x scroll; height:22px; text-align:right;
+padding:5px 10px 0 0;
+}
+.listado_paginacion .total { float:left; margin-left:31px; }
+.listado_paginacion .linkpagselec,
+.listado_paginacion .linkpag {
+margin:0 3px;
+}
+.listado_paginacion .linkpagselec {
+color:#B1013B;
+}
+
+.listado_items { padding:30px 0 30px; min-height:425px; height:auto !important; height:425px; }
+
+.listado_items .vacio { padding-left:30px; }
+
+/*LISADO PRODUCTOS*/
+
+#listado_productos .listado_item  { 
+position:relative; clear:left;
+height:auto !important; height:117px;
+min-height:117px;
+padding:10px 15px 10px 130px;
+}
+#listado_productos .listado_item a.foto { 
+position:absolute; width:76px; height:86px; top:9px; left:35px ;
+text-align:center; border:1px solid #ccc;
+}
+#listado_productos .listado_item a.foto:hover { 
+border:1px solid #0149AB;
+}
+#listado_productos .listado_item .estado {
+display:block; margin-bottom:3px; font-weight:bold;
+color:#FF0000;
+}
+#listado_productos .listado_item .nombre {/*position:absolute; top:0px; left:133px; */}
+#listado_productos .listado_item .nombre a {
+font-weight:bold; color:#0149AB; display:block; margin-bottom:4px;
+overflow:hidden; height:15px;
+}
+#listado_productos .listado_item .codigo {
+color:#676767; font-weight:bold; display:block; margin-bottom:4px;
+}
+#listado_productos .listado_item .direccion { }
+#listado_productos .listado_item .direccion a { 
+color:#687480; font-size:11px;  margin-bottom:7px;
+}
+#listado_productos .listado_item .direccion a.geo {
+color:#0149AB; text-transform:capitalize;
+}
+#listado_productos .listado_item a.descripcion {
+color:#000; margin-bottom:5px; display:block; overflow:hidden; 
+height:27px;
+}
+#listado_productos .listado_item .area {
+color:#687480; display:block; display:block; margin-bottom:3px;
+}
+#listado_productos .listado_item .contacto {
+text-decoration:underline; display:block; margin-bottom:3px;
+color:#687480;
+}
+
+
+
+/*LISTADO SOCIOS*/
+#listado_socios .listado_items { padding-top:15px; }
+#listado_socios #listado_titulo { background:none; height:32px; position:relative; }
+#listado_socios #listado_titulo h2{ 
+position:absolute; top: 11px; left: 0px;
+color:#0149AB;font-weight:bold; font-size:16px; 
+}
+#listado_socios .listado_paginacion { background:none; height:22px; text-align:right;
+padding:5px 10px 0 0;
+}
+#listado_socios .listado_paginacion .total { float:left; margin-left:31px; }
+#listado_socios .listado_paginacion .linkpagselec,
+#listado_socios .listado_paginacion .linkpag {
+margin:0 3px;
+}
+#listado_socios .listado_paginacion .linkpagselec {
+color:#B1013B;
+}
+
+
+#listado_socios .listado_item b { color:#000000; font-weight:normal; }
+
+#listado_socios .listado_item  { 
+position:relative; clear:left;
+height:auto !important; height:117px;
+min-height:117px;
+padding:10px 15px 10px 125px;
+}
+#listado_socios .listado_item .foto { 
+position:absolute; width:100px; height:100px; top:9px; left:0px ;
+text-align:center; border:1px solid #ccc;
+}
+#listado_socios .listado_item a.foto:hover { border-color:#FFCC38; }
+#listado_socios .listado_item .nombre {
+font-weight:bold; color:#FFCC38; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_socios .listado_item .registro {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_socios .listado_item .empresa {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_socios .listado_item .telefono {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_socios .listado_item .email {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_socios .listado_item .direccion {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_socios .listado_item .descripcion {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+
+/*LISTADO CLIENTES*/
+
+#listado_clientes .listado_item b { color:#000000; font-weight:normal; }
+
+#listado_clientes .listado_item  { 
+position:relative; clear:left;
+height:auto !important; height:117px;
+min-height:117px;
+padding:10px 15px 10px 152px;
+}
+#listado_clientes .listado_item .foto { 
+position:absolute; width:100px; height:100px; top:9px; left:35px ;
+text-align:center; border:1px solid #ccc;
+}
+#listado_clientes .listado_item .nombre {
+font-weight:bold; color:#FFCC38; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_clientes .listado_item .registro {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_clientes .listado_item .empresa {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_clientes .listado_item .telefono {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_clientes .listado_item .email {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_clientes .listado_item .direccion {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+#listado_clientes .listado_item .descripcion {
+color:#687480; font-size:11px; display:block; margin-bottom:4px;
+height:auto;
+}
+
+/*BANNER*/
+
+#div_home_banner { width:311px; height:368px; background-color:#0048AA;}
+
+/*BOLETIN*/
+
+#div_bloque_boletin { padding:25px 0px 25px 0px; }
+#div_bloque_recomendar .titulo,
+#div_bloque_boletin .titulo {
+background:#FFF url(../img/div_home_boletin.jpg) no-repeat; height:auto; color:#0048AA; font-weight:bold; font-size:11px;
+padding:1px 0 3px 25px;
+margin-bottom:20px;
+}
+#div_bloque_boletin p { padding: 0 30px 0 30px; font-size:12px; }
+
+#div_bloque_boletin #inscribirse {
+background:#FFF url(../img/link_inscribir_boletin.jpg) no-repeat; height:42px; width:110px;
+float:right;
+margin-top:5px;
+}
+
+/*RECOMENDAR*/
+
+#div_bloque_recomendar { padding:25px 0px 25px 0px; }
+#div_bloque_recomendar p { padding: 0 30px; }
+#div_bloque_recomendar .camps input { font-size:12px; width:100%; height:18px; }
+#div_bloque_recomendar .submit { text-align:right; }
+#div_bloque_recomendar .submit input { font-size:14px; font-size:12px; padding:0 7px; }
+
+/*************************************************/
+/***********************ITEMS*********************/
+/*************************************************/
+
+/*LAYOUT*/
+
+#div_left {  width:22%; background-color:#EDF0FA; padding-bottom:10px; }
+
+#div_main {  width:78%;  
+/*padding-bottom:50px;*/
+margin-right:0 !important; margin-right:-5px; overflow:hidden; 
+}
+
+/************************************************/
+/********************* ITEM *********************/
+/************************************************/
+
+/*tabs*/
+#div_item_main { 
+padding:20px 20px 50px 20px; 
+min-height:420px; height:auto !important; height:420px; 
+}
+
+#div_item_main .tabs { 
+/*position:absolute; left:20px; top:8px;*/
+float:left; border:1px solid #999999; list-style:none;
+}
+#div_item_main .tabs .tab { height:20px;  float:left; padding:3px 15px 0;  background:#000033 url(../img/tab_selected.gif) repeat-x; }
+#div_item_main .tabs .tab a { color:#FFFFFF; font-weight:bold; }
+#div_item_main .tabs .selected, 
+#div_item_main .tabs .tab:hover { background:none; background-color:#FFFFFF;  }
+#div_item_main .tabs .selected a,
+#div_item_main .tabs .tab:hover a  { color:#000033; } 
+
+/*areas*/
+#div_item_main .area_tabs { width:450px; height:auto; padding:10px; clear:left; }
+
+/*DATOS*/
+#div_item_main .estado { 
+color:#FF0000; font-weight:bold;
+}
+#div_item_main .titulo { 
+color:#0149AB; font-size:16px; font-weight:bold; margin-bottom:10px;
+}
+#div_item_main  .codigo {
+color:#676767; font-weight:bold; display:block; margin-bottom:4px;
+}
+#div_item_main  .direccion { 
+color:#687480; font-size:11px; display:inline; margin-bottom:7px;
+}
+#div_item_main  .descripcion {
+color:#000; margin-bottom:5px; display:block; 
+}
+#div_item_main .area {
+color:#687480; margin-bottom:3px;
+}
+#div_item_main .consultanos {
+text-decoration:none; font-weight:bold; font-size:12px;
+
+}
+#div_item_main .linea {
+margin:50px 0 30px; border-top:dashed 1px #999999;
+}
+
+
+/*TREN DE FOTOS*/
+
+#div_item_main #area_foto { position:absolute; top:30px; right:10px; width:180px; height:auto; }
+
+#div_item_main #area_vistas { width:210px; height:450px; position:absolute; right:10px; top:40px; }
+		
+	/*li*/
+	#div_bloque_vistas li { height:140px; position:relative; overflow:hidden; margin-bottom:10px; padding:0; }
+	#div_bloque_vistas li a { width:138px; height:138px; text-align:center; border:1px solid #ccc; float:none; margin:0; }
+	#div_bloque_vistas li a img { border:0; }
+	
+	/*paginacion*/
+	#div_bloque_vistas .bloque_pie a {
+	position:absolute; right:8px; cursor:pointer;
+	}
+	#div_bloque_vistas .bloque_pie .but_prev{
+	top:0px; width:15px; height:11px; background: transparent url(../img/slide/flecha_arriba.gif) no-repeat;
+	}
+	#div_bloque_vistas .bloque_pie .but_next{
+	bottom:0px; width:15px; height:11px; background: transparent url(../img/slide/flecha_abajo.gif) no-repeat;
+
+	}	
+
+/*************** FIN DE ITEM ***************/
+
+
+
+/*************************************************/
+/***********************PAGINAS*******************/
+/*************************************************/
+
+#div_pagina_main { padding:20px 40px 20px 40px; }
+
+#div_pagina_main .titulo { color:#0149AB; font-size:16px; font-weight:bold;  }
+
+#div_pagina_main .texto { color: #333333; margin-bottom:30px; }
+#div_pagina_main .texto a.foto { float:none; margin:0px; }
+#div_pagina_main img.foto { border:4px double #ccc; margin:0 0 11px 0px; }				
+#div_pagina_main img.margen-izquierda { margin-left:20px; clear:right; }
+
+
+	
+/************************************************/	
+/******************FORMULARIOS*******************/
+/************************************************/
+
+#div_formulario_main { padding:20px 40px 20px 40px; }
+
+#div_formulario_main .titulo { color:#0149AB; font-size:16px; font-weight:bold;  }
+
+/*dejar-comentario*/
+form.dejar-consulta {
+width:auto;
+}
+form.dejar-consulta p label {
+width: 70px;
+}
+form.dejar-consulta p.camps input, 
+form.dejar-consulta p.camps textarea {
+width: 250px; font-size:11px; color:#333333; padding:2px;
+}
+/*contacto*/
+form.contacto {
+width:380px;
+}
+form.contacto p label {
+width: 70px;
+}
+form.contacto p.camps input, 
+form.contacto p.camps textarea {
+width: 200px; font-size:11px; padding:2px; color:#333333;
+}
+
+.contacto_texto {
+float:right; width:240px; margin-top:17px;
+}
+
+/***********FIN DE FORMULARIOS***********/

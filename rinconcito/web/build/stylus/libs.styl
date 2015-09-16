@@ -1,0 +1,207 @@
+/*clean*/
+
+.clean,
+.clear
+	zoom: 1;
+	&:before,
+	&:after
+	  content: ""
+	  display: table
+	&:after
+		clear: both
+
+
+
+/*filas*/
+.div_fila_margen 
+	margin-bottom:10px
+
+
+.div_fila_overflow 
+	clear:both
+	float:left !important
+	float:none
+	width:100%
+	height:auto
+	position:relative
+	overflow:visible
+
+
+/*columnas*/	
+.div_columna 
+	height:auto
+	position:relative
+	clear:none
+	min-height:300px
+	float left
+	// background-color #ccc
+	margin-bottom 10px
+	// display inline-block
+
+
+/*canvas*/
+.div_canvas
+	height:auto
+	min-height:500px
+	padding:0px
+	background:none
+	border:none
+	border-top:0px
+	clear:left
+	float:none
+	position:relative
+
+
+/*main*/
+.div_main 
+	height:auto
+	min-height:250px
+	padding:0px
+	background:none
+	border-top:0px
+	// width:753px
+
+
+/*left*/	
+.div_absoluto 
+	position:absolute
+	background-color:transparent
+	background-repeat:no-repeat
+	background-position:0px 0px
+
+
+
+
+/*margenes*/	
+.margen_arr 
+	margin-top:10px
+
+.margen_aba 
+	margin-bottom:10px
+
+.margen_izq 
+	margin-left:10px !important
+	margin-left:6px
+
+.margen_der 
+	margin-right:10px !important
+	margin-right:7px
+
+/*barra*/	
+.div_barra 
+	background:none
+	height:auto
+	padding:4px 10px 4px 10px
+	clear:left
+	position:relative
+	z-index:0
+	text-align:left
+
+
+/*status*/
+.div_status 
+	clear:both
+	height:auto
+	position:relative
+	padding:10px
+	border:1px solid #FF0000
+	margin-bottom:10px
+
+
+/*lineas*/
+.div_linea 
+	clear:both
+	float:left
+	width:100%
+	height:auto
+	position:relative
+	padding:10px 0
+	font-size:1px
+
+
+
+/*inner*/
+// .div_inner 
+// 	padding:10px 4%
+
+
+
+
+
+// *
+// 	transition:all 0.5s linear;
+
+
+
+
+
+/**
+ * some resets
+ */
+table
+	border-collapse: collapse
+	border-spacing: 0
+
+td,
+th
+	padding: 0
+
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6
+	font-size 100%
+	font-weight normal
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input, 
+button, 
+textarea, 
+th, 
+td,
+nav 
+	margin 0
+	padding 0
+	position relative
+
+
+  
+li
+	list-style none
+
+// img
+	// max-width 100%
+
+/* selection */
+// ::selection
+// 	background 	#FFF200 !important
+// 	color #000 !important
+
+
+img[src='img/blank.gif']
+	background white
+
+a
+	cursor pointer
+

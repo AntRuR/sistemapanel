@@ -1,0 +1,156 @@
+/**
+
+ * BODY
+
+ */
+
+body { background: #F5F8FA!important ;}
+
+
+.main_content { padding: 0 0px; }
+
+
+
+
+
+/**
+ * MENU
+ */
+
+.ul_menus li.group a.padre {
+
+    background: #36426B;
+    
+}
+
+#msino:before,
+a:hover,
+.formulario label,
+.ul_menus li.group .mcontent ul li.seccion b, 
+.ul_menus li.group .mcontent ul li.seccion:hover b {
+    color : #C50F1A;
+}
+
+.bloque_titulo,
+.ul_menus li.group .mcontent ul li.selected {
+    background: #CACEDA !important;
+}
+
+
+
+
+
+ul.ul_menus li:hover {
+
+	text-decoration: none !important;
+
+}
+
+
+ul.ul_menus li.seccion b {
+
+	letter-spacing: 1px;
+
+}
+
+
+
+
+ul.ul_menus li.seccion b {
+
+    /* color: #000; */
+
+    font-weight: bold;
+
+}
+
+/**
+
+ * FORM
+
+ */
+
+.titulo_formulario {
+
+    color: #565656;
+
+}   
+
+/**
+
+ * LOGIN
+
+ */
+
+.modulo_login ul.ul_menus {
+	display:none;
+}
+
+.modulo_login .div_bloque_cuerpo {
+    margin-left: 23%;
+}
+
+/*body,*/
+
+/*.formulario, .bloque_titulo {
+    border-color: #E1E8ED !important;
+}*/
+
+.lead {
+margin-bottom:0;
+}
+
+
+
+a.link_header {
+    font-size: 22px;
+}    
+
+
+/**/
+
+#cart table {
+    margin-right: 10px;
+    margin-top: 73px;
+    width: 95%;
+}
+
+.esquinabtn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+}
+
+.quick #contenido_principal {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+
+
+.itms .itm .itd {
+/* font-family: PTN57F !important; */    
+text-transform: capitalize;
+}
+
+
+
+
+
+
+.reporte_corto { width: 670px !important; }
+
+td { background-color: #FFF; }
+
+
+.htmlenlista td { background-color: transparent; }
+
+@media (max-width: 800px) {
+
+    body { 
+        background: #FFF !important ;
+    }
+  
+}

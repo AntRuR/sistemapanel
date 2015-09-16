@@ -1,0 +1,34 @@
+PROYECTO
+
+bg=#0048AA
+width=900
+logo=logo.gif
+ico=favicon.ico
+
+paginas
+	empresa
+	servicios
+	inmuebles en cartera
+formularios
+	contactenos
+	boletin
+
+home
+
+	home_bloque_banner
+	home_bloque_boletin
+	home_bloque_recomendar
+	home_bloque_buscador
+	home_bloque_listado
+
+items
+	left
+	main
+		buscador
+		listado
+item
+	left
+	main
+		buscador
+		pagina
+

@@ -1,0 +1,402 @@
+/*
+cd /Applications/MAMP/htdocs/sistemapanel/polar
+stylus -w -c -u nib -m web/build/stylus/css.styl -o web/views/css
+*/
+
+vendorx-prefixes = webkit o moz official
+
+@import 'nib'
+
+@import 'nib_fix'
+// @import 'normalize'
+@import 'fonts'
+
+
+$IMAGES_PATH='../../../img'
+
+// $PAGE_WIDTH=982
+$PAGE_WIDTH=982
+
+@import 'libs'
+
+
+/**
+ * common module
+ */
+
+//COMMON : layout header menu footer
+@import 'common'
+
+//DEFAULT : list, grid, content, form
+@import 'default'
+
+
+/**
+ * HOME
+ */
+
+/* columnas */
+.home_col1
+	width 234px
+				
+.home_col2
+	width 470px
+
+.home_col3
+	width 275px
+
+
+/**
+ * 	HOME : MAIN BANNER
+ */
+.banner_main
+	margin-bottom -25px	
+	ul
+		li
+			float left
+			.texto
+				position absolute
+				bottom 0
+				left 0
+				padding 20px
+				font-size 2em
+				background black
+				color white
+				opacity 0.8
+	// unslider
+	/*				
+	ol.dots
+		position absolute
+		right 5px
+		bottom 5px
+		li.dot
+			background black
+			color white
+			float left
+			width 20px
+			height @width
+			text-align center
+			line-height @width
+			vertical-align middle
+			margin (@width/4)
+			border-radius (@width/2)
+			cursor pointer
+			&:hover
+			&.active
+				background red
+	*/
+	// flux
+	ul.pagination
+		position absolute
+		right 5px
+		bottom 35px
+		z-index 1001
+		li
+			background black
+			color white
+			float left
+			width 20px
+			height @width
+			text-align center
+			line-height @width
+			vertical-align middle
+			margin (@width/4)
+			border-radius (@width/2)
+			cursor pointer
+			&:hover
+			&.current
+				background red	
+	.caption
+		width auto !important
+		padding 20px !important
+		font-size 1.5em !important	
+		font-family: 'Titillium Web', "Helvetica Neue" !important
+		opacity 0.8 !important	
+		background #264F80 !important
+				
+/**
+ * HOME : bloque : Left Banner
+ */
+
+.banner_enlaces
+	margin-top 10px
+	margin-bottom 10px
+	.header
+		text-align center
+		background #0188BE
+		border-radius 10px 10px 0 0
+		padding 3px 0
+		color white
+		text-transform uppercase
+		min-height 23px;
+	.vacio
+		text-align center	
+	.inner
+		background white	
+		height 110px
+		.slides
+			ul
+				li
+					float left
+	.footer	
+		background #125586
+		color white
+		padding 4px 4px
+		a
+			color white
+			cursor pointer
+		.prev
+			&:before
+				content "«"
+		.next	
+			float right
+			&:after
+				content "»"						
+
+/**
+ * HOME : bloque : Right Banner
+ */
+
+.banner_enlaces2
+	margin-top 10px
+	margin-bottom 10px
+	.header
+		text-align center
+		background #0188BE
+		border-radius 10px 10px 0 0
+		padding 3px 0
+		color white
+		text-transform uppercase
+		min-height 23px
+	.inner
+		background white	
+		height 240px
+		.vacio
+			text-align center
+		.slides
+			ul
+				li
+					float left
+					.foto
+						width 100%
+						text-align center
+						height 120px
+						float left
+	.footer	
+		background #125586
+		color white
+		padding 4px 4px
+		a
+			color white
+			cursor pointer
+		.prev
+			&:before
+				content "«"
+		.next	
+			float right
+			&:after
+				content "»"						
+
+
+
+/**
+ * HOME : bloque : ITEMS
+ */
+
+.servicios_items_list
+	overflow: visible;
+	margin 0 -15px
+	padding 10px 0
+	text-align center
+	position relative
+	.listado_items
+		display block
+		.listado_item
+			text-align left
+			vertical-align top
+			position: relative;
+			display inline-block
+			width: 21%;
+			margin: 0 15px;
+			height: 230px;
+			background-color: #125586;
+			padding: 10px 1.8%;
+			border-radius: 10px;
+			a
+				color: #A0E1FF;				
+				display: block;
+			> a 
+				text-align center	
+			h2.nombre
+				margin-top 8px
+				a
+					height: 24px
+					font-size 1.17em
+					font-family 'Titillium Web'
+				&:hover
+					text-decoration underline
+			a.vermas
+				margin-top 3px			
+				font-family: Arial
+			.texto
+				color white
+				line-height 1.3em
+
+
+/**
+ * HOME : bloque :  BLOG
+ */
+
+.blog
+	margin-top 10px
+	.tabs
+		ul
+			background #264F80
+			padding 6px 0 0
+			// float left
+			text-align center
+			li
+				line-height 1.2em
+				background #0188BE
+				list-style none
+				display inline-block
+				margin 0 7px
+				// float left
+				> a
+					padding 4px 10px
+					color white
+					font-size 1.1em
+					float left
+					cursor pointer
+					text-transform uppercase
+			.active 
+				a
+					color #FC0
+	section		
+		display none
+		background #DDD
+		overflow hidden
+		position relative
+		padding 15px 30px 0px
+		.inner
+			height 215px !important				
+			.slides
+				width 100% !important
+				> ul
+					> li
+						float left
+						.nombre
+							// font-size 1.2em
+							color #264F80
+							font-weight bold
+						.fecha
+							font-weight bold	
+						.texto
+							font-size 1.1em
+						.foto
+							width 100%
+							text-align center
+							float left	
+							img
+								width auto
+								height 120px									
+		.footer
+			margin 0 -30px
+			background #125586
+			color white
+			padding 4px 4px
+			text-align center
+			a
+				color white
+				cursor pointer
+			.prev
+				float left
+				&:before
+					content "«"
+			.next	
+				float right
+				&:after
+					content "»"						
+		&.show	
+			display block
+		
+
+/**
+ * HOME : bloque : form : RECOMENDAR
+ */
+
+.form_recomendar
+	text-align center
+	border 1px solid #125586
+	background #EBF8FF
+	padding 6px 10px
+	margin-bottom 10px
+	form
+		ul
+			display block
+			li
+				text-align center			
+	.inner
+		.legend
+			font-weight normal
+			text-indent 0px
+			margin-bottom 0
+		input
+			margin-top 6px
+
+		// input[type=submit]
+		// 	padding 4px	
+
+
+
+/**
+ * PAGES
+ */
+
+/* columnas */
+.page_col1
+	width 234px
+.page_col2
+	width 732px
+
+
+		
+/**
+ * PAGES : MENU BLOG
+ */
+.menu_left.menu_blog
+	border 0
+	border-radius 0
+	margin-bottom 10px
+	ul
+		li
+			background #0188BE
+			display inline-block
+			a
+				color #FFCC00
+				padding 4px 3px
+				display inline-block
+				letter-spacing -0.3px
+				font-size 1em
+			&:hover	
+			&.selected
+				a
+					color white		
+
+
+
+
+
+
+
+/**
+ * temporal
+ */
+.tab_is_empresa_items
+	.download
+		display none
+
+
+
+
+

@@ -1,0 +1,110 @@
+/*
+cd /Applications/MAMP/htdocs/sistemapanel/crminmobiliario
+stylus -w -c -u nib -m web/build/stylus/main.styl -o css/
+*/
+
+vendorx-prefixes = webkit moz official
+
+$IMAGES_PATH='../img'
+
+@import 'nib'
+
+@import 'nib_fix'
+// @import 'normalize'
+// @import 'fonts'
+
+//
+// @import 'libs'
+
+//measures
+@import 'layout'
+
+//blocks
+// @import 'blocks'
+
+//header, canvas, footer
+@import 'common'
+
+//menus
+// @import 'menus'
+
+//sliders
+// @import 'sliders'
+
+//forms
+// @import 'forms'
+
+//grids
+@import 'grid'
+
+
+
+// @import 'default'
+
+
+
+
+
+
+
+/**
+ * HOME
+ */
+
+
+
+// .tab_is_productos_imprimir
+
+.header-imprimir
+	float left
+	
+.ficha-cliente
+	float right	
+	margin 10px 0 0 0
+	
+.tab_is_productos_imprimir
+	.div_fila
+		> table 
+			width 100%
+
+table
+	border: 1px solid #000
+	border-radius: 5px
+	tr 
+		td
+			padding: 5px 4px
+			vertical-align top
+			color #4F5767
+	
+	
+.section
+    background-color #A1BD5B
+    color #FFF
+    font-weight bold
+    padding 5px 0
+    text-align center
+    
+.variable
+.valor
+    border 1px solid #CCC
+    color #000000
+    padding 3px 0 3px 5px
+    
+.variable
+	width 90px
+	
+.valor
+	width 170px
+
+@media (max-width: 982px){
+	img {
+		width 100%
+		height auto
+	}
+	.ficha-cliente table {
+			width 100%
+	}		
+}
+	
+
+

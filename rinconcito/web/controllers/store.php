@@ -1,0 +1,7 @@
+<?php
+
+/*INDICADORES-START*/
+/*INDICADORES-END*/
+
+
+?>

@@ -1,0 +1,217 @@
+############################
+#                          #
+#        GENERALES         #
+#                          #
+############################
+
+
+##
+#Prioridad de archivos índices (por defecto)
+##
+DirectoryIndex index.htm index.php
+
+
+##
+#Evitar acceso por el navegador a una carpeta sin "index":
+Options All -Indexes
+
+
+##
+#Bloquea el acceso al .htaccess
+##
+<Files .htaccess>
+Order allow,deny
+</Files>
+
+
+##
+#Quita los Etags ( como recomienda YSLOW )
+##
+#Remover Etags
+FileETag none
+
+
+##
+#Codificación UTF-8 por defecto
+##
+AddDefaultCharset UTF-8
+
+
+############################
+#                          #
+#      COMPRESIÓN          #
+#                          #
+############################
+
+##
+#Compresión PHP de arhicovos PHP y JS, con CSS aún
+##
+#<FilesMatch "css\.css$">
+#AddHandler application/x-httpd-php .css
+#</FilesMatch>
+#AddHandler application/x-httpd-php .js
+#php_value output_handler ob_gzhandler
+
+
+############################
+#                          #
+#          CACHÉ           #
+#                          #
+############################
+
+##
+#Configura caché ( como lo recomienda YSLOW )
+##
+<IfModule mod_expires.c> 
+
+
+	<FilesMatch "\.(jpg|jpeg|png|gif|ico)$">
+	
+	ExpiresActive On
+	ExpiresDefault A31536000
+	
+	</FilesMatch>
+		
+	<FilesMatch "\.(js|css)$">
+	
+	ExpiresActive On
+	ExpiresDefault A2592000
+	
+	</FilesMatch>
+	
+	<FilesMatch "\.(flv|swf)$">
+	
+	ExpiresActive On
+	ExpiresDefault A2592000
+	
+	</FilesMatch>	
+	
+	<FilesMatch "\.(html|php|htm)$">
+	
+	ExpiresActive On
+	ExpiresDefault A0
+	
+	</FilesMatch>
+
+		
+</IfModule> 
+
+
+
+############################
+#                          #
+#          URLS            #
+#                          #
+############################
+
+<IfModule mod_rewrite.c> 
+
+##
+#Acticar el REWRITE
+##
+RewriteEngine On
+Options +FollowSymlinks
+
+
+##
+#Especificar el root base para el rewrite
+##
+RewriteBase /sistemapanel/agente
+
+
+##
+# no procesar las reglas para imágenes y otros ficheros
+##
+RewriteRule ^(.*)\.(js|css|ico|gif|jpe?g|png|xml)$ - [L]
+
+
+
+
+#########    CANOCALIZACIÓN    ########
+
+##
+# quitar www del inicio de la url
+##
+RewriteCond %{HTTP_HOST} ^www.agenteinmobiliarioperu.com$ [NC]
+RewriteRule ^(.*)$ http://agenteinmobiliarioperu.com/$1 [R=301,L]
+
+
+## quitar el / final ( canonicalizacion )
+RewriteRule ^(.*)/$ $1 [L,R=301]
+
+
+############   ITEMS e ITEM    ##########
+
+#ITEMS Y BUSCADOR
+
+RewriteRule ^buscar-(.+)/(.+)/en-(.+),(.+),(.+)/([0-9]{1,4})$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2&departamento=$3&provincia=$4&distrito=$5&pag=$6 [L]
+RewriteRule ^buscar-(.+)/(.+)/en-(.+),(.+),(.+)$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2&departamento=$3&provincia=$4&distrito=$5 [L]
+
+RewriteRule ^buscar-(.+)/(.+)/en-(.+),(.+)/([0-9]{1,4})$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2&departamento=$3&provincia=$4&pag=$5 [L]
+RewriteRule ^buscar-(.+)/(.+)/en-(.+),(.+)$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2&departamento=$3&provincia=$4 [L]
+
+RewriteRule ^buscar-(.+)/(.+)/en-(.+)/([0-9]{1,4})$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2&departamento=$3&pag=$4 [L]
+RewriteRule ^buscar-(.+)/(.+)/en-(.+)$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2&departamento=$3 [L]
+
+RewriteRule ^buscar-(.+)/(.+)/([0-9]{1,4})$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2&pag=$3 [L]
+RewriteRule ^buscar-(.+)/(.+)$ index.php?modulo=items&tab=productos&tipo=$1&aviso=$2 [L]
+
+#INMUBLES EN CARTERA
+RewriteRule ^inmuebles-en-cartera/([0-9]{1,4})$ index.php?modulo=items&tab=productos&en_cartera=si&pag=$1 [L]
+RewriteRule ^inmuebles-en-cartera$ index.php?modulo=items&tab=productos&en_cartera=si [L]
+
+#ASOCIADOS
+RewriteRule ^asociados/([0-9]{1,4})$ index.php?modulo=items&tab=usuarios&pag=$1 [L]
+RewriteRule ^asociados$ index.php?modulo=items&tab=usuarios [L]
+
+#ITEMS
+
+RewriteRule ^productos-/categoria-(.+)/([0-9]{1,4})$ index.php?modulo=items&tab=productos&gru_id=$1&pag=$2 [L]
+RewriteRule ^productos-/categoria-(.+)$ index.php?modulo=items&tab=productos&gru_id=$1 [L]
+
+RewriteRule ^productos-/subcategoria-(.+)/([0-9]{1,4})$ index.php?modulo=items&tab=productos&subgru_id=$1&pag=$2 [L]
+RewriteRule ^productos-/subcategoria-(.+)$ index.php?modulo=items&tab=productos&subgru_id=$1 [L]
+
+RewriteRule ^productos-/([0-9]{1,4})/?$ index.php?modulo=items&tab=productos&pag=$1 [L]
+RewriteRule ^productos-$ index.php?modulo=items&tab=productos [L]
+
+#ITEM
+RewriteRule ^inmueble/(.+)$ index.php?modulo=item&tab=productos&id=$1 [L]
+
+##
+
+###########    PÁGINAS    ###########
+
+RewriteRule ^empresa$ index.php?modulo=pagina&tab=empresa [L]
+RewriteRule ^servicios$ index.php?modulo=pagina&tab=servicios [L]
+
+##
+
+############   FORMULARIOS    ###########
+
+RewriteRule ^contactenos$ index.php?modulo=pagina-formulario&tab=contacto [L]
+RewriteRule ^inscribir-en-boletin$ index.php?modulo=pagina-formulario&tab=boletin [L]
+
+##
+
+
+
+###########    BASICOS   ###########
+
+RewriteRule ^home$ index.php?modulo=home [L]
+RewriteRule ^panel/?$ panel/index.php [L,r=301,NC]
+RewriteRule ^maqueta$ maqueta/index.html [L,r=301]
+RewriteRule ^email/?$ email/index.php [L,NC]
+
+##
+
+
+########   ERROR 404   ###########
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.*) index.php?modulo=error&tab=404 [L]
+
+##
+
+</IfModule>

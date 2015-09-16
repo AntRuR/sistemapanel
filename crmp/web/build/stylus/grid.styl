@@ -1,0 +1,98 @@
+
+
+/**
+ * PAGES:
+ */
+.page
+	.inner
+		// LIST
+		> ul.listado_items.list
+			li.listado_item
+				float left
+				padding 15px 0px
+				width 100%;
+				position relative
+				.foto
+					float left
+					margin 0 10px 0 0	
+				.nombre
+					font-size 1em
+					font-weight bold	
+				.texto
+					display inline				
+		// GRID
+		> ul.listado_items.grid
+			text-align center
+			li.listado_item
+				float left
+				width 33%
+				padding 15px 5px
+				margin 0 auto
+				a.foto
+				figure.foto
+					display inline-block
+					width 150px
+					height 110px
+					line-height @height
+					background white
+					border-radius 4px
+					padding 0
+					text-align center
+					border 0
+					overflow hidden
+					position relative
+					img
+						margin 0 -25% !important
+						border-radius 3px					
+		// CONTENT				
+		> .content
+			text-align justify
+			img
+				float left
+				max-width 100%
+				margin 0 15px 15px 0	
+	> .footer
+		text-align center	
+
+
+
+
+/*
+
+.servicios_items_list
+	overflow: visible;
+	margin 0 -15px
+	padding 10px 0
+	text-align center
+	position relative
+	.listado_items
+		display block
+		.listado_item
+			text-align left
+			position: relative;
+			display inline-block
+			width: 21%;
+			margin: 0 15px;
+			height: 230px;
+			background-color: #125586;
+			padding: 10px 1.8%;
+			border-radius: 10px;
+			a
+				color: #A0E1FF;				
+				display: block;
+			h2.nombre
+				margin-top 8px
+				a
+					height: 24px
+					font-size 1.17em
+					font-family 'Titillium Web'
+				&:hover
+					text-decoration underline
+			a.vermas
+				margin-top 3px			
+				font-family: Arial
+			.texto
+				color white
+				line-height 1.3em
+
+*/				
