@@ -8,7 +8,7 @@ $FILE=(!empty($FILES[1]))?$FILES[1]:$_SERVER['ORIG_PATH_INFO'];
 $FILE=str_replace("/","",$FILE);
 
 //ORIG_PATH_INFO
-$file2OBJ=[];
+$file2OBJ=array();
 
 foreach($objeto_tabla as $mememe=>$ot){
 	// prin("/".$ot['archivo']);
@@ -28,6 +28,8 @@ if(isset($MEEE)){
 	$objeto_tabla = pre_procesar_tabla($objeto_tabla,$vars);
 
 	$MEEE = $objeto_tabla[$this_me];
+
+	// prin($MEEE);
 	// $MEEE = $objeto_tabla[$this_me]);
 
 }
@@ -72,9 +74,13 @@ if(!isset($MEEE)){
 
 include("lib/compresionInicio.php");
 
-include("head.php"); ?>
+include("head.php"); 
 
-<body class="monitor modulo_<?=$FILE;?> <? echo ($_GET['justlist']==1)?'justlist':'';?>">
+$id_permisos=dato("id_permisos","usuarios_acceso","where id=".$_SESSION['usuario_id']);
+
+?>
+
+<body class="monitor acceso_<?=$_SESSION['usuario_id']?> <?=$MEEE['titulo']?> <?=($_COOKIE['admin'])?'permiso_master':'';?> permiso_<?=$id_permisos;?> modulo_<?=$FILE;?> <? echo ($_GET['justlist']==1)?'justlist':'';?>">
 
 	<div id="div_allcontent" class="div_allcontent <?=(  ($SERVER['ARCHIVO']!='login.php') and $_COOKIE['men'] )?'menu_colapsed':''  ?>">
 

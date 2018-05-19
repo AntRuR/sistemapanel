@@ -33,6 +33,7 @@ $routes=[
 		/* detail */
 		'/(servicios|empresa)/(:any)/(:num)$' => 'modulo=items&tab=$1&acc=file&id=$3&friendly=$2',
 
+
 	/*blog*/	
 
 		/* detail */

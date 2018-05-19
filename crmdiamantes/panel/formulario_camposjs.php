@@ -1,5 +1,5 @@
 <?php
-
+echo "//inicio\n";
 foreach($tbcampos as $tbcampA){
 	switch($tbcampA['tipo']){
 		case "fch":
@@ -36,11 +36,37 @@ foreach($tbcampos as $tbcampA){
 		case "hid":
 			if($tbcampA['directlink']!=''){
 
+				$GGET1=$_GET[str_replace(array("[","]"),array("",""),$tbcampA['default'])];
+				// prin($GGET1);
+				$GGET2=$_SESSION[str_replace(array("[","]"),array("",""),$tbcampA['default'])
+				];
+				$GGET=($GGET1!='')?$GGET1:$GGET2;
+
 				if($tbcampA['afterload']!='')
 					if(!enhay($tbcampA['afterload'],"("))
 						$tbcampA['afterload']=$tbcampA['afterload']."()";
 
+
+				// echo 'console.log("'.$uno.'");';
+				// echo 'console.log("'.$dos.'");';
+				// echo 'console.log("'.$tres.'");';
+				// echo 'console.log("'.$minchar.'");';
+				
 				list($uno,$dos,$tres,$minchar)=explode("|",$tbcampA['directlink']);
+
+				if($GGET!=''){
+
+					list($dlid,$dlcampos)=explode(',',$uno);
+					$dlnameA=fila(str_replace(";",",",$dlcampos),$dos,"where $dlid=$GGET",0);
+					$dlname=implode(" ",$dlnameA);
+					// echo 'console.log("'.$dlname.'");';
+					echo 'console.log("por siacaso");';
+					?>
+					$('la_<?php echo $tbcampA['campo']?>').after('<?php echo $dlname;?>');
+					<?php
+				
+				} else {
+
 				?>
 				new Meio.Autocomplete.Select('in_<?php echo $tbcampA['campo']?>_dl', "load_json.php?s=<?php echo $uno."|".$dos."|".$tres;?>", {
 					minChars:<?php echo ($minchar!='')?$minchar:1; ?>,
@@ -80,19 +106,26 @@ foreach($tbcampos as $tbcampA){
 					},
 				});
 				<?php
-
+				}
 			} else {
 
 				$GGET1=$_GET[str_replace(array("[","]"),array("",""),$tbcampA['default'])];
-				$GGET2=$_SESSION[str_replace(array("[","]"),array("",""),$tbcampA['default'])];
+				// prin($GGET1);
+				$GGET2=$_SESSION[str_replace(array("[","]"),array("",""),$tbcampA['default'])
+				];
 				$GGET=($GGET1!='')?$GGET1:$GGET2;
+				// echo "//tema=$GGET\n";
 					list($primO,$tablaO,$whereO)=explode("|",$tbcampA['opciones']);
 					list($idO,$camposO)=explode(",",$primO);
 					$camposOA=array();
 					$camposOA=explode(";",$camposO);
-				$oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato($whereO));
+				$oopciones=select(array_merge(array($idO),$camposOA),$tablaO,procesar_dato($whereO),0);
+				// echo "va1\n";
 				if(!($tbcampA['combo']=='1' or $GGET=='' )){
+				// echo "va2\n";
+				// print_r($tbcampA);
 				if($tbcampA['load']!=''){
+				// echo "va3\n";
 				$looop=explode("||",$tbcampA['load']);
 				/*?>$("in_<?php echo $tb?>_<?php echo $tbcampA['campo']?>").value='';<?php*/
 				?>load_combo('<?php echo $looop[0]?>','<?php echo $looop[1]?>','<?php echo $GGET;?>');<?php
@@ -108,4 +141,4 @@ foreach($tbcampos as $tbcampA){
 	}
 }
 
-?>
+echo "//fin\n";

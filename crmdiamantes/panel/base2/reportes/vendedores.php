@@ -1,4 +1,6 @@
 <?php
+// echo 'hola';
+// prin($_GET);
 /*
 var_dump($SERVER);
 var_dump($_SERVER);
@@ -8,6 +10,61 @@ exit();
 // prin($_SESSION);
 
 $extra_query='';
+
+
+
+if(0){
+
+	delete("ventas_items","where id_usuario=0");
+
+	$usuarios=select("id,id_jefe,id_sesion","usuarios","where 1 order by id_jefe");
+	foreach($usuarios as $usu){
+		$JEFE[$usu['id']]=$usu['id_jefe'];
+		$USEr[$usu['id_sesion']]=$usu['id'];
+	}
+	// prin($JEFE);
+
+
+	$TTAA=select(
+		"id,id_usuario,id_jefe,user",
+		"ventas_items",
+		"where 1 "
+		." and id_usuario is null"
+		." and user is not null"
+		// ."and (  date(fecha_creacion) between '2016-01-01' and '2016-12-31' )"
+		,0);
+
+	foreach($TTAA as $aten){
+		update(
+			["id_usuario"=>$USEr[$aten['user']]],
+			"ventas_items",
+			"where id=".$aten['id'],
+			0
+			);
+	}
+
+
+	$AATT=select(
+		"id,id_usuario,id_jefe",
+		"ventas_items",
+		"where 1 "
+		." and id_jefe=0"		
+		// ."and (  date(fecha_creacion) between '2016-01-01' and '2016-12-31' )"
+		,0);
+	prin($JEFE);
+	foreach($AATT as $aten){
+		update(
+			["id_jefe"=>$JEFE[$aten['id_usuario']]],
+			"ventas_items",
+			"where id=".$aten['id'],
+			0
+			);
+	}
+
+	exit();
+
+}
+
 
 $id_permiso=dato('id_permisos','usuarios_acceso','where id='.$_SESSION['usuario_id'],0);
 if($id_permiso==20){
@@ -19,7 +76,13 @@ $extra_query=' and id in ('.$query.')';
 
 $_GET['ob']='VENTAS_ITEMS';
 
-list($date,$from,$to)=explode("|",$_GET['f']);
+// prin($_GET);
+list($from,$to)=explode("|",$_GET['fecha_creacion']);
+$date='fecha_creacion';
+// $date
+// prin($gett);
+// prin([$date,$from,$to]);
+// prin($_GET);
 
 
 $OBJ=$datos_tabla=procesar_objeto_tabla($objeto_tabla[$_GET['ob']]);
@@ -35,7 +98,7 @@ $last=dato('max('.$date.')',$OBJ['tabla'],"where ".$date."!=0",0);
 $last=(!$last)?date("Y-m-d"):$last;
 $last=substr($last,0,10);
 
-//prin("$first - $last");
+// prin("$first - $last");
 
 $from=($from)?$from:$first;
 $to=($to)?$to:$last;
@@ -307,6 +370,7 @@ if($rango<=30){
 
 
 $tipo=$op['0'];
+// prin([$tipo,$from,$to]);exit();
 $intervalos=crear_intervalos($tipo,$from,$to);
 
 $VV=array();
@@ -325,6 +389,13 @@ foreach($usuarios as $usu){
 	$ID_USU2[$usu['id']]=$usu['id_jefe'];
 }
 
+// prin($USU2);
+// prin($USU);
+
+// $idvendidos="13,10,20";
+// $idvendidos="10";
+$idvendidos="10"; //vendidos 
+$identregados="20"; //entregados
 
 foreach($intervalos as $vv){
 
@@ -334,7 +405,20 @@ foreach($intervalos as $vv){
 		$llll=select(
 					"$ordby as nombre, count(*) as total,id_jefe",
 					$datos_tabla['tabla'],
-					"where visibilidad!=0 and date($date)='$vv'
+					"where 1 "
+					// ."and visibilidad!=0 "
+					."and date($date)='$vv '
+					group by ".$ordby." order by ".$ordby." desc
+					",
+					0);
+
+		$llllventas=select(
+					"$ordby as nombre, count(*) as total,id_jefe",
+					$datos_tabla['tabla'],
+					"where 1 "
+					// ."and visibilidad!=0 "
+					."and date($date)='$vv '
+					and id_status in ($idvendidos)
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);
@@ -342,6 +426,11 @@ foreach($intervalos as $vv){
 		foreach($llll as $lll)
 		{
 			$line[$lll['id_jefe']][$lll['nombre']][$vv]=$lll['total'];
+		}
+
+		foreach($llllventas as $lll)
+		{
+			$lineventas[$lll['id_jefe']][$lll['nombre']][$vv]=$lll['total'];
 		}
 
 	} else {
@@ -349,7 +438,32 @@ foreach($intervalos as $vv){
 		$llll=select(
 					"$ordby as nombre, count(*) as total,id_jefe",
 					$datos_tabla['tabla'],
-					"where visibilidad!=0 and date($date) between '".str_replace("|","' and '",$vv)."'
+					"where 1 "
+					// ."and visibilidad!=0 "
+					."and date($date) between '".str_replace("|","' and '",$vv)."'
+					group by ".$ordby." order by ".$ordby." desc
+					",
+					0);
+
+		$llllventas=select(
+					"$ordby as nombre, count(*) as total,id_jefe",
+					$datos_tabla['tabla'],
+					"where 1 "
+					// ."and visibilidad!=0 "
+					."and date($date) between '".str_replace("|","' and '",$vv)."'
+					and id_status in ($idvendidos)					
+					group by ".$ordby." order by ".$ordby." desc
+					",
+					0);		
+
+
+		$llllentregados=select(
+					"$ordby as nombre, count(*) as total,id_jefe",
+					$datos_tabla['tabla'],
+					"where 1 "
+					// ."and visibilidad!=0 "
+					."and date($date) between '".str_replace("|","' and '",$vv)."'
+					and id_status in ($identregados)					
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);
@@ -358,6 +472,16 @@ foreach($intervalos as $vv){
 		{
 			$line[$lll['id_jefe']][$lll['nombre']][$vv]=$lll['total'];
 		}
+
+		foreach($llllventas as $lll)
+		{
+			$lineventas[$lll['id_jefe']][$lll['nombre']][$vv]=$lll['total'];
+		}
+
+		foreach($llllentregados as $lll)
+		{
+			$lineentregados[$lll['id_jefe']][$lll['nombre']][$vv]=$lll['total'];
+		}		
 
 	}
 
@@ -459,16 +583,18 @@ foreach($line as $iusu2=>$lin2){
 	unset($row);
 	$l=0;//title
 	if(trim($USU2[$iusu2])=='') continue;
-	$row[$l][]=array('<b>Jefe : </b> '.$USU2[$iusu2],'class=nombre colspan='.(sizeof($intervalos)+3),'class=success');
+	$row[$l][]=array('<b>Jefe : </b> '.$USU2[$iusu2],'class=nombre colspan='.(sizeof($intervalos)+5),'class=success');
 
-	$row[$l][]=($_GET['seccion']!='')?'':'<a class="linkstitu itr ico_Excel" title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel">Exportar Excel</a>';
+	$row[$l][]=($_GET['seccion']!='')?'':'<a class="linkstitu itr ico_Excel" title="Descargar Excel" href="'.$SERVER['URL'].'&seccion='.$iusu2.'&format=excel">Excel</a>';
 	$l++;//header
 	$row[$l][]=array('Vendedor','class=nombre','class="head muted"');
 	foreach($intervalos as $ii=>$la)
 		$row[$l][]=$LLL[$ii];
 	$row[$l][]='N';
-	$row[$l][]='Total';
-	$row[$l][]='Prom Vend/Día';
+	$row[$l][]='Total Atenciones';
+	$row[$l][]='Total Ventas';
+	$row[$l][]='Prom Atenciones/Día';
+	$row[$l][]='Prom Ventas/Día';
 
 	//body
 	foreach($lin2 as $iusu=>$lin)
@@ -476,16 +602,22 @@ foreach($line as $iusu2=>$lin2){
 		$l++;
 		if(trim($USU[$iusu])=='') continue;
 		$ff=0;
+		$ffventas=0;
 		$row[$l][]=array($USU[$iusu],'class=nombre');
 		foreach($intervalos as $ii=>$la)
 		{
-			$row[$l][]=$line[$iusu2][$iusu][$la];
+			$row[$l][]=$line[$iusu2][$iusu][$la]
+			.( ($lineventas[$iusu2][$iusu][$la])?" <b style='color:red;'>(".$lineventas[$iusu2][$iusu][$la].")</b>":"" );
 			$ff=$ff+$line[$iusu2][$iusu][$la];
+			$ffventas=$ffventas+$lineventas[$iusu2][$iusu][$la];
 			$lineS[$iusu2][$la] = $lineS[$iusu2][$la] + $line[$iusu2][$iusu][$la];
+			$lineSventas[$iusu2][$la] = $lineSventas[$iusu2][$la] + $lineventas[$iusu2][$iusu][$la];
 		}
 		$row[$l][]=$rango;
-		$row[$l][]=$ff;
+		$row[$l][]=$ff; $ffacum+=$ff;
+		$row[$l][]=$ffventas; $ffacumven+=$ffventas;
 		$row[$l][]=round($ff/$rango,2);
+		$row[$l][]=round($ffventas/$rango,2);
 	}
 
 	$l++;//footer
@@ -494,10 +626,15 @@ foreach($line as $iusu2=>$lin2){
 	{
 		$row[$l][]=$lineS[$iusu2][$la];
 		$ff=$ff+$lineS[$iusu2][$la];
+		$ffventas=$ffventas+$lineSventas[$iusu2][$la];
 	}
 	$row[$l][]=$rango;
-	$row[$l][]=$ff;
-	$row[$l][]=round($ff/$rango,2);
+	$row[$l][]=$ffacum; 
+	$row[$l][]=$ffventas;
+	$row[$l][]=round($ffacum/$rango,2);
+	$row[$l][]=round($ffacumven/$rango,2);
+	$ffacum=0;
+	$ffacumven=0;
 	//end
 
 	$seccion[$iusu2]=$vendes[]=$row;
@@ -513,7 +650,7 @@ foreach($line as $iusu2=>$lin2){
 unset($row);
 $l=0;//title
 $row[$l][]=array('Jefe de vendedores',
-				 'class=nombre colspan='.(sizeof($intervalos)+3),
+				 'class=nombre colspan='.(sizeof($intervalos)+5),
 				 'class=success');
 $row[$l][]=($_GET['seccion']!='')?'':'<a class="linkstitu itr ico_Excel" title="Descargar Excel" href="'.$SERVER['URL'].'&seccion=jefes&format=excel">Exportar Excel</a>';
 $l++;//header
@@ -521,8 +658,10 @@ $row[$l][]=array('','','class="head muted"');
 foreach($intervalos as $ii=>$la)
 	$row[$l][]=$LLL[$ii];
 $row[$l][]='N';
-$row[$l][]='Total';
-$row[$l][]='Prom Vend/Día';
+$row[$l][]='Total Atenciones';
+$row[$l][]='Total Ventas';
+$row[$l][]='Prom Atenciones/Día';
+$row[$l][]='Prom Ventas/Día';
 
 //body
 foreach($lineS as $iusu2=>$lin)
@@ -530,16 +669,22 @@ foreach($lineS as $iusu2=>$lin)
 	$l++;
 	if(trim($USU2[$iusu2])=='') continue;
 	$ff=0;
+	$ffventas=0;
 	$row[$l][]=array($USU2[$iusu2],'class=nombre');
 	foreach($intervalos as $ii=>$la)
 	{
-		$row[$l][]=$lineS[$iusu2][$la];
+		$row[$l][]=$lineS[$iusu2][$la]
+		.( ($lineSventas[$iusu2][$la])?" <b style='color:red;'>(".$lineSventas[$iusu2][$la].')</b>':'' );
 		$ff=$ff+$lineS[$iusu2][$la];
+		$ffventas=$ffventas+$lineSventas[$iusu2][$la];
 		$lineSS[$la] = $lineSS[$la] + $lineS[$iusu2][$la];
+		$lineSSventas[$la] = $lineSSventas[$la] + $lineSventas[$iusu2][$la];
 	}
 	$row[$l][]=$rango;
-	$row[$l][]=$ff;
+	$row[$l][]=$ff;  $ffacum+=$ff;
+	$row[$l][]=$ffventas; $ffacumven+=$ffventas;
 	$row[$l][]=round($ff/$rango,2);
+	$row[$l][]=round($ffventas/$rango,2);
 }
 
 $l++;//footer
@@ -548,11 +693,15 @@ foreach($intervalos as $ii=>$la)
 {
 	$row[$l][]=$lineSS[$la];
 	$ff=$ff+$lineSS[$la];
+	$ffventas=$ffventas+$lineSSventas[$la];
 }
 $row[$l][]=$rango;
-$row[$l][]=$ff;
-$row[$l][]=round($ff/$rango,2);
-
+$row[$l][]=$ffacum; 
+$row[$l][]=$ffacumven; 
+$row[$l][]=round($ffacum/$rango,2);
+$row[$l][]=round($ffacumven/$rango,2);
+$ffacum=0;
+$ffacumven=0;
 //end
 $seccion['jefes']=$row;
 

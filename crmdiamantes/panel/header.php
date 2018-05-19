@@ -339,8 +339,8 @@ location.href=url;
 						if($usu['nombre']!=''){
 
 							foreach($tables_usuarios as $tu){
-								$FiL=select("usuarios_acceso_nombre as nombre,usuarios_acceso_password as password",$tu['tabla'],"where id_sesion='".$usu['id']."'",0); if(sizeof($FiL)>0){
-									$FiLa=$FiL['0']; continue;
+								$FiLau=select("usuarios_acceso_nombre as nombre,usuarios_acceso_password as password",$tu['tabla'],"where id_sesion='".$usu['id']."'",0); if(sizeof($FiLau)>0){
+									$FiLa=$FiLau['0']; unset($FiLau); continue;
 								}
 							}
 
@@ -504,8 +504,8 @@ location.href=url;
 if($usu['nombre']!=''){
 
 	foreach($tables_usuarios as $tu){
-$FiL=select("usuarios_acceso_nombre as nombre,usuarios_acceso_password as password",$tu['tabla'],"where id_sesion='".$usu['id']."'",0); if(sizeof($FiL)>0){
-$FiLa=$FiL['0']; continue;
+$FiLau=select("usuarios_acceso_nombre as nombre,usuarios_acceso_password as password",$tu['tabla'],"where id_sesion='".$usu['id']."'",0); if(sizeof($FiLau)>0){
+$FiLa=$FiLau['0']; unset($FiLau); continue;
 }
 }
 

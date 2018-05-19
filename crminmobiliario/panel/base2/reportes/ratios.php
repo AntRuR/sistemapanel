@@ -362,33 +362,43 @@ $depas=select(
 		'id_items_tipo',
 		// 'id_subgrupo',
 		"if(vista='1','int','ext') as vista",
-		"if(venta_fecha!='0000-00-00 00:00:00' or venta_fecha is not NULL,'1','0') as vendido"
+		// "if(venta_fecha!='0000-00-00 00:00:00' or venta_fecha is not NULL,'1','0') as vendido"
+		"if(`id_status`in('3','4'),'1','0') as vendido"
+
 	],
 	"productos_items_items",
 	"where id_item=".$_GET['id_item'],
 	0
 	);
+// prin($depas);
 
 $estas=select(
 	[
 		'id',
 		'precio',
-		"if(venta_fecha!='0000-00-00 00:00:00' or venta_fecha is not NULL,'1','0') as vendido"
+		// "if(venta_fecha!='0000-00-00 00:00:00' or venta_fecha is not NULL,'1','0') as vendido"
+		"if(`id_status`in('3','4'),'1','0') as vendido"
+
 	],
 	"productos_estacionamientos_items_items",
 	"where id_item=".$_GET['id_item'],
 	0
 	);
+// prin($estas);
+
 $depos=select(
 	[
 		'id',
 		'precio',
-		"if(venta_fecha!='0000-00-00 00:00:00' or venta_fecha is not NULL,'1','0') as vendido"
+		// "if(venta_fecha!='0000-00-00 00:00:00' or venta_fecha is not NULL,'1','0') as vendido"
+		"if(`id_status`in('3','4'),'1','0') as vendido"
+
 	],
 	"productos_depositos_items_items",
 	"where id_item=".$_GET['id_item'],
 	0
 	);
+// prin($estas);
 
 $modelos=select(
 	['id','nombre'],

@@ -22,29 +22,61 @@ if(!isset($II)){
 }
 
 
-
+/*************************
+*
+*         ABONOS
+* 
+*************************/
 if($TT=='productos_ventas_documentos'){
 
 	// echo $II;
 
+
+$operaciones=[								
+				'1'			=> 'Separación',
+				'2'			=> 'Inicial',
+				'3'			=> 'Abono',
+				'4'			=> 'Desembolso Bancario',
+				'5'			=> 'Plan Ahorro'
+				];
+
+
 	$paranotificar=fila(
-		array(
-			"v.id_item as id_item",
-			"v.id_cliente as id_cliente",
-			"v.id_usuario as id_usuario",
-			"v.user as user",
-			"d.id as id",
-			"d.monto as monto",
-			"d.fecha_vencimiento as fecha_vencimiento"
-			),
-		"productos_ventas as v,productos_ventas_documentos as d ",
-		"where v.id=d.id_grupo and d.fecha_vencimiento!='0000-00-00 00:00:00' and DATE(d.fecha_vencimiento) >= DATE(NOW()) and d.id=".$II,
+		[
+'productos_ventas_documentos.operacion as operacion',
+'ventas_items.id_item as id_item',
+'ventas_items.id_cliente as id_cliente',
+'ventas_items.id_usuario as id_usuario',
+'ventas_items.user as user',
+'productos_ventas_documentos.monto as monto',
+'productos_ventas_documentos.fecha_vencimiento as fecha_vencimiento',
+'productos_ventas.id as id_venta'
+		],
+		"productos_ventas_documentos",
+		"
+left join productos_ventas on productos_ventas_documentos.id_grupo=productos_ventas.id
+left join ventas_items on ventas_items.id=productos_ventas.id_ventas_item		
+where productos_ventas_documentos.fecha_vencimiento!='0000-00-00 00:00:00' 
+and DATE(productos_ventas_documentos.fecha_vencimiento) >= DATE(NOW()) 
+and productos_ventas_documentos.id=".$II,
 		0);
+
+
+
 	
 	$paranotificar['tipo']   ='email';
-	$paranotificar['texto']  ='texto abonos';
-	$paranotificar['asunto'] ='Recodatorio de Abono';
+	$paranotificar['texto']  = ''
+										."Venta: #".$paranotificar['id_venta'].'<br>'
+										."Proyecto: ".dato("nombre","productos_items","where id=".$paranotificar['id_item']).'<br>'
+										.'Cliente : '.dato("nombre","clientes","where id=".$paranotificar['id_cliente']).' '.dato("apellidos","clientes","where id=".$paranotificar['id_cliente']).'<br>'
+										.'Operación : '.$operaciones[$paranotificar['operacion']].'<br>'
+									   .'Monto: S/.'.$paranotificar['monto'].'<br>'
+									   .'Fecha de vencimiento: '.fecha_formato($paranotificar['fecha_vencimiento'],'7c').'<br>'
+										;
+	$paranotificar['asunto'] ='Recordatorio de Abono';
 	$paranotificar['modulo'] ='abonos';
+
+	// prin($paranotificar);exit();
 
 	$dias=array(
 			'1'	=>date("Y-m-d H:i:s",strtotime($paranotificar['fecha_vencimiento'].' + 8 hours')),
@@ -67,6 +99,7 @@ if($TT=='productos_ventas_documentos'){
 				'id_usuario'       =>$paranotificar['id_usuario'],
 				'user'       	   =>$paranotificar['user'],
 				'id_item'          =>$paranotificar['id_item'],
+
 				'texto'            =>$paranotificar['texto'],
 				'asunto'            =>$paranotificar['asunto'],
 				'estado'           =>'1',
@@ -87,13 +120,16 @@ if($TT=='productos_ventas_documentos'){
 			insert(
 				array(
 				'modulo'           =>$paranotificar['modulo'],
+				
 				'item'             =>$paranotificar['id'],
 				'sub_item'         =>$sub,
+				
 				'fecha_programada' =>$dia,
 				'id_cliente'       =>$paranotificar['id_cliente'],
 				'id_usuario'       =>$paranotificar['id_usuario'],
 				'user'       	   =>$paranotificar['user'],
 				'id_item'          =>$paranotificar['id_item'],				
+
 				'texto'            =>$paranotificar['texto'],
 				'asunto'            =>$paranotificar['asunto'],
 				'estado'           =>'1',
@@ -112,6 +148,11 @@ if($TT=='productos_ventas_documentos'){
 
 
 } 
+/*************************
+*
+*         ALERTAS
+* 
+*************************/
 elseif($TT=='ventas_mensajes'){
 
 // print_r(array($SS,$II,$TT,$LL,$CC,$III));
@@ -134,6 +175,7 @@ elseif($TT=='ventas_mensajes'){
 	
 	$paranotificar['tipo']='email';
 	$paranotificar['texto']='Recordatorio:<br>'.$LL['texto']."<br><br>
+	Proyecto: ".dato('nombre','productos_items','where id='.$paranotificar['id_item'])."<br><br>
 	Alerta: ".dato('nombre','mensajes_alertas','where id='.$LL['alerta'])."<br>
 	Hora: ".fecha_formato($LL['alerta_fecha'],'8b')."<br>
 	Status: ".dato('nombre','ventas_status','where id='.$LL['id_status'])."<br>
@@ -147,7 +189,9 @@ elseif($TT=='ventas_mensajes'){
 	RPC: ".dato('rpc','clientes','where id='.$paranotificar['id_cliente'])."<br><br>
 	Atención: <a href='http://crmsche.info/panel/custom/ventas_items.php?i=".$paranotificar['id_item_venta']."'>#".$paranotificar['id_item_venta']."</a><br>
 	";
-	$paranotificar['asunto']='Recodatorio de seguimiento';
+	
+	$paranotificar['asunto']='Recordatorio de seguimiento de '.dato('nombre','usuarios','where id='.$paranotificar['id_usuario']).' '.dato('apellidos','usuarios','where id='.$paranotificar['id_usuario']);
+
 	$paranotificar['modulo']='seguimiento';
 
 	// prin($paranotificar);
@@ -214,6 +258,11 @@ elseif($TT=='ventas_mensajes'){
 
 	}
 
+/*************************
+*
+*         AGENDA
+* 
+*************************/
 
 } elseif($TT=='todos_mensajes'){
 

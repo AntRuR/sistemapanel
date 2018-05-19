@@ -173,7 +173,7 @@ td { background-color: #FFF; }
 
         
     .i_mm, .i_ff {
-    margin-top: 2px !important;
+    /*margin-top: 2px !important;*/
 
     /* color: #FFA500 !important; */
     }    
@@ -185,4 +185,88 @@ td { background-color: #FFF; }
 }
 .permiso_20 #menu_main .number {
     display:none;
+}
+
+
+ /* 
+ mensajes al asesor
+ */
+
+.mensaje_dejefe,
+.mensaje_deadministrador {
+    display:none !important;
+}
+
+.permiso_master .mensaje_deadministrador,
+.permiso_19 .mensaje_deadministrador,
+.permiso_20 .mensaje_deadministrador,
+.permiso_1 .mensaje_deadministrador
+{
+    display:block !important;
+}
+
+.permiso_master .mensaje_dejefe,
+.permiso_2 .mensaje_dejefe
+{
+    display:block !important;
+}
+
+.mensaje_deadministrador,
+.mensaje_dejefe,
+.mensaje_cliente {
+font-weight: bold !important;
+float: right !important;
+}
+.mensaje_deadministrador:hover,
+.mensaje_dejefe:hover,
+.mensaje_cliente:hover {
+    color: black !important;
+}
+.mensaje_dejefe { color:green;}
+.mensaje_deadministrador { color:purple;}
+.mensaje_cliente { color:red;}
+
+
+.modulo_ventas_items
+.nav li label { width: 190px; }
+
+#id_in_articulo,
+#id_in_nombre2,
+#id_in_link,
+.exportar_go,
+.controll,
+.formulario #group_import,
+.formulario #id_in_invernado
+{ display:none !important; }
+
+.acceso_49_unlocked #id_in_articulo,
+.acceso_49_unlocked #id_in_nombre2,
+.acceso_49_unlocked  #id_in_link,
+.acceso_49_unlocked .exportar_go,
+.acceso_ .exportar_go,
+.acceso_49_unlocked .controll,
+.acceso_ .controll,
+.acceso_49_unlocked #group_import,
+.acceso_49_unlocked .formulario #id_in_invernado,
+.acceso_ .formulario #id_in_invernado
+{ display:block !important; }
+
+#filtr_id_cliente_dl {
+    width: 400px !important;
+}
+.listado_grilla .controll {
+    display:block !important;
+}
+
+
+.modulo_ventas_mensajes .exports { display:none; }
+
+.acceso_.modulo_ventas_mensajes a.exportar_alertas_nacin,
+.acceso_49_unlocked.modulo_ventas_mensajes a.exportar_alertas_nacin { display:block; }
+
+.ingreseclave {
+    border: 4px solid navy;
+    display: inline-block;
+    padding: 1em;
+    margin: 0 1em 1em 1em;
 }

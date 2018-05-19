@@ -153,7 +153,8 @@ $ITEM=$DETAIL[$PARAMS['this']];
 
                         <tr><td style="border:1px solid #ddd;" align="center">';
 
-                        echo fecha_formato($fecha,2);
+                        // echo fecha_formato($fecha,2);
+                        echo fecha_formato('now()',2);
 
                         echo '</td></tr>
 

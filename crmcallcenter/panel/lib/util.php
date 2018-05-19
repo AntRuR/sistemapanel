@@ -144,6 +144,187 @@ function verificar_tabla($tabla){
 
 }
 
+
+function breadcrumb($dato,$id=NULL,$objeto){
+
+	global $_GET;
+	global $SERVER;
+	global $ibi;
+	global $ibi2;
+
+	$ttren =array();
+
+	if(!isset($_GET['id']) and !isset($_GET['i'])){
+
+		$ttren[]="<span class='type_file'>".ucfirst($objeto[$dato['me']]['nombre_plural']).'</span>';
+
+	} else {
+
+		if(isset($_GET['i'])){
+
+			foreach($objeto[$dato['me']]['campos'] as $campo){
+				if($campo['foreigkey']!=''){
+					// prin($campo);
+					list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+					list($dd,$ee)=explode(",",$aa);
+					$id=dato($campo['campo'],$dato['tabla'],"where id=".$_GET['i'],0);
+				}
+			}
+
+
+		}
+
+		$ibi=0;
+		$ibi2=0;
+
+		breadcrumb_0($dato['titulo'],$id,$objeto,$ttren);
+
+		if(isset($_GET['i'])){
+
+			$name=dato("name",$dato['tabla'],'where id='.$_GET['i']);
+			$ttren[]="<span class='type_file'>".$name."</span>";
+
+		}
+
+	}
+
+	return implode("<span class='pipe'> / </span>",$ttren);
+
+}
+
+function breadcrumb_0($dato,$id=NULL,$objeto,&$ttren){
+
+	global $_GET;
+	global $link;
+	global $ibi;
+	global $ibi2;
+	global $SERVER;
+
+	// prin($objeto);
+
+	$dato=str_replace("class=\"linkstitu\"","",$dato);
+
+	// if(isset($_GET['i'])){
+
+	// 	// breadcrumb($dato,$_GET['i'],$objeto,$ttren);
+	// 	// prin($ttren);
+	// 	// exit();
+	// 	$_GET['id']=$_GET['i'];
+	// 	unset($_GET['i']);
+
+	// }
+
+	if(!$id){ $id=$_GET['id']; }
+
+	// prin($_GET);
+	// prin($id);
+	// prin($dato);
+
+	//$dato = ($id)?str_replace('[id]',$id,$dato):"registros";
+
+	$dato = str_replace('[id]',$id,$dato);
+
+	$dato2= $dato;
+
+	if(
+		enhay($dato,"}") and enhay($dato,"{") 
+		){
+
+		$uno=array();
+		$uno = explode("{",$dato);
+		foreach($uno as $ii=>$un){
+		if( !(strpos($un,"}")==false) ){
+		$dos = explode("}",$un);
+
+		$consulta = $dos[0];
+		// prin($consulta);
+
+		$tabla=between($consulta,'from','where');
+
+		// if( $ibi==0 ){
+
+		// 	prin($SERVER['URL']);
+		// 	$url2='custom/'.$SERVER['URL'];
+
+		// } else {
+
+			$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+			echo "<div style='color:red;'>$url2, $ibi <div>";
+
+		$ibi++;
+		
+		foreach($objeto as $obj){
+			if($obj['tabla']==trim($tabla['1'])){
+				foreach($obj['campos'] as $campo){
+					if($campo['foreigkey']!=''){
+						// prin($campo);
+						list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+						list($dd,$ee)=explode(",",$aa);
+						$idgrupo=dato($campo['campo'],$bb,"where id=".$id,0);
+						// prin("|".$idgrupo);
+						// prin($campo['name']['controlles']);
+
+						// echo "{select $ee from $bb where id=[id]}";
+						if($idgrupo!=0)
+							breadcrumb_0("{select $ee from $bb where id=[id]}",$idgrupo,$objeto,$ttren);
+						// prin($campo);
+					}
+				}
+			}
+		}
+
+
+		$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+		echo "<div style='color:green;'>$url2, $ibi2 <div>";
+
+		$ibi2++;
+
+
+		$result=mysql_query($consulta,$link);
+		// echo "$consulta<br>";
+		$row = mysql_fetch_row($result);
+		$dato3 = $row[0];
+		$llaves="{".$dos[0]."}";
+		$dato2 = str_replace($llaves,$dato3,$dato2);
+		}
+		}
+		if($id!=''){
+
+			$dato = $dato2 ;
+			$url = $url2 ;
+
+		} else {
+
+			list($aa,$bb)=explode("{",$dato);
+			list($cc,$dd)=explode("}",$bb);
+			$dato=$aa.$dd;
+
+		}
+
+	}
+	// $dato=preg_replace("/>([a-z0-9\-\.\s]{2,20})<\/a>/i",' title="$1">$1</a>',$dato);
+
+	// $dato=preg_replace("/foto(s)?</i"			,'<span class="z ico_pics"></span><',$dato);
+	// $dato=preg_replace("/vista previa</i"		,'<span class="z ico_eye"></span><',$dato);
+	// $dato=preg_replace("/imprimir</i"			,'<span class="zz ico_Print"></span><',$dato);
+	// $dato=preg_replace("/mensaje(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/alerta(s)?</i"			,'<span class="zz ico_alert"></span><',$dato);
+	// $dato=preg_replace("/consulta(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/comentario(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/>nuevo/i"				,'><span class="zz ico_plus"></span>',$dato);
+
+	// prin($dato);
+
+	$ttren[]="<a href='".$url."' class='type_directory'>".$dato."</a>";
+
+}
+
 function procesar_dato($dato,$id=NULL){
 
 	global $_GET;
@@ -1940,29 +2121,7 @@ function web_guardar_datos($GET,$debug=0){
 
 } else {
 
-	if($GET['var']=='CLASSPARAMETERS'){
 
-		$GET2=array();
-		if($GET['file']=='css'){
-			$GET2['file']=$GET['file'];
-			$GET2['var']=$GET['var'];
-			foreach($GET as $uno => $dos){
-				if(!in_array($uno,array("var","file"))){
-					$xinco=explode("%23%23%23%23",$dos);
-					foreach($xinco as $xinc){
-						$xxxin=explode("\n",$xinc);
-						$TyPe=strtolower(trim($xxxin[0]));
-						if($TyPe!=''){
-						unset($xxxin[0]);
-						$GET2[$uno."-".$TyPe]=implode("\n",$xxxin);
-						}
-					}
-				}
-			}
-		$GET=$GET2;
-		}
-
-	}
 
 
 	//GENERAL
@@ -1986,12 +2145,8 @@ function web_guardar_datos($GET,$debug=0){
 		$ttt='';
 
 		foreach($VAR as $uno=>$dos){
-			if($GET['var']=='CLASSPARAMETERS'){
-				list($aaa,$bbb)=explode("-",$uno);
-				$ttt.= "\$".$GET['var']."['$uno']='".parametros_encode($dos,$bbb)."';\n";
-			} else {
-				$ttt.= "\$".$GET['var']."['$uno']='$dos';\n";
-			}
+			$ttt.= "\$".$GET['var']."['$uno']='$dos';\n";
+			
 		}
 		/*$keys=array_keys($_GET['var']);*/
 
@@ -2007,45 +2162,6 @@ function web_guardar_datos($GET,$debug=0){
 
 }
 
-function clean_css_css(){
-
-	$allcs=implode("",file("css.php"));
-
-	$Default=array('footers'=>'form_05','bloques'=>'bloque_cuadro_18','listados'=>'listado_15','arboles'=>'arbol_01','menus'=>'menu_22');
-
-	list($uno,$dos,$tres)=between($allcs,"/*WEBBLOQUES-START*/","/*WEBBLOQUES-END*/");
-	eval($dos);
-
-	list($uno0,$dos0,$tres0)=between($allcs,"/*CLASSSELECTED-START*/","/*CLASSSELECTED-END*/");
-	eval($dos0);
-
-	$CSS='';
-	foreach($WEBBLOQUES as $uno=>$dos){
-		$ddos=explode(",",$dos);
-		foreach($ddos as $dddos){
-		$CSS.="\$CLASSSELECTED['".$uno."-".$dddos."']='".(($CLASSSELECTED[$uno."-".$dddos])?$CLASSSELECTED[$uno."-".$dddos]:$Default[$dddos])."';\n";
-		}
-	}
-	$allcs=$uno0."/*CLASSSELECTED-START*/\n".$CSS."/*CLASSSELECTED-END*/\n".$tres0;
-
-	list($uno0,$dos0,$tres0)=between($allcs,"/*CLASSPARAMETERS-START*/","/*CLASSPARAMETERS-END*/");
-	eval($dos0);
-
-	$CPS='';
-	foreach($WEBBLOQUES as $uno=>$dos){
-		$ddos=explode(",",$dos);
-		foreach($ddos as $dddos){
-		$CPS.="\$CLASSPARAMETERS['".$uno."-".$dddos."']='".$CLASSPARAMETERS[$uno."-".$dddos]."';\n";
-		}
-	}
-	$allcs=$uno0."/*CLASSPARAMETERS-START*/\n".$CPS."/*CLASSPARAMETERS-END*/\n".$tres0;
-
-	$f1=fopen("css.php","w+");
-	fwrite($f1,$allcs);
-	fclose($f1);
-
-
-}
 
  function parametros_preprocess($string,$base=false){
 
@@ -3179,7 +3295,7 @@ function render_foreig_subs($obj0,$id,$urd){
 							break;
 							case "fcr":	case "fch":
 							$fech=fecha_formato($linea[$camP],($objeto_tabla[$obj['obj']]['campos'][$camP]['formato'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['formato']:'0b');
-							echo '<span style="font-size:11px;">'.(($fech!='')?$fech:"&nbsp;")."</span>";
+							echo '<span class="fche">'.(($fech!='')?$fech:"&nbsp;")."</span>";
 							break;
 							case "html":
 							echo ($linea[$camP]!='')?"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>":"&nbsp;";
@@ -3333,8 +3449,16 @@ function render_foreig_subs($obj0,$id,$urd){
 						if($tbcampA['time']){
 						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:53px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
-						for($i=0; $i<=24;$i++){
-						$html.="<option value='".sprintf("%02d",$i)."' >".$Array_Horas[$i]."</option>";
+						if($tbcampA['time']=='1'){
+							for($i=0; $i<=24;$i++){
+								$html.="<option value='".sprintf("%02d",$i).":00:00' >".$Array_Horas[$i]."</option>";
+							}
+						} elseif($tbcampA['time']=='2'){
+							for($i=0; $i<=24;$i++){
+								for($jk=0; $jk<=3;$jk++){
+									$html.="<option value='".sprintf("%02d",$i).":".sprintf("%02d",$jk*15).":00' >".$Array_Horas[$i]."</option>";
+								}
+							}
 						}
 						$html.= "</select>";
 						} else {
@@ -4194,7 +4318,7 @@ $ALL.=$obj.",\n";
 	//prin($_GET['conf']);
 	//$fffilter="";
 	//prin($_GET['filter']);
-	//prin($permisos);
+	// prin($permisos);
 	//echo urlencode("alerta=".urlencode("alerta=1,2"));
 	if(trim($permisos)=='' or trim($permisos)=='*'){
 		return $objeto_tabla;
@@ -4588,9 +4712,9 @@ return $dos;
 
 function get_dims_crearforeig($aa=NULL){
 	if($aa!=NULL){
-	return "width:750,height:400";
+	return "width:1000,height:400";
 	} else {
-	return "width:900,height:530";
+	return "width:1000,height:530";
 	}
 }
 
@@ -5198,4 +5322,215 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 	ImageDestroy($im);
 
 	return array('word' => $word, 'time' => $now, 'image' => $img);
+}
+
+
+function paginacionnumerada($parametros,$campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
+
+	global $_GET;
+	$pagin=$_GET['pag'];
+	if($pagin==''){
+		$pagin=1;
+	}
+
+	if(is_array($parametros['item'])){
+
+		$wer=each($parametros['item']);
+
+	}
+
+	if($wer['value']!=''){
+
+		$visi=select($campos,$tabla," where ".$wer['key']."='".$wer['value']."' ",$debug,$opciones);
+
+		$tot=1;
+
+		$cm = array(
+				'filas'=>$visi,
+				'total'=>$tot,
+				'pagina'=>$pagin,
+				'anterior'=>"",
+				'siguiente'=>"",
+				'desde'=>1,
+				'hasta'=>$tot,
+				'tren'=>""
+		);
+
+		return $cm;
+
+	} else {
+
+		if($parametros['porpag']==0){
+
+			$visi=select($campos,$tabla,$donde." limit 0,100",$debug,$opciones,$concat);
+
+			$tot=sizeof($visi);
+
+			$cm = array(
+					'filas'=>$visi,
+					'pagina'=>$pagin,
+					'total'=>$tot,
+					'anterior'=>"",
+					'siguiente'=>"",
+					'desde'=>1,
+					'hasta'=>$tot,
+					'tren'=>""
+			);
+
+			return $cm;
+
+		} else {
+
+			//pagin
+			//porpag,anterior,siguiente,enlace
+			$porpag=$parametros['porpag'];
+			$anterior=$parametros['anterior'];
+			$siguiente=$parametros['siguiente'];
+			$enlace=$parametros['enlace'];
+			$separador=$parametros['separador'];
+			$onclick=$parametros['onclick'];
+			$pagina_disabled=$parametros['pagina_disabled'];
+			$tren_limite=($parametros['tren_limite'])?$parametros['tren_limite']:10;
+			$procesar_url=($parametros['procesar_url'])?$parametros['procesar_url']:0;
+			$tipo=($parametros['tipo'])?$parametros['tipo']:'default';
+
+
+			parse_str($enlace,$gets);
+			$gets=array_keys($gets);
+			$var_pag=$gets[sizeof($gets)-1];
+
+
+			if($pagin==''){
+				$pagin=1;
+			}
+
+			$total=contar($tabla,$donde,0);
+			//prin($tabla);
+			//prin($donde);
+			//prin($total);
+
+			$finpag=$total;
+			$inicio=$porpag*($pagin-1);
+
+			if($total>$porpag){
+
+				$visi=select($campos,$tabla,$donde." limit $inicio,$porpag",$debug,$opciones,$concat);
+
+				$finpag=sizeof($visi);
+
+				$prev_pag=$pagin-1;
+				$next_pag=$pagin+1;
+
+
+				if ($pagin==1) {
+					$prev="<span  class='linkarrowselec'>".$anterior."</span>";
+					$prevA="<li class='disabled'><a href='#'>".$anterior."</a></li>";
+				} else {
+					$prev=($anterior=='')?"":"<a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " class='linkarrow'>$anterior</a>";
+					$prevA=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " >$anterior</a></li>";
+				}
+
+				if ($total==($finpag+$inicio)) {
+					$next="<span class='linkarrowselec'>".$siguiente."</span>";
+					$nextA="<li class='disabled'><a href='#'>".$siguiente."</span></li>";
+				} else {
+					$next=($siguiente=='')?"":"<a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " class='linkarrow' >$siguiente</a>";
+					$nextA=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " >$siguiente</a></li>";
+				}
+
+			} else {
+
+				$visi=select($campos,$tabla,$donde,$debug,$opciones,$concat);
+
+			}
+			$sun=(int)(($total-1)/$porpag)+1;
+			for($i=1;$i<=$sun;$i++){
+				if($i==$pagin){
+					$raba[]="<span class='linkpagselec'>$i</span>";
+					$rabaA[]="<li class='active'><a href='#'>$i</a></li>";
+				} else {
+					$raba[]="<a class='linkpag' " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a>";
+					$rabaA[]="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
+				}
+			}
+			$marder=3;
+			$inicior=($pagin>$tren_limite-1-$marder)?($pagin-$tren_limite+$marder):0;
+			//$inicior=$pagin;
+			if(sizeof($raba)>$tren_limite){
+				for( $r = $inicior ;  $r < $inicior + $tren_limite  ; $r++ ){
+
+					if( $r==$inicior and $inicior>0 ){
+						$raba2[]=$raba[0];
+						$raba2A[]=$rabaA[0];
+					} else {
+						$raba2[]=$raba[$r];
+						$raba2A[]=$rabaA[$r];
+					}
+
+					if($raba[$r]!=''){
+						$ultimoraba=$raba[$r];
+						$ultimorabaA=$rabaA[$r];
+					}
+
+				}
+				if($ultimoraba!=$raba[sizeof($raba)-1]){
+					$raba2[]="<span class='linkarrowselec'>&nbsp;...&nbsp;</span>";
+					//$raba2[]=$raba[sizeof($raba)-2];
+					$raba2[]=$raba[sizeof($raba)-1];
+					$raba2A[]="<li class='disabled'><a href='#'>&nbsp;...&nbsp;</span>";
+					//$raba2[]=$raba[sizeof($raba)-2];
+					$raba2A[]=$rabaA[sizeof($raba)-1];
+				}
+				$raba=$raba2;
+				$rabaA=$raba2A;
+
+			}
+
+
+			$rabas=(sizeof($raba)>1)?implode($separador,$raba):"";
+			$rabasA=(sizeof($raba)>1)?implode($separador,$rabaA):"";
+
+			if($pagina_disabled){
+
+				$cm = array(
+						'filas'=>$visi,
+						'pagina'=>$pagin,
+						'total'=>$total
+				);
+
+			} else {
+
+				if($tipo=='bootstrap')
+					$cm = array(
+							'filas'=>$visi,
+							'pagina'=>$pagin,
+							'totalpaginas'=>sizeof($raba),
+							'total'=>$total,
+							'anterior'=>$prevA,
+							'siguiente'=>$nextA,
+							'desde'=>$inicio+1,
+							'hasta'=>$finpag+$inicio,
+							'tren'=>$rabasA
+					);
+				else
+					$cm = array(
+							'filas'=>$visi,
+							'pagina'=>$pagin,
+							'totalpaginas'=>sizeof($raba),
+							'total'=>$total,
+							'anterior'=>$prev,
+							'siguiente'=>$next,
+							'desde'=>$inicio+1,
+							'hasta'=>$finpag+$inicio,
+							'tren'=>$rabas
+					);
+
+			}
+
+			return $cm;
+
+		}
+
+	}
+
 }

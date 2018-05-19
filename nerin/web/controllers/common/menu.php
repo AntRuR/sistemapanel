@@ -56,10 +56,10 @@ $object['menu']=[
 									)
 
 					],
-					[
-						'url'   =>'index.php?modulo=app&tab=pages&page=responsabilidad-social',
-						'label' =>'Responsabilidad Social',
-					],
+					// [
+					// 	'url'   =>'index.php?modulo=app&tab=pages&page=responsabilidad-social',
+					// 	'label' =>'Responsabilidad Social',
+					// ],
 					[
 						'url'   =>'index.php?modulo=app&tab=pages&page=servicio-post-venta',
 						'label' =>'Servicio Post-Venta',

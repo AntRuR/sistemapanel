@@ -60,7 +60,7 @@ $objeto_tabla['PAGINAS_GROUPS']=array(
 						'listable'		=> '1',
 						'validacion'	=> '1',
 						// 'constante'		=> '1',
-						'setup'			=> 'servicios,empresa,home',
+						'setup'			=> 'empresa,home',
 				),								
 				'name'		=>array(
 						'campo'			=> 'name',
@@ -106,8 +106,12 @@ $objeto_tabla['PAGINAS']=array(
 		'orden'			=> '1',	
 		'app'			=> '
 		<a href="custom/paginas.php?id=1">Empresa</a>
-		<a href="custom/paginas.php?id=2">Servicios</a>
+		<a href="custom/paginas.php?id=2">Servicios de Fumigaciones</a>
+		<a href="custom/paginas.php?i=24&conf=weight%257Clistable%3D0%26crear%3D0%26eliminar%3D0%26">Retardante de Fuego</a>
+		<a href="custom/paginas.php?i=27&conf=weight%257Clistable%3D0%26crear%3D0%26eliminar%3D0%26">Lavado de Muebles</a>
+		<a href="custom/paginas.php?i=28&conf=weight%257Clistable%3D0%26crear%3D0%26eliminar%3D0%26">Control de Roedores</a>
 		<a href="custom/paginas.php?id=7&conf=weight%257Clistable%3D0%26crear%3D0%26eliminar%3D0%26">Bloques Home</a>
+		<a href="custom/paginas.php?id=12">Productos</a>		
 		',					
 		'campos'		=>array(
 				'id'			=>array(
@@ -405,7 +409,7 @@ $objeto_tabla['GALLERIES_PHOTOS']=array(
 		'archivo'		=> 'galleries_photos',
 		'archivo_hijo'	=> 'galleries_photos_photos',
 		'prefijo'		=> 'galfot',
-		'eliminar'		=> '0',
+		'eliminar'		=> '1',
 		'editar'		=> '1',
 		'crear'			=> '1',
 		'visibilidad'	=> '1',
@@ -415,6 +419,10 @@ $objeto_tabla['GALLERIES_PHOTOS']=array(
 		'menu_label'	=> 'Galerías de Fotos',
 		'me'			=> 'GALLERIES_PHOTOS',
 		'orden'			=> '0',
+		'app'			=> '
+		<a href="custom/galleries_photos.php">Galería de Fotos</a>
+		<a href="custom/galleries_photos_photos.php?id=7">Certificados</a>
+		',				
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -802,7 +810,7 @@ $objeto_tabla['PAGES_PHOTOS']=array(
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
-		'menu'			=> '1',
+		'menu'			=> '0',
 		'menu_label'	=> 'Grupos de Productos',
 		'me'			=> 'PAGES_PHOTOS',
 		'orden'			=> '0',
@@ -1177,7 +1185,20 @@ $objeto_tabla['LINKS']=array(
 						'variable'		=> 'float',
 						'derecha'		=> '1',
 						'style'			=> 'width:100px;',
-				),					
+				),		
+				'file'			=>array(
+						'campo'			=> 'file',
+						'label'			=> 'Foto',
+						'tipo'			=> 'img',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'links',
+						'carpeta'		=> 'links_imas',
+						'tamanos'		=> '150x120,219x102',
+						'tamano_listado'	=> '1',
+						'width'			=> '150px',
+						'style'			=> 'width:150px,height:auto,'
+				),							
 				'name'		=>array(
 						'campo'			=> 'name',
 						'label'			=> 'Título',

@@ -2,6 +2,8 @@
 
 include("objeto.php");
 
+// prin($EXTRA_FILTRO);
+
 $avai=explode("|",$datos_tabla['mass_actions']);
 foreach($tbcampos as $tc=>$camp){
 	if(!in_array($camp['campo'],$avai)){

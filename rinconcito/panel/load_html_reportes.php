@@ -1,25 +1,52 @@
 <?php
 if($_GET['ajax']!='0'){
-@session_start(); // Iniciar variables de sesi�n
-include("lib/compresionInicio.php");
-include("lib/global.php");
-include("lib/conexion.php");
-include("lib/mysql3.php");
-include("lib/util2.php");
-//	include("lib/stripattributes.php");
-include("config/tablas.php");
-include("lib/reports.php");
+	@session_start(); // Iniciar variables de sesión
+	include("lib/compresionInicio.php");
+	include("lib/global.php");
+	include("lib/conexion.php");
+	include("lib/mysql3.php");
+	include("lib/util2.php");
+	//	include("lib/stripattributes.php");
+	include("config/tablas.php");
+	include("lib/reports.php");
 }
 	//echo getcwd();
-	// prin($_GET); exit();
 
 
+	list($file,$type)=explode('_ol',$_GET['file']);
+
+	if($type=='d'){
+
+		$_GET['file']=$file;
+		
+
+		foreach($_GET as $get=>$val){
+			if(in_array($get,array('file','seccion','format'))){
+				$gett[$get]=$val;
+			} else {
+				$gett['f']=$get."|".$val;
+			}
+		}
+
+		// prin($_GET);
+		$gett['fecha_creacion']=$_GET['fecha_creacion'];
+
+		$_GET=$gett;
+
+	}
 
 
 	//echo getcwd()."<br>";
 
 	include("base2/reportes/".$_GET['file'].".php");
 
+	function exclude_from_array($output,$items=[])
+	{
+		foreach($items as $item){
+			unset($output[$item]);
+		}
+		return urldecode(http_build_query($output));
+	}
 	//echo 3;
 	/*
 	if(0){

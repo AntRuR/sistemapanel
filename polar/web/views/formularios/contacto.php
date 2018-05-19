@@ -12,7 +12,7 @@ $FORM=$OBJECT[$PARAMS['conector']];
 
     <article class="inner">
     
-        <form method="post" name="<?php echo $FORM['nombre'];?>" class="<?php echo $FORM['nombre'];?>" action="<?php echo $FORM['action'];?>" >                          
+        <form method="post" name="<?php echo $FORM['nombre'];?>" class="ajax <?php echo $FORM['nombre'];?>" action="<?php echo $FORM['action'];?>" >                          
         <?php web_render_form($FORM); ?>                         
         </form>
             

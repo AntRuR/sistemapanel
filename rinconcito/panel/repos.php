@@ -3,6 +3,7 @@ $LoadWithoutSession='1';
 include("objeto.php");
 $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 ?>
+<form name='labelforms'>
 <ul class="formulario fst ">
 
 	<div class="sv" id="load" style="display: none; top: -30px; left: 0px;">cargando...</div>
@@ -26,14 +27,14 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	$defaultfilter='';
 	foreach($reportes as $rt=>$reporte)
 	{
-
+		// prin($reporte);
 		$rrrr 	= explode("=",$reporte);
 		$rrrr0	= explode("|",$rrrr['1']);
 		$rrrr1	= explode(",",$rrrr0['1']);
 
 		$html_filter.= '<li>
 		<input style="display:none;" name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
-		'onchange="if(this.checked){ render_filderRP({FECHA},this); } " '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
+		'onchange="if(this.checked){ render_filderRP({FECHA},this); } " data-campos=\''.$rrrr0['1'].'\' '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
 		<label for="rp_'.$rt.'" class="alink">'.$rrrr0['0'].'</label>
 		</li>';
 		
@@ -73,6 +74,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 
 			// prin($FiL[$querie['campo']]);
 
+
 			$uno=explode("between",$FiL[$querie['campo']]);
 			$dos=explode("and",$uno[1]);
 			$ff=str_replace("'","",trim($dos['0']));
@@ -82,7 +84,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 			// $fftt=substr($first,0,10)."|".substr($last,0,10);
 			// prin($fftt);
 
-			$html_filter_fecha="<div style='display:inline-block;'>";
+			$html_filter_fecha="<div id='repo_fil_".$querie['campo']."' class='repo_fils' style='display:inline-block;'>";
 
 			$html_filter_fecha.="<select rel='".$querie['campo']."' class='stfilters ".(($FiL[$querie['campo']]!='')?"inuse":"")."' onchange=\"betweenST('".$querie['campo']."',this.value);fechaChangeFilterST('".$querie['campo']."');\">";
 
@@ -220,7 +222,6 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 
 
 
-					$html_filtro='';
 
 					list($primO,$tablaO,$whereO)=explode("|",$querie['opciones']);
 					$whereO=str_replace("where 0","where 1",$whereO);
@@ -230,16 +231,19 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 					$camposO=str_replace(";color", "", $camposO);
 					$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,(($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO));
 
-					$html_filtro.="<label style='width:auto;padding-right:10px;'>".$querie['label']."</label>";
+						$html_filtro='';
+						$html_filtro.='<span id="repo_fil_'.$querie['campo'].'" class="repo_fils">';
+						$html_filtro.="<label style='width:auto;padding-right:10px;'>".$querie['label']."</label>";
 
-					$html_filtro.="<select rel='".$querie['campo']."' style='width:".(($querie['width'])?$querie['width']:'100px').";' class='stfilters ".( ($FiL[$blata][$querie['campo']]!='')?"inuse":"" )."' id='filtr_fs_".$querie['campo']."' onchange=\"render_filderST();\">";
-					$html_filtro.="<option value='' class='empty'>".$querie['label']."</option>";
-					foreach($oopciones as $pppooo){
-						// $quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
-						$quer=$pppooo[$idO];
-						$html_filtro.="<option ".(($quer==urlencode($FiL[$blata][$querie['campo']]))?'selected':'')." value=\"".$quer."\">".$pppooo['value']."</option>";
-					}
-					$html_filtro.="</select>";
+						$html_filtro.="<select rel='".$querie['campo']."' style='width:".(($querie['width'])?$querie['width']:'100px').";' class='stfilters ".( ($FiL[$blata][$querie['campo']]!='')?"inuse":"" )."' id='filtr_fs_".$querie['campo']."' onchange=\"render_filderST();\">";
+						$html_filtro.="<option value='' class='empty'>".$querie['label']."</option>";
+						foreach($oopciones as $pppooo){
+							// $quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
+							$quer=$pppooo[$idO];
+							$html_filtro.="<option ".(($quer==urlencode($FiL[$blata][$querie['campo']]))?'selected':'')." value=\"".$quer."\">".$pppooo['value']."</option>";
+						}
+						$html_filtro.="</select>";
+						$html_filtro.='</span>';
 
 					$terfil[$blata][]=$querie['campo'];
 					
@@ -286,6 +290,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	?></div>
 
 </ul>
+</form>
 <input type='hidden' id="evalScripts_repo" value="<?php if($defaultfilter!=''){ ?> $('<?php echo $defaultfilter; ?>').checked=true; render_filderRP('',$('<?php echo $defaultfilter; ?>'));<?php } ?>" >
 <style>
 .bloque_content_stat {

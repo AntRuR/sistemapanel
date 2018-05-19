@@ -18,6 +18,7 @@ if($_GET['ajax']!='0'){
 	if($type=='d'){
 
 		$_GET['file']=$file;
+		
 
 		foreach($_GET as $get=>$val){
 			if(in_array($get,array('file','seccion','format'))){
@@ -26,6 +27,9 @@ if($_GET['ajax']!='0'){
 				$gett['f']=$get."|".$val;
 			}
 		}
+
+		// prin($_GET);
+		$gett['fecha_creacion']=$_GET['fecha_creacion'];
 
 		$_GET=$gett;
 

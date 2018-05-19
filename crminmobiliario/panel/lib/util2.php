@@ -1,6 +1,22 @@
 <?php
 
-
+if(!function_exists('microtime_float')){
+	function microtime_float()
+	{
+	    list($usec, $sec) = explode(" ", microtime());
+	    return ((float)$usec + (float)$sec);
+	}
+}
+//showoncrearsubs
+function getStringFilters($out,$ot,$this){
+	// foreach($out as $out0=>$out1){
+	// 	foreach($ot as $ot1){
+	// 		if($ot1['tabla']==$out0){
+	// 			prin($ot[$ot1['me']]['campos']);
+	// 		}
+	// 	}
+	// }
+}
 
 function procesar_objeto_tabla($array){
 
@@ -66,7 +82,7 @@ function procesar_objeto_tabla($array){
 				$foreigs[]=$camp['campo'];
 				if(trim($_GET[$canpo])!=''){
 					$campos['get_id']    	.=	'&'.$canpo.'='.$_GET[$canpo];
-					$campos['where_id']    	.=	"and ".$camp['campo']."=\"".$_GET[$canpo]."\"";
+					$campos['where_id']    	.=	"and ".$array['tabla'].".".$camp['campo']."=\"".$_GET[$canpo]."\"";
 				}
 			}
 			if($camp['tipo']=='img'){
@@ -152,6 +168,187 @@ function verificar_tabla($tabla){
 
 }
 
+function breadcrumb($dato,$id=NULL,$objeto){
+
+	global $_GET;
+	global $SERVER;
+	global $ibi;
+	global $ibi2;
+
+	$ttren =array();
+
+	if(!isset($_GET['id']) and !isset($_GET['i'])){
+
+		$ttren[]="<span class='type_file'>".ucfirst($objeto[$dato['me']]['nombre_plural']).'</span>';
+
+	} else {
+
+		if(isset($_GET['i'])){
+
+			foreach($objeto[$dato['me']]['campos'] as $campo){
+				if($campo['foreigkey']!=''){
+					// prin($campo);
+					list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+					list($dd,$ee)=explode(",",$aa);
+					$id=dato($campo['campo'],$dato['tabla'],"where id=".$_GET['i'],0);
+				}
+			}
+
+
+		}
+
+		$ibi=0;
+		$ibi2=0;
+
+		breadcrumb_0($dato['titulo'],$id,$objeto,$ttren);
+
+		if(isset($_GET['i'])){
+
+			$name=dato("name",$dato['tabla'],'where id='.$_GET['i']);
+			$ttren[]="<span class='type_file'>".$name."</span>";
+
+		}
+
+	}
+
+	return implode("<span class='pipe'> / </span>",$ttren);
+
+}
+
+function breadcrumb_0($dato,$id=NULL,$objeto,&$ttren){
+
+	global $_GET;
+	global $link;
+	global $ibi;
+	global $ibi2;
+	global $SERVER;
+
+	// prin($objeto);
+
+	$dato=str_replace("class=\"linkstitu\"","",$dato);
+
+	// if(isset($_GET['i'])){
+
+	// 	// breadcrumb($dato,$_GET['i'],$objeto,$ttren);
+	// 	// prin($ttren);
+	// 	// exit();
+	// 	$_GET['id']=$_GET['i'];
+	// 	unset($_GET['i']);
+
+	// }
+
+	if(!$id){ $id=$_GET['id']; }
+
+	// prin($_GET);
+	// prin($id);
+	// prin($dato);
+
+	//$dato = ($id)?str_replace('[id]',$id,$dato):"registros";
+
+	$dato = str_replace('[id]',$id,$dato);
+
+	$dato2= $dato;
+
+	if(
+		enhay($dato,"}") and enhay($dato,"{") 
+		){
+
+		$uno=array();
+		$uno = explode("{",$dato);
+		foreach($uno as $ii=>$un){
+		if( !(strpos($un,"}")==false) ){
+		$dos = explode("}",$un);
+
+		$consulta = $dos[0];
+		// prin($consulta);
+
+		$tabla=between($consulta,'from','where');
+
+		// if( $ibi==0 ){
+
+		// 	prin($SERVER['URL']);
+		// 	$url2='custom/'.$SERVER['URL'];
+
+		// } else {
+
+			$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+			// echo "<div style='color:red;'>$url2, $ibi <div>"; nose
+
+		$ibi++;
+		
+		foreach($objeto as $obj){
+			if($obj['tabla']==trim($tabla['1'])){
+				foreach($obj['campos'] as $campo){
+					if($campo['foreigkey']!=''){
+						// prin($campo);
+						list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+						list($dd,$ee)=explode(",",$aa);
+						$idgrupo=dato($campo['campo'],$bb,"where id=".$id,0);
+						// prin("|".$idgrupo);
+						// prin($campo['name']['controlles']);
+
+						// echo "{select $ee from $bb where id=[id]}";
+						if($idgrupo!=0)
+							breadcrumb_0("{select $ee from $bb where id=[id]}",$idgrupo,$objeto,$ttren);
+						// prin($campo);
+					}
+				}
+			}
+		}
+
+
+		$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+		// echo "<div style='color:green;'>$url2, $ibi2 <div>"; nose
+
+		$ibi2++;
+
+
+		$result=mysql_query($consulta,$link);
+		// echo "$consulta<br>";
+		$row = mysql_fetch_row($result);
+		$dato3 = $row[0];
+		$llaves="{".$dos[0]."}";
+		$dato2 = str_replace($llaves,$dato3,$dato2);
+		}
+		}
+		if($id!=''){
+
+			$dato = $dato2 ;
+			$url = $url2 ;
+
+		} else {
+
+			list($aa,$bb)=explode("{",$dato);
+			list($cc,$dd)=explode("}",$bb);
+			$dato=$aa.$dd;
+
+		}
+
+	}
+	// $dato=preg_replace("/>([a-z0-9\-\.\s]{2,20})<\/a>/i",' title="$1">$1</a>',$dato);
+
+	// $dato=preg_replace("/foto(s)?</i"			,'<span class="z ico_pics"></span><',$dato);
+	// $dato=preg_replace("/vista previa</i"		,'<span class="z ico_eye"></span><',$dato);
+	// $dato=preg_replace("/imprimir</i"			,'<span class="zz ico_Print"></span><',$dato);
+	// $dato=preg_replace("/mensaje(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/alerta(s)?</i"			,'<span class="zz ico_alert"></span><',$dato);
+	// $dato=preg_replace("/consulta(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/comentario(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/>nuevo/i"				,'><span class="zz ico_plus"></span>',$dato);
+
+	// prin($dato);
+
+	$ttren[]="<a href='".$url."' class='type_directory'>".$dato."</a>";
+
+}
+
+
 function procesar_dato($dato,$id=NULL){
 
 	global $_GET;
@@ -166,15 +363,16 @@ function procesar_dato($dato,$id=NULL){
 	$dato = str_replace('[id]',$id,$dato);
 
 	$dato2= $dato;
-	if( !(strpos($dato,"{")==false) and !(strpos($dato,"}")==false) ){
-
+	if(
+		enhay($dato,"}") and enhay($dato,"{") 
+		){
 		$uno=array();
 		$uno = explode("{",$dato);
 		foreach($uno as $ii=>$un){
 		if( !(strpos($un,"}")==false) ){
 		$dos = explode("}",$un);
 		$consulta = $dos[0];
-		/*echo $consulta."<br>";*/
+		// echo $consulta."<br>";
 		$result=mysql_query($consulta,$link);
 		$row = mysql_fetch_row($result);
 		$dato3 = $row[0];
@@ -339,13 +537,18 @@ function ccl_img_uploadmini($file_temp,$ext,$carpeta_destino,$archivo_nombre,$an
 function ccl_upload_ftp($archivo_origen, $carpeta_destino, $archivo_nombre,$debug=NULL)
 {
 	global $httpfiles, $ftp_files_host, $ftp_files_user, $ftp_files_pass, $ftp_files_root, $DIRECTORIO_IMAGENES , $UPLOAD_FTP;
+	global $dirtren;
+
 	$debug=0;
 	$archivo_origen=str_replace("//","/",$archivo_origen);
 	if($debug) echo "<!--params:|$archivo_origen, $carpeta_destino, $archivo_nombre|-->\n";
 	if($debug){ echo "<!--getcwd:".getcwd().";-->\n"; }
 
     // fecha actual
-    $datetime = date("Ymd");
+    $datetime = ($dirtren)?$dirtren:date("Ymd");
+
+    // echo $datetime;
+
     $year  = substr($datetime,0,4);
     $month = substr($datetime,4,2);
     $day   = substr($datetime,6,2);
@@ -653,7 +856,8 @@ function grabar_imagen($campo,$r_img,$tabla,$objeto, $id){
 
 	global $httpfiles, $s_usuCod, $DIR_IMG_TEMP, $objeto_tabla, $DIRECTORIO_IMAGENES;
 	global $UPLOAD_FTP;
-
+	global $dirtren;
+	global $update_fecha_creacion;
 
 	$images_temp="../".$DIRECTORIO_IMAGENES.$DIR_IMG_TEMP."/";
 
@@ -748,7 +952,11 @@ function grabar_imagen($campo,$r_img,$tabla,$objeto, $id){
 	$imagen_save = $file_dest;
 //	echo $imagen_save;
 //	return $imagen_save;
-	update(array(str_replace("upload_","",$campo)=>$imagen_save,"fecha_creacion"=>"now()"),$tabla,"where $Id='$id' ",0);
+	
+	if($update_fecha_creacion)
+		update(array(str_replace("upload_","",$campo)=>$imagen_save,"fecha_creacion"=>"now()"),$tabla,"where $Id='$id' ",0);
+	else
+		update(array(str_replace("upload_","",$campo)=>$imagen_save),$tabla,"where $Id='$id' ",0);
 
 	return $Nnum;
 
@@ -924,6 +1132,7 @@ function match_against($fulltext,$buscar){
 
 function get_youtube_code($v){
 
+
 //http://www.xvideos.com/video656197/outdoor_fuck_interrupted
 
 	if( !(strpos($v,"xvideos.com")==false)  ){
@@ -934,7 +1143,8 @@ function get_youtube_code($v){
 				return $dos[0];
 			}
 
-	} elseif( !(strpos($v,"youtube")==false)  ){
+	} elseif( !(strpos($v,"youtube")==false) or !(strpos($v,"youtu.be")==false)  ){
+
 
 	if(  !(strpos($v,"</embed></object>")==false)  ){
 
@@ -966,7 +1176,23 @@ function get_youtube_code($v){
 				}
 			}
 
-		} else {
+
+		} 
+
+		elseif(  !(strpos($v,"youtu.be")==false)  ){
+
+			$uno=explode("youtu.be/",$v);
+			if(sizeof($uno)>1){
+				if(  !(strpos($uno[1],"&")==false)  ){
+				$dos=explode("&",$uno[1]);
+				return $dos[0];
+				} else {
+				return $uno[1];
+				}
+			}
+
+		} 
+		else {
 
 			return $v;
 
@@ -1651,7 +1877,7 @@ function print_gzipped_page() {
         ob_end_clean();
         header('Content-Encoding: '.$encoding);
         print("\x1f\x8b\x08\x00\x00\x00\x00\x00");
-		$bh="<input type='hidden' id='pagetime' value='".( number_format((microtime(true) - $TIME_START )/60,6) )."'><input type='hidden' id='pagesize' value='". number_format((strlen($contents)/9)/1024,3)."'></body>";
+		$bh="<input type='hidden' id='pagetime' value='".( (microtime_float() - $TIME_START ) )."'><input type='hidden' id='pagesize' value='". number_format((strlen($contents)/9)/1024,3)."'></body>";
 		$contents=str_replace("</body>",$bh,$contents);
         $size = strlen($contents);
         $contents = gzcompress($contents, 9);
@@ -2218,7 +2444,8 @@ function procesar_controles_html($controles){
 		}
 	}
 	foreach($contras as $cont){
-		if(!enhay($cont,'class=')){	$cont=str_replace("<a ","<a class=\"linkstitu\"",$cont); }
+
+		if(!enhay($cont,'class=')){ $cont=str_replace("<a ","<a class=\"linkstitu\"",$cont); }
 		//echo $aaaa."\n";
 		list($uno,$dos)=explode("href=",$cont);
 		$comilla=substr($dos,0,1);
@@ -2226,13 +2453,19 @@ function procesar_controles_html($controles){
 		$pre=(substr($SERVER['browser'],0,2)=='IE')?"../":"";
 		list($tres,$cuatro,$cinco)=explode($comilla,$dos);
 		list($siete,$ocho)=explode($cuatro.$comilla,$dos);
+
 		if( (!(strpos($cuatro,"base")===false)) or (!(strpos($cuatro,"base2")===false)) or (!(strpos($cuatro,"../")===false)) or (!(strpos($cuatro,"pop.php")===false)) ){
+		
 		$aaaa=$uno."href=".$comilla.$pre.$cuatro.$comilla." rel=".$comilla.get_dims_crearforeig().$comilla." ".$ocho;
-		$aaaa=str_replace("<a class=\"linkstitu\"","<a class=\"linkstitu mb\"",$aaaa);
+		$aaaa=str_replace("<a class=\"linkstitu\"","<a class=\"controll linkstitu\"",$aaaa);
 //		$aaaa=$uno."onclick=".$comilla."javascript:procesar_recargar(".$comilla2.$pre.$cuatro.$comilla2.");return false;".$comilla." ".$ocho;
+		
 		} else {
+		
 		$aaaa=$cont;
+		
 		}
+		
 		$aaa[]=$aaaa;
 	}
 	//echo "</textarea>";
@@ -2684,6 +2917,8 @@ function getControles($controles,$objeto_tabla){
 		if(enhay($rel,'crear')){ $crear=1; $rel=trim(str_replace('crear','',$rel)); }
 		$popup=0;
 		if(enhay($rel,'popup')){ $popup=1; $rel=trim(str_replace('popup','',$rel)); }
+		$strip=0;
+		if(enhay($rel,'strip')){ $strip=1; $rel=trim(str_replace('strip','',$rel)); }
 
 		if($text!=''){
 			$aaaj['completo']=$unoo.">".$ltext."</a>";
@@ -2702,6 +2937,7 @@ function getControles($controles,$objeto_tabla){
 							$aaaj['obj']=$objttoo;
 							$aaaj['crear']=$crear;
 							$aaaj['popup']=$popup;
+							$aaaj['strip']=$strip;
 							/*
 							$foreis=array();
 							foreach($ttoo['campos'] as $objttoocc=>$ttoocc){
@@ -2752,6 +2988,9 @@ function render_foreig_foto($obj,$id){
 }
 function render_foreig_subs($obj0,$id,$urd){
 
+
+	// return "";
+
 	global $objeto_tabla;
 	global $Array_Meses;
 	global $Array_Horas;
@@ -2788,6 +3027,7 @@ function render_foreig_subs($obj0,$id,$urd){
 	$linealinea=$linea;
 	foreach($obj0 as $obj2){
 		foreach($obj2 as $obj){
+
 
 
 			// prin($obj);
@@ -2834,13 +3074,19 @@ function render_foreig_subs($obj0,$id,$urd){
 				$reemplazo=str_replace("[".$leva."]",$pesa,$reemplazo);	
 				$reemplazowhere=str_replace("[".$leva."]",$pesa,$reemplazowhere);
 			}
-			// prin($reemplazo);
-			// prin($reemplazowhere);
+			
+
 			$where="where ".$reemplazowhere." ";
 			$campS=array();
 			// echo '<div style="clear:both;">';
 			// prin($datos_tabla['list']);
 			// echo '</div>';
+			foreach($datos_tabla['form'] as $lis){
+				if($lis['showoncrearsubs']=='1'){
+					$campSform[]=$lis;
+				}
+			}
+
 			foreach($datos_tabla['list'] as $lis){
 				// var_dump($lis);
 				if(
@@ -2860,6 +3106,7 @@ function render_foreig_subs($obj0,$id,$urd){
 					$campS[]=$lis['campo'];
 					}
 				}
+
 			$classLineal=0;
 			if(sizeof($campS)==1){
 				if($objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='img'){ $classLineal=1; }
@@ -2887,9 +3134,36 @@ function render_foreig_subs($obj0,$id,$urd){
 			$query_where=$where
 						 ."order by ". ( ($datos_tabla['order_by']=='')? (  $datos_tabla['id']." ". (($datos_tabla['orden']=='1')?"desc":"asc") ):$datos_tabla['order_by'] )." "
 						 ."limit 0,500";
+
+
+			if($obj['strip'])
+			{
+
+				// prin($obj);
+
+				$count=contar($datos_tabla['tabla'],$query_where,0)." ".$obj['text'];
+
+				echo '<div class="itms_cont" >';
+
+				echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
+
+					echo '<a rel="width:1300,height:400" class="mb popup" href="'.$reemplazo.'&amp;justlist=1&amp;conf=set_fila_fijo%3D4%26calificacion%3D0" title="'.$count.'">'.$count.'</a>';
+
+				echo '</div>';
+
+				echo '</div>';
+
+				continue;
+
+			}	
+
 			$lineas=select($campS2,
 							$datos_tabla['tabla'],
 							$query_where,0);
+
+
+
+
 
 			$wwwwt=0;
 			$nosubwidth=0;
@@ -2968,7 +3242,7 @@ function render_foreig_subs($obj0,$id,$urd){
 								if($linea[$tbli['campo']]!=''){
 								if(!($LOCAL and $vars['GENERAL']['mostrar_toolbars'])){
 								echo '<a href="';
-								get_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']]);
+								echo get_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']]);
 								echo '" ';
 								echo 'rel="[images],noDesc" class="mb" >';
 								}
@@ -3017,7 +3291,10 @@ function render_foreig_subs($obj0,$id,$urd){
 							echo '<span class="fche">'.(($fech!='')?$fech:"")."</span>";
 							break;
 							case "html":
-							echo ($linea[$camP]!='')?"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>":"&nbsp;";
+							$lolon=700;
+							// prin($linea);
+							echo ($linea[$camP]!='')?((strlen($linea[$camP])>$lolon)?str_replace("<br />
+<br />",'<br \>',nl2br(substr(strip_tags($linea[$camP]),0,$lolon))).'<a class="mb" rel="width:1050,height:530" href="field.php?get='.$objeto_tabla[$obj['obj']]['tabla'].','.$camP.','.$linea['id'].'">mostrar texto completo</a>':"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>"):"&nbsp;";
 							/*break;
 							echo ($linea[$camP]!='')?$linea[$camP]:"&nbsp;";*/
 							break;
@@ -3082,6 +3359,7 @@ function render_foreig_subs($obj0,$id,$urd){
 				echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_v_o' 			value='".$obj['obj']."' />";
 				echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_visibilidad' 	value='1' />";
 
+				// prin($campS);
 				foreach($campS as $camP){
 					$valis=($objeto_tabla[$obj['obj']]['campos'][$camP]['validacion']=='1')?' data-vali=\'1\' ':' data-vali=\'0\' ';
 					$classvalis=($objeto_tabla[$obj['obj']]['campos'][$camP]['validacion']=='1')?' cvl':'';
@@ -3100,6 +3378,10 @@ function render_foreig_subs($obj0,$id,$urd){
 						*/
 						break;
 						case "com":
+						if(
+							$objeto_tabla[$obj['obj']]['campos'][$camP]['indicador']=='1'){
+						echo "&nbsp;";
+						} else {
 						echo "";
 						/*
 							$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
@@ -3115,6 +3397,16 @@ function render_foreig_subs($obj0,$id,$urd){
 								default; echo "<span class='label' style='color:white;background-color:".$color.";'>".$valoor."</span>"; break;
 							}
 						*/
+						$bufy='';
+						$oopciones=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'];
+						$bufy.="<select ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
+						$bufy.="<option value='' >".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."</option>";
+						foreach($oopciones as $iioo=>$pppooo){
+						$bufy.="<option value=\"".$iioo."\">".$pppooo."</option>";
+						}
+						$bufy.="</select>";
+						echo $bufy;
+						}
 						break;
 						case "hid":
 						
@@ -3128,7 +3420,7 @@ function render_foreig_subs($obj0,$id,$urd){
 						$bufy='';
 						$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,$whereO);
 						$bufy.="<select ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
-						$bufy.="<option value='' >&nbsp;</option>";
+						$bufy.="<option value='' >".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."</option>";
 						foreach($oopciones as $pppooo){
 						$bufy.="<option value=\"".$pppooo[$idO]."\">".$pppooo['value']."</option>";
 						}
@@ -3182,7 +3474,7 @@ function render_foreig_subs($obj0,$id,$urd){
 
 
 						if($tbcampA['time']){
-						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:70px;font-size:10px;margin-right:-16px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:70px;font-size:10px;margin-right:0px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
 						$html.= "<option></option>";
 						if($tbcampA['time']=='1'){
 							for($i=0; $i<24;$i++){
@@ -3205,13 +3497,13 @@ function render_foreig_subs($obj0,$id,$urd){
 						echo $html;
 						break;
 						case "html":
-						echo "<textarea  ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
+						echo "<textarea placeholder='".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
 						/*
 						echo ($linea[$camP]!='')?"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>":"&nbsp;";
 						*/
 						break;
 						case "txt":
-						echo "<textarea  ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
+						echo "<textarea placeholder='".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
 						/*
 						echo ($linea[$camP]!='')?nl2br($linea[$camP]):"&nbsp;";
 						*/
@@ -3228,7 +3520,13 @@ function render_foreig_subs($obj0,$id,$urd){
 
 				global $linkPagina;
 				global $vvvalos;
-				echo "<div class='cr_pl'><a href='#' class='itr ico_plus' onclick='send_crear(\"".$id."\",\"".$datos_tabla['archivo']."\",\"".$linkPagina."\",\"".urlencode($vvvalos)."\");return false;'>crear</a></div>";
+				// prin($campSform);
+				echo "<div class='cr_pl'>";
+				echo '<label for="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" >'.$campSform[0]['label'].'</label>';
+				echo '<input id="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" type="checkbox" onchange="$(\''.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'\').value=(this.checked)?1:0; " >';
+				echo '<input type="hidden" class="'.$datos_tabla['archivo'].'-_'.$id.'" 
+				id="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'" >';
+				echo "<a href='#' class='itr ico_plus' onclick='send_crear(\"".$id."\",\"".$datos_tabla['archivo']."\",\"".$linkPagina."\",\"".urlencode($vvvalos)."\");return false;'>crear</a></div>";
 				echo "</li>";
 
 			} //if
@@ -3722,7 +4020,7 @@ class color {
                 return "ERR: One or more empty values found, expecting array with 3 values";
             }
 
-            elseif (eregi("[^0-9]", $arrColors[$x])) {
+            elseif (@eregi("[^0-9]", $arrColors[$x])) {
                 return "ERR: One or more non-numeric values found.";
             }
 
@@ -4133,19 +4431,40 @@ function pre_procesar_objeto_tabla_0($me){
 }
 
 function get_extra_filtro($item){
+
 	$extra_filtro='';
 	global $objeto_tabla;
 	global $tabla_sesion_datos;
 	global $_SESSION;
 	global $TIPO_USUARIO;
 	if($TIPO_USUARIO=='2'){
-		$getchildren=getChildren($objeto_tabla,$tabla_sesion_datos,$_SESSION['usuario_datos_id']);
+
+		// prin($tabla_sesion_datos);
+		
+		$ids=$_SESSION['usuario_datos_id'];
+		$dato=dato("query",$tabla_sesion_datos,"where id=".$_SESSION['usuario_datos_id'],0);
+		if($dato!=NULL){
+			$ids=$dato;
+		}
+
+		// prin($ids);
+
+		$getchildren=getChildren($objeto_tabla,$tabla_sesion_datos,$ids);
+
+		// prin($getchildren);
+
 		list($uno,$tabli,$dos)=between($getchildren,'from','where');
 		$tabli=trim($tabli);
-		if($tabli==$item['tabla']){
-			$extra_filtro.=($dos)?" and ".$dos:'';
+		if(enhay($item['tabla'],$tabli)){
+			if($item['tabla']=='usuarios2')
+				$extra_filtro.=" and ".str_replace('id_jefe','id',$dos);
+			else
+				$extra_filtro.=($dos)?" and ".$dos:'';
 			//$extra_filtro.=" and user in (".getChildren($objeto_tabla,$tabla_sesion_datos,$_SESSION['usuario_datos_id']).") ";
 		}
+
+		// prin($extra_filtro);
+
 	}
 	if($extra_filtro=='' and $item['user']=='1' and $_COOKIE['admin']!='1' and $_SESSION['usuario_id'] and $TIPO_USUARIO!='1'){
 
@@ -4206,6 +4525,7 @@ function pre_procesar_tabla($objeto_tabla,$vars){
 
 	global $this_me;
 	$permisos=($PERMISOS_USUARIO?$PERMISOS_USUARIO:$ALL).",\n".(((urldecode($_GET['conf'])!='')?$this_me."?".urldecode($_GET['conf']).",\n":''));
+	// prin($permisos);
 	//echo "uno";
 	//prin($_GET['conf']);
 	//$fffilter="";
@@ -4867,6 +5187,61 @@ function opciones_fechas($querie){
 
 	}
 
+	function nextWeek($date){
+	$aa=strtotime($date);
+	$aa=strtotime("+1 week",$aa);
+	return date('Y-m-d',$aa);
+	}
+
+	function crear_intervalos_semanas($from,$to){
+
+			$from2=getPrimerSemana($from);
+			$to2=getUltimoDiaSemana($to);
+
+			// echo "$from2 -> $to2 <br>";
+
+			$start=$from2;
+			$end=getUltimoDiaSemana($start);
+			$I[]="$start|$end";
+
+			// echo "$start -> $end <br>";
+			// exit();
+
+			while($to2!=$end){
+			$start=nextWeek($start);
+			$end=getUltimoDiaSemana($start);
+			$I[]="$start|$end";
+			}
+			//prin($I); exit();
+		
+		//prin($I);
+		return $I;
+	}
+	
+
+	function getPrimerSemana($fecha){
+	$aa=strtotime($fecha);
+	$diasemana=date("w",$aa);
+	// echo "<br> $diasemana <br>";
+	if($diasemana==0)
+		$aa=strtotime("+1 day",$aa);
+	elseif($diasemana==1)
+		return date('Y-m-d',$aa);
+	else 		
+		$aa=strtotime("+".( 8 - $diasemana )." days",$aa);
+	return date('Y-m-d',$aa);
+	}
+
+
+	function getUltimoDiaSemana($fecha){
+	$aa=strtotime($fecha);
+	$diasemana=date("w",$aa);
+	if($diasemana==0)
+		$aa=strtotime("+1 day",$aa);
+	else 
+		$aa=strtotime("+".( 8 - $diasemana )." days",$aa);
+	return date('Y-m-d',$aa);
+	}
 
 	function nextDay($date){
 		$d = new DateTime($date);

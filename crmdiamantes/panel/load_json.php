@@ -10,15 +10,22 @@ $s1=explode("|",$_GET['s']);
 $s2=explode(",",$s1['0']);
 $ID=$s2['0'];
 $s3=explode(";",$s2['1']);
+$s5=explode(" ",trim($_GET['q']));
+foreach($s5 as $tio){
+	$s6a[]=trim($tio);
+}
+$s6="%".implode('%',$s6a)."%";
 
 $lineas=select(
 		array(
-			$ID.' as i',
+			$s1['1'].".".$ID.' as i',
 			"CONCAT_WS(' ',".implode(",",$s3).") as v"
 		),
-		$s1['1'],
-		render_likes($s1['2'],$s3,$_GET['q']).'',
+		$s1['1']." ".$s1['3'],
+		render_likes($s1['2'],$s3,$s6).'
+		limit 0,12',
 		0);
+
 if(!$lineas){ $lineas=array(); }
 
 			
@@ -35,11 +42,15 @@ $Likes[]=" $lik like '%".$Q."%' ";
 }
 $html.="( ".implode(" or ",$Likes)." )";
 */
-$html.="CONCAT_WS(' ',".implode(",",$likes).") like '%".$Q."%'";
+// $html.="( ".
+$html.="CONCAT_WS(' ',".implode(",",$likes).") like '".$Q."'";
+// $html.=" or ".
+// $html.="CONCAT_WS('',".implode(",",$likes).") like '%".$Q."%'";
+// $html.=") ".
 $html.=" ".$orderby;
 return $html;
-}			
-			
+}
+
 /*
 $lineas=array();
 $items=select($sss['0'],$sss['1'],str_replace("==","=",$sss['2']."=".$_GET['s2']),1	);
@@ -61,7 +72,12 @@ exit();
 	,0);
 	*/
 
-echo json_encode($lineas);
+
+// $lineas0[]=['i'=>'','v'=>''];
+// $lineas0[]=['i'=>'','v'=>''];
+// $lineas=array_merge($lineas0,$lineas);
+
+
+echo str_replace("  "," ",json_encode($lineas));
 	
 include("lib/compresionFinal.php");
-?>

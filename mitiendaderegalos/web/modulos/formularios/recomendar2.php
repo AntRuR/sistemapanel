@@ -146,6 +146,7 @@
 
 			//email_administrador
 
+			if(0)	
 			$email_administrador=enviar_email(
 
 							array(
@@ -186,6 +187,7 @@
 
 			//email_cliente
 
+			if(0)	
 			$email_cliente=enviar_email(
 
 							array(
@@ -220,6 +222,7 @@
 
 			//email_cliente
 
+			if(0)	
 			$email_amigo=enviar_email(
 
 							array(

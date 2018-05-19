@@ -115,7 +115,7 @@ $objeto_tabla['PAGINAS']=array(
 						'validacion'	=> '0',
 						'width'			=> '400px',
 						'style'			=> 'height:300px;',
-						'disabled'		=> '1'
+						'disabled'		=> '0'
 				),
 
 				'html'			=>array(
@@ -1260,6 +1260,15 @@ $objeto_tabla['PROJECTS_GROUPS']=array(
 						'derecha'		=> '1',
 						'style'			=> 'width:100px;',
 				),					
+				'text'			=>array(
+						'campo'			=> 'text',
+						'label'			=> 'Descripción breve',
+						'tipo'			=> 'txt',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '400px',
+						'style'			=> 'height:200px;'
+				),				
 				'name'		=>array(
 						'campo'			=> 'name',
 						'label'			=> 'Nombre',

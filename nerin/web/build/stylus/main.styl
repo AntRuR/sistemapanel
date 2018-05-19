@@ -2,7 +2,6 @@
 cd /Applications/MAMP/htdocs/sistemapanel/nerin
 stylus -w -c -u nib -m web/build/stylus/main.styl -o css/
 */
-9996eb7
 vendorx-prefixes = webkit moz official
 
 $IMAGES_PATH='../img'
@@ -89,7 +88,7 @@ $IMAGES_PATH='../img'
 	// unslider		
 	ol.dots
 		position absolute
-		right 5px
+		right 41%
 		bottom 5px
 		li.dot
 			background #D9D9D9
@@ -323,28 +322,40 @@ $IMAGES_PATH='../img'
  * HOME : proyectos_ejecucion
  */
 .proyectos_ejecucion
-	.inner
+	.tabs
 		ul
-			display block
-			height 222px
-			align-items: center;
-		li
-				padding 31px 38px 0
-				width 100%
-				vertical-align middle		
-				.foto
-					margin-bottom 10px
+			text-align left
+			li
+				margin 0 2px 0 0
+				display inline-block
+				a
+					background #5E5B58
+					padding 3px 13px
+					color black
+					font-size 0.9em
+					text-transform uppercase
 					display block
-					text-align center
-				.pretitulo
-					font-weight bold
-					margin-bottom 3px
-		a
-			color black		
+				&.active
+					a	
+						background transparent
+						color black
+						text-decoration underline
+	section		
+		height 220px
+		.inner
+			height auto
+			.listado_items
+				.listado_item
+					padding 10px 38px 0
+					.sub_item
+						display inline-block
+						width 50%
+						padding 23px 2% 0
+						vertical-align top
 	.arrow	
 		position absolute
-		top 28%
-		color white
+		top 31%
+		color black
 		font-size 2.5em
 		&:prev
 		&:next

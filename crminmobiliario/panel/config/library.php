@@ -297,7 +297,8 @@ function render_cliente($linea){
 function render_vendedor($linea){
 
 	$telefonos_fijos=$telefonos_moviles=array();
-
+	// prin($linea['usuario']);
+	
 	if($linea['usuario']['telefono']!='')$telefonos_fijos[]=$linea['usuario']['telefono'];
 	if($linea['usuario']['telefono_oficina']!='')$telefonos_fijos[]=$linea['usuario']['telefono_oficina'];
 
@@ -408,7 +409,7 @@ function render_departamentos($producto,$precio){
 
 	$html.="<tr>
 	<td colspan=2></td>
-	<td colspan=3 ".$style['bold'].">PRECIO FINAL</td>
+	<td colspan=3 ".$style['bold'].">PRECIO</td>
 	<td align=right style='text-align:right;font-weight:bold;'>".$style['moneda']." ".
 	number_format($producto['pvpromocion'], 2, '.', ',').
 	"</td>
@@ -523,7 +524,7 @@ function extract_estacionamiento($id){
 }
 
 
-function render_total($linea,$suma){
+function render_total($linea,$total,$descuento,$final){
 
 
 	$style=render_style();
@@ -535,9 +536,21 @@ function render_total($linea,$suma){
 	$html.="<tr>
 	<td ".$style['head'].">PRECIO TOTAL</td>
 	<td width=100 align=right style='text-align:right;' >".$style['moneda']." ".
-	number_format($suma, 2, '.', ',').
+	number_format($total, 2, '.', ',').
 	"</td>
-	</tr>";		
+	</tr>";	
+	$html.="<tr>
+	<td ".$style['head'].">DESCUENTO</td>
+	<td width=100 align=right style='text-align:right;' >".$style['moneda']." ".
+	number_format($descuento, 2, '.', ',').
+	"</td>
+	</tr>";	
+	$html.="<tr>
+	<td ".$style['head'].">PRECIO FINAL</td>
+	<td width=100 align=right style='text-align:right;' >".$style['moneda']." ".
+	number_format($final, 2, '.', ',').
+	"</td>
+	</tr>";				
 	$html.="<tr>
 	<td>SEPARACIÓN</td>
 	<td align=right style='text-align:right;'>".$style['moneda']." ".
@@ -581,7 +594,7 @@ function render_depositos($producto,$precio){
 	
 	$html.="<tr>
 	<td colspan=2></td>
-	<td colspan=2 ".$style['bold'].">PRECIO FINAL</td>
+	<td colspan=2 ".$style['bold'].">PRECIO</td>
 	<td width=100 ".$style['bold']." align=right>".$style['moneda']." ".
 	number_format($precio, 2, '.', ',').	
 	"</td>
@@ -613,7 +626,7 @@ function render_estacionamiento($producto,$precio){
 
 	$html.="<tr>
 	<td colspan=2></td>
-	<td colspan=2 ".$style['bold']." >PRECIO FINAL</td>
+	<td colspan=2 ".$style['bold']." >PRECIO</td>
 	<td width=100 ".$style['bold']." align=right >".$style['moneda']." ".
 	number_format($precio, 2, '.', ',').	
 	"</td>

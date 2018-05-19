@@ -25,7 +25,9 @@ body { background: #F5F8FA!important ;}
 .ul_menus li.group a.padre {
 
     /*background: #004532;*/
-    background: #3579B6;
+    /*background: #3579B6;*/
+    /*background:#082A49;*/
+    background:#045CAB
     
 }
 
@@ -39,7 +41,8 @@ a:hover,
 
 .bloque_titulo,
 .ul_menus li.group .mcontent ul li.selected {
-    background: #d0e6ef !important;
+    /*background: #d0e6ef !important;*/
+    background: #EAF5FC !important;
 }
 
 
@@ -196,3 +199,57 @@ td { background-color: #FFF; }
     }
   
 }
+
+/**
+ * mensajes al asesor
+ */
+
+.mensaje_dejefe,
+.mensaje_deadministrador {
+    display:none !important;
+}
+
+.permiso_master .mensaje_deadministrador,
+.permiso_1 .mensaje_deadministrador,
+.permiso_5 .mensaje_deadministrador,
+.permiso_12 .mensaje_deadministrador,
+.permiso_10 .mensaje_deadministrador
+{
+    display:block !important;
+}
+
+.permiso_master .mensaje_dejefe,
+.permiso_2 .mensaje_dejefe
+{
+    display:block !important;
+}
+
+.mensaje_deadministrador,
+.mensaje_dejefe,
+.mensaje_cliente {
+font-weight: bold !important;
+float: right !important;
+}
+.mensaje_deadministrador:hover,
+.mensaje_dejefe:hover,
+.mensaje_cliente:hover {
+    color: black !important;
+}
+.mensaje_dejefe { color:green;}
+.mensaje_deadministrador { color:purple;}
+.mensaje_cliente { color:red;}
+
+
+
+
+.modulo_ventas_items
+.nav li label { width: 190px; }
+
+
+
+
+.Alertas.modulo_ventas_mensajes .filters div:first-child{
+    display:none;
+}
+
+

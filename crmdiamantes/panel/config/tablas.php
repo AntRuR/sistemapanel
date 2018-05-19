@@ -192,6 +192,52 @@ $objeto_tabla['PRODUCTOS_ITEMS']=array(
 						'style'			=> 'width:30px;',
 						'disabled'		=> '1'
 				),
+				'articulo'		=>array(
+						'campo'			=> 'articulo',
+						'label'			=> 'Artículo',
+						'width'			=> '130px',
+						'tipo'			=> 'inp',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'style'			=> 'width:450px;',
+						'tags'			=> '1',
+						'derecha'		=> '1'
+				),	
+				'nombre2'		=>array(
+						'campo'			=> 'nombre2',
+						'label'			=> 'Modelo 2',
+						'width'			=> '130px',
+						'tipo'			=> 'inp',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'style'			=> 'width:450px;',
+						'tags'			=> '1',
+						'derecha'		=> '1'
+				),					
+				'link'		=>array(
+						'campo'			=> 'link',
+						'label'			=> 'Link 1',
+						'width'			=> '130px',
+						'tipo'			=> 'inp',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'style'			=> 'width:450px;',
+						'tags'			=> '1',
+						'derecha'		=> '1'
+				),	
+
+				'link2'		=>array(
+						'campo'			=> 'link2',
+						'label'			=> 'Link 2',
+						'width'			=> '130px',
+						'tipo'			=> 'inp',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'style'			=> 'width:450px;',
+						'tags'			=> '1',
+						'derecha'		=> '1'
+				),									
+			
 				'source'		=>array(
 						'campo'			=> 'source',
 						'label'			=> 'Source',
@@ -2118,7 +2164,7 @@ $objeto_tabla['PRODUCTOS_PROGRAMACION']=array(
 						)
 				),
 				array(
-						'label'			=> 'Imprimir',
+						'label'		=> 'Imprimir',
 						'accion'		=> 'custom',
 						'ot'			=> 'imprimir_programacion.php',
 						'rel'			=> 'width:1250,height:1000'
@@ -2909,6 +2955,7 @@ receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disa
 				'receptor_dni'	=>array(
 						'campo'			=> 'receptor_dni',
 						'label'			=> 'DNI',
+						'subvalidacion'		=> 'dni',
 						'width'			=> '60px',
 						'tipo'			=> 'inp',
 						'style'			=> 'width:60px;',
@@ -2928,6 +2975,7 @@ receptor_dni|disabled=1&chofer_nombre|disabled=1&chofer_dni|disabled=1&tags|disa
 				'chofer_dni'	=>array(
 						'campo'			=> 'chofer_dni',
 						'label'			=> 'DNI',
+						'subvalidacion'		=> 'dni',
 						'width'			=> '60px',
 						'tipo'			=> 'inp',
 						'style'			=> 'width:60px;',
@@ -3375,6 +3423,7 @@ $objeto_tabla['PRODUCTOS_DOCUMENTOS']=array(
 				'receptor_dni'	=>array(
 						'campo'			=> 'receptor_dni',
 						'label'			=> 'DNI',
+						'subvalidacion'		=> 'dni',
 						'width'			=> '60px',
 						'tipo'			=> 'inp',
 						'style'			=> 'width:60px;',
@@ -4335,7 +4384,7 @@ $objeto_tabla['PRODUCTOS_GRUPOS']=array(
 		'edicion_completa'=> '0',
 		'expandir_vertical'=> '0',
 		'control'		=> '1',
-		'set_fila_fijo'	=> '1',
+		// 'set_fila_fijo'	=> '1',
 		'seccion'		=> ''
 );
 /******************************************************************************************************************************************************/
@@ -4915,6 +4964,7 @@ $objeto_tabla['CHOFERES']=array(
 				'dni'			=>array(
 						'campo'			=> 'dni',
 						'label'			=> 'DNI',
+						'subvalidacion'		=> 'dni',
 						'tipo'			=> 'inp',
 						'listable'		=> '0',
 						'validacion'	=> '1',
@@ -4956,6 +5006,7 @@ $objeto_tabla['CHOFERES']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -5062,6 +5113,7 @@ $objeto_tabla['PROVEEDORES']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -5288,6 +5340,7 @@ $objeto_tabla['JEFES_GARANTIAS']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -5427,6 +5480,7 @@ $objeto_tabla['SERVICIO_TECNIVO']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -5565,6 +5619,7 @@ $objeto_tabla['SERVICIO_TECNICO2']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -5703,6 +5758,7 @@ $objeto_tabla['USUARIO_IMPORTACIONES']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -5841,6 +5897,7 @@ $objeto_tabla['TRAMITADORES']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -5971,6 +6028,7 @@ $objeto_tabla['USUARIOS_PROGRAMACIONES']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -6101,6 +6159,7 @@ $objeto_tabla['USUARIOS_ENTREGAS']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -6231,6 +6290,7 @@ $objeto_tabla['ADMINISTRADORES_VENTAS']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -6361,6 +6421,7 @@ $objeto_tabla['ADMINISTRADORES_GENERALES']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -6491,6 +6552,7 @@ $objeto_tabla['SUPER_ADMINISTRADORES']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -6578,6 +6640,21 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'events'		=>array(
 				'on_session'	=> ''
 		),
+
+		'procesos'		=>array(
+				array(
+						'label'		=> 'Desistimiento',
+						'accion'		=> 'custom',
+						'file'		=> 'base2/apps/desistimiento.php',
+						'rel'			=> 'width:650,height:380',
+				),
+				array(
+						'label'		=> 'Cambio de Estado',
+						'accion'		=> 'custom',
+						'file'		=> 'base2/apps/change_status.php',
+						'rel'			=> 'width:650,height:380',
+				)								
+		),		
 		'postscript'	=> '
 
 				if(SS=="insert"){
@@ -6588,22 +6665,34 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 
 					update(array("user"=>$uu["user"], "id_usuario"=>$uu["id"], "id_jefe"=>$uu["id_jefe"] ),"clientes","where id=".LL["id_cliente"],0);
 					
-					insert(
-							array(
-								"fecha_creacion"=>"now()",
-								"id_grupo"			=>	II,
-								"texto"				=>	"Primer contacto",
-								"tipo"				=>	"3",
-								"id_usuario"		=>	$uu["id"],
-								"id_jefe"			=>	$uu["id_jefe"],
-								"id_status"			=>	"9",
-								"user"				=>  $uu["user"]
-							)
+					insert([
+							"fecha_creacion"=>"now()",
+							"id_grupo"	=>	II,
+							"texto"		=>	"Primer contacto",
+							"tipo"		=>	"3",
+							"id_usuario"=>	LL["id_usuario"],
+							"alerta"		=>	LL["alerta"],
+							"alerta_fecha"=>LL["alerta_fecha"],
+							]
 							,"ventas_mensajes"
 							,0
-						);
+							);
+
+					update(
+						[
+						"alerta"				=>"",						
+						"alerta_fecha"				=>"",
+						],
+						TT,
+						"where id=".II,0);	
+
+						include("base2/apps/envio_automatico.php");
+
+						include("base2/apps/alerta_nacin.php");
 
 				}
+
+
 				if(SS=="update"){
 
 					$uu		= fila("id_jefe,id,status,id_sesion as user","usuarios","where id=\"".LL["id_usuario"]."\"",0);					
@@ -6619,12 +6708,20 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 
 						$ll=fila(CC,TT,"where id=".$i,0);
 
+						$id_sesion=dato("id_sesion","usuarios","where id=".$ll["id_usuario"],0);
+
 						$jefe=dato("id_jefe","usuarios","where id=".$ll["id_usuario"],0);
+
 						$usu_status	= dato("status","usuarios","where id=".LL["id_usuario"],0);
 
 						update(array("id_jefe"=>$jefe, "vendedor_status"=>$usu_status),TT,"where id=$i",0);
 
-						update(array("id_jefe"=>$jefe, "vendedor_status"=>$usu_status, "id_usuario"=>$ll["id_usuario"]),"clientes","where id=".$ll["id_cliente"],0);
+						update(array("id_jefe"=>$jefe, "id_usuario"=>$ll["id_usuario"],"user"=>$id_sesion),"clientes","where id=".$ll["id_cliente"],0);
+
+						update(array("user"=>$id_sesion),"ventas_items","where id=".$i,0);
+
+						update(array("id_usuario"=>$ll["id_usuario"],"user"=>$id_sesion),"ventas_mensajes","where id_grupo=".$i,0);
+
 
 					}
 
@@ -6633,7 +6730,33 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		',
 		'mass_actions'	=> 'id_usuario',
 
+		'exportar_gm'	=> '0',
 
+		'exportar_go'	=> '0',
+
+		'joins'			=>array(
+
+					'clientes'		=> 'ventas_items.id_cliente=clientes.id',
+				// 'usuarios'		=> 'ventas_items.id_usuario=usuarios.id',
+		),
+		'more'			=>array(
+				'clientes'		=> '
+			dni?listable=1&queries=0&label=DNI&after=id_cliente,
+			telefono?listable=1&queries=0&after=id_cliente,
+			cliente_celular?listable=1&queries=0&after=id_cliente,
+			celular_claro?listable=1&queries=0&after=id_cliente,
+			celular_movistar?listable=1&queries=0&after=id_cliente,
+			nextel?listable=1&queries=0&after=id_cliente,
+			rpm?listable=1&queries=0&after=id_cliente,
+			rpc?listable=1&queries=0&after=id_cliente,
+			email?listable=1&queries=0&after=id_cliente,			
+			',
+				// 'usuarios'		=> 'id_jefe?listable=1&queries=1&after=id_usuario',
+		),
+		'controles'		=> '
+		<a href="base2/procesos/desistir_masivo.php">Desistir masivo</a>		
+		<a href="pop.php?app=importar_gmail" class="btn btn-small exportar_go" target="_blank">Importar Gmail</a>		
+		',		
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -6671,13 +6794,17 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'default'		=> '[id_cliente]',
 						'tipo'			=> 'hid',
 						'derecha'		=> '1',
-						'directlink'	=> 'id,nombre;apellidos;dni|clientes|where visibilidad=1|6',
+						'directlink'	=> 'id,nombre;apellidos;dni;info2|clientes|where visibilidad=1|6',
 						'ondlselect'	=> '1',
-						'opciones'		=> 'id,nombre;apellidos|clientes|where 0|dni+DNI;telefono+telefono;celular_claro+claro;celular_movistar+movistar;nextel+nextel;rpm+rpm;rpc+rpc;email+email;empresa+empresa;direccion+direccion',
+						'opciones'		=> 'id,nombre;apellidos;dni;info2;email;telefono;telefono_oficina;cliente_celular;celular_claro;celular_movistar;nextel;rpm;rpc|clientes right join ventas_items on ventas_items.id_cliente=clientes.id|where 0|dni+DNI;telefono+telefono;celular_claro+claro;celular_movistar+movistar;nextel+nextel;rpm+rpm;rpc+rpc;email+email;empresa+empresa;direccion+direccion',
 						'style'			=> 'width:320px;',
-						'controles'		=> '<a href="pop.php?app=enviar_cotizacion&id=[id]" style="color:red;" >Mensaje</a>
-							<a target="_black" href="../index.php?modulo=items&tab=productos_imprimir&acc=file&id_venta=[id]">imprimir</a>
-							<a href="custom/ventas_mensajes.php?id=[id]" rel="subs crear">{select count(*) from ventas_mensajes where id_grupo=[id]} mensajes</a>
+						'controles'		=> '
+							<a href="pop.php?app=enviar_cotizacion&id=[id]&tab=deljefe" class="mb mensaje_dejefe">comentario del jefe</a>
+							<a href="pop.php?app=enviar_cotizacion&id=[id]&tab=deladmin" class="mb mensaje_deadministrador">comentario del administrador</a>
+							<a href="pop.php?app=enviar_cotizacion&id=[id]" class="mb mensaje_cliente" >mensaje al cliente</a>
+							<a class="mb" target="_black" href="../index.php?modulo=items&tab=productos_imprimir&acc=file&id_venta=[id]">imprimir</a>
+							
+							<a href="custom/ventas_mensajes.php?id=[id]" rel="crear subs popup">{select count(*) from ventas_mensajes where id_grupo=[id]} actividades</a>
 							',
 						'tip_foreig'	=> '1',
 						'like'			=> '0',
@@ -6688,6 +6815,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'queries'		=> '1',
 						'dlquery'		=> '1'
 				),
+
 				'id_grupo'		=>array(
 						'campo'			=> 'id_grupo',
 						'label'			=> 'Marca',
@@ -6697,13 +6825,14 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'default'		=> '[id_grupo]',
 						'foreig'		=> '1',
 						'style'			=> 'width:100px,',
-						'opciones'		=> 'id,nombre|productos_grupos|order by nombre asc',
+						'opciones'		=> 'id,nombre|productos_grupos|where visibilidad=1 order by nombre asc',
 						'load'			=> 'id_item||id,nombre|productos_items|where visibilidad=1 and id_grupo=[id_grupo] order by orden desc',
 						'width'			=> '80px',
 						'derecha'		=> '1',
 						'tags'			=> '1',
 						'queries'		=> '1'
 				),
+
 				'id_item'		=>array(
 						'campo'			=> 'id_item',
 						'label'			=> 'Modelo',
@@ -6713,13 +6842,14 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'default'		=> '[id_item]',
 						'foreig'		=> '1',
 						'style'			=> 'width:150px;',
-						'opciones'		=> 'id,nombre|productos_items|order by nombre asc',
+						'opciones'		=> 'id,nombre|productos_items|where visibilidad=1 order by nombre asc',
 						'width'			=> '250px',
 						'derecha'		=> '2',
 						'tip_foreig'	=> '0',
 						'tags'			=> '1',
 						'queries'		=> '1'
 				),
+				
 				'vendedor_status'=>array(
 						'campo'			=> 'vendedor_status',
 						'label'			=> 'Status de vendedor',
@@ -6743,14 +6873,16 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'label'			=> 'Jefe',
 						'tipo'			=> 'hid',
 						'listable'		=> '1',
-						'default'		=> '[id_jefe]',
+						// 'default'		=> '[id_jefe]',
 						'foreig'		=> '1',
 						'style'			=> 'width:160px,',
 						'opciones'		=> 'id,nombre;apellidos|usuarios2|order by nombre asc',
 						'width'			=> '120px',
 						'derecha'		=> '2',
 						'tip_foreig'	=> '1',
-						'queries'		=> '1'
+						'queries'		=> '1',
+						'queries_load'	=> 'id_usuario||id,nombre;apellidos|usuarios|where id_jefe=',
+						'load'			=> 'id_usuario||id,nombre;apellidos|usuarios|where and status=1 and id_jefe=[id_jefe] order by nombre asc,apellidos asc',
 				),
 				'id_status'		=>array(
 						'campo'			=> 'id_status',
@@ -6765,16 +6897,25 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'noedit'		=> '1',
 						'validacion'	=> '1'
 				),
+				'id_status_pedido'		=>array(
+						'campo'			=> 'id_status_pedido',
+						// 'label'			=> 'Status',
+						// 'width'			=> '100px',
+						'tipo'			=> 'hid',
+						// 'opciones'		=> 'id,nombre|ventas_status|order by calificacion asc',
+						// 'noedit'			=> '1',
+						// 'indicador'		=> '1',
+				),				
 				'id_canal'		=>array(
 						'campo'			=> 'id_canal',
 						'label'			=> 'Código de Marketing (selección obligatoria)',
 						'width'			=> '120px',
 						'tipo'			=> 'hid',
 						'listable'		=> '1',
-						'opciones'		=> 'id,nombre|contacto_canales|order by nombre asc',
+						'opciones'		=> 'id,nombre|contacto_canales|where visibilidad=1 order by nombre asc',
 						'tags'			=> '1',
 						'queries'		=> '1',
-						'noedit'		=> '1',
+						// 'noedit'		=> '1',
 						'validacion'	=> '1'
 				),
 				'id_cuenta_email'=>array(
@@ -6795,7 +6936,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'opciones'		=>array(
 								'1'			=> 'Efectivo',
 								'2'			=> 'Crédito',
-								'3'			=> 'Leasing'
+								'3'			=> 'Leasing',
+								'4'			=> 'Pandero'
 						),
 						'derecha'		=> '1'
 				),
@@ -6875,6 +7017,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 				'sectorista_email'=>array(
 						'campo'			=> 'sectorista_email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '0',
 						'validacion'	=> '0',
@@ -6889,13 +7032,23 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'fulltext'		=> '1',
 						'autotags'		=> '1'
 				),
+				'motivo'			=>array(
+						'campo'			=> 'motivo',
+						'tipo'			=> 'hid',
+				),	
+				'otro_motivo'			=>array(
+						'campo'			=> 'otro_motivo',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+				),						
 				'id_usuario'	=>array(
 						'campo'			=> 'id_usuario',
 						'label'			=> 'Vendedor',
 						'width'			=> '120px',
 						'tipo'			=> 'hid',
 						'listable'		=> '1',
-						'opciones'		=> 'id,nombre;apellidos|usuarios|order by nombre asc',
+						'opciones'		=> 'id,nombre;apellidos|usuarios|where visibilidad=1 and status=1 order by nombre asc,apellidos asc',
+						// 'opciones'		=> 'id,nombre;apellidos|usuarios|where visibilidad=1',
 						'derecha'		=> '1',
 						'tip_foreig'	=> '1',
 						'tags'			=> '1',
@@ -6904,11 +7057,69 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'crearforeig'	=> '0',
 						'validacion'	=> '0',
 						'indicador'		=> '0'
-				),				
+				),	
+				/*
+				'copia'=>array(
+						'campo'			=> 'copia',
+						'label'			=> 'copia para envio',
+						'tipo'			=> 'inp',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'derecha'		=> '2',
+						'style'			=> 'width:170px;',
+						'constante'		=> '1',
+				),
+				*/							
 				'user'			=>array(
 						'campo'			=> 'user',
 						'tipo'			=> 'user'
-				)
+				),
+				'alerta'		=>array(
+						'legend'		=> 'Alerta',
+						'campo'			=> 'alerta',
+						'label'			=> 'Alerta',
+						'width'			=> '80px',
+						'listable'		=> '1',
+						'tipo'			=> 'hid',
+						'validacion_crear'=> '1',
+						'opciones'		=> 'id,nombre|mensajes_alertas',
+						'derecha'		=> '1',
+						// 'default'		=> '3',
+						'queries'		=> '0',
+						'noedit'			=> '1'
+				),
+				'alerta_fecha'	=>array(
+						'campo'			=> 'alerta_fecha',
+						'label'			=> '',
+						'tipo'			=> 'fch',
+						'listable'		=> '1',
+						'formato'		=> '7b',
+						'time'			=> '1',
+						'width'			=> '136px',
+						'derecha'		=> '2',
+						'default'		=> '',
+						'rango'			=> 'now,+1 years',
+						'queries'		=> '0',
+						'noedit'			=> '1',
+						'validacion'	=> '1',
+				),		
+				'invernado'		=>array(
+						'campo'			=> 'invernado',
+						'label'			=> 'Invernado',
+						'tipo'			=> 'com',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '0',
+						'opciones'		=>array(
+								'1'			=> 'Si',
+								'0'			=> 'No'
+						),
+						'derecha'		=> '1',
+						'style'			=> 'width:100px;',
+						'width'			=> '50px',
+						// 'frozen'		=> '1'
+				),
+						
 				
 		),
 		'grupo'			=> 'ventas',
@@ -6925,7 +7136,8 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'user'			=> '1',
 		'stat'			=> '0',
 		// 'repos'			=> 'vendedores=Reporte de Vendedores&stock=Stock de Consesionario'
-		'repos'			=> 'vendedores_old=Reporte de Vendedores|fecha_creacion'
+		'repos'			=> 'vendedores_old=Reporte de Vendedores|fecha_creacion&vendedoresalertas=Reporte de Atenciones y Alertas|fecha_creacion,id_usuario&vendedoresseguimientos=Ponderados de Seguimientos por Ventas|fecha_creacion,id_usuario',
+		// 'repos'			=> 'vendedores_old=Reporte de Vendedores|fecha_creacion&vendedoresalertas=Reporte de Atenciones y Alertas|fecha_creacion,id_item',		
 );
 /******************************************************************************************************************************************************/
 
@@ -6939,7 +7151,7 @@ $objeto_tabla['CLIENTES']=array(
 		'prefijo'		=> 'clie',
 		'eliminar'		=> '0',
 		'editar'		=> '1',
-		'crear'			=> '1',
+		'crear'			=> '0',
 		'crear_label'	=> '100px',
 		'crear_txt'		=> '400px',
 		'altura_listado'	=> 'auto',
@@ -6953,7 +7165,7 @@ $objeto_tabla['CLIENTES']=array(
 		'onload_script'	=> '
 		<style>
 		#group_persona_jurídica { display:none; }
-		#group_persona_contacto { display:none; }
+		#group_persona_contacto { display:display; }
 		</style>
 		<script>
 		window.addEvent("domready",function(){
@@ -6975,7 +7187,10 @@ $objeto_tabla['CLIENTES']=array(
 				),
 				'fecha_creacion'	=>array(
 						'campo'			=> 'fecha_creacion',
-						'tipo'			=> 'fcr'
+						'tipo'			=> 'fcr',
+						'queries'		=> '1',
+						'listable'		=> '1',		
+						'label'			=> 'Creación',										
 				),
 				'fecha_edicion'	=>array(
 						'campo'			=> 'fecha_edicion',
@@ -7008,7 +7223,7 @@ $objeto_tabla['CLIENTES']=array(
 								'2'			=> '$0("id_in_genero");$0("id_in_apellidos");$1("group_persona_contacto");$0("group_pago");$H("la_nombre","Razón Social *");$H("la_dni","RUC *");$H("la_direccion","Dirección *");'
 						),
 						'derecha'		=> '1',
-						'width'			=> '50px',
+						'width'			=> '70px',
 						'queries'		=> '1'
 				),
 				'nombre'		=>array(
@@ -7025,7 +7240,8 @@ $objeto_tabla['CLIENTES']=array(
 							<a href="custom/ventas_items.php?id_cliente=[id]" rel="mensajes">{select count(*) from ventas_items where id_cliente=[id]} atenciones</a>',
 						'tags'			=> '1',
 						'queries'		=> '0',
-						'dlquery'		=> '0'
+						'dlquery'		=> '0',
+						'noedit'			=> '1'
 				),
 				'apellidos'		=>array(
 						'campo'			=> 'apellidos',
@@ -7037,11 +7253,13 @@ $objeto_tabla['CLIENTES']=array(
 						'style'			=> 'width:150px;',
 						'derecha'		=> '2',
 						'like'			=> '0',
-						'tags'			=> '1'
+						'tags'			=> '1',
+						'noedit'			=> '1'						
 				),
 				'dni'			=>array(
 						'campo'			=> 'dni',
 						'label'			=> 'DNI/RUC',
+						'subvalidacion'		=> 'dni',
 						'tipo'			=> 'inp',
 						'listable'		=> '0',
 						'validacion'	=> '1',
@@ -7051,7 +7269,7 @@ $objeto_tabla['CLIENTES']=array(
 						'like'			=> '1',
 						'unique'		=> '0',
 						'size'			=> '11',
-						'onchange'		=> 'if(this.value.length<8){alert("minimo 8 caracteres");}'
+						// 'onchange'		=> 'if(this.value.length<8){alert("minimo 8 caracteres");}'
 				),
 				'genero'		=>array(
 						'campo'			=> 'genero',
@@ -7066,11 +7284,12 @@ $objeto_tabla['CLIENTES']=array(
 						'default'		=> '1',
 						'style'			=> 'width:45px;',
 						'derecha'		=> '2',
-						'width'			=> '30px'
+						'width'			=> '70px'
 				),
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -7146,11 +7365,22 @@ $objeto_tabla['CLIENTES']=array(
 						'style'			=> 'width:70px;',
 						'derecha'		=> '2'
 				),
+				'cliente_celular'	=>array(
+						'campo'			=> 'cliente_celular',
+						'label'			=> 'cliente celular',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'width'			=> '80px',
+						'style'			=> 'width:100px;',
+						'derecha'		=> '2'
+
+				),					
 				'celular_claro'	=>array(
 						'campo'			=> 'celular_claro',
 						'label'			=> 'Claro',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '70px',
 						'style'			=> 'width:70px;',
@@ -7190,12 +7420,14 @@ $objeto_tabla['CLIENTES']=array(
 						'campo'			=> 'rpc',
 						'label'			=> 'RPC',
 						'tipo'			=> 'inp',
-						'listable'		=> '0',
+						'listable'		=> '1',
 						'validacion'	=> '0',
 						'width'			=> '70px',
 						'style'			=> 'width:70px;',
 						'derecha'		=> '2'
 				),
+
+
 				'pag_tipo_documento'=>array(
 						'legend'		=> 'Pago',
 						'campo'			=> 'pag_tipo_documento',
@@ -7269,6 +7501,7 @@ $objeto_tabla['CLIENTES']=array(
 				'contacto_email'	=>array(
 						'campo'			=> 'contacto_email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '0',
 						'validacion'	=> '0',
@@ -7433,7 +7666,12 @@ $objeto_tabla['CLIENTES']=array(
 				'user'			=>array(
 						'campo'			=> 'user',
 						'tipo'			=> 'user'
-				)			
+				)		,
+				'info2'			=>array(
+						'campo'			=> 'info2',
+						'tipo'			=> 'inp',
+						'indicador'		=> '0'
+				)						
 		),
 		'edicion_rapida'	=> '1',
 		'edicion_completa'=> '1',
@@ -7453,10 +7691,10 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 		'archivo'		=> 'ventas_mensajes',
 		'prefijo'		=> 'venmen',
 		'eliminar'		=> '1',
-		'editar'		=> '1',
+		'editar'		=> '0',
 		'buscar'		=> '1',
 		'bloqueado'		=> '0',
-		'crear'			=> '0',
+		'crear'			=> '1',
 		'crear_label'	=> '60px',
 		'crear_txt'		=> '550px',
 		'menu'			=> '0',
@@ -7465,17 +7703,115 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 		'me'			=> 'VENTAS_MENSAJES',
 		'onload_include'	=> 'base2/update_ventas_mensajes.php',
 		'orden'			=> '0',
+
+		'exportar_go'	=> '0',
+
 		'postscript'	=> '
-			$linea=fila("id_jefe,id_usuario,user,id_cliente,id_item","ventas_items","where id=".LL["id_grupo"],0);
-			if(SS=="update" or SS=="insert"){
-				update(array("id_status"=>LL["id_status"]),"ventas_items","where id=".LL["id_grupo"],0);
-				update(array("id_item"=>$linea["id_item"],"id_cliente"=>$linea["id_cliente"],"id_jefe"=>$linea["id_jefe"],"id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
+
+
+			if(SS=="insert" and LL["cumplir_alertas"]=="1")
+			{
+
+				// $pendientes=contar("ventas_mensajes","where id!=".LL["id"]." and estado in (1,2) and alerta=1 and id_grupo=".LL["id_grupo"]." ");
+				$pendientes=contar("ventas_mensajes","where id!=".LL["id"]." and estado in (3) and id_grupo=".LL["id_grupo"]." ",0);
+
+				if($pendientes>0){
+
+					update(
+						["cumplido"=>"1","estado"=>"4","cumplir_alertas"=>"0"],
+						"ventas_mensajes",
+						"where id!=".LL["id"]." and id_grupo=".LL["id_grupo"]." and estado=3 ");
+					
+				}	
+
 			}
+
+
+			if(SS=="insert" and LL["cumplir"]!="")
+			{
+				update(["cumplido"=>"1","estado"=>"4","cumplir"=>""],"ventas_mensajes","where id=".LL["cumplir"],0);
+			}
+
+			$linea=fila("id_item,id_cliente,id_usuario,user","ventas_items","where id=".LL["id_grupo"],0);
+			if(SS=="update" or SS=="insert")
+			{
+				/*update(array("id_status"=>LL["id_status"]),"ventas_items","where id=".LL["id_grupo"],0);*/
+				update(array("id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
+			}
+
+			if(SS=="insert" or SS=="update"){
+
+				$linea=fila("id_cliente,id_usuario","ventas_items","where id=".LL["id_grupo"],0);
+
+				$info2=" (".dato("nombre","usuarios","where id=".$linea["id_usuario"],0)
+					 ." ".dato("apellidos","usuarios","where id=".$linea["id_usuario"],0)
+					 ." ".fecha_formato("now()",0)
+					 .")";
+
+				update(
+						[
+					    "info2"		=>$info2
+					    ],
+						"clientes",
+						"where id=".$linea["id_cliente"],
+						0
+						);
+
+			}
+
+			include("base2/apps/crear_notificaciones.php");
+
+
 		',
 		'app'			=> '
-		<a href="custom/ventas_mensajes.php?conf=estado%7Clistable%3D0%26alerta_fecha%7Cqueries%3D0%26fecha_creacion%7Cqueries%3D1%26crear%3D0%26order_by%3Did+desc">Actividades</a>
-		<a href="custom/ventas_mensajes.php?conf=alerta_fecha%7Cqueries%3D1%26fecha_creacion%7Cqueries%3D0%26fecha_creacion%7Clistable%3D0%26titulo%3DAlertas%26crear%3D0%26edit%3D0%26order_by%3Did+desc&filter=alerta%3Dalerta%253D1%252C2%26alerta_fecha%3Dalerta_fecha%7C[today]%7C[today]">Alertas</a>
-		',
+		<a href="custom/ventas_mensajes.php?conf=exportar_go%3D1%26editar%3D0%26estado%7Clistable%3D0%26alerta_fecha%7Cqueries%3D0%26fecha_creacion%7Cqueries%3D1%26crear%3D0%26order_by%3Did+desc">Actividades</a>
+		<a href="custom/ventas_mensajes.php?conf=exportar_go%3D1%26editar%3D0%26alerta_fecha%7Cqueries%3D1%26fecha_creacion%7Cqueries%3D0%26fecha_creacion%7Clistable%3D0%26nombre_plural%3DAlertas%26titulo%3DAlertas%26crear%3D0%26edit%3D0%26order_by%3Dalerta_fecha+desc'.
+		// '&filter=alerta%3Dalerta%253D1%252C2%26alerta_fecha%3Dalerta_fecha%7C[today]%7C[today]">Alertas</a>'.
+		'&filter=ventas_mensajes%5B0%5D=ventas_mensajes.alerta%3D1%2C2%26ventas_mensajes%5B1%5D=alerta_fecha%7C%5Btoday%5D%7C%5Btoday%5D
+">Alertas</a>'.
+		'',
+
+		'joins'			=>array(
+				'ventas_items'	=> 'ventas_mensajes.id_grupo=ventas_items.id',
+				'usuarios'		=> 'ventas_items.id_usuario=usuarios.id',
+		),
+		'more'			=>array(
+				'ventas_items'	=> '
+				id_cliente?listable=1&queries=1&after=fecha_creacion&controles=,
+				id_grupo?listable=0&queries=1&after=fecha_creacion,
+				id_item?listable=0&queries=1&after=fecha_creacion,
+				',
+				'usuarios'		=> 'id_jefe?listable=0&queries=1&after=id_usuario'
+		),
+		'procesos'=>array(
+
+				array(
+						'label'		=> 'Comentar actividad realizada y programar proxima alerta',
+						'ot'			=> 'ventas_mensajes',
+						'accion'		=> 'insert',
+						'extra'		=> 'id=[id_grupo]',
+						'buttom'		=> 'Crear alerta y grabar cumplido',
+						'rel'    	=> 'width:900,height:380',
+						// 'params'		=> 'crear=1&id_canal%7Cindicador=1&id_item%7Cindicador=1&pedido%7Cindicador=1&id_usuario%7Cindicador=1&id_sectorista%7Cindicador=1&id_cliente%7Cindicador=1&id_banco%7Cindicador=1&onload_include=base2%2Fon_atencion_venta.php'
+						'params'		=> '&alerta%7Clabel=Próx Alerta&alerta%7Cvalidacion=1&alerta_fecha%7Cvalidacion=1&texto%7Ctipo=txt&onload_include=base2%2Fbefore_cumplido.php',
+						// 'params'		=> 'crear=1&id_canal%7Cindicador=1&id_item%7Cindicador=1&pedido%7Cindicador=1&id_usuario%7Cindicador=1&id_sectorista%7Cindicador=1&id_cliente%7Cindicador=1&id_banco%7Cindicador=1&onload_include=base2%2Fon_atencion_venta.php'
+
+				),
+
+				array(
+						'label'		=> 'Desistimiento',
+						'accion'		=> 'custom',
+						'file'		=> 'base2/apps/desistimiento.php',
+						'rel'			=> 'width:650,height:380',
+				)					
+
+		),
+
+		'exports'		=> [
+									'exportar alertas'=>'base2/apps/alertas_nacin',
+								],
+								
+
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -7503,8 +7839,189 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'listable'		=> '1',
 						'formato'		=> '7b',
 						'width'			=> '100px',
+						'queries'		=> '0'
+				),
+				'id_grupo'		=>array(
+						'campo'			=> 'id_grupo',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[id]',
+						'foreig'		=> '1'
+				),
+				'tipo'			=>array(
+						'campo'			=> 'tipo',
+						'label'			=> 'Tipo',
+						'width'			=> '80px',
+						'listable'		=> '1',
+						'tipo'			=> 'hid',
+						'validacion'	=> '1',
+						'opciones'		=> 'id,nombre|mensajes_status|order by nombre asc',
+						// 'default'		=> '3',
+						'queries'		=> '1',
+						'controles'		=> '<a href="custom/ventas_items.php?i=[id_grupo]" rel="file">atención</a>'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> '',
+						'width'			=> '200px',
+						'tipo'			=> 'inp',
+						'listable'		=> '0',
+						'validacion'	=> '1',
+						'disabled'		=> '1'
+				),
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Mensaje',
+						'tipo'			=> 'html',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'width'			=> '270px',
+						'style'			=> 'height:120px;width:550px;',
+						'listhtml'		=> '1'
+				),
+				'alerta'		=>array(
+						'campo'			=> 'alerta',
+						'label'			=> 'Alerta',
+						'width'			=> '80px',
+						'listable'		=> '1',
+						'tipo'			=> 'hid',
+						'derecha'		=> '1',
+						'opciones'		=> 'id,nombre|mensajes_alertas',
+						// 'default'		=> '3',
+						'queries'		=> '1',
+						'validacion'	=> '1',
+				),
+				'alerta_fecha'	=>array(
+						'campo'			=> 'alerta_fecha',
+						'label'			=> '',
+						'tipo'			=> 'fch',
+						'listable'		=> '1',
+						'formato'		=> '7b',
+						'time'			=> '1',
+						'width'			=> '136px',
+						'derecha'		=> '2',
+						'default'		=> '',
+						'rango'			=> 'now,+1 years',
+						'queries'		=> '0',
+						'validacion'	=> '1',
+				),
+				'adjunto'		=>array(
+						'campo'			=> 'adjunto',
+						'label'			=> 'Adjunto',
+						'tipo'			=> 'sto',
+						'width'			=> '150px',
+						'style'			=> 'width:200px;',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'atc',
+						'carpeta'		=> 'atc_imas',
+						'disabled'		=> '1'
+				),
+				'id_usuario'	=>array(
+						'campo'			=> 'id_usuario',
+						'label'			=> 'Asesor',
+						'width'			=> '120px',
+						'listable'		=> '0',
+						'tipo'			=> 'hid',
+						// 'opciones'		=> 'id,nombre;apellidos|usuarios',
+						'opciones'		=> 'id,nombre;apellidos|usuarios|where visibilidad=1 and status=1 order by nombre asc,apellidos asc',
+						
+						'derecha'		=> '1',
+						'tip_foreig'	=> '0',
+						'tags'			=> '1',
+						'queries'		=> '1',
+						'noedit'			=> '1',
+						'inherited'		=> '1',
+						'disabled'		=> '0',
+						'dlquery'		=> '0',
+						'indicador'		=> '1'
+				),
+				'id_speech'		=>array(
+						'campo'			=> 'id_speech',
+						'label'			=> '',
+						'tipo'			=> 'inp',
+						'derecha'		=> '1',
+						'indicador'		=> '1',
+						'listable'		=> '0',
+						'width'			=> '20px'
+				),
+				'estado'		=>array(
+						'campo'			=> 'estado',
+						'label'			=> 'Estado',
+						'tipo'			=> 'com',
+						'listable'		=> '1',
+						'indicador'		=> '1',
+						'validacion'	=> '0',
+						'queries'		=> '1',						
+						'opciones'		=>array(
+								'1'			=> 'pendiente|#136CB2',
+								'2'			=> 'para hoy|green',
+								'3'			=> 'atrasado|red',
+								'4'			=> 'cumplido|black',
+								'5'			=> 'atrasado espera de desistimiento|black',
+								'6'			=> 'desistido|purple',					
+								'7'			=> 'vendido|yellow'								
+						),
+						'default'		=> '1',
+						'style'			=> 'width:150px;',
+						'width'			=> '100px'
+				),
+				'cumplido'		=>array(
+						'campo'			=> 'cumplido',
+						'label'			=> 'Cumplido',
+						'radio'			=> '1',
+						'tipo'			=> 'com',
+						'listable'		=> '1',						
+						'opciones'		=>array(
+								'1'			=> 'si',
+								'0'			=> 'no'
+						),
+						'default'		=> '0',
+						'style'			=> 'width:150px;',
+						'width'			=> '70px',
+						'indicador'		=> '1',
+						// 'noedit'		=> '1',
+						'queries'		=> '0'
+
+				),
+
+				'cumplir_alertas'	=>array(
+						'campo'			=> 'cumplir_alertas',
+						'label'			=> 'Cumplir alertas Atrasadas',
+						'noedit'			=> '1',						
+						'tipo'			=> 'com',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '0',
+						'opciones'		=>array(
+								'1'			=> 'Si',
+								'0'			=> 'No'
+						),
+						'derecha'		=> '1',
+						'style'			=> 'width:100px;',
+						'width'			=> '50px',
+						'showoncrearsubs'=>'1',
+				),
+
+				'cumplir'		=>array(
+						'campo'			=> 'cumplir',
+						'tipo'			=> 'hid',
+				),				
+				'user'			=>array(
+						'campo'			=> 'user',
+						'tipo'			=> 'user',
 						'queries'		=> '1'
 				),
+				'tags'			=>array(
+						'campo'			=> 'tags',
+						'label'			=> 'tags',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'fulltext'		=> '1',
+						'autotags'		=> '1'
+				),
+				/*
 				'id_cliente'	=>array(
 						'campo'			=> 'id_cliente',
 						'label'			=> 'Cliente',
@@ -7544,69 +8061,6 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'queries'		=> '1',
 						'inherited'		=> '1'
 				),
-				'id_grupo'		=>array(
-						'campo'			=> 'id_grupo',
-						'tipo'			=> 'hid',
-						'listable'		=> '0',
-						'validacion'	=> '0',
-						'default'		=> '[id]',
-						'foreig'		=> '1'
-				),
-				'tipo'			=>array(
-						'campo'			=> 'tipo',
-						'label'			=> 'Tipo',
-						'width'			=> '80px',
-						'listable'		=> '1',
-						'tipo'			=> 'hid',
-						'validacion'	=> '1',
-						'opciones'		=> 'id,nombre|mensajes_status',
-						'default'		=> '3',
-						'queries'		=> '1',
-						'controles'		=> '<a href="custom/ventas_items.php?i=[id_grupo]" rel="file">atención</a>'
-				),
-				'nombre'		=>array(
-						'campo'			=> 'nombre',
-						'label'			=> '',
-						'width'			=> '200px',
-						'tipo'			=> 'inp',
-						'listable'		=> '0',
-						'validacion'	=> '1',
-						'disabled'		=> '1'
-				),
-				'texto'			=>array(
-						'campo'			=> 'texto',
-						'label'			=> 'Mensaje',
-						'tipo'			=> 'html',
-						'listable'		=> '1',
-						'validacion'	=> '1',
-						'width'			=> '270px',
-						'style'			=> 'height:200px;width:550px;',
-						'listhtml'		=> '1'
-				),
-				'alerta'		=>array(
-						'campo'			=> 'alerta',
-						'label'			=> 'Alerta',
-						'width'			=> '80px',
-						'listable'		=> '1',
-						'tipo'			=> 'hid',
-						'validacion'	=> '0',
-						'opciones'		=> 'id,nombre|mensajes_alertas',
-						'default'		=> '3',
-						'queries'		=> '1'
-				),
-				'alerta_fecha'	=>array(
-						'campo'			=> 'alerta_fecha',
-						'label'			=> '',
-						'tipo'			=> 'fch',
-						'listable'		=> '1',
-						'formato'		=> '7b',
-						'time'			=> '1',
-						'width'			=> '136px',
-						'derecha'		=> '1',
-						'default'		=> '',
-						'rango'			=> 'now,+1 years',
-						'queries'		=> '0'
-				),
 				'id_status'		=>array(
 						'campo'			=> 'id_status',
 						'label'			=> 'Status',
@@ -7617,34 +8071,6 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'derecha'		=> '2',
 						'tags'			=> '1',
 						'queries'		=> '1'
-				),
-				'adjunto'		=>array(
-						'campo'			=> 'adjunto',
-						'label'			=> 'Adjunto',
-						'tipo'			=> 'sto',
-						'width'			=> '150px',
-						'style'			=> 'width:200px;',
-						'listable'		=> '1',
-						'validacion'	=> '0',
-						'prefijo'		=> 'atc',
-						'carpeta'		=> 'atc_imas',
-						'disabled'		=> '1'
-				),
-				'id_usuario'	=>array(
-						'campo'			=> 'id_usuario',
-						'label'			=> 'Vendedor',
-						'width'			=> '120px',
-						'listable'		=> '1',
-						'tipo'			=> 'hid',
-						'opciones'		=> 'id,nombre;apellidos|usuarios',
-						'derecha'		=> '1',
-						'tip_foreig'	=> '0',
-						'tags'			=> '1',
-						'queries'		=> '1',
-						'noedit'		=> '1',
-						'disabled'		=> '0',
-						'dlquery'		=> '0',
-						'inherited'		=> '1'
 				),
 				'id_jefe'		=>array(
 						'campo'			=> 'id_jefe',
@@ -7661,68 +8087,17 @@ $objeto_tabla['VENTAS_MENSAJES']=array(
 						'queries'		=> '1',
 						'disabled'		=> '0',
 						'inherited'		=> '1'
-				),
-				'id_speech'		=>array(
-						'campo'			=> 'id_speech',
-						'label'			=> '',
-						'tipo'			=> 'inp',
-						'derecha'		=> '1',
-						'indicador'		=> '1',
-						'listable'		=> '0',
-						'width'			=> '20px'
-				),
-				'estado'		=>array(
-						'campo'			=> 'estado',
-						'label'			=> 'Estado',
-						'tipo'			=> 'com',
-						'listable'		=> '1',
-						'indicador'		=> '1',
-						'validacion'	=> '0',
-						'opciones'		=>array(
-								'1'			=> 'pendiente|#136CB2',
-								'2'			=> 'para hoy|green',
-								'3'			=> 'atrazado|red',
-								'4'			=> 'cumplido|black'
-						),
-						'default'		=> '1',
-						'style'			=> 'width:150px;',
-						'width'			=> '100px'
-				),
-				'cumplido'		=>array(
-						'campo'			=> 'cumplido',
-						'label'			=> 'Cumplido',
-						'radio'			=> '1',
-						'tipo'			=> 'com',
-						'opciones'		=>array(
-								'1'			=> 'si',
-								'0'			=> 'no'
-						),
-						'default'		=> '0',
-						'style'			=> 'width:150px;',
-						'width'			=> '100px'
-				),
-				'user'			=>array(
-						'campo'			=> 'user',
-						'tipo'			=> 'user',
-						'queries'		=> '1'
-				),
-				'tags'			=>array(
-						'campo'			=> 'tags',
-						'label'			=> 'tags',
-						'tipo'			=> 'txt',
-						'indicador'		=> '1',
-						'fulltext'		=> '1',
-						'autotags'		=> '1'
-				)
+				),*/
+						
 		),
 		'edicion_rapida'	=> '1',
 		'calificacion'	=> '0',
 		'edicion_completa'=> '1',
 		'disabled'		=> '0',
 		'user'			=> '1',
-		'order_by'		=> 'id asc',
+		// 'order_by'		=> 'alerta_fecha desc',
 		'stat'			=> '0',
-		'exportar_excel'	=> '1'
+		'exportar_excel'	=> '0'
 );
 /******************************************************************************************************************************************************/
 
@@ -7820,6 +8195,7 @@ $objeto_tabla['CONTACTO']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -7857,6 +8233,15 @@ $objeto_tabla['VENTAS_STATUS']=array(
 		'menu_label'	=> 'Status Atenciones',
 		'me'			=> 'VENTAS_STATUS',
 		'orden'			=> '1',
+		'postscript'=>'
+
+				if(SS=="insert"){
+
+						// include("base2/apps/envio_automatico.php");
+
+				}
+
+		',
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -7955,6 +8340,7 @@ $objeto_tabla['ENVIOS_CUENTAS']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '1',
@@ -8291,7 +8677,7 @@ $objeto_tabla['VENTAS_ALERTAS']=array(
 						'opciones'		=>array(
 								'1'			=> 'pendiente|#136CB2',
 								'2'			=> 'para hoy|green',
-								'3'			=> 'atrazado|red',
+								'3'			=> 'atrasado|red',
 								'4'			=> 'cumplido|black'
 						),
 						'default'		=> '1',
@@ -8370,6 +8756,7 @@ $objeto_tabla['VENTAS_CUENTAS']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'validacion'	=> '0'
@@ -8514,6 +8901,7 @@ $objeto_tabla['USUARIOS3']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '2',
 						'width'			=> '150px',
@@ -8773,6 +9161,7 @@ $objeto_tabla['USUARIOS2']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '2',
 						'width'			=> '150px',
@@ -8974,6 +9363,14 @@ $objeto_tabla['USUARIOS']=array(
 		'menu_label'	=> 'Vendedores',
 		'me'			=> 'USUARIOS',
 		'orden'			=> '1',
+		'onload_include'	=> 'base2/fix_accesos.php',		
+		'por_pagina'	=> '500',
+		'postscript'	=> '
+			if(SS=="update")
+			{
+				update(["id_jefe"=>LL["id_jefe"]],"ventas_items","where id_usuario=".II);
+			}
+		',		
 		'campos'		=>array(
 				'id'			=>array(
 						'campo'			=> 'id',
@@ -9052,6 +9449,7 @@ $objeto_tabla['USUARIOS']=array(
 				'email'			=>array(
 						'campo'			=> 'email',
 						'label'			=> 'Email',
+						'subvalidacion'		=> 'email',
 						'tipo'			=> 'inp',
 						'listable'		=> '1',
 						'width'			=> '150px',
@@ -9190,6 +9588,7 @@ $objeto_tabla['USUARIOS']=array(
 						'width'			=> '500px',
 						'style'			=> 'height:200px;width:450px;'
 				),
+
 				'status'		=>array(
 						'campo'			=> 'status',
 						'label'			=> 'Status',
@@ -9206,6 +9605,19 @@ $objeto_tabla['USUARIOS']=array(
 						'width'			=> '30px',
 						'queries'		=> '1'
 				),
+
+				'cargo'		=>array(
+						'campo'			=> 'cargo',
+						'label'			=> 'Cargo',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'derecha'		=> '1',
+						'width'			=> '150px',
+						'derecha'		=> '1',
+						'like'			=> '1',
+						// 'validacion'	=> '1'
+				),	
+
 				'usuarios_acceso_nombre'=>array(
 						'legend'		=> 'Datos de Acceso',
 						'campo'			=> 'usuarios_acceso_nombre',
@@ -9252,6 +9664,73 @@ $objeto_tabla['USUARIOS']=array(
 );
 /******************************************************************************************************************************************************/
 
+$objeto_tabla['SPEECHES_IMPORT']=array(
+		'grupo'			=> 'import',
+		'alias_grupo'	=> '',
+		'titulo'		=> 'Speaches Import',
+		'nombre_singular'=> 'speech',
+		'nombre_plural'	=> 'speeches',
+		'tabla'			=> 'speeches_import',
+		'archivo'		=> 'speeches_import',
+		'prefijo'		=> 'speimp',
+		'eliminar'		=> '1',
+		'crear'			=> '1',
+		'editar'		=> '1',
+		'edicion_completa'=> '1',		
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '600px',
+		'menu_label'	=> 'Speeches importar excel',
+		'me'			=> 'SPEECHES_IMPORT',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '300px',
+						'validacion'	=> '1'
+				),
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Texto',
+						'tipo'			=> 'txt',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '500px',
+						'style'			=> 'height:270px;'
+				)
+		)
+);
+
+
 $objeto_tabla['SPEECHES']=array(
 		'grupo'			=> 'ventas',
 		'alias_grupo'	=> '',
@@ -9269,7 +9748,7 @@ $objeto_tabla['SPEECHES']=array(
 		'menu'			=> '1',
 		'crear_label'	=> '100px',
 		'crear_txt'		=> '600px',
-		'menu_label'	=> 'Speeches',
+		'menu_label'	=> 'Speeches para enviar al cliente',
 		'me'			=> 'SPEECHES',
 		'orden'			=> '1',
 		'campos'		=>array(
@@ -9316,6 +9795,87 @@ $objeto_tabla['SPEECHES']=array(
 				)
 		)
 );
+
+$objeto_tabla['SPEECHES_ASESOR']=array(
+		'grupo'			=> 'ventas',
+		'alias_grupo'	=> '',
+		'titulo'		=> 'Speaches',
+		'nombre_singular'=> 'speech',
+		'nombre_plural'	=> 'speeches_asesor',
+		'tabla'			=> 'speeches_asesor',
+		'archivo'		=> 'speeches_asesor',
+		'prefijo'		=> 'spe',
+		'eliminar'		=> '1',
+		'crear'			=> '1',
+		'editar'		=> '1',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '600px',
+		'menu_label'	=> 'Speeches para enviar al asesor',
+		'me'			=> 'SPEECHES_ASESOR',
+		'orden'			=> '1',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				// 'id_item'		=>array(
+				// 		'campo'			=> 'id_item',
+				// 		'label'			=> 'Proyecto',
+				// 		'tipo'			=> 'hid',
+				// 		'listable'		=> '1',
+				// 		'validacion'	=> '1',
+				// 		'default'		=> '[id_item]',
+				// 		'style'			=> 'width:200px,',
+				// 		'opciones'		=> 'id,codigo;nombre|productos_items',
+				// 		'width'			=> '140px',
+				// 		'derecha'		=> '1',
+				// 		'tags'			=> '1',
+				// 		'queries'		=> '1',
+				// 		'tip_foreig'	=> '1'
+				// ),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '300px',
+						'validacion'	=> '1'
+				),
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Texto',
+						'tipo'			=> 'html',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '500px',
+						'style'			=> 'height:270px;'
+				)
+		)
+);
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['CONTACTO_CANALES']=array(
@@ -9329,7 +9889,7 @@ $objeto_tabla['CONTACTO_CANALES']=array(
 		'editar'		=> '1',
 		'crear'			=> '1',
 		'altura_listado'	=> 'auto',
-		'visibilidad'	=> '0',
+		'visibilidad'	=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
 		'menu'			=> '1',
@@ -9379,6 +9939,284 @@ $objeto_tabla['CONTACTO_CANALES']=array(
 		'set_fila_fijo'	=> '4',
 		'crear_quick'	=> '1'
 );
+
+
+$objeto_tabla['NOTIFICACIONES']=array(
+		'grupo'			=> 'ventas',
+		'alias_grupo'	=> '',
+		'titulo'		=> 'Notificaciones',
+		'nombre_singular'=> 'notificación',
+		'nombre_plural'	=> 'notificaciones',
+		'tabla'			=> 'notificaciones',
+		'archivo'		=> 'notificaciones',
+		'prefijo'		=> 'notfic',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'buscar'		=> '1',
+		'bloqueado'		=> '0',
+		'crear'			=> '1',
+		'crear_label'	=> '60px',
+		'crear_txt'		=> '550px',
+		'menu'			=> '1',
+		'menu_label'	=> 'Notificaciones',
+		'por_pagina'	=> '10',
+		'me'			=> 'NOTIFICACIONES',
+		'orden'			=> '0',
+		'postscript'	=> '
+			$linea=fila("id_item,id_cliente,id_jefe,id_usuario,user","ventas_items","where id=".LL["id_grupo"],0);
+			if(SS=="update" or SS=="insert")
+			{
+				update(array("id_status"=>LL["id_status"]),"ventas_items","where id=".LL["id_grupo"],0);
+				update(array("id_cliente"=>$linea["id_cliente"],"id_item"=>$linea["id_item"],"id_jefe"=>$linea["id_jefe"],"id_usuario"=>$linea["id_usuario"],"user"=>$linea["user"]),TT,"where id=".II,0);
+			}
+		',
+		'joins'			=>array(
+				'usuarios'		=> 'notificaciones.id_usuario=usuarios.id'
+		),
+		'more'			=>array(
+				'usuarios'		=> 'id_jefe?listable=1&queries=1&after=id_usuario'
+		),
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr',
+						'formato'		=> '7b',
+						'width'			=> '100px',
+						'queries'		=> '1'
+				),
+				'modulo'		=>array(
+						'campo'			=> 'modulo',
+						'label'			=> 'Módulo',
+						'tipo'			=> 'com',
+						'opciones'		=>array(
+								'abonos'		=> 'abonos',
+								'seguimiento'	=> 'seguimiento',
+								'agenda'	=> 'agenda',
+								'tramite'	=> 'tramite',
+								'prestamo'	=> 'prestamo',
+								'resumen'	=> 'resumen',
+						),
+						'default'		=> '0',
+						'style'			=> 'width:150px;',
+						'width'			=> '100px'
+				),
+				'id_item'		=>array(
+						'campo'			=> 'id_item',
+						'label'			=> 'Proyecto',
+						'tipo'			=> 'hid',
+						'listable'		=> '1',
+						'default'		=> '[id_item]',
+						'foreig'		=> '1',
+						'style'			=> 'width:150px;',
+						'opciones'		=> 'id,nombre|productos_items|0',
+						'width'			=> '200px',
+						'derecha'		=> '2',
+						'tip_foreig'	=> '1',
+						'tags'			=> '1',
+						'noedit'		=> '1',
+						'inherited'		=> '1',
+						'derecha'		=> '1',
+						'queries'		=> '1'
+				),
+				'item'			=>array(
+						'campo'			=> 'item',
+						'tipo'			=> 'hid'
+				),
+				'sub_item'		=>array(
+						'campo'			=> 'sub_item',
+						'tipo'			=> 'hid'
+				),
+				'id_cliente'	=>array(
+						'campo'			=> 'id_cliente',
+						'label'			=> 'Cliente',
+						'width'			=> '140px',
+						'listable'		=> '1',
+						'tipo'			=> 'hid',
+						'derecha'		=> '1',
+						'opciones'		=> 'id,nombre;apellidos|clientes|where 0',
+						'tip_foreig'	=> '1',						
+						'derecha'		=> '1',
+						'style'			=> 'width:auto;',
+						'noedit'		=> '1',
+				),
+				'id_usuario'	=>array(
+						'campo'			=> 'id_usuario',
+						'label'			=> 'Asesor',
+						'width'			=> '120px',
+						'listable'		=> '0',
+						'tipo'			=> 'hid',
+						'opciones'		=> 'id,nombre;apellidos|usuarios',
+						'derecha'		=> '1',
+						'tip_foreig'	=> '0',
+						'tags'			=> '1',
+						'queries'		=> '1',
+						'noedit'		=> '1',
+						'inherited'		=> '1',
+						'disabled'		=> '0',
+						'dlquery'		=> '0'
+				),
+				'fecha_programada'=>array(
+						'campo'			=> 'fecha_programada',
+						'label'			=> 'Fecha',
+						'tipo'			=> 'fch',
+						'listable'		=> '1',
+						'formato'		=> '7b',
+						'time'			=> '2',
+						'width'			=> '136px',
+						'derecha'		=> '1',
+						'default'		=> '',
+						'rango'			=> 'now,+1 years',
+						'queries'		=> '0',
+						'main'			=> '1'
+				),
+				'asunto'			=>array(
+						'campo'			=> 'asunto',
+						'label'			=> 'Asunto',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'width'			=> '200px',
+						'style'			=> 'width:550px;',
+				),
+				'texto'			=>array(
+						'campo'			=> 'texto',
+						'label'			=> 'Mensaje',
+						'tipo'			=> 'html',
+						'listable'		=> '1',
+						'width'			=> '270px',
+						'style'			=> 'height:200px;width:550px;',
+						'listhtml'		=> '1'
+				),
+				'estado'		=>array(
+						'campo'			=> 'estado',
+						'label'			=> 'Estado',
+						'tipo'			=> 'com',
+						'opciones'		=>array(
+								'1'			=> 'pendiente|#136CB2',
+								'2'			=> 'enviado|#00FF00'
+						),
+						'default'		=> '0',
+						'style'			=> 'width:150px;',
+						'width'			=> '100px',
+						'listable'		=> '1'
+				),
+				'tipo'			=>array(
+						'campo'			=> 'tipo',
+						'label'			=> 'Tipo',
+						'tipo'			=> 'com',
+						'opciones'		=>array(
+								'email'			=> 'email',
+								'push'			=> 'push'
+						),
+						'default'		=> '0',
+						'style'			=> 'width:150px;',
+						'width'			=> '100px',
+						'listable'		=> '1'
+				),
+				'user'			=>array(
+						'campo'			=> 'user',
+						'tipo'			=> 'user'
+				),
+				'tags'			=>array(
+						'campo'			=> 'tags',
+						'label'			=> 'tags',
+						'tipo'			=> 'txt',
+						'indicador'		=> '1',
+						'fulltext'		=> '1',
+						'autotags'		=> '1'
+				)
+		),
+		'edicion_rapida'	=> '1',
+		'calificacion'	=> '0',
+		'edicion_completa'=> '1',
+		'disabled'		=> '0',
+		'user'			=> '1',
+		'order_by'		=> 'id asc',
+		'stat'			=> '0',
+		'exportar_excel'	=> '1',
+		'seccion'		=> 'notificaciones'
+);
+
+
+
+$objeto_tabla['DESISTIMIENTOS']=array(
+		'grupo'			=> 'ventas',
+		'alias_grupo'	=> '',
+		'titulo'			=> 'Desistimientos',
+		'nombre_singular'=> 'desistimiento',
+		'nombre_plural'=> 'desistimientos',
+		'tabla'			=> 'desistimientos',
+		'archivo'		=> 'desistimientos',
+		'prefijo'		=> 'des',
+		'eliminar'		=> '1',
+		'crear'			=> '1',
+		'editar'			=> '1',
+		'buscar'			=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '1',
+		'crear_label'	=> '100px',
+		'crear_txt'		=> '600px',
+		'menu_label'	=> 'Desistimientos',
+		'me'				=> 'DESISTIMIENTOS',
+		'orden'			=> '1',
+		'seccion'		=> 'Desistimientos',		
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'calificacion'	=>array(
+						'campo'			=> 'calificacion',
+						'tipo'			=> 'cal'
+				),
+				'nombre'		=>array(
+						'campo'			=> 'nombre',
+						'label'			=> 'Nombre',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'style'			=> 'width:500px',
+						'width'			=> '500px',
+						'validacion'	=> '1'
+				),
+		)
+);
+
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['VARIABLES']=array(
@@ -10031,6 +10869,9 @@ $objeto_tabla['GEO_DISTRITOS']=array(
 		'edicion_completa'=> '0'
 );
 /******************************************************************************************************************************************************/
+
+
+
 
 
 

@@ -135,7 +135,7 @@ if($mostrar_menu)
 						$mmm.="<a".$ap;
 						$mmm.="</li>";
 
-						$menus[($item['grupo'])?$item['grupo']:'general'][]=[$mmm,$bitselected];
+						$menus[($item['grupo'])?$item['grupo']:'general'][]=array($mmm,$bitselected);
 
 					} 
 				}	
@@ -157,7 +157,7 @@ if($mostrar_menu)
 
 		if($item['app']=='')
 		{
-			$menus[($item['grupo'])?$item['grupo']:'general'][]=[$mmm,$bitselected];
+			$menus[($item['grupo'])?$item['grupo']:'general'][]=array($mmm,$bitselected);
 		}
 
 		if($mmm!='')

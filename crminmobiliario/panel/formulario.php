@@ -30,9 +30,8 @@ include("objeto.php");
 	?>
 	<h1 class="titulo_formulario" id="titulo_crear">
 		<?php
-
 		?>
-		<a class="z i_form_cancel boton_right" onclick="javascript:abrir_crear('0','0');return false;"></a>
+		<a class="z i_form_cancel boton_right" onclick="javascript:$('cerrar_crear').click();"></a>
 		<!-- <a rel="nofollow" class="boton_right" onclick="javascript:ax('insertar',$v('id_guardar'));return false;">Crear
 			<?php echo ucfirst($datos_tabla['nombre_singular']);?>
 		</a> -->

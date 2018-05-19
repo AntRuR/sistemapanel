@@ -17,5 +17,5 @@ $object=$OBJECT[$THIS];
 		</a>
 		<h3>Envíos de Paquetes, Courier, Logística y Transporte</h3>
 	</figure>
-	<a class="trazabilidad btn btn-primary" href="http://190.12.73.84/distrackpolarbear">TRAZABILIDAD DE PEDIDO</a>
+	<a class="trazabilidad btn btn-primary" href="http://143.208.132.26:8080/intranet/index.php">TRAZABILIDAD DE PEDIDO</a>
 </header>

@@ -20,7 +20,7 @@ require_once 'lib/PHPExcel.php';
 $obj['obj']=$_GET['me'];
 $OBJ=$datos_tabla=procesar_objeto_tabla($objeto_tabla[$_GET['me']]);
 
-//prin($datos_tabla['list']);
+// prin($datos_tabla['list']);
 $datos_tabla['list']=array(
 		array(
 				'campo' => 'id_cliente',
@@ -32,9 +32,9 @@ $datos_tabla['list']=array(
 				'opciones' => 'id,id|clientes||id;nombre;apellidos;genero;email;tipo_cliente'
 		)
 );
-	
 
-//exit();
+
+// exit();
 
 foreach($datos_tabla['list'] as $lis){
 	if(
@@ -67,6 +67,7 @@ foreach($datos_tabla['list'] as $lis){
 
 
 $campS2=$campS;
+
 //$campS2=array_merge(array($datos_tabla['id']),$campS2,array($campTitu));
 if(!in_array($datos_tabla['fcr'],$campS2)){
 	$campS2=array_merge(array($datos_tabla['fcr']),$campS2);
@@ -81,11 +82,17 @@ foreach($campS2 as $ccc=>$cccc){
 
 }
 
-//prin($labels);
-	
+// prin($labels);
+// exit();	
 //$where="where ".$datos_tabla['foreig']."='".$id."' ";//anterior where
 //$parte=between($obj['ltext'],"where","}");
 	
+prin($_GET['filter']);	
+
+$qqff=query_filter($_GET['filter']);
+
+prin($qqff);
+
 if($_GET['filter']!=''){
 	$where="where 1 and ( ".query_filter($_GET['filter'])." ) ";
 } else {
@@ -97,7 +104,7 @@ $query_where=$where
 		."limit 0,10000";
 $items=select($campS2,
 		$datos_tabla['tabla'],
-		$query_where,0);
+		$query_where,1);
 	
 //prin($campS2);
 	

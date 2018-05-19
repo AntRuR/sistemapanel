@@ -1,11 +1,59 @@
 <?php
-
 include("objeto.php");
 
+
+$galleta='galleta';
+$sesionhid='sesionhid3';
+
+if(isset($_GET[$galleta])){
+
+	if($_SESSION[$sesionhid]!='unlocked'){
+
+		echo '<div class="ingreseclave"><form method="post">
+		CLAVE: <input name="clavesecreta">
+		<input type="submit" value="ENVIAR">
+		</form></div>';
+
+	} else {
+
+		redir(str_replace("?".$galleta,"",$SERVER['RUTA']));
+
+	}
+
+	if($_POST['clavesecreta']=='chaluja'){
+
+		$_SESSION[$sesionhid]='unlocked';
+		redir(str_replace("?".$galleta,"",$SERVER['RUTA']));
+		// prin($SERVER);
+
+	}
+
+}
+
+// if($_SESSION[$sesionhid]=='unlocked'){
+
+// 	prin('unlocked');
+// 	prin($_SESSION);
+
+// }
+
+
+
+parse_str($_GET['filter'],$oouutt);
+
+// prin($SERVER);
+// prin($oouutt);
+
+$filtros123=getStringFilters($oouutt,$objeto_tabla,$this_me);
+
+// prin($filtros123);
+
 if($_GET['ran']!=1){ 
+
 	echo '<div style="display:none;">';
 	include_once($objeto_tabla[$this_me]['onload_include']);
 	echo '</div>';
+	
 }
 
 include("setup.php");
@@ -38,6 +86,8 @@ if( in_array($_GET['verdesarrollo'],array('1','0')) ){
 	redireccionar_a($_SERVER['HTTP_REFERER']);
 
 }
+
+
 
 
 
@@ -185,7 +235,12 @@ if(1){
 
 
 			if(!($datos_tabla['crear']=='0' or $tblistadosize=='0' )){
-				//prin($SERVER);
+
+				if(!isset($_GET['i'])){
+
+					$saved[$datos_tabla['me']]['crearopen']=0;
+
+					//prin($SERVER);
 	            ?><span id="abri_cerrar_crear"><?php
 	            ?><a href="custom/<?php echo $SERVER['URL'];?>#create" id="abrir_crear" <?php
 	            ?>onclick="abrir_crear('1','0');" <?php
@@ -198,7 +253,9 @@ if(1){
 	            ?>class="btn btn-small btn-inverse" <?php
 	            ?>style=" <?php echo ($saved[$datos_tabla['me']]['crearopen']=='1')?"":"display:none;"?>" <?php
 	            ?>>cancelar crear</a> <?php
-				?></span><?php
+					?></span><?php
+
+				}
 
 			}
 
@@ -215,25 +272,36 @@ if(1){
             }
             */
 
-            if(trim($datos_tabla['controles'])!=''){ echo procesar_controles_html($datos_tabla['controles']); }
+            if(trim($datos_tabla['controles'])!=''){ 
+            	echo procesar_controles_html($datos_tabla['controles']); 
+            }
 
 			/*
 
 			*/
 
-			if($datos_tabla['exportar_gm']=='1'){
+			if($datos_tabla['exportar_gm']=='1' and 0){
 
 				?><a href="#" onclick="javascript:exportar_gm();return false;" <?php
-				?>class="btn btn-small" <?php
+				?>class="btn btn-small exportar_gm" <?php
 				?>title="Descargar Base para Group Mail"><i class="itl ico_gm"></i>
-				Exportar Group Mail</a><script>function exportar_gm(){ var url='exportar_gm.php?me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); location.href=url; }</script> <?php
+				Exportar Group Mail</a><script>function exportar_gm(){ ax('gm'); var url='exportar_gm.php?me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); console.log(url); location.href=url; }</script> <?php
 
 			}
+
+			if($datos_tabla['exportar_go']=='1'){
+
+				?><a href="#" onclick="javascript:exportar_go();return false;" <?php
+				?>class="btn btn-small exportar_go" <?php
+				?>title="Descargar Base para Gmail"><i class="itl ico_gm"></i>
+				Exportar GMail</a><script>function exportar_go(){ ax('gm'); var url='exportar_go.php?me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); console.log(url); location.href=url; }</script> <?php
+
+			}			
 
 			if($datos_tabla['exportar_excel']=='1'){
 
 				?><a href="#" id="boton_imprimir" onclick="javascript:$('div_allcontent').addClass('menu_colapsed');window.print();return false;" <?php
-				?>class="btn btn-small" <?php
+				?>class="btn btn-small exportar_excel" <?php
 				?>title="Imprimir"><i class="itl ico_Print"></i>Imprimir</a><?php
 
 				?><a href="#" id="boton_excel" onclick="javascript:ax('excel');return false;" <?php
@@ -248,19 +316,28 @@ if(1){
 
 			}
 
-			?><a id="msino"></a><script>window.addEvent('domready',function(){ $("msino").addEvent('click',function(){ 
-					$('div_allcontent').toggleClass('menu_colapsed'); 
-					val = ( $('div_allcontent').hasClass('menu_colapsed') )?1:0;
-					Cookie.write('men', val, {duration: 10});
-					new Request({url:"ajax_change_cookie.php?var=men&val="+val+"&ajax=1", method:'get', onSuccess:function(ee) {
-					 } } ).send();
-				}); });</script><?php
 
-            ?><span class='titulo' name="titulo" ><?php echo $tbtitulo?></span><?php
 
+			if(sizeof($datos_tabla['exports'])>0){
+				foreach($datos_tabla['exports'] as $nonbe=>$axion){
+
+					$Aaxion=explode("/",$axion);
+					$axionEnd=end($Aaxion);
+
+					?><a href="#" onclick="javascript:<?php echo $axionEnd;?>();return false;" <?php
+					?>class="btn btn-small exports exportar_<?php echo $axionEnd;?>" <?php
+					?>title="Descargar <?php echo $nonbe;?>"><i class="itl ico_gm"></i>
+					<?php echo strtoupper($nonbe);?></a><script>function <?php echo $axionEnd;?>(){ ax('gm'); var url='exports.php?name=<?php echo $axionEnd;?>&file=<?php echo $axion;?>&&<?php echo $axion;?>.php?me=<?php echo $datos_tabla['me'];?>'+(($('ffilter')?'&filter='+$('ffilter').value:'')); console.log(url); location.href=url; }</script><?php
+
+				}
+			}
+
+
+			?><span class='titulo' name="titulo" ><?php echo $tbtitulo?></span><?php
 
 
     ?></div><?php
+
 
 	} else {
 
@@ -349,6 +426,8 @@ if(1){
 
 
 
+
+
 		// prin(urldecode('estado%7Clistable%3D0%26alerta_fecha%7Cqueries%3D0%26fecha_creacion%7Cqueries%3D1%26crear%3D0%26order_by%3Did+desc'));
 
 		// parse_str(urldecode($_GET['conf']),$outt);
@@ -367,7 +446,14 @@ if(1){
 
 			$tblistado_after=array();
 			$tblistado_end=array();
-			// prin($tblistado);
+
+			foreach($tblistado as $zapati){
+				if($zapati['listable']=='1') $tillas[]=$zapati['campo'];
+			}
+
+			$first_listable=$tillas[0];
+			
+			$last_listable=end($tillas);
 
 
 			if(isset($_GET['format']) and sizeof($objeto_tabla[$this_me]['more'])>0 ){
@@ -377,6 +463,9 @@ if(1){
 					if($campo['tipo']=='hid' and isset($campo['opciones']) and enhay($campo['opciones'],'||') ){
 
 						list($ouno,$odos)=explode("||",$campo['opciones']);
+									
+						list($tablaO)=explode(" ",$tablaO);
+
 						list($otres,$ocuat)=explode("|",$ouno);
 						$moremore[$ocuat]=explode(';',$odos);
 
@@ -423,6 +512,7 @@ if(1){
 					list($querrie1uno,$querrie1dos)=explode('?',trim($querrie1));
 
 					$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]['tabla']=$blata;
+					$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]['legend']='';
 
 					parse_str($querrie1dos,$querrie11);
 
@@ -447,6 +537,8 @@ if(1){
 					}
 
 					if($querrie11['listable']=='1'){
+
+						if($querrie11['after']=='start'){ $querrie11['after']=$first_listable; }
 
 						$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]['noedit']=1;
 
@@ -559,6 +651,84 @@ if(1){
 		// prin($queries);
 
 		// prin($FiL);
+
+
+
+
+
+
+
+
+
+
+
+		$parenthood=[];
+		$parenthood2=[];
+		$getparent=[];
+
+		foreach($queries as $blatacampo=>$querie){
+
+			$blata=($querie['tabla']!='')?$querie['tabla']:$tbl;
+
+			if($querie['disabled']=='1'){ continue; }
+
+			list($unon,$doos)=explode("|",$querie['opciones']);
+								
+			list($doos)=explode(" ",$doos);
+
+			//prin($doos."=".$tabla_sesion_datos);
+			if($doos!='' and $doos==$tabla_sesion_datos){ continue; }
+
+			if(in_array($querie['tipo'],array('hid','user')) and ($querie['opciones'])){
+				
+
+				if($querie['select_multiple']=='1'){
+
+				} elseif($querie['dlquery']=='1'){
+
+				} else {
+					
+					// prin($querie['campo']);
+					// prin($querie['load']);
+					if(!empty($querie['load']))
+						$parenthood[$querie['campo']]=$querie['load'];
+					
+
+				}
+
+			}
+
+		}
+
+
+		parse_str($_GET['filter'],$FiL00);
+		// prin($FiL00);
+		foreach($FiL00 as $fgfg){
+			foreach($fgfg as $fgfgf){
+				list($unofg,$dosfg)=explode('.',$fgfgf);
+				list($tresfg,$cuatrofg)=explode('=',$dosfg);
+				$getparent[$tresfg]=$dosfg;
+			}
+		}
+
+		
+		foreach($parenthood as $hdd=>$ph){
+			list($unofg,$dosfg)=explode('||',$ph);
+			if(!empty($getparent[$hdd]))
+				$parenthood2[$unofg]=$getparent[$hdd];
+
+		}
+
+		// prin($parenthood2);
+
+
+		// prin($getparent);
+
+
+
+
+
+
 		
 		foreach($queries as $blatacampo=>$querie){
 
@@ -567,6 +737,9 @@ if(1){
 				if($querie['disabled']=='1'){ continue; }
 
 				list($unon,$doos)=explode("|",$querie['opciones']);
+									
+				list($doos)=explode(" ",$doos);
+
 				//prin($doos."=".$tabla_sesion_datos);
 				if($doos!='' and $doos==$tabla_sesion_datos){ continue; }
 
@@ -584,6 +757,7 @@ if(1){
 					$html_filter_A[$querie['campo']]=$html_filter;
 
 				} elseif(in_array($querie['tipo'],array('hid','user')) and ($querie['opciones'])){
+					
 
 					if($querie['select_multiple']=='1'){
 
@@ -594,6 +768,10 @@ if(1){
 
 
 						list($primO,$tablaO,$whereO)=explode("|",$querie['opciones']);
+									
+
+						list($tabla0)=explode(" ",$tabla0);
+
 						$whereO=str_replace("where 0","where 1",$whereO);
 
 						list($where01,$where02)=explode("order by",$whereO);
@@ -629,10 +807,30 @@ if(1){
 
 						$html_filter='';
 
-						list($primO,$tablaO,$whereO)=explode("|",$querie['opciones']);
+						list($primO,$tabla1,$whereO)=explode("|",$querie['opciones']);
+
 						$whereO=str_replace("where 0","where 1",$whereO);
 
 						list($where01,$where02)=explode("order by",$whereO);
+
+						list($tabla0,$join0)=explode("left join",$tabla1);
+						if(!empty($join0)){
+						
+							$join0='left join '.$join0;
+
+						} else {
+
+							list($tabla0,$join0)=explode("right join",$tabla1);
+
+							if(!empty($join0)){
+
+								$join0='right join '.$join0;
+
+							}
+							
+						}
+						// prin($tabla0);
+						// prin($join0);
 
 						$where02=($where02)?" order by ".$where02:'';
 
@@ -646,10 +844,12 @@ if(1){
 						$fila=fila(array("CONCAT_WS(' ',". str_replace(";",",",$prim0nombre) .") as v"),$tablaO,"where id='".str_replace($blata.".".$querie['campo']."%3D","",urlencode($FiL[$blata][$querie['campo']]))."'",0);
 
 						$html_filter.=$fila['v'];
-						$html_filter.="' onchange=\"render_filder();\" >";-
+						$html_filter.="' ";
+						// $html_filter.=" onchange=\"render_filder();\" ";
+						$html_filter.=" >";-
 
 						$html_filter.="<input type='hidden' id='filtr_".$querie['campo']."' value='".urlencode($FiL[$blata][$querie['campo']])."' >";
-						$html_filter.="<input type='hidden' id='filtr_".$querie['campo']."' value=\"load_directlink_filtro_com('".$querie['campo']."','".$prim0id."','".$prim0nombre."','".$tablaO."','".$whereO1."','".$blata."');\" class='jsloads' >";
+						$html_filter.="<input type='hidden' id='filtr_".$querie['campo']."' value=\"load_directlink_filtro_com('".$querie['campo']."','".$prim0id."','".$prim0nombre."','".$tabla0."','".$whereO1."','".$blata."','".$join0."');\" class='jsloads' >";
 
 						//$html_filter.="<script>load_directlink_filtro_inp('".$querie['campo']."','".$objeto_tabla[$this_me]['tabla']."');</script>";
 						$terfil[$blata][]=$querie['campo'];
@@ -658,28 +858,67 @@ if(1){
 
 					} else {
 
+
 						// prin($querie['campo']);
 
 						$html_filter='';
 
 						list($primO,$tablaO,$whereO)=explode("|",$querie['opciones']);
+
+						if($parenthood2[$querie['campo']]){
+
+							// list($antesrm,$despuesrm)=explode("order",$whereO);
+
+
+
+							$whereO=' and '.$parenthood2[$querie['campo']] .' '. $whereO;
+
+							if(!enhay($whereO,"where")){
+								$whereO="where visibilidad=1 ".$whereO;
+							}
+
+						}
+
+						// prin($whereO);
+
 						$whereO=str_replace("where 0","where 1",$whereO);
-						//echo "$primO,$tablaO,$whereO";
+
+
+
+			
+
+						list($tablaO)=explode(" ",$tablaO);
+
+						// echo "$primO | $tablaO | $whereO <br>";
 
 						list($where01,$where02)=explode("order by",$whereO);
+
+						// echo "$where01 | $where02 <br> <br>";
+
+
+
 
 						$where02=($where02)?" order by ".$where02:'';
 
 						list($idO,$camposO)=explode(",",$primO);
 
 						$camposO=str_replace(";color", "", $camposO);
-						$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,(($whereO1)?$whereO1:"where 1 ").get_extra_filtro_0($tablaO).$where02,0);
+
+						// echo "$where01 <br>";
+						$where01 = ($where01!='')?$where01:"where 1 ";
+
+						list($unra,$raun)=explode("where",$where01);
+						$where01="where ".$raun." ".$unra;
+
+						$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,( $where01 ).get_extra_filtro_0($tablaO).$where02,0);
 
 						$html_filter.="<select style='width:".(($querie['width'])?$querie['width']:'100px').";' ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." id='filtr_".$querie['campo']."' onchange=\"render_filder();\">";
 						$html_filter.="<option value='' class='empty'>".$querie['label']."</option>";
 						foreach($oopciones as $pppooo){
 						$quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
+
 						$html_filter.="<option ".(($quer==urlencode($FiL[$blata][$querie['campo']]))?'selected':'')." value=\"".$quer."\">".$pppooo['value']."</option>";
+
 						}
 						$html_filter.="</select>";
 						$terfil[$blata][]=$querie['campo'];
@@ -688,7 +927,9 @@ if(1){
 
 					}
 
+
 				} elseif(in_array($querie['tipo'],array('com')) and ($querie['opciones'] or $querie['rango'])){
+									
 
 					$html_filter='';
 
@@ -698,9 +939,11 @@ if(1){
 						$ToYear = date("Y",strtotime($ddos));
 						for($i=$FromYear;$i<$ToYear;$i++){
 							$querie['opciones'][$i]=$i;
+								
 						}
 					}
 					$oopciones=$querie['opciones'];
+									
 					$html_filter.="<select ".(($FiL[$blata][$querie['campo']]!='')?"class='inuse"."'":"")." id='filtr_".$querie['campo']."' onchange=\"render_filder();\">";
 					$html_filter.="<option value='' class='empty'>".$querie['label']."</option>";
 					foreach($oopciones as $ipppooo=>$pppooo){
@@ -718,10 +961,10 @@ if(1){
 
 					$html_filter_fecha='';
 
-					$first=dato('min('.$querie['campo'].')',$tbl,"where ".$querie['campo']."!=0",0);
+					$first=dato('min('.$querie['campo'].')',$blata,"where ".$querie['campo']."!=0",0);
 					$first=(!$first)?date("Y-m-d"):$first;
 					//$last =dato($querie['campo'],$tbl,"where 1 order by ".$querie['campo']." desc limit 0,1");
-					$last=dato('max('.$querie['campo'].')',$tbl,"where ".$querie['campo']."!=0",0);
+					$last=dato('max('.$querie['campo'].')',$blata,"where ".$querie['campo']."!=0",0);
 					$last=(!$last)?date("Y-m-d"):$last;
 					//prin($first);
 					//prin($last);
@@ -775,7 +1018,6 @@ if(1){
 		}
 			
 			if($_GET['format']!='excel'){
-
 
 				?>
 				<script>
@@ -904,6 +1146,15 @@ if(1){
 
 			} elseif($_GET['buscar']!=''){
 
+				if(is_numeric($_GET['buscar'])){
+					
+					prin($_GET);
+					$numbuscar=contar($tbl,"where ".$tbl.".id = '".$_GET['buscar']."'",1);
+					if($numbuscar==1){
+						redir("?i=".$_GET['buscar']);
+					}
+				}
+
 				$busqueda_query = search_query($datos_tabla['fulltext'],$datos_tabla['like'],$datos_tabla['id'],$_GET['buscar']);
 				$linkPagina = "pagina_buscar";
 				$linkRecPagina = "recargar_buscar";
@@ -930,8 +1181,33 @@ if(1){
 
 			if($_GET['i']!='' ){
 
-				//$tblistado	=	$datos_tabla['list'] = $datos_tabla['form'];
+				// $tblistado	=	$datos_tabla['list'] = $datos_tabla['form'];
 				$tblistado	=	$datos_tabla['list']=$MEEE['campos'];
+
+
+				foreach($tblistado as $tblistado_item){
+					
+					$tblistado3[$tblistado_item['campo']]=$tblistado_item;
+
+				}
+								
+
+				foreach($MEEE['campos'] as $tblistado_item){
+				
+					$tblistado3[$tblistado_item['campo']]=$tblistado_item;
+
+				}	
+
+
+				
+			
+				
+
+				// prin($tblistado3);
+
+				$tblistado=$tblistado3;
+				
+
 
 				//$array=$MEEE;
 				/*prin($datos_tabla['list']);*/
@@ -974,24 +1250,39 @@ if(1){
 
 			$tbquery_items=explode(',',$tbquery);	
 			$tbquery=array();
+			$join_query_arr=array();
+			$join_query_arr2=array();
 			foreach($tbquery_items as $tbquery_item)
 			{
 				$tbquery[]=$tbl.".".$tbquery_item." as ".$tbquery_item;
 			}
-			foreach($listable_end as $tblque)
+			foreach($listable_end as $campokey => $tblque)
 			{
 				$joinss[$tblque['tabla']]=$tblque['tabla'];
-				$tbquery[]=$tblque['tabla'].".".$tblque['campo']." as ".$tblque['campo'];	
-				$tbquery0[]=$tblque['campo'];
+				$tbquery[]=$tblque['tabla'].".".$campokey." as ".$campokey;	
+				$tbquery0[]=$campokey;
 			}
 			$join_query='';
-			// prin($joinss);
-			foreach($joinss as $joi_)
+			foreach($joinss as $tttiii=> $joi_)
 			{
-				$join_query.="\n left join ".$joi_." on ".$datos_tabla['joins'][$joi_]." ";
+				$onn=explode(".",$datos_tabla['joins'][$joi_]);
+				$jqnext[$tttiii]=$onn[0];
+				$join_query_arr[$tttiii]="\n left join ".$joi_." on ".$datos_tabla['joins'][$joi_]." ";
 			}
 
+			// prin($jqnext);
 
+			foreach($join_query_arr as $tttiii=>$joi_)
+			{
+				$join_query_arr2[$jqnext[$tttiii]]=$join_query_arr[$jqnext[$tttiii]];
+				$join_query_arr2[$tttiii]=$join_query_arr[$tttiii];
+			}
+
+			foreach($join_query_arr2 as $joi_)
+			{
+				$join_query.=$joi_;
+			}
+			// prin($join_query);
 			/*			
 			$joins[$FA0]=" left join ".$FA0." on ".$joi[$FA0]." ";
 			prin(sizeof($tbcampos));
@@ -1024,9 +1315,14 @@ if(1){
 
 				include('excel.php');
 			
+			// } elseif($_GET['ran']=='1') {
 			} else {
 
 
+				// $_GET['debug']='1';
+				// prin($datos_tabla['where_id']);
+				// prin($tbquery);
+				
 				$pagina_items=paginacion(
 										array(
 											'separador'    =>''
@@ -1056,6 +1352,8 @@ if(1){
 										(0 or ($_GET['debug']=='1') )
 										);
 
+				
+
 				if($_GET['debug']=='1')
 					prin(array(
 						$EXTRA_FILTRO,
@@ -1080,19 +1378,29 @@ if(1){
 			
 			$lineassize      =sizeof($lineas);
 
+
 			if(function_exists("onload_include_after_query")){
 				onload_include_after_query();
 			}
 
-			echo '<input type="hidden" id="ffilter" style="width:500px;" value="'.urlencode($_GET['filter']).'" >';
+				// prin($oouutt);
 
-	        echo '<input type="hidden" id="pagina" value="'.(($_GET['pag']=='')?"1":$_GET['pag']).'"  />';
-	        //echo '<input type="text" id="tipolista" value="'.$linkRecPagina.'"  />';
-	        echo '<input type="hidden" id="edit_hidd"  />';
+				echo '<input type="hidden" id="nfilter" value="".
+				"filter='.str_replace("&","%26",http_build_query(
+									$oouutt
+									)).
+				'" style="width:100%;">';
 
-	        // echo '<div style="position:relative;height:auto;float:left;width:100%;">';
 
-	        echo '<div class="refreshing" id="refresh" style="display:none;">cargando......</div>';
+				echo '<input type="hidden" id="ffilter" style="width:100%;" value="'.urlencode($_GET['filter']).'" >';
+
+				echo '<input type="hidden" id="pagina" style="width:100%;" value="'.(($_GET['pag']=='')?"1":$_GET['pag']).'"  />';
+				//echo '<input type="hidden" id="tipolista" value="'.$linkRecPagina.'"  />';
+				echo '<input type="hidden" id="edit_hidd" style="width:100%;"  />';
+
+				// echo '<div style="position:relative;height:auto;float:left;width:100%;">';
+
+				echo '<div class="cover" id="refresh-cover" style="display:none;"></div><div class="refreshing" id="refresh" style="display:none;">cargando......</div>';
 
 			if($lineassize!=0 or $_GET['buscar']!='' or $_GET['filter']!=''){
 
@@ -1106,7 +1414,10 @@ if(1){
 
 	        /* ?><span style=" <?php echo ($ocultar_opciones_filas==1)?'display:none;':''; ?>"><?php */
 
-			   	?><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='2'){?>brasselected<?php }?>" <?php
+
+
+
+			   	?><span class="brazzz"><a class="braz z <?php if($_COOKIE[$tb.'_colap']=='2'){?>brasselected<?php }?>" <?php
 		        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','2');return false;" <?php
 		        ?>title="Vista de Resúmen" <?php
 		        echo (in_array($vars['GENERAL']['controles_listados'],array('1','2')))?'':'style="display:none;"';
@@ -1127,11 +1438,39 @@ if(1){
 		        ?>onclick="set_filas('<?php echo $tb?>','<?php echo $tbf?>','4');return false;" <?php
 		        ?>title="Vista de tabla" <?php
 		        echo (in_array($vars['GENERAL']['controles_listados'],array('1','3')))?'':'style="display:none;"';
-		        ?>id="set_filas_4" style="text-decoration:none;"></a><?php
+		        ?>id="set_filas_4" style="text-decoration:none;"></a></span><?php
 
 			/* ?></span><?php */
 			
 			}
+
+
+
+			if($lineassize==0){ /*?><div class="nohay">0 <?php echo $datos_tabla['nombre_plural']?> </div><?php*/ } else {
+
+
+		    ?><span class="mmm"><a id="msino"></a><a id="mnosi"></a></span><script>window.addEvent('domready',function(){ 
+		    			
+		    			$("msino").addEvent('click',function(){ 
+						$('div_allcontent').addClass('menu_colapsed'); 
+						Cookie.write('men', 1, {duration: 10});
+						new Request({url:"ajax_change_cookie.php?var=men&val=1&ajax=1", method:'get', onSuccess:function(ee) {
+						 } } ).send();
+					});
+						$("mnosi").addEvent('click',function(){ 
+						$('div_allcontent').removeClass('menu_colapsed'); 
+						Cookie.write('men', 0, {duration: 10});
+						new Request({url:"ajax_change_cookie.php?var=men&val=0&ajax=1", method:'get', onSuccess:function(ee) {
+						 } } ).send();					
+					}); });</script><?php
+
+		    // prin($tblistadosize);
+
+
+
+			}
+
+							
 
 			if(sizeof($datos_tabla['fulltext'])>0 or sizeof($datos_tabla['like'])>0){
 			?><form action="<?php echo "custom/".$datos_tabla['archivo'].".php";?>" method="get"
@@ -1173,7 +1512,6 @@ if(1){
 		if($lineassize==0){ ?><div class="nohay">0 <?php echo $datos_tabla['nombre_plural']?> </div><?php } else {
 
 	    echo '<div class="segunda_barra" id="segunda_barra_2">';
-
 	    // prin($tblistadosize);
 
 		if($tblistadosize!='0'){
@@ -1359,7 +1697,11 @@ if(1){
 							.'&ran=1'
 							.( ($proceso['accion'])?"&accion=".$proceso['accion']:'')
 							.( (sizeof($proceso['cargar'])>0)?'&load='.urlencode(json_encode($proceso['cargar'])):'')
-							.( ($proceso['extra'])?"&".str_replace(array("[id]"),array($linea[$datos_tabla['id']]),$proceso['extra']):'');
+
+							.( ($proceso['extra'])?"&".str_replace(
+								["[id]","[id_grupo]"],
+								[$linea[$datos_tabla['id']],$linea['id_grupo']],
+								$proceso['extra']):'');
 
 							echo "<li>";
 							// prin($proceso);
@@ -1409,6 +1751,7 @@ if(1){
 					echo '" >';
 
 					echo '<div class="truc"></div>';
+					// prin($linea);
 					$tbid=0;
 					$pdto=array();
 
@@ -1420,6 +1763,8 @@ if(1){
 
 					$fefe=1;
 					// var_dump($tblistado);
+					
+					// prin($tblistado);
 					foreach($tblistado as $tbli){
 
 						// prin($tbli);
@@ -1660,7 +2005,9 @@ if(1){
 							or
 							($tbli['tipo']=='hid' and ($tbli['combo']=='1' or $tbli['listable']=='1') )
 							){
+
 									$tbli['tip_foreig']=( ($tbli['tipo']=='hid') and ($tbli['opciones']!=''))?$tbli['tip_foreig']:0;
+									
 
 									//echo ($SuprimirLabel)?"":'<b class="nc">'.$tbli['label'].':</b>';
 									echo '<b class="nc '.(($tbli['label']=='' or $SuprimirLabel)?'sp':'').'" '.( ($urd=='1')?' title="'.$tbli['label'].'" ':'').' >'.
@@ -1698,6 +2045,9 @@ if(1){
 
 									if($tbli['tip_foreig']=='1'){
 									list($primO,$tablaO)=explode("|",$tbli['opciones']);
+									
+									list($tablaO)=explode(" ",$tablaO);
+
 									list($idO,$camposO)=explode(",",$primO);
 									list($tablaO,$notablaO)=explode(",",$tablaO);
 									$lllink='custom/'.$tablaO.'.php?i='.$linea[$tbli['campo']];
@@ -1747,18 +2097,24 @@ if(1){
 										case "hid":
 										$adiv1.= '<input type="hidden" value="'.$linea[$tbli['campo']].'" id="i_'.$tbli['campo'].'_hido_'.$linea[$datos_tabla['id']].'" />';
 										list($primO,$tablaO)=explode("|",$tbli['opciones']);
+										list($tablaO)=explode(" ",$tablaO);
 										list($idO,$camposO)=explode(",",$primO);
 										$camposOA=array();
 										$camposOA=explode(";",$camposO);
-										$bufy='';
 										$color0='';
-										foreach($camposOA as $COA){
-										$ddatt= select_dato($COA,$tablaO,"where ".$idO."='".$linea[$tbli['campo']]."'",0)." ";
-										if($COA=='color' and trim($ddatt)!=''){ $color0=$ddatt; $use_color=1; }
-										else $bufy.=$ddatt;
+										$valuores=explode(",",$linea[$tbli['campo']]);
+										foreach($valuores as $lov){
+											$bufy='';
+											foreach($camposOA as $COA){
+											$ddatt= select_dato($COA,$tablaO,"where ".$idO."='".$lov."'",0)." ";
+											if($COA=='color' and trim($ddatt)!=''){ $color0=$ddatt; $use_color=1; }
+											else $bufy.=$ddatt;
+											}
+											$adiv1.= '<div>';
+											$adiv1.= ($color0!='')?"<span class='label' style='background:$color0;color:white;' >".$bufy."</span>":$bufy;
+											$adiv1.= '</div>';
+											$adiv0.= ( $poner_title )?"title=\"".addslashes($bufy)."\"":"";
 										}
-										$adiv1.= ($color0!='')?"<span class='label' style='background:$color0;color:white;' >".$bufy."</span>":$bufy;
-										$adiv0.= ( $poner_title )?"title=\"".addslashes($bufy)."\"":"";
 										break;
 										case "bit":
 										$adiv1.= '<input type="hidden" value="'.$linea[$tbli['campo']].'" id="i_'.$tbli['campo'].'_hido_'.$linea[$datos_tabla['id']].'" />';
@@ -1838,6 +2194,7 @@ if(1){
 
 					echo '</ul>';
 
+
 						if($urd==1){
 						$load_subs_render=(sizeof($load_subs)>0)?1:0;
 						}
@@ -1852,7 +2209,17 @@ if(1){
 						render_foreig_file($load_file,$linea,$urd);
 						}
 
-                    echo "</li>";
+				if(isset($_GET['i'])!=''){
+
+					echo '<div class="more_detail itms_cont">';
+
+					include($datos_tabla['detail_include']);
+
+					echo '</div>';
+
+				}
+                    
+            echo "</li>";
 
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1911,7 +2278,6 @@ if(1){
 
     ?><!-- FIN AJAX --><?php
 
-
 if(!isset($_GET['ran']) or $_GET['ran']==''){
 
 echo "</div>";
@@ -1926,7 +2292,27 @@ if(isset($_GET['ran']) and $_GET['ran']!=''){
 
 ?>
 <script language="javascript">
+
 if(window.location.hash=='#create'){ abrir_crear('1','0'); }
+
+// function getQueryVariable(variable) {
+//     var query = window.location.hash.substring(1);
+//     var vars = query.split('&');
+//     for (var i = 0; i < vars.length; i++) {
+//         var pair = vars[i].split('=');
+//         if (decodeURIComponent(pair[0]) == variable) {
+//             return decodeURIComponent(pair[1]);
+//         }
+//     }
+//     console.log('Query variable %s not found', variable);
+// }
+
+// getQueryVariable('filter');
+// ax('recargar_hash');
+// console.log(getQueryVariable('filter'));
+// console.log(getQueryVariable('uno'));
+// if(window.location.hash=='#filter='){ abrir_crear('1','0'); }
+// alert(window.location.hash);
 /*
 var HM = new HashListener();
 //add an event listener to the manager

@@ -6,8 +6,8 @@ if(isset($_GET['ran']) and $_GET['ran']!=''){
 	include("lib/includes.php");
 
 
-	$file2OBJ=[];
-	$tabla2OBJ=[];
+	$file2OBJ=array();
+	$tabla2OBJ=array();
 	foreach($objeto_tabla as $mememe=>$ot){
 		$file2OBJ[$ot['archivo']]=$mememe;
 		$tabla2OBJ[$ot['tabla']]=$mememe;
@@ -116,8 +116,13 @@ if($Proceso=='login'){
 
 } else {
 
+
 	/// asignar variables
-	$tbtitulo	=	procesar_dato($datos_tabla['titulo']);
+	// if(in_array($SERVER['ARCHIVO_REAL'],array('')))
+	// 	$tbtitulo	=	procesar_dato($datos_tabla['titulo']);
+	// else
+	$tbtitulo	=	breadcrumb($datos_tabla,NULL,$objeto_tabla);
+
 	$tbl		=	$datos_tabla['tabla'];
 	$tbf		=	$datos_tabla['archivo'];
 	$tb 		=	$datos_tabla['prefijo'];

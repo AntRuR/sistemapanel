@@ -6,6 +6,11 @@ body { background: #FFF; }
 
 .main_content { padding:0 10px; }
 
+
+#menumenu > a:nth-child(7) { 
+	/*display:none; */
+	/*background-color: red;*/
+}
 /**
  * HEADER
  */
@@ -18,7 +23,7 @@ a.link_header {
 	color: #CBCBCB;
 }
 #menumenu a {
-    color: #395E54;
+    color: #6F6F6F;
 }    
 /**
  * MENU

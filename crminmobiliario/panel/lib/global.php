@@ -321,6 +321,8 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$Local=0;
 	$SERVER['LOCAL']=0;
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+	// error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
 	//error_reporting(E_ALL);
 }
 //echo "<pre>";print_r($SERVER);echo "</pre>";

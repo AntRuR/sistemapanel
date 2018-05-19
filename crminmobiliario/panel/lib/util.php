@@ -144,6 +144,187 @@ function verificar_tabla($tabla){
 
 }
 
+
+function breadcrumb($dato,$id=NULL,$objeto){
+
+	global $_GET;
+	global $SERVER;
+	global $ibi;
+	global $ibi2;
+
+	$ttren =array();
+
+	if(!isset($_GET['id']) and !isset($_GET['i'])){
+
+		$ttren[]="<span class='type_file'>".ucfirst($objeto[$dato['me']]['nombre_plural']).'</span>';
+
+	} else {
+
+		if(isset($_GET['i'])){
+
+			foreach($objeto[$dato['me']]['campos'] as $campo){
+				if($campo['foreigkey']!=''){
+					// prin($campo);
+					list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+					list($dd,$ee)=explode(",",$aa);
+					$id=dato($campo['campo'],$dato['tabla'],"where id=".$_GET['i'],0);
+				}
+			}
+
+
+		}
+
+		$ibi=0;
+		$ibi2=0;
+
+		breadcrumb_0($dato['titulo'],$id,$objeto,$ttren);
+
+		if(isset($_GET['i'])){
+
+			$name=dato("name",$dato['tabla'],'where id='.$_GET['i']);
+			$ttren[]="<span class='type_file'>".$name."</span>";
+
+		}
+
+	}
+
+	return implode("<span class='pipe'> / </span>",$ttren);
+
+}
+
+function breadcrumb_0($dato,$id=NULL,$objeto,&$ttren){
+
+	global $_GET;
+	global $link;
+	global $ibi;
+	global $ibi2;
+	global $SERVER;
+
+	// prin($objeto);
+
+	$dato=str_replace("class=\"linkstitu\"","",$dato);
+
+	// if(isset($_GET['i'])){
+
+	// 	// breadcrumb($dato,$_GET['i'],$objeto,$ttren);
+	// 	// prin($ttren);
+	// 	// exit();
+	// 	$_GET['id']=$_GET['i'];
+	// 	unset($_GET['i']);
+
+	// }
+
+	if(!$id){ $id=$_GET['id']; }
+
+	// prin($_GET);
+	// prin($id);
+	// prin($dato);
+
+	//$dato = ($id)?str_replace('[id]',$id,$dato):"registros";
+
+	$dato = str_replace('[id]',$id,$dato);
+
+	$dato2= $dato;
+
+	if(
+		enhay($dato,"}") and enhay($dato,"{") 
+		){
+
+		$uno=array();
+		$uno = explode("{",$dato);
+		foreach($uno as $ii=>$un){
+		if( !(strpos($un,"}")==false) ){
+		$dos = explode("}",$un);
+
+		$consulta = $dos[0];
+		// prin($consulta);
+
+		$tabla=between($consulta,'from','where');
+
+		// if( $ibi==0 ){
+
+		// 	prin($SERVER['URL']);
+		// 	$url2='custom/'.$SERVER['URL'];
+
+		// } else {
+
+			$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+			echo "<div style='color:red;'>$url2, $ibi <div>";
+
+		$ibi++;
+		
+		foreach($objeto as $obj){
+			if($obj['tabla']==trim($tabla['1'])){
+				foreach($obj['campos'] as $campo){
+					if($campo['foreigkey']!=''){
+						// prin($campo);
+						list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+						list($dd,$ee)=explode(",",$aa);
+						$idgrupo=dato($campo['campo'],$bb,"where id=".$id,0);
+						// prin("|".$idgrupo);
+						// prin($campo['name']['controlles']);
+
+						// echo "{select $ee from $bb where id=[id]}";
+						if($idgrupo!=0)
+							breadcrumb_0("{select $ee from $bb where id=[id]}",$idgrupo,$objeto,$ttren);
+						// prin($campo);
+					}
+				}
+			}
+		}
+
+
+		$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+		echo "<div style='color:green;'>$url2, $ibi2 <div>";
+
+		$ibi2++;
+
+
+		$result=mysql_query($consulta,$link);
+		// echo "$consulta<br>";
+		$row = mysql_fetch_row($result);
+		$dato3 = $row[0];
+		$llaves="{".$dos[0]."}";
+		$dato2 = str_replace($llaves,$dato3,$dato2);
+		}
+		}
+		if($id!=''){
+
+			$dato = $dato2 ;
+			$url = $url2 ;
+
+		} else {
+
+			list($aa,$bb)=explode("{",$dato);
+			list($cc,$dd)=explode("}",$bb);
+			$dato=$aa.$dd;
+
+		}
+
+	}
+	// $dato=preg_replace("/>([a-z0-9\-\.\s]{2,20})<\/a>/i",' title="$1">$1</a>',$dato);
+
+	// $dato=preg_replace("/foto(s)?</i"			,'<span class="z ico_pics"></span><',$dato);
+	// $dato=preg_replace("/vista previa</i"		,'<span class="z ico_eye"></span><',$dato);
+	// $dato=preg_replace("/imprimir</i"			,'<span class="zz ico_Print"></span><',$dato);
+	// $dato=preg_replace("/mensaje(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/alerta(s)?</i"			,'<span class="zz ico_alert"></span><',$dato);
+	// $dato=preg_replace("/consulta(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/comentario(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/>nuevo/i"				,'><span class="zz ico_plus"></span>',$dato);
+
+	// prin($dato);
+
+	$ttren[]="<a href='".$url."' class='type_directory'>".$dato."</a>";
+
+}
+
 function procesar_dato($dato,$id=NULL){
 
 	global $_GET;

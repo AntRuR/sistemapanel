@@ -31,6 +31,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Address',			element: 'address' },
 	*/
 
+	{ name: 'titulo prodiserv',	element: 'span',		styles: { 'color': '#c62665','font-family':'Arial' } },
 	{ name: 'titulo rojo',	element: 'div',		styles: { 'color': 'red','font-size':'50px', 'font-family':'Arial' } },
 	{ name: 'titulo azul',	element: 'div',		styles: { 'color': '#0065C8', 'font-size':'30px', 'font-family':'Arial' } },
 	

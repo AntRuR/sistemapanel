@@ -935,6 +935,22 @@ if($_GET['me']!=''){
 
 	echo "<div><a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$_GET['me']."&accion=update_tags'>Update Tags</a></div>";
 
+
+	$tavla=$objeto_tabla[$_GET['me']]['tabla'];
+	foreach($objeto_tabla[$_GET['me']]['campos'] as $campx){
+		if(
+			$campx['queries']=='1' and 
+			in_array($campx['tipo'],array('hid','com'))
+			){
+		$xqueries[]=$campx['campo'];
+		}
+	}
+	echo "<h2>INDEXES</h2>";
+	foreach($xqueries as $xquer){
+		echo 'ALTER TABLE `'.$tavla.'` ADD INDEX `'.$xquer.'` (`'.$xquer.'`);<br>';
+	}
+	echo '<br>';
+
 }
 
 if($_GET['accion']=='update_tags'){
@@ -1085,16 +1101,16 @@ echo "</td>
 <td class='value'>
 <li $excepcion1 $excepcion2 id='span_".$seccion."_".$name."'>$value</li>";
 switch($name){
-case "FILE_DEFAULT":
-echo "<select id='input_".$seccion."_".$name."' style='width:100%;display:none;' >";
-foreach($objeto_tabla as $ot){
-if( $ot['menu']=='1' or ($ot['archivo_hijo']=='' and $ot['menu_label']!='') ){
-$archivo1=$ot['archivo'].".php";
-echo "<option ".( ($archivo1==$value)?"selected":"")." value='".$archivo1."'>".$archivo1." - ".$ot['menu_label']."</option>";
-}
-}
-echo "</select>";
-break;
+// case "FILE_DEFAULT":
+// echo "<select id='input_".$seccion."_".$name."' style='width:100%;display:none;' >";
+// foreach($objeto_tabla as $ot){
+// if( $ot['menu']=='1' or ($ot['archivo_hijo']=='' and $ot['menu_label']!='') ){
+// $archivo1=$ot['archivo'].".php";
+// echo "<option ".( ($archivo1==$value)?"selected":"")." value='".$archivo1."'>".$archivo1." - ".$ot['menu_label']."</option>";
+// }
+// }
+// echo "</select>";
+// break;
 case "BG_IMAGE":
 	if($Local){
 	echo "<select id='input_".$seccion."_".$name."' style='width:100%;display:none;'

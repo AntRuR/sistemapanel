@@ -21,7 +21,7 @@ $Block['pre_footer']=
 			[
 				'col-xs-3 home_col1'=>[
 					"bloques/banner_enlaces.php",
-					"bloques/form_recomendar.php?".http_build_query(['conector'=>'recomendar']),
+					"bloques/form_login.php?".http_build_query(['conector'=>'login']),
 				],
 				"bloques/blog.php?".http_build_query(['block'=>'col-xs-6 home_col2']),
 				"bloques/banner_enlaces.php?".http_build_query([

@@ -10,6 +10,9 @@ session_unset();
 session_unset($_SESSION['usuario_id']);
 session_unset($_SESSION['usuario_datos_nombre']);
 session_unset($_SESSION['usuario_datos_id']);
+
+session_unset($_SESSION['sesionhid3']);
+
 session_destroy();
 
 // Redireccionar al inicio

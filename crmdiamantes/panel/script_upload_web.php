@@ -73,7 +73,7 @@ if($extension == "jpg" || $extension == "gif" || $extension == "jpeg" || $extens
 
     if($img_valida == true)
     {
-	    if($file_size < 1024*1024)// 1Mb
+	    if($file_size < 1024*1024*20)// 1Mb
 	    {
             // si el temporal se subi correctamente hacer copias a imagesgrupos_temp
 	        if (is_uploaded_file($file_temp))

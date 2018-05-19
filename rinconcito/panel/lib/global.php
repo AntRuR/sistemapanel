@@ -4,9 +4,9 @@ header('Content-Type: text/html; charset=utf-8');
 
 
 
-$Array_Meses=[1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"];
-$Array_Horas=[0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm"];
-$Array_Horas2=[
+$Array_Meses=array(1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre");
+$Array_Horas=array(0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm");
+$Array_Horas2=array(
 0=>"12:00am",
 "12:15am",
 "12:30am",
@@ -102,7 +102,7 @@ $Array_Horas2=[
 "11:00pm",
 "11:15pm",
 "11:30pm",
-"11:45pm"];
+"11:45pm");
 
 
 $FORMSCLASS=array(
@@ -321,6 +321,8 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$Local=0;
 	$SERVER['LOCAL']=0;
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+	// error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
 	//error_reporting(E_ALL);
 }
 //echo "<pre>";print_r($SERVER);echo "</pre>";
@@ -352,7 +354,7 @@ extract($vars_server_ftp);
 
 define(CLAV,"guillermolozan");
 
-$DEPARTAMENTOS_PERU = [
+$DEPARTAMENTOS_PERU = array(
 						"Amazonas",
 						"Áncash",
 						"Apurímac",
@@ -377,7 +379,7 @@ $DEPARTAMENTOS_PERU = [
 						"San Martín",
 						"Tacna",
 						"Tumbes"
-						];
+						);
 
 $script_B = explode("?",$_SERVER['REQUEST_URI']);
 if($script_B[1]){ $SERVER['PARAMS']=$script_B[1]; }

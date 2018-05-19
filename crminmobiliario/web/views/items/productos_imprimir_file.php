@@ -117,6 +117,7 @@ $FFILA=$linea=$fila=select_fila(
 					"id_canal",
 					"forma_pago",
 					"pvlista",
+					"descuento",
 					"pvpromocion",
 					"porcentaje_cuota_inicial",
 					"cuota_inicial",
@@ -133,7 +134,7 @@ $FFILA=$linea=$fila=select_fila(
 					0,
 					array(
 						'cliente'	=>array('fila'=>array('empresa,nombre,apellidos,genero,email,dni,telefono,telefono_oficina,celular_claro,celular_movistar,nextel','clientes','where id="{id_cliente}"')),
-						'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma,telefono_oficina,celular_claro,celular_movistar','usuarios','where id="{id_usuario}"')),
+						'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma,telefono_oficina,celular_claro,celular_movistar,nextel','usuarios','where id="{id_usuario}"')),
 						//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
 						//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
 						'item'		=>array('fila'=>array('nombre,descripcion5','productos_items','where id="{id_item}"',0)),							
@@ -235,7 +236,8 @@ $telefonos_moviles_string = implode("/ ",$telefonos_moviles);
 		foreach($pestacionamientos as $pdep)
 			$pblocks[]=render_estacionamiento(extract_estacionamiento($pdep['id']),$pdep['price']);	
 
-		$pblocks[]=render_total($linea,$suma);
+		// $pblocks[]=render_total($linea,$suma);
+		$pblocks[]=render_total($linea,$linea['pvlista'],$linea['descuento'],$linea['pvpromocion']);
 
 
 		if($linea['id_promocion']!=''){

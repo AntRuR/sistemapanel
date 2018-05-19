@@ -18,6 +18,7 @@ if($_GET['ajax']!='0'){
 	if($type=='d'){
 
 		$_GET['file']=$file;
+		
 
 		foreach($_GET as $get=>$val){
 			if(in_array($get,array('file','seccion','format'))){
@@ -26,6 +27,9 @@ if($_GET['ajax']!='0'){
 				$gett['f']=$get."|".$val;
 			}
 		}
+
+		// prin($_GET);
+		$gett['fecha_creacion']=$_GET['fecha_creacion'];
 
 		$_GET=$gett;
 
@@ -36,6 +40,13 @@ if($_GET['ajax']!='0'){
 
 	include("base2/reportes/".$_GET['file'].".php");
 
+	function exclude_from_array($output,$items=[])
+	{
+		foreach($items as $item){
+			unset($output[$item]);
+		}
+		return urldecode(http_build_query($output));
+	}
 	//echo 3;
 	/*
 	if(0){

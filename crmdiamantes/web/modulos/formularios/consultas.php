@@ -38,7 +38,7 @@ include("../../panel/lib/simple_html_dom.php");
 
 			$tat=$ta->innertext();
 
-			$tat=str_replace("<table","<table cellspacing=0 cellpadding=4 style='border-collapse:collapse;margin-bottom:5px;font-size:11px;' ",$tat);
+			$tat=str_replace("<table","<table width='100%' cellspacing=0 cellpadding=4 style='border-collapse:collapse;margin-bottom:5px;font-size:11px;' ",$tat);
 
 			$tat=str_replace("colspan=\"2\"","colspan=\"2\" style='border:1px solid #ddd;background-color:#ccc;' valign=top ",$tat);
 

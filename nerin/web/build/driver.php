@@ -11,7 +11,7 @@ $Block['footer'] ="common/footer.php";
 
 $Block['bar_izquierda']=
 	[
-		"bloques/arbol_blog.php?".http_build_query(['classStyle'=>'menu_left block block-blue']),
+		// "bloques/arbol_blog.php?".http_build_query(['classStyle'=>'menu_left block block-blue']),
 		"bloques/izquierda_facebook.php?".http_build_query(['classStyle'=>'banner_enlaces block block-blue slice']),		
 		"bloques/form_recomendar.php?".http_build_query(['classStyle'=>'form_recomendar block']),
 	];
@@ -183,9 +183,14 @@ array(
 	'nav'		=>$Block['nav'],	
 	'canvas' 	=>
 		[
-		 	"bloques/banner_main.php",			
+		 	"bloques/banner_main.php",	
+
 			[		
-			'col-xs-2 page_col1'=>'bloques/menu_servicios.php?'.http_build_query(['classStyle'=>'menu_left block block-blue']),
+			// 'col-xs-2 page_col1'=>'bloques/menu_servicios.php?'.http_build_query(['classStyle'=>'menu_left block block-blue']),
+			'col-xs-2 page_col1'=>[
+				'bloques/menu_servicios.php?'.http_build_query(['classStyle'=>'menu_left block block-blue']),
+				"bloques/izquierda_facebook.php?".http_build_query(['classStyle'=>'banner_enlaces block block-blue slice'])
+				],				
 			"MAIN?".http_build_query([
 									'block'		=>'col-xs-10 page_col2',
 									'classStyle'=>'wide page block block-grey',
@@ -203,7 +208,10 @@ array(
 		[
 		 	"bloques/banner_main.php",			
 			[		
-			'col-xs-2 page_col1'=>'bloques/menu_empresa.php?'.http_build_query(['classStyle'=>'menu_left block block-blue']),
+			'col-xs-2 page_col1'=>[
+				'bloques/menu_empresa.php?'.http_build_query(['classStyle'=>'menu_left block block-blue']),
+				"bloques/izquierda_facebook.php?".http_build_query(['classStyle'=>'banner_enlaces block block-blue slice'])
+				],		
 			"MAIN?".http_build_query([
 									'block'		=>'col-xs-10 page_col2',
 									'classStyle'=>'wide page block block-grey',

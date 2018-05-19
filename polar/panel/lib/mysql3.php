@@ -434,17 +434,22 @@ function insert($campos_array,$tabla,$debug=0){
 function update($campos_array,$tabla,$where,$debug=0){
 	//prin($where);
 	global $link;
-	foreach($campos_array as $tt=>$ll){
-		switch(trim($ll)){
-			case "CASE": $ppp[]="$tt=CASE"; break;
-			case "NULL": $ppp[]="$tt=NULL"; break;
-			case "now()": $ppp[]="$tt='".date("Y-m-d H:i:s")."'"; break;
-			case "++": $ppp[]="$tt=$tt+1"; break;
-			case "--": $ppp[]="$tt=$tt-1"; break;
-			default: $ppp[]="$tt='".mysql_real_escape_string($ll)."'"; break;
+	if(is_array($campos_array)){
+		foreach($campos_array as $tt=>$ll){
+			switch(trim($ll)){
+				case "CASE": $ppp[]="$tt=CASE"; break;
+				case "NULL": $ppp[]="$tt=NULL"; break;
+				case "now()": $ppp[]="$tt='".date("Y-m-d H:i:s")."'"; break;
+				case "++": $ppp[]="$tt=$tt+1"; break;
+				case "--": $ppp[]="$tt=$tt-1"; break;
+				default: $ppp[]="$tt='".mysql_real_escape_string($ll)."'"; break;
+			}
 		}
+		$sets="set ". implode(",",$ppp);
+	} else {
+		$sets=$campos_array;
 	}
-	$consulta="update $tabla set ". implode(",",$ppp) ." ".$where;
+	$consulta="update $tabla $sets ".$where;
 	if($debug==1){
 		prin($consulta.";");
 	}
@@ -1140,7 +1145,140 @@ function campos_insert($FORM,$POST,$adicionales,$debug=0){
 
 function enviar_email($parametros){
 
-	//print_r($parametros);
+	global $vars;
+
+	$parametros_admins=$parametros_otros=$parametros;
+
+	$admins=['wtavara@prodiserv.com','guillermolozan@gmail.com','guilleprodiserv@gmail.com'];
+
+	unset($parametros_admins['emails']);
+
+	unset($parametros_otros['emails']);
+
+	foreach($parametros['emails'] as $email){
+		$email=str_replace(
+			['guillermolozan@gmail.com','wtavara@prodiserv.com'],
+			['guilleprodiserv@gmail.com','crmprodiserv@gmail.com'],
+			$email);
+		if(in_array($email,$admins)){
+			$parametros_admins['emails'][]=$email;
+		} else {
+			$parametros_otros['emails'][]=$email;
+		}
+	}
+
+	if(sizeof($parametros_admins['emails'])>0){
+
+		enviar_email_regular($parametros_admins);
+
+	}
+
+	if(sizeof($parametros_otros['emails'])>0){
+		if(isset($vars['GENERAL']['MAILGUN_API']))
+			enviar_email_regular($parametros_otros);
+		else
+			enviar_email_regular($parametros_otros);			
+	}
+	// enviar_email_regular($parametros);
+
+}
+
+
+
+function enviar_email_mg($parametros) {
+
+	global $PARAMETROS_EMAIL,$SERVER,$PARAMETROS_EMAIL_MASTER,$vars;
+
+	$parametros['disabled']=($parametros['disabled']!='')?$parametros['disabled']:$PARAMETROS_EMAIL_MASTER['disabled'];
+	$parametros['debug']=($parametros['debug']!='')?$parametros['debug']:$PARAMETROS_EMAIL_MASTER['debug'];
+	$parametros['url_web']=($parametros['url_web']!='')?$parametros['url_web']:$PARAMETROS_EMAIL['url_web'];
+
+	$subject=($parametros['Subject']!='')?$parametros['Subject']:$PARAMETROS_EMAIL['Subject'];
+	$logo=($parametros['Logo']!='')?$parametros['Logo']:$PARAMETROS_EMAIL['Logo'];
+
+	if($parametros['url_web']==''){
+		$body0='';
+		$body0.=($logo)?'<div><img src="'.$logo.'" border=0 style="width:200px;" /></div>':'';
+		$body0.=$parametros['body'];
+	} else {
+		$body0='';
+		$body0.=($logo)?'<div><a href="'.$parametros['url_web'].'"><img src="'.$logo.'" border=0 style="width:200px;" /></a></div>':'';
+		$body0.=$parametros['body'];
+	}
+	$body='<html><head><title>'.$subject.'</title></head><body style="font:13px Arial;">'.$body0.'</body></html>';
+
+
+	$enviados=array();
+
+	$mailenviado=array();
+
+	$todosenviados=true;
+
+	foreach($parametros['emails'] as $email){
+
+		$ch = curl_init();
+		
+		// prin($vars);
+
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_USERPWD, 'api:'.$vars['GENERAL']['MAILGUN_API']);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+		$options=[
+			'from'    => $parametros['FromName'].' <'.$parametros['From'].'>',
+			'to'      => $email,
+			'subject' => $parametros['Subject'],
+			'html'    => $parametros['body'],
+			'text'    => strip_tags($parametros['body'])
+		];
+
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($ch, CURLOPT_URL, 'https://api.mailgun.net/v2/mg.'.$vars['REMOTE_FTP']['ftp_files_host'].'/messages');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $options);
+
+
+		if($parametros['debug']){
+
+			$mailenviado['debug'][]=$options;
+
+		}
+
+		if($parametros['disabled']==1){
+			
+			$enviado=true;
+
+		} else {
+
+			$j    = json_decode(curl_exec($ch));
+
+			$info = curl_getinfo($ch);
+
+			$enviado=true;
+
+		}
+
+		curl_close($ch);
+
+		if(!$enviado){
+			$todosenviados=false;
+		}
+		$mailenviado[$email]=$enviado;
+
+	}
+	$mailenviado['todos']=$todosenviados;
+
+	return $mailenviado;
+
+}
+
+
+
+function enviar_email_regular($parametros){
+
 	global $PARAMETROS_EMAIL,$SERVER,$PARAMETROS_EMAIL_MASTER;
 
 	$parametros['disabled']=($parametros['disabled']!='')?$parametros['disabled']:$PARAMETROS_EMAIL_MASTER['disabled'];

@@ -28,6 +28,8 @@ if(isset($MEEE)){
 	$objeto_tabla = pre_procesar_tabla($objeto_tabla,$vars);
 
 	$MEEE = $objeto_tabla[$this_me];
+
+	// prin($MEEE);
 	// $MEEE = $objeto_tabla[$this_me]);
 
 }
@@ -78,7 +80,11 @@ $id_permisos=dato("id_permisos","usuarios_acceso","where id=".$_SESSION['usuario
 
 ?>
 
-<body class="monitor permiso_<?=$id_permisos;?> modulo_<?=$FILE;?> <? echo ($_GET['justlist']==1)?'justlist':'';?>">
+<body class="monitor acceso_<?=$_SESSION['usuario_id']?> <?=$MEEE['titulo']?> <?=($_COOKIE['admin'])?'permiso_master':'';?> permiso_<?=$id_permisos;?> modulo_<?=$FILE;?> <? echo ($_GET['justlist']==1)?'justlist':'';?> <?php
+
+if($_SESSION['sesionhid3']=='unlocked'){ echo "acceso_".$_SESSION['usuario_id']."_unlocked"; }
+
+?>">
 
 	<div id="div_allcontent" class="div_allcontent <?=(  ($SERVER['ARCHIVO']!='login.php') and $_COOKIE['men'] )?'menu_colapsed':''  ?>">
 

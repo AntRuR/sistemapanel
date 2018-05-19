@@ -1,0 +1,18 @@
+Alerta: el vendedor CARMEN ALFARO YCO, ha creado una atención del cliente JOTA BENS, con los datos:
+Modelo: Forland FD150 - 15 m3 
+Fecha de creación de la atención 14 de Agosto de 2017 - 9:10 pm
+
+Teléfono del cliente:  
+Celular del cliente: 912345678 
+Claro del cliente:  
+Movistar del cliente:  
+Entel del cliente:  
+
+RPM del cliente:  
+RPC del cliente: 
+
+Existen 2 atenciones con las que hay coincidencias:
+
+<a href='http://incapower.pe/panel/custom/ventas_items.php?i=164885'>Atención #164885 14 de Agosto de 2017 - 6:42 am</a>
+    <a href='http://incapower.pe/panel/custom/ventas_items.php?i=164890'>Atención #164890 14 de Agosto de 2017 - 8:12 pm</a>
+    

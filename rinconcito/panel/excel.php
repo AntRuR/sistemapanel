@@ -45,8 +45,8 @@ $j0=0;
 $i0=1;
 
 
-$labels=[];
-$tblistadoA=[];
+$labels=array();
+$tblistadoA=array();
 foreach($tblistado as $campo){
 	if($campo['listable']=='1' and $campo['tipo']!='html' ){
 		$labels[]=$campo['label'];
@@ -66,7 +66,7 @@ foreach($tblistado as $campo){
 
 // if(0){
 
-$items2=[];
+$items2=array();
 
 foreach($items as $lll=>$linea){
 
@@ -83,6 +83,7 @@ foreach($items as $lll=>$linea){
 				break;
 				case "hid":
 					list($primO,$tablaO)=explode("|",$campoo['opciones']);
+					list($tablaO)=explode(" ",$tablaO);
 					list($idO,$camposO)=explode(",",$primO);
 					$camposOA=array();
 					$camposOA=explode(";",$camposO);

@@ -1,10 +1,23 @@
 <?php //á
 
 
+switch($_GET['tab']){
+	case "deljefe": 
+		$speeches_tabla="speeches_asesor";
+		$status_actividad=9;				
+	break;
+	case "deladmin": 
+		$speeches_tabla="speeches_asesor";
+		$status_actividad=10;				
+	break;
+	default:
+		$speeches_tabla="speeches";				
+		$status_actividad=1;				
+	break;
+}
+
 
 if($_GET['ajax']=='1'){
-
-
 
 	chdir("../../");
 
@@ -37,7 +50,6 @@ if($_GET['ajax']=='1'){
 	include("../web/modulos/formularios/formularios.php");
 
 
-
 }
 
 
@@ -45,60 +57,7 @@ include("lib/simple_html_dom.php");
 
 
 
-	function fix_ficha($ficha){
-
-
-
-		$ficha=str_replace('&nbsp;','',$ficha);
-
-		$ficha=preg_replace("/id=(\")(?)(\")/",'',$ficha);
-
-		$ficha=preg_replace("/<br>/",'',$ficha);
-
-		$ficha=str_replace('<br />','',$ficha);
-
-		$html = str_get_html($ficha);
-
-		$tables=$html->find("table td");
-
-		foreach($tables as $ta){
-
-			$tabl=$ta->find("table");
-
-			if(sizeof($tabl)>0){
-
-			$tat=$ta->innertext();
-
-			$tat=str_replace("<table","<table cellspacing=0 cellpadding=4 style='border-collapse:collapse;margin-bottom:5px;font-size:11px;' ",$tat);
-
-			$tat=str_replace("colspan=\"2\"","colspan=\"2\" style='border:1px solid #ddd;background-color:#ccc;' valign=top ",$tat);
-
-			$tat=preg_replace("/<td(\s*)>/","<td style='border:1px solid #ddd;;' width='50%' valign=top>",$tat);
-
-			$Tabl[]=$tat;
-
-			}
-
-		}
-
-		$html->clear();
-
-		unset($html);
-
-
-
-		$ficha="<table width='100%' cellpadding=5 cellspacing=5>
-
-		<tr>
-
-		<td valign=top width='50%'>".$Tabl[0]."</td>
-
-		<td valign=top width='50%'>".$Tabl[1]."</td>
-
-		</tr></table>";
-
-		return $ficha;
-
+	function fix_ficha($ficha){$ficha=str_replace('&nbsp;','',$ficha); $ficha=preg_replace("/id=(\")(?)(\")/",'',$ficha); $ficha=preg_replace("/<br>/",'',$ficha); $ficha=str_replace('<br />','',$ficha); $html = str_get_html($ficha); $tables=$html->find("table td"); foreach($tables as $ta){$tabl=$ta->find("table"); if(sizeof($tabl)>0){$tat=$ta->innertext(); $tat=str_replace("<table","<table width='100%' cellspacing=0 cellpadding=4 style='border-collapse:collapse;margin-bottom:5px;font-size:11px;' ",$tat); $tat=str_replace("colspan=\"2\"","colspan=\"2\" style='border:1px solid #ddd;background-color:#ccc;' valign=top ",$tat); $tat=preg_replace("/<td(\s*)>/","<td style='border:1px solid #ddd;;' width='50%' valign=top>",$tat); $Tabl[]=$tat; } } $html->clear(); unset($html); $ficha="<table width='100%' cellpadding=5 cellspacing=5> <tr> <td valign=top width='50%'>".$Tabl[0]."</td> <td valign=top width='50%'>".$Tabl[1]."</td> </tr></table>"; return $ficha;
 
 
 	}
@@ -233,7 +192,9 @@ include("lib/simple_html_dom.php");
 
 	$linea=select_fila(
 
-						array('id_cliente','id_grupo','id_item','id_usuario','id_status','id_cuenta_email'),
+						array('fecha_creacion','id','id_cliente','id_grupo','id_item','id_usuario','id_status','id_cuenta_email',
+							// 'copia'
+							),
 
 						'ventas_items',
 
@@ -243,9 +204,9 @@ include("lib/simple_html_dom.php");
 
 						array(
 
-							'cliente'	=>array('fila'=>array('nombre,apellidos,genero,email','clientes','where id="{id_cliente}"')),
+							'cliente'	=>array('fila'=>array('nombre,apellidos,genero,email,tipo_cliente','clientes','where id="{id_cliente}"')),
 
-							'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
+							'usuario'	=>array('fila'=>array('id_jefe,nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
 
 							'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
 
@@ -265,7 +226,7 @@ include("lib/simple_html_dom.php");
 
 
 
-		//prin($linea);
+		// prin($linea);
 
 
 
@@ -297,7 +258,7 @@ include("lib/simple_html_dom.php");
 
 							'id_grupo'=>$_GET['id'],
 
-							'tipo'=>'1',
+							'tipo'=>$status_actividad,
 
 							'nombre'=>$_POST['subject'],
 
@@ -338,10 +299,11 @@ include("lib/simple_html_dom.php");
 									 		),$_POST['msg']);
 
 
+								$xxxta=($_GET['auto']=='1')?'<div><strong><b>ENVIO AUTOMÁTICO<br /></b></strong></div>':'';
 
 								update(array(
 
-											'texto'=>$_POST['msg'],
+											'texto'=>$xxxta.$_POST['msg'],
 
 											),
 
@@ -373,35 +335,90 @@ include("lib/simple_html_dom.php");
 
 			*/
 
-			$email_cliente=enviar_email(
 
-						array(
+				switch($_GET['tab']){
+					case "deljefe":
 
-						'emails'=>array(
+						$email_cliente=enviar_email(
+									array(
+									'emails'=>array(
+													'guillermolozan@gmail.com',
+													$linea['usuario']['email'],
+													'wtavara@prodiserv.com',
+													// $linea['copia'],
+													$_POST['copy'],
+													)
+									,'Subject'=>$_POST['subject']
+									,'body'=>$_POST['msg'].$style
+									,'From'=>dato("email","usuarios2","where id=".$linea['usuario']['id_jefe'])
+									,'FromName'=>dato("nombre","usuarios2","where id=".$linea['usuario']['id_jefe']).' '.dato("apellidos","usuarios2","where id=".$linea['usuario']['id_jefe'])
+									,'Logo'=>$linea['cuenta']['logo']
+									)
+								);	
 
-										$linea['cliente']['email'],
+					case "deladmin": 
 
-										$linea['usuario']['email'],
+						$email_cliente=enviar_email(
+									array(
+									'emails'=>array(
+													'guillermolozan@gmail.com',
+													$linea['usuario']['email'],
+													'wtavara@prodiserv.com',
+													// $linea['copia'],
+													$_POST['copy'],
+													)
+									,'Subject'=>$_POST['subject']
+									,'body'=>$_POST['msg'].$style
+									,'From'=>'administrador'
+									,'FromName'=>'Administrador'
+									,'Logo'=>$linea['cuenta']['logo']
+									)
+								);	
 
-										'guillermolozan@gmail.com',
+					break;
+					default:
 
-										'wtavara@prodiserv.com',
+					$varrs=array(
+									'emails'=>array(
+													'guillekldc@gmail.com',
+													'guillermolozan@gmail.com',
+													$linea['cliente']['email'],
+													$linea['usuario']['email'],
+													'wtavara@prodiserv.com',
+													// $linea['copia'],
+													$_POST['copy'],
+													)
+									,'Subject'=>$_POST['subject']
+									,'body'=>$_POST['msg'].$style
+									,'From'=>$linea['usuario']['email']
+									,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos'] 
+									,'Logo'=>$linea['cuenta']['logo']
+									);
 
-										)
+					// $varrs=array(
+					// 				'emails'=>array(
+					// 								'guillekldc@gmail.com',
+					// 								)
+					// 				,'Subject'=>$_POST['subject']
+					// 				,'body'=>$_POST['msg'].$style
+					// 				,'From'=>'guillermolozan@gmail.com'
+					// 				,'FromName'=>'Guillermo'
+					// 				,'Logo'=>$linea['cuenta']['logo']
+					// 				);
 
-						,'Subject'=>$_POST['subject']
 
-						,'body'=>$_POST['msg']
+					// prin($varrs);
 
-						,'From'=>$linea['usuario']['email']
+						$email_cliente=enviar_email(
+								$varrs
+								);	
 
-						,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos']
+					break;
+				}
 
-						,'Logo'=>$linea['cuenta']['logo']
 
-						)
 
-					);
+
 
 
 
@@ -425,9 +442,8 @@ include("lib/simple_html_dom.php");
 
 	//prin($linea);
 
-	$tbcampos=array(
 
-					'from'		=>array(
+					$tbcampos['from']		=array(
 
 						'campo'			=> 'from',
 
@@ -445,9 +461,9 @@ include("lib/simple_html_dom.php");
 
 						'default'		=> $linea['usuario']['nombre']." ".$linea['usuario']['apellidos']."&lt;".$linea['usuario']['email']."&gt;",
 
-					),
+					);
 
-					'mailto'		=>array(
+					$tbcampos['mailto']		=array(
 
 						'campo'			=> 'mailto',
 
@@ -467,11 +483,31 @@ include("lib/simple_html_dom.php");
 
 						'opciones'		=> 'id,nombre;apellidos;email|clientes|where 0',
 
-					),
+					);
 
+					$tbcampos['copy']		=array(
 
+						'campo'			=> 'copy',
 
-					'asunto'		=>array(
+						'label'			=> 'Copia',
+
+						'tipo'			=> 'inp',
+
+						'style'			=> 'width:300px;',
+
+						'size'			=> '250',
+
+						'derecha'		=> '1',
+
+						// 'constante'		=> ($_GET['id']=='')?'0':'1',
+
+						// 'default'		=> $linea['id_cliente'],
+
+						// 'opciones'		=> 'id,nombre;apellidos;email|clientes|where 0',
+
+					);
+
+					$tbcampos['asunto']		=array(
 
 						'campo'			=> 'asunto',
 
@@ -487,11 +523,30 @@ include("lib/simple_html_dom.php");
 
 						'default'		=> ($_GET['id']=='')?'Cotización':'Cotización &quot;'.$linea['grupo']['nombre'].' '.$linea['item']['nombre'].'&quot;'
 
-					),
+					);
+
+					if($_GET['tab']=='deljefe'){
+
+						$tbcampos['from']['default']  =dato("nombre","usuarios2","where id=".$linea['usuario']['id_jefe'])." ".dato("apellidos","usuarios2","where id=".$linea['usuario']['id_jefe']);
+						$tbcampos['mailto']['opciones']='id,nombre;apellidos;email|usuarios';
+						$tbcampos['mailto']['default']=$linea['id_usuario'];
+						$tbcampos['asunto']['default']='Mensaje del Jefe';
+
+					}
 
 
+					if($_GET['tab']=='deladmin'){
 
-					'texto'			=>array(
+						$tbcampos['from']['default']  ='Administrador';
+						$tbcampos['mailto']['opciones']='id,nombre;apellidos;email|usuarios';
+						$tbcampos['mailto']['default']=$linea['id_usuario'];
+						$tbcampos['asunto']['default']='Mensaje del Administrador';
+
+					}
+
+					// prin($linea['cliente']['tipo_cliente']);
+
+					$tbcampos['texto']		=array(
 
 						'campo'			=> 'texto',
 
@@ -509,13 +564,14 @@ include("lib/simple_html_dom.php");
 
 						'default'		=> '',
 
-						'botones'		=> 'nombre,texto|speeches',
+						// 'botones'		=> 'nombre,texto|speeches',
+						'botones'		=> ($speeches_tabla=='speeches') ? 'nombre,texto|speeches|where 1' : 'nombre,texto|speeches_asesor|where 1',
 
 						'variables'		=> array(
 
-							'ESTIMADO'=>($linea['cliente']['genero']=='2')?'Estimada':'Estimado',
+							'ESTIMADO'=>($linea['cliente']['tipo_cliente']=='2')?'Estimados':(($linea['cliente']['genero']=='2')?'Estimada':'Estimado'),
 
-							'SR'=>($linea['cliente']['genero']=='2')?'Sra.':'Sr.',
+							'SR'=>($linea['cliente']['tipo_cliente']=='2')?'Sres.':(($linea['cliente']['genero']=='2')?'Sra.':'Sr.'),
 
 							//'VENDEDOR_NOMBRE'=>$linea['usuario']['nombre'].' '.$linea['usuario']['apellidos'],
 
@@ -536,14 +592,20 @@ include("lib/simple_html_dom.php");
 							//'IMPRIMIR'=>str_replace("'","\"","<a href='http://".(($linea['cuenta']['dominio'])?$linea['cuenta']['dominio']:"www.vehiculos.com.pe")."/index.php?modulo=items&tab=productos_imprimir&acc=file&id=".$linea['id_item']."&id_cliente=".$linea['id_cliente']."'>IMPRIMIR</a>"),
 							'FIRMA'=>$linea['usuario']['firma'],
 
+							'COTIZACION'=>''
+												.'COTIZACIÓN: <a href="http://incapower.pe/panel/custom/ventas_items.php?i='.$linea['id'].'">#'.$linea['id'].'</a><br>'
+												.'FECHA '.fecha_formato($linea['fecha_creacion'],'8b').'<br>'
+												.'MODELO: '.$linea['grupo']['nombre'].' '.$linea['item']['nombre'].'<br>'
+												.'CLIENTE: '.strtoupper($linea['cliente']['nombre'].' '.$linea['cliente']['apellidos'])
+
 
 						)
 
-				),
+				);
 
 
 
-	);
+
 
 	//prin($tbcampos['texto']);
 
@@ -557,7 +619,7 @@ include("lib/simple_html_dom.php");
 
 	<?php
 
-	if(trim($linea['usuario']['email'])==''){
+	if(trim($linea['usuario']['email'])=='' and $_COOKIE['admin']!='1' ){
 
 	echo "<div style='color:red;font-weight:bold;padding:50px 30px;text-transform:uppercase;'>No se puede enviar debido a que el vendedor no tiene configurado un email.</div>";
 
@@ -572,10 +634,9 @@ include("lib/simple_html_dom.php");
 	include('formulario_campos.php'); ?>
 
 	<li id="linea_crear" class="linea_form " >
-
+	
 	<label>&nbsp;</label>
-
-	<!-- input type="button" onclick="enviar();" style="float:left;" value="Enviar" class="btn btn-primary" id="in_submit"-->
+	<input type="button" onclick="enviar();" value="Enviar Email" class="btn btn-primary enviar" id="in_submit">
 
 	</li>
 
@@ -632,7 +693,7 @@ include("lib/simple_html_dom.php");
 
 		crear_loading("Enviando");
 
-		new Request({url:"base2/apps/enviar_cotizacion.php?id=<?php echo $_GET['id'];?>&ajax=1",method:'post',data:{'msg':msg,'subject':$('in_asunto').value},onSuccess:function(eee){
+		new Request({url:"base2/apps/enviar_cotizacion.php?id=<?php echo $_GET['id'];?>&tab=<?php echo $_GET['tab'];?>&ajax=1",method:'post',data:{'msg':msg,'subject':$('in_asunto').value,'copy':$('in_copy').value},onSuccess:function(eee){
 
 
 
@@ -749,6 +810,9 @@ window.resizeTo(1100,750);
 $NUM_ALERTAS_PENDIENTES=contar('ventas_mensajes','where id_grupo="'.$_GET['id'].'" and alerta_fecha>NOW() ',0);
 
 $id_venta=$_GET['id'];
+
+if($_GET['tab']==''){
+
 echo "
 window.addEvent('domready', function(){
 
@@ -772,6 +836,7 @@ window.addEvent('domready', function(){
     		    }
 	}).inject($(document.body), 'top');
 
+
 });
 /*
 function imprimir(){
@@ -784,5 +849,8 @@ new Request({url:'panel/base2/imprimir_click.php',method:'post',data:{'id_venta'
 }
 */
 ";
+
+}
+
 ?>
 </script>

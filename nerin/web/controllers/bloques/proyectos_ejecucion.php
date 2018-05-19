@@ -4,7 +4,7 @@
 $object=[];
 
 
-$object['header']='PROYECTOS EN EJECUCION';
+$object['header']='PROYECTOS CORPORATIVOS';
 
 
 $object['menu']=select(

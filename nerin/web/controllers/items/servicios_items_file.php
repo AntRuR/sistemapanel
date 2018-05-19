@@ -40,9 +40,9 @@ $ITEM = select_fila(
 
 			,'foto'=>array('foto'=>array(
 
-											"id,file,foto_descripcion,fecha_creacion|news_fotos|where id_item='{id}' and visibilidad='1' order by id desc limit 0,1"
+											"id,file,foto_descripcion,fecha_creacion|news_fotos2|where id_item='{id}' and visibilidad='1' order by id desc limit 0,1"
 
-											,"newite_imas"
+											,"newite2_imas"
 
 											,array( 
 

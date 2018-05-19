@@ -1,0 +1,1 @@
+var clear='http://127.0.0.1/sistemapanel/crmcallcenter/web/modulos/lib/defaultimg/clear.gif'

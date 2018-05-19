@@ -404,7 +404,7 @@ foreach($line as $iusu2=>$lin2){
 	$row[$l][]=array('Vendedor','class=nombre','class="head muted"');
 	foreach($intervalos as $ii=>$la)
 		$row[$l][]=$LLL[$ii];
-	$row[$l][]='<span title="días de trabajo">N</span>';
+	$row[$l][]='<span title="días de trabajo">Total días</span>';
 	$row[$l][]='Total';
 	$row[$l][]='Prom Vend/Día';
 
@@ -458,7 +458,7 @@ $l++;//header
 $row[$l][]=array('','','class="head muted"');
 foreach($intervalos as $ii=>$la)
 	$row[$l][]=$LLL[$ii];
-$row[$l][]='N';
+$row[$l][]='Total días';
 $row[$l][]='Total';
 $row[$l][]='Prom Vend/Día';
 

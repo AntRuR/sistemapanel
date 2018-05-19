@@ -51,7 +51,7 @@ $exA=explode(".",$_FILES['v_file_'.$_GET['camp']]['name']);
 
 $extension = strtolower($exA[sizeof($exA)-1]);
 
-if(in_array($extension,array('jpg','gif','jpeg','png','swf','flv','doc','docx','xls','xlsx','pdf','htm','html','txt','flv')))
+if(in_array($extension,array('jpg','gif','jpeg','png','swf','flv','doc','docx','xls','xlsx','pdf','htm','html','txt','flv','sql')))
 {
 
     if(1)

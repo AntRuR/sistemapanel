@@ -71,6 +71,10 @@ include_once("formularios/formularios.php");
 			
 			if($_SERVER['REQUEST_METHOD']=='POST'){
 						
+				// prin($PARAMETROS_EMAIL['emailsAdmin']);
+
+				// exit();
+
 				if($_SESSION['captchaword']!=$_POST['captcha']){
 				
 					echo json_encode(array(

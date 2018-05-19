@@ -935,6 +935,22 @@ if($_GET['me']!=''){
 
 	echo "<div><a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$_GET['me']."&accion=update_tags'>Update Tags</a></div>";
 
+
+	$tavla=$objeto_tabla[$_GET['me']]['tabla'];
+	foreach($objeto_tabla[$_GET['me']]['campos'] as $campx){
+		if(
+			$campx['queries']=='1' and 
+			in_array($campx['tipo'],array('hid','com'))
+			){
+		$xqueries[]=$campx['campo'];
+		}
+	}
+	echo "<h2>INDEXES</h2>";
+	foreach($xqueries as $xquer){
+		echo 'ALTER TABLE `'.$tavla.'` ADD INDEX `'.$xquer.'` (`'.$xquer.'`);<br>';
+	}
+	echo '<br>';
+
 }
 
 if($_GET['accion']=='update_tags'){

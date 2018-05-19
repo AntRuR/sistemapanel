@@ -83,6 +83,7 @@ foreach($items as $lll=>$linea){
 				break;
 				case "hid":
 					list($primO,$tablaO)=explode("|",$campoo['opciones']);
+					list($tablaO)=explode(" ",$tablaO);
 					list($idO,$camposO)=explode(",",$primO);
 					$camposOA=array();
 					$camposOA=explode(";",$camposO);

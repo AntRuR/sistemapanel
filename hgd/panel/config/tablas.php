@@ -9,7 +9,7 @@ $objeto_tabla['PAGINAS']=array(
 		'archivo'		=> 'paginas',
 		'prefijo'		=> 'pag',
 		'eliminar'		=> '1',
-		'crear'			=> '1',
+		'crear'			=> '0',
 		'editar'		=> '1',
 		'buscar'		=> '0',
 		'bloqueado'		=> '0',
@@ -917,7 +917,20 @@ $objeto_tabla['LINKS']=array(
 						'variable'		=> 'float',
 						'derecha'		=> '1',
 						'style'			=> 'width:100px;',
-				),					
+				),		
+				'file'			=>array(
+						'campo'			=> 'file',
+						'label'			=> 'Foto',
+						'tipo'			=> 'img',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'prefijo'		=> 'links',
+						'carpeta'		=> 'links_imas',
+						'tamanos'		=> '150x120,219x102',
+						'tamano_listado'	=> '1',
+						'width'			=> '150px',
+						'style'			=> 'width:150px,height:auto,'
+				),								
 				'name'		=>array(
 						'campo'			=> 'name',
 						'label'			=> 'Título',
@@ -1365,7 +1378,7 @@ $objeto_tabla['PROJECTS']=array(
 						'listable'		=> '1',
 						'validacion'	=> '1',
 						'style'			=> 'width:75%;',
-						'controles'		=> '<a  rel="subs" href="custom/projects_photos.php?id=[id]">{select count(*) from projects_photos where id_grupo=[id]}  fotos</a>
+						'controles'		=> '<a rel="subs" href="custom/projects_photos.php?id=[id]">{select count(*) from projects_photos where id_grupo=[id]}  fotos</a>
 
 							'
 				),

@@ -116,8 +116,13 @@ if($Proceso=='login'){
 
 } else {
 
+
 	/// asignar variables
-	$tbtitulo	=	procesar_dato($datos_tabla['titulo']);
+	// if(in_array($SERVER['ARCHIVO_REAL'],array('')))
+	// 	$tbtitulo	=	procesar_dato($datos_tabla['titulo']);
+	// else
+	$tbtitulo	=	breadcrumb($datos_tabla,NULL,$objeto_tabla);
+
 	$tbl		=	$datos_tabla['tabla'];
 	$tbf		=	$datos_tabla['archivo'];
 	$tb 		=	$datos_tabla['prefijo'];

@@ -42,10 +42,11 @@ echo '<div class="alert alert-warning" style="clear:left;">falta crear la carpet
 
 		$success=($_GET['proceso']==$arcv['name'])?'success':'info';
 
-		echo "<li>
+		echo "<li class='".str_replace('.php','',$arcv['name'])."'>
 		<a class='btn btn-".$success."' style='text-transform:uppercase;' href='maquina.php?tab=procesos&proceso=".$arcv['name']."'>".$arcv['name']."</a>
 		<div class='alert alert-".$success."'>".$arcv['desc']."</div>
 		</li>";
+
 	}
 	echo '</ul>';
 

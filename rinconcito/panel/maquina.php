@@ -6,7 +6,7 @@ include("lib/compresionInicio.php");
 
 include("lib/global.php");
 
-	$link=mysql_connect ($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS);
+	@$link=mysql_connect ($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS);
 	mysql_select_db ($MYSQL_DB,$link);
 	mysql_query("SET NAMES 'utf8'",$link);
 	

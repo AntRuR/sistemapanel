@@ -8,8 +8,8 @@ $objeto_tabla['PRODUCTOS_GRUPOS']=array(
 		'archivo'		=> 'productos_grupos',
 		'archivo_hijo'	=> 'productos_subgrupos',
 		'prefijo'		=> 'progru',
-		'eliminar'		=> '1',
-		'editar'		=> '1',
+		'eliminar'		=> '0',
+		'editar'		=> '0',
 		'crear'			=> '1',
 		'visibilidad'	=> '1',
 		'buscar'		=> '0',
@@ -1094,7 +1094,7 @@ $objeto_tabla['SERVICIOS_ITEMS']=array(
 						'validacion'	=> '1',
 						'like'			=> '1',
 						'width'			=> '230px',
-						'controles'		=> '<a href="custom/news_fotos.php?id=[id]">{select count(*) from news_fotos where id_item=[id]} fotos</a>',
+						'controles'		=> '<a href="custom/news_fotos2.php?id=[id]">{select count(*) from news2_fotos where id_item=[id]} fotos</a>',
 						'control'		=> '1',
 						'size'			=> '250'
 				),
@@ -1520,6 +1520,92 @@ $objeto_tabla['NEWS_FOTOS']=array(
 		'disabled'		=> '0',
 		'edicion_completa'=> '1'
 );
+
+
+$objeto_tabla['NEWS_FOTOS2']=array(
+		'titulo'		=> 'Fotos de {select nombre from news_items where id=[id]}',
+		'nombre_singular'=> 'foto',
+		'nombre_plural'	=> 'fotos',
+		'tabla'			=> 'news_fotos2',
+		'archivo'		=> 'news_fotos2',
+		'prefijo'		=> 'newfot2',
+		'eliminar'		=> '1',
+		'editar'		=> '1',
+		'crear'			=> '1',
+		'crear_label'	=> '120px',
+		'crear_txt'		=> '400px',
+		'altura_listado'	=> '60px',
+		'visibilidad'	=> '1',
+		'buscar'		=> '0',
+		'bloqueado'		=> '0',
+		'menu'			=> '0',
+		'menu_label'	=> '',
+		'me'			=> 'NEWS_FOTOS2',
+		'orden'			=> '1',
+		'por_linea'		=> '4',
+		'campos'		=>array(
+				'id'			=>array(
+						'campo'			=> 'id',
+						'tipo'			=> 'id'
+				),
+				'fecha_creacion'	=>array(
+						'campo'			=> 'fecha_creacion',
+						'tipo'			=> 'fcr'
+				),
+				'fecha_edicion'	=>array(
+						'campo'			=> 'fecha_edicion',
+						'tipo'			=> 'fed'
+				),
+				'posicion'		=>array(
+						'campo'			=> 'posicion',
+						'tipo'			=> 'pos'
+				),
+				'visibilidad'	=>array(
+						'campo'			=> 'visibilidad',
+						'tipo'			=> 'vis'
+				),
+				'id_item'		=>array(
+						'campo'			=> 'id_item',
+						'tipo'			=> 'hid',
+						'listable'		=> '0',
+						'validacion'	=> '0',
+						'default'		=> '[id]',
+						'foreig'		=> '1'
+				),
+				'file'			=>array(
+						'campo'			=> 'file',
+						'label'			=> 'Foto',
+						'tipo'			=> 'img',
+						'listable'		=> '1',
+						'validacion'	=> '1',
+						'prefijo'		=> 'newite2',
+						'carpeta'		=> 'newite2_imas',
+						'tamanos'		=> '150x120,273x1000,590x1000',
+						'tamano_listado'	=> '1',
+						'width'			=> '150px',
+						'style'			=> 'width:150px,height:auto,',
+						'image_library'	=> '1'
+				),
+				'foto_descripcion'=>array(
+						'campo'			=> 'foto_descripcion',
+						'label'			=> 'Descripción',
+						'tipo'			=> 'inp',
+						'listable'		=> '1',
+						'validacion'	=> '0',
+						'width'			=> '207px',
+						'disabled'		=> '1'
+				),
+				'page'			=>array(
+						'campo'			=> 'page',
+						'tipo'			=> 'page'
+				)
+		),
+		'grupo'			=> 'contenidos',
+		'page'			=> '0',
+		'disabled'		=> '0',
+		'edicion_completa'=> '1'
+);
+
 /******************************************************************************************************************************************************/
 
 $objeto_tabla['PUBLICACIONES_GRUPOS']=array(

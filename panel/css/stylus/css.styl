@@ -25,7 +25,8 @@ color_3=#004B91 // color de links // el azul
 // color_3=#136CB2 // color de links // el azul
 color_4=#283442   // color de bg menú
 color_5=white // #fea100 // color de letra de menú // el blanco
-color_6=#fefef5 // #fea100 // color amarillo de resaltado
+// color_6=#fefef5
+color_6=#fff5dd // #fea100 // color amarillo de resaltado
 
 $verde=#89BC58;
 // color_3=navy
@@ -109,7 +110,7 @@ label
 
 #inner_span_num
   display inline-block
-  padding 7px 0
+  padding 0 0 7px
   .spa2n
     color color_2    
     font-weight: normal
@@ -402,10 +403,47 @@ a
  */
 
 .formulario 
+  .greyy
+    color #b9b9b9
   height: auto
   display: block
   padding: 20px 0 20px 3px  
   margin-bottom 10px
+  li.linea_form
+    &:hover
+      .greyyafter
+        .html
+          display block
+    .greyyafter
+      display inline-block
+      .text
+        display inline-block
+        padding-left 0
+        font-weight bold
+        &:before
+          content "\e6ac"
+          font-family icomoon
+          float left
+          color #FF9800
+          padding-left 1em
+          width 17px
+      .html
+        display none
+        position absolute
+        width 700px
+        background #fefef3
+        border 1px solid #FF9800
+        z-index 1
+        padding 1em
+        margin-left 1em
+        margin-bottom 1px
+        border-radius .5em
+        box-shadow 0 18px 32px rgba(0,0,0,0.4)
+        ul
+          li
+            margin-bottom .6em
+            text-align justify
+
   #error_creacion
     padding: 5px 0; 
     font-size: 12px;
@@ -420,7 +458,7 @@ a
     .elim
       position absolute
       right 7px
-      top -5px
+      top 12px
       &:before
         content "\e681"
         color red
@@ -481,11 +519,18 @@ a
     clear: none
     margin-right: 20px
   .linea_derecha label,
-  .linea_derecha_espacio label
+  .linea_derecha_espacio label,
     width: auto
     margin-right: 10px
     .form_input
       width: auto
+  .linea_derecha i,
+  .linea_derecha_espacio i,
+  .linea_derecha_inicio i
+      width: auto
+      vertical-align top
+      margin-right 3px
+      margin-left 3px
   .linea_derecha_inicio
     float: left
     width: auto
@@ -665,10 +710,18 @@ a.ie i
   padding: 10px 40px
   height: auto
   border: 0
-  z-index: 2
+  z-index: 16
   width: 150px
   text-align: center
-
+.cover
+  content ""
+  position absolute
+  width 100%
+  height 100%
+  background-color #000
+  opacity 0.2
+  z-index 15
+    
 .refreshing2
   position: absolute
   background-color: #09C
@@ -749,6 +802,7 @@ ul.ul_menus_empty_si:before
               float: right
               margin: 2px 4px 0 0
               color: color_2        
+              display none
           &:hover 
             background-color: color_1  
           &.selected
@@ -785,7 +839,7 @@ ul.ul_menus_empty_si:before
   float: right
   clear: left
   position: relative
-  z-index: 11  
+  z-index: 12
   b,
   strong,
   a,
@@ -884,20 +938,44 @@ a.ico_clip
   float: none
   margin-left: 5px
 
-#msino
-  float: left
-  margin-right: 10px
-  font-family: 'icomoon'
-  &:hover
-    text-decoration: none
-  &:before
-    content: "\f0d9"
-    font-size: 3em
-    color: color_2
+.mmm
+  border 1px solid lighten(black,80)
+  padding 5px 0px 0 10px
+  float right
+  #msino,#mnosi
+    float: right
+    margin-right: 10px
+    font-family: 'icomoon'
+    &:hover
+      text-decoration: none
+    &:before
+      font-size: 2em
+  #msino
+    &:before
+      content "\e68c"
+      color grey
+      font-weight normal
+  #mnosi
+    &:before
+      content "\e690"
+      color color_2
+      font-weight bold
 
 .menu_colapsed #msino:before
-  content: "\f0da"
-
+  color color_2
+  font-weight bold
+.menu_colapsed #mnosi:before
+  color grey
+  font-weight normal
+.detail
+  .brazzz
+    display none 
+.brazzz
+  border 1px solid lighten(black,80)
+  padding 0px 0 3px 9px
+  float right
+  margin 0px 5px
+  
 .segunda_barra
   border-top: 1px solid #FFF
   font-size: 1.1em
@@ -906,8 +984,6 @@ a.ico_clip
   min-height: 8px
   height: auto
   clear: none
-  // display: inline-block
-  // width: 100%
   box-sizing border-box
 
 .foot
@@ -1497,6 +1573,33 @@ li.bl:hover .oc a
     float: left
     margin-top: 5px
 
+#ordenable
+  > div:first-child
+    // background black !important
+    .modificador_grilla:before
+      content ""
+      position absolute
+      height 22px
+      width 100%
+      // background black !important
+      top 0px
+      // border: 1px solid #ccc
+      // border-bottom-color: #fff
+      background linear-gradient(top, #EDEDED, white, #EDEDED)
+      z-index 11
+  > li.modificador_grilla:first-child
+    // background black !important
+    &:before
+      content ""
+      position absolute
+      height 22px
+      width 100%
+      // background black !important
+      top 0px
+      // border: 1px solid #ccc
+      // border-bottom-color: #fff
+      background linear-gradient(top, #EDEDED, white, #EDEDED)
+      z-index 11      
 .modificador_grilla
   clear: left
   height: auto
@@ -1552,12 +1655,9 @@ li.bl:hover .oc a
       display: block
       border-bottom: 0px
       width: 100%
-      z-index: 1
+      z-index: 11
       font-style: normal
       padding: 2px 0 6px
-      border: 1px solid #ccc
-      border-bottom-color: #eee
-      background linear-gradient(top, #EDEDED, white, #EDEDED)
       height: 16px
       overflow: hidden
       color: #666464
@@ -1566,6 +1666,8 @@ li.bl:hover .oc a
       border-left-color: #fff
       font-size 1em
       text-align center
+      background linear-gradient(top, #EDEDED, white, #EDEDED)
+
       // letter-spacing: -1.6px;
       &:hover
         z-index: 2
@@ -1576,7 +1678,7 @@ li.bl:hover .oc a
     padding-top: 11px
   .lc1.lc
     padding-top: 38px
-    border-top: 1px solid #ccc
+    border-top: 1px solid transparent
     top: 0px
   .truc
     display: none
@@ -1638,7 +1740,8 @@ li.bl:hover .oc a
       line-height: 17px
       font-size: 1em
       text-overflow: ellipsis
-      white-space: nowrap
+      // white-space: nowrap
+      white-space: initial
       min-height 20px
       a
         float none
@@ -2541,7 +2644,7 @@ div.loading
     opacity: 1
     // height: 30px
     max-width 150px
-    max-height 30px
+    max-height 60px
     vertical-align bottom
   &:hover img
     opacity: 1
@@ -2603,16 +2706,17 @@ table.photos td img
   float: right
 
 #buscar
-  border: 1px solid #BDC7D8
-  color: #C0C0C0
-  float: right
-  font-weight: normal
-  margin: 1px 4px
-  width: 15%
-  padding-right: 20px
+  border 1px solid #BDC7D8
+  color #C0C0C0
+  float right
+  font-weight normal
+  margin 0px 4px 1px
+  width 15%
+  padding-right 20px
+  height 1.4em
 
 .desarrollo
-  opacity: 0.2
+  opacity 0.2
 
 #ordenable
   min-height 0px
@@ -2982,9 +3086,11 @@ a.ico_Crear
 */  
 
 .cr_pl
-  bottom: -17px
+  min-height 25px
+  bottom: 0px
   clear: left
-  position: absolute
+  float right
+  // position: absolute
   padding: 0 5px
   right: 7px
   text-align: right
@@ -2996,8 +3102,13 @@ a.ico_Crear
   -ms-border-radius: 0px 0px 4px 4px
   -khtml-border-radius: 0px 0px 4px 4px
   border-radius: 0px 0px 4px 4px
+  label
+    display inline-block
+    font-weight bold
+    margin-right 10px
   a
     font-size: 1em !important
+    height 23px
 
 .prog
   outline: 1px solid color_2
@@ -3028,6 +3139,7 @@ a.ico_Crear
     li
       float left
       min-height: 20px
+      margin-right 1px
       input
         .rad
           float: right
@@ -3658,9 +3770,10 @@ a.z:hover
 
 .brasselected.z
   color: color_2 !important
+  font-weight bold
 
 #set_filas_2:before
-  content: "\e60a"
+  content: "\e692"
 
 #set_filas_1:before
   content: "\e60a"
@@ -3673,7 +3786,7 @@ a.z:hover
   top: 0.4em
 
 #set_filas_4:before
-  content: "\e68d"
+  content: "\e693"
 
 .i_mm:before
   content: "\e663"
@@ -3729,7 +3842,7 @@ a.z:hover
 .ico_plus:before
   content: "\e685"
   color: #006DCC
-  margin: 0 5px
+  margin: 0 0 0 10px
   font-size: 0.7em
 
 .ico_search
@@ -4042,6 +4155,32 @@ li.editar_rapido:hover
   .ToolTips
     margin-right -100% !important
 
+.justlist .div_bloque_cuerpo
+  margin-top -32px
+
+
+.pagination ul 
+  li:first-child a, li:last-child a
+    position relative
+  li:first-child a:before, li:last-child a:before
+    font-family icomoon
+    font-size 1.8em
+    position absolute
+    color #005580
+  > li
+    &:first-child > a
+      color transparent
+      &:before
+        content "\e651"
+        top 5px
+        left 0em
+    &:last-child > a
+      color transparent
+      &:before
+        content "\e654"
+        top 5px
+        right 0em
+
 
 
 /***********************************************************
@@ -4347,7 +4486,8 @@ li.editar_rapido:hover
   margin-left 3px
   margin-bottom 1em
   input
-    margin-right 1em
+    margin-right .4em
+    margin-top 0
   label
     width auto
     color black 
@@ -4362,3 +4502,56 @@ li.editar_rapido:hover
   .inner_listado
     min-height 0
 
+.bloque_titulo
+  span.type_file, span.pipe, a.type_directory
+    font-size 0.8em 
+    float none
+    text-transform capitalize
+    font-weight 300
+    &:before
+      font-family icomoon
+      font-size 0.8em
+  span.type_file 
+    color black
+    &:before
+      content "\e60d"
+      margin 0 0.25em
+  a.type_directory
+    &:before
+      content "\e616"
+      margin 0 0.25em
+    &:hover
+      text-decoration none
+      &:before
+        content "\e617"
+      
+    
+
+.vertical
+  height 200px
+  white-space nowrap
+  overflow hidden
+  div
+    text-transform uppercase
+    transform rotate(-90deg) translate(-179px,-3px)
+    // transform-origin left top 0
+    // height 200px
+    width 20px
+    font-weight normal
+    color black
+    margin 0 auto
+    // float left
+
+.grupoheader,.subgrupoheader,.tiposheader
+  text-align center !important
+  text-transform uppercase
+.grupoheader,tiposheader
+  color black
+    
+.more_detail 
+  display block
+  width 100%
+  clear both;
+
+      
+    

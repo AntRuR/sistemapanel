@@ -163,7 +163,7 @@ require([jspath+"/jquery-1.10.2.min.js"], function() {
 		 * FORMS
 		 *************************************/
 
-		if($('form').length>0){
+		if($('form.ajax').length>0){
 
 			require([jspath+"/form/jquery.form.min.js"], function() {
 

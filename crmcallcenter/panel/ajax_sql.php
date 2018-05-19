@@ -4,7 +4,7 @@ include("lib/compresionInicio.php");
 include("lib/global.php");
 include("lib/conexion.php");
 include("lib/mysql3.php");
-include("lib/util.php");
+include("lib/util2.php");
 //	include("lib/stripattributes.php");
 include("config/tablas.php");
 
@@ -29,6 +29,7 @@ $oce		=	$datos_tabla['onedit'];
 $psc		=	$datos_tabla['postscript'];
 $id2	    =   trim(str_replace(array($id,"=","'","\"","where"),array("","","","",""),$_REQUEST['v_d']));
 
+$update_fecha_creacion=true;
 
 switch($_GET['f']){
 	case "get_quick":
@@ -341,14 +342,14 @@ switch($_GET['f']){
 		break;
 	case "delete":
 
-		eliminar_imagenes($datos_tabla,$_POST['v_d']);
+		eliminar_imagenes($datos_tabla,$_REQUEST['v_d']);
 
 		if($psc!=''){
-			$iii=trim(str_replace("'","",str_replace("where id=","",$_POST['v_d'])));
+			$iii=trim(str_replace("'","",str_replace("where id=","",$_REQUEST['v_d'])));
 			include("postscript.php");
 		}
 
-		$ret=delete($tbl,str_replace("\\'","'",$_POST['v_d']),$_GET['debug']);
+		$ret=delete($tbl,str_replace("\\'","'",$_REQUEST['v_d']),$_GET['debug']);
 
 		echo json_encode($ret);
 
@@ -379,13 +380,13 @@ switch($_GET['f']){
 		}
 		//echo "<pre>"; print_r($imagenes); echo "</pre>";
 		//$_GET['debug']=1;
-		$ret=update($array,$tbl,str_replace("\\'","'",$_POST['v_d']),$_GET['debug']);
+		$ret=update($array,$tbl,str_replace("\\'","'",$_REQUEST['v_d']),$_GET['debug']);
 		/*
 		foreach($imagenes as $i=>$imas){
 			//echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id2;
-			eliminar_imagenes($datos_tabla,$_POST['v_d']);
+			eliminar_imagenes($datos_tabla,$_REQUEST['v_d']);
 			if($imas[1]=='eliminar'){
-				update(array(str_replace("upload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_POST['v_d']),0);
+				update(array(str_replace("upload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_REQUEST['v_d']),0);
 			} else {
 				grabar_imagen($imas[0],$imas[1],$imas[2],$imas[3],str_replace("\\","",$id2));
 				//prin($imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".str_replace("\\","",$id2));
@@ -393,9 +394,9 @@ switch($_GET['f']){
 		}
 		foreach($ficheros as $i=>$imas){
 			//echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id2;
-			//eliminar_ficheros($datos_tabla,$_POST['v_d']);
+			//eliminar_ficheros($datos_tabla,$_REQUEST['v_d']);
 			if($imas[1]=='eliminar'){
-				update(array(str_replace("stoupload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_POST['v_d']),0);
+				update(array(str_replace("stoupload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_REQUEST['v_d']),0);
 			} else {
 				grabar_fichero($imas[0],$imas[1],$imas[2],$imas[3],str_replace("\\","",$id2));
 				//prin($imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".str_replace("\\","",$id2));
@@ -409,7 +410,7 @@ switch($_GET['f']){
 
 		}
 		*/
-		$url=$SERVER['BASE'].$oce."?".trim(str_replace(array("where ","'"," in ","(",")"),array("","","=","",""),$_POST['v_d']))."&v_o=".$_REQUEST['v_o']."&".http_build_query($_SESSION);
+		$url=$SERVER['BASE'].$oce."?".trim(str_replace(array("where ","'"," in ","(",")"),array("","","=","",""),$_REQUEST['v_d']))."&v_o=".$_REQUEST['v_o']."&".http_build_query($_SESSION);
 		if($oce!=''){
 			if(file_exists($oce)){
 				$ret['onedit']="1"; $ret['edit']=file_get_contents($url); $ret['url']=$url;
@@ -419,7 +420,7 @@ switch($_GET['f']){
 
 		if($psc!='')
 		{
-			$iii=trim(str_replace(array("id","where ","'"," in ","(",")"),array("","","=","",""),$_POST['v_d']));
+			$iii=trim(str_replace(array("id","where ","'"," in ","(",")"),array("","","=","",""),$_REQUEST['v_d']));
 			include("postscript.php");
 		}
 
@@ -434,6 +435,11 @@ switch($_GET['f']){
 
 	break;
 	case "update":
+
+		$predirtren=dato("fecha_creacion",$tbl,str_replace("\\'","'",$_REQUEST['v_d']));
+		$dirtren=substr($predirtren,0,4).substr($predirtren,5,2).substr($predirtren,8,2);
+
+		$update_fecha_creacion=false;
 
 		$imagenes=array();
 		$ficheros=array();
@@ -452,18 +458,26 @@ switch($_GET['f']){
 			} else {
 				if($c!='v_t' and $c!='v_d' and $c!='v_o'){
 					$vv=removeemptytags($v);
-					$array[$c]=($vv=='')?'NULL':$vv;
+
+					if($objeto_tabla[$_REQUEST['v_o']]['campos'][$c]['format']=='currency'){
+						$array[$c]=($vv=='')?'NULL':str_replace(",", "", $vv);
+					} else {
+						$array[$c]=($vv=='')?'NULL':$vv;						
+					}
+
 				}
 			}
 		}
 		//echo "<pre>"; print_r($imagenes); echo "</pre>";
 		//$_GET['debug']=1;
-		$ret=update($array,$tbl,str_replace("\\'","'",$_POST['v_d']),$_GET['debug']);
+		$ret=update($array,$tbl,str_replace("\\'","'",$_REQUEST['v_d']),$_GET['debug']);
+
 		foreach($imagenes as $i=>$imas){
 			//echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id2;
-			eliminar_imagenes($datos_tabla,$_POST['v_d']);
+			
+			// eliminar_imagenes($datos_tabla,$_REQUEST['v_d']);
 			if($imas[1]=='eliminar'){
-				update(array(str_replace("upload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_POST['v_d']),0);
+				update(array(str_replace("upload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_REQUEST['v_d']),0);
 			} else {
 				grabar_imagen($imas[0],$imas[1],$imas[2],$imas[3],str_replace("\\","",$id2));
 				//prin($imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".str_replace("\\","",$id2));
@@ -472,9 +486,9 @@ switch($_GET['f']){
 
 		foreach($ficheros as $i=>$imas){
 			//echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id2;
-			//eliminar_ficheros($datos_tabla,$_POST['v_d']);
+			//eliminar_ficheros($datos_tabla,$_REQUEST['v_d']);
 			if($imas[1]=='eliminar'){
-				update(array(str_replace("stoupload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_POST['v_d']),0);
+				update(array(str_replace("stoupload_","",$imas[0])=>'NULL'),$tbl,str_replace("\\'","'",$_REQUEST['v_d']),0);
 			} else {
 				grabar_fichero($imas[0],$imas[1],$imas[2],$imas[3],str_replace("\\","",$id2));
 				//prin($imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".str_replace("\\","",$id2));
@@ -488,7 +502,7 @@ switch($_GET['f']){
 
 		}
 
-		$url=$SERVER['BASE'].$oce."?".trim(str_replace(array("where ","'"),array("",""),$_POST['v_d']))."&v_o=".$_REQUEST['v_o']."&".http_build_query($_SESSION);
+		$url=$SERVER['BASE'].$oce."?".trim(str_replace(array("where ","'"),array("",""),$_REQUEST['v_d']))."&v_o=".$_REQUEST['v_o']."&".http_build_query($_SESSION);
 		if($oce!=''){
 			if(file_exists($oce)){
 				$ret['onedit']="1"; $ret['edit']=file_get_contents($url); $ret['url']=$url;
@@ -497,7 +511,7 @@ switch($_GET['f']){
 		$id2=stripslashes($id2);
 
 		if($psc!=''){
-			$iii=trim(str_replace("'","",str_replace("where id=","",$_POST['v_d'])));
+			$iii=trim(str_replace("'","",str_replace("where id=","",$_REQUEST['v_d'])));
 			include("postscript.php");
 		}
 

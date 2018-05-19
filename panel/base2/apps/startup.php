@@ -176,6 +176,13 @@ return [
 	fclose($f1);	
 
 
+
+	$f1=fopen($NuevaCarpeta."/touch.json","w+");
+	fwrite($f1,'{"v":"1"}');
+	fclose($f1);	
+
+
+
 	$f1=fopen($NuevaCarpeta."/app/config/start.php","w+");
 	fwrite($f1,"<?php
 
@@ -184,6 +191,24 @@ return [
 	'name'	=>'".$this_project['nombre']."',
 
 	'visitors'	=>false,
+
+	'web'	=> [
+	
+		'name_short' =>'".$this_project['nombre']."',
+		'email'      =>'info@".$this_project['dominio']."',
+		'phone'      =>'(+511) 333 - 3333',
+		'mobile'     =>'999-999-999',
+
+		'address'    =>'Av. Arenales 1724 Dpto 509 Lince',
+		'lat'        =>'-12.0819534',
+		'lon'        =>'-77.0383133',
+		
+		'whatsapp'   =>'999-999-999',
+		'twitter'    =>'https://twitter.com/',
+		'facebook'   =>'https://www.facebook.com/',
+		'youtube'    =>'https://www.youtube.com/',
+
+	],
 
 	'local' => [
 		

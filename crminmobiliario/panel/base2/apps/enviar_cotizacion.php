@@ -2,6 +2,23 @@
 
 // prin($_GET);
 
+
+switch($_GET['tab']){
+	case "deljefe": 
+		$speeches_tabla="speeches_asesor";
+		$status_actividad=9;		
+	break;
+	case "deladmin": 
+		$speeches_tabla="speeches_asesor";
+		$status_actividad=10;				
+	break;
+	default:
+		$speeches_tabla="speeches";		
+		$status_actividad=1;		
+	break;
+}
+
+
 if($_GET['ajax']=='1'){
 	
 	chdir("../../");	
@@ -32,6 +49,7 @@ include("config/library.php");
 
 		$linea=select_fila(
 							array(
+							"fecha_creacion",
 							"id",
 							"id_cliente",
 							"id_item",
@@ -57,7 +75,7 @@ include("config/library.php");
 							0,
 							array(
 								'cliente'	=>array('fila'=>array('empresa,nombre,apellidos,genero,email,dni,telefono,telefono_oficina,celular_claro,celular_movistar,nextel','clientes','where id="{id_cliente}"')),
-								'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma,telefono_oficina,celular_claro,celular_movistar','usuarios','where id="{id_usuario}"')),
+								'usuario'	=>array('fila'=>array('id_jefe,nombre,apellidos,genero,email,firma,telefono_oficina,celular_claro,celular_movistar','usuarios','where id="{id_usuario}"')),
 								// 'usuario'	=>array('fila'=>array('nombre,apellidos,genero,email,firma','usuarios','where id="{id_usuario}"')),
 								//'grupo'		=>array('fila'=>array('nombre','productos_grupos','where id="{id_grupo}"')),
 								//'tipo'		=>array('fila'=>array('nombre','productos_tipo','where id="{id_tipo}"')),
@@ -185,11 +203,11 @@ include("config/library.php");
 
 				$unos=between($_POST['msg'],"<!--","-->");
 
-				$ID_SPEECH=dato("id","speeches","where nombre='".$unos[1]."'",0);			
+				$ID_SPEECH=dato("id",$speeches_tabla,"where nombre='".$unos[1]."'",0);			
 
 				$insertado_mensaje=insert(array(
 								'id_grupo'=>$_GET['id'],
-								'tipo'=>'1',
+								'tipo'=>$status_actividad,
 								'nombre'=>$_POST['subject'],
 								'id_speech'=>$ID_SPEECH,
 								'fecha_creacion'=>"now()",
@@ -206,7 +224,7 @@ include("config/library.php");
 												)
 										 ,array(
 										 		$vars_server['httpfiles']."/imagenes_dir/",
-				"<a href='http://crminmobiliario.info/index.php?modulo=items&tab=productos_imprimir&acc=file&id_mensaje=".$insertado_mensaje['id']."&id_usuario=".$linea['id_usuario']."'>IMPRIMIR</a>",								 
+				"<a href='http://crmsche.info/index.php?modulo=items&tab=productos_imprimir&acc=file&id_mensaje=".$insertado_mensaje['id']."&id_usuario=".$linea['id_usuario']."'>IMPRIMIR</a>",								 
 										 		),$_POST['msg']);
 									update(array(
 												'texto'=>$_POST['msg'],
@@ -225,22 +243,70 @@ include("config/library.php");
 							,'Logo'=>$linea['cuenta']['logo']
 							));
 				*/
-				$email_cliente=enviar_email(
-							array(
-							'emails'=>array(
-											'ecanevello@schgrupo.com',
-											'guillermolozan@gmail.com',
-											$linea['cliente']['email'],
-											$linea['usuario']['email'],
-											'wtavara@prodiserv.com',
-											)
-							,'Subject'=>$_POST['subject']
-							,'body'=>$_POST['msg'].$style
-							,'From'=>$linea['usuario']['email']
-							,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos'] 
-							,'Logo'=>$linea['cuenta']['logo']
-							)
-						);	
+			
+
+
+				switch($_GET['tab']){
+					case "deljefe":
+
+						$email_cliente=enviar_email(
+									array(
+									'emails'=>array(
+													'ecanevello@schgrupo.com',
+													'guillermolozan@gmail.com',
+													$linea['usuario']['email'],
+													'wtavara@prodiserv.com',
+													)
+									,'Subject'=>$_POST['subject']
+									,'body'=>$_POST['msg'].$style
+									,'From'=>dato("email","usuarios2","where id=".$linea['usuario']['id_jefe'])
+									,'FromName'=>dato("nombre","usuarios2","where id=".$linea['usuario']['id_jefe']).' '.dato("apellidos","usuarios2","where id=".$linea['usuario']['id_jefe'])
+									,'Logo'=>$linea['cuenta']['logo']
+									)
+								);	
+
+					case "deladmin": 
+
+						$email_cliente=enviar_email(
+									array(
+									'emails'=>array(
+													'ecanevello@schgrupo.com',
+													'guillermolozan@gmail.com',
+													$linea['usuario']['email'],
+													'wtavara@prodiserv.com',
+													)
+									,'Subject'=>$_POST['subject']
+									,'body'=>$_POST['msg'].$style
+									,'From'=>'administrador'
+									,'FromName'=>'Administrador'
+									,'Logo'=>$linea['cuenta']['logo']
+									)
+								);	
+
+					break;
+					default:
+
+						$email_cliente=enviar_email(
+									array(
+									'emails'=>array(
+													'ecanevello@schgrupo.com',
+													'guillermolozan@gmail.com',
+													$linea['cliente']['email'],
+													$linea['usuario']['email'],
+													'wtavara@prodiserv.com',
+													)
+									,'Subject'=>$_POST['subject']
+									,'body'=>$_POST['msg'].$style
+									,'From'=>$linea['usuario']['email']
+									,'FromName'=>$linea['usuario']['nombre']." ".$linea['usuario']['apellidos'] 
+									,'Logo'=>$linea['cuenta']['logo']
+									)
+								);	
+
+					break;
+				}
+
+
 
 
 				print_r($email_cliente);			
@@ -252,10 +318,8 @@ include("config/library.php");
 
 		
 
-
 		//prin($linea);
-		$tbcampos=array(
-						'from'		=>array(
+		$tbcampos['from']		=array(
 							'campo'			=> 'from',
 							'label'			=> 'Desde',
 							'tipo'			=> 'inp',
@@ -264,8 +328,9 @@ include("config/library.php");
 							'derecha'		=> '1',
 							'constante'		=> ($_GET['id']=='')?'0':'1',
 							'default'		=> ($linea['usuario']['email']=='')?dato("valor","configuraciones_root","where variable='email_from'"):$linea['usuario']['nombre']." ".$linea['usuario']['apellidos']."&lt;".$linea['usuario']['email']."&gt;",
-						),
-						'mailto'		=>array(
+						);
+
+		$tbcampos['mailto']	=array(
 							'campo'			=> 'mailto',
 							'label'			=> 'Para',
 							'tipo'			=> ($_GET['id']=='')?'inp':'hid',
@@ -275,19 +340,41 @@ include("config/library.php");
 							'constante'		=> ($_GET['id']=='')?'0':'1',
 							'default'		=> $linea['id_cliente'],
 							'opciones'		=> 'id,nombre;apellidos;email|clientes',
-						),
+						);
 
-						'asunto'		=>array(
+
+		$tbcampos['asunto']	=array(
 							'campo'			=> 'asunto',
 							'label'			=> 'Asunto',
 							'tipo'			=> 'inp',
 							'style'			=> 'width:400px;',							
 							'size'			=> '250',	
 							'derecha'		=> '1',
-							'default'		=> ($_GET['id']=='')?'Cotización':'Cotización &quot;'.$linea['item']['nombre'].'&quot;'
-						),
+							'default'		=> ($_GET['id']=='')?'Presentación':'Presentación &quot;'.$linea['item']['nombre'].'&quot;'
+						);
 
-						'texto'			=>array(
+
+		if($_GET['tab']=='deljefe'){
+
+			$tbcampos['from']['default']  =dato("nombre","usuarios2","where id=".$linea['usuario']['id_jefe'])." ".dato("apellidos","usuarios2","where id=".$linea['usuario']['id_jefe']);
+			$tbcampos['mailto']['opciones']='id,nombre;apellidos;email|usuarios';
+			$tbcampos['mailto']['default']=$linea['id_usuario'];
+			$tbcampos['asunto']['default']='Mensaje del Jefe';
+
+		}
+
+
+		if($_GET['tab']=='deladmin'){
+
+			$tbcampos['from']['default']  ='Administrador';
+			$tbcampos['mailto']['opciones']='id,nombre;apellidos;email|usuarios';
+			$tbcampos['mailto']['default']=$linea['id_usuario'];
+			$tbcampos['asunto']['default']='Mensaje del Administrador';
+
+		}
+
+
+		$tbcampos['texto']	=array(
 							'campo'			=> 'texto',
 							'label'			=> '',
 							'tipo'			=> 'html',
@@ -296,7 +383,9 @@ include("config/library.php");
 							'derecha'		=> '1',
 							//'css'			=> 'table { width:100%; margin-bottom:10px; background:none; } table td, table th { border:0 !important; padding:0px !importat;}',
 							'default'		=> '',
-							'botones'		=> 'nombre,texto|speeches|where id_item='.$linea['id_item'],
+							
+							'botones'		=> ($speeches_tabla=='speeches') ? 'nombre,texto|speeches|where visibilidad=1 and id_item='.$linea['id_item'] : 'nombre,texto|speeches_asesor|where 1',
+							
 							'variables'		=> array(		
 								'ESTIMADO'          =>($linea['cliente']['genero']=='2')?'Estimada':'Estimado',
 								'SR'                =>($linea['cliente']['genero']=='2')?'Sra.':'Sr.',
@@ -312,10 +401,18 @@ include("config/library.php");
 								'FICHA'             =>"<span class=\"id_speech\"></span>".str_replace("'","\"",$Producto),	
 								'FIRMA'             =>str_replace("'","\"",$linea['usuario']['firma']),
 								'IMPRIMIR'          =>str_replace("'","\"","<a href='http://crmsche.info/cotizacion/".$linea['id']."/imprimir'>IMPRIMIR</a>"),
-							)
-					),
 
-		);
+
+								'COTIZACION'		  => ''
+															 .'PROYECTO: '.$linea['item']['nombre'].'<br>'
+															 .'COTIZACIÓN: <a href="http://crmsche.info/panel/custom/ventas_items.php?i='.$linea['id'].'">#'.$linea['id'].'</a><br>'
+															 .'FECHA '.fecha_formato($linea['fecha_creacion'],'8b').'<br>'
+															 .'CLIENTE: '.strtoupper($linea['cliente']['nombre'].' '.$linea['cliente']['apellidos'])."<br>"
+
+							)
+					);
+
+		
 		// prin($tbcampos);
 		//prin($Productos[$linea['id_item']]);
 	?>
@@ -360,7 +457,7 @@ include("config/library.php");
 
 			var msg=CKEDITOR.instances.in_texto.getData();
 			crear_loading("Enviando");
-			new Request({url:"base2/apps/enviar_cotizacion.php?id=<?php echo $_GET['id'];?>&ajax=1",method:'post',data:{'msg':msg,'subject':$('in_asunto').value},onSuccess:function(eee){
+			new Request({url:"base2/apps/enviar_cotizacion.php?id=<?php echo $_GET['id'];?>&tab=<?php echo $_GET['tab'];?>&ajax=1",method:'post',data:{'msg':msg,'subject':$('in_asunto').value},onSuccess:function(eee){
 
 			alert('mensaje enviado');
 			window.close();
@@ -415,7 +512,60 @@ include("config/library.php");
 		</style> 
 
 	</div>
-<script language="JavaScript" type="text/javascript"> 
-	window.moveTo(0,0); 
-	window.resizeTo(1080,750); 
-</script> 
+
+<script language="JavaScript" type="text/javascript">
+
+window.moveTo(0,0);
+
+window.resizeTo(1100,750);
+
+<?php
+
+$NUM_ALERTAS_PENDIENTES=contar('ventas_mensajes','where id_grupo="'.$_GET['id'].'" and alerta_fecha>NOW() ',0);
+
+$id_venta=$_GET['id'];
+
+if($_GET['tab']==''){
+
+echo "
+window.addEvent('domready', function(){
+
+	new Element('a', {
+
+				'id':'imprimir-button',
+				'html': '". ( ($NUM_ALERTAS_PENDIENTES==0)?"ANTES DEBES PROGRAMAR ALERTA":"ENVIAR") ."',
+				'title': '". ( ($NUM_ALERTAS_PENDIENTES==0)?"Debe programar una alerta para poder enviar":"click para enviar") ."',
+				'class':'btn btn-small ". ( ($NUM_ALERTAS_PENDIENTES==0)?"btn-danger":"btn-primary") ."',
+				'styles': {
+	 				'position'	: 'absolute',
+					'right'		: '10px',
+					'top'		: '10px',
+					'cursor'	: 'pointer',
+					'z-index'	: 1
+				},
+				'events': {
+	                'click': function(el){
+					".( ($NUM_ALERTAS_PENDIENTES==0)?"parent.program_alert($id_venta);parent.initMultiBox.close();":"enviar()" ) ."
+            		}
+    		    }
+	}).inject($(document.body), 'top');
+
+	$0('in_submit');
+
+});
+/*
+function imprimir(){
+$0('imprimir-button');
+window.print();
+new Request({url:'panel/base2/imprimir_click.php',method:'post',data:{'id_venta':'$id_venta'},onSuccess:function(eee){
+	parent.ax('recargar');
+    parent.initMultiBox.close();
+}});
+}
+*/
+";
+
+}
+
+?>
+</script>

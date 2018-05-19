@@ -20,6 +20,8 @@ var errores=[];
 errores[1]="los campos con * son obligatorios";
 errores[2]="no coinciden las contraseñas";
 errores[3]="datos de login incorrectos";
+errores[4]="formato de email incorrecto";
+errores[5]="formato de dni incorrecto";
 var Loren_ipsum='<?php echo $LOREN_IPSUM;?>';
 var Recargar='ajax';
 var mooedit;
@@ -31,6 +33,7 @@ var MMEE="<?php echo $datos_tabla['me'];?>";
 var USU_IMG_DEFAULT="<?php echo $USU_IMG_DEFAULT;?>";
 var json;<?php
 ?>function ax(accion,id,pag){
+console.log(accion);
 switch(accion){
 case "set_fila_2":
 $("exl_"+id).setStyles({'display':'none'});
@@ -73,6 +76,7 @@ if($('inner_span_tren2'))
 $('inner_span_tren2').innerHTML=$('inner_hidden_tren').value;<?php
 if($needs['img']){
 ?>charge_multibox();<?php
+?>if($('nfilter').value!='filter='){ window.location.hash='#'+$('nfilter').value; }<?php
 }
 if($needs['mootooltips']){
 ?>charge_tooltips();<?php
@@ -80,8 +84,29 @@ if($needs['mootooltips']){
 ?>charge_submenus();alljsloads();<?php
  ?>
 break;
+/*
+case "recargar_hash":
+$1('refresh');
+$1('refresh-cover');
+new Request({url:"vista.php?OB="+MMEE+"&"+$v('nfilter')+&ran=1",  method:'get', onSuccess:function(ee) {
+// console.log(ee);
+$('inner').innerHTML=ee;
+if($('resaltar').value!=''){
+$($('resaltar').value).highlight('#FF0', '#FFF');
+var resal = $('resaltar').value;
+$($('resaltar').value).setStyles({'border-top':'1px solid #333','border-bottom':'1px solid #333','border-left':'1px solid #333','border-right':'1px solid #333'});
+setTimeout("\$('"+resal+"').setStyles({'border':'0px'});",8000);
+$('resaltar').value='';
+}
+ax('actualizar_total',this.value);
+$0('refresh');
+$0('refresh-cover');
+} } ).send();
+break;
+*/
 case "recargar":
 $1('refresh');
+$1('refresh-cover');
 new Request({url:"vista.php?OB="+MMEE+"&pag="+$v('pagina')+"<?php echo $datos_tabla['get_id'].'&'.$SERVER['PARAMS']?>&ran=1",  method:'get', onSuccess:function(ee) {
 // console.log(ee);
 $('inner').innerHTML=ee;
@@ -94,10 +119,12 @@ $('resaltar').value='';
 }
 ax('actualizar_total',this.value);
 $0('refresh');
+$0('refresh-cover');
 } } ).send();
 break;
 case "recargar_buscar":
 $1('refresh');
+$1('refresh-cover');
 new Request({url:"vista.php?OB="+MMEE+"&buscar=<?php echo addslashes($_GET['buscar']);?>&pag="+$v('pagina')+"&ran=1<?php echo $datos_tabla['get_id']?>",  method:'get', onSuccess:function(ee) {
 $('inner').innerHTML=ee;
 if($('resaltar').value!=''){
@@ -109,11 +136,13 @@ $('resaltar').value='';
 }
 ax('actualizar_total',this.value);
 $0('refresh');
+$0('refresh-cover');
 } } ).send();
 break;
 case "recargar_file":
 //alert(9);
 $1('refresh');
+$1('refresh-cover');
 new Request({url:"vista.php?OB="+MMEE+"&i=<?php echo $_GET['i'];?>&ran=1<?php echo $datos_tabla['get_id']?>",  method:'get', onSuccess:function(ee) {
 $('inner').innerHTML=ee;
 if($('resaltar').value!=''){
@@ -125,10 +154,12 @@ $('resaltar').value='';
 }
 ax('actualizar_total',this.value);
 $0('refresh');
+$0('refresh-cover');
 } } ).send();
 break;
 case "recargar_filter":
 $1('refresh');
+$1('refresh-cover');
 new Request({url:"vista.php?OB="+MMEE+"&filter=<?php echo $_GET['filter'];?>&pag="+$v('pagina')+"&ran=1<?php echo $datos_tabla['get_id']?>",  method:'get', onSuccess:function(ee) {
 $('inner').innerHTML=ee;
 if($('resaltar').value!=''){
@@ -140,10 +171,12 @@ $('resaltar').value='';
 }
 ax('actualizar_total',this.value);
 $0('refresh');
+$0('refresh-cover');
 } } ).send();
 break;
 case "recargar_filtro":
 $1('refresh');
+$1('refresh-cover');
 new Request({url:"vista.php?OB="+MMEE+"&filtro=<?php echo $_GET['filtro'];?>&pag="+$v('pagina')+"&ran=1<?php echo $datos_tabla['get_id']?>",  method:'get', onSuccess:function(ee) {
 $('inner').innerHTML=ee;
 if($('resaltar').value!=''){
@@ -155,30 +188,41 @@ $('resaltar').value='';
 }
 ax('actualizar_total',this.value);
 $0('refresh');
+$0('refresh-cover');
 } } ).send();
 break;
 case "excel":
 location.href="vista.php?OB="+MMEE+"&filter="+id+"&format=excel&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>"+(($('ffilter')?'&filter='+$('ffilter').value:''));
 break;
+case "gm":
+// urll="vista.php?OB="+MMEE+"&filter="+id+"&format=excel&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>"+(($('ffilter')?'&filter='+$('ffilter').value:''));
+// console.log(urll);
+// location.href=urll;
+break;
 case "pagina":
 $1('refresh');
-new Request({url:"vista.php?OB="+MMEE+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); } } ).send();
+$1('refresh-cover');
+new Request({url:"vista.php?OB="+MMEE+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); $0('refresh-cover'); } } ).send();
 break;
 case "pagina_buscar":
 $1('refresh');
-new Request({url:"vista.php?OB="+MMEE+"&buscar="+id+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); } } ).send();
+$1('refresh-cover');
+new Request({url:"vista.php?OB="+MMEE+"&buscar="+id+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); $0('refresh-cover'); } } ).send();
 break;
 case "pagina_file":
 $1('refresh');
-new Request({url:"vista.php?OB="+MMEE+"&i="+id+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); } } ).send();
+$1('refresh-cover');
+new Request({url:"vista.php?OB="+MMEE+"&i="+id+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); $0('refresh-cover'); } } ).send();
 break;
 case "pagina_filter":
 $1('refresh');
-new Request({url:"vista.php?OB="+MMEE+"&filter="+id+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); } } ).send();
+$1('refresh-cover');
+new Request({url:"vista.php?OB="+MMEE+"&filter="+id+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); $0('refresh-cover'); } } ).send();
 break;
 case "pagina_filtro":
 $1('refresh');
-new Request({url:"vista.php?OB="+MMEE+"&filtro="+id+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); } } ).send();
+$1('refresh-cover');
+new Request({url:"vista.php?OB="+MMEE+"&filtro="+id+"&pag="+pag+"&ran=1<?php echo $datos_tabla['get_id']?>", method:'get', onSuccess:function(ee) { $('inner').innerHTML=ee; ax('actualizar_total',this.value); $0('refresh'); $0('refresh-cover'); } } ).send();
 break;
 case "buscar":
 if( (id.trim()=='')||(id.trim()==pag) ){ return; }
@@ -189,9 +233,70 @@ new Request({url:"vista.php?OB="+MMEE+"&buscar="+id+"&ran=1<?php echo $datos_tab
  $('buscar_span').innerHTML='<a href="" onclick=\'$("buscar_span").innerHTML="";ax("pagina","",1);return false;\' >volver</a>';
  } } ).send();
 break;
+case "validar_crear":<?php
+?>var ret=true;<?php
+foreach($tbcampos as $tbcampA){
+	
+	if($tbcampA['subvalidacion']=='email'){
+		?>if(!validateEmail($v('in_<?php echo $tbcampA['campo']?>').trim())){ show_error(4,'<?php echo $tbcampA['label']?>'); ret=false; }; <?php
+	}	
+	if($tbcampA['subvalidacion']=='dni'){
+		?>if(!validateDni($v('in_<?php echo $tbcampA['campo']?>').trim())){ show_error(5,'<?php echo $tbcampA['label']?>'); ret=false; }; <?php
+	}
+
+	if(in_array($tbcampA['subtipo'],['dni','email'])){
+		?>if(validateEmail($v('upload_in_<?php echo $tbcampA['campo']?>').trim())){  }; <?php
+	}
+	if($tbcampA['validacion']=='1' or $tbcampA['validacion_crear']=='1'){
+	 if($tbcampA['constante']=='1'){ continue; }
+	 if($tbcampA['tipo']=='img'){
+		?> if($v('upload_in_<?php echo $tbcampA['campo']?>').trim()==''){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; } <?php
+	 } elseif($tbcampA['tipo']=='sto'){
+		?>if($v('upload_in_<?php echo $tbcampA['campo']?>').trim()==''){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; } <?php
+	 } elseif($tbcampA['tipo']=='pas'){
+		?>	if($v('in_<?php echo $tbcampA['campo']?>').trim()==''){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; }
+		if($v('in_<?php echo $tbcampA['campo']?>').trim()!=$v('in_<?php echo $tbcampA['campo']?>_2').trim()){ show_error(2,''); ret=false; } <?php
+	 } elseif($tbcampA['tipo']=='html'){ 
+	 	// ?>console.log( CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData() );<?php
+		?>if( CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData() =='' || CKEDITOR.instances.in_<?=$tbcampA['campo']?>.getData() =='<p></p>' ){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; } <?php
+	 } elseif($tbcampA['tipo']=='fch'){ 
+// ?> var validacion_fecha=true;
+		var valor_fecha=$v('in_<?php echo $tbcampA['campo']?>');
+		var ffeec2=eval( valor_fecha.substring(0,4)*10000 + valor_fecha.substring(5,7)*100 + valor_fecha.substring(8,10)*1 );
+		var d = new Date();
+		var nn=eval(d.getFullYear()*10000 + d.getMonth()*100 + 100 + d.getDate()*1);
+			// console.log(ffeec2);
+			// console.log(nn);
+		// if( ffeec2>20180000)
+		if( ffeec2*1 < nn*1 ){
+			// console.log('fecha no valida');
+			validacion_fecha=false;
+// 			// validacion_text='fecha no válida';					
+		}
+		if(!validacion_fecha){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; }
+	<?php
+		/* ?>if($v('in_<?php echo $tbcampA['campo']?>').trim()==''){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; } <?php */
+	 } else {
+		?>if($v('in_<?php echo $tbcampA['campo']?>').trim()==''){ show_error(1,'<?php echo $tbcampA['label']?>'); ret=false; } <?php
+	 }
+ }
+}
+?>  return ret;
+break;
 case "validar":<?php
 ?>var ret=true;<?php
 foreach($tbcampos as $tbcampA){
+	
+	if($tbcampA['subvalidacion']=='email'){
+		?>if(!validateEmail($v('in_<?php echo $tbcampA['campo']?>').trim())){ show_error(4,'<?php echo $tbcampA['label']?>'); ret=false; }; <?php
+	}	
+	if($tbcampA['subvalidacion']=='dni'){
+		?>if(!validateDni($v('in_<?php echo $tbcampA['campo']?>').trim())){ show_error(5,'<?php echo $tbcampA['label']?>'); ret=false; }; <?php
+	}
+
+	if(in_array($tbcampA['subtipo'],['dni','email'])){
+		?>if(validateEmail($v('upload_in_<?php echo $tbcampA['campo']?>').trim())){  }; <?php
+	}
 	if($tbcampA['validacion']=='1'){
 	 if($tbcampA['constante']=='1'){ continue; }
 	 if($tbcampA['tipo']=='img'){
@@ -224,7 +329,14 @@ case "resetear":
 	}
 	if($tbcampA['indicador']=='1'){	continue; }
 	if($tbcampA['constante']=='1'){	continue; ?> $('in_<?php echo $tbcampA['campo']?>').disabled=false; <?php }
-	if($tbcampA['noedit']=='1'){ ?> $('in_<?php echo $tbcampA['campo']?>').removeProperty('disabled'); <?php }
+	if($tbcampA['noedit']=='1'){ 
+		if($tbcampA['directlink']!=''){
+		?>$('in_<?php echo $tbcampA['campo']?>_dl').removeProperty('disabled');
+		$0('span_<?php echo $tbcampA['campo']?>_dl'); <?php
+		} else {
+		?>$('in_<?php echo $tbcampA['campo']?>').removeProperty('disabled'); <?php
+		}
+	}
 	switch($tbcampA['tipo']){
 	case "img":
 	?>reset_img_foto('<?php echo $tb?>','<?php echo $tbcampA['campo']?>');<?php
@@ -294,7 +406,7 @@ ax("insertar_interno");
 break;
 case "insertar_interno":
 hide_error();
-if(ax("validar")==true){
+if(ax("validar_crear")==true){
 if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'opacity':'0.4'});
 $('in_submit').value='creando...';
 $('in_submit').disabled=true;
@@ -693,7 +805,12 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 		}
 		}
 		if($tbcampA['noedit']=='1'){
+		if($tbcampA['directlink']!=''){
+		?>$('in_<?php echo $tbcampA['campo']?>_dl').setProperties({'disabled':'true'});
+		$0('span_<?php echo $tbcampA['campo']?>_dl');<?php
+		} else {
 		?>$('in_<?php echo $tbcampA['campo']?>').setProperties({'disabled':'true'});<?php
+		}
 		}
 		}
 	}
@@ -1119,7 +1236,9 @@ foreach($tbcampos as $tbcampA){
 } */ ?>
 precrear_loaded=0;
 function pre_crear(next){
-if(precrear_loaded){ if(next){ eval(next); } return;
+// alert(next);
+if(precrear_loaded){ 
+	if(next){ eval(next); } return;
 }
 
 <?php
@@ -1165,12 +1284,17 @@ $0('cargando_form');
 }
 
 function load_crear(){
+// alert('1');
 $1('cargando_form');
+// alert('2');
 new Request({url:'formulario.php?OB='+MMEE+'&ran=1&proceso=<?php echo $Proceso;?>&<?php echo $SERVER['PARAMS'];?>',  method:'get', onSuccess:function(ee) {
+// alert('3');	
 $('bloque_content_crear').setStyles({'display':''});
 $('bloque_content_crear').innerHTML=ee;
 charge_multibox('#bloque_content_crear .mb');
+// alert('8');
 pre_crear();
+// alert('9');
 $0('cargando_form');
 } } ).send();
 }

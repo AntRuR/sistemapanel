@@ -32,6 +32,10 @@ $fila=fila("
 
 	0);
 
+	$venta=fila("id","productos_ventas",'where id_ventas_item='.$fila['id'],0);
+	// prin($venta);
+
+	// prin($fila['pedido']);
 	
 	if(sizeof(json_decode($fila['pedido']))>0){
 		echo '<table class="tabla_objetos table table-bordered">
@@ -59,6 +63,9 @@ $fila=fila("
 			$fila0=fila("id_status",$tt,"where id=".$pedido->id,0,['status'=>['fila'=>['nombre,color','productos_stock_status','where id={id_status}',0]]]);						
 
 
+			// prin($fila0['id_status']);
+
+
 			if($tt=='productos_items_items'){
 				$id_item_item=$pedido->id;
 			}
@@ -79,16 +86,36 @@ $fila=fila("
 			echo '<td><span style="color:white;background:'.$fila0['status']['color'].';">'.$fila0['status']['nombre'].'</span></td>';
 			echo '</tr>';
 
-			if(in_array($fila0['id_status'],[3,4]) and $proceder==1){ $proceder=0; } 
+			if(in_array($fila0['id_status'],[2,3,4]) and $proceder==1){ $proceder=0; } 
 
 		}
 		echo '</tbody>
 		</table>';
 	}
 
+	if(sizeof(json_decode($fila['pedido']))==0){
+
+		echo '<div class="alert alert-danger">
+		Esta atención no tiene ningun inmueble agregado<br>
+		Es necesario agregar inmueble antes de generar una venta</div>';
+
+		exit();
+
+	}
+
+	// if($venta['id']!=''){
+
+	// 	echo '<div class="alert alert-danger">El inmueble que desea vender ya está separado o vendido</div>';
+
+	// 	exit();		
+
+	// }
+
 	if(!$proceder){
 
 		echo '<div class="alert alert-danger">El inmueble que desea vender ya está separado o vendido</div>';
+
+		echo '<div><a target="_top" href="custom/productos_ventas.php?i='.$venta['id'].'"><b>IR A VENTA</b></a></div>';
 
 		exit();
 

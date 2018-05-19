@@ -2,6 +2,8 @@
 
 include("objeto.php");
 
+// prin($EXTRA_FILTRO);
+
 $avai=explode("|",$datos_tabla['mass_actions']);
 foreach($tbcampos as $tc=>$camp){
 	if(!in_array($camp['campo'],$avai)){
@@ -16,10 +18,10 @@ foreach($tbcampos as $tc=>$camp){
 	<div class="sv" id="load" style="display: none; top: -30px; left: 0px;">cargando...</div>
 
 	<h1 class="titulo_formulario" id="titulo_mass">
-		<a rel="nofollow" class="boton_right"
+<!-- 		<a rel="nofollow" class="boton_right"
 			onclick="javascript:ax('save_changes',$v('id_guardar'));return false;">Crear
 			<?php echo ucfirst($datos_tabla['nombre_singular']);?>
-		</a>
+		</a> -->
 		Acciones
 	</h1>
 	<?php
@@ -35,10 +37,9 @@ foreach($tbcampos as $tc=>$camp){
 	?><label>&nbsp;</label>
 	<?php
 	?><span id="error_creacion"
-		style="visibility:; float: left; padding: 5px 0; font-size: 12px;"><?php
+		style="padding: 5px 0; font-size: 12px;"><?php
 		if($numShowValCamps>0){
-        ?><span style="color: #222222;">los campos con * son
-				obligatorios</span>
+        ?><span style="color: #222222;">los campos con * son obligatorios</span>
 		<?php
 		}
 		?></span>
@@ -46,19 +47,16 @@ foreach($tbcampos as $tc=>$camp){
 	?></li>
 	<?php
 
-
 	?>
-	<li class="linea_form" id="linea_crear"><?php
-	if($_GET['block']!='form'){
-            ?><label>&nbsp;</label>
-	<?php } ?>
+	<li class="linea_form" id="linea_crear">
+
+		<?php if($_GET['block']!='form'){ ?><label>&nbsp;</label><?php } ?>
 
 		<input type="hidden" id="mode" value="mass" />
 
-		<input type="button" id="in_submit" class="form_boton_1" value="Guardar cambios" style="float: left;" onclick="ax('guardar_cambios','');" />
+		<input type="button" id="in_submit" class="btn btn-primary" value="Guardar cambios" onclick="ax('guardar_cambios','');" />
 
-		</li>
-
+	</li>
 </ul>
 <style>
 .bloque_content_crear {

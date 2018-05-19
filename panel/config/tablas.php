@@ -340,6 +340,7 @@ $objeto_tabla['PROYECTOS']=array(
 		'controles'		=> '
 		<a href="base/actualizar_panel.php">actualizar todos los paneles</a>
 		<a href="base/proceso_analisis.php">procesar análisis</a>
+		<a href="base/prueba2.php" target="_blank">prueba</a>		
 		',
 		'exportar_excel'	=> '1',
 		'por_pagina'	=> '50',
@@ -540,7 +541,8 @@ $objeto_tabla['PROYECTOS']=array(
 						),
 						'default'		=> '1',
 						'width'			=> '140px',
-						'derecha'		=> '2'
+						'derecha'		=> '2',
+						'queries'		=> '1'
 				),				
 
 				'seguro'		=>array(

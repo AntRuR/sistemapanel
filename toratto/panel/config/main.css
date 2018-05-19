@@ -1,0 +1,9 @@
+.modificador_grilla .itms_cont{
+	margin-right:0;
+}
+.itms .tite, .itms .itd {
+	border-right:0 !important;
+}
+.itms .itm .itd a {
+	display: none;
+}

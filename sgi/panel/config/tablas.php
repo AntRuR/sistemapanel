@@ -7,7 +7,7 @@ $objeto_tabla['PAGINAS']=array(
 		'tabla'			=> 'paginas',
 		'archivo'		=> 'paginas',
 		'prefijo'		=> 'pag',
-		'eliminar'		=> '1',
+		'eliminar'		=> '0',
 		'crear'			=> '0',
 		'editar'		=> '1',
 		'buscar'		=> '0',
@@ -90,7 +90,7 @@ $objeto_tabla['PAGINAS']=array(
 						'listable'		=> '1',
 						'validacion'	=> '1',
 						'constante'		=> '1',
-						'setup'			=> 'nosotros,tierras,servicios'
+						'setup'			=> 'nosotros,servicios'
 
 				),
 				'name'		=>array(

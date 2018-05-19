@@ -1,0 +1,37 @@
+/**
+
+ * BODY
+
+ */
+
+
+/*body { background: #F5F8FA!important ;}*/
+
+
+/*.main_content { padding: 0 0px; }*/
+
+
+
+
+
+/**
+ * MENU
+ */
+
+.ul_menus li.group a.padre {
+
+    background: #1ec154;
+    border-radius: 8px;
+    
+}
+.modulo_alumnos .cr_pl input[type=checkbox] {
+
+	display: none;
+
+}
+
+.bl .bld a {
+
+	float:right;
+	
+}

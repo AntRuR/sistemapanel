@@ -52,13 +52,14 @@ function getComisionDepa($id_item,$fecha,$id_usuario,$precio){
 		0
 		);
 
+	// prin($bono);
 
-	if(trim($bono['bono'])!='')
+	if(trim($bono['bono_porcentaje'])!='')
 		$valor = $bono['bono_porcentaje']*$precio;
 	else
 		$valor = $bono['bono'];
 
-
+	// prin($valor);
 	return $valor;
 
 	// return (1)?$bono['bono_porcentaje']*$precio/100:$bono['bono'];
