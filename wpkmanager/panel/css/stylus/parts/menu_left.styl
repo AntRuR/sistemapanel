@@ -1,0 +1,89 @@
+//
+
+
+
+
+
+    
+/**
+ * menu izquierda
+ */
+
+
+
+.ul_menus li span
+	&.menu_bi, &.menu_bd
+		display block
+
+
+ul.ul_menus li a.submenu
+	background url("../img/ico_subitem.png") no-repeat scroll -1px 3px transparent !important
+	font-size 11px !important
+	font-variant small-caps !important
+	font-weight bold !important
+	padding-left 10px !important
+
+
+a.derech
+a.derech2
+	background #ccc !important
+	float right
+	font-size 1em !important
+	padding 1px 2px !important
+	margin-left 1px
+	margin-top -17px
+
+
+.mmm
+	border 1px solid lighten(black,80)
+	padding 5px 0px 0 10px
+	float right
+	#msino,#mnosi
+		float right
+		margin-right 10px
+		font-family 'icomoon'
+		&:hover
+			text-decoration none
+		&:before
+			font-size 2em
+	#msino
+		&:before
+			content "\e68c"
+			color grey
+			font-weight normal
+	#mnosi
+		&:before
+			content "\e690"
+			color color_2
+			font-weight bold
+
+
+
+ul.ul_menus_empty
+	font-family 'icomoon'
+	color #666 !important
+	box-shadow none !important
+	&:before
+		content "\f06a"
+		font-size 10em
+		position absolute
+		top 112px
+		left 31%
+
+ul.ul_menus_empty_no:before
+	content "\e618"
+
+ul.ul_menus_empty_si:before
+	content "\e602"
+
+	
+
+.menu_colapsed 
+	#msino:before
+		color color_2
+		font-weight bold
+	#mnosi:before
+		color grey
+		font-weight normal
+
+
