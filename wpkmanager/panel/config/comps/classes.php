@@ -1,7 +1,7 @@
 <?php
 
 
-$objeto_tabla_common=[
+$objeto_tabla_common['base']=[
 	'id'			=>[
 			'campo'			=> 'id',
 			'tipo'			=> 'id'
@@ -28,7 +28,7 @@ $objeto_tabla_common=[
 	// ]
 ];
 
-$objeto_tabla_person=array_merge(
+$objeto_tabla_common['person']=array_merge(
 	// basico
 	[
 		'nombre'		=>array(

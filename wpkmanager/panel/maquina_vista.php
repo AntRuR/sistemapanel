@@ -3730,7 +3730,7 @@ if( $_GET['me']!='' and $_GET['accion']=='truncatetable' ){
 if( $_GET['me']!='' and ( $_GET['accion']=='creartabla' or $_GET['accion']=='creararchivostabla') ){
 	$sqls=explode(";",$sql);
 	foreach($sqls as $sql){
-	mysqli_query($link,$sql);
+		mysqli_query($link,$sql);
 	}
 	if( $_GET['accion']=='creararchivostabla' ){
 		$_GET['accion']='creararchivos';

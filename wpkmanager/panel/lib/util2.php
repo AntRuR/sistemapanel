@@ -241,7 +241,8 @@ foreach($obta['campos'] as $camp){
 		$Acampos2[]="PRIMARY KEY  (`".$camp['campo']."`)";
 	}
 	if(in_array($camp['tipo'],array('fcr','fed','fch'))){
-		$Acampos[]="`".$camp['campo']."` datetime default '0000-00-00 00:00:00'";
+		// $Acampos[]="`".$camp['campo']."` datetime default '0000-00-00 00:00:00'";
+		$Acampos[]="`".$camp['campo']."` datetime";
 	}
 	if(in_array($camp['tipo'],array('pos'))){
 		$Acampos[]="`".$camp['campo']."` int(10) default NULL";
