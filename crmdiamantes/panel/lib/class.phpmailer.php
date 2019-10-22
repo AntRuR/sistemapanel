@@ -938,7 +938,7 @@ class PHPMailer {
 
 
 
-    $toArr = split(',', $to);
+    $toArr = explode(',', $to);
 
 
 
@@ -1182,7 +1182,7 @@ class PHPMailer {
 
       $hostinfo = array();
 
-      if(eregi('^(.+):([0-9]+)$', $hosts[$index], $hostinfo)) {
+      if(!preg_match("/^[a-z ]+$/i", $hosts[$index], $hostinfo)) {
 
         $host = $hostinfo[1];
 
@@ -1317,7 +1317,7 @@ class PHPMailer {
    */
 
   function SetLanguage($lang_type = 'en', $lang_path = 'language/') {
-
+    
     if( !(@include $lang_path.'phpmailer.lang-'.$lang_type.'.php') ) {
 
       $this->SetError('Could not load language file');
@@ -2426,9 +2426,9 @@ class PHPMailer {
 
     }
 
-    $magic_quotes = get_magic_quotes_runtime();
+    // $magic_quotes = get_magic_quotes_runtime();
 
-    set_magic_quotes_runtime(0);
+    // set_magic_quotes_runtime(0);
 
     $file_buffer = file_get_contents($path);
 
@@ -2436,7 +2436,7 @@ class PHPMailer {
 
     fclose($fd);
 
-    set_magic_quotes_runtime($magic_quotes);
+    // set_magic_quotes_runtime($magic_quotes);
 
 
 

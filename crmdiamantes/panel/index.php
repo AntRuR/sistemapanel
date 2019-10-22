@@ -2,7 +2,6 @@
 include("lib/includes.php");
 
 
-
 $FILES=explode($_SERVER['SCRIPT_NAME'],$_SERVER['PHP_SELF']);
 $FILE=(!empty($FILES[1]))?$FILES[1]:$_SERVER['ORIG_PATH_INFO'];
 $FILE=str_replace("/","",$FILE);
@@ -76,11 +75,36 @@ include("lib/compresionInicio.php");
 
 include("head.php"); 
 
-$id_permisos=dato("id_permisos","usuarios_acceso","where id=".$_SESSION['usuario_id']);
+	// $unodos=get_defined_vars();
+
+	// show_variables2(array_diff_key(get_defined_vars(),$unodos),[
+	// 	'unodos',
+	// 	'datos_tabla',
+	// 	'tabla_sesion_datos_objeto',
+	// ]);	
+
+	// function show_variables2($debug,$except=[]){
+
+	// 	$debug_keys=array_keys($debug);
+	
+	// 	foreach($debug_keys as $debug_key){
+	// 		if(in_array($debug_key,$except)){
+	// 			unset($debug[$debug_key]);
+	// 		}
+	// 	}
+	// 	echo '<pre>';print_r($debug);echo '</pre>';die();
+		
+	// }
+
+// $id_permisos=dato("id_permisos","usuarios_acceso","where id=".$_SESSION['usuario_id'],0);
+
+// exit();
+
+$id_permiso=$_SESSION['permisos']['PERMISOS_ID'];
 
 ?>
 
-<body class="monitor acceso_<?=$_SESSION['usuario_id']?> <?=$MEEE['titulo']?> <?=($_COOKIE['admin'])?'permiso_master':'';?> permiso_<?=$id_permisos;?> modulo_<?=$FILE;?> <? echo ($_GET['justlist']==1)?'justlist':'';?> <?php
+<body class="monitor acceso_<?=$_SESSION['usuario_id']?> <?=$MEEE['titulo']?> <?=($_COOKIE['admin'])?'permiso_master':'';?> permiso_<?=$id_permiso;?> modulo_<?=$FILE;?> <? echo ($_GET['justlist']==1)?'justlist':'';?> <?php
 
 if($_SESSION['sesionhid3']=='unlocked'){ echo "acceso_".$_SESSION['usuario_id']."_unlocked"; }
 

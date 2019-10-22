@@ -79,6 +79,7 @@ $camposOA=explode(";",$camposO);
 
 // prin(get_extra_filtro_0($tablaO));
 
+
 $whereop=procesar_dato((($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO));
 $betop=between($whereop,"order","and");
 if(trim($betop[1])!='' and trim($betop[2])!='' ){
@@ -89,6 +90,7 @@ if(trim($betop[1])!='' and trim($betop[2])!='' ){
 // if(enhay($whereop," and ")){
 // 	$whereop=str_replace("where 0","where 1", $whereop);
 // }
+
 
 $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 
@@ -157,12 +159,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 					$value=$tbcampA['default'];
 					echo "<div class='in_span'>";
 					switch($tbcampA['tipo']){
-					/* case "img":
-						$tbli=$objeto_tabla[$obj['obj']]['campos'][$camP];
-					if($linea[$tbli['campo']]!=''){
-						?><a href="<?php echo get_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']]);?>" rel="[images],noDesc" class="mb"><img <?php echo dimensionar_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']],$tbli['tamano_listado']);?> /></a><?php
-					}
-					break; */
+		
 						case "hid":
 							// prin($tbcampA['opciones']);
 							list($primO,$tablaO)=explode("|",$tbcampA['opciones']);
@@ -200,20 +197,20 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 				} else {
 
 
+
                 switch($tbcampA['tipo']){
 
                 	case "id":
-                	?><input disabled type="text"
-						id="in_<?php echo $tbcampA['campo']?>" class="form_input"
-						style="width: 50px;" />
-					<?php
+						?><input disabled type="text"
+							id="in_<?php echo $tbcampA['campo']?>" class="form_input"
+							style="width: 50px;" />
+						<?php
 					break;
 					case "img":	case "sto":
 
-					?><div class="upl"><?php 
-						if( $tbcampA['help']) echo '<div class="greyy">'.$tbcampA['help'].'</div>';
-					?><div id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0"></div></div>
-					<?php
+						?><div class="upl"><?php 
+							if( $tbcampA['help']) echo '<div class="greyy">'.$tbcampA['help'].'</div>';
+						?><div id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0"></div></div><?php
 
                     break;
                     case "inp":
@@ -306,10 +303,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 									$ri++;	
 									$bootones.='<li><a class="btn btn-small" onclick="CKEDITOR.instances.in_'.$tbcampA['campo'].'.insertHtml(document.getElementById(\'booton_'.$tbcampA['campo'].'_'.$ri.'\').value);">'.str_replace(" "," \n",$name).'</a></li>';
 									$bootones.='<textarea id="booton_'.$tbcampA['campo'].'_'.$ri.'">'.mooeditable_replace($html,$tbcampA['variables']).'</textarea>';
-	// 								echo 'html += "<a href=\'#\' rel=\'<!--'.$name.'-->'.
-	// 								str_replace("\\\\\"","\\\"",str_replace("\"","\\\"",str_replace(array("\n","\r","\s","\t"),"",mooeditable_replace($html,$tbcampA['variables']))))
-	// 								.'\'>'.$name.'</a>";
-	// ';
+
 	
 									}
 

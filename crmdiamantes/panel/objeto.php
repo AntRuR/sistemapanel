@@ -1,10 +1,18 @@
 <?php
 
+
+
 if(isset($_GET['ran']) and $_GET['ran']!=''){
 
 	//include("lib/compresionInicio.php");	/*para Content-Encoding*/
 	include("lib/includes.php");
 
+	if(isset($_GET['L']) and $_GET['L']!='' and $SERVER['ARCHIVO_REAL']!='formulario_quick.php'){
+
+		$_GET['id']=$_GET['L'];
+		unset($_GET['L']);
+	
+	}	
 
 	$file2OBJ=array();
 	$tabla2OBJ=array();
@@ -60,7 +68,8 @@ if(isset($_GET['ran']) and $_GET['ran']!=''){
 	
 }
 
-$EdicionPanel=($Open and $_SESSION['edicionpanel']=='1')?1:0;
+
+
 
 
 /// procesar campos

@@ -139,7 +139,7 @@ if($_GET['accion']=='exportdb' ){
 	echo "<div class='loading2' id='div_loading'>Exportando BD local....</div>"; flush();
 }
 
-if($mostrar_master){
+if($mostrar_master or 1){
 
 ?>
 <style>

@@ -1,12 +1,12 @@
 <?php
 
-// truncate('clientes');
-// truncate('ventas_items');
-// truncate('ventas_mensajes');
+truncate('clientes');
+truncate('ventas_items');
+truncate('ventas_mensajes');
 
-// update(['newid'=>''],'vehiculos_clientes','where 1');
-// update(['newid'=>''],'vehiculos_ventas_items','where 1');
-// update(['newid'=>''],'vehiculos_ventas_mensajes','where 1');
+update(['newid'=>''],'vehiculos_clientes','where 1');
+update(['newid'=>''],'vehiculos_ventas_items','where 1');
+update(['newid'=>''],'vehiculos_ventas_mensajes','where 1');
 
 
 $id_usuario=240;

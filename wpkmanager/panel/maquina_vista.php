@@ -3642,7 +3642,9 @@ echo "<div style='clear:left;'></div>";
 if( $_GET['me']!='' and ( $_GET['accion']=='actualizartabla') ){
 
 	$sqles=get_columns_from_objeto($objeto_tabla[$_GET['me']]);
-	
+
+	// prin($sqles);exit();
+
 	if(sizeof($sqles)>0){
 		foreach($sqles as $sqle){
 			mysqli_query($link,$sqle);

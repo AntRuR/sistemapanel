@@ -270,7 +270,7 @@ if(1){
     if(!$debug)
     mail(
         // 'guillekldc@gmail.com,nacinchaluja@yahoo.com,croman@prodiserv.com,dcencrm@gmail.com',
-        'guillekldc@gmail.com,nacinchaluja@yahoo.com,dcencrm@gmail.com',
+        'guillekldc@gmail.com,dcencrm@gmail.com',
         'Alerta: Posibles Datos Repetidos #'.$new_venta['id'],
         $html
         );

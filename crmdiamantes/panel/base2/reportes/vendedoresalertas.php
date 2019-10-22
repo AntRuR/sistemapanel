@@ -2,7 +2,13 @@
 // prin($_GET);
 // prin($SERVER);
 // prin($_SERVER);
+// prin($_COOKIE['admin']);
 // exit();
+
+$ADMIN=($_COOKIE['admin']==1);
+
+
+
 
 $nobadge=($_GET['format']=='excel');
 
@@ -241,7 +247,8 @@ foreach($statuses as $usu){
 
 // prin($STATU);
 
-$statuQueries['total']="and ventas_items.id_status in (".$statusids.")";
+// $statuQueries['total']="and ventas_items.id_status in (".$statusids.")";
+$statuQueries['total']="and 1";
 
 
 // ATENCIONES

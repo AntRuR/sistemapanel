@@ -1,0 +1,272 @@
+a.link_header {
+	color: #CBCBCB;
+}
+
+.bloque_titulo .titulo {
+    color: #000 !important;
+}
+
+
+/**
+
+ * BODY
+
+ */
+
+
+
+/*body { background: url("http://cdn.elcomercio.e3.pe/f/i/gb_caption_nota.png") repeat !important; }*/
+
+
+.main_content { 
+
+}
+
+
+
+/**
+
+ * HEADER
+
+ */
+
+.logo_panel {
+
+}
+
+a.link_header {
+	color: #CBCBCB;
+}
+
+#menumenu a {
+    /* color: #6F6F6F; */
+    font-weight: normal !important;
+    /* padding-bottom: 3px; */
+    /* padding-top: 3px; */
+}    
+
+/**
+ * MENU
+ */
+
+
+/**
+
+ * FORM
+
+ */
+
+.titulo_formulario {
+    color: #565656;
+}   
+
+/**
+
+ * LOGIN
+
+ */
+
+.modulo_login ul.ul_menus {
+	display:none;
+}
+
+.modulo_login .div_bloque_cuerpo {
+    margin-left: 23%;
+    margin-top: 23px;
+}
+
+/*body,*/
+a.link_header,
+.bloque_titulo .titulo, .bloque_titulo .titulo a,
+ul.ul_menus li a {
+    /* font-family: 'caviar_dreamsregular'; */
+    letter-spacing: -0.05em;
+}
+.lead {
+margin-bottom:0;
+}
+
+
+ 
+
+
+/**/
+
+#cart table {
+    margin-right: 10px;
+    margin-top: 73px;
+    width: 95%;
+}
+
+.esquinabtn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+}
+
+.quick #contenido_principal {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+.itms .itm .itd {
+/* font-family: PTN57F !important; */    
+text-transform: capitalize;
+font-size: 1em;
+}
+
+
+
+/**
+ * modulo_productos_items
+ */
+
+#html_reporte {
+    margin-top: 9px;
+    
+    width: 98%;
+}
+#html_reporte .reporte_ventas {
+    width: 100%;
+
+}
+#html_reporte .reporte_ventas td.nombre {
+    min-width: 10px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 13px;
+    vertical-align: middle;
+}
+#html_reporte .reporte_ventas td.nombre b {
+    white-space: nowrap;
+}
+
+#html_reporte .reporte_ventas a.linkstitu {
+    font-size: 10px !important;
+
+    line-height: 16px;
+    font-weight: bold !important;
+    background-position: 0px -2px !important;
+}
+
+
+.modulo_productos_ventas .filters { display: none; }
+.modulo_productos_ventas .bloque_content_repos input { display: none; }
+.modulo_productos_ventas .fst li label { width: 160px !important; }
+.modulo_productos_ventas .fst li input[type="radio"]:checked+label{ color: #CF6A27 !important; } 
+
+
+.reporte_corto { width: 670px !important; }
+
+td { background-color: #FFF; }
+
+
+
+.htmlenlista td { background-color: transparent; }
+
+@media (max-width: 800px) {
+
+        
+    .i_mm, .i_ff {
+    /*margin-top: 2px !important;*/
+
+    /* color: #FFA500 !important; */
+    }    
+
+}
+
+.modulo_usuarios3 .itms_cont {
+    display: none;
+}
+.permiso_20 #menu_main .number {
+    display:none;
+}
+
+
+ /* 
+ mensajes al asesor
+ */
+
+.mensaje_dejefe,
+.mensaje_deadministrador {
+    display:none !important;
+}
+
+.permiso_master .mensaje_deadministrador,
+.permiso_19 .mensaje_deadministrador,
+.permiso_20 .mensaje_deadministrador,
+.permiso_1 .mensaje_deadministrador
+{
+    display:block !important;
+}
+
+.permiso_master .mensaje_dejefe,
+.permiso_2 .mensaje_dejefe
+{
+    display:block !important;
+}
+
+.mensaje_deadministrador,
+.mensaje_dejefe,
+.mensaje_cliente {
+font-weight: bold !important;
+float: right !important;
+}
+.mensaje_deadministrador:hover,
+.mensaje_dejefe:hover,
+.mensaje_cliente:hover {
+    color: black !important;
+}
+.mensaje_dejefe { color:green;}
+.mensaje_deadministrador { color:purple;}
+.mensaje_cliente { color:red;}
+
+
+.modulo_ventas_items
+.nav li label { width: 190px; }
+
+#id_in_articulo,
+#id_in_nombre2,
+#id_in_link,
+.exportar_go,
+.controll,
+.formulario #group_import,
+.formulario #id_in_invernado
+{ display:none !important; }
+
+.acceso_49_unlocked #id_in_articulo,
+.acceso_49_unlocked #id_in_nombre2,
+.acceso_49_unlocked  #id_in_link,
+.acceso_49_unlocked .exportar_go,
+.acceso_ .exportar_go,
+.acceso_49_unlocked .controll,
+.acceso_ .controll,
+.acceso_49_unlocked #group_import,
+.acceso_49_unlocked .formulario #id_in_invernado,
+.acceso_ .formulario #id_in_invernado
+{ display:block !important; }
+
+#filtr_id_cliente_dl {
+    width: 400px !important;
+}
+.listado_grilla .controll {
+    display:block !important;
+}
+
+
+.modulo_ventas_mensajes .exports { display:none; }
+
+.acceso_.modulo_ventas_mensajes a.exportar_alertas_nacin,
+.acceso_49_unlocked.modulo_ventas_mensajes a.exportar_alertas_nacin { display:block; }
+
+.ingreseclave {
+    border: 4px solid navy;
+    display: inline-block;
+    padding: 1em;
+    margin: 0 1em 1em 1em;
+}

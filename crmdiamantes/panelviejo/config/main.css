@@ -1,0 +1,181 @@
+a.link_header {
+	color: #CBCBCB;
+}
+
+.bloque_titulo .titulo {
+    color: #000 !important;
+}
+
+
+/**
+
+ * BODY
+
+ */
+
+
+
+body { background: url("http://cdn.elcomercio.e3.pe/f/i/gb_caption_nota.png") repeat !important; }
+
+
+.main_content { 
+
+}
+
+
+
+/**
+
+ * HEADER
+
+ */
+
+.logo_panel {
+
+}
+
+a.link_header {
+	color: #CBCBCB;
+}
+
+#menumenu a {
+    /* color: #6F6F6F; */
+    font-weight: normal !important;
+    /* padding-bottom: 3px; */
+    /* padding-top: 3px; */
+}    
+
+/**
+ * MENU
+ */
+
+
+/**
+
+ * FORM
+
+ */
+
+.titulo_formulario {
+    color: #565656;
+}   
+
+/**
+
+ * LOGIN
+
+ */
+
+.modulo_login ul.ul_menus {
+	display:none;
+}
+
+.modulo_login .div_bloque_cuerpo {
+    margin-left: 23%;
+    margin-top: 23px;
+}
+
+/*body,*/
+a.link_header,
+.bloque_titulo .titulo, .bloque_titulo .titulo a,
+ul.ul_menus li a {
+    /* font-family: 'caviar_dreamsregular'; */
+    letter-spacing: -0.05em;
+}
+.lead {
+margin-bottom:0;
+}
+
+
+ 
+
+
+/**/
+
+#cart table {
+    margin-right: 10px;
+    margin-top: 73px;
+    width: 95%;
+}
+
+.esquinabtn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+}
+
+.quick #contenido_principal {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+.itms .itm .itd {
+/* font-family: PTN57F !important; */    
+text-transform: capitalize;
+font-size: 1em;
+}
+
+
+
+/**
+ * modulo_productos_items
+ */
+
+#html_reporte {
+    margin-top: 9px;
+    
+    width: 98%;
+}
+#html_reporte .reporte_ventas {
+    width: 100%;
+
+}
+#html_reporte .reporte_ventas td.nombre {
+    min-width: 10px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 13px;
+    vertical-align: middle;
+}
+#html_reporte .reporte_ventas td.nombre b {
+    white-space: nowrap;
+}
+
+#html_reporte .reporte_ventas a.linkstitu {
+    font-size: 10px !important;
+
+    line-height: 16px;
+    font-weight: bold !important;
+    background-position: 0px -2px !important;
+}
+
+
+.modulo_productos_ventas .filters { display: none; }
+.modulo_productos_ventas .bloque_content_repos input { display: none; }
+.modulo_productos_ventas .fst li label { width: 160px !important; }
+.modulo_productos_ventas .fst li input[type="radio"]:checked+label{ color: #CF6A27 !important; } 
+
+
+.reporte_corto { width: 670px !important; }
+
+td { background-color: #FFF; }
+
+
+
+.htmlenlista td { background-color: transparent; }
+
+@media (max-width: 800px) {
+
+        
+    .i_mm, .i_ff {
+    margin-top: 2px !important;
+
+    /* color: #FFA500 !important; */
+    }    
+
+}

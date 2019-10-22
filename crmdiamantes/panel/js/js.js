@@ -14,6 +14,8 @@ function pop_up(url){
 }
 function pop_up0(url){
 
+	beforemulti();
+
 	var clicked=new Element('a',{'styles'	: {
 				'position'	: 'absolute',
 				'top'		: 0,
@@ -1003,7 +1005,9 @@ function procesar_proyecto(){
 
 function loadinfopage(){
 if($('pagespan') && $('pagetime') && $('pagesize')){
-	$('pagespan').innerHTML=$('pagesize').value+'Kb generados en '+$('pagetime').value+'s.';
+	var timess=$('pagesize').value+'Kb generados en '+$('pagetime').value+'s.';
+	$('pagespan').innerHTML=timess;
+	console.log(timess);
 }
 }
 
@@ -1117,6 +1121,7 @@ function send_crear(id,tbl,lrp,lrp2){
     $$('.'+tbl+'-_'+id).each(function(ele) {
 		if(ele.getAttribute('data-vali')=='1'){
 
+			console.log(ele);
 			if(ele.value==''){
 				
 				validacion=false;
@@ -1240,8 +1245,8 @@ location.reload();
 function load_directlink_filtro_inp(campo,tabla,tablacampo){
 new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+campo+','+campo+'|'+tabla+'|', {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=tablacampo+'.'+campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
 }
-function load_directlink_filtro_com(campo,id,nombre,tabla,where,tablacampo,join){
-new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+id+','+nombre+'|'+tabla+'|'+where+'|'+join, {
+function load_directlink_filtro_com(campo,id,nombre,tabla,where,tablacampo,join,extra,dli){
+new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?xt='+extra+'&dli='+dli+'&s='+id+','+nombre+'|'+tabla+'|'+where+'|'+join, {
 	minChars:1,
 	selectOnTab :true,
 	maxVisibleItems:12,
@@ -1369,3 +1374,19 @@ function validateDni(dni){
 
 }
 
+function beforemulti(){
+
+	var widthscreen=window.innerWidth;
+	if(widthscreen<700){
+
+		var mbs=document.getElementsByClassName("mb"); 
+		Object.keys(mbs).map( (key,index) => { 
+			var mb_parts = mbs[key].rel.split(',');
+			var new_width=widthscreen-20;
+			var newrel = mbs[key].rel.replace(mb_parts[0],`width:${new_width}`);
+			// console.log(newrel);
+			mbs[key].setAttribute('rel',newrel);
+		});
+
+	}
+}

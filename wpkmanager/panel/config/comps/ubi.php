@@ -144,57 +144,14 @@ $objeto_tabla_comp['GEO_DISTRITOS']=array_merge(
 	]
 );
 
-function tabla_chain($obj,$chain_items=[]){
 
-	$chain=[];
-	foreach($chain_items as $ii=>$item){
-
-		if($obj[$chain_items[$ii-1]]['archivo']){
-			$chain[$item]['prev']='id_'.$obj[$chain_items[$ii-1]]['nombre_singular'];			
-		}
-	
-		if($obj[$chain_items[$ii+1]]['archivo']){
-			$next_tabla=$obj[$chain_items[$ii+1]]['tabla'];
-			$next_archivo=$obj[$chain_items[$ii+1]]['archivo'];
-			$next_plural=$obj[$chain_items[$ii+1]]['nombre_plural'];
-			$current_id_foreig='id_'.$obj[$chain_items[$ii]]['archivo'];
-			$obj[$chain_items[$ii]]['campos']['nombre']['controles']= "<a href='custom/$next_archivo.php?id=[id]'>{select count(*) from $next_tabla where $current_id_foreig=[id]} $next_plural</a>";
-		}
-
-	}
-	// prin($chain);exit();
-
-	foreach($chain as $jj=>$chai){
-
-		$id_foreig_prev=$chai['prev'];			
-		$obj[$jj]['campos'][$id_foreig_prev]=[
-			'campo'			=> $id_foreig_prev,
-			'tipo'			=> 'hid',
-			'listable'		=> '0',
-			'validacion'	=> '0',
-			'default'		=> '[id]',
-			'foreig'		=> '1'
-		];		
-
-	}
-	// prin($obj);exit();
-	return $obj;
-}
 
 $objeto_tabla_comp=tabla_chain($objeto_tabla_comp,
-	[
-		'GEO_DEPARTAMENTOS',
-		'GEO_PROVINCIA',
-		'GEO_DISTRITOS',
-	]
-
-    // 'titulo'		=> '<a href="custom/geo_departamentos.php">Departamentos</a>  -
-	// 	  Provincias de {select nombre from geo_departamentos where id=[id]}',
-		  
-	// 'titulo'		=> '<a href="custom/geo_departamentos.php">Departamentos</a>
-	// 	  - <a href="custom/geo_provincias.php?id={select id_departamento from geo_provincias where id=[id]}">Provincias de {select geo_departamentos.nombre from geo_departamentos,geo_provincias where geo_departamentos.id=geo_provincias.id_departamento and geo_provincias.id=[id]}</a>
-	// 	  - Distritos de {select nombre from geo_provincias where id=[id]}',
-
+	
+	array_merge(
+		$objeto_chain['ubi']
+	)
+	
 );
 
 

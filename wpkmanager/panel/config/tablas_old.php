@@ -242,15 +242,15 @@ $objeto_tabla['MANTENIMIENTO_ITEMS']=array(
 		[
 			'id_grupo'		=>array(
 				'campo'			=> 'id_grupo',
-				'label'			=> 'Empresa',
+				'label' => 'Empresa',
 				'tipo'			=> 'hid',
 				'listable'		=> '1',
 				'validacion'	=> '1',
-				'default'		=> '[id_grupo]',
+				'default' => '[id_grupo]',
 				'foreig'		=> '1',
 				'style'			=> 'width:100px,',
 				'opciones'		=> 'id,nombre|empresas|where visibilidad=1 order by nombre asc',
-				'load'			=> 'id_planta||id,nombre|plantas|where visibilidad=1 and id_grupo=[id_grupo] order by nombre desc',
+				'load' => 'id_planta||id,nombre|plantas|where visibilidad=1 and id_grupo=[id_grupo] order by nombre desc',
 				'width'			=> '80px',
 				'derecha'		=> '1',
 				'tags'			=> '1',

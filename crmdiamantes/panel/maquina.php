@@ -78,6 +78,8 @@ $_SESSION['usuario_datos_nombre_grupo']='';
 $_SESSION['usuario_id']='';	
 $_SESSION['page']='';
 $_SESSION['web']='';
+$_SESSION['permisos']='';
+$_SESSION['xt']='';
 			
 @setcookie("c_usuario", "", time() - (365*24*60*60), "/");
 @setcookie("c_password", "", time() - (365*24*60*60), "/");

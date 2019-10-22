@@ -28,7 +28,7 @@ if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 
 echo $sn3;
 
-$rrr='302';
+$rrr='314';
 
 // prin($MEEE);
 

@@ -43,6 +43,10 @@ where ventas_items.id=".$_GET['L'],
 0);
 
 // prin($venta);
+// prin($venta['asesor_email']);
+if($venta['asesor_email']=='massimtr@yahoo.com')
+	$venta['asesor_email']='massimtr@prueba.com';
+
 
 $desistimientos=select("id,nombre","desistimientos","where 1 order by nombre asc",0);
 
@@ -50,6 +54,7 @@ $desistimientos=select("id,nombre","desistimientos","where 1 order by nombre asc
 if($_GET['ajax']=='1'){
 
 
+	// if($_GET['L']!='182334')
 	update([
 		'motivo'=>$_POST['motivo'],
 		'otro_motivo'=>$_POST['otro_motivo'],
@@ -78,16 +83,19 @@ if($_GET['ajax']=='1'){
 						// 'ecanevello@schgrupo.com',
 						'wtavara@prodiserv.com',
 						$venta['jefe_email'],
-						'guillermolozan@gmail.com',
+						'guillekldc@gmail.com',
 						)
-		,'Subject'=>"Solicitud de Validación de Desistimiento - Cotización #".$venta['id']
+		,'Subject'=>"Solicitud de Validación de Desistimiento - original - Cotización #".$venta['id']
 		,'body'=>$html
 		,'From'=>$venta['asesor_email']
+		// ,'From'=>'prueba@prueba.com'
 		,'FromName'=>$venta['asesor_nombre']
 		// ,'Logo'=>$linea['cuenta']['logo']
 		)
 	);	
 
+	echo "\nemail a jefe: ";
+	echo ($email_cliente)?'email enviado':'no fue enviado';
 
 	$html ='';
 	$html.="Haz enviado la solicitud de Validación de Desistimiento<br><br>";
@@ -106,18 +114,19 @@ if($_GET['ajax']=='1'){
 						// 'ecanevello@schgrupo.com',
 						'wtavara@prodiserv.com',
 						$venta['asesor_email'],
-						'guillermolozan@gmail.com',
+						'guillekldc@gmail.com',
 						)
-		,'Subject'=>"Solicitud de Validación de Desistimiento - Cotización #".$venta['id']
+		,'Subject'=>"Solicitud de Validación de Desistimiento - copia - Cotización #".$venta['id']
 		,'body'=>$html
 		,'From'=>$venta['asesor_email']
+		// ,'From'=>'prueba@prueba.com'
 		,'FromName'=>$venta['asesor_nombre']
 		// ,'Logo'=>$linea['cuenta']['logo']
 		)
 	);	
 
-
-	echo ($email_cliente)?'email enviado':'no fue enviado';
+	echo "\nemail a asesor: ";
+	echo ($email_cliente2)?'email enviado':'no fue enviado';
 
 } else {
 

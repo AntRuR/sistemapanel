@@ -2,26 +2,16 @@
 /* */
 //////// MENU ///////
 
-$tablas_creadas=array();
-$sql = "show tables";
-$result=mysql_query($sql,$link);
-$total=mysql_num_rows($result);
-if($total>0)
-{
-	while ($row = mysql_fetch_row($result))
-	{
-		$tablas_creadas[] = $row[0];
-	}
-}
+$tablas_creadas=$TABLAS_CREADAS;
 
 // prin($SERVER);
 
 if($mostrar_menu)
 {
 
-	$menus=array();
-	$menus_1=array();
-	$menus_2=array();
+	$menus   = [];
+	$menus_1 = [];
+	$menus_2 = [];
 
 
 	foreach($objeto_tabla as $item)
@@ -54,22 +44,22 @@ if($mostrar_menu)
 
 			if(
 				(
-				// file_exists($DIR_CUSTOM.$item['archivo'].".php") and 
-				in_array($item['tabla'],$tablas_creadas)
-				and (!($item['disabled']=='1'))
+					// file_exists($DIR_CUSTOM.$item['archivo'].".php") and 
+					in_array($item['tabla'],$tablas_creadas)
+					and (!($item['disabled']=='1'))
 				)
 				or
 				(
-				!in_array($item['tabla'],$tablas_creadas) and $Open
+					!in_array($item['tabla'],$tablas_creadas) and $Open
 				)
-
-				)
-				{
+			)
+			{
 
 				$bbgg = ( !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1') )?1:0;
 
 
 				if($bbgg){ $BBB[]=$item['me']; }
+				
 
 				if($item['seccion'])
 				{
@@ -96,14 +86,14 @@ if($mostrar_menu)
 					$mmm.="</a>";
 
 					//DEVEL
-					if($Open=='1')
-					{
+					// if($Open=='1')
+					// {
 
-						$mmm.="<a class='derech' href='maquina.php?me=".$item['me']."#blo_objetos' title='Editar Propiedades'>P</a>";
+					// 	$mmm.="<a class='derech' href='maquina.php?me=".$item['me']."#blo_objetos' title='Editar Propiedades'>P</a>";
 
-						$mmm.="<a class='derech2' href='maquina.php?me=".$item['me']."#edicion_indices_sub' title='Editar Campos'>C</a>";
+					// 	$mmm.="<a class='derech2' href='maquina.php?me=".$item['me']."#edicion_indices_sub' title='Editar Campos'>C</a>";
 
-					}
+					// }
 
 				$mmm.="</li>";
 

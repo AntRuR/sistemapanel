@@ -4,52 +4,99 @@ set_time_limit(0);
 include("lib/compresionInicio.php");
 include("lib/includes.php");
 
-//print_r($_GET);
+
+if(!empty($_GET['dli'])) include($_GET['dli']);
+
 
 $s1=explode("|",$_GET['s']);
+$s1['1']=trim($s1['1']);
+
 $s2=explode(",",$s1['0']);
-$ID=$s2['0'];
+$s20=explode('.',$s2['0']);
+if(empty($s20['1'])){
+	$ID=$s1['1'].".".$s2['0'];
+} else {
+	$ID=$s2['0'];
+}
 $s3=explode(";",$s2['1']);
 $s5=explode(" ",trim($_GET['q']));
 foreach($s5 as $tio){
 	$s6a[]=trim($tio);
 }
-$s6="%".implode('%',$s6a)."%";
+// $s6="%".implode('%',$s6a)."%";
+$s6=implode('%',$s6a);
+
+/*
+$EXTRA_FILTRO='';
+$tablas1=trim($s1['1']);
+foreach($objeto_tabla as $mememe=>$ot){
+    if($ot['tabla']==$tablas1){
+        list($MEEE,$EXTRA_FILTRO) = pre_procesar_objeto_tabla_0($objeto_tabla[$mememe]);
+        break;
+    }
+}
+*/
+
+$s12=explode("order by",$s1['2']);
 
 $lineas=select(
 		array(
-			$s1['1'].".".$ID.' as i',
+			$ID.' as i',
 			"CONCAT_WS(' ',".implode(",",$s3).") as v"
 		),
-		$s1['1']." ".$s1['3'],
-		render_likes($s1['2'],$s3,$s6).'
-		limit 0,12',
+		$s1['1']." \n".
+		$s1['3']." \n",
+		render_concats($s12['0'],$s3,$s6)." \n".
+		// $EXTRA_FILTRO." \n".
+		// ( ($_SESSION['xt'])?$_SESSION['xt']." \n":"" ).
+		( ($s12['1'])?"order by ".$s12['1']:"\n " ).
+		"limit 0,12",
 		0);
 
 if(!$lineas){ $lineas=array(); }
 
 			
 function render_likes($where,$likes,$Q){
-list($where,$dos)=explode("order by",$where);
-$orderby=($dos)?"order by ".$dos:"";
 $html='';
 if($where!=''){ $html.=$where." "; } 
 else{ $html.='where 1 '; } 
 $html.=(sizeof($likes)>0)?' and ':'';
-/*
+
 foreach($likes as $lik){
-$Likes[]=" $lik like '%".$Q."%' ";
+$Likes[]="\n $lik like '%".$Q."%' ";
 }
 $html.="( ".implode(" or ",$Likes)." )";
-*/
+
 // $html.="( ".
-$html.="CONCAT_WS(' ',".implode(",",$likes).") like '".$Q."'";
+// $html.="CONCAT_WS(' ',".implode(",",$likes).") like '".$Q."'";
 // $html.=" or ".
 // $html.="CONCAT_WS('',".implode(",",$likes).") like '%".$Q."%'";
 // $html.=") ".
-$html.=" ".$orderby;
 return $html;
 }
+
+			
+function render_concats($where,$likes,$Q){
+	list($where,$dos)=explode("order by",$where);
+	$orderby=($dos)?"order by ".$dos:"";
+	$html='';
+	if($where!=''){ $html.=$where." "; } 
+	else{ $html.='where 1 '; } 
+	$html.=(sizeof($likes)>0)?' and ':'';
+	/*
+	foreach($likes as $lik){
+	$Likes[]=" $lik like '%".$Q."%' ";
+	}
+	$html.="( ".implode(" or ",$Likes)." )";
+	*/
+	// $html.="( ".
+	$html.="CONCAT_WS(' ',".implode(",",$likes).") like '%".$Q."%'";
+	// $html.=" or ".
+	// $html.="CONCAT_WS('',".implode(",",$likes).") like '%".$Q."%'";
+	// $html.=") ".
+	$html.=" ".$orderby;
+	return $html;
+	}
 
 /*
 $lineas=array();

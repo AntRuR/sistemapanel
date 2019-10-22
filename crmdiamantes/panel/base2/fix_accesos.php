@@ -11,5 +11,4 @@ foreach($usuarios as $usu){
 	update(['visibilidad'=>$stado],"usuarios_acceso","where id=".$usu['id_sesion'],0);
 }
 
-
 // }

@@ -191,7 +191,7 @@ function breadcrumb($dato,$id=NULL,$objeto){
 	return implode("<span class='pipe'> / </span>",$ttren);
 
 }
-
+/*
 function breadcrumb_0($dato,$id=NULL,$objeto,&$ttren){
 
 	global $_GET;
@@ -347,7 +347,6 @@ function procesar_dato($dato,$id=NULL){
 		if( !(strpos($un,"}")==false) ){
 		$dos = explode("}",$un);
 		$consulta = $dos[0];
-		/*echo $consulta."<br>";*/
 		$result=mysql_query($consulta,$link);
 		$row = mysql_fetch_row($result);
 		$dato3 = $row[0];
@@ -382,7 +381,7 @@ function procesar_dato($dato,$id=NULL){
 	return $dato;
 
 }
-
+*/
 function script_create_table($obta){
 
 //$obta=$objeto_tabla[$_GET['me']];
@@ -1224,7 +1223,7 @@ function fixEncoding($in_str)
 	return $in_str;
 } // fixEncoding
 
-
+/*
 	function get_uniques_from_tabla($tabla){
 
 	global $link;
@@ -1454,18 +1453,14 @@ foreach($columnas_existentes as $columna){
 }
 
 
-/*
-if(sizeof($AcamposFull)>0){
-	$Acampos2[]="FULLTEXT KEY ".$AcamposFull[0]." (". implode(",",$AcamposFull). ")";
-}
-*/
+
 
 $Acampos3=array_merge($Acampos,$Acampos2);
 
 return $Acampos3;
 
 }
-
+*/
 function cambiar_permisos($carpeta){
 
 	global $conn_id;
@@ -5324,7 +5319,7 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 	return array('word' => $word, 'time' => $now, 'image' => $img);
 }
 
-
+/*
 function paginacionnumerada($parametros,$campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
 
 	global $_GET;
@@ -5534,3 +5529,4 @@ function paginacionnumerada($parametros,$campos,$tabla,$donde,$debug=0,$opciones
 	}
 
 }
+*/

@@ -101,8 +101,11 @@ if($_GET['accion']=='custom'){
 	echo "window.addEvent('domready',function(){ ";
 	echo "ax('ec3','".$_GET['L']."'); });";
 	echo "$0('linea_crear');$1('linea_grabar');$0('ed_cancelar');";
+	} else {
+	echo "pre_crear();";
 	}
 	echo '</script>';
+
 
 }
 

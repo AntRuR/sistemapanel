@@ -17,44 +17,23 @@ if(0){
 
 	delete("ventas_items","where id_usuario=0");
 
-	$usuarios=select("id,id_jefe,id_sesion","usuarios","where 1 order by id_jefe");
+	$usuarios=select("id,id_jefe","usuarios","where 1 order by id_jefe");
 	foreach($usuarios as $usu){
-		$JEFE[$usu['id']]=$usu['id_jefe'];
-		$USEr[$usu['id_sesion']]=$usu['id'];
+		$ID_USU2[$usu['id']]=$usu['id_jefe'];
 	}
-	// prin($JEFE);
-
-
-	$TTAA=select(
-		"id,id_usuario,id_jefe,user",
-		"ventas_items",
-		"where 1 "
-		." and id_usuario is null"
-		." and user is not null"
-		// ."and (  date(fecha_creacion) between '2016-01-01' and '2016-12-31' )"
-		,0);
-
-	foreach($TTAA as $aten){
-		update(
-			["id_usuario"=>$USEr[$aten['user']]],
-			"ventas_items",
-			"where id=".$aten['id'],
-			0
-			);
-	}
+	// prin($ID_USU2);
 
 
 	$AATT=select(
 		"id,id_usuario,id_jefe",
 		"ventas_items",
 		"where 1 "
-		." and id_jefe=0"		
 		// ."and (  date(fecha_creacion) between '2016-01-01' and '2016-12-31' )"
 		,0);
-	prin($JEFE);
+
 	foreach($AATT as $aten){
 		update(
-			["id_jefe"=>$JEFE[$aten['id_usuario']]],
+			["id_jefe"=>$ID_USU2[$aten['id_usuario']]],
 			"ventas_items",
 			"where id=".$aten['id'],
 			0
@@ -392,10 +371,9 @@ foreach($usuarios as $usu){
 // prin($USU2);
 // prin($USU);
 
-// $idvendidos="13,10,20";
-// $idvendidos="10";
-$idvendidos="10"; //vendidos 
-$identregados="20"; //entregados
+// $idestados="13,10,20";
+// $idestados="10";
+$idestados="10,20"; //vendidos entregados
 
 foreach($intervalos as $vv){
 
@@ -418,7 +396,7 @@ foreach($intervalos as $vv){
 					"where 1 "
 					// ."and visibilidad!=0 "
 					."and date($date)='$vv '
-					and id_status in ($idvendidos)
+					and id_status in ($idestados)
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);
@@ -451,22 +429,10 @@ foreach($intervalos as $vv){
 					"where 1 "
 					// ."and visibilidad!=0 "
 					."and date($date) between '".str_replace("|","' and '",$vv)."'
-					and id_status in ($idvendidos)					
+					and id_status in ($idestados)					
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);		
-
-
-		$llllentregados=select(
-					"$ordby as nombre, count(*) as total,id_jefe",
-					$datos_tabla['tabla'],
-					"where 1 "
-					// ."and visibilidad!=0 "
-					."and date($date) between '".str_replace("|","' and '",$vv)."'
-					and id_status in ($identregados)					
-					group by ".$ordby." order by ".$ordby." desc
-					",
-					0);
 
 		foreach($llll as $lll)
 		{
@@ -477,11 +443,6 @@ foreach($intervalos as $vv){
 		{
 			$lineventas[$lll['id_jefe']][$lll['nombre']][$vv]=$lll['total'];
 		}
-
-		foreach($llllentregados as $lll)
-		{
-			$lineentregados[$lll['id_jefe']][$lll['nombre']][$vv]=$lll['total'];
-		}		
 
 	}
 

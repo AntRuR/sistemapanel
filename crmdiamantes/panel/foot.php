@@ -45,6 +45,7 @@ function charge_multibox(MB){
 	$$(".ToolTips").empty();
 	$$(".ToolTips").dispose();
 	//call multiBox
+	beforemulti();
 	initMultiBox = new multiBox({
 	mbClass: (MB)?MB:'.mb',//class you need to add links that you want to trigger multiBox with (remember and update CSS files)
 	container: $(document.body),//where to inject multiBox

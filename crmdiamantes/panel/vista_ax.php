@@ -105,22 +105,23 @@ $0('refresh-cover');
 break;
 */
 case "recargar":
-$1('refresh');
-$1('refresh-cover');
-new Request({url:"vista.php?OB="+MMEE+"&pag="+$v('pagina')+"<?php echo $datos_tabla['get_id'].'&'.$SERVER['PARAMS']?>&ran=1",  method:'get', onSuccess:function(ee) {
-// console.log(ee);
-$('inner').innerHTML=ee;
-if($('resaltar').value!=''){
-$($('resaltar').value).highlight('#FF0', '#FFF');
-var resal = $('resaltar').value;
-$($('resaltar').value).setStyles({'border-top':'1px solid #333','border-bottom':'1px solid #333','border-left':'1px solid #333','border-right':'1px solid #333'});
-setTimeout("\$('"+resal+"').setStyles({'border':'0px'});",8000);
-$('resaltar').value='';
-}
-ax('actualizar_total',this.value);
-$0('refresh');
-$0('refresh-cover');
-} } ).send();
+ax($v('linkopagina'),$v('linkovals'),$v('pagina'));
+// $1('refresh');
+// $1('refresh-cover');
+// new Request({url:"vista.php?OB="+MMEE+"&pag="+$v('pagina')+"<?php echo $datos_tabla['get_id'].'&'.$SERVER['PARAMS']?>&ran=1",  method:'get', onSuccess:function(ee) {
+// // console.log(ee);
+// $('inner').innerHTML=ee;
+// if($('resaltar').value!=''){
+// $($('resaltar').value).highlight('#FF0', '#FFF');
+// var resal = $('resaltar').value;
+// $($('resaltar').value).setStyles({'border-top':'1px solid #333','border-bottom':'1px solid #333','border-left':'1px solid #333','border-right':'1px solid #333'});
+// setTimeout("\$('"+resal+"').setStyles({'border':'0px'});",8000);
+// $('resaltar').value='';
+// }
+// ax('actualizar_total',this.value);
+// $0('refresh');
+// $0('refresh-cover');
+// } } ).send();
 break;
 case "recargar_buscar":
 $1('refresh');
@@ -286,7 +287,7 @@ break;
 case "validar":<?php
 ?>var ret=true;<?php
 foreach($tbcampos as $tbcampA){
-	
+	// echo "console.log('{$tbcampA['campo']}');";
 	if($tbcampA['subvalidacion']=='email'){
 		?>if(!validateEmail($v('in_<?php echo $tbcampA['campo']?>').trim())){ show_error(4,'<?php echo $tbcampA['label']?>'); ret=false; }; <?php
 	}	
@@ -605,6 +606,7 @@ if($('titulo_crear')){
 if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'display':''});
 ax("ec2",id);
 } else {
+console.log('por aqui');
 new Request({'url':'formulario.php?OB='+MMEE+'&ran=1<?php echo ($datos_tabla['get_id'])?'&'.$datos_tabla['get_id']:'';?>&proceso=<?php echo $Proceso;?>',  method:'get', onSuccess:function(ee) {
 if($('bloque_content_crear'))$('bloque_content_crear').innerHTML=ee;
 pre_crear('ax("ec2","'+id+'","'+pag+'");');
@@ -785,7 +787,7 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 		?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
 		}
 		if(sizeof($tbcampA['eventos'])>0){ ?>var even_<?php echo $tbcampA['campo']?>=new Array();<?php foreach($tbcampA['eventos'] as $eve=>$even){
-		?>even_<?php echo $tbcampA['campo']?>['<?php echo $eve?>']='<?php echo $even?>';<?php
+		?>even_<?php echo $tbcampA['campo']?>['<?php echo $eve?>']='<?php echo str_replace("\n","",$even)?>';<?php
 		} ?>eval(even_<?php echo $tbcampA['campo']?>[json.<?php echo $tbcampA['campo']?>]);<?php
 		}
 
@@ -872,6 +874,7 @@ case "guardar_cambios_interno":
 	//location.href='loadscript.php?load='+pagg[1]+'&v_o='+MMEE+'&<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=update&id=<?php echo $_GET['L'];?>';
 	parent.pop_up('loadscript.php?load='+pagg[1]+'&v_o='+MMEE+'&<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=update&id=<?php echo $_GET['L'];?>');
 	/*window.open('loadscript.php?load='+pagg[1]+'&v_o='+MMEE+'&<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=update&id=<?php echo $_GET['L'];?>','pdf', 'width=600,height=800');*/
+	beforemulti();
 	initMultiBox = new multiBox({});
 	} else {
 	eval(pag);
@@ -943,6 +946,7 @@ if(pagg[0]=='load'){
 //location.href='loadscript.php?load='+pagg[1]+'&v_o='+MMEE+'&<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=update&id=<?php echo $_GET['L'];?>';
 parent.pop_up('loadscript.php?load='+pagg[1]+'&v_o='+MMEE+'&<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=update&id=<?php echo $_GET['L'];?>');
 /*window.open('loadscript.php?load='+pagg[1]+'&v_o='+MMEE+'&<?php echo (isset($_GET['proceso']))?"proceso=".$_GET['proceso']."&":""?>f=update&id=<?php echo $_GET['L'];?>','pdf', 'width=600,height=800');*/
+beforemulti();
 initMultiBox = new multiBox({});
 } else {
 eval(pag);
