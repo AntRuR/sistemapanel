@@ -12,14 +12,21 @@ const stylus       = require('gulp-stylus'),
       autoprefixer = require('gulp-autoprefixer'),
       livereload   = require('gulp-livereload');    
 
+const exec         = require('child_process').exec;
+
 const  writeFile   = require('write');
+
 
 
 const folder           = `../${argv.p}`;
 const panel_dir       = `${folder}/panel`;
+const views_dir       = `${panel_dir}/views`;
+const views_src_dir       = `${views_dir}/src`;
+const views_dist_dir       = `${views_dir}/dist`;
 const css_dir       = `${panel_dir}/css`;
 const stylus_dir      = `${css_dir}/stylus`;
 const stylus_source      = `${stylus_dir}/css.styl`;
+
 const css_dist = `${css_dir}/css.css`
 // var sass = require('gulp-sass');
 // var concat = require('gulp-concat');
@@ -37,57 +44,60 @@ gulp.task('variables', ()=> {
 });
 
 
-// Stylus
-gulp.task('stylus', () => {
+/*
+ ######  ######## ##    ## ##       ##     ##  ######
+##    ##    ##     ##  ##  ##       ##     ## ##    ##
+##          ##      ####   ##       ##     ## ##
+ ######     ##       ##    ##       ##     ##  ######
+      ##    ##       ##    ##       ##     ##       ##
+##    ##    ##       ##    ##       ##     ## ##    ##
+ ######     ##       ##    ########  #######   ######
+*/
+const stylus_task = () => {
 
-    gulp.src(stylus_source)
-      .pipe(stylus({
-        'include css': true,
-        'compress': false
-      }))
-      .pipe(autoprefixer()) 
-      .pipe(gulp.dest(css_dir))
-      .pipe(livereload());
+  return gulp.src(stylus_source)
+    .pipe(stylus({
+      'include css': true,
+      'compress': false
+    }))
+    .pipe(autoprefixer()) 
+    .pipe(gulp.dest(css_dir))
+    .pipe(livereload());
   
-});
-
-// gulp.task('sass', function(){
-//   return gulp.src('scss/**/*.scss')
-//     .pipe(sass()) // Converts Sass to CSS with gulp-sass
-//     .pipe(gulp.dest('public/stylesheets'))
-// });
-
-// //npm install gulp-concat
-
-// gulp.task('style', function(){
-//   return gulp.src('scss/**/*.scss')
-//     .pipe(sass()) // Converts Sass to CSS with gulp-sass
-//     .pipe(concat('style_main.css'))
-//     .pipe(gulp.dest('public/stylesheets'))
-// });
+}
 
 
-// //npm install gulp-minify-css
 
-// gulp.task('style_min', function(){
-//   return gulp.src('scss/**/*.scss')
-//     .pipe(sass()) // Converts Sass to CSS with gulp-sass
-//     .pipe(minifyCSS())
-//     .pipe(concat('style_main_'+version.version+'.min.css'))
-//     .pipe(gulp.dest('public/stylesheets'))
-// });
+/*
+      ##    ###    ########  ########  #######  ########  ##     ## ########
+      ##   ## ##   ##     ## ##       ##     ## ##     ## ##     ## ##     ##
+      ##  ##   ##  ##     ## ##              ## ##     ## ##     ## ##     ##
+      ## ##     ## ##     ## ######    #######  ########  ######### ########
+##    ## ######### ##     ## ##       ##        ##        ##     ## ##
+##    ## ##     ## ##     ## ##       ##        ##        ##     ## ##
+ ######  ##     ## ########  ######## ######### ##        ##     ## ##sud
+*/
+const jade2php_task = ()=>{
 
+  const command = 'jade2php --pretty --omit-php-runtime --omit-php-extractor  ' + views_src_dir + '/*.jade  --out ' + views_dist_dir;
+  console.log(command);
+  exec(command, function(err, stdout, stderr) {
+    // console.log(stdout);
+    console.log(stderr);
+  }); 
 
-//gulp watch
+}
 
-// gulp.task('watch', ['style_min'], function (){
-
-//   gulp.watch('scss/**/*.scss', ['style_min']);
-
-// });
-
-// Touch
-gulp.task('touch', () => {
+/*
+########  #######  ##     ##  ######  ##     ##
+   ##    ##     ## ##     ## ##    ## ##     ##
+   ##    ##     ## ##     ## ##       ##     ##
+   ##    ##     ## ##     ## ##       #########
+   ##    ##     ## ##     ## ##       ##     ##
+   ##    ##     ## ##     ## ##    ## ##     ##
+   ##     #######   #######   ######  ##     ##
+*/
+const touch_task = () => {
 
   var filetouch = folder+'/touch.json';
   var touch=require(filetouch);
@@ -95,21 +105,40 @@ gulp.task('touch', () => {
   console.log("v:"+newtouch);
   writeFile.sync(filetouch, '{"v":"'+newtouch+'"}');
 
-});
+}
 
 
-gulp.watch([
-  comp_dir+'/**/*.styl',
-  stylus_dir+'/*.styl',
-  stylus_dir+'/**/*.styl',
-  work_stylus_dir+'/**/*.styl',
-  external_stylus
-  ], 
-  [
-    'stylus',
-    'touch',
-  ]
-);
 
+/*
+##      ##    ###    ########  ######  ##     ##
+##  ##  ##   ## ##      ##    ##    ## ##     ##
+##  ##  ##  ##   ##     ##    ##       ##     ##
+##  ##  ## ##     ##    ##    ##       #########
+##  ##  ## #########    ##    ##       ##     ##
+##  ##  ## ##     ##    ##    ##    ## ##     ##
+ ###  ###  ##     ##    ##     ######  ##     ##
+*/
+const watch_task = () => {
 
-module.exports = gulp
+  gulp.series(jade2php_task,stylus_task,touch_task)
+
+  gulp.watch(
+      [
+        stylus_dir+'/*.styl',
+        stylus_dir+'/parts/*.styl'
+      ]
+    ,
+    gulp.series(stylus_task,touch_task)
+  );
+
+  gulp.watch(
+    views_src_dir+'/*.jade',
+    jade2php_task
+  );
+
+}
+
+exports.touch = touch_task;
+exports.stylus = stylus_task;
+exports.php = jade2php_task;
+exports.default = watch_task;

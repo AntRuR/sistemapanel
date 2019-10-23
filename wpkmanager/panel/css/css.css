@@ -3074,7 +3074,7 @@ form {
   cursor: pointer;
 }
 .oculto {
-  display: none;
+  display: none !important;
 }
 .title_detail {
   text-transform: uppercase;
