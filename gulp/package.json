@@ -7,11 +7,21 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-data": "^1.3.1",
-    "gulp-stylus": "^2.7.0"
+    "gulp-livereload": "^4.0.2",
+    "gulp-stylus": "^2.7.0",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^5.0.1",
+    "jade2php": "^1.2.3",
+    "write": "^2.0.0",
+    "yargs": "^14.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wpk": "gulp -p wpkmanager variables"
   },
   "author": "",
   "license": "ISC"
