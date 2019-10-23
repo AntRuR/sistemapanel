@@ -28,20 +28,6 @@ const stylus_dir      = `${css_dir}/stylus`;
 const stylus_source      = `${stylus_dir}/css.styl`;
 
 const css_dist = `${css_dir}/css.css`
-// var sass = require('gulp-sass');
-// var concat = require('gulp-concat');
-// var minifyCSS = require('gulp-minify-css');
-// var version= require('./package.json');
-
-//npm install gulp --save --only=dev
-gulp.task('variables', ()=> {
-    console.log(`folder ${folder}`);
-    console.log(`panel_dir ${panel_dir}`);
-    console.log(`css_dir ${css_dir}`);
-    console.log(`stylus_dir ${stylus_dir}`);
-    console.log(`stylus_source ${stylus_source}`);
-    console.log(`css_dist ${css_dist}`);
-});
 
 
 /*
@@ -75,7 +61,7 @@ const stylus_task = () => {
       ## ##     ## ##     ## ######    #######  ########  ######### ########
 ##    ## ######### ##     ## ##       ##        ##        ##     ## ##
 ##    ## ##     ## ##     ## ##       ##        ##        ##     ## ##
- ######  ##     ## ########  ######## ######### ##        ##     ## ##sud
+ ######  ##     ## ########  ######## ######### ##        ##     ## ##
 */
 const jade2php_task = ()=>{
 
@@ -120,7 +106,7 @@ const touch_task = () => {
 */
 const watch_task = () => {
 
-  gulp.series(jade2php_task,stylus_task,touch_task)
+  gulp.parallel(stylus_task, jade2php_task, touch_task);
 
   gulp.watch(
       [
@@ -138,7 +124,12 @@ const watch_task = () => {
 
 }
 
+
+
+
+
 exports.touch = touch_task;
 exports.stylus = stylus_task;
 exports.php = jade2php_task;
+exports.watch = watch_task;
 exports.default = watch_task;
