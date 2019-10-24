@@ -89,16 +89,16 @@ function tabla_chain($obj,$chain_items=[],$more=[]){
 	foreach($chain_items as $ii=>$item){
 
 		if($obj[$chain_items[$ii-1]]['archivo']){
-			$chain[$item]['prev']='id_'.$obj[$chain_items[$ii-1]]['nombre_singular'];			
-			$chain[$item]['label']=ucfirst($obj[$chain_items[$ii-1]]['nombre_singular']);
-			$chain[$item]['tabla']=$obj[$chain_items[$ii-1]]['tabla'];			
+			$chain[$item]['prev']  = 'id_'.$obj[$chain_items[$ii-1]]['nombre_singular'];			
+			$chain[$item]['label'] = ucfirst($obj[$chain_items[$ii-1]]['nombre_singular']);
+			$chain[$item]['tabla'] = $obj[$chain_items[$ii-1]]['tabla'];			
 		}
 	
 		if($obj[$chain_items[$ii+1]]['archivo']){
-			$next_tabla=$obj[$chain_items[$ii+1]]['tabla'];
-			$next_archivo=$obj[$chain_items[$ii+1]]['archivo'];
-			$next_plural=$obj[$chain_items[$ii+1]]['nombre_plural'];
-			$current_id_foreig='id_'.$obj[$chain_items[$ii]]['nombre_singular'];
+			$next_tabla        = $obj[$chain_items[$ii+1]]['tabla'];
+			$next_archivo      = $obj[$chain_items[$ii+1]]['archivo'];
+			$next_plural       = $obj[$chain_items[$ii+1]]['nombre_plural'];
+			$current_id_foreig = 'id_'.$obj[$chain_items[$ii]]['nombre_singular'];
 			$obj[$chain_items[$ii]]['campos']['nombre']['controles']= "<a href='custom/$next_archivo.php?id=[id]'>{select count(*) from $next_tabla where $current_id_foreig=[id]} $next_plural</a>";
 		}
 
@@ -148,19 +148,19 @@ function chain_campos($obj,$chain_items=[],$more=[]){
 		$campo_next='id_'.$obj[$chain_items[$ii+1]]['nombre_singular'];
 
 		$chain_campos[$campo]=[
-			'campo'=>$campo,
-			'label'=>ucfirst($obj[$chain_items[$ii]]['nombre_singular']),
-			'tipo' => 'hid',
-			'listable' => '1',
-			'validacion' => '1',
-			'default' => '['.$campo.']',
-			'foreig' => '1',
-			'style' => 'width:100px,',
-			'opciones'=> 'id,nombre|'.$obj[$chain_items[$ii]]['tabla'].'|where visibilidad=1 order by nombre asc',
-			'width' => '80px',
-			'derecha' => '1',
-			'tags' => '1',
-			'queries' => '1',
+			'campo'      => $campo,
+			'label'      => ucfirst($obj[$chain_items[$ii]]['nombre_singular']),
+			'tipo'       => 'hid',
+			'listable'   => '1',
+			'validacion' => '0',
+			'default'    => '['.$campo.']',
+			'foreig'     => '1',
+			'style'      => 'width                                                            : 100px,',
+			'opciones'   => 'id,nombre|'.$obj[$chain_items[$ii]]['tabla'].'|where visibilidad = 1 order by nombre asc',
+			'width'      => '80px',
+			'derecha'    => '1',
+			'tags'       => '1',
+			'queries'    => '1',
 		];
 
 		if($obj[$chain_items[$ii+1]]['tabla']){

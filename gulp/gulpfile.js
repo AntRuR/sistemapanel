@@ -4,8 +4,8 @@
 
 // gulp
 const gulp         = require('gulp'),
-      argv         = require('yargs').default('p','model').argv,
-      gutil        = require('gulp-util');
+      // gutil        = require('gulp-util'),
+      argv         = require('yargs').default('p','model').argv;
 
 // stylus
 const stylus       = require('gulp-stylus'),
@@ -16,22 +16,20 @@ const exec         = require('child_process').exec;
 
 const  writeFile   = require('write');
 
-
-
+// paths
 const folder           = `../${argv.p}`;
 const panel_dir       = `${folder}/panel`;
-const views_dir       = `${panel_dir}/views`;
+const views_dir       = `${panel_dir}/views`; 
 const views_src_dir       = `${views_dir}/src`;
 const views_dist_dir       = `${views_dir}/dist`;
 const css_dir       = `${panel_dir}/css`;
 const stylus_dir      = `${css_dir}/stylus`;
 const stylus_source      = `${stylus_dir}/css.styl`;
 
-const css_dist = `${css_dir}/css.css`
 
 
 /*
- ######  ######## ##    ## ##       ##     ##  ######
+ ######  ######## ##    ## ##       ##     ##  ###### 
 ##    ##    ##     ##  ##  ##       ##     ## ##    ##
 ##          ##      ####   ##       ##     ## ##
  ######     ##       ##    ##       ##     ##  ######

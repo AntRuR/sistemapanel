@@ -42,127 +42,6 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 					]	
 				]
 			),
-
-			// [
-			// 	'id_actividad'		=>array(
-			// 		'campo'			=> 'id_actividad',
-			// 		'label'			=> 'Actividad',
-			// 		'width'			=> '150px',
-			// 		'tipo'			=> 'hid',
-			// 		'multi'			=> '1',
-			// 		'listable'		=> '1',
-			// 		'validacion'	=> '1',
-			// 		// 'controles'		=> '<a rel="subs" href="custom/productos_items.php?id_tipo=[id]" >{select count(*) from productos_items where id_tipo=[id]} modelos</a>',
-			// 		'opciones'	=> 'id,nombre|actividades|where visibilidad=1'
-			// 	)			
-			// ],
-			/*
-			[
-				'id_grupo'		=>array(
-					'campo'			=> 'id_grupo',
-					'label'			=> 'Empresa',
-					'tipo'			=> 'hid',
-					'listable'		=> '1',
-					'validacion'	=> '1',
-					'default'		=> '[id_grupo]',
-					'foreig'		=> '1',
-					'style'			=> 'width:100px,',
-					'opciones'		=> 'id,nombre|empresas|where visibilidad=1 order by nombre asc',
-					'load'			=> 'id_planta||id,nombre|plantas|where visibilidad=1 and id_grupo=[id_grupo] order by nombre desc',
-					'width'			=> '80px',
-					'derecha'		=> '1',
-					'tags'			=> '1',
-					'queries'		=> '1',
-					// 'noedit'		=> '1',
-					'controles'		=> ''
-
-					.'<a href="custom/man_herramientas.php?id=[id]" rel="crear subs popup">{select count(*) from man_herramientas where id_grupo=[id]} herramientas</a>'
-					.'<a href="custom/man_tecnicos.php?id=[id]" rel="crear subs popup">{select count(*) from man_tecnicos where id_grupo=[id]} tecnicos</a>'
-
-					.'<a href="custom/man_actividades.php?id=[id]" rel="crear subs popup">{select count(*) from man_actividades where id_grupo=[id]} actividades</a>'
-					// .'<a href="custom/productos_ventas_docs.php?id=[id]" rel="subs popup">{select count(*) from productos_ventas_docs where id_grupo=[id]} documentos</a>'
-					// .'<a style="font-weight:bold;margin-left:5px !important;" target="_blank" href="custom/ventas_items.php?id_grupo=[id_grupo]">IR A OC</a>'
-
-					.'',
-
-				),
-
-				'id_planta'		=>array(
-					'campo'			=> 'id_planta',
-					'label'			=> 'Planta',
-					'tipo'			=> 'hid',
-					'listable'		=> '1',
-					'validacion'	=> '1',
-					'default'		=> '[id_item]',
-					'foreig'		=> '1',
-					'style'			=> 'width:150px;',
-					'opciones'		=> 'id,nombre|plantas|where visibilidad=1 order by nombre asc',
-					'load'			=> 'id_area||id,nombre|areas|where visibilidad=1 and id_grupo=[id] order by nombre desc',
-					'width'			=> '250px',
-					'derecha'		=> '2',
-					'tip_foreig'	=> '0',
-					'tags'			=> '1',
-					'queries'		=> '0',
-					// 'noedit'		=> '1',
-				),
-
-				'id_area'		=>array(
-					'campo'			=> 'id_area',
-					'label'			=> 'Area',
-					'tipo'			=> 'hid',
-					'listable'		=> '1',
-					'validacion'	=> '1',
-					'default'		=> '[id_item]',
-					'foreig'		=> '1',
-					'style'			=> 'width:150px;',
-					'opciones'		=> 'id,nombre|areas|where visibilidad=1 order by nombre asc',
-					'load'			=> 'id_cat||id,nombre|equipos|where visibilidad=1 and id_grupo=[id] order by nombre desc',
-					'width'			=> '250px',
-					'derecha'		=> '2',
-					'tip_foreig'	=> '0',
-					'tags'			=> '1',
-					'queries'		=> '0',
-					// 'noedit'		=> '1',
-				),
-
-				'id_cat'		=>array(
-					'campo'			=> 'id_cat',
-					'label'			=> 'Categoría',
-					'tipo'			=> 'hid',
-					'listable'		=> '1',
-					'validacion'	=> '1',
-					'default'		=> '[id_item]',
-					'foreig'		=> '1',
-					'style'			=> 'width:150px;',
-					'opciones'		=> 'id,nombre|equipos_categorias|where visibilidad=1 order by nombre asc',
-					'load'			=> 'id_item||id,nombre|equipos|where visibilidad=1 and id_grupo=[id] order by nombre desc',
-					'width'			=> '250px',
-					'derecha'		=> '2',
-					'tip_foreig'	=> '0',
-					'tags'			=> '1',
-					'queries'		=> '0',
-					// 'noedit'		=> '1',
-				),
-
-				'id_item'		=>array(
-						'campo'			=> 'id_item',
-						'label'			=> 'Equipo',
-						'tipo'			=> 'hid',
-						'listable'		=> '1',
-						'validacion'	=> '1',
-						'default'		=> '[id_item]',
-						'foreig'		=> '1',
-						'style'			=> 'width:150px;',
-						'opciones'		=> 'id,nombre|equipos|where visibilidad=1 order by nombre asc',
-						'width'			=> '250px',
-						'derecha'		=> '2',
-						'tip_foreig'	=> '0',
-						'tags'			=> '1',
-						'queries'		=> '0',
-						// 'noedit'		=> '1',
-				),
-			],
-			*/
 			[
 				
 				'fecha_inicio'	=>array(
@@ -194,21 +73,39 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 					'queries'		=> '0',
 					'validacion'	=> '0',
 			),						
-				/*
-				'id_herramientas'		=>array(
-						'campo'			=> 'id_herramientas',
-						'label'			=> 'Herramientas',
-						'width'			=> '100px',
-						'listable'		=> '0',
-						'tipo'			=> 'hid',
-						'opciones'		=> 'id,nombre|herramientas|order by nombre asc',
-						'derecha'		=> '1',
-						'tags'			=> '1',
-						'queries'		=> '1',
-						'validacion'	=> '0',
-						'select_multiple'=> '1'
-				),		
-				*/
+				
+			'id_herramientas'		=>array(
+					'campo'			=> 'id_herramientas',
+					'label'			=> 'Herramientas',
+					'width'			=> '100px',
+					'listable'		=> '0',
+					'tipo'			=> 'hid',
+					'opciones'		=> 'id,nombre|herramientas|order by nombre asc',
+					'derecha'		=> '1',
+					'tags'			=> '1',
+					'queries'		=> '1',
+					'validacion'	=> '0',
+					// 'select_multiple'=> '1',
+					'multi'			=> '1',
+
+			),	
+			
+			'id_tecnicos'		=>array(
+				'campo'			=> 'id_tecnicos',
+				'label'			=> 'Herramientas',
+				'width'			=> '100px',
+				'listable'		=> '0',
+				'tipo'			=> 'hid',
+				'opciones'		=> 'id,nombre;apellidos|tecnicos|order by nombre asc',
+				'derecha'		=> '1',
+				'tags'			=> '1',
+				'queries'		=> '1',
+				'validacion'	=> '0',
+				// 'select_multiple'=> '1',
+				'multi'			=> '1',
+
+		),				
+				
 
 			]
 		),
