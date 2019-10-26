@@ -21,7 +21,7 @@ window.addEvent('load',()=>{
         <div class="alert alert-danger" role="alert">
             sólo el asesor comercial puede activar una orden de compra
         </div>`;
-        return;
+        return; 
 
     }
 

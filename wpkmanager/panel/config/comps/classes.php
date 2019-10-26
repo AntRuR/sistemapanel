@@ -142,6 +142,8 @@ function chain_campos($obj,$chain_items=[],$more=[]){
 
 	$chain_campos=[];
 
+	$ee=0;
+	$derecha=[1,2,2];
 	foreach($chain_items as $ii=>$item){
 
 		$campo='id_'.$obj[$chain_items[$ii]]['nombre_singular'];
@@ -158,10 +160,12 @@ function chain_campos($obj,$chain_items=[],$more=[]){
 			'style'      => 'width                                                            : 100px,',
 			'opciones'   => 'id,nombre|'.$obj[$chain_items[$ii]]['tabla'].'|where visibilidad = 1 order by nombre asc',
 			'width'      => '80px',
-			'derecha'    => '1',
+			'derecha'    => $derecha[$ee%3],
 			'tags'       => '1',
 			'queries'    => '1',
 		];
+		
+		$ee++;
 
 		if($obj[$chain_items[$ii+1]]['tabla']){
 				$chain_campos[$campo]=array_merge($chain_campos[$campo],[

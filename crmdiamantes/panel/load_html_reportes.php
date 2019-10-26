@@ -12,13 +12,16 @@ if($_GET['ajax']!='0'){
 }
 	//echo getcwd();
 
-
 	list($file,$type)=explode('_ol',$_GET['file']);
 
 	if($type=='d'){
 
 		$_GET['file']=$file;
 		
+		// prin($_GET);
+		if(isset($_GET['id_grupo']) and $_GET['id_grupo']!='' )
+			$filtro_marcas=" and  id_grupo=".$_GET['id_grupo']." ";
+		// prin($filtro_marcas);
 
 		foreach($_GET as $get=>$val){
 			if(in_array($get,array('file','seccion','format'))){
@@ -28,7 +31,6 @@ if($_GET['ajax']!='0'){
 			}
 		}
 
-		// prin($_GET);
 		$gett['fecha_creacion']=$_GET['fecha_creacion'];
 
 		$_GET=$gett;

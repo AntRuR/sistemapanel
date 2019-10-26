@@ -413,13 +413,15 @@ foreach($intervalos as $vv){
 
 	} else {
 
+		// prin($filtro_marcas);
 		$llll=select(
 					"$ordby as nombre, count(*) as total,id_jefe",
 					$datos_tabla['tabla'],
 					"where 1 "
 					// ."and visibilidad!=0 "
-					."and date($date) between '".str_replace("|","' and '",$vv)."'
-					group by ".$ordby." order by ".$ordby." desc
+					."and date($date) between '".str_replace("|","' and '",$vv)."' "
+					.$filtro_marcas
+					." group by ".$ordby." order by ".$ordby." desc
 					",
 					0);
 
@@ -428,8 +430,9 @@ foreach($intervalos as $vv){
 					$datos_tabla['tabla'],
 					"where 1 "
 					// ."and visibilidad!=0 "
-					."and date($date) between '".str_replace("|","' and '",$vv)."'
-					and id_status in ($idestados)					
+					."and date($date) between '".str_replace("|","' and '",$vv)."' "
+					.$filtro_marcas
+					." and id_status in ($idestados)					
 					group by ".$ordby." order by ".$ordby." desc
 					",
 					0);		

@@ -25,13 +25,14 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 
 	$rpt=0;
 	$defaultfilter='';
+	// prin($reportes);
 	foreach($reportes as $rt=>$reporte)
 	{
 		// prin($reporte);
 		$rrrr 	= explode("=",$reporte);
 		$rrrr0	= explode("|",$rrrr['1']);
 		$rrrr1	= explode(",",$rrrr0['1']);
-
+		
 		$html_filter.= '<li>
 		<input style="display:none;" name="report_file" class="option_report_file rad" type="radio" id="rp_'.$rt.'" value="'.$rrrr['0'].'"  '.
 		'onchange="if(this.checked){ render_filderRP({FECHA},this); } " data-campos=\''.$rrrr0['1'].'\' '. ( ($rpt==0 and sizeof($reportes)==1)?'checked':'').' >
@@ -45,6 +46,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 	}
 	// prin($);
 	// prin($reportes);
+	// prin($qus);
 
 	foreach($qus as $blatacampo=>$querie){
 
@@ -52,7 +54,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 
 		//if(in_array($querie['tipo'],array('fch','fcr'))){
 
-		if(in_array($querie['campo'],$rrrr1))
+		// if(in_array($querie['campo'],$rrrr1))
 		
 		if(in_array($querie['tipo'],array('fcr','fch'))){
 
