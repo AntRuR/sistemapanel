@@ -1,3 +1,14 @@
+
+/*
+ ________  ___  ___  ___       ________
+|\   ____\|\  \|\  \|\  \     |\   __  \
+\ \  \___|\ \  \\\  \ \  \    \ \  \|\  \
+ \ \  \  __\ \  \\\  \ \  \    \ \   ____\
+  \ \  \|\  \ \  \\\  \ \  \____\ \  \___|
+   \ \_______\ \_______\ \_______\ \__\
+    \|_______|\|_______|\|_______|\|__|
+*/
+
 // gulp
 const gulp         = require('gulp'),
       // gutil        = require('gulp-util'),
@@ -11,7 +22,7 @@ const stylus       = require('gulp-stylus'),
       autoprefixer = require('gulp-autoprefixer'),
       livereload   = require('gulp-livereload');    
 // babel
-const babel = require('gulp-babel');
+const babel        = require('gulp-babel');
 
 const exec         = require('child_process').exec;
 
@@ -49,13 +60,15 @@ const babel_source   = `${babel_dir}/app.js`;
 */
 const babel_task = () => {
 
-  touch_task();
+  touch_task('es6');
 
   return gulp.src(babel_source)
   .pipe(babel({       
      "presets": ["env"]
   }))    
-  .pipe(gulp.dest(js_dir));
+  .pipe(gulp.dest(js_dir))
+  .pipe(livereload());
+
 
 }
 
@@ -71,7 +84,7 @@ const babel_task = () => {
 */
 const stylus_task = () => {
 
-  touch_task();
+  touch_task('css');
 
   return gulp.src(stylus_source)
     .pipe(stylus({
@@ -84,9 +97,6 @@ const stylus_task = () => {
 
     
 }
-
-
-
 
 
 /*
@@ -109,6 +119,7 @@ const jade2php_task = ()=>{
 
 }
 
+
 /*
 ########  #######  ##     ##  ######  ##     ##
    ##    ##     ## ##     ## ##    ## ##     ##
@@ -118,12 +129,12 @@ const jade2php_task = ()=>{
    ##    ##     ## ##     ## ##    ## ##     ##
    ##     #######   #######   ######  ##     ##
 */
-const touch_task = () => {
+const touch_task = (some=null) => {
 
   var filetouch = folder+'/touch.json';
   var touch=require(filetouch);
   var newtouch = ++touch.v;
-  console.log(chalk.bgRed(" building css .... ")+chalk.blue(" v:"+newtouch));
+  console.log(chalk.bgRed(" building "+some+" .... ")+chalk.blue(" v:"+newtouch));
   writeFile.sync(filetouch, '{"v":"'+newtouch+'"}');
 
 }
@@ -143,6 +154,9 @@ const watch_task = () => {
 
   hello_task();
 
+  livereload.listen();
+
+  // stylus
   gulp.watch(
       [
         stylus_dir+'/*.styl',
@@ -152,14 +166,16 @@ const watch_task = () => {
     stylus_task
   );
 
+  // babel
   gulp.watch(
     [
       babel_dir+'/**/*.js',
     ]
-  ,
-  babel_task
-);  
+    ,
+    babel_task
+  );  
 
+  // jade
   gulp.watch(
     views_src_dir+'/*.jade',
     jade2php_task
@@ -191,10 +207,10 @@ const hello_task = ()=>{
 }
 
 
-exports.touch = touch_task;
-exports.stylus = stylus_task;
-exports.babel = babel_task;
-exports.php = jade2php_task;
-exports.watch = watch_task;
+exports.touch   = touch_task;
+exports.stylus  = stylus_task;
+exports.babel   = babel_task;
+exports.php     = jade2php_task;
+exports.watch   = watch_task;
 exports.default = gulp.series(stylus_task,babel_task,jade2php_task,watch_task);
 
