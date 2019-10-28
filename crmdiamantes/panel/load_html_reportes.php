@@ -21,6 +21,9 @@ if($_GET['ajax']!='0'){
 		// prin($_GET);
 		if(isset($_GET['id_grupo']) and $_GET['id_grupo']!='' )
 			$filtro_marcas=" and  id_grupo=".$_GET['id_grupo']." ";
+
+		if(isset($_GET['id_item']) and $_GET['id_item']!='' )
+			$filtro_marcas=" and  id_item=".$_GET['id_item']." ";			
 		// prin($filtro_marcas);
 
 		foreach($_GET as $get=>$val){

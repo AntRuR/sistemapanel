@@ -229,7 +229,7 @@ $LINK_COLOR_OPP=oppColour($LINK_COLOR);
 $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
 
-<script type="text/javascript" src="<?php echo $sn2?>js/babel/app.js?r=<?php echo $Touch;?>"></script>	
+<script type="text/javascript" src="<?php echo $sn2?>js/app.js?r=<?php echo $Touch;?>"></script>	
 
 <style>
 /*body {

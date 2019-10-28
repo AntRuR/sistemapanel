@@ -23,6 +23,13 @@ const stylus       = require('gulp-stylus'),
       livereload   = require('gulp-livereload');    
 // babel
 const babel        = require('gulp-babel');
+// browserify;
+const browserify   = require('browserify'),
+      babelify     = require('babelify'),
+      uglify       = require('gulp-uglify'),
+      source       = require('vinyl-source-stream'),
+      rollup       = require('rollup-stream'),
+      buffer       = require('vinyl-buffer');       
 
 const exec         = require('child_process').exec;
 
@@ -47,7 +54,44 @@ const stylus_source  = `${stylus_dir}/css.styl`;
 const babel_dir      = `${js_dir}/babel`;
 const babel_source   = `${babel_dir}/app.js`;
 
+// rooaup
 
+const babel_task = () => {
+
+  touch_task('es6');
+
+  return rollup(
+    {
+      entry: babel_source,
+      format: 'cjs'
+    }
+    )
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(babel())
+    .pipe(gulp.dest(js_dir))
+    .pipe(livereload());
+
+  }
+
+
+// Browserify
+const babel_task3 = () => {
+  
+  touch_task('es6');
+
+  return browserify({
+    entries: babel_source, 
+  })
+  .transform("babelify")
+  .bundle()
+  .pipe(source('app.js'))
+  .pipe(buffer())
+  // .pipe(uglify())
+  .pipe(gulp.dest(js_dir))
+  .pipe(livereload());
+
+}
 
 /*
 ########     ###    ########  ######## ##
@@ -58,13 +102,13 @@ const babel_source   = `${babel_dir}/app.js`;
 ##     ## ##     ## ##     ## ##       ##
 ########  ##     ## ########  ######## ########
 */
-const babel_task = () => {
+const babel_task2 = () => {
 
   touch_task('es6');
 
   return gulp.src(babel_source)
   .pipe(babel({       
-     "presets": ["env"]
+    "presets": ['env']
   }))    
   .pipe(gulp.dest(js_dir))
   .pipe(livereload());
@@ -202,7 +246,7 @@ const watch_task = () => {
 */
 const hello_task = ()=>{
   
-  return console.log(chalk.yellow(atg(argv.p,"2")));
+  return console.log(chalk.yellow(atg(argv.p,"3")));
 
 }
 

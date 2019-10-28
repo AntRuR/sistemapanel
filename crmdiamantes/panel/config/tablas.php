@@ -6796,7 +6796,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'user'			=> '1',
 		'stat'			=> '0',
 		// 'repos'			=> 'vendedores=Reporte de Vendedores&stock=Stock de Consesionario'
-		'repos'			=> 'vendedores_old=Reporte de Vendedores|fecha_creacion,id_grupo&vendedoresalertas=Reporte de Atenciones y Alertas|fecha_creacion,id_usuario&vendedoresseguimientos=Ponderados de Seguimientos por Ventas|fecha_creacion,id_usuario',
+		'repos'			=> 'vendedores_old=Reporte de Vendedores|fecha_creacion,id_grupo,id_item&vendedoresalertas=Reporte de Atenciones y Alertas|fecha_creacion,id_usuario&vendedoresseguimientos=Ponderados de Seguimientos por Ventas|fecha_creacion,id_usuario',
 		// 'repos'			=> 'vendedores_old=Reporte de Vendedores|fecha_creacion&vendedoresalertas=Reporte de Atenciones y Alertas|fecha_creacion,id_item',		
 );
 
