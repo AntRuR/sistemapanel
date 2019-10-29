@@ -1,7 +1,3 @@
-// const { Bravo } = require("./library.js")();
-import { bravo,adios,holi } from './library';
+import * as lib from './libs';
 
-bravo();
-adios();
-holi();
 

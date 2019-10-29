@@ -1,17 +1,17 @@
 export const bravo = () => {
 
-    console.log('pa bravo yo');
+    console.log('bravo bravo');
 
 }
 
 export const adios = () => {
 
-    console.log('chaufa');
+    console.log('bye bye');
 
 }
 
 export const holi = () => {
 
-    console.log('holi');
+    console.log('hey');
 
 }

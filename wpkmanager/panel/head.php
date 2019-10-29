@@ -16,13 +16,17 @@ if($_GET['rt']!=''){
 	echo '<meta http-equiv="refresh" content="0;url='. ( $SERVER['BASE'].$SERVER['ARCHIVO'].'?'.http_build_query($get) ) .'" />';
 }
 
+// prin($_SERVER);
+
+$con_port=($_SERVER['SERVER_PORT'])?':'.$_SERVER['SERVER_PORT']:'';
+
 if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
 	$sn=explode($DIR_CUSTOM,$_SERVER['SCRIPT_NAME']);
 	$sn2="http://".$_SERVER['SERVER_NAME'].$sn[0];
 	$sn3='<base href="'.$sn2.'" />';
 } else {
 	$sn=explode("/panel",$_SERVER['SCRIPT_NAME']);
-	$sn2="http://".$_SERVER['SERVER_NAME'].$sn[0]."/panel/";
+	$sn2="http://".$_SERVER['SERVER_NAME'].$con_port.$sn[0]."/panel/";
 	$sn3='<base href="'.$sn2.'" />';
 }
 
@@ -229,7 +233,7 @@ $LINK_COLOR_OPP=oppColour($LINK_COLOR);
 $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
 
-<script type="text/javascript" src="<?php echo $sn2?>js/app.js?r=<?php echo $Touch;?>"></script>	
+<script type="text/javascript" src="<?php echo $sn2?>js/bundle.js?r=<?php echo $Touch;?>"></script>	
 
 <style>
 /*body {

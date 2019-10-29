@@ -81,31 +81,32 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../wpkmanager/panel/js/babel/app.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./prueba/src/js/app.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../wpkmanager/panel/js/babel/app.js":
-/*!*******************************************!*\
-  !*** ../wpkmanager/panel/js/babel/app.js ***!
-  \*******************************************/
+/***/ "./prueba/src/js/app.js":
+/*!******************************!*\
+  !*** ./prueba/src/js/app.js ***!
+  \******************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libs */ \"../wpkmanager/panel/js/babel/libs.js\");\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_libs__WEBPACK_IMPORTED_MODULE_0__);\n\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _library__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./library */ \"./prueba/src/js/library.js\");\n// const { Bravo } = require(\"./library.js\")();\n\n\nObject(_library__WEBPACK_IMPORTED_MODULE_0__[\"bravo\"])();\nObject(_library__WEBPACK_IMPORTED_MODULE_0__[\"adios\"])();\nObject(_library__WEBPACK_IMPORTED_MODULE_0__[\"holi\"])();\n\n\n\n//# sourceURL=webpack:///./prueba/src/js/app.js?");
 
 /***/ }),
 
-/***/ "../wpkmanager/panel/js/babel/libs.js":
-/*!********************************************!*\
-  !*** ../wpkmanager/panel/js/babel/libs.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./prueba/src/js/library.js":
+/*!**********************************!*\
+  !*** ./prueba/src/js/library.js ***!
+  \**********************************/
+/*! exports provided: bravo, adios, holi */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("const loadCss = urlcss => {\n  let newCSS = document.createElement(\"link\");\n  newCSS.type = \"text/css\";\n  newCSS.rel = \"stylesheet\";\n  newCSS.href = encodeURI(urlcss);\n  document.getElementsByTagName(\"head\")[0].appendChild(newCSS);\n};\n\nconst loadJs = urlJs => {\n  let newJs = document.createElement(\"script\");\n  newJs.type = \"text/javascript\";\n  newJs.src = encodeURI(urlJs);\n  document.getElementsByTagName(\"head\")[0].appendChild(newJs);\n};\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/libs.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"bravo\", function() { return bravo; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"adios\", function() { return adios; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"holi\", function() { return holi; });\nconst bravo = () => {\n\n    console.log('pa bravo yo');\n\n}\n\nconst adios = () => {\n\n    console.log('chaufa');\n\n}\n\nconst holi = () => {\n\n    console.log('holi');\n\n}\n\n//# sourceURL=webpack:///./prueba/src/js/library.js?");
 
 /***/ })
 

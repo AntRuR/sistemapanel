@@ -25,7 +25,9 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 
 	$rpt=0;
 	$defaultfilter='';
+	
 	// prin($reportes);
+
 	foreach($reportes as $rt=>$reporte)
 	{
 		// prin($reporte);
@@ -237,7 +239,25 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 						$html_filtro.='<span id="repo_fil_'.$querie['campo'].'" class="repo_fils">';
 						$html_filtro.="<label style='width:auto;padding-right:10px;'>".$querie['label']."</label>";
 
-						$html_filtro.="<select rel='".$querie['campo']."' style='width:".(($querie['width'])?$querie['width']:'100px').";' class='stfilters ".( ($FiL[$blata][$querie['campo']]!='')?"inuse":"" )."' id='filtr_fs_".$querie['campo']."' onchange=\"render_filderST();\">";
+						$html_filtro.="<select rel='".$querie['campo']."' style='width:".(($querie['width'])?$querie['width']:'100px').";' class='stfilters ".( ($FiL[$blata][$querie['campo']]!='')?"inuse":"" )."' id='filtr_fs_".$querie['campo']."' 
+						onchange=\"render_filderST();";
+
+						
+						if($querie['load']!=''){
+
+							$LoaDs=explode(";",$querie['load']);
+
+							foreach($LoaDs as $LoaDd){
+
+								$looop=explode("||",trim($LoaDd));
+								$html_filtro.="load_combo_filtro('".$looop[0]."','".str_replace('in_','filtr_fs_',procesar_loads($looop[1],$querie['campo']))."');";
+
+							} 
+
+						}
+						
+
+						$html_filtro.="\">";
 						$html_filtro.="<option value='' class='empty'>".$querie['label']."</option>";
 						foreach($oopciones as $pppooo){
 							// $quer=urlencode($blata.".".$querie['campo']."=".$pppooo[$idO]);
@@ -263,6 +283,7 @@ $DIR=($_GET['dir']!='')?$_GET['dir']."/":'';
 
 	}
 
+	// echo date("H:i:s");
 	// prin($html_filter_fecha_A);
 
 	?>

@@ -29,7 +29,8 @@ const browserify   = require('browserify'),
       uglify       = require('gulp-uglify'),
       source       = require('vinyl-source-stream'),
       rollup       = require('rollup-stream'),
-      buffer       = require('vinyl-buffer');       
+      buffer       = require('vinyl-buffer'),
+      webpack      = require('webpack-stream');
 
 const exec         = require('child_process').exec;
 
@@ -56,38 +57,74 @@ const babel_source   = `${babel_dir}/app.js`;
 
 // rooaup
 
-const babel_task = () => {
+/*
+##      ## ######## ########  ########     ###     ######  ##    ##
+##  ##  ## ##       ##     ## ##     ##   ## ##   ##    ## ##   ##
+##  ##  ## ##       ##     ## ##     ##  ##   ##  ##       ##  ##
+##  ##  ## ######   ########  ########  ##     ## ##       #####
+##  ##  ## ##       ##     ## ##        ######### ##       ##  ##
+##  ##  ## ##       ##     ## ##        ##     ## ##    ## ##   ##
+ ###  ###  ######## ########  ##        ##     ##  ######  ##    ##
+*/
+const babel_task= () => {
+
+  touch_task('webpack');
+
+  return gulp.src(babel_source)
+    .pipe(webpack({
+      mode:'development',
+      // mode:'production',
+      module: {
+        rules: [
+          {
+            test: /\.(js)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+          }
+        ]
+      },      
+      output: {
+        filename: 'bundle.js'
+      }
+    }))
+    .pipe(gulp.dest(`${js_dir}`))
+    .pipe(livereload());
+
+};
+
+// build
+const babel_task4 = () => {
 
   touch_task('es6');
 
-  return rollup(
-    {
-      entry: babel_source,
-      format: 'cjs'
-    }
-    )
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(babel())
-    .pipe(gulp.dest(js_dir))
-    .pipe(livereload());
+  return gulp.src(babel_source)
+  .pipe(browserify)
+  // .pipe(browserify({
+  //     transform: ['babelify'] 
+  // }))
+  // .on('error', errorAlert)
+  // .transform(babelify)
+  .bundle()
+  .pipe(source("bundle.js"))
+  .pipe(gulp.dest(js_dir))
+  .pipe(livereload());
 
-  }
+}
 
 
 // Browserify
 const babel_task3 = () => {
   
-  touch_task('es6');
+  touch_task('es7');
 
   return browserify({
-    entries: babel_source, 
+    entries: [babel_source], 
   })
-  .transform("babelify")
+  .transform("babelify",{presets: ["es2015"]} )
   .bundle()
-  .pipe(source('app.js'))
-  .pipe(buffer())
-  // .pipe(uglify())
+  .pipe(source('bundle.js'))
+  // // .pipe(buffer())
+  // // .pipe(uglify())
   .pipe(gulp.dest(js_dir))
   .pipe(livereload());
 

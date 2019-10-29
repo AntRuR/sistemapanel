@@ -487,34 +487,36 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 
 									if($tbcampA['load']!=''){
 
-									$LoaDs=explode(";",$tbcampA['load']);
+										$LoaDs=explode(";",$tbcampA['load']);
 
-									foreach($LoaDs as $LoaDd){
+										foreach($LoaDs as $LoaDd){
 
-									if(enhay(trim($LoaDd),"|checks|")){
-									$looop=explode("|checks|",trim($LoaDd));
-									?>load_checks('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>','<?php echo $tbcampA['afterload']?>');<?php
-									}	
+											if(enhay(trim($LoaDd),"|checks|")){
+											$looop=explode("|checks|",trim($LoaDd));
+											?>load_checks('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>','<?php echo $tbcampA['afterload']?>');<?php
+											}	
 
-									elseif(enhay($LoaDd,"|html|")){
-									$looop=explode("|html|",trim($LoaDd));
-									?>load_htmls('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>','<?php echo $tbcampA['afterload']?>');<?php
-									}	
+											elseif(enhay($LoaDd,"|html|")){
+											$looop=explode("|html|",trim($LoaDd));
+											?>load_htmls('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>','<?php echo $tbcampA['afterload']?>');<?php
+											}	
 
-									elseif(enhay($LoaDd,"||||")){
-									$looop=explode("||||",trim($LoaDd));
-									?>load_datos_fecha('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>');<?php
-									}
+											elseif(enhay($LoaDd,"||||")){
+											$looop=explode("||||",trim($LoaDd));
+											?>load_datos_fecha('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>');<?php
+											}
 
-									elseif(enhay($LoaDd,"|||")){
-									$looop=explode("|||",trim($LoaDd));
-									?>load_datos('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>','','<?php echo $tbcampA['afterload']?>');<?php
-									}							
+											elseif(enhay($LoaDd,"|||")){
+											$looop=explode("|||",trim($LoaDd));
+											?>load_datos('<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>','','<?php echo $tbcampA['afterload']?>');<?php
+											}							
 
-									else{
-									$looop=explode("||",trim($LoaDd));
-									?>load_combo('<?php echo $looop[0]?>','<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>');<?php
-									} } 
+											else{
+											$looop=explode("||",trim($LoaDd));
+											?>load_combo('<?php echo $looop[0]?>','<?php echo procesar_loads($looop[1],$tbcampA['campo'])?>');<?php
+											} 
+
+										} 
 
 									}
 									

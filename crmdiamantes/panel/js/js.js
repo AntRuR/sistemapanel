@@ -1390,3 +1390,25 @@ function beforemulti(){
 
 	}
 }
+
+function load_combo_filtro(span,sql,value,after){
+	// alert(span);
+	// alert(sql);
+	// alert(value);
+	if(!$('filtr_fs_'+span)) return;
+	$('filtr_fs_'+span).innerHTML='';
+	new Element('option',{'value':'','html':'.............'}).inject($('filtr_fs_'+span), 'bottom');
+	new Request({url:'load_combo.php?s='+encodeURIComponent(sql)+'&s2='+value+'&camp='+span,  method:'get', onSuccess:function(ee) {
+	var json=JSON.decode(ee,true);
+	$('filtr_fs_'+span).innerHTML='';
+	new Element('option',{'value':'','html':''}).inject($('filtr_fs_'+span), 'bottom');
+	for(var i=0;i<json.length;i++){
+		new Element('option',{
+			'value'	:json[i][0],
+			'html'	:json[i][1]
+		}).inject($('filtr_fs_'+span), 'bottom');
+	}
+	$('filtr_fs_'+span).value=$('filtr_fs_'+span).rel;
+	if(after!=null)eval(after);
+ } } ).send();
+}

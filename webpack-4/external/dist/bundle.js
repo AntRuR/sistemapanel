@@ -81,31 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../wpkmanager/panel/js/babel/app.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./external/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../wpkmanager/panel/js/babel/app.js":
-/*!*******************************************!*\
-  !*** ../wpkmanager/panel/js/babel/app.js ***!
-  \*******************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libs */ \"../wpkmanager/panel/js/babel/libs.js\");\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_libs__WEBPACK_IMPORTED_MODULE_0__);\n\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/app.js?");
-
-/***/ }),
-
-/***/ "../wpkmanager/panel/js/babel/libs.js":
-/*!********************************************!*\
-  !*** ../wpkmanager/panel/js/babel/libs.js ***!
-  \********************************************/
+/***/ "./external/index.js":
+/*!***************************!*\
+  !*** ./external/index.js ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const loadCss = urlcss => {\n  let newCSS = document.createElement(\"link\");\n  newCSS.type = \"text/css\";\n  newCSS.rel = \"stylesheet\";\n  newCSS.href = encodeURI(urlcss);\n  document.getElementsByTagName(\"head\")[0].appendChild(newCSS);\n};\n\nconst loadJs = urlJs => {\n  let newJs = document.createElement(\"script\");\n  newJs.type = \"text/javascript\";\n  newJs.src = encodeURI(urlJs);\n  document.getElementsByTagName(\"head\")[0].appendChild(newJs);\n};\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/libs.js?");
+eval("\nconsole.log('webpack ctm');\n\n//# sourceURL=webpack:///./external/index.js?");
 
 /***/ })
 
