@@ -101,13 +101,11 @@ $id_permiso=$_SESSION['PERMISOS_ID'];
 
 		?>
 		</div>
-
 		<?php 
 		
-		include("foot.php"); 
+			include("foot.php");
 		
 		?>
-
 	</div>
 </body>
 </html>

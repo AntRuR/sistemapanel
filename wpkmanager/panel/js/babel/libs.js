@@ -1,5 +1,7 @@
 
-const loadCss =  (urlcss) => {
+export const vendor_dir = 'js/babel/vendor';
+
+export const loadCss =  (urlcss) => {
     let newCSS = document.createElement("link");
     newCSS.type = "text/css";
     newCSS.rel = "stylesheet";
@@ -8,7 +10,7 @@ const loadCss =  (urlcss) => {
 };
 
 
-const loadJs =  (urlJs) => {
+export const loadJs =  (urlJs) => {
     let newJs = document.createElement("script");
     newJs.type = "text/javascript";
     newJs.src = encodeURI(urlJs); 

@@ -22,13 +22,15 @@ foreach($tbcampos as $tbcampA){
 			$('in_<?php echo $tbcampA['campo']?>_a').value='<?php echo substr($tbcampA['default'],0,4);?>';
 			$('in_<?php echo $tbcampA['campo']?>_t').value='<?php echo substr($tbcampA['default'],11,8);?>';
 			$('in_<?php echo $tbcampA['campo']?>').value='<?php echo $tbcampA['default']?>';
-			<?php } ?>
-			<?php if($tbcampA['frozen']=='1'){ ?>
+			<?php }
+			/*
+			if($tbcampA['frozen']=='1'){ ?>
 			$('in_<?php echo $tbcampA['campo']?>_d').setProperty('disabled','true');
 			$('in_<?php echo $tbcampA['campo']?>_m').setProperty('disabled','true');
 			$('in_<?php echo $tbcampA['campo']?>_a').setProperty('disabled','true');
 			$('in_<?php echo $tbcampA['campo']?>_t').setProperty('disabled','true');
 			<?php }
+			*/
 		break;
 		case "html":
 			?>var html_<?php echo $tbcampA['campo']?> = CKEDITOR.replace( '<?php echo $tbcampA['campo']?>' );<?php		

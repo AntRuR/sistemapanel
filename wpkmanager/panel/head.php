@@ -223,7 +223,6 @@ else
 
 <script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
 
-<script type="text/javascript" src="<?php echo $sn2?>js/jquery/require.js" data-main="js/jquery/main.js?r=1"></script>	
 	<?php
 
 }//END MOOTOOLS

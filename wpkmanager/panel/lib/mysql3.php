@@ -65,9 +65,6 @@ function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,$concat=NULL,$othe
 	
 		//}
 		$result=mysqli_query($link,$consulta);
-		// prin($consulta);
-		// echo $consulta;
-		//$result=mysqli_query($link,$consulta) or $error=mysqli_error;
 		$total=mysqli_num_rows($result);
 		if($total>0){
 			while ($row = mysqli_fetch_row($result)){

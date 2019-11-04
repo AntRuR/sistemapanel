@@ -7,7 +7,7 @@
  */
 
 var FooPicker = (function () {
-  'use strict';
+  // 'use strict';
 
   var hasEventListener = window.addEventListener;
   var weeks = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];

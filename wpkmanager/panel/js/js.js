@@ -210,6 +210,7 @@ function input_date(id_input,id_span,fromYear,toYear,sethoras,justmonth){
 	}
 
 	html+= "<select id='"+id_input+"_m' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+
 	html+= "<option></option>";
 	for(var i=1; i<=12;i++){
 	html+= "<option value='"+ ( (i<10)?"0"+i:i) +"'>"+meses[i]+"</option>";
@@ -217,6 +218,7 @@ function input_date(id_input,id_span,fromYear,toYear,sethoras,justmonth){
 	html+= "</select>";
 
 	html+= "<select id='"+id_input+"_a' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+	
 	html+= "<option></option>";
 	for(var i=toYear; i>=fromYear;i--){
 	html+= "<option value='"+i+"'>"+i+"</option>";

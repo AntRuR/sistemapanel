@@ -1,3 +1,6 @@
-import * as lib from './libs';
+
+import './component/calendarSalsa';
+import './component/selectorSlim';
+// import './component/modalTingle';
 
 
