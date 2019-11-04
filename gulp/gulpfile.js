@@ -1,14 +1,29 @@
 
+
+
 /*
- ________  ___  ___  ___       ________
-|\   ____\|\  \|\  \|\  \     |\   __  \
-\ \  \___|\ \  \\\  \ \  \    \ \  \|\  \
- \ \  \  __\ \  \\\  \ \  \    \ \   ____\
-  \ \  \|\  \ \  \\\  \ \  \____\ \  \___|
-   \ \_______\ \_______\ \_______\ \__\
-    \|_______|\|_______|\|_______|\|__|
+ ________  ___  ________  _________  _______   _____ ______   ________  ________  ________  ________   _______   ___
+|\   ____\|\  \|\   ____\|\___   ___\\  ___ \ |\   _ \  _   \|\   __  \|\   __  \|\   __  \|\   ___  \|\  ___ \ |\  \
+\ \  \___|\ \  \ \  \___|\|___ \  \_\ \   __/|\ \  \\\__\ \  \ \  \|\  \ \  \|\  \ \  \|\  \ \  \\ \  \ \   __/|\ \  \
+ \ \_____  \ \  \ \_____  \   \ \  \ \ \  \_|/_\ \  \\|__| \  \ \   __  \ \   ____\ \   __  \ \  \\ \  \ \  \_|/_\ \  \
+  \|____|\  \ \  \|____|\  \   \ \  \ \ \  \_|\ \ \  \    \ \  \ \  \ \  \ \  \___|\ \  \ \  \ \  \\ \  \ \  \_|\ \ \  \____
+    ____\_\  \ \__\____\_\  \   \ \__\ \ \_______\ \__\    \ \__\ \__\ \__\ \__\    \ \__\ \__\ \__\\ \__\ \_______\ \_______\
+   |\_________\|__|\_________\   \|__|  \|_______|\|__|     \|__|\|__|\|__|\|__|     \|__|\|__|\|__| \|__|\|_______|\|_______|
+   \|_________|   \|_________|
+
+
 */
 
+
+/*
+########  ######## ########  ######## ##    ## ########  ######## ##    ##  ######  #### ########  ######
+##     ## ##       ##     ## ##       ###   ## ##     ## ##       ###   ## ##    ##  ##  ##       ##    ##
+##     ## ##       ##     ## ##       ####  ## ##     ## ##       ####  ## ##        ##  ##       ##
+##     ## ######   ########  ######   ## ## ## ##     ## ######   ## ## ## ##        ##  ######    ######
+##     ## ##       ##        ##       ##  #### ##     ## ##       ##  #### ##        ##  ##             ##
+##     ## ##       ##        ##       ##   ### ##     ## ##       ##   ### ##    ##  ##  ##       ##    ##
+########  ######## ##        ######## ##    ## ########  ######## ##    ##  ######  #### ########  ######
+*/
 // gulp
 const gulp         = require('gulp'),
       // gutil        = require('gulp-util'),
@@ -36,6 +51,17 @@ const exec         = require('child_process').exec;
 
 const  writeFile   = require('write');
 
+
+/*
+##     ##    ###    ########   ######
+##     ##   ## ##   ##     ## ##    ##
+##     ##  ##   ##  ##     ## ##
+##     ## ##     ## ########   ######
+ ##   ##  ######### ##   ##         ##
+  ## ##   ##     ## ##    ##  ##    ##
+   ###    ##     ## ##     ##  ######
+*/
+
 // paths
 const folder         = `../${argv.p}`;
 const panel_dir      = `${folder}/panel`;
@@ -55,103 +81,14 @@ const stylus_source  = `${stylus_dir}/css.styl`;
 const babel_dir      = `${js_dir}/babel`;
 const babel_source   = `${babel_dir}/app.js`;
 
-// rooaup
-
-/*
-##      ## ######## ########  ########     ###     ######  ##    ##
-##  ##  ## ##       ##     ## ##     ##   ## ##   ##    ## ##   ##
-##  ##  ## ##       ##     ## ##     ##  ##   ##  ##       ##  ##
-##  ##  ## ######   ########  ########  ##     ## ##       #####
-##  ##  ## ##       ##     ## ##        ######### ##       ##  ##
-##  ##  ## ##       ##     ## ##        ##     ## ##    ## ##   ##
- ###  ###  ######## ########  ##        ##     ##  ######  ##    ##
-*/
-const babel_task= () => {
-
-  touch_task('webpack');
-
-  return gulp.src(babel_source)
-    .pipe(webpack({
-      mode:'development',
-      // mode:'production',
-      module: {
-        rules: [
-          {
-            test: /\.(js)$/,
-            exclude: /node_modules/,
-            use: ['babel-loader']
-          }
-        ]
-      },      
-      output: {
-        filename: 'bundle.js'
-      }
-    }))
-    .pipe(gulp.dest(`${js_dir}`))
-    .pipe(livereload());
-
-};
-
-// build
-const babel_task4 = () => {
-
-  touch_task('es6');
-
-  return gulp.src(babel_source)
-  .pipe(browserify)
-  // .pipe(browserify({
-  //     transform: ['babelify'] 
-  // }))
-  // .on('error', errorAlert)
-  // .transform(babelify)
-  .bundle()
-  .pipe(source("bundle.js"))
-  .pipe(gulp.dest(js_dir))
-  .pipe(livereload());
-
-}
 
 
-// Browserify
-const babel_task3 = () => {
-  
-  touch_task('es7');
-
-  return browserify({
-    entries: [babel_source], 
-  })
-  .transform("babelify",{presets: ["es2015"]} )
-  .bundle()
-  .pipe(source('bundle.js'))
-  // // .pipe(buffer())
-  // // .pipe(uglify())
-  .pipe(gulp.dest(js_dir))
-  .pipe(livereload());
-
-}
-
-/*
-########     ###    ########  ######## ##
-##     ##   ## ##   ##     ## ##       ##
-##     ##  ##   ##  ##     ## ##       ##
-########  ##     ## ########  ######   ##
-##     ## ######### ##     ## ##       ##
-##     ## ##     ## ##     ## ##       ##
-########  ##     ## ########  ######## ########
-*/
-const babel_task2 = () => {
-
-  touch_task('es6');
-
-  return gulp.src(babel_source)
-  .pipe(babel({       
-    "presets": ['env']
-  }))    
-  .pipe(gulp.dest(js_dir))
-  .pipe(livereload());
 
 
-}
+
+
+
+
 
 
 /*
@@ -221,6 +158,41 @@ const touch_task = (some=null) => {
 }
 
 
+/*
+##      ## ######## ########  ########     ###     ######  ##    ##
+##  ##  ## ##       ##     ## ##     ##   ## ##   ##    ## ##   ##
+##  ##  ## ##       ##     ## ##     ##  ##   ##  ##       ##  ##
+##  ##  ## ######   ########  ########  ##     ## ##       #####
+##  ##  ## ##       ##     ## ##        ######### ##       ##  ##
+##  ##  ## ##       ##     ## ##        ##     ## ##    ## ##   ##
+ ###  ###  ######## ########  ##        ##     ##  ######  ##    ##
+*/
+const webpack_task= () => {
+
+  touch_task('webpack');
+
+  return gulp.src(babel_source)
+    .pipe(webpack({
+      mode:'development',
+      // mode:'production',
+      module: {
+        rules: [
+          {
+            test: /\.(js)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+          }
+        ]
+      },      
+      output: {
+        filename: 'bundle.js'
+      }
+    }))
+    .pipe(gulp.dest(`${js_dir}`))
+    .pipe(livereload());
+
+};
+
 
 /*
 ##      ##    ###    ########  ######  ##     ##
@@ -253,7 +225,7 @@ const watch_task = () => {
       babel_dir+'/**/*.js',
     ]
     ,
-    babel_task
+    webpack_task
   );  
 
   // jade
@@ -290,8 +262,8 @@ const hello_task = ()=>{
 
 exports.touch   = touch_task;
 exports.stylus  = stylus_task;
-exports.babel   = babel_task;
+exports.webpack = webpack_task;
 exports.php     = jade2php_task;
 exports.watch   = watch_task;
-exports.default = gulp.series(stylus_task,babel_task,jade2php_task,watch_task);
+exports.default = gulp.series(stylus_task,webpack_task,jade2php_task,watch_task);
 
