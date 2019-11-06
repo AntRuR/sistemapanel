@@ -317,10 +317,6 @@ case "resetear":
 	?>reset_img_sto('<?php echo $tb?>','<?php echo $tbcampA['campo']?>');<?php
 	break;
 	case "fch":
-	?>$('in_<?php echo $tbcampA['campo']?>_a').value='';<?php
-	?>$('in_<?php echo $tbcampA['campo']?>_m').value='';<?php
-	?>$('in_<?php echo $tbcampA['campo']?>_d').value='';<?php
-	?>$('in_<?php echo $tbcampA['campo']?>_t').value='';<?php
 	?>$('in_<?php echo $tbcampA['campo']?>').value='';<?php
 	break;
 	case "pas":
@@ -684,26 +680,8 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 		 } elseif($tbcampA['tipo']=='sto'){
 			?>$("upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0").innerHTML=render_upload_sto('<?php echo $tb?>','<?php echo $tbcampA['campo']?>','',json.<?php echo $tbcampA['campo']?>_get_archivo);<?php
 		 } elseif($tbcampA['tipo']=='fch'){
-			?>var fechaaa=json.<?php echo $tbcampA['campo']?>;<?php
-			?>if(fechaaa=='0000-00-00 00:00:00' || fechaaa==null){<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_a').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_m').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_d').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_t').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>').value='';<?php
-			?>} else if(fechaaa=='now()'){<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_a').value='<?php echo date("Y")?>';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_m').value='<?php echo date("m")?>';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_d').value='<?php echo date("d")?>';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_t').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo date("Y-m-d H:i:s")?>';<?php
-			?>} else {<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_a').value=fechaaa.substring(0,4);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_m').value=fechaaa.substring(5,7);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_d').value=fechaaa.substring(8,10);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_t').value=fechaaa.substring(11,19);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>').value=fechaaa;<?php
-			?>}<?php
+			?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
+			?>Fields.in_<?php echo $tbcampA['campo']?>.reload();<?php
 		} elseif($tbcampA['tipo']=='hid'){
 			/*?>if($('<?php echo $tbcampA['campo']?>_load_combo')){<?php
 			?>$('<?php echo $tbcampA['campo']?>_load_combo').setProperty('title',json.<?php echo $tbcampA['campo']?>);<?php

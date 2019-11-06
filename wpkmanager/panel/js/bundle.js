@@ -94,31 +94,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component_calendarSalsa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component/calendarSalsa */ \"../wpkmanager/panel/js/babel/component/calendarSalsa.js\");\n/* harmony import */ var _component_selectorSlim__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/selectorSlim */ \"../wpkmanager/panel/js/babel/component/selectorSlim.js\");\n\n // import './component/modalTingle';\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libs */ \"../wpkmanager/panel/js/babel/libs.js\");\n/* harmony import */ var _component_calendarTail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/calendarTail */ \"../wpkmanager/panel/js/babel/component/calendarTail.js\");\n\n // import './component/calendarFlatpickr';\n// import './component/calendarPikaday';\n// import './component/calendarSalsa';\n// import './component/calendarDatepicker';\n// import './component/selectorSlim';\n// import './component/modalTingle';\n\nwindow.addEventListener(\"load\", function () {\n  _libs__WEBPACK_IMPORTED_MODULE_0__[\"loadScript\"](`\n    var Fields={};\n    `);\n});\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/app.js?");
 
 /***/ }),
 
-/***/ "../wpkmanager/panel/js/babel/component/calendarSalsa.js":
-/*!***************************************************************!*\
-  !*** ../wpkmanager/panel/js/babel/component/calendarSalsa.js ***!
-  \***************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs */ \"../wpkmanager/panel/js/babel/libs.js\");\n\nconst vendor = 'calendarSalsa'; // foopicker\n\n_libs__WEBPACK_IMPORTED_MODULE_0__[\"loadCss\"](`${_libs__WEBPACK_IMPORTED_MODULE_0__[\"vendor_dir\"]}/${vendor}/css/SalsaCalendar.min.css`);\n_libs__WEBPACK_IMPORTED_MODULE_0__[\"loadJs\"](`${_libs__WEBPACK_IMPORTED_MODULE_0__[\"vendor_dir\"]}/${vendor}/js/SalsaCalendar.min.js`);\nwindow.addEventListener(\"load\", function () {\n  var calendar_from = new SalsaCalendar({\n    inputId: 'checkin',\n    lang: 'en',\n    range: {\n      min: 'today'\n    },\n    calendarPosition: 'right',\n    fixed: false,\n    connectCalendar: true\n  });\n  console.log('sueño');\n});\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/component/calendarSalsa.js?");
-
-/***/ }),
-
-/***/ "../wpkmanager/panel/js/babel/component/selectorSlim.js":
+/***/ "../wpkmanager/panel/js/babel/component/calendarTail.js":
 /*!**************************************************************!*\
-  !*** ../wpkmanager/panel/js/babel/component/selectorSlim.js ***!
+  !*** ../wpkmanager/panel/js/babel/component/calendarTail.js ***!
   \**************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs */ \"../wpkmanager/panel/js/babel/libs.js\");\n\nconst vendor = 'selectSlim'; // foopicker\n\n_libs__WEBPACK_IMPORTED_MODULE_0__[\"loadCss\"](`${_libs__WEBPACK_IMPORTED_MODULE_0__[\"vendor_dir\"]}/${vendor}/css/slimselect.min.css`);\n_libs__WEBPACK_IMPORTED_MODULE_0__[\"loadJs\"](`${_libs__WEBPACK_IMPORTED_MODULE_0__[\"vendor_dir\"]}/${vendor}/js/slimselect.min.js`);\nwindow.addEventListener(\"load\", function () {\n  console.log('increible');\n  new SlimSelect({\n    select: '#slim-select'\n  });\n});\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/component/selectorSlim.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs */ \"../wpkmanager/panel/js/babel/libs.js\");\n\nconst vendor = 'calendarTail'; // docs\n// https://github.com/pytesNET/tail.DateTime\n// https://www.cssscript.com/datetime-picker-tail/\n// loaders\n\n_libs__WEBPACK_IMPORTED_MODULE_0__[\"loadCss\"](`${_libs__WEBPACK_IMPORTED_MODULE_0__[\"vendor_dir\"]}/${vendor}/css/tail.datetime-harx-light.css?2`);\n_libs__WEBPACK_IMPORTED_MODULE_0__[\"loadJs\"](`${_libs__WEBPACK_IMPORTED_MODULE_0__[\"vendor_dir\"]}/${vendor}/js/tail.datetime-full.min.js`);\nwindow.addEventListener(\"load\", function () {\n  _libs__WEBPACK_IMPORTED_MODULE_0__[\"loadScript\"](`\n    function load_calendar(id,min,max){\n    \n        // document.getElementById(\"#\"+id).value=default;\n        picker=tail.DateTime(\"#\"+id, {\n            dateFormat: 'YYYY-mm-dd',\n            locale: 'es',\n            today:true\n            // timeHours: true,  \n            // timeMinutes: true,  \n            // timeSeconds: 0\n        });    \n\n        eval('Fields.'+id+'=picker;');\n\n    }\n    `);\n  console.log(vendor);\n});\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/component/calendarTail.js?");
 
 /***/ }),
 
@@ -126,11 +114,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _lib
 /*!********************************************!*\
   !*** ../wpkmanager/panel/js/babel/libs.js ***!
   \********************************************/
-/*! exports provided: vendor_dir, loadCss, loadJs */
+/*! exports provided: vendor_dir, loadCss, loadJs, loadScript */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"vendor_dir\", function() { return vendor_dir; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadCss\", function() { return loadCss; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadJs\", function() { return loadJs; });\nconst vendor_dir = 'js/babel/vendor';\nconst loadCss = urlcss => {\n  let newCSS = document.createElement(\"link\");\n  newCSS.type = \"text/css\";\n  newCSS.rel = \"stylesheet\";\n  newCSS.href = encodeURI(urlcss);\n  document.getElementsByTagName(\"head\")[0].appendChild(newCSS);\n};\nconst loadJs = urlJs => {\n  let newJs = document.createElement(\"script\");\n  newJs.type = \"text/javascript\";\n  newJs.src = encodeURI(urlJs);\n  document.getElementsByTagName(\"head\")[0].appendChild(newJs);\n};\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/libs.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"vendor_dir\", function() { return vendor_dir; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadCss\", function() { return loadCss; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadJs\", function() { return loadJs; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadScript\", function() { return loadScript; });\nconst vendor_dir = 'js/babel/vendor';\nconst loadCss = urlcss => {\n  let newCSS = document.createElement(\"link\");\n  newCSS.type = \"text/css\";\n  newCSS.rel = \"stylesheet\";\n  newCSS.href = encodeURI(urlcss);\n  document.getElementsByTagName(\"head\")[0].appendChild(newCSS);\n};\nconst loadJs = urlJs => {\n  let newJs = document.createElement(\"script\");\n  newJs.type = \"text/javascript\";\n  newJs.src = encodeURI(urlJs);\n  document.getElementsByTagName(\"head\")[0].appendChild(newJs);\n};\nconst loadScript = script => {\n  // document.write('<script>'+script+'</script>');\n  let scriptEle = document.createElement(\"script\");\n  scriptEle.innerHTML = script;\n  document.body.appendChild(scriptEle);\n};\n\n//# sourceURL=webpack:///../wpkmanager/panel/js/babel/libs.js?");
 
 /***/ })
 

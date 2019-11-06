@@ -12,6 +12,10 @@ foreach($tbcampos as $tbcampA){
 				$ToYear = date("Y")+1;
 			}
 			?>
+			load_calendar('in_<?php echo $tbcampA['campo']?>','<?=$FromYear?>','<?=$ToYear?>');
+			<?php
+			/*
+			?>
 			input_date('in_<?php echo $tbcampA['campo']?>','in_<?php echo $tbcampA['campo']?>_span',<?php echo $FromYear;?>,<?php echo $ToYear;?>,'<?php echo $tbcampA['time'];?>','<?php echo $tbcampA['months'];?>');
 			<?php if(trim($tbcampA['default'])!=''){
 			if(trim($tbcampA['default'])=="now()"){ $tbcampA['default']=($tbcampA['time']==1 or $tbcampA['time']==2)?date("Y-m-d H:00:00"):date("Y-m-d H:i:s"); }
@@ -22,13 +26,6 @@ foreach($tbcampos as $tbcampA){
 			$('in_<?php echo $tbcampA['campo']?>_a').value='<?php echo substr($tbcampA['default'],0,4);?>';
 			$('in_<?php echo $tbcampA['campo']?>_t').value='<?php echo substr($tbcampA['default'],11,8);?>';
 			$('in_<?php echo $tbcampA['campo']?>').value='<?php echo $tbcampA['default']?>';
-			<?php }
-			/*
-			if($tbcampA['frozen']=='1'){ ?>
-			$('in_<?php echo $tbcampA['campo']?>_d').setProperty('disabled','true');
-			$('in_<?php echo $tbcampA['campo']?>_m').setProperty('disabled','true');
-			$('in_<?php echo $tbcampA['campo']?>_a').setProperty('disabled','true');
-			$('in_<?php echo $tbcampA['campo']?>_t').setProperty('disabled','true');
 			<?php }
 			*/
 		break;

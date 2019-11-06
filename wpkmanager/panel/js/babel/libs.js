@@ -17,3 +17,13 @@ export const loadJs =  (urlJs) => {
     document.getElementsByTagName("head")[0].appendChild(newJs);
 };
 
+
+export const loadScript = (script) => {
+    
+    // document.write('<script>'+script+'</script>');
+    let scriptEle = document.createElement("script");
+    scriptEle.innerHTML=script;
+    document.body.appendChild(scriptEle);
+
+}
+

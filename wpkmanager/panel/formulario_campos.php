@@ -269,8 +269,25 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 
                     break;
                     case "fch":
-
-                  			?><span id="in_<?php echo $tbcampA['campo']?>_span"></span><?php
+														
+							?><span id="in_<?php echo $tbcampA['campo']?>_span">
+								<input type="text" 
+									id="in_<?php echo $tbcampA['campo']?>" 
+									name="<?php echo $tbcampA['campo']?>"
+									class="form_input" 
+									autocomplete="off" 
+									data-enabletime="true"
+									<?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> 
+									maxlength="<?php echo $maxlength;?>" 
+									style=" <?php
+										echo $stylewidth;
+										echo ($tbcampA['style'])?$tbcampA['style']:'';
+										echo ($tbcampA['unique'])?'border:1px solid #666666;':'';
+										?>" 
+									<?php /* value="<?php echo $tbcampA['default']?>" */ ?>
+									value="" 
+								/>
+							</span><?php
 
                     break;
                     case "html": case "txt": case "yot":

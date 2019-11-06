@@ -2641,7 +2641,6 @@ background-color #efefef,
 .formulario .linea_form {
   margin-bottom: 0.5em;
   height: auto;
-  overflow: hidden;
   clear: left;
   float: none;
   display: -webkit-box;
