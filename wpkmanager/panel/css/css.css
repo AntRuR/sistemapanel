@@ -250,24 +250,9 @@ div.loading {
 .justlist .bloque_titulo #boton_excel,
 .justlist #linea_buscador,
 .justlist #buscar,
-.justlist #msino {
-  display: none;
-}
-.justlist .menus .div_bloque_cuerpo,
-.justlist .ul_menus .div_bloque_cuerpo,
-.justlist .foot.bloque .div_bloque_cuerpo,
-.justlist #ic_menu .div_bloque_cuerpo,
-.justlist #ic_filters .div_bloque_cuerpo,
-.justlist .logo_panel .div_bloque_cuerpo,
-.justlist .link_header .div_bloque_cuerpo,
-.justlist .filters .div_bloque_cuerpo,
-.justlist .bloque_titulo #boton_imprimir .div_bloque_cuerpo,
-.justlist .bloque_titulo #boton_excel .div_bloque_cuerpo,
-.justlist #linea_buscador .div_bloque_cuerpo,
-.justlist #buscar .div_bloque_cuerpo,
-.justlist #msino .div_bloque_cuerpo {
-  margin-left: 0;
-  margin-top: -21px;
+.justlist #msino,
+.justlist .i_mmm {
+  display: none !important;
 }
 .justlist .menus .Tooltips,
 .justlist .ul_menus .Tooltips,
@@ -281,8 +266,14 @@ div.loading {
 .justlist .bloque_titulo #boton_excel .Tooltips,
 .justlist #linea_buscador .Tooltips,
 .justlist #buscar .Tooltips,
-.justlist #msino .Tooltips {
+.justlist #msino .Tooltips,
+.justlist .i_mmm .Tooltips {
   margin-right: -100% !important;
+}
+.justlist .div_bloque_cuerpo {
+  margin-left: 0;
+  margin-top: 10px;
+  width: 100% !important;
 }
 .itr {
   float: right;
@@ -1239,7 +1230,6 @@ ul.ul_menus_empty_si:before {
   min-height: 0px;
   padding-left: 0;
   overflow: visible;
-  float: left;
 }
 li.mooedit div {
   float: left;

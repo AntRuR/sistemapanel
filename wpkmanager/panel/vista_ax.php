@@ -681,7 +681,8 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 			?>$("upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0").innerHTML=render_upload_sto('<?php echo $tb?>','<?php echo $tbcampA['campo']?>','',json.<?php echo $tbcampA['campo']?>_get_archivo);<?php
 		 } elseif($tbcampA['tipo']=='fch'){
 			?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
-			?>Fields.in_<?php echo $tbcampA['campo']?>.reload();<?php
+			// calendar
+			?>update_calendar('in_<?php echo $tbcampA['campo']?>');<?php
 		} elseif($tbcampA['tipo']=='hid'){
 			/*?>if($('<?php echo $tbcampA['campo']?>_load_combo')){<?php
 			?>$('<?php echo $tbcampA['campo']?>_load_combo').setProperty('title',json.<?php echo $tbcampA['campo']?>);<?php

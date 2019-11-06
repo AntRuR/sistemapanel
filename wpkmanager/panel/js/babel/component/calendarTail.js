@@ -4,6 +4,7 @@ const vendor='calendarTail';
 
 // docs
 // https://github.com/pytesNET/tail.DateTime
+// https://github.pytes.net/tail.DateTime/index-amd.html
 // https://www.cssscript.com/datetime-picker-tail/
 
 // loaders
@@ -15,7 +16,7 @@ window.addEventListener("load",function(){
 
 
     lib.loadScript(`
-    function load_calendar(id,min,max){
+    var load_calendar = function(id,min,max){
     
         // document.getElementById("#"+id).value=default;
         picker=tail.DateTime("#"+id, {
@@ -28,6 +29,11 @@ window.addEventListener("load",function(){
         });    
 
         eval('Fields.'+id+'=picker;');
+
+    }
+    var update_calendar = function(id){
+
+        eval('Fields.'+id+'.reload();');
 
     }
     `);
