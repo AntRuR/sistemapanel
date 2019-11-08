@@ -420,7 +420,11 @@ $objeto_tabla_comp['ACTIVIDADES']=array_merge([
                     'size'			=> '140',
                     'style'			=> 'width:450px;',
                     'tags'			=> '1',
-                    'derecha'		=> '1'
+                    'derecha'		=> '1',
+                    // 'connect'       => [
+                    //     ['obj'=>'HERRAMIENTAS'],
+                    //     ['obj'=>'MATERIALES']
+                    // ],
             ),			
         ]
     ),
@@ -432,6 +436,7 @@ $objeto_tabla_comp['ACTIVIDADES']=array_merge([
     'edicion_rapida'	=> '1',
     'crear_pruebas'	=> '0'
 ]);
+
 
 
 $objeto_tabla_comp=tabla_chain($objeto_tabla_comp,

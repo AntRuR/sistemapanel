@@ -88,4 +88,7 @@ $objeto_tabla=array_merge($objeto_tabla,require 'comps/program.php');
 
 
 
-// prin($objeto_tabla['TECNICOS']['campos']);exit();
+// $objeto_tabla=tablas_build($objeto_tabla);
+
+
+prin($objeto_tabla['ACTIVIDADES']);exit();

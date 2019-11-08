@@ -584,11 +584,12 @@ a.z:hover {
 }
 .i_b:before {
   content: "\f0a3";
-  border: 1px solid #000;
+  border: 1px solid #555;
   width: 1em;
   text-align: center;
   display: inline-block;
   font-size: 1.3em;
+  color: #555;
 }
 .i_b:hover:before {
   content: "\f0a3";
@@ -1350,8 +1351,6 @@ li.mooedit div {
 }
 .bl .bld a {
   text-align: left;
-  float: left;
-  margin: 0px !important;
 }
 .bl .bld:hover {
   text-decoration: underline;
@@ -1476,19 +1475,6 @@ li.mooedit div {
 .qsml:hover {
   background-color: #fbecb2;
 }
-.modificador .ldd {
-  background: none !important;
-  padding-right: 40px;
-  padding-left: 0;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
-}
-.modificador .lc .z {
-  padding-bottom: 12px !important;
-}
 li.selectd:hover,
 li.selectd:nth-child(even),
 li.selectd:nth-child(odd) {
@@ -1528,7 +1514,7 @@ li.selectd:nth-child(odd) {
 .modificador .bld .pt {
   width: auto !important;
 }
-.modificador .bldlast-child {
+.modificador .bld:last-child {
   border-bottom: 0;
 }
 .modificador .lchk {
@@ -1616,10 +1602,15 @@ li.selectd:nth-child(odd) {
   position: absolute;
   left: 0;
   top: 36px;
+  margin-top: 36px;
 }
 .modificador_grilla .ldd {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
   height: 20px;
-  float: left;
   padding-left: 0px;
 }
 .modificador_grilla .ldd .bld {
@@ -1635,6 +1626,16 @@ li.selectd:nth-child(odd) {
   top: 0px;
   left: 0px;
   display: none;
+}
+.modificador_grilla .ldd:first-child {
+  background: #f00;
+}
+.modificador_grilla .ldd:first-child .bld {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
 }
 .modificador_grilla .bld a.z {
   float: none;
@@ -1860,7 +1861,7 @@ a.ie i {
 }
 .brazzz {
   border: 1px solid #ccc;
-  padding: 0px 0 3px 9px;
+  padding: 5px;
   float: right;
   margin: 0px 5px;
 }
@@ -2268,12 +2269,27 @@ li.bl {
   top: 30px;
   position: relative;
   float: right;
-  margin-top: 6px;
-  margin-left: -39px;
   padding-left: 0px !important;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  text-align: center;
 }
-.bl .lc {
-  padding-right: 3px;
+.modificador .lc .z {
+  padding-bottom: 6px !important;
+  margin: 0 !important;
+}
+.modificador .ldd {
+  background: none !important;
+  padding-right: 40px;
+  padding-left: 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
 }
 .lec {
   width: 120px;
@@ -3254,7 +3270,6 @@ form {
   right: -1px;
   background: #fff;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  top: -400px;
   max-height: 400px;
   overflow: hidden;
   overflow-y: auto;
@@ -3278,8 +3293,8 @@ form {
   white-space: nowrap;
   border-bottom: 1px solid #ccc;
 }
-.menudown .li_cabecera > li:nth-child(odd),
-.menudown .li_cabecera > a:nth-child(odd) {
+.menudown .li_cabecera > li:nth-child(even),
+.menudown .li_cabecera > a:nth-child(even) {
   background-color: rgba(225,236,237,0.5);
 }
 .menudown:hover {

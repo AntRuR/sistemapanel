@@ -55,7 +55,7 @@ class="lc <?= ( ($urd=='1')?"lc1 ":" " ) .
         <a id="ad_<?=$linea[$datos_tabla['id']]?>" 
             onclick="ax('x','<?=$linea[$datos_tabla['id']]?>');return false;" 
             class="bl1 itr i_x z" 
-            title="Eliminar <?=$datos_tabla['nombre_singular']?>" ></a>';
+            title="Eliminar <?=$datos_tabla['nombre_singular']?>" ></a>
         <?php
     }
 

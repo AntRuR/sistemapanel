@@ -73,38 +73,7 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 					'queries'		=> '0',
 					'validacion'	=> '0',
 				),						
-					
-				/*
-				'id_herramientas'		=>array(
-						'campo'			=> 'id_herramientas',
-						'label'			=> 'Herramientas',
-						'width'			=> '100px',
-						'listable'		=> '0',
-						'tipo'			=> 'hid',
-						'opciones'		=> 'id,nombre|herramientas|order by nombre asc',
-						'derecha'		=> '3',
-						'tags'			=> '1',
-						'queries'		=> '1',
-						'validacion'	=> '0',
-						// 'select_multiple'=> '1',
-						'multi'			=> '1',
-				),	
-				
-				'id_tecnicos'		=>array(
-					'campo'			=> 'id_tecnicos',
-					'label'			=> 'Tecnicos',
-					'width'			=> '100px',
-					'listable'		=> '0',
-					'tipo'			=> 'hid',
-					'opciones'		=> 'id,nombre;apellidos|tecnicos|order by nombre asc',
-					'derecha'		=> '1',
-					'tags'			=> '1',
-					'queries'		=> '1',
-					'validacion'	=> '0',
-					// 'select_multiple'=> '1',
-					'multi'			=> '1',
-				),
-				*/		
+						
 				
 
 			]
@@ -178,6 +147,37 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 				'queries'		=> '1',
 				'validacion'	=> '1',
 			),	
+				
+			'id_herramientas'		=>array(
+					'campo'			=> 'id_herramientas',
+					'label'			=> 'Herramientas',
+					'width'			=> '100px',
+					'listable'		=> '0',
+					'tipo'			=> 'hid',
+					'opciones'		=> 'id,nombre|herramientas|order by nombre asc',
+					'derecha'		=> '1',
+					'tags'			=> '1',
+					'queries'		=> '1',
+					'validacion'	=> '0',
+					// 'select_multiple'=> '1',
+					'multi'			=> '1',
+			),
+			
+			'id_tecnicos'		=>array(
+				'campo'			=> 'id_tecnicos',
+				'label'			=> 'Tecnicos',
+				'width'			=> '100px',
+				'listable'		=> '0',
+				'tipo'			=> 'hid',
+				'opciones'		=> 'id,nombre;apellidos|tecnicos|order by nombre asc',
+				'derecha'		=> '1',
+				'tags'			=> '1',
+				'queries'		=> '1',
+				'validacion'	=> '0',
+				// 'select_multiple'=> '1',
+				'multi'			=> '1',
+			),
+							
 			/*			
 			'nombre'		=>array(
 					'campo'			=> 'nombre',
