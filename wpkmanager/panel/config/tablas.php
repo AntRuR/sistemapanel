@@ -2,14 +2,18 @@
 
 
 $objeto_chain['issues']=[
-    'EMPRESAS',
-    'PLANTAS',
-    'AREAS',
-    'SUBAREAS',
-    'EQUIPOS_CATEGORIAS',
-    'EQUIPOS_SUBCATEGORIAS',
-    'EQUIPOS',
-    // 'ACTIVIDADES',
+    'filter'=>[
+        'EMPRESAS',
+        'PLANTAS',
+        'AREAS',
+        'SUBAREAS',
+        'EQUIPOS_CATEGORIAS',
+        'EQUIPOS_SUBCATEGORIAS',
+        'EQUIPOS',
+    ],
+    'activities'=>[
+        'ACTIVIDADES'
+    ]
 ];
 
 $objeto_chain['ubi']=[
@@ -88,7 +92,7 @@ $objeto_tabla=array_merge($objeto_tabla,require 'comps/program.php');
 
 
 
-// $objeto_tabla=tablas_build($objeto_tabla);
+$objeto_tabla=tablas_build($objeto_tabla);
 
 
-prin($objeto_tabla['ACTIVIDADES']);exit();
+// prin($objeto_tabla['ACTIVIDADES']['campos']);exit();

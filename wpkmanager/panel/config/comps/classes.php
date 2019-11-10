@@ -86,20 +86,34 @@ function objeto_tabla_sesion($ID_PERMISO){
 function tabla_chain($obj,$chain_items=[],$more=[]){
 
 	$chain=[];
-	foreach($chain_items as $ii=>$item){
+	foreach($chain_items as $ii=>$items_str){
 
-		if($obj[$chain_items[$ii-1]]['archivo']){
-			$chain[$item]['prev']  = 'id_'.$obj[$chain_items[$ii-1]]['nombre_singular'];			
-			$chain[$item]['label'] = ucfirst($obj[$chain_items[$ii-1]]['nombre_singular']);
-			$chain[$item]['tabla'] = $obj[$chain_items[$ii-1]]['tabla'];			
-		}
-	
-		if($obj[$chain_items[$ii+1]]['archivo']){
-			$next_tabla        = $obj[$chain_items[$ii+1]]['tabla'];
-			$next_archivo      = $obj[$chain_items[$ii+1]]['archivo'];
-			$next_plural       = $obj[$chain_items[$ii+1]]['nombre_plural'];
-			$current_id_foreig = 'id_'.$obj[$chain_items[$ii]]['nombre_singular'];
-			$obj[$chain_items[$ii]]['campos']['nombre']['controles']= "<a href='custom/$next_archivo.php?id=[id]'>{select count(*) from $next_tabla where $current_id_foreig=[id]} $next_plural</a>";
+		$items=explode(',',$items_str);
+
+		foreach($items as $item){
+
+			if($obj[$chain_items[$ii-1]]['archivo']){
+				$chain[$item]['prev']  = 'id_'.$obj[$chain_items[$ii-1]]['nombre_singular'];			
+				$chain[$item]['label'] = ucfirst($obj[$chain_items[$ii-1]]['nombre_singular']);
+				$chain[$item]['tabla'] = $obj[$chain_items[$ii-1]]['tabla'];			
+			}
+		
+			$iitems=explode(',',$chain_items[$ii+1]);
+
+			$obj[$chain_items[$ii]]['campos']['nombre']['controles']='';
+
+			foreach($iitems as $iitem){
+
+				if($obj[$iitem]['archivo']){
+					$next_tabla        = $obj[$iitem]['tabla'];
+					$next_archivo      = $obj[$iitem]['archivo'];
+					$next_plural       = $obj[$iitem]['nombre_plural'];
+					$current_id_foreig = 'id_'.$obj[$chain_items[$ii]]['nombre_singular'];
+					$obj[$chain_items[$ii]]['campos']['nombre']['controles'].= "<a href='custom/$next_archivo.php?id=[id]'>{select count(*) from $next_tabla where $current_id_foreig=[id]} $next_plural</a>";
+				}
+
+			}
+
 		}
 
 	}
@@ -184,11 +198,13 @@ function chain_campos($obj,$chain_items=[],$more=[]){
 
 }
 
-/*
+
 function tablas_build($objeto_tabla){
     
     foreach($objeto_tabla as $me_obj => $objeto){
         foreach($objeto['campos'] as $me_camp => $campo){
+
+			if(0)
             if(isset($campo['connect'])){
 
                 foreach($campo['connect'] as $connect){
@@ -219,12 +235,17 @@ function tablas_build($objeto_tabla){
 
                 }
 
-            }
+			}
+			
+			if(isset($campo['multi'])){
+				prin($campo);
+			}
+
         }
     }
     return $objeto_tabla;
 }
-
+/*
 function tabla_connect($objeto,$model_from,$model_to){
 
     $tabla     = $objeto[$model_to]['tabla'];

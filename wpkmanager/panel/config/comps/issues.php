@@ -425,7 +425,35 @@ $objeto_tabla_comp['ACTIVIDADES']=array_merge([
                     //     ['obj'=>'HERRAMIENTAS'],
                     //     ['obj'=>'MATERIALES']
                     // ],
-            ),			
+            ),
+			'id_herramienta'		=>array(
+                'campo'			=> 'id_herramienta',
+                'label'			=> 'Herramientas',
+                'width'			=> '100px',
+                'listable'		=> '0',
+                'tipo'			=> 'hid',
+                'opciones'		=> 'id,nombre|herramientas|order by nombre asc',
+                'derecha'		=> '1',
+                'tags'			=> '1',
+                'queries'		=> '1',
+                'validacion'	=> '0',
+                // 'select_multiple'=> '1',
+                'multi'			=> '1',
+            ),
+			'id_material'		=>array(
+                'campo'			=> 'id_material',
+                'label'			=> 'Materiales',
+                'width'			=> '100px',
+                'listable'		=> '0',
+                'tipo'			=> 'hid',
+                'opciones'		=> 'id,nombre|materiales|order by nombre asc',
+                'derecha'		=> '1',
+                'tags'			=> '1',
+                'queries'		=> '1',
+                'validacion'	=> '0',
+                // 'select_multiple'=> '1',
+                'multi'			=> '1',
+            ),            	
         ]
     ),
     'edicion_completa'=> '1',
@@ -439,14 +467,7 @@ $objeto_tabla_comp['ACTIVIDADES']=array_merge([
 
 
 
-$objeto_tabla_comp=tabla_chain($objeto_tabla_comp,
-    
-    array_merge(
-		$objeto_chain['issues'],
-		['ACTIVIDADES']
-    )
-    
-);
+
 
 // prin($objeto_tabla_comp['PLANTAS']);exit();
 
@@ -566,6 +587,17 @@ $objeto_tabla_comp['HERRAMIENTAS']=array_merge([
     'edicion_rapida'	=> '1',
     'crear_pruebas'	=> '0'
 ]);
+
+$objeto_tabla_comp=tabla_chain($objeto_tabla_comp,
+    
+    array_merge(
+        array_merge(
+            $objeto_chain['issues']['filter'],
+            $objeto_chain['issues']['activities']
+        )
+    )
+    
+);
 
 $objeto_tabla_comp['TECNICOS_PERSONS']=array_merge([
     'grupo'			=> 'configuracion',

@@ -35,7 +35,7 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 
 			chain_campos(
 				$objeto_tabla,
-				$objeto_chain['issues'],
+				$objeto_chain['issues']['filter'],
 				[
 					'id_equipo'=>[
 						'controles'=>'<a href="custom/man_actividades.php?id_equipo=[id_equipo]" rel="crear subs popup">{select count(*) from man_actividades where id_equipo=[id_equipo]} actividades</a>'
@@ -147,7 +147,22 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 				'queries'		=> '1',
 				'validacion'	=> '1',
 			),	
-				
+
+			'id_tecnico'		=>array(
+                'campo'			=> 'id_tecnico',
+                'label'			=> 'Técnicos',
+                'width'			=> '100px',
+                'listable'		=> '0',
+                'tipo'			=> 'hid',
+                'opciones'		=> 'id,nombre|tecnicos|order by nombre asc',
+                'derecha'		=> '1',
+                'tags'			=> '1',
+                'queries'		=> '1',
+                'validacion'	=> '0',
+                // 'select_multiple'=> '1',
+                'multi'			=> '1',
+			),  
+						
 			'id_herramientas'		=>array(
 					'campo'			=> 'id_herramientas',
 					'label'			=> 'Herramientas',
