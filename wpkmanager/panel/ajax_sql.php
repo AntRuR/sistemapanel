@@ -156,7 +156,19 @@ switch($_GET['f']){
 						$item2[$cam]=stripslashes($ite);
 						break;
 					case "hid":
-						if($objeto_tabla[$_REQUEST['v_o']]['campos'][$cam]['constante']=='1'){
+						if($objeto_tabla[$_REQUEST['v_o']]['campos'][$cam]['multi']=='1'){
+							
+							list($uno_pa,$campo_2,$dos_pa)=explode("|",$objeto_tabla[$_REQUEST['v_o']]['campos'][$cam]['opciones']);
+							$campo_1=$objeto_tabla[$_REQUEST['v_o']]['tabla'];
+							$rel_tabla="{$campo_1}_{$campo_2}";
+							list($uno_rn,$vvi1,$dos_rn)=between($_REQUEST['v_d'],"='","'");
+
+							$subtiems=implode(',',get_array('id_'.$campo_2,$rel_tabla,"where id_{$campo_1}='{$vvi1}'",0));
+							
+							$item2[$cam]=$subtiems;
+
+						} elseif($objeto_tabla[$_REQUEST['v_o']]['campos'][$cam]['constante']=='1'){
+							
 							list($primO,$tablaO)=explode("|",$objeto_tabla[$_REQUEST['v_o']]['campos'][$cam]['opciones']);
 							list($idO,$camposO)=explode(",",$primO);
 							$camposOA=array();
@@ -167,6 +179,7 @@ switch($_GET['f']){
 							}
 							$item2[$cam]=$bufy;
 						} else {
+							
 							$item2[$cam]=$ite;
 							if($objeto_tabla[$_REQUEST['v_o']]['campos'][$cam]['directlink']!=''){
 								$s1=explode("|",$objeto_tabla[$_REQUEST['v_o']]['campos'][$cam]['directlink']);
@@ -186,6 +199,8 @@ switch($_GET['f']){
 				$item2[$cam]=$ite;
 			}
 		}
+
+
 		$item=$item2;
 		//prin($item);
 
@@ -259,6 +274,25 @@ switch($_GET['f']){
 					if(trim($v)!=''){
 						$imagenes[]=array($c,$v,$tbl,$_POST['v_o']);
 					}
+				} elseif($objeto_tabla[$_REQUEST['v_o']]['campos'][$c]['multi']=='1'){
+				
+					list($uno_pa,$campo_2,$dos_pa)=explode("|",$objeto_tabla[$_REQUEST['v_o']]['campos'][$c]['opciones']);
+					$campo_1=$objeto_tabla[$_REQUEST['v_o']]['tabla'];
+					$rel_tabla="{$campo_1}_{$campo_2}";
+					
+					$vvs=explode(',',$v);
+
+					foreach($vvs as $vvi2){
+
+						$relaciones[]=[
+							'tabla'=>$rel_tabla,
+							'c1'=>'id_'.$campo_1,
+							'c2'=>'id_'.$campo_2,
+							'v2'=>$vvi2,
+						];
+
+					}
+						
 				} else {
 					foreach($tbcampos as $cam){
 						if( $cam['campo']==$c ){
@@ -310,6 +344,12 @@ switch($_GET['f']){
 				//			echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id;
 				update(array($pare['c']=>$id),$pare['t'],"where ".$pare['c']."='".$pare['v']."'");
 			}
+			foreach($relaciones as $rela){
+				insert([
+					$rela['c1']=>$id,
+					$rela['c2']=>$rela['v2'],
+				],$rela['tabla'],0);
+			}			
 		}
 
 		if(!(strpos($ret['error'],"Duplicate")===false)){
@@ -351,10 +391,22 @@ switch($_GET['f']){
 
 		$ret=delete($tbl,str_replace("\\'","'",$_REQUEST['v_d']),$_GET['debug']);
 
+		foreach($objeto_tabla[$_REQUEST['v_o']]['campos'] as $vm){
+			
+			if($vm['multi']=='1'){
+			
+				list($uno_pa,$campo_2,$dos_pa)=explode("|",$vm['opciones']);
+				$campo_1=$objeto_tabla[$_REQUEST['v_o']]['tabla'];
+				list($uno_rn,$vvi1,$dos_rn)=between($_REQUEST['v_d'],"='","'");
+				$rel_tabla="{$campo_1}_{$campo_2}";
+				delete($rel_tabla,"where id_{$campo_1}='{$vvi1}'");
+			
+			}
+		}
+
 		echo json_encode($ret);
 
-	break;
-
+		break;
 	case "updatemass":
 
 		$imagenes=array();
@@ -433,7 +485,7 @@ switch($_GET['f']){
 		$ret['update']='1';
 		echo json_encode($ret);
 
-	break;
+		break;
 	case "update":
 
 		$predirtren=dato("fecha_creacion",$tbl,str_replace("\\'","'",$_REQUEST['v_d']));
@@ -444,6 +496,7 @@ switch($_GET['f']){
 		$imagenes=array();
 		$ficheros=array();
 		foreach($_POST as $c=>$v){
+
 			if($objeto_tabla[$_REQUEST['v_o']]['campos'][$c]['no_save']=='1'){
 				continue;
 			}
@@ -455,6 +508,23 @@ switch($_GET['f']){
 				if(trim($v)!=''){
 					$imagenes[]=array($c,$v,$tbl,$_POST['v_o']);
 				}
+			} elseif($objeto_tabla[$_REQUEST['v_o']]['campos'][$c]['multi']=='1'){
+				
+				list($uno_pa,$campo_2,$dos_pa)=explode("|",$objeto_tabla[$_REQUEST['v_o']]['campos'][$c]['opciones']);
+				$campo_1=$objeto_tabla[$_REQUEST['v_o']]['tabla'];
+				$rel_tabla="{$campo_1}_{$campo_2}";
+				list($uno_rn,$vvi1,$dos_rn)=between($_REQUEST['v_d'],"='","'");
+				
+				delete($rel_tabla,"where id_{$campo_1}='{$vvi1}'",0);
+
+				$vvs=explode(',',$v);
+				foreach($vvs as $vvi2){
+					insert([
+						'id_'.$campo_1=>$vvi1,
+						'id_'.$campo_2=>$vvi2,
+					],$rel_tabla,0);
+				}
+
 			} else {
 				if($c!='v_t' and $c!='v_d' and $c!='v_o'){
 					$vv=removeemptytags($v);
@@ -468,10 +538,10 @@ switch($_GET['f']){
 				}
 			}
 		}
-		//echo "<pre>"; print_r($imagenes); echo "</pre>";
-		//$_GET['debug']=1;
+
 		$ret=update($array,$tbl,str_replace("\\'","'",$_REQUEST['v_d']),$_GET['debug']);
 
+		//! IMAGENES
 		foreach($imagenes as $i=>$imas){
 			//echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id2;
 			
@@ -484,6 +554,7 @@ switch($_GET['f']){
 			}
 		}
 
+		//! FICHEROS
 		foreach($ficheros as $i=>$imas){
 			//echo $imas[0].",".$imas[1].",".$imas[2].",".$imas[3].",".$id2;
 			//eliminar_ficheros($datos_tabla,$_REQUEST['v_d']);
@@ -524,7 +595,7 @@ switch($_GET['f']){
 		$ret['update']='1';
 		echo json_encode($ret);
 
-	break;
+		break;
 	case "login":
 
 		$id					=	$datos_tabla['id'];

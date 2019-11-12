@@ -154,7 +154,7 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
                 'width'			=> '100px',
                 'listable'		=> '0',
                 'tipo'			=> 'hid',
-                'opciones'		=> 'id,nombre|tecnicos|order by nombre asc',
+                'opciones'		=> 'id,nombre;apellidos|tecnicos|order by nombre asc',
                 'derecha'		=> '1',
                 'tags'			=> '1',
                 'queries'		=> '1',
@@ -229,6 +229,7 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 	'edicion_rapida'	=> '1',
 );
 
+if(0)
 $objeto_tabla_comp['MAN_HERRAMIENTAS']=array(
 	'grupo'			=> 'mantenimiento',
 	'titulo'		=> 'Herramientas',
@@ -286,6 +287,7 @@ $objeto_tabla_comp['MAN_HERRAMIENTAS']=array(
 	'edicion_rapida'	=> '1',
 );
 
+if(0)
 $objeto_tabla_comp['MAN_TECNICOS']=array(
 	'grupo'			=> 'mantenimiento',
 	'titulo'		=> 'Tecnicos',

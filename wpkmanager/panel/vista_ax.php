@@ -326,6 +326,9 @@ case "resetear":
 	break;
 	case "hid":
 	if($tbcampA['opciones']!=''){
+		if($tbcampA['multi']=='1'){
+		
+		}
 	/*?>$('in_<?php echo $tbcampA['campo']?>').value='';<?php*/
 	}
 	break;
@@ -573,7 +576,7 @@ if($('titulo_crear')){
 if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'display':''});
 ax("ec2",id);
 } else {
-console.log('por aqui');
+// console.log('por aqui');
 new Request({'url':'formulario.php?OB='+MMEE+'&ran=1<?php echo ($datos_tabla['get_id'])?'&'.$datos_tabla['get_id']:'';?>&proceso=<?php echo $Proceso;?>',  method:'get', onSuccess:function(ee) {
 if($('bloque_content_crear'))$('bloque_content_crear').innerHTML=ee;
 pre_crear('ax("ec2","'+id+'","'+pag+'");');
@@ -640,11 +643,11 @@ charge_multibox();
 break;
 case "ec3":
 var datos = {
-v_o : MMEE,
-v_d : "where <?php echo $datos_tabla['id']?>='"+id+"' ",
-id:id,
-f:'get_fila',
-debug:'0'
+	v_o 	: MMEE,
+	v_d 	: "where <?php echo $datos_tabla['id']?>='"+id+"' ",
+	id		: id,
+	f		: 'get_fila',
+	debug	: '0'
 };
 new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee) {
 	var json=eval("(" + ee + ")");<?php
@@ -688,18 +691,28 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 			?>$('<?php echo $tbcampA['campo']?>_load_combo').setProperty('title',json.<?php echo $tbcampA['campo']?>);<?php
 			?>}<?php */
 			list($tbcampA['campo'],$html)=explode("|",$tbcampA['campo']);
-			?>$('in_<?php echo $tbcampA['campo']?>').rel=json.<?php echo $tbcampA['campo']?>;<?php
-			?>var dhay=0; $$('#in_<?php echo $tbcampA['campo']?> option').each(function(ele){ if($(ele).value==json.<?php echo $tbcampA['campo']?>){ dhay=1; } });<?php
-			?>if(dhay==0){ <?php
-			list($ouno,$odos,$otre)=explode("|",$tbcampA['opciones']);
-			list($ouno1,$ouno2)=explode(",",$ouno);
-
-			?>if(json.<?php echo $tbcampA['campo']?>!=null){ new Request({url:'load_combo.php?s='+encodeURIComponent('<?php echo $ouno1.",concat(".str_replace(";",",",$ouno2).")"."|".$odos."|where id=";?>'+json.<?php echo $tbcampA['campo']?>)+'&s2=&camp=<?php echo $tbcampA['campo']?>',  method:'get', onSuccess:function(ee) {
-	var json0=JSON.decode(ee,true); if(json0.length>0){ new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':json0[0][1],'selected':'selected'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); }
-	/*$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;*/
-	} } ).send();<?php
-			/*?>new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':'seleccionado'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); <?php**/
-			?>}}<?php
+			?>
+			$('in_<?php echo $tbcampA['campo']?>').rel=json.<?php echo $tbcampA['campo']?>;
+			var dhay=0; 
+			$$('#in_<?php echo $tbcampA['campo']?> option').each(function(ele){if($(ele).value==json.<?php echo $tbcampA['campo']?>){ dhay=1; } });
+			if(dhay==0){
+				<?php
+				list($ouno,$odos,$otre)=explode("|",$tbcampA['opciones']);
+				list($ouno1,$ouno2)=explode(",",$ouno);
+				?>
+				if(json.<?php echo $tbcampA['campo']?>!=null){ 
+					new Request({
+						url:'load_combo.php?s='+encodeURIComponent('<?php echo $ouno1.",concat(".str_replace(";",",",$ouno2).")"."|".$odos."|where id=";?>'+json.<?php echo $tbcampA['campo']?>)+'&s2=&camp=<?php echo $tbcampA['campo']?>',  
+						method:'get', 
+						onSuccess:function(ee) {
+							var json0=JSON.decode(ee,true); 
+							if(json0.length>0){
+								new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':json0[0][1],'selected':'selected'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); 
+							}
+						} 
+					}).send();
+				}
+			}<?php
 			?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
 			if($tbcampA['obj']){
 			?>$('in_<?php echo $tbcampA['campo']?>_obj').innerHTML=render_obj(json.<?php echo $tbcampA['campo']?>);<?php

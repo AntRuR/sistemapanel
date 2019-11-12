@@ -150,7 +150,6 @@ if(1){
 		}
 
 
-
 		echo '<input type="hidden" id="resaltar"  />';
 
 	    if($_GET['block']!='form'){

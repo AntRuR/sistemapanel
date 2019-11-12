@@ -429,6 +429,15 @@ function get_valores($key,$value,$tabla,$donde,$debug){
 	return $ret;
 }
 
+function get_array($value,$tabla,$donde,$debug){
+	$matriz=select("$value",$tabla,$donde,$debug);
+	$ret=array();
+	foreach($matriz as $mat){
+		$ret[]=$mat[$value];
+	}
+	return $ret;
+}
+
 function insert($campos_array,$tabla,$debug=0){
 
 	global $link;

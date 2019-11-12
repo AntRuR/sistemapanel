@@ -9,15 +9,18 @@ $FILE=str_replace("/","",$FILE);
 //ORIG_PATH_INFO
 $file2OBJ=array();
 
+
 foreach($objeto_tabla as $mememe=>$ot){
 	// prin("/".$ot['archivo']);
 	// prin($FILES[1]);
 	$file2OBJ[$ot['archivo']]=$mememe;
-	if($ot['archivo']==$FILE) {
+	if($ot['archivo']==$FILE and $ot['archivo']!='') {
 		$MEEE=$objeto_tabla[$ot['me']];
 		continue;
 	}
 }
+
+
 
 if(isset($MEEE)){
 
@@ -96,7 +99,7 @@ $id_permiso=$_SESSION['PERMISOS_ID'];
 			include('header_menu.php');
 			
 			include("menu.php");
-
+			
 			include("vista.php");
 
 		?>

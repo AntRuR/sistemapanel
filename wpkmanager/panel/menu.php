@@ -6,6 +6,7 @@ $script_name=$SERVER["ARCHIVO"];
 
 $grupi=[];
 
+
 if($mostrar_menu)
 {
 
@@ -86,7 +87,6 @@ if($mostrar_menu)
 
 			}
 
-
 			if(!in_array($item['grupo'],$grupi))
 			{
 
@@ -151,6 +151,7 @@ if($mostrar_menu)
 		
 	}
 
+	
 	foreach($grupo_will_selected as $one){
 
 		$GrupLiA[$one]['checked']=true;

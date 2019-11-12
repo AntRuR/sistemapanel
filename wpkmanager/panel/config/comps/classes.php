@@ -204,41 +204,55 @@ function tablas_build($objeto_tabla){
     foreach($objeto_tabla as $me_obj => $objeto){
         foreach($objeto['campos'] as $me_camp => $campo){
 
-			if(0)
-            if(isset($campo['connect'])){
+            // if(isset($campo['connect'])){
 
-                foreach($campo['connect'] as $connect){
+            //     foreach($campo['connect'] as $connect){
 
-                    $tabla     = $objeto_tabla[$connect['obj']]['tabla'];
-                    $plural    = $objeto_tabla[$connect['obj']]['nombre_plural'];
-                    $id_foreig = "id_".$objeto_tabla[$me_obj]['nombre_singular'];
-                    if(!isset($objeto_tabla[$connect['obj']]['campos'][$id_foreig])){
-                        $objeto_tabla[$connect['obj']]['campos'][$id_foreig]=[
+            //         $tabla     = $objeto_tabla[$connect['obj']]['tabla'];
+            //         $plural    = $objeto_tabla[$connect['obj']]['nombre_plural'];
+            //         $id_foreig = "id_".$objeto_tabla[$me_obj]['nombre_singular'];
+            //         if(!isset($objeto_tabla[$connect['obj']]['campos'][$id_foreig])){
+            //             $objeto_tabla[$connect['obj']]['campos'][$id_foreig]=[
 							
-							'campo' => $id_foreig,
-							'tipo' => 'hid',
-							'listable' => 0,
-							'validacion' => 0,
-							'default' => '[id]',
-							'foreig' => 1,
-							'label' => Equipo
-							'opciones' => id,nombre|equipos
-							'derecha' => 1
-							'tags' => 1
-							'queries' => 1
+			// 				'campo' => $id_foreig,
+			// 				'tipo' => 'hid',
+			// 				'listable' => 0,
+			// 				'validacion' => 0,
+			// 				'default' => '[id]',
+			// 				'foreig' => 1,
+			// 				'label' => Equipo
+			// 				'opciones' => id,nombre|equipos
+			// 				'derecha' => 1
+			// 				'tags' => 1
+			// 				'queries' => 1
 
-                        ];
-                    }
-                    $objeto_tabla[$me_obj]['campos'][$me_camp]['controles'].=
-                    "<a rel=\"subs\" href=\"custom/".$tabla.".php?$id_foreig=[$id]\">{select count(*) from ".$tabla." where $id_foreig=[$id]} $plural</a> ";
-                    ;
+            //             ];
+            //         }
+            //         $objeto_tabla[$me_obj]['campos'][$me_camp]['controles'].=
+            //         "<a rel=\"subs\" href=\"custom/".$tabla.".php?$id_foreig=[$id]\">{select count(*) from ".$tabla." where $id_foreig=[$id]} $plural</a> ";
+            //         ;
 
-                }
+            //     }
 
-			}
+			// }
 			
-			if(isset($campo['multi'])){
-				prin($campo);
+			if($campo['multi']=='1'){
+
+				list($u,$tabla,$dos)=explode("|",$campo['opciones']);
+				$tabl=$objeto['tabla']."_".$tabla;
+				$id_campo1='id_'.$objeto['tabla'];
+				$id_campo2='id_'.$tabla;
+				$objec="REL_".strtoupper($tabl);
+				$objeto_tabla[$objec]=[
+					'me'=>$objec,
+					'tabla'=>$tabl,
+					'campos'=>[
+						$id_campo1=>['campo'=>$id_campo1,'tipo'=>'hid'],
+						$id_campo2=>['campo'=>$id_campo2,'tipo'=>'hid'],
+					]
+				];
+
+
 			}
 
         }

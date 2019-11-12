@@ -1315,12 +1315,18 @@ function multi(name){
 
 function render_multi(name,values){
 	// console.log(values);
+
+	var chekis=document.querySelectorAll(".multisele_"+name);
+	chekis.forEach(function(element) {
+		element.checked=false;
+	});
+
 	if(values!=null){
 		var vales=values.split(',');
 		for(var i=0; i<vales.length;i++){
 			// console.log(name+'_'+vales[i]);
 			if($(name+'_'+vales[i]))
-				$(name+'_'+vales[i]).checked=true;	
+				$(name+'_'+vales[i]).checked=true;
 		}
 	}
 }

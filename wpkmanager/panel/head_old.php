@@ -72,7 +72,7 @@ if($Local){ ?>
 <?php
 ?>
 
-<link href="<?php echo $sn2?>config/main.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $sn2?>config/?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" />
 
 <link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" media="print" />
 

@@ -79,7 +79,6 @@ list($MEEE,$EXTRA_FILTRO) = pre_procesar_objeto_tabla_0($MEEE);
 // prin($MEEE);
 
 $datos_tabla = procesar_objeto_tabla($MEEE);
-
 // prin($datos_tabla['user']);
 
 // foreach($datos_tabla['form'] as $ccan){

@@ -45,7 +45,7 @@ $objeto_tabla_comp['EMPRESAS']=array_merge([
                     'size'			=> '140',
                     'style'			=> 'width:450px;',
                     'tags'			=> '1',
-                    'derecha'		=> '2'
+                    'derecha'		=> '1'
             ),
         ]
     ),
@@ -599,6 +599,7 @@ $objeto_tabla_comp=tabla_chain($objeto_tabla_comp,
     
 );
 
+if(0)
 $objeto_tabla_comp['TECNICOS_PERSONS']=array_merge([
     'grupo'			=> 'configuracion',
     'titulo'		=> 'Tecnicos',
@@ -639,6 +640,7 @@ $objeto_tabla_comp['TECNICOS_PERSONS']=array_merge([
     'crear_pruebas'	=> '0'
 ]);
 
+if(0)
 $objeto_tabla_comp['MAN_TIPOS']=array_merge([
     'grupo'			=> 'configuracion',
     'titulo'		=> 'Tipos de mantenimientos',

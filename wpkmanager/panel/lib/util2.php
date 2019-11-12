@@ -159,9 +159,9 @@ function procesar_objeto_tabla($array){
 
 function verificar_tabla($tabla){
 
-	global $tablas_creadas;
-	if(is_array($tablas_creadas)){
-		if(!in_array($tabla,$tablas_creadas)){
+	global $TABLAS_CREADAS;
+	if(is_array($TABLAS_CREADAS)){
+		if(!in_array($tabla,$TABLAS_CREADAS)){
 			echo "<div style='background-color:#37F73B; margin:-20px 0 0 8px;padding:2px 10px;float:left;'>No existe la tabla <b style='text-decoration:underline;'>".$tabla."</b> <a href='maquina.php' >ir a maquina</a></div>";
 		}
 	}
