@@ -96,6 +96,7 @@ function tabla_chain($obj,$chain_items=[],$more=[]){
 				$chain[$item]['prev']  = 'id_'.$obj[$chain_items[$ii-1]]['nombre_singular'];			
 				$chain[$item]['label'] = ucfirst($obj[$chain_items[$ii-1]]['nombre_singular']);
 				$chain[$item]['tabla'] = $obj[$chain_items[$ii-1]]['tabla'];			
+				$chain[$item]['object'] = $obj[$chain_items[$ii-1]]['me'];			
 			}
 		
 			$iitems=explode(',',$chain_items[$ii+1]);
@@ -117,7 +118,6 @@ function tabla_chain($obj,$chain_items=[],$more=[]){
 		}
 
 	}
-
 	foreach($chain as $jj=>$chai){
 
 		$prev_id_foreig=$chai['prev'];			
@@ -134,6 +134,7 @@ function tabla_chain($obj,$chain_items=[],$more=[]){
 					'validacion'	=> '0',
 					'default'		=> '[id]',
 					'foreig'		=> '1',
+					'foreigkey'		=> $chai['object'],
 					'label'			=> $prev_label,
 	
 					'opciones'		=> 'id,nombre|'.$prev_tabla,

@@ -174,47 +174,114 @@ function breadcrumb($dato,$id=NULL,$objeto){
 	global $SERVER;
 	global $ibi;
 	global $ibi2;
-
-	$ttren =array();
+	global $ttren;
+	global $deep;
+	
+	$ttren=array();
 
 	if(!isset($_GET['id']) and !isset($_GET['i'])){
 
-		$ttren[]="<span class='type_file'>".ucfirst($objeto[$dato['me']]['nombre_plural']).'</span>';
+		$ttren[]="<strong class='type_file'>".ucfirst($objeto[$dato['me']]['nombre_plural']).'</strong>';
 
 	} else {
 
-		if(isset($_GET['i'])){
+		if(isset($_GET['id'])){
 
+			try_bread($objeto,$dato['me'],$_GET['id']);	
+
+		}
+		
+		if(isset($_GET['i'])){
 			foreach($objeto[$dato['me']]['campos'] as $campo){
 				if($campo['foreigkey']!=''){
-					// prin($campo);
-					list($aa,$bb,$cc)=explode("|",$campo['opciones']);
-					list($dd,$ee)=explode(",",$aa);
+					// list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+					// list($dd,$ee)=explode(",",$aa);
 					$id=dato($campo['campo'],$dato['tabla'],"where id=".$_GET['i'],0);
+					continue;
 				}
 			}
 
 
-		}
+			try_bread($objeto,$dato['me'],$id);	
 
-		$ibi=0;
-		$ibi2=0;
+			$name=dato("nombre",$dato['tabla'],'where id='.$_GET['i'],0);
+			if($name){
+				
+				$ttren[]="<strong class='type_file'>".$name."</strong>";
+			}
 
-		breadcrumb_0($dato['titulo'],$id,$objeto,$ttren);
+		}		
+		
+	}
 
-		if(isset($_GET['i'])){
+	return implode("<strong class='pipe'> / </strong>",$ttren);
 
-			$name=dato("name",$dato['tabla'],'where id='.$_GET['i']);
-			$ttren[]="<span class='type_file'>".$name."</span>";
+}
+
+
+function try_bread($objeto,$mememe,$ididid=null){
+	
+	global $ttren;
+	global $SERVER;
+
+	if($ididid==null){
+
+		$ttren[]= "<a 
+		title='".$objeto[$mememe]['nombre_plural']."'
+		href='custom/".$objeto[$mememe]['archivo'].".php' 
+		class='type_file'
+		>".ucfirst($objeto[$mememe]['nombre_plural'])."</a href=''>";
+
+	}
+
+	foreach($objeto[$mememe]['campos'] as $campo_id=>$campo){
+
+		if($campo['foreigkey']!=''){
+
+			list($aa,$foreigtabla,$cc)=explode("|",$campo['opciones']);
+
+			$nombre=dato("nombre",$foreigtabla,"where id=".$ididid,0);
+
+			$id_dad=false;
+			foreach($objeto as $fore=>$obje){
+				if($obje['tabla']==$foreigtabla){
+					$foreigme=$fore;
+					$foreigfile=$obje['archivo'];
+					foreach($objeto[$fore]['campos'] as $campu_id=>$campu){
+						if($campu['foreig']!=''){
+							$id_padre=$campu_id;
+							continue;
+						}
+					}
+					continue;
+				}
+			}
+			
+			$id_dad=dato($id_padre,$foreigtabla,"where id=".$ididid,0);
+			
+			try_bread($objeto,$foreigme,$id_dad);			
+
+			if($SERVER['ARCHIVO']==$objeto[$mememe]['archivo'].".php?id=".$ididid){
+				
+				$ttren[]= "<strong 
+				title='".$objeto[$mememe]['nombre_plural']." de ".ucfirst($nombre)."'
+				class='type_file'>".ucfirst($nombre).'</strong>';
+
+			} else {
+
+				$ttren[]= "<a 
+				title='".$objeto[$mememe]['nombre_plural']." de ".ucfirst($nombre)."'
+				href='custom/".$objeto[$mememe]['archivo'].".php?id=".$ididid."' 
+				class='type_file'>".ucfirst($nombre).'</a>';
+
+			}
+
+			continue;
 
 		}
 
 	}
-
-	return implode("<span class='pipe'> / </span>",$ttren);
-
 }
-
 
 
 

@@ -1004,102 +1004,26 @@ ul.supra_menu li.selected a,
 ul.supra_menu li:hover a {
   color: #ccc;
 }
-.ul_menus li span.menu_bi,
-.ul_menus li span.menu_bd {
-  display: block;
-}
-ul.ul_menus li a.submenu {
-  background: url("../img/ico_subitem.png") no-repeat scroll -1px 3px transparent !important;
-  font-size: 11px !important;
-  font-variant: small-caps !important;
-  font-weight: bold !important;
-  padding-left: 10px !important;
-}
-a.derech,
-a.derech2 {
-  background: #ccc !important;
-  float: right;
-  font-size: 1em !important;
-  padding: 1px 2px !important;
-  margin-left: 1px;
-  margin-top: -17px;
-}
-.mmm {
-  border: 1px solid #ccc;
-  padding: 5px 0px 0 10px;
-  float: right;
-}
-.mmm #msino,
-.mmm #mnosi {
-  float: right;
-  margin-right: 10px;
-  font-family: 'icomoon';
-}
-.mmm #msino:hover,
-.mmm #mnosi:hover {
-  text-decoration: none;
-}
-.mmm #msino:before,
-.mmm #mnosi:before {
-  font-size: 2em;
-}
-.mmm #msino:before {
-  content: "\e68c";
-  color: #808080;
-  font-weight: normal;
-}
-.mmm #mnosi:before {
-  content: "\e690";
-  color: #cf6a27;
-  font-weight: bold;
-}
-ul.ul_menus_empty {
-  font-family: 'icomoon';
-  color: #666 !important;
-  box-shadow: none !important;
-}
-ul.ul_menus_empty:before {
-  content: "\f06a";
-  font-size: 10em;
-  position: absolute;
-  top: 112px;
-  left: 31%;
-}
-ul.ul_menus_empty_no:before {
-  content: "\e618";
-}
-ul.ul_menus_empty_si:before {
-  content: "\e602";
-}
-.menu_colapsed #msino:before {
-  color: #cf6a27;
-  font-weight: bold;
-}
-.menu_colapsed #mnosi:before {
-  color: #808080;
-  font-weight: normal;
-}
 .bloque_titulo {
+  background: rgba(225,236,237,0.5);
   margin-bottom: 10px;
   min-height: 30px;
   padding: 9px 5px 3px;
   font-weight: bold;
   height: auto;
   border-radius: 6px 6px 0 0;
-  bacground: #000;
   border: 1px rgba(0,0,0,0.2) solid !important;
-}
-.bloque_titulo .titulo,
-.bloque_titulo .titulo a {
-  float: left;
-  font-weight: normal;
-  letter-spacing: 0px;
-  text-decoration: none;
 }
 .bloque_titulo .titulo {
   color: #000 !important;
-  float: left !important;
-  font-size: 2.1em;
+  float: none !important;
+  font-size: 1.3em;
+}
+.bloque_titulo .titulo strong,
+.bloque_titulo .titulo a.type_file {
+  float: none;
+  text-transform: uppercase;
+  margin-left: 0;
 }
 .bloque_titulo a:hover {
   text-decoration: underline;
@@ -2436,7 +2360,6 @@ a.linkstitu {
 .bloque_titulo span,
 .bloque_titulo a {
   float: right;
-  margin-left: 2px;
   margin-bottom: 2px;
 }
 a.linkpag,

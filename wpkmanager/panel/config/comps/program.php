@@ -83,7 +83,7 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 		'importar_csv'	=> '0',
 		// 'order_by'		=> 'orden desc, id_grupo desc',
 		'width_listado'	=> '',
-		'edicion_rapida'	=> '1',
+		'edicion_rapida'	=> '0',
 		'crear_pruebas'	=> '0'
 	]
 );
@@ -123,7 +123,36 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 					'formato'		=> '7b',
 					'width'			=> '100px',
 					'queries'		=> '0',
-			),		
+			),	
+			'fecha_inicio'	=>array(
+				'campo'			=> 'fecha_inicio',
+				'label'			=> 'Inicio',
+				'tipo'			=> 'fch',
+				'listable'		=> '1',
+				'formato'		=> '7b',
+				'time'			=> '1',
+				'width'			=> '136px',
+				'derecha'		=> '1',
+				'default'		=> '[today]',
+				'rango'			=> 'now,+1 years',
+				'queries'		=> '0',
+				'validacion'	=> '0',
+			),	
+
+			'fecha_fin'	=>array(
+				'campo'			=> 'fecha_fin',
+				'label'			=> 'Fin',
+				'tipo'			=> 'fch',
+				'listable'		=> '1',
+				'formato'		=> '7b',
+				'time'			=> '1',
+				'width'			=> '136px',
+				'derecha'		=> '2',
+				'default'		=> '[today]',
+				'rango'			=> 'now,+1 years',
+				'queries'		=> '0',
+				'validacion'	=> '0',
+			),					
 			'id_equipo'		=>array(
 					'campo'			=> 'id_equipo',
 					'tipo'			=> 'hid',
@@ -148,20 +177,6 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 				'validacion'	=> '1',
 			),	
 
-			'id_tecnico'		=>array(
-                'campo'			=> 'id_tecnico',
-                'label'			=> 'Técnicos',
-                'width'			=> '100px',
-                'listable'		=> '0',
-                'tipo'			=> 'hid',
-                'opciones'		=> 'id,nombre;apellidos|tecnicos|order by nombre asc',
-                'derecha'		=> '1',
-                'tags'			=> '1',
-                'queries'		=> '1',
-                'validacion'	=> '0',
-                // 'select_multiple'=> '1',
-                'multi'			=> '1',
-			),  
 						
 			'id_herramientas'		=>array(
 					'campo'			=> 'id_herramientas',

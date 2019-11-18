@@ -23,6 +23,7 @@ $objeto_chain['ubi']=[
 ];
 
 
+
 // CLASSES
 include_once 'comps/classes.php';
 
@@ -89,8 +90,8 @@ $objeto_tabla=array_merge($objeto_tabla,require 'comps/users.php');
 
 $objeto_tabla=array_merge($objeto_tabla,require 'comps/program.php');
 
-
-
+// foreigkey
+// prin($objeto_tabla['EQUIPOS_CATEGORIAS']['campos']);exit();
 
 $objeto_tabla=tablas_build($objeto_tabla);
 
