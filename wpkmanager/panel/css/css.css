@@ -3132,8 +3132,13 @@ form {
   min-width: 100px;
 }
 .detail .bl .linea_derecha_inicio {
-  float: left;
+  float: none;
   width: auto;
+  padding-bottom: 0;
+  min-height: 25px;
+}
+.detail .bl .linea_derecha_inicio b {
+  width: 100px;
 }
 .detail .bl .mn {
   font-size: 1em;

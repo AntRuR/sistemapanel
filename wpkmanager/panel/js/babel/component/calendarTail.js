@@ -31,6 +31,7 @@ window.addEventListener("load",function(){
         eval('Fields.'+id+'=picker;');
 
     }
+    
     var update_calendar = function(id){
 
         eval('Fields.'+id+'.reload();');

@@ -2290,7 +2290,7 @@ function get_columns_from_objeto($obta)
 				//$Acampos2[]="PRIMARY KEY  (`".$camp['campo']."`)";
 			}
 			if(in_array($camp['tipo'],array('fcr','fed','fch'))){
-				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  datetime default '0000-00-00 00:00:00';";
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  datetime default NULL;";
 			}
 			if(in_array($camp['tipo'],array('pos'))){
 				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default NULL;";
