@@ -10,7 +10,7 @@ $Open=(
 )?1:0;
 
 foreach($objeto_tabla as $item){
-	if(enhay($SERVER['ARCHIVO'],$item['archivo'].".php")){
+	if(enhay($SERVER['ARCHIVO'],$item['archivo'].".php") and $item['archivo']!=''){
 		$this_grupo=$item['grupo'];
 		$this_me=$item['me'];
 	}

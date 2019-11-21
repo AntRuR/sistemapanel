@@ -3836,3 +3836,87 @@ body {
     display: none;
   }
 }
+.detail #ordenable > li {
+  padding-left: 0 !important;
+}
+.detail .marco {
+  padding: 20px 0 30px 0;
+  border-bottom: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  border: 1px solid #f6f6f5;
+  min-height: 116px;
+  margin-bottom: 20px;
+}
+.detail .marco .ficha_datos.wide {
+  display: block;
+  width: 100%;
+  vertical-align: top;
+}
+.detail .marco .ficha_datos.half {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+.detail .marco .linea {
+  margin-bottom: 4px;
+}
+.detail .marco .var {
+  color: #cf6a27 !important;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1em;
+  overflow: hidden;
+  font-style: normal;
+  word-wrap: break-word;
+  padding-left: 6px;
+  display: inline-block;
+  width: 120px;
+}
+.detail .marco .var.dark {
+  color: #000 !important;
+}
+.detail .marco .var.navy {
+  color: #000080 !important;
+}
+.detail .marco .val {
+  font-size: 1.1em;
+}
+.detail .marco .paren {
+  color: #f00;
+}
+.detail .marco ul.listas {
+  border: 1px solid #eee;
+  width: auto;
+  display: inline-block;
+  margin-left: 20px;
+}
+.detail .marco ul.listas li {
+  border-bottom: 1px solid #eee;
+  padding: 0 1em;
+  color: #000;
+}
+.detail .marco ul.listas.estados li {
+  color: #777;
+}
+.detail .marco ul.listas.estados li.selected {
+  color: #000;
+  font-weight: bold;
+}
+.detail .marco .linea_bar {
+  margin: 0px 10px 10px 10px;
+  min-height: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.detail .marco .actividades {
+  padding: 1em 0;
+}
+.detail .marco .actividades h4 {
+  font-size: 1.4em;
+  color: #000 !important;
+  margin-left: 10px;
+}
+.detail .marco .actividades .ficha_datos.half.datos .var {
+  padding-left: 30px;
+  width: 90px;
+}

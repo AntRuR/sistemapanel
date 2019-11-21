@@ -142,7 +142,7 @@ case "confirm":
 	//echo file_exists($this_project['carpeta']."/panel/config/config.ini")?"logo actualizado correctamente":"error al actualizar config.ini";
 
 	echo "<br>";
-
+	echo "creando config.ini <br>";
 	set_params_ini("GENERAL","FILE_DEFAULT", $carpetaConfigVars['GENERAL']['FILE_DEFAULT'], $this_project['carpeta']."/panel/config/config.ini" );
 
 	set_params_ini("GENERAL","img_logo", "img/logo.".$ext, $this_project['carpeta']."/panel/config/config.ini" );
@@ -197,23 +197,45 @@ case "confirm":
 	set_params_ini("GENERAL","UPLOAD_FTP",'"0"', $this_project['carpeta']."/panel/config/config.ini" );
 	set_params_ini("GENERAL","DESARROLLO",'"0"', $this_project['carpeta']."/panel/config/config.ini" );
 
+	echo "config.ini creado<br>";
 
 	$sql0="create database panel_".$this_project['carpeta'].";";
 
 	include($this_project['carpeta']."/panel/config/tablas.php");
 
+	$servername = "localhost";
+	$username = "root";
+	$password = "root";
+	
+	// Create connection
+	$conn = new mysqli($servername, $username, $password);
+	// Check connection
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	
+	// Create database
+	// $sql = "CREATE DATABASE myDB";
+	if ($conn->query($sql0) === TRUE) {
+		echo "Database created successfully";
+	} else {
+		echo "Error creating database: " . $conn->error;
+	}
+	echo "<br>";
+	$conn->close();
+
 	$sql1= script_create_table($objeto_tabla['USUARIOS_ACCESO']);
 
 	$sql2= "insert into usuarios_acceso (fecha_creacion,visibilidad,nombre,password) values (now(),1,'administrador','".$this_project['carpeta']."');";
 
-	echo mysql_query($sql0)?"bd panel_".$this_project['carpeta']." creada exitosamente":"error al crear bd panel_".$this_project['carpeta']."";
+	// echo mysql_query($sql0)?"bd panel_".$this_project['carpeta']." creada exitosamente":"error al crear bd panel_".$this_project['carpeta']."";
 	echo "<br>";
-	echo (mysql_select_db ("panel_".$this_project['carpeta'],$link))?"bd seleccionda<br>":"bd no pudo ser seleccionada";
+	echo (mysqli_select_db ($link,"panel_".$this_project['carpeta']))?"bd seleccionda<br>":"bd no pudo ser seleccionada";
 	echo "<br>";
-	echo (mysql_query($sql1,$link))?"usuarios_acceso creada":"no se pudo crear usuarios_acceso";
+	echo (mysqli_query($link,$sql1))?"usuarios_acceso creada":"no se pudo crear usuarios_acceso";
 	echo "<br>";
 	if(contar("usuarios_acceso","where 1 ")==0){
-echo (mysql_query($sql2,$link))?"primer registro":"no se pudo crear primer registro"; echo "<br>";
+echo (mysqli_query($link,$sql2))?"primer registro":"no se pudo crear primer registro"; echo "<br>";
 }
 $array_variables['titulo_home']=$this_project['nombre'];
 $array_variables['emails_admin']=$emails_admin;
@@ -227,14 +249,14 @@ $array_variables['anaytics_code']="";
 
 
 $sql3= script_create_table($objeto_tabla['CONFIGURACIONES_ROOT']);
-echo (mysql_query($sql3,$link))?"configuraciones_root creada":"no se pudo crear usuarios_acceso";
+echo (mysqli_query($link,$sql3))?"configuraciones_root creada":"no se pudo crear usuarios_acceso";
 echo "<br>";
 
 if(contar("configuraciones_root","where 1")==0){
 
 	foreach($array_variables as $variable=>$valor){
 		$SqL="insert into configuraciones_root (fecha_creacion,variable,valor) values (now(),'$variable','$valor');";
-		echo (mysql_query($SqL,$link))?"ok":"ko";
+		echo (mysqli_query($link,$SqL))?"ok":"ko";
 		echo "<br>";
 	}
 
@@ -249,14 +271,14 @@ $array_variables2['emails_admin']=($this_project['email'])?$this_project['email'
 $array_variables2['direccion_email']='av direccion 000';
 
 $sql4= script_create_table($objeto_tabla['CONFIGURACIONES']);
-echo (mysql_query($sql4,$link))?"configuraciones creada":"no se pudo crear usuarios_acceso";
+echo (mysqli_query($link,$sql4))?"configuraciones creada":"no se pudo crear usuarios_acceso";
 echo "<br>";
 
 if(contar("configuraciones","where 1")==0){
 
 	foreach($array_variables2 as $variable=>$valor){
 		$SqL="insert into configuraciones (fecha_creacion,variable,valor) values (now(),'$variable','$valor');";
-		echo (mysql_query($SqL,$link))?"ok":"ko";
+		echo $SqL. ( (mysqli_query($link,$SqL))?"ok":"ko" );
 		echo "<br>";
 	}
 

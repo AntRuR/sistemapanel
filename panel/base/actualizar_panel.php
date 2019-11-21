@@ -228,14 +228,14 @@ foreach($items as $item){
 			"panel/js/ckeditor/plugins/link/images/hipi/",			
 			"panel/js/ckeditor/plugins/magicline/",			
 			"panel/js/ckeditor/plugins/magicline/images/",			
-			"panel/js/ckeditor/plugins/magicline/images/hipi/",			
+			// "panel/js/ckeditor/plugins/magicline/images/hipi/",			
 			"panel/js/ckeditor/plugins/pastefromword/",			
 			"panel/js/ckeditor/plugins/pastefromword/filter/",			
 			"panel/js/ckeditor/plugins/scayt/",			
 			"panel/js/ckeditor/plugins/scayt/dialogs/",			
 			"panel/js/ckeditor/plugins/specialchar/",			
 			"panel/js/ckeditor/plugins/specialchar/dialogs/",			
-			"panel/js/ckeditor/plugins/specialchar/dialogs/lang",			
+			// "panel/js/ckeditor/plugins/specialchar/dialogs/lang",			
 			"panel/js/ckeditor/plugins/table/",			
 			"panel/js/ckeditor/plugins/table/dialogs/",			
 			"panel/js/ckeditor/plugins/tabletools/",
@@ -248,7 +248,11 @@ foreach($items as $item){
 			//"panel/js/MooEditable12/",
 			//"panel/js/MooEditable13/",
 			// "panel/removerbom/"
-			);
+			"panel/views/",
+			"panel/views/dist/",
+			"panel/views/src/",
+			"panel/cache/",
+		);
 
 	// prin($dirs);
 	// exit();

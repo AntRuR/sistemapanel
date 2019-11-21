@@ -2,7 +2,6 @@
 include("lib/includes.php");
 
 
-
 $FILES=explode($_SERVER['SCRIPT_NAME'],$_SERVER['PHP_SELF']);
 $FILE=(!empty($FILES[1]))?$FILES[1]:$_SERVER['ORIG_PATH_INFO'];
 $FILE=str_replace("/","",$FILE);
@@ -10,15 +9,18 @@ $FILE=str_replace("/","",$FILE);
 //ORIG_PATH_INFO
 $file2OBJ=array();
 
+
 foreach($objeto_tabla as $mememe=>$ot){
 	// prin("/".$ot['archivo']);
 	// prin($FILES[1]);
 	$file2OBJ[$ot['archivo']]=$mememe;
-	if($ot['archivo']==$FILE) {
+	if($ot['archivo']==$FILE and $ot['archivo']!='') {
 		$MEEE=$objeto_tabla[$ot['me']];
 		continue;
 	}
 }
+
+
 
 if(isset($MEEE)){
 
@@ -28,9 +30,6 @@ if(isset($MEEE)){
 	$objeto_tabla = pre_procesar_tabla($objeto_tabla,$vars);
 
 	$MEEE = $objeto_tabla[$this_me];
-
-	// prin($MEEE);
-	// $MEEE = $objeto_tabla[$this_me]);
 
 }
 
@@ -67,35 +66,49 @@ if(!isset($MEEE)){
 
 }
 
-// prin($_GET);exit();
 
-// div_contenedor
-// contenido_principal
 
 include("lib/compresionInicio.php");
 
 include("head.php"); 
 
-$id_permisos=dato("id_permisos","usuarios_acceso","where id=".$_SESSION['usuario_id']);
+
+$id_permiso=$_SESSION['PERMISOS_ID'];
 
 ?>
+<body class="<?php echo ""
+." monitor acceso_{$_SESSION['usuario_id']}"
+." {$MEEE['titulo']}"
+." ".( ($_COOKIE['admin'])?'permiso_master':'' )
+." permiso_{$id_permisos}"
+." modulo_{$FILE}"
+." ".( ($_GET['justlist']==1)?'justlist':'' )
+." ".( ($_SESSION['sesionhid3']=='unlocked')?`acceso_{$_SESSION['usuario_id']}_unlocked`:'' )
+." ".( (  ($SERVER['ARCHIVO']!='login.php') and $_COOKIE['men'] )?'menu_colapsed':''  )
+." ".( ($_GET['i']!='')?' detail ':'' )
+." body_".$_COOKIE[$MEEE['prefijo'].'_colap']
+."";?>">
 
-<body class="monitor acceso_<?=$_SESSION['usuario_id']?> <?=$MEEE['titulo']?> <?=($_COOKIE['admin'])?'permiso_master':'';?> permiso_<?=$id_permisos;?> modulo_<?=$FILE;?> <? echo ($_GET['justlist']==1)?'justlist':'';?>">
+	<div id="div_allcontent" class="div_allcontent">
 
-	<div id="div_allcontent" class="div_allcontent <?=(  ($SERVER['ARCHIVO']!='login.php') and $_COOKIE['men'] )?'menu_colapsed':''  ?>">
+		<div class="main_content">
+		<?php
 
-		<?php include("header.php"); ?>
+			include("header.php");
 
-		<div class="line_content">
+			include('header_menu.php');
+			
+			include("menu.php");
+			
+			include("vista.php");
 
-			<?php include("menu.php"); ?>
-
-			<?php include("vista.php"); ?>
-
+		?>
 		</div>
-
-		<?php include("foot.php"); ?>
-
+		<?php 
+		
+			include("foot.php");
+		
+		?>
 	</div>
 </body>
 </html>

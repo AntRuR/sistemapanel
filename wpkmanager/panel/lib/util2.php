@@ -6605,3 +6605,10 @@ function render_view($vars,$file){
 	require "views/dist/".$file;
 
 }
+
+function get_rel_tabla($tabla1,$tabla2){
+	if($tabla1<$tabla2)
+		return $tabla1.'_'.$tabla2;
+	else
+		return $tabla2.'_'.$tabla1;
+}

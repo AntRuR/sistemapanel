@@ -21,11 +21,11 @@ foreach($tbcampos as $uu=>$tbcampA){
 	if($tbcampA['load']!=''){
 		$uno=explode("|",$tbcampA['load']); $Loads[]=$uno[0];
 	}
-	if($EdicionPanel){
-		$tbcampos[$uu]['constante']=0;
-	}
 
 }
+
+// prin($Loads);
+
 
 $INPS=array();
 
@@ -49,9 +49,6 @@ foreach($tbcampos2 as $tbcampA){
 		$Derecha="oculto";
 	}
 
-	if($Derecha=='linea_derecha_inicio'){ ?>
-<li class='linea_form break'>&nbsp;</li>
-<?php }
 
 if($tbcampA['legend']!='' and $tbcampA['indicador']!='1'){ ?>
 </div>
@@ -72,13 +69,16 @@ if($tbcampA['legend']!='' and $tbcampA['indicador']!='1'){ ?>
 		$GGET=( ($tbcampA['default']) and (!enhay($tbcampA['default'],"[")) ) ? $tbcampA['default']: (($GGET1!='')?$GGET1:$GGET2);		
 		list($primO,$tablaO,$whereO)=explode("|",$tbcampA['opciones']);
 		if(in_array($tbcampA['campo'],$Loads)){
-$whereO='where 0';
-}
+		// echo 'loads de '.$tbcampA['campo']."<br>";
+		// prin($Loads);
+		// $whereO='where 0';
+		}
 list($idO,$camposO)=explode(",",$primO);
 $camposOA=array();
 $camposOA=explode(";",$camposO);
 
 // prin(get_extra_filtro_0($tablaO));
+
 
 $whereop=procesar_dato((($whereO)?$whereO:"where 1 ").get_extra_filtro_0($tablaO));
 $betop=between($whereop,"order","and");
@@ -86,6 +86,12 @@ if(trim($betop[1])!='' and trim($betop[2])!='' ){
 	$whereop=$betop[0].' and '.$betop[2].' order '.$betop[1];
 }
 // prin($whereop);
+// prin($tbcampA['campo']);
+// if(enhay($whereop," and ")){
+// 	$whereop=str_replace("where 0","where 1", $whereop);
+// }
+
+
 $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 
 
@@ -134,10 +140,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 		?>" ><?php
 		echo $tbcampA['label'];
 		//prin($tbcampA);
-		if($EdicionPanel){ ?><a class='edot'
-			onclick='tog("<?php echo $tbcampA['campo']?>");return false;'>&diams;</a>
-			<?php }
-			?></label><?php
+		?></label><?php
 				}
 
 				if($datos_tabla['crear_quick']=='1'){
@@ -156,12 +159,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 					$value=$tbcampA['default'];
 					echo "<div class='in_span'>";
 					switch($tbcampA['tipo']){
-					/* case "img":
-						$tbli=$objeto_tabla[$obj['obj']]['campos'][$camP];
-					if($linea[$tbli['campo']]!=''){
-						?><a href="<?php echo get_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']]);?>" rel="[images],noDesc" class="mb"><img <?php echo dimensionar_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']],$tbli['tamano_listado']);?> /></a><?php
-					}
-					break; */
+		
 						case "hid":
 							// prin($tbcampA['opciones']);
 							list($primO,$tablaO)=explode("|",$tbcampA['opciones']);
@@ -199,27 +197,27 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 				} else {
 
 
+
                 switch($tbcampA['tipo']){
 
                 	case "id":
-                	?><input disabled type="text"
-						id="in_<?php echo $tbcampA['campo']?>" class="form_input"
-						style="width: 50px;" />
-					<?php
+						?><input disabled type="text"
+							id="in_<?php echo $tbcampA['campo']?>" class="form_input"
+							style="width: 50px;" />
+						<?php
 					break;
 					case "img":	case "sto":
 
-					?><div class="upl"><?php 
-						if( $tbcampA['help']) echo '<div class="greyy">'.$tbcampA['help'].'</div>';
-					?><div id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0"></div></div>
-					<?php
+						?><div class="upl"><?php 
+							if( $tbcampA['help']) echo '<div class="greyy">'.$tbcampA['help'].'</div>';
+						?><div id="upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0"></div></div><?php
 
                     break;
                     case "inp":
 
 							$maxlength=($tbcampA['size']!='')?$tbcampA['size']:'80';
 							$stylewidth=($tbcampA['size']!='')?'width:'. ( ( ($tbcampA['size']>100)?100*7:$tbcampA['size']*7 ) ).'px; ':'';
-                            ?><input <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> type="text" id="in_<?php echo $tbcampA['campo']?>" name="<?php echo $tbcampA['campo']?>" class="form_input" <?php
+                            ?><input autocomplete="nope" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> type="text" id="in_<?php echo $tbcampA['campo']?>" name="<?php echo $tbcampA['campo']?>" class="form_input" <?php
                             ?>maxlength="<?php echo $maxlength;?>" <?php
                             echo ($tbcampA['onchange'])?'onchange=\''.$tbcampA['onchange'].'\' ':' ';
                             ?>style=" <?php
@@ -253,11 +251,11 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 							$maxlength=($tbcampA['size']!='')?$tbcampA['size']:'80';
 							$stylewidth=($tbcampA['size']!='')?'width:'. ( ( ($tbcampA['size']>100)?100*7:$tbcampA['size']*7 ) ).'px; ':'';
 
-                            ?><div class="floatinput"><input type="password" id="in_<?php echo $tbcampA['campo']?>" name="<?php echo $tbcampA['campo']?>" class="form_input" autocomplete="off"  <?php
+                            ?><div class="floatinput"><input type="password" id="in_<?php echo $tbcampA['campo']?>" name="<?php echo $tbcampA['campo']?>" class="form_input" autocomplete="nope"  <?php
                             ?> maxlength="<?php echo $maxlength;?>" style=" <?php
 							echo $stylewidth;
 							echo ($tbcampA['style'])?$tbcampA['style']:'';
-							?> "/><br /><input type="password" id="in_<?php echo $tbcampA['campo']?>_2" class="form_input" autocomplete="off" <?php
+							?> "/><br /><input type="password" id="in_<?php echo $tbcampA['campo']?>_2" class="form_input" autocomplete="nope" <?php
                             ?>maxlength="<?php echo $maxlength;?>" style=" <?php
 							echo $stylewidth;
 							echo ($tbcampA['style'])?$tbcampA['style']:'';
@@ -266,13 +264,30 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
                     break;
                     case "paslogin":
 
-                            ?><input type="password" id="in_<?php echo $tbcampA['campo']?>" class="form_input" autocomplete="off" <?php
+                            ?><input type="password" id="in_<?php echo $tbcampA['campo']?>" class="form_input" autocomplete="nope" <?php
                             ?>onkeyup=" if(event.keyCode=='13'){ ax('login',''); } " /><?php
 
                     break;
                     case "fch":
-
-                  			?><span id="in_<?php echo $tbcampA['campo']?>_span"></span><?php
+														
+							?><span id="in_<?php echo $tbcampA['campo']?>_span">
+								<input type="text" 
+									id="in_<?php echo $tbcampA['campo']?>" 
+									name="<?php echo $tbcampA['campo']?>"
+									class="form_input" 
+									autocomplete="off" 
+									data-enabletime="true"
+									<?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> 
+									maxlength="<?php echo $maxlength;?>" 
+									style=" <?php
+										echo $stylewidth;
+										echo ($tbcampA['style'])?$tbcampA['style']:'';
+										echo ($tbcampA['unique'])?'border:1px solid #666666;':'';
+										?>" 
+									<?php /* value="<?php echo $tbcampA['default']?>" */ ?>
+									value="" 
+								/>
+							</span><?php
 
                     break;
                     case "html": case "txt": case "yot":
@@ -305,10 +320,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 									$ri++;	
 									$bootones.='<li><a class="btn btn-small" onclick="CKEDITOR.instances.in_'.$tbcampA['campo'].'.insertHtml(document.getElementById(\'booton_'.$tbcampA['campo'].'_'.$ri.'\').value);">'.str_replace(" "," \n",$name).'</a></li>';
 									$bootones.='<textarea id="booton_'.$tbcampA['campo'].'_'.$ri.'">'.mooeditable_replace($html,$tbcampA['variables']).'</textarea>';
-	// 								echo 'html += "<a href=\'#\' rel=\'<!--'.$name.'-->'.
-	// 								str_replace("\\\\\"","\\\"",str_replace("\"","\\\"",str_replace(array("\n","\r","\s","\t"),"",mooeditable_replace($html,$tbcampA['variables']))))
-	// 								.'\'>'.$name.'</a>";
-	// ';
+
 	
 									}
 
@@ -335,7 +347,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 							echo ($tbcampA['tipo']=='html')?'background-color:#FFF; height:400px; ':"";
 							echo ($tbcampA['tipo']=='yot')?'width:300px;height:100px; ':"";
 							echo ($tbcampA['style']!='')?str_replace(",","; ",$tbcampA['style']).' ':'';
-							?>" autocomplete="off" rows="6"><?php
+							?>" autocomplete="nope" rows="6"><?php
                             echo ($tbcampA['tipo']=='html')?(($tbcampA['default']=='')?'<p></p>':$tbcampA['default']):$tbcampA['default'];?></textarea><?php
                             ?></div></div><?php
 
@@ -346,7 +358,7 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
                             foreach($opciones_select as $opcccion=>$opcion_select_a){ list($opcion_select,$color)=explode("|",$opcion_select_a);
                             ?><div><?php
                             ?><strong><?php echo $opcion_select;?></strong><?php
-                            ?><input type="checkbox" <?php
+                            ?><input type="checkbox" autocomplete="nope" <?php
                             ?>id="in_<?php echo $tbcampA['campo']?>_<?php echo $opcccion;?>" <?php
                             ?>name="<?php echo $tbcampA['campo']?>" <?php
                             ?>value="<?php echo $opcccion;?>" <?php
@@ -397,9 +409,9 @@ $oopciones=select(array_merge(array($idO),$camposOA),$tablaO,$whereop,0);
 
 						} else {
 
-							?><select <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> <?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
+							?><select autocomplete="nope" <?php echo ($tbcampA['frozen']=='1')?'disabled':""; ?> <?php echo ($tbcampA['style']!='')?' style=" '. $tbcampA['style'].' " ':'';?> id="in_<?php echo $tbcampA['campo']?>" class="form_input" name="<?php echo $tbcampA['campo']?>" <?php
 							if(sizeof($tbcampA['eventos'])>0){ ?>onchange='<?php
-							foreach($tbcampA['eventos'] as $val=>$eve){?>if(this.value=="<?php echo $val;?>"){ <?php echo $eve;?> }<?php }
+							foreach($tbcampA['eventos'] as $val=>$eve){?>if(this.value=="<?php echo $val;?>"){ <?php echo str_replace("\n","",$eve);?> }<?php }
 							?>'<?php }
 							?>><?php
 								$Htm ='';

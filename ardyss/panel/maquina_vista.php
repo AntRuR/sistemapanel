@@ -88,10 +88,10 @@ $tablas_creadas=array();
 if($vars['GENERAL']['esclavo']!='1'){
 
 	$sql = "show tables";
-	$result=mysql_query($sql,$link);
-	$total=mysql_num_rows($result);
+	$result=mysqli_query($link,$sql);
+	$total=mysqli_num_rows($result);
 	if($total>0){
-		while ($row = mysql_fetch_row($result)){
+		while ($row = mysqli_fetch_row($result)){
 				$tablas_creadas[] = $row[0];
 		}
 	}
@@ -99,7 +99,7 @@ if($vars['GENERAL']['esclavo']!='1'){
 }
 
 if( $_GET['tabla']!='' and $_GET['accion']=='borrartabla2' ){
-	mysql_query("DROP TABLE `".$_GET['tabla']."`",$link);
+	mysqli_query($link,"DROP TABLE `".$_GET['tabla']."`");
 	redireccionar();
 }
 
@@ -139,7 +139,7 @@ if($_GET['accion']=='exportdb' ){
 	echo "<div class='loading2' id='div_loading'>Exportando BD local....</div>"; flush();
 }
 
-if($mostrar_master){
+if($mostrar_master or 1){
 
 ?>
 <style>
@@ -281,7 +281,7 @@ foreach($objeto_tabla as $ot){
 			if($gupO!=$ot['grupo']){
 				$rty++;
 				$gupO=$ot['grupo'];
-				$Color=color::rgb2hex(array($cR,$cG,$cB));
+				// $Color=color::rgb2hex(array($cR,$cG,$cB));
 				$BgColor=oppColour($Color);
 				if($rty%2==0){
 					$Cc      =$Color;
@@ -303,26 +303,33 @@ foreach($objeto_tabla as $ot){
 
 
 			$cam='sincromysql';
+			/*
 			echo '<a
 			href="maquina.php?set='. ( ($saved[$ot['me']][$cam]==1)?"0":"1") .'&cam='.$cam.'&mi='.$ot['me'].'"
 			class="letra '. (($saved[$ot['me']][$cam]=='1')?"onon":"offoff") .'"
 			><img src="img/ico_sync.png"/></a>';
+			*/
 			echo '</td>';
 			echo '<td class="cntrl">';
 
+			/*
 			foreach($indicesA as $inicial=>$indice){
 			if($indice=='orden'){ continue; }
 			echo "<a href='#' id='idid_".$indice."_".$ot['me']."' onclick=\"javascript:modificar_dato_valor('".$ot['me']."','".$indice."','".(($ot[$indice]=='1')?"0":"1")."'); return false;\" rel='nofollow' class='letra ". (($ot[$indice]=='1')?"onon":"offoff") ."' title='".strtoupper($indice)."' >";
 			echo str_replace($Replace4Str,$Replace4Ico,$indice);
 			echo "</a>";
-
 			}
+			*/
 
 			echo '</td>';
 
 			$row++;
-			echo '<td class="'. ( (in_array($ot['me'],$BBB))?'small':'big') .'"><b><a href="maquina.php?me='.$ot['me'].'"
-			>'.$ot['me']."</a> <span>(". ( contar($ot['tabla'],"where 1") ). ')</span></b></td>';
+			echo '<td class="'. ( (in_array($ot['me'],$BBB))?'small':'big') .'">
+			<b>
+				<a href="maquina.php?me='.$ot['me'].'"
+			>'.$ot['me']."</a> 
+				<span>(". ( contar($ot['tabla'],"where 1") ). ')</span></b>
+			</td>';
 			//echo '<td><b><a href="?me='.$ot['me'].'" style="float:left; margin-right:5px;">'.$ot['tabla'].'</a></b></td>';
 
 			echo '<td
@@ -333,7 +340,6 @@ foreach($objeto_tabla as $ot){
 			// echo '<td >' . ( ($archivos_creados)?"<span class='creado'><img src='img/ico_yes.gif'/></span> <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=borrararchivos&maquina=1'>del</a>&nbsp;<a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=recreararchivos&maquina=1'>redo</a>":"<span class='nocreado'><img src='img/ico_no.gif'/></span> <a href='".$SERVER['BASE'].$SERVER['ARCHIVO']."?me=".$ot['me']."&accion=creararchivos&maquina=1' >crea</a>"). '</td>';
 
 			echo '<td>';
-
 			if($ot['bloqueado']=='1'){
 				echo ( $tabla_creada )?'<span class="creado"><img src="img/ico_yes.gif"/></span> bloqueado':'<span class="nocreado"> -- </span> <a href="'.$SERVER['BASE'].$SERVER['ARCHIVO'].'?me='.$ot['me'].'&accion=creartabla&maquina=1" >crea</a>';
 			} else {
@@ -414,8 +420,6 @@ foreach($objeto_tabla as $ot){
 		}
 
 
-
-
 		if($_GET['me']==''){
 
 			foreach($tabla3 as $ta){
@@ -471,7 +475,7 @@ if($_GET['accion']=='bajarconfig' ){
 	$link=mysql_connect ($Panel['LOCAL_MYSQL']['MYSQL_HOST'], $Panel['LOCAL_MYSQL']['MYSQL_USER'], $Panel['LOCAL_MYSQL']['MYSQL_PASS']) or die ('no se puedo conectar a la base de datos debido a: ' . mysql_error()." host:$MYSQL_HOST ,user:$MYSQL_USER ,pass:$MYSQL_PASS ,");
 	mysql_select_db ($Panel['LOCAL_MYSQL']['MYSQL_DB'],$link);
 
-	mysql_query("SET NAMES 'utf8'",$link);
+	mysqli_query($link,"SET NAMES 'utf8'");
 
     $secure = select_dato("seguro","proyectos","where id='".$vars['INTERNO']['ID_PROYECTO']."'",0);
 
@@ -540,7 +544,7 @@ if($vars['INTERNO']['ID_PROYECTO']=="0"){
 	$link=mysql_connect ($Panel['LOCAL_MYSQL']['MYSQL_HOST'], $Panel['LOCAL_MYSQL']['MYSQL_USER'], $Panel['LOCAL_MYSQL']['MYSQL_PASS']) or die ('no se puedo conectar a la base de datos debido a: ' . mysql_error()." host:$MYSQL_HOST ,user:$MYSQL_USER ,pass:$MYSQL_PASS ,");
 	mysql_select_db ($Panel['LOCAL_MYSQL']['MYSQL_DB'],$link);
 
-	mysql_query("SET NAMES 'utf8'",$link);
+	mysqli_query($link,"SET NAMES 'utf8'");
 
     $secure = select_dato("seguro","proyectos","where id='".$vars['INTERNO']['ID_PROYECTO']."'",0);
 
@@ -626,7 +630,7 @@ if($_POST['dump']!='' ){
 	if(sizeof($MYSQL)>0){
 		foreach($MYSQL as $sqle){
 			if(trim($sqle)!='' and trim($sqle)!='#'){
-				$oksql=mysql_query($sqle.";",$link);
+				$oksql=mysqli_query($link,$sqle.";");
 				echo ($oksql)?"<div>$sqle<span style='color:green;'>ok</span></div>":"<div><textarea style='width:94%;height:50px;'>$sqle</textarea><span style='color:red;'>ko</span></div>";
 			}
 		}
@@ -715,7 +719,7 @@ if($_GET['accion']=='importdb' ){
 		if(sizeof($MYSQL)>0){
 			foreach($MYSQL as $sqle){
 				if(trim($sqle)!=''){
-					$oksql=mysql_query($sqle.";",$link);
+					$oksql=mysqli_query($link,$sqle.";");
 					echo ($oksql)?"<div>$sqle<span style='color:green;'>ok</span></div>":"<div><textarea style='width:94%;height:50px;'>$sqle</textarea><span style='color:red;'>ko</span></div>";
 				}
 			}
@@ -859,7 +863,7 @@ width:99%;
 if($_POST['consulta']!=''){
 $consultasA=explode(";",$_POST['consulta']);
 foreach($consultasA as $sqle){
-echo "<div style='margin-bottom:15px;'>".nl2br(str_replace(";;",";",$sqle.";"))."<br>". ( (mysql_query($sqle.";",$link))?"<b style='color:green;'>OK</b>":"<b style='color:red;'>KO</b>" )."</div>";
+echo "<div style='margin-bottom:15px;'>".nl2br(str_replace(";;",";",$sqle.";"))."<br>". ( (mysqli_query($link,$sqle.";"))?"<b style='color:green;'>OK</b>":"<b style='color:red;'>KO</b>" )."</div>";
 }
 
 if($_GET['accion']!='config'){
@@ -2002,9 +2006,9 @@ echo "\t".implode("\n\t,",$CaM)."\n"; ?>
 
 </div>
 
-<?php include("editar_propiedades.php");?>
+<?php // include("editar_propiedades.php");?>
 
-<?php include("editar_campos.php");?>
+<?php // include("editar_campos.php");?>
 
 <style>
 #lili_campos { position:inherit;}
@@ -3558,7 +3562,7 @@ if( $_GET['accion']=='creararchivostablaall' ){
 foreach($objeto_tabla as $ME=>$ot){
 
 	$sqli= script_create_table($objeto_tabla[$ME]);
-	mysql_query($sqli,$link);
+	mysqli_query($link,$sqli);
 
 /*
 	$f1=fopen($DIR_CUSTOM.$objeto_tabla[$ME]['archivo'].".php","w+");
@@ -3635,13 +3639,16 @@ echo nl2br($sql2);
 
 echo "<div style='clear:left;'></div>";
 
+
 if( $_GET['me']!='' and ( $_GET['accion']=='actualizartabla') ){
 
 	$sqles=get_columns_from_objeto($objeto_tabla[$_GET['me']]);
 
+	// prin($sqles);exit();
+
 	if(sizeof($sqles)>0){
 		foreach($sqles as $sqle){
-			mysql_query($sqle,$link);
+			mysqli_query($link,$sqle);
 		}
 	}
 
@@ -3674,7 +3681,7 @@ if( $_GET['me']!='' and $_GET['accion']=='truncatetable' ){
 	}
 
 	//if($objeto_tabla[$_GET['me']]['bloqueado']!='1'){
-		mysql_query("TRUNCATE TABLE `".$objeto_tabla[$_GET['me']]['tabla']."`",$link);
+		mysqli_query($link,"TRUNCATE TABLE `".$objeto_tabla[$_GET['me']]['tabla']."`");
 	//}
 
 	//redireccionar();
@@ -3726,7 +3733,7 @@ if( $_GET['me']!='' and $_GET['accion']=='truncatetable' ){
 if( $_GET['me']!='' and ( $_GET['accion']=='creartabla' or $_GET['accion']=='creararchivostabla') ){
 	$sqls=explode(";",$sql);
 	foreach($sqls as $sql){
-	mysql_query($sql,$link);
+		mysqli_query($link,$sql);
 	}
 	if( $_GET['accion']=='creararchivostabla' ){
 		$_GET['accion']='creararchivos';
@@ -3736,7 +3743,8 @@ if( $_GET['me']!='' and ( $_GET['accion']=='creartabla' or $_GET['accion']=='cre
 }
 if( $_GET['me']!='' and ( $_GET['accion']=='borrartabla' or $_GET['accion']=='borrararchivostabla') ){
 	if($objeto_tabla[$_GET['me']]['bloqueado']!='1'){
-		mysql_query("DROP TABLE `".$objeto_tabla[$_GET['me']]['tabla']."`",$link);
+		// echo 'borrando.....';
+		mysqli_query($link,"DROP TABLE `".$objeto_tabla[$_GET['me']]['tabla']."`");
 	}
 	if( $_GET['accion']=='borrararchivostabla' ){
 		$_GET['accion']='borrararchivos';

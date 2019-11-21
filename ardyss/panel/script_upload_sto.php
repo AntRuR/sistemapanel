@@ -56,7 +56,7 @@ if(in_array($extension,array('jpg','gif','jpeg','png','swf','flv','doc','docx','
 
     if(1)
     {
-	    if($file_size < 1024*1024*256)// 50Mb
+	    if($file_size < 1024*1024*50)// 50Mb
 	    {
             // si el temporal se subi correctamente hacer copias a imagesgrupos_temp
 	        if (is_uploaded_file($file_temp))

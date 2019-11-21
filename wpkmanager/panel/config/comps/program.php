@@ -29,6 +29,7 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 		'crear_label'	=> '80px',
 		'crear_txt'		=> '660px',
 		'filtros_extra'	=> '',
+		'include_detail'=> 'base2/apps/mantenimiento_detalle.php',
 		'campos'		=>array_merge(
 			
 			$objeto_tabla_common['base'],
@@ -38,10 +39,11 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 				$objeto_chain['issues']['filter'],
 				[
 					'id_equipo'=>[
-						'controles'=>'<a href="custom/man_actividades.php?id_equipo=[id_equipo]" rel="crear subs popup">{select count(*) from man_actividades where id_equipo=[id_equipo]} actividades</a>'
+						'controles'=>'<a href="custom/man_actividades.php?id_equipo=[id_equipo]&id_grupo=[id]" rel="crear subs popup">{select count(*) from man_actividades where id_equipo=[id_equipo]} actividades</a>'
 					]	
 				]
 			),
+
 			[
 				
 				'fecha_inicio'	=>array(
@@ -73,10 +75,36 @@ $objeto_tabla_comp['MANTENIMIENTO_ITEMS']=array_merge(
 					'queries'		=> '0',
 					'validacion'	=> '0',
 				),						
-						
-				
+			
+			],
+			[
+
+				'status'		=>array(
+					'campo'			=> 'status',
+					'label'			=> 'Estado',
+					'tipo'			=> 'com',
+					'listable'		=> '1',
+					'opciones'		=>array(
+							'1'			=> 'programado - pendiente',
+							'2'			=> 'aceptado - pendiente',
+							'3'			=> 'inicio - retrazado',
+							'4'			=> 'iniciado',
+							'5'			=> 'finalización retrazada',
+							'6'			=> 'finalizado',
+							'7'			=> 'cancelado',
+							'8'			=> 'validado',
+							'9'			=> 'cerrado',
+					),
+					'default'		=> '1',
+					'style'			=> 'width:150px;',
+					'derecha'		=> '1',
+					'width'			=> '150px',
+					'frozen'		=> '1',
+					'queries'		=> '1',
+				),
 
 			]
+
 		),
 		'edicion_completa'=> '1',
 		'calificacion'	=> '1',
@@ -124,6 +152,19 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 					'width'			=> '100px',
 					'queries'		=> '0',
 			),	
+			'man_actividades_tipos'		=>array(
+				'campo'			=> 'man_actividades_tipos',
+				'label'			=> 'Tipo de Actividad',
+				'width'			=> '150px',
+				'listable'		=> '1',
+				'tipo'			=> 'hid',
+				'derecha'		=> '1',
+				// 'default'		=> '[id_equipo]',
+				'opciones'		=> 'id,nombre|actividades|where id_equipo='.$_GET[id_equipo],
+				// 'default'		=> '3',
+				'queries'		=> '1',
+				'validacion'	=> '1',
+			),			
 			'fecha_inicio'	=>array(
 				'campo'			=> 'fecha_inicio',
 				'label'			=> 'Inicio',
@@ -137,8 +178,7 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 				'rango'			=> 'now,+1 years',
 				'queries'		=> '0',
 				'validacion'	=> '0',
-			),	
-
+			),
 			'fecha_fin'	=>array(
 				'campo'			=> 'fecha_fin',
 				'label'			=> 'Fin',
@@ -152,7 +192,16 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 				'rango'			=> 'now,+1 years',
 				'queries'		=> '0',
 				'validacion'	=> '0',
-			),					
+			),
+			'id_mantenimiento'		=>array(
+				'campo'			=> 'id_mantenimiento',
+				'tipo'			=> 'hid',
+				'listable'		=> '0',
+				'validacion'	=> '0',
+				'default'		=> '[id_grupo]',
+				'foreig'		=> '1',
+			),	
+									
 			'id_equipo'		=>array(
 					'campo'			=> 'id_equipo',
 					'tipo'			=> 'hid',
@@ -162,22 +211,9 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 					'foreig'		=> '1',
 					'opciones'		=> 'id,nombre|equipos'
 					// 'controles'		=> '<a style="font-weight:bold;margin-left:5px !important;" target="_blank" href="custom/mantenimientos_items.php?i=[id_grupo]">IR A MANTENIMIENTO</a>',
-			),	
-			'man_actividades_tipos'		=>array(
-				'campo'			=> 'man_actividades_tipos',
-				'label'			=> 'Tipo',
-				'width'			=> '80px',
-				'listable'		=> '1',
-				'tipo'			=> 'hid',
-				'derecha'		=> '1',
-				// 'default'		=> '[id_equipo]',
-				'opciones'		=> 'id,nombre|actividades|where id_equipo='.$_GET[id_equipo],
-				// 'default'		=> '3',
-				'queries'		=> '1',
-				'validacion'	=> '1',
-			),	
+			),
+			
 
-						
 			'id_herramientas'		=>array(
 					'campo'			=> 'id_herramientas',
 					'label'			=> 'Herramientas',
@@ -187,11 +223,26 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 					'opciones'		=> 'id,nombre|herramientas|order by nombre asc',
 					'derecha'		=> '1',
 					'tags'			=> '1',
-					'queries'		=> '1',
+					// 'queries'		=> '1',
 					'validacion'	=> '0',
 					// 'select_multiple'=> '1',
 					'multi'			=> '1',
 			),
+
+			'id_materiales'		=>array(
+				'campo'			=> 'id_materiales',
+				'label'			=> 'Materiales',
+				'width'			=> '100px',
+				'listable'		=> '0',
+				'tipo'			=> 'hid',
+				'opciones'		=> 'id,nombre|materiales|order by nombre asc',
+				'derecha'		=> '1',
+				'tags'			=> '1',
+				// 'queries'		=> '1',
+				'validacion'	=> '0',
+				// 'select_multiple'=> '1',
+				'multi'			=> '1',
+			),			
 			
 			'id_tecnicos'		=>array(
 				'campo'			=> 'id_tecnicos',
@@ -237,6 +288,28 @@ $objeto_tabla_comp['MAN_ACTIVIDADES']=array(
 				'validacion'	=> '1',
 			),
 			*/
+		],
+		[
+			'status_tiempo'		=>array(
+				'campo'			=> 'status_tiempo',
+				'label'			=> 'Estado',
+				'tipo'			=> 'com',
+				'listable'		=> '1',
+				'opciones'		=>array(
+						'1'			=> 'pendiente',
+						'2'			=> 'inicio retrazado',
+						'3'			=> 'iniciado',
+						'4'			=> 'finalizacion retrazada',
+						'5'			=> 'finalizado',
+				),
+				'default'		=> '1',
+				'style'			=> 'width:150px;',
+				'derecha'		=> '1',
+				'width'			=> '150px',
+				'frozen'		=> '1',
+				'queries'		=> '1',
+				'validacion'	=> '0'
+			),			
 		]
 	),
 	'edicion_completa'=> '1',
@@ -358,5 +431,22 @@ $objeto_tabla_comp['MAN_TECNICOS']=array(
 	'calificacion'	=> '1',
 	'edicion_rapida'	=> '1',
 );
+
+/*
+prin(
+
+	chain_campos(
+		$objeto_tabla,
+		$objeto_chain['issues']['filter'],
+		[
+			'id_equipo'=>[
+				'controles'=>'<a href="custom/man_actividades.php?id_equipo=[id_equipo]&id_grupo=[id]" rel="crear subs popup">{select count(*) from man_actividades where id_equipo=[id_equipo]} actividades</a>'
+			]	
+		]
+	)
+
+);
+exit();
+*/
 
 return $objeto_tabla_comp;

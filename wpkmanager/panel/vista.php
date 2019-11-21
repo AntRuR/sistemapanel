@@ -722,7 +722,6 @@ fetch(`ajax_change_cookie.php?var=${tb}_colap&val=${val}&ajax=1`);
 			 * FILTROS
 			 */
 			
-
 			$html_filter="<div class='byother'>".implode("\n",$html_filter_A)."</div>";
 
 			echo "<div class='filters' id='dfilters' >".

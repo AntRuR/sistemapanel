@@ -14,6 +14,8 @@ function pop_up(url){
 }
 function pop_up0(url){
 
+	beforemulti();
+
 	var clicked=new Element('a',{'styles'	: {
 				'position'	: 'absolute',
 				'top'		: 0,
@@ -21,57 +23,25 @@ function pop_up0(url){
 				'width'		: '1px',
 				'height'	: '1px',
 				'visibility': 'hidden'
-			},'href':url,'class':'mb','rel':'width:1000,height:500','html':'&nbsp'}).inject(document.body, 'bottom');
+	},'href':url,'class':'mb','rel':'width:1000,height:500','html':'&nbsp'}).inject(document.body, 'bottom');
 	var initMultiBox =new multiBox({
-	  mbClass: '.mb',//class you need to add links that you want to trigger multiBox with (remember and update CSS files)
-	  container: $(document.body),//where to inject multiBox
-	  descClassName: 'multiBoxDesc',//the class name of the description divs
-	  path: './Files/',//path to mp3 and flv players
-	  useOverlay: false,//use a semi-transparent background. default: false;
-	  maxSize: {w:1000, h:500},//max dimensions (width,height) - set to null to disable resizing
-	  addDownload: false,//do you want the files to be downloadable?
+	  mbClass             : '.mb',//class you need to add links that you want to trigger multiBox with (remember and update CSS files)
+	  container           : $(document.body),//where to inject multiBox
+	  descClassName       : 'multiBoxDesc',//the class name of the description divs
+	  path                : './Files/',//path to mp3 and flv players
+	  useOverlay          : false,//use a semi-transparent background. default             : false;
+	  maxSize             : {w                                                             : 1000, h: 500},//max dimensions (width,height) - set to null to disable resizing
+	  addDownload         : false,//do you want the files to be downloadable?
 	  pathToDownloadScript: './Scripts/ForceDownload.asp',//if above is true, specify path to download script (classicASP and ASP.NET versions included)
-	  addRollover: false,//add rollover fade to each multibox link
-	  addOverlayIcon: false,//adds overlay icons to images within multibox links
-	  addChain: false,//cycle through all images fading them out then in
-	  recalcTop: true,//subtract the height of controls panel from top position
-	  addTips: false//adds MooTools built in 'Tips' class to each element (see: http://mootools.net/docs/Plugins/Tips)
+	  addRollover         : false,//add rollover fade to each multibox link
+	  addOverlayIcon      : false,//adds overlay icons to images within multibox links
+	  addChain            : false,//cycle through all images fading them out then in
+	  recalcTop           : true,//subtract the height of controls panel from top position
+	  addTips             : false//adds MooTools built in 'Tips' class to each element (see: http   : //mootools.net/docs/Plugins/Tips)
 	});
 	clicked.click();
 
 }
-
-function over_menu(obj){
-
-	var ee=obj.e;
-	if($(ee.getProperty('rel'))){
-
-	var subb=$(ee.getProperty('rel'));
-	subb.inject(document.body);
-	subb.setStyles({'position':'absolute','z-index':'1'});
-	var granpa=ee.getParent().getParent().getParent();
-	var granpadisplay=granpa.getStyle('display');
-
-	granpa.setStyle('display',granpadisplay);
-	ee.addEvent('mouseover', function(){
-		granpa.setStyle('display','block');
-		if(obj.rel=='content'){ var cors=granpa.getCoordinates(); } else { var cors=ee.getCoordinates(); }
-		eval("var xx=cors."+obj.x);
-		eval("var yy=cors."+obj.y);
-		subb.setPosition({x:xx,y:yy-5});
-		subb.setStyles({'display':'block'}); ee.addClass('hover');
-	});
-	ee.addEvent('mouseout', function(){ subb.setStyle('display','none'); ee.removeClass('hover'); });
-	subb.addEvent('mouseover', function(){ ee.fireEvent('mouseover'); granpa.fireEvent('mouseover'); });
-	subb.addEvent('mouseout', function(){ ee.fireEvent('mouseout'); granpa.fireEvent('mouseout'); });
-	} else {
-
-	return
-
-	}
-
-}
-
 
 function fechaChange(input){
 	var aa=$(input+'_a').value;
@@ -240,6 +210,7 @@ function input_date(id_input,id_span,fromYear,toYear,sethoras,justmonth){
 	}
 
 	html+= "<select id='"+id_input+"_m' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+
 	html+= "<option></option>";
 	for(var i=1; i<=12;i++){
 	html+= "<option value='"+ ( (i<10)?"0"+i:i) +"'>"+meses[i]+"</option>";
@@ -247,6 +218,7 @@ function input_date(id_input,id_span,fromYear,toYear,sethoras,justmonth){
 	html+= "</select>";
 
 	html+= "<select id='"+id_input+"_a' class='form_input form_input_fecha' onchange='fechaChange(\""+id_input+"\")'>";
+	
 	html+= "<option></option>";
 	for(var i=toYear; i>=fromYear;i--){
 	html+= "<option value='"+i+"'>"+i+"</option>";
@@ -1003,7 +975,9 @@ function procesar_proyecto(){
 
 function loadinfopage(){
 if($('pagespan') && $('pagetime') && $('pagesize')){
-	$('pagespan').innerHTML=$('pagesize').value+'Kb generados en '+$('pagetime').value+'s.';
+	var timess=$('pagesize').value+'Kb generados en '+$('pagetime').value+'s.';
+	$('pagespan').innerHTML=timess;
+	console.log(timess);
 }
 }
 
@@ -1117,6 +1091,7 @@ function send_crear(id,tbl,lrp,lrp2){
     $$('.'+tbl+'-_'+id).each(function(ele) {
 		if(ele.getAttribute('data-vali')=='1'){
 
+			// console.log(ele);
 			if(ele.value==''){
 				
 				validacion=false;
@@ -1240,8 +1215,8 @@ location.reload();
 function load_directlink_filtro_inp(campo,tabla,tablacampo){
 new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+campo+','+campo+'|'+tabla+'|', {minChars:1,selectOnTab :true,maxVisibleItems:12,requestOptions: {'method':'get'},valueField: $('filtr_'+campo),valueFilter: function(data){$('filtr_'+campo).value=tablacampo+'.'+campo+'%3D'+data.i;render_filder();},syncName: false,filter: {type: 'contains',path: 'v'},});
 }
-function load_directlink_filtro_com(campo,id,nombre,tabla,where,tablacampo,join){
-new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?s='+id+','+nombre+'|'+tabla+'|'+where+'|'+join, {
+function load_directlink_filtro_com(campo,id,nombre,tabla,where,tablacampo,join,extra,dli){
+new Meio.Autocomplete.Select('filtr_'+campo+'_dl','load_json.php?xt='+extra+'&dli='+dli+'&s='+id+','+nombre+'|'+tabla+'|'+where+'|'+join, {
 	minChars:1,
 	selectOnTab :true,
 	maxVisibleItems:12,
@@ -1340,12 +1315,18 @@ function multi(name){
 
 function render_multi(name,values){
 	// console.log(values);
+
+	var chekis=document.querySelectorAll(".multisele_"+name);
+	chekis.forEach(function(element) {
+		element.checked=false;
+	});
+
 	if(values!=null){
 		var vales=values.split(',');
 		for(var i=0; i<vales.length;i++){
 			// console.log(name+'_'+vales[i]);
 			if($(name+'_'+vales[i]))
-				$(name+'_'+vales[i]).checked=true;	
+				$(name+'_'+vales[i]).checked=true;
 		}
 	}
 }
@@ -1369,3 +1350,19 @@ function validateDni(dni){
 
 }
 
+function beforemulti(){
+
+	var widthscreen=window.innerWidth;
+	if(widthscreen<700){
+
+		var mbs=document.getElementsByClassName("mb"); 
+		Object.keys(mbs).map( (key,index) => { 
+			var mb_parts = mbs[key].rel.split(',');
+			var new_width=widthscreen-20;
+			var newrel = mbs[key].rel.replace(mb_parts[0],`width:${new_width}`);
+			// console.log(newrel);
+			mbs[key].setAttribute('rel',newrel);
+		});
+
+	}
+}

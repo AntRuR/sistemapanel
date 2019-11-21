@@ -221,7 +221,7 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		switch ($this->_inputEncoding) {
 			case 'UTF-8':
 				fgets($fileHandle, 4) == "\xEF\xBB\xBF" ?
-				fseek($fileHandle, 3) : fseek($fileHandle, 0);
+					fseek($fileHandle, 3) : fseek($fileHandle, 0);
 				break;
 			default:
 				break;

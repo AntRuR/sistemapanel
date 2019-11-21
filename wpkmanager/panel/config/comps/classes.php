@@ -130,7 +130,7 @@ function tabla_chain($obj,$chain_items=[],$more=[]){
 				[
 					'campo'			=> $prev_id_foreig,
 					'tipo'			=> 'hid',
-					'listable'		=> '0',
+					'listable'		=> '1',
 					'validacion'	=> '0',
 					'default'		=> '[id]',
 					'foreig'		=> '1',
@@ -140,7 +140,7 @@ function tabla_chain($obj,$chain_items=[],$more=[]){
 					'opciones'		=> 'id,nombre|'.$prev_tabla,
 					'derecha'		=> '1',
 					'tags'			=> '1',
-					'queries'		=> '1'
+					'queries'		=> '0'
 				],
 				$more
 				),
@@ -159,6 +159,7 @@ function chain_campos($obj,$chain_items=[],$more=[]){
 
 	$ee=0;
 	$derecha=[1,2,2];
+	
 	foreach($chain_items as $ii=>$item){
 
 		$campo='id_'.$obj[$chain_items[$ii]]['nombre_singular'];
@@ -172,14 +173,19 @@ function chain_campos($obj,$chain_items=[],$more=[]){
 			'validacion' => '0',
 			'default'    => '['.$campo.']',
 			'foreig'     => '1',
-			'style'      => 'width                                                            : 100px,',
-			'opciones'   => 'id,nombre|'.$obj[$chain_items[$ii]]['tabla'].'|where visibilidad = 1 order by nombre asc',
+			'style'      => 'width : 100px,',
 			'width'      => '80px',
 			'derecha'    => $derecha[$ee%3],
 			'tags'       => '1',
 			'queries'    => '1',
+			'opciones'   => 'id,nombre|'.$obj[$chain_items[$ii]]['tabla'].'|where visibilidad = 1 order by nombre asc',
 		];
-		
+
+		if($ee>0)
+			$chain_campos[$campo]=array_merge($chain_campos[$campo],[
+				'opciones'   => 'id,nombre|'.$obj[$chain_items[$ii]]['tabla'].'|where 0',
+			]);
+
 		$ee++;
 
 		if($obj[$chain_items[$ii+1]]['tabla']){

@@ -2,13 +2,13 @@
   
 $Local=($_SERVER['SERVER_NAME']=="localhost" or $_SERVER['SERVER_NAME']=="127.0.0.1")?1:0;
 
-include("lib/compresionInicio.php");
+include_once("lib/compresionInicio.php");
 
-include("lib/global.php");
+include_once("lib/global.php");
 
-	@$link=mysql_connect ($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS);
-	mysql_select_db ($MYSQL_DB,$link);
-	mysql_query("SET NAMES 'utf8'",$link);
+	// @$link=mysqli_connect ($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS);
+	// mysqli_select_db ($MYSQL_DB,$link);
+	// mysqli_query("SET NAMES 'utf8'",$link);
 	
 //include("lib/compresionInicio.php");
 if( @$_POST['clave']==CLAV  and $Local==0 ){
@@ -51,13 +51,14 @@ if(@$_COOKIE["admin"]!="1")
 	exit();
 }	
 
-include("lib/mysql3.php");
-include("lib/util2.php");
+include_once("lib/conexion.php");
+include_once("lib/mysql3.php");
+include_once("lib/util2.php");
 if($vars['GENERAL']['esclavo']!='1'){	
-	include("config/tablas.php");
+	include_once("config/tablas.php");
 }
-include("lib/sesion.php");
-include("lib/playmemory.php");
+include_once("lib/sesion.php");
+include_once("lib/playmemory.php");
 
 if( in_array($_GET['edicionweb'],array('1','0')) ){
 	$_SESSION['edicionweb']=$_GET['edicionweb'];
@@ -78,6 +79,8 @@ $_SESSION['usuario_datos_nombre_grupo']='';
 $_SESSION['usuario_id']='';	
 $_SESSION['page']='';
 $_SESSION['web']='';
+$_SESSION['permisos']='';
+$_SESSION['xt']='';
 			
 @setcookie("c_usuario", "", time() - (365*24*60*60), "/");
 @setcookie("c_password", "", time() - (365*24*60*60), "/");

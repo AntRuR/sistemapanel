@@ -333,12 +333,12 @@ $objeto_tabla_comp['ACTIVIDADES']=array_merge(
                     'campo'			=> 'id_herramienta',
                     'label'			=> 'Herramientas',
                     'width'			=> '100px',
-                    'listable'		=> '0',
+                    'listable'		=> '1',
                     'tipo'			=> 'hid',
                     'opciones'		=> 'id,nombre|herramientas|order by nombre asc',
                     'derecha'		=> '1',
                     'tags'			=> '1',
-                    'queries'		=> '1',
+                    // 'queries'		=> '1',
                     'validacion'	=> '0',
                     // 'select_multiple'=> '1',
                     'multi'			=> '1',
@@ -347,16 +347,16 @@ $objeto_tabla_comp['ACTIVIDADES']=array_merge(
                     'campo'			=> 'id_material',
                     'label'			=> 'Materiales',
                     'width'			=> '100px',
-                    'listable'		=> '0',
+                    'listable'		=> '1',
                     'tipo'			=> 'hid',
                     'opciones'		=> 'id,nombre|materiales|order by nombre asc',
                     'derecha'		=> '1',
                     'tags'			=> '1',
-                    'queries'		=> '1',
+                    // 'queries'		=> '1',
                     'validacion'	=> '0',
                     // 'select_multiple'=> '1',
                     'multi'			=> '1',
-                ),            	
+                ),            	             
             ]
         ),
     ],
@@ -491,11 +491,11 @@ $objeto_tabla_comp=tabla_chain($objeto_tabla_comp,
             $objeto_chain['issues']['activities']
         )
     )
-    
+
 );
 
 
-
+// prin($objeto_tabla_comp['ACTIVIDADES']);
 
 
 

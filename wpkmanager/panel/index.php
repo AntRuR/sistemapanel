@@ -94,13 +94,13 @@ $id_permiso=$_SESSION['PERMISOS_ID'];
 		<div class="main_content">
 		<?php
 
-			include("header.php");
+			// include("header.php");
 
-			include('header_menu.php');
+			// include('header_menu.php');
 			
-			include("menu.php");
+			// include("menu.php");
 			
-			include("vista.php");
+			// include("vista.php");
 
 		?>
 		</div>

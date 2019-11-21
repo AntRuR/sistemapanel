@@ -3,10 +3,9 @@ if(!isset($_GET['format']))
 header('Content-Type: text/html; charset=utf-8');
 
 
-
-$Array_Meses=array(1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre");
-$Array_Horas=array(0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm");
-$Array_Horas2=array(
+$Array_Meses=[1=>"enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"];
+$Array_Horas=[0=>"12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm"];
+$Array_Horas2=[
 0=>"12:00am",
 "12:15am",
 "12:30am",
@@ -102,10 +101,11 @@ $Array_Horas2=array(
 "11:00pm",
 "11:15pm",
 "11:30pm",
-"11:45pm");
+"11:45pm"
+];
 
 
-$FORMSCLASS=array(
+$FORMSCLASS=[
 	'1'=>'linea_derecha_inicio',
 	'2'=>'linea_derecha',
 	'3'=>'linea_derecha_espacio',
@@ -115,9 +115,10 @@ $FORMSCLASS=array(
 	'a'=>'linea_derecha_align',
 	'a1'=>'linea_derecha_align_inicio',
 	'a3'=>'linea_derecha_align_espacio'
-);
+];
 
-$COMANDOS_OBJETO=array(
+/*
+$COMANDOS_OBJETO=[
 				'inp','short','long'
 				,'int','int5'
 				,'fot','vid','txt'
@@ -125,7 +126,7 @@ $COMANDOS_OBJETO=array(
 				,'fechc','fech'
 				,'del'
 				,'grupos','sub','items'
-				);
+];
 
 $COMANDOS_TUTO="
 CAMPOS:
@@ -269,7 +270,7 @@ $LIBRARIES['tablas']=array('name'=>"Tbl",'value'=>
 '
 );
 
-
+*/
 
 //error_reporting(0);
 
@@ -311,6 +312,7 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$LOCAL=1;
 	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 
 } else {
@@ -332,7 +334,7 @@ $SERVER['from_externo']=($parse['host']!=$_SERVER['SERVER_NAME'] )?1:0;
 $SERVER['from_interno']=($SERVER['from_externo'])?0:1;
 
 $SERVER['REDIRECT_QUERY_STRING']=$_SERVER['REDIRECT_QUERY_STRING'];
-
+unset($parse);
 
 
 /*
@@ -346,7 +348,7 @@ foreach($vars as $vars2){
 foreach($vars2 as $vars3){
 $get_num_vars++;
 }
-}
+} unset($vars2); unset($vars3);
 
 extract($vars_server);
 extract($vars_server_mysql);
@@ -354,6 +356,7 @@ extract($vars_server_ftp);
 
 define(CLAV,"guillermolozan");
 
+/*
 $DEPARTAMENTOS_PERU = array(
 						"Amazonas",
 						"Áncash",
@@ -380,7 +383,7 @@ $DEPARTAMENTOS_PERU = array(
 						"Tacna",
 						"Tumbes"
 						);
-
+*/
 $script_B = explode("?",$_SERVER['REQUEST_URI']);
 if($script_B[1]){ $SERVER['PARAMS']=$script_B[1]; }
 
@@ -394,6 +397,7 @@ $script_A = explode("/",$_SERVER['SCRIPT_NAME']);
 unset($script_A[sizeof($script_A)-1]);
 $dir_script=implode("/",$script_A);
 
+unset($script_B); unset($script_A);
 // list($url_script,$url_variables)=explode("?",$url_script);
 
 $SERVER['URL']=$url_script;
@@ -412,20 +416,21 @@ $LOGIN=(!(strpos($_SERVER['SCRIPT_NAME'], "login.php")===false))?1:0;
 
 $BGCOLOR_DESARROLLO="#FFEEE0";
 
-$LOREN_IPSUM="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, s";
+// $LOREN_IPSUM="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, s";
 
-
-$LOREN_IPSUM_HTML="<p>$LOREN_IPSUM</p><p>$LOREN_IPSUM</p><p>$LOREN_IPSUM</p>";
+// $LOREN_IPSUM_HTML="<p>$LOREN_IPSUM</p><p>$LOREN_IPSUM</p><p>$LOREN_IPSUM</p>";
 
 $limite_campos_en_lista=5;
 
+unset($dir_script);
 
-
+/*
 $STOPWORDS=array();
 $STOPWORDS_=file("stopwords.txt");
 foreach($STOPWORDS_ as $stop){
 $STOPWORDS[]=trim($stop);
 }
+*/
 
 // if(!function_exists('get_browser_')){
 	function get_browser_()
@@ -465,6 +470,8 @@ $STOPWORDS[]=trim($stop);
 
 $SERVER['browser']=get_browser_();
 
+/*
+
 $combos=array(
 				'inp'	=>'inp'
 				,'int'	=>'int'
@@ -475,7 +482,6 @@ $combos=array(
 				,'opc'	=>'opc'
 
 				);
-
 $EDITOR_TEXTUAL_CAMPOS = "";
 $EDITOR_TEXTUAL_CAMPOS.= "<div class='dredre'>";
 $EDITOR_TEXTUAL_CAMPOS.= "<div>";
@@ -532,7 +538,7 @@ $EDITOR_TEXTUAL_OBJETO.= "</div>";
 $EDITOR_TEXTUAL_OBJETO.= "<script>";
 $EDITOR_TEXTUAL_OBJETO.= "$('jjjsonproy').addEvent('keydown',function(event){if(event.key=='a'&&event.control){procesar_proyecto();};});";
 $EDITOR_TEXTUAL_OBJETO.= "</script>";
-
+*/
 
 $Replace4Str=array(
 					//'edicion_'
@@ -617,6 +623,8 @@ $indicesA=array(
 				,'P'=>'page'
 				,'U'=>'user'
 				);
+
+				/*
 
 $MEactions='forecolor bold italic underline | justifyleft justifyright justifycenter justifyfull | insertunorderedlist insertorderedlist | undo redo removeformat | createlink unlink | indent outdent | tableadd tableedit tablerowadd tablerowedit tablerowdelete tablecoladd tablecoledit tablecoldelete | toggleview';
 
@@ -746,6 +754,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 </IfModule>';
 
+*/
 
 
 // echo '<pre>';print_r($SERVER);echo '</pre>';
@@ -773,4 +782,28 @@ define(HTML_ALL_FIN,$HTML_ALL_FIN);
 
 $HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
 
+/*
+
+	show_variables2(get_defined_vars(),[
+		'_GET','_POST','_COOKIE','_FILES','_SERVER','_REQUEST','_ENV','_GLOBALS','GLOBALS',
+		'Array_Meses','Array_Horas','Array_Horas2','COMANDOS_OBJETO',
+		'vars','vars_global','vars_server','vars_server_mysql','vars_server_ftp',
+		'SERVER','LOCAL0',
+		// 'unodos',
+		// 'datos_tabla',
+		// 'tabla_sesion_datos_objeto',
+		]);
+	function show_variables2($debug,$except=[]){
+
+		$debug_keys=array_keys($debug);
+	
+		foreach($debug_keys as $debug_key){
+			if(in_array($debug_key,$except)){
+				unset($debug[$debug_key]);
+			}
+		}
+		echo '<pre>';print_r($debug);echo '</pre>';die();
+		
+	}
+*/
 

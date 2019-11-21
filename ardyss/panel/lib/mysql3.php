@@ -1,6 +1,6 @@
 <?php
-
-$concat=array();
+$MYSQL_CACHE=[];
+$concat=[];
 
 function opciones($campos,$tabla,$donde,$debug=0){
 	$array=select($campos,$tabla,$donde,$debug);
@@ -11,10 +11,15 @@ function opciones($campos,$tabla,$donde,$debug=0){
 	return $Arr;
 }
 
-function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
-
+function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,$concat=NULL,$other_link=NULL)
+{
 	$Tabla=$tabla;
-	global $link;
+	if($other_link==NULL){
+		global $link;
+	} else {
+		$link=$other_link;
+	}
+	global $MYSQL_CACHE;
 	if(is_string($campos)) {
 		$camposA=explode(",",$campos);
 		//$strcampos=$campos;
@@ -22,6 +27,7 @@ function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
 		$camposA=$campos;
 		$campos=implode(",",$campos);
 	}
+
 	foreach($camposA as $ii=>$AA){
 		@list($ca,$as)=explode(" as ",strtolower($AA));
 		if($as){
@@ -30,7 +36,7 @@ function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
 	}
 	$filas = array();
 	/*if(is_array($debug)){
-	 foreach ($debug as &$v) { $v = htmlentities(mysql_real_escape_string($v); }
+	 foreach ($debug as &$v) { $v = htmlentities(mysqli_real_escape_string($link,$v); }
 	 		$consulta = vsprintf( "select $campos from $tabla $donde" , $debug );
 	 		} else {*/
 	if(enhay($donde,"MATCH")){
@@ -44,34 +50,53 @@ function select($campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
 		}
 		//prin($match);
 	}
+	
+	$campos=str_replace("CONCAT_WS(' ',nombre)","nombre",$campos);
+
 	$consulta="select $campos from $tabla $donde";
-	// echo $consulta;
-	//}
-	$result=mysql_query($consulta,$link);
-	//$result=mysql_query($consulta,$link) or $error=mysql_error;
-	$total=mysql_num_rows($result);
-	if($total>0){
-		while ($row = mysql_fetch_row($result)){
-			foreach ($camposA as $ee=>$cc) {
-				$row2[trim($cc)]=$row[$ee];
+
+	
+	if($MYSQL_CACHE[$consulta]){
+
+		$filas = $MYSQL_CACHE[$consulta];
+		$total  = sizeof($result);
+		
+	} else {
+	
+		//}
+		$result=mysqli_query($link,$consulta);
+		$total=mysqli_num_rows($result);
+		if($total>0){
+			while ($row = mysqli_fetch_row($result)){
+				foreach ($camposA as $ee=>$cc) {
+					$row2[trim($cc)]=$row[$ee];
+				}
+				$filas[]=$row2;
+				unset($row2);
 			}
-			$filas[]=$row2;
-			unset($row2);
 		}
-	}
-	if($debug==1){
-		prin($camposA);
-		prin($consulta);
-	}
-	if($debug==2){
-		$error=mysql_error();
-		$success=($error=='')?1:0;
-		if($success){
-			prin(array('success'=>$success));
-		} else {
-			prin(array('success'=>$success,'error'=>mysql_error()));
+
+		if($debug==1){
+			prin($camposA);
+			prin($consulta);
 		}
+		if($debug==2){
+			$error=mysqli_error($link);
+			$success=($error=='')?1:0;
+			if($success){
+				prin(array('success'=>$success));
+			} else {
+				prin(array('success'=>$success,'error'=>mysqli_error($link)));
+			}
+		}		
+
+	
+		$MYSQL_CACHE[$consulta]=$filas;
+		
+
 	}
+	
+
 	if(sizeof($opciones)>0){
 		$filas2=array();
 		foreach($filas as $fila){
@@ -404,6 +429,15 @@ function get_valores($key,$value,$tabla,$donde,$debug){
 	return $ret;
 }
 
+function get_array($value,$tabla,$donde,$debug){
+	$matriz=select("$value",$tabla,$donde,$debug);
+	$ret=array();
+	foreach($matriz as $mat){
+		$ret[]=$mat[$value];
+	}
+	return $ret;
+}
+
 function insert($campos_array,$tabla,$debug=0){
 
 	global $link;
@@ -412,17 +446,17 @@ function insert($campos_array,$tabla,$debug=0){
 		switch(trim($ll)){
 			case "NULL": $ppp[]="NULL"; break;
 			case "now()": $ppp[]="'".date("Y-m-d H:i:s")."'"; break;
-			default: $ppp[]="'".mysql_real_escape_string($ll)."'"; break;
+			default: $ppp[]="'".mysqli_real_escape_string($link,$ll)."'"; break;
 		}
 	}
 	$consulta="insert into $tabla (". implode(",",$ccc) .") values (" .implode(",",$ppp). ")";
 	if($debug==1){
 		prin($consulta.";");
 	}
-	if(mysql_query($consulta,$link)){
-		$return =array('success'=>1,'id'=>mysql_insert_id());
+	if(mysqli_query($link,$consulta)){
+		$return =array('success'=>1,'id'=>mysqli_insert_id($link));
 	}
-	else { $return =array('success'=>0,'error'=>mysql_error());
+	else { $return =array('success'=>0,'error'=>mysqli_error($link));
 	}
 	if($debug==2){
 		prin($return);
@@ -442,7 +476,7 @@ function update($campos_array,$tabla,$where,$debug=0){
 				case "now()": $ppp[]="$tt='".date("Y-m-d H:i:s")."'"; break;
 				case "++": $ppp[]="$tt=$tt+1"; break;
 				case "--": $ppp[]="$tt=$tt-1"; break;
-				default: $ppp[]="$tt='".mysql_real_escape_string($ll)."'"; break;
+				default: $ppp[]="$tt='".mysqli_real_escape_string($link,$ll)."'"; break;
 			}
 		}
 		$sets="set ". implode(",",$ppp);
@@ -453,10 +487,10 @@ function update($campos_array,$tabla,$where,$debug=0){
 	if($debug==1){
 		prin($consulta.";");
 	}
-	if(mysql_query($consulta,$link)){
+	if(mysqli_query($link,$consulta)){
 		$return =array('success'=>1);
 	}
-	else { $return =array('success'=>0,'error'=>mysql_error());
+	else { $return =array('success'=>0,'error'=>mysqli_error($link));
 	}
 	if($debug==2){
 		prin($return);
@@ -472,10 +506,10 @@ function delete($tabla,$where,$debug=0){
 	if($debug==1){
 		prin($consulta.";");
 	}
-	if(mysql_query($consulta,$link)){
+	if(mysqli_query($link,$consulta)){
 		$return =array('success'=>1);
 	}
-	else { $return =array('success'=>0,'error'=>mysql_error());
+	else { $return =array('success'=>0,'error'=>mysqli_error($link));
 	}
 	/*
 	 if($debug==1){
@@ -493,10 +527,10 @@ function truncate($tabla,$debug=0){
 	if($debug==1){
 		prin($consulta.";");
 	}
-	if(mysql_query($consulta,$link)){
+	if(mysqli_query($link,$consulta)){
 		$return =array('success'=>1);
 	}
-	else { $return =array('success'=>0,'error'=>mysql_error());
+	else { $return =array('success'=>0,'error'=>mysqli_error($link));
 	}
 	/*
 	 if($debug==1){
@@ -515,8 +549,8 @@ function contar($tabla,$donde,$debug=0){
 	if($debug==1){
 		prin($consulta);
 	}
-	$result=mysql_query($consulta,$link);
-	$row = mysql_fetch_row($result);
+	$result=mysqli_query($link,$consulta);
+	$row = mysqli_fetch_row($result);
 	return $row[0];
 
 }
@@ -538,20 +572,31 @@ function aumentar($campo,$tabla,$where){
 
 }
 
-function enlace($enlace,$onclick,$pag,$var_pag,$procesar_url){
+function enlace($enlace,$onclick,$pag,$var_pag,$procesar_url,$format='atribute'){
 
 	$html ='';
 	$enlacepag=$enlace.$pag;
 	$enlacepag=str_replace(array("&".$var_pag."=10","?".$var_pag."=10"),array("&".$var_pag."=diez","?".$var_pag."=diez"),$enlacepag);
 	$enlacepag=str_replace(array("&".$var_pag."=1","?".$var_pag."=1"),array("",""),$enlacepag);
 	$enlacepag=str_replace(array("&".$var_pag."=diez","?".$var_pag."=diez"),array("&".$var_pag."=10","?".$var_pag."=10"),$enlacepag);
-	if($procesar_url){
-		$html.=($enlace=='#')?" href='#'":" href='".procesar_url($enlacepag)."'";
-	} else {
-		$html.=($enlace=='#')?" href='#'":" href='".$enlacepag."'";
+	if($format=='atribute'){
+
+		if($procesar_url){
+			$html.=($enlace=='#')?" href='#'":" href='".procesar_url($enlacepag)."'";
+		} else {
+			$html.=($enlace=='#')?" href='#'":" href='".$enlacepag."'";
+		}
+		$html.=($onclick=='')?"":" onclick='javascript:".str_replace("PAG",$pag,$onclick)."'";
+		return $html;
+
+	} elseif($format=='data') {
+
+		return [
+			'href'=>($enlace=='#')?'#':(($procesar_url)?procesar_url($enlacepag):$enlacepag),
+			'onclick'=>($onclick=='')?'':"javascript:".str_replace("PAG",$pag,$onclick),
+		];
+
 	}
-	$html.=($onclick=='')?"":" onclick='javascript:".str_replace("PAG",$pag,$onclick)."'";
-	return $html;
 
 }
 
@@ -1367,7 +1412,7 @@ function enviar_email_regular($parametros){
 }
 
 
-
+/*
 function init_byte_map(){
 	global $byte_map;
 	for($x=128;$x<256;++$x){
@@ -1438,7 +1483,7 @@ function fix_latin($instr){
 	}
 	return $outstr;
 }
-
+*/
 
 function url_friendly($url){
 
@@ -1739,6 +1784,16 @@ function fila($campos,$tabla,$donde,$debug=0,$opciones=NULL){
 }
 
 function dato($campos,$tabla,$donde,$debug=0,$opciones=NULL){
+
+	list($uno,$dos)=explode("min(",$campos);
+	if($dos) { list($campo,$tres)=explode(")",$dos); 
+		if($campo) { $campos=$campo; $donde.=" order by ".$campo." asc limit 0,1"; }
+	} else {
+		list($uno,$dos)=explode("max(",$campos);
+		if($dos) { list($campo,$tres)=explode(")",$dos); 
+			if($campo) { $campos=$campo; $donde.=" order by ".$campo." desc limit 0,1";}
+		}
+	}
 	return select_dato($campos,$tabla,$donde,$debug,$opciones);
 }
 
@@ -1798,4 +1853,746 @@ function make_array($input_array,$camps=array('id','nombre')){
 		$return_array[$each[$camps['0']]]=$each[$camps['1']];
 
 	return $return_array;
+}
+
+
+function get_tablas_creadas(){
+
+	global $link;
+	$TABLAS_CREADAS=[];
+	$sql = "show tables";
+	$result=mysqli_query($link,$sql);
+	$total=mysqli_num_rows($result);
+	if($total>0)
+	{
+		while ($row = mysqli_fetch_row($result))
+		{
+			$TABLAS_CREADAS[] = $row[0];
+		}
+	}
+	return $TABLAS_CREADAS;
+}
+
+
+function paginacionnumerada($parametros,$campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
+
+	global $_GET;
+	$pagin=$_GET['pag'];
+	if($pagin==''){
+		$pagin=1;
+	}
+
+	if(is_array($parametros['item'])){
+
+		$wer=each($parametros['item']);
+
+	}
+
+	if($wer['value']!=''){
+
+		$visi=select($campos,$tabla," where ".$wer['key']."='".$wer['value']."' ",$debug,$opciones);
+
+		$tot=1;
+
+		$cm = array(
+				'filas'     => $visi,
+				'total'     => $tot,
+				'pagina'    => $pagin,
+				'anterior'  => "",
+				'siguiente' => "",
+				'desde'     => 1,
+				'hasta'     => $tot,
+				'tren'      => ""
+			  );
+
+		return $cm;
+
+	} else {
+
+		if($parametros['porpag']==0){
+
+			$visi=select($campos,$tabla,$donde." limit 0,100",$debug,$opciones,$concat);
+
+			$tot=sizeof($visi);
+
+			$cm = array(
+					'filas'     => $visi,
+					'pagina'    => $pagin,
+					'total'     => $tot,
+					'anterior'  => "",
+					'siguiente' => "",
+					'desde'     => 1,
+					'hasta'     => $tot,
+					'tren'      => ""
+				  );
+
+			return $cm;
+
+		} else {
+
+			//pagin
+			//porpag,anterior,siguiente,enlace
+			$porpag          =$parametros['porpag'];
+			$anterior        =$parametros['anterior'];
+			$siguiente       =$parametros['siguiente'];
+			$enlace          =$parametros['enlace'];
+			$separador       =$parametros['separador'];
+			$onclick         =$parametros['onclick'];
+			$pagina_disabled =$parametros['pagina_disabled'];
+			$tren_limite     =($parametros['tren_limite'])?$parametros['tren_limite']:10;
+			$procesar_url    =($parametros['procesar_url'])?$parametros['procesar_url']:0;
+			$tipo            =($parametros['tipo'])?$parametros['tipo']:'default';
+			$noquery         =($parametros['noquery'])?$parametros['noquery']:false;
+
+			parse_str($enlace,$gets);
+			$gets=array_keys($gets);
+			$var_pag=$gets[sizeof($gets)-1];
+
+
+			if($pagin==''){
+				$pagin=1;
+			}
+
+			$total=contar($tabla,$donde,0);
+			//prin($tabla);
+			//prin($donde);
+			//prin($total);
+
+			$finpag=$total;
+			$inicio=$porpag*($pagin-1);
+
+			if($total>$porpag){
+
+				if($noquery){
+					$ttt=min($porpag,$total);
+					for($tt=0;$tt<$ttt;$tt++){
+						$visi[]=[];
+					}
+				} else {
+					$visi=select($campos,$tabla,$donde." limit $inicio,$porpag",$debug,$opciones,$concat);
+				}
+
+				$finpag=sizeof($visi);
+
+				$prev_pag=$pagin-1;
+				$next_pag=$pagin+1;
+
+
+				if ($pagin==1) {
+					$prev="<li><span>".$anterior."</span></li>";
+					$prevA="<li class='active'><a href='#'>".$anterior."</a></li>";
+					$prevB=['text'=>$anterior];
+				} else {
+					$prev=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " class='linkarrow'>$anterior</a></li>";
+					$prevA=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " >$anterior</a></li>";
+					$rrr=enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url,'data');
+					$prevB=[
+						'text'=>$anterior,
+						'href'=>$rrr['href'],
+						'onclick'=>$rrr['onclick'],						
+					];					
+				}
+				// prin(" $total ==( $finpag + $inicio )");
+				if ($total==($finpag+$inicio)) {
+
+					$next="<li><span>".$siguiente."</span></li>";
+					$nextA="<li class='active'><a href='#'>".$siguiente."</a></li>";
+					$nextB=['text'=>$siguiente];
+
+				} else {
+
+					$next=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " class='linkarrow' >$siguiente</a></li>";
+					$nextA=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " >$siguiente</a></li>";
+					$rrr=enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url,'data');
+					$nextB=[
+						'text'=>$siguiente,
+						'href'=>$rrr['href'],
+						'onclick'=>$rrr['onclick'],						
+					];
+					
+				}
+
+			} else {
+
+				$visi=select($campos,$tabla,$donde,$debug,$opciones,$concat);
+
+			}
+			
+			$sun=(int)(($total-1)/$porpag)+1;
+			
+
+			$marder=3;
+			$inicior=($pagin>$tren_limite-1-$marder)?($pagin-$tren_limite+$marder):0;
+			
+			$pagina_maxima=min([$sun,$inicior + $tren_limite]);
+
+			if($sun>$tren_limite){
+
+				for( $r = $inicior ;  $r < $pagina_maxima  ; $r++ ){
+					$train[]=$r+1;
+				}
+
+				if(!in_array('1',$train)){
+					$train=array_merge(['1'],$train);
+				}
+
+				if(!in_array($sun,$train)){
+					$train[]=$sun;
+				}
+
+				foreach( $train as $i ){
+
+					if($i_prev+1!=$i){
+
+						$raba2[]  ="<li class='active'><span>...</span></li>";
+						$raba2A[] ="<li class='active'><a href='#'>...</a></li>";
+						$raba2B[]=['text'=>'...'];
+
+					}
+
+					if($i==$pagin){
+
+						$raba2[]  ="<li class='active'><span>$i</span></li>";
+						$raba2A[] ="<li class='active'><a href='#'>$i</a></li>";
+
+						$raba2B[]=['text'=>$i];
+
+					} else {
+						$raba2[]  ="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
+						$raba2A[] ="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
+						
+						$rrr=enlace($enlace,$onclick,$i,$var_pag,$procesar_url,'data');
+						$raba2B[]=[
+							'text'=>$i,
+							'href'=>$rrr['href'],
+							'onclick'=>$rrr['onclick'],						
+						];
+	
+					}
+
+					$i_prev=$i;
+
+				}
+
+				$raba=$raba2;
+				$rabaA=$raba2A;
+				$rabaB=$raba2B;
+
+			}
+
+			$rabas  =(sizeof($raba)>1)?implode($separador,$raba):"";
+			$rabasA =(sizeof($raba)>1)?implode($separador,$rabaA):"";
+			$rabasB =(sizeof($raba)>1)?$rabaB:[];
+
+			if(sizeof($rabasB)>1){
+				$rabasB=array_merge([$prevB],$rabasB,[$nextB]);
+			}
+						
+			if($pagina_disabled){
+
+				$cm = array(
+						'filas'  =>$visi,
+						'pagina' =>$pagin,
+						'total'  =>$total
+					);
+
+			} else {
+
+				if($tipo=='data'){
+
+
+
+					$cm = array(
+							'filas'        =>$visi,
+							'pagina'       =>$pagin,
+							'totalpaginas' =>sizeof($raba),
+							'total'        =>$total,
+							'desde'        =>$inicio+1,
+							'hasta'        =>$finpag+$inicio,
+							'anterior'     =>$prevB,
+							'siguiente'    =>$nextB,							
+							'tren'         =>$rabasB
+					);
+
+				}				
+				elseif($tipo=='bootstrap'){
+
+					$cm = array(
+							'filas'        =>$visi,
+							'pagina'       =>$pagin,
+							'totalpaginas' =>sizeof($raba),
+							'total'        =>$total,
+							'desde'        =>$inicio+1,
+							'hasta'        =>$finpag+$inicio,
+							'anterior'     =>$prevA,
+							'siguiente'    =>$nextA,							
+							'tren'         =>$rabasA
+					);
+
+				} else {
+
+					$cm = array(
+							'filas'        =>$visi,
+							'pagina'       =>$pagin,
+							'totalpaginas' =>sizeof($raba),
+							'total'        =>$total,
+							'anterior'     =>$prev,
+							'siguiente'    =>$next,
+							'desde'        =>$inicio+1,
+							'hasta'        =>$finpag+$inicio,
+							'tren'         =>$rabas
+					);
+
+				}
+
+			}
+
+			return $cm;
+
+		}
+
+	}
+
+}
+
+
+
+function get_uniques_from_tabla($tabla){
+
+	global $link;
+	$result = mysqli_query($link,"SHOW KEYS FROM ".$tabla);
+	while ($row=mysqli_fetch_row($result)){
+		if( $row[1]=='0' and $row[2]!='PRIMARY' and $row[2]!='FULLTEXT'){
+			$uniques[]=$row[4];
+		}
+	}
+	//prin($uniques);
+	return $uniques;
+
+}
+
+function get_fulltext_from_tabla($tabla){
+
+	global $link;
+	$result = mysqli_query($link,"SHOW KEYS FROM ".$tabla);
+	while ($row=mysqli_fetch_row($result)){
+		//prin($row);
+		if( $row[10]=='FULLTEXT'){
+			$fulltext[]=$row[2];
+		}
+	}
+	//prin($fulltext);
+	return $fulltext;
+
+}
+
+function get_tipo_de_campo($campo,$tabla){
+
+	global $link;
+	$result = mysqli_query($link,"SHOW COLUMNS FROM ".$tabla);
+	while ($row=mysqli_fetch_row($result)){
+		if($row['0']==$campo){
+			$t0=explode("(",$row['1']);
+			//$t1=explode(")",$t0['1']);
+			$size=$t0['0'];
+		}
+	}
+	return $size;
+}
+
+function get_size_de_campo($campo,$tabla){
+
+	global $link;
+	$result = mysqli_query($link,"SHOW COLUMNS FROM ".$tabla);
+	while ($row=mysqli_fetch_row($result)){
+		if($row['0']==$campo){
+			$t0=explode("(",$row['1']);
+			$t1=explode(")",$t0['1']);
+			$size=$t1['0'];
+		}
+	}
+	return $size;
+}
+
+function get_columns_from_tabla($tabla){
+
+	global $link;
+	$result = mysqli_query($link,"SHOW COLUMNS FROM ".$tabla);
+	$count = 0;
+	while ($row=mysqli_fetch_row($result)){
+		$cnt = 0;
+		foreach ($row as $item){
+			if ($cnt == 0){
+				$cnames[$count] = $item;
+				$cnt++;
+				$count++;
+			}
+		}
+	}
+	return $cnames;
+
+}
+
+function get_tablas_from_bd(){
+	global $link;
+	$sql = "show tables";
+	$result=mysqli_query($link,$sql);
+	$total=mysqli_num_rows($result);
+	if($total>0){
+		while ($row = mysqli_fetch_row($result)){
+				$tablas_creadas[] = $row[0];
+		}
+	}
+	return $tablas_creadas;
+}
+
+
+function get_columns_from_objeto($obta)
+{
+	global $link;
+
+	$nombre_tabla=$obta['tabla'];
+
+	$columnas_existentes=get_columns_from_tabla($obta['tabla']);
+
+	$fulltext_existentes=get_fulltext_from_tabla($obta['tabla']);
+
+	$indices_existentes=get_uniques_from_tabla($obta['tabla']);
+
+
+	$tablas_existentes=get_tablas_from_bd();
+
+
+
+	$Acampos=array();
+
+	$Acampos2=array();
+
+	//echo "<pre>"; print_r($obta); echo "</pre>";
+
+	foreach($obta['campos'] as $camp){
+
+		if($camp['multiopciones']!=''){
+			list($name,$tablerel,$campos,$table9,$where)=explode("|",$camp['multiopciones']);
+			if(!in_array($tablerel,$tablas_existentes)){
+
+	$Acampos[]="CREATE TABLE IF NOT EXISTS `".$tablerel."` (`id_".$obta['tabla']."` int(10) NOT NULL DEFAULT '0',`id_".$table9."` int(10) NOT NULL DEFAULT '0',`orden` int(10) NOT NULL DEFAULT '0',PRIMARY KEY (`id_".$obta['tabla']."`,`id_".$table9."`),KEY `id_".$obta['tabla']."` (`id_".$obta['tabla']."`),KEY `id_".$table9."` (`id_".$table9."`) ) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+
+			}
+		}
+
+		$camposA[]=$camp['campo'];
+
+		if(!in_array($camp['campo'],$columnas_existentes)){
+
+			if(in_array($camp['tipo'],array('id'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) NOT NULL;";
+				//$Acampos2[]="PRIMARY KEY  (`".$camp['campo']."`)";
+			}
+			if(in_array($camp['tipo'],array('fcr','fed','fch'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  datetime default NULL;";
+			}
+			if(in_array($camp['tipo'],array('pos'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default NULL;";
+			}
+			if(in_array($camp['tipo'],array('txt','html'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  longtext default NULL;";
+			}
+			if(in_array($camp['tipo'],array('inp','com','img','sto','pas','yot'))){
+				$size=($camp['size'])?$camp['size']:80;
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  varchar($size) default NULL;";
+			}
+			if(in_array($camp['tipo'],array('hid'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default NULL;";
+			}
+			if(in_array($camp['tipo'],array('vis'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  char(1) default 1 NOT NULL;";
+			}
+			if(in_array($camp['tipo'],array('cal'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(2) default 0 NOT NULL;";
+			}
+			if(in_array($camp['tipo'],array('web'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default 1 NOT NULL;";
+			}
+			if(in_array($camp['tipo'],array('page'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default 1 NOT NULL;";
+			}
+			if(in_array($camp['tipo'],array('user'))){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default 1 NULL;";
+			}
+			//prin($Acampos);
+
+		} else {
+
+
+			if($camp['size']=='' and $camp['variable']==''){
+
+				if(in_array($camp['tipo'],array('inp')) and get_size_de_campo($camp['campo'],$obta['tabla'])!=80 ){
+					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` VARCHAR(80); ";
+				}
+				if(in_array($camp['tipo'],array('txt')) and get_tipo_de_campo($camp['campo'],$obta['tabla'])!='longtext'){
+					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` longtext; ";
+				}
+
+			} else {
+
+				if(( $camp['size']!='' or $camp['variable']!='' ) and in_array($camp['tipo'],array('inp','txt','hid'))){
+
+					$variable	=($camp['variable']!='')?$camp['variable']	:"varchar";
+					$size		=($camp['size']!='')	?$camp['size']		:(($camp['tipo']=='inp')?"80":"800");
+
+					if(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size'] or  get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable']){
+
+						if(in_array($variable,array('float','blob'))){
+							if(get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable']){
+								$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ".$variable."; ";
+							}
+						} else {
+						if(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size'] and get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable']){
+						$camp['size']=($camp['size']!='')?"(".$camp['size'].")":$camp['size'];
+						$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$camp['size']."; ";
+						} elseif(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size']){
+						$camp['size']=($camp['size']!='')?"(".$camp['size'].")":$camp['size'];
+						$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$camp['size']."; ";
+						} elseif(get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable'] and $camp['variable']!=''){
+						$size=($size!='')?"(".$size.")":$size;						
+						$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$size."; ";
+						}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+		if(!in_array($camp['campo'],$fulltext_existentes)){
+			if($camp['fulltext']=='1'){
+				$Acampos[]="ALTER TABLE `$nombre_tabla` ADD FULLTEXT (`".$camp['campo']."`);";
+				//prin("ALTER TABLE `$nombre_tabla` ADD FULLTEXT (`".$camp['campo']."`);");
+			}
+		}
+
+
+
+	}
+
+	//echo "<pre>"; print_r($columnas_existentes); echo "</pre>";
+
+	//echo "<pre>"; print_r($camposA); echo "</pre>";
+
+	foreach($columnas_existentes as $columna){
+
+		if(!in_array($columna,$camposA)){
+			$Acampos[]="ALTER TABLE `$nombre_tabla` DROP `$columna`;";
+		}
+	}
+
+
+	/*
+	if(sizeof($AcamposFull)>0){
+		$Acampos2[]="FULLTEXT KEY ".$AcamposFull[0]." (". implode(",",$AcamposFull). ")";
+	}
+	*/
+
+	$Acampos3=array_merge($Acampos,$Acampos2);
+
+	return $Acampos3;
+
+}
+
+
+function breadcrumb_0($dato,$id=NULL,$objeto,&$ttren){
+
+	global $_GET;
+	global $link;
+	global $ibi;
+	global $ibi2;
+	global $SERVER;
+
+	// prin($objeto);
+
+	$dato=str_replace("class=\"linkstitu\"","",$dato);
+
+	// if(isset($_GET['i'])){
+
+	// 	// breadcrumb($dato,$_GET['i'],$objeto,$ttren);
+	// 	// prin($ttren);
+	// 	// exit();
+	// 	$_GET['id']=$_GET['i'];
+	// 	unset($_GET['i']);
+
+	// }
+
+	if(!$id){ $id=$_GET['id']; }
+
+	// prin($_GET);
+	// prin($id);
+	// prin($dato);
+
+	//$dato = ($id)?str_replace('[id]',$id,$dato):"registros";
+
+	$dato = str_replace('[id]',$id,$dato);
+
+	$dato2= $dato;
+
+	if(
+		enhay($dato,"}") and enhay($dato,"{") 
+		){
+
+		$uno=array();
+		$uno = explode("{",$dato);
+		foreach($uno as $ii=>$un){
+		if( !(strpos($un,"}")==false) ){
+		$dos = explode("}",$un);
+
+		$consulta = $dos[0];
+		// prin($consulta);
+
+		$tabla=between($consulta,'from','where');
+
+		// if( $ibi==0 ){
+
+		// 	prin($SERVER['URL']);
+		// 	$url2='custom/'.$SERVER['URL'];
+
+		// } else {
+
+			$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+			// echo "<div style='color:red;'>$url2, $ibi <div>"; nose
+
+		$ibi++;
+		
+		foreach($objeto as $obj){
+			if($obj['tabla']==trim($tabla['1'])){
+				foreach($obj['campos'] as $campo){
+					if($campo['foreigkey']!=''){
+						// prin($campo);
+						list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+						list($dd,$ee)=explode(",",$aa);
+						$idgrupo=dato($campo['campo'],$bb,"where id=".$id,0);
+						// prin("|".$idgrupo);
+						// prin($campo['name']['controlles']);
+
+						// echo "{select $ee from $bb where id=[id]}";
+						if($idgrupo!=0)
+							breadcrumb_0("{select $ee from $bb where id=[id]}",$idgrupo,$objeto,$ttren);
+						// prin($campo);
+					}
+				}
+			}
+		}
+
+
+		$url2="custom/".trim($tabla[1]).".php?id=$id";
+
+		// }
+
+		// echo "<div style='color:green;'>$url2, $ibi2 <div>"; nose
+
+		$ibi2++;
+
+
+		$result=mysqli_query($link,$consulta);
+		// echo "$consulta<br>";
+		$row = mysqli_fetch_row($result);
+		$dato3 = $row[0];
+		$llaves="{".$dos[0]."}";
+		$dato2 = str_replace($llaves,$dato3,$dato2);
+		}
+		}
+		if($id!=''){
+
+			$dato = $dato2 ;
+			$url = $url2 ;
+
+		} else {
+
+			list($aa,$bb)=explode("{",$dato);
+			list($cc,$dd)=explode("}",$bb);
+			$dato=$aa.$dd;
+
+		}
+
+	}
+	// $dato=preg_replace("/>([a-z0-9\-\.\s]{2,20})<\/a>/i",' title="$1">$1</a>',$dato);
+
+	// $dato=preg_replace("/foto(s)?</i"			,'<span class="z ico_pics"></span><',$dato);
+	// $dato=preg_replace("/vista previa</i"		,'<span class="z ico_eye"></span><',$dato);
+	// $dato=preg_replace("/imprimir</i"			,'<span class="zz ico_Print"></span><',$dato);
+	// $dato=preg_replace("/mensaje(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/alerta(s)?</i"			,'<span class="zz ico_alert"></span><',$dato);
+	// $dato=preg_replace("/consulta(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/comentario(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	// $dato=preg_replace("/>nuevo/i"				,'><span class="zz ico_plus"></span>',$dato);
+
+	// prin($dato);
+
+	$ttren[]="<a href='".$url."' class='type_directory'>".$dato."</a>";
+
+}
+
+function procesar_dato($dato,$id=NULL){
+
+	global $_GET;
+	global $link;
+
+	$dato=str_replace("class=\"linkstitu\"","",$dato);
+
+	if(!$id){ $id=$_GET['id']; }
+
+	//$dato = ($id)?str_replace('[id]',$id,$dato):"registros";
+
+	$dato = str_replace('[id]',$id,$dato);
+
+	$dato2= $dato;
+	if(
+		enhay($dato,"}") and enhay($dato,"{") 
+		){
+		$uno=array();
+		$uno = explode("{",$dato);
+		foreach($uno as $ii=>$un){
+		if( !(strpos($un,"}")==false) ){
+		$dos = explode("}",$un);
+		$consulta = $dos[0];
+		// echo $consulta."<br>";
+		$result=mysqli_query($link,$consulta);
+		$row = mysqli_fetch_row($result);
+		$dato3 = $row[0];
+		$llaves="{".$dos[0]."}";
+		$dato2 = str_replace($llaves,$dato3,$dato2);
+		}
+		}
+		if($id!=''){
+
+			$dato = $dato2 ;
+
+		} else {
+
+			list($aa,$bb)=explode("{",$dato);
+			list($cc,$dd)=explode("}",$bb);
+			$dato=$aa.$dd;
+
+		}
+
+	}
+	$dato=preg_replace("/>([a-z0-9\-\.\s]{2,20})<\/a>/i",' title="$1">$1</a>',$dato);
+
+	$dato=preg_replace("/foto(s)?</i"			,'<span class="z ico_pics"></span><',$dato);
+	$dato=preg_replace("/vista previa</i"		,'<span class="z ico_eye"></span><',$dato);
+	// $dato=preg_replace("/imprimir</i"			,'<span class="zz ico_Print"></span><',$dato);
+	$dato=preg_replace("/mensaje(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	$dato=preg_replace("/alerta(s)?</i"			,'<span class="zz ico_alert"></span><',$dato);
+	$dato=preg_replace("/consulta(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	$dato=preg_replace("/comentario(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
+	$dato=preg_replace("/>nuevo/i"				,'><span class="zz ico_plus"></span>',$dato);
+
+	return $dato;
+
 }

@@ -2660,12 +2660,12 @@ function web_selected($menu,$GET){
 	return $Menu;
 }
 
-function web_render_page($this,$filtro=NULL,$opciones=NULL){
+function web_render_page($esto,$filtro=NULL,$opciones=NULL){
 
 	$result=fila(
 		"id,pagina,titulo,texto,foto,foto_descripcion,fecha_creacion"
 		,"paginas"
-		,"where pagina='".$this."' and  visibilidad='1' $filtro "
+		,"where pagina='".$esto."' and  visibilidad='1' $filtro "
 		,0
 		,array(
 				'carpeta'=>'pag_imas'

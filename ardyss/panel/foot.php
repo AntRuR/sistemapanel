@@ -15,23 +15,19 @@ if($_GET['block']!='form'){
 	<div>
 		<span id='pagespan'></span>
 		<script>window.addEvent('domready',function(){ loadinfopage(); });</script>
-		<?php
-		if($Local==1){ ?>
+		
+		<?php if($Local){ ?>
 		<a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/sistemapanel/panel" target="_blank"><?php echo $vars['GENERAL']['factory'];?></a> |
-		<?php }
-		?>
-		<a href="<?php echo $vars['GENERAL']['by_url'];?>" target="_blank"><?php echo $vars['GENERAL']['by_label'];?>
-		</a>
-		<?php
-		if($Local==1){
-		?>
+		<?php } ?>
+
+		<a href="<?php echo $vars['GENERAL']['by_url'];?>" target="_blank"><?php echo $vars['GENERAL']['by_label'];?></a>
+		
+		<?php if($Local){ ?>
 		| <a href="maquina.php">Master</a>
-		<?php } else {
-			?>
-		<a href="maquina.php"
-			style="text-decoration: none; color: #DDDDFF; cursor: text;">&nbsp;&nbsp;</a>
-		<?php }
-		?>
+		<?php } else { ?>
+		<a href="maquina.php" style="text-decoration: none; color: #DDDDFF; cursor: text;">&nbsp;&nbsp;</a>
+		<?php } ?>
+		
 	</div>
 </div>
 <?php }
@@ -39,26 +35,27 @@ if($needs['img'] or 1){
 ?>
 <script>
 var initMultiBox;
-function charge_multibox(MB){
+function charge_multibox(MB=null){
 	// console.log('recargar charge_multibox:'+MB);
 	/*if(MB=='.mbb'){ alert(MB); }*/
 	$$(".ToolTips").empty();
 	$$(".ToolTips").dispose();
 	//call multiBox
+	beforemulti();
 	initMultiBox = new multiBox({
-	mbClass: (MB)?MB:'.mb',//class you need to add links that you want to trigger multiBox with (remember and update CSS files)
-	container: $(document.body),//where to inject multiBox
-	descClassName: 'multiBoxDesc',//the class name of the description divs
-	path: './swf/',//path to mp3 and flv players
-	useOverlay: false,//use a semi-transparent background. default: false;
-	maxSize: <?php if($_GET['block']=='form'){ ?>{w:600, h:300}<?php }else{ ?>{w:1400, h:1000}<?php } ?>,//max dimensions (width,height) - set to null to disable resizing
-	addDownload: false,//do you want the files to be downloadable?
-	//pathToDownloadScript: './Scripts/ForceDownload.asp',//if above is true, specify path to download script (classicASP and ASP.NET versions included)
-	addRollover: false,//add rollover fade to each multibox link
-	//addOverlayIcon: true,//adds overlay icons to images within multibox links
-	addChain: false,//cycle through all images fading them out then in
-	recalcTop: true//subtract the height of controls panel from top position
-	//addTips: true//adds MooTools built in 'Tips' class to each element (see: http://mootools.net/docs/Plugins/Tips)
+		mbClass               : (MB)?MB                                                       : '.mb',//class you need to add links that you want to trigger multiBox with (remember and update CSS files)
+		container             : $(document.body),//where to inject multiBox
+		descClassName         : 'multiBoxDesc',//the class name of the description divs
+		path                  : './swf/',//path to mp3 and flv players
+		useOverlay            : false,//use a semi-transparent background. default            : false;
+		maxSize               : <?php if($_GET['block']== 'form'){ ?>{w: 600, h: 300}<?php }else{ ?>{w: 1400, h: 1000}<?php } ?>,//max dimensions (width,height) - set to null to disable resizing
+		addDownload           : false,//do you want the files to be downloadable?
+		//pathToDownloadScript: './Scripts/ForceDownload.asp',//if above is true, specify path to download script (classicASP and ASP.NET versions included)
+		addRollover           : false,//add rollover fade to each multibox link
+		//addOverlayIcon      : true,//adds overlay icons to images within multibox links
+		addChain              : false,//cycle through all images fading them out then in
+		recalcTop             : true//subtract the height of controls panel from top position
+		//addTips             : true//adds MooTools built in 'Tips' class to each element (see: http: //mootools.net/docs/Plugins/Tips)
 	});
 
 	$$('.MultiBoxClose').addEvent('click',function(){
@@ -74,25 +71,11 @@ function charge_multibox(MB){
 		parent.document.getElementById('edit_hidd').value='<?php echo $_GET['id']; ?>';
 	<?php } ?>
 
-	// initMultiBox.close = function(){
-	// 	alert(9);
-	// 	// if(this.options.useOverlay){
-	// 	// 	this.overlay.hide();
-	// 	// };
-	// 	// if(this.options.showControls){
-	// 	// 	this.hideControls();
-	// 	// };
-	// 	// this.hideContent();
-	// 	// this.containerEffects.cancel();
-	// 	// this.zoomOut.bind(this).delay(500);
-	// };
 
-	//alert('destroy');
 }
 </script>
 <?php } ?>
-<?php if($needs['mootooltips']){
-	?>
+<?php if($needs['mootooltips']){ ?>
 <script>
 function charge_tooltips(){
 	//alert(0); return;
@@ -111,29 +94,6 @@ function charge_tooltips(){
 </script>
 <?php } ?>
 <script>
-function charge_submenus(){
-	$$('.i_b').each(function(ee){ over_menu({e:ee,x:'right',y:'top',rel:'element'}); });
-}
 <?php echo $objeto_tabla[$datos_tabla['me']]['javascript']; ?>
 </script>
 <?php } ?>
-<script>
-if(self!=top) $$('body').addClass('justlist');
-/*
-var menu = $('#topnavDIV'), pos = menu.offset();
-$(window).scroll(function(){
-    if($(this).scrollTop() > pos.top){
-        menu.addClass('topnavContainerScroll');        
-        $("#topDIV").addClass('topScroll');
-        $(".w3DropdownMenu").addClass('w3DropdownMenuScroll');        
-        $("#menyen").addClass('menyenScroll');
-        $("#topLogo").css("display","none");
-     } else if($(this).scrollTop() <= pos.top){
-        menu.removeClass('topnavContainerScroll');
-        $("#topDIV").removeClass('topScroll');
-        $(".w3DropdownMenu").removeClass('w3DropdownMenuScroll');
-        $("#menyen").removeClass('menyenScroll');
-        $("#topLogo").css("display","");
-     } });
-*/
-</script>

@@ -1,10 +1,18 @@
 <?php
 
+
+
 if(isset($_GET['ran']) and $_GET['ran']!=''){
 
 	//include("lib/compresionInicio.php");	/*para Content-Encoding*/
 	include("lib/includes.php");
 
+	if(isset($_GET['L']) and $_GET['L']!='' and $SERVER['ARCHIVO_REAL']!='formulario_quick.php'){
+
+		$_GET['id']=$_GET['L'];
+		unset($_GET['L']);
+	
+	}	
 
 	$file2OBJ=array();
 	$tabla2OBJ=array();
@@ -60,7 +68,8 @@ if(isset($_GET['ran']) and $_GET['ran']!=''){
 	
 }
 
-$EdicionPanel=($Open and $_SESSION['edicionpanel']=='1')?1:0;
+
+
 
 
 /// procesar campos
@@ -70,7 +79,6 @@ list($MEEE,$EXTRA_FILTRO) = pre_procesar_objeto_tabla_0($MEEE);
 // prin($MEEE);
 
 $datos_tabla = procesar_objeto_tabla($MEEE);
-
 // prin($datos_tabla['user']);
 
 // foreach($datos_tabla['form'] as $ccan){
@@ -122,7 +130,7 @@ if($Proceso=='login'){
 	// 	$tbtitulo	=	procesar_dato($datos_tabla['titulo']);
 	// else
 	$tbtitulo	=	breadcrumb($datos_tabla,NULL,$objeto_tabla);
-
+	
 	$tbl		=	$datos_tabla['tabla'];
 	$tbf		=	$datos_tabla['archivo'];
 	$tb 		=	$datos_tabla['prefijo'];

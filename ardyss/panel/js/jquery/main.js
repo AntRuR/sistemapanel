@@ -13,15 +13,12 @@ require([], function() {
 
 			$$('.ul_menus .group .padre') .addEvent ( 'click' ,function(){
 		
+				if(0)
 				if(this.getParent().hasClass('selected')){
 
 					this.getParent().removeClass('selected');
 
-					// this.getParent().getParent().getElements('.group').removeClass('selected');
-
 				} else {
-
-					// this.getParent().getParent().getElements('.group').removeClass('selected');
 					
 					this.getParent().addClass('selected');
 

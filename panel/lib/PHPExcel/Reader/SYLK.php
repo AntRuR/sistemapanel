@@ -96,7 +96,7 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 * Format Count
 	 *
 	 * @var int
-	*/
+	 */
 	private $_format = 0;
 
 	/**
@@ -258,34 +258,34 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 				foreach($rowData as $rowDatum) {
 					switch($rowDatum{0}) {
 						case 'P' :	$formatArray['numberformat']['code'] = str_replace($fromFormats,$toFormats,substr($rowDatum,1));
-						break;
+									break;
 						case 'E' :
 						case 'F' :	$formatArray['font']['name'] = substr($rowDatum,1);
-						break;
+									break;
 						case 'L' :	$formatArray['font']['size'] = substr($rowDatum,1);
-						break;
+									break;
 						case 'S' :	$styleSettings = substr($rowDatum,1);
-						for ($i=0;$i<strlen($styleSettings);++$i) {
-							switch ($styleSettings{$i}) {
-								case 'I' :	$formatArray['font']['italic'] = true;
-								break;
-								case 'D' :	$formatArray['font']['bold'] = true;
-								break;
-								case 'T' :	$formatArray['borders']['top']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-								case 'B' :	$formatArray['borders']['bottom']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-								case 'L' :	$formatArray['borders']['left']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-								case 'R' :	$formatArray['borders']['right']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-							}
-						}
-						break;
+									for ($i=0;$i<strlen($styleSettings);++$i) {
+										switch ($styleSettings{$i}) {
+											case 'I' :	$formatArray['font']['italic'] = true;
+														break;
+											case 'D' :	$formatArray['font']['bold'] = true;
+														break;
+											case 'T' :	$formatArray['borders']['top']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+											case 'B' :	$formatArray['borders']['bottom']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+											case 'L' :	$formatArray['borders']['left']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+											case 'R' :	$formatArray['borders']['right']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+										}
+									}
+									break;
 					}
 				}
 				$this->_formats['P'.$this->_format++] = $formatArray;
-				//	Read cell value data
+			//	Read cell value data
 			} elseif ($dataType == 'C') {
 				$hasCalculatedValue = false;
 				$cellData = $cellDataFormula = '';
@@ -293,47 +293,47 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 					switch($rowDatum{0}) {
 						case 'C' :
 						case 'X' :	$column = substr($rowDatum,1);
-						break;
+									break;
 						case 'R' :
 						case 'Y' :	$row = substr($rowDatum,1);
-						break;
+									break;
 						case 'K' :	$cellData = substr($rowDatum,1);
-						break;
+									break;
 						case 'E' :	$cellDataFormula = '='.substr($rowDatum,1);
-						//	Convert R1C1 style references to A1 style references (but only when not quoted)
-						$temp = explode('"',$cellDataFormula);
-						foreach($temp as $key => &$value) {
-							//	Only count/replace in alternate array entries
-							if (($key % 2) == 0) {
-								preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/',$value, $cellReferences,PREG_SET_ORDER+PREG_OFFSET_CAPTURE);
-								//	Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
-								//		through the formula from left to right. Reversing means that we work right to left.through
-								//		the formula
-								$cellReferences = array_reverse($cellReferences);
-								//	Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
-								//		then modify the formula to use that new reference
-								foreach($cellReferences as $cellReference) {
-									$rowReference = $cellReference[2][0];
-									//	Empty R reference is the current row
-									if ($rowReference == '') $rowReference = $row;
-									//	Bracketed R references are relative to the current row
-									if ($rowReference{0} == '[') $rowReference = $row + trim($rowReference,'[]');
-									$columnReference = $cellReference[4][0];
-									//	Empty C reference is the current column
-									if ($columnReference == '') $columnReference = $column;
-									//	Bracketed C references are relative to the current column
-									if ($columnReference{0} == '[') $columnReference = $column + trim($columnReference,'[]');
-									$A1CellReference = PHPExcel_Cell::stringFromColumnIndex($columnReference-1).$rowReference;
+									//	Convert R1C1 style references to A1 style references (but only when not quoted)
+									$temp = explode('"',$cellDataFormula);
+									foreach($temp as $key => &$value) {
+										//	Only count/replace in alternate array entries
+										if (($key % 2) == 0) {
+											preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/',$value, $cellReferences,PREG_SET_ORDER+PREG_OFFSET_CAPTURE);
+											//	Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
+											//		through the formula from left to right. Reversing means that we work right to left.through
+											//		the formula
+											$cellReferences = array_reverse($cellReferences);
+											//	Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
+											//		then modify the formula to use that new reference
+											foreach($cellReferences as $cellReference) {
+												$rowReference = $cellReference[2][0];
+												//	Empty R reference is the current row
+												if ($rowReference == '') $rowReference = $row;
+												//	Bracketed R references are relative to the current row
+												if ($rowReference{0} == '[') $rowReference = $row + trim($rowReference,'[]');
+												$columnReference = $cellReference[4][0];
+												//	Empty C reference is the current column
+												if ($columnReference == '') $columnReference = $column;
+												//	Bracketed C references are relative to the current column
+												if ($columnReference{0} == '[') $columnReference = $column + trim($columnReference,'[]');
+												$A1CellReference = PHPExcel_Cell::stringFromColumnIndex($columnReference-1).$rowReference;
 
-									$value = substr_replace($value,$A1CellReference,$cellReference[0][1],strlen($cellReference[0][0]));
-								}
-							}
-						}
-						unset($value);
-						//	Then rebuild the formula string
-						$cellDataFormula = implode('"',$temp);
-						$hasCalculatedValue = true;
-						break;
+												$value = substr_replace($value,$A1CellReference,$cellReference[0][1],strlen($cellReference[0][0]));
+											}
+										}
+									}
+									unset($value);
+									//	Then rebuild the formula string
+									$cellDataFormula = implode('"',$temp);
+									$hasCalculatedValue = true;
+									break;
 					}
 				}
 				$columnLetter = PHPExcel_Cell::stringFromColumnIndex($column-1);
@@ -345,7 +345,7 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 					$cellData = PHPExcel_Calculation::_unwrapResult($cellData);
 					$objPHPExcel->getActiveSheet()->getCell($columnLetter.$row)->setCalculatedValue($cellData);
 				}
-				//	Read cell formatting
+			//	Read cell formatting
 			} elseif ($dataType == 'F') {
 				$formatStyle = $columnWidth = $styleSettings = '';
 				$styleData = array();
@@ -353,32 +353,32 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 					switch($rowDatum{0}) {
 						case 'C' :
 						case 'X' :	$column = substr($rowDatum,1);
-						break;
+									break;
 						case 'R' :
 						case 'Y' :	$row = substr($rowDatum,1);
-						break;
+									break;
 						case 'P' :	$formatStyle = $rowDatum;
-						break;
+									break;
 						case 'W' :	list($startCol,$endCol,$columnWidth) = explode(' ',substr($rowDatum,1));
-						break;
+									break;
 						case 'S' :	$styleSettings = substr($rowDatum,1);
-						for ($i=0;$i<strlen($styleSettings);++$i) {
-							switch ($styleSettings{$i}) {
-								case 'I' :	$styleData['font']['italic'] = true;
-								break;
-								case 'D' :	$styleData['font']['bold'] = true;
-								break;
-								case 'T' :	$styleData['borders']['top']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-								case 'B' :	$styleData['borders']['bottom']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-								case 'L' :	$styleData['borders']['left']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-								case 'R' :	$styleData['borders']['right']['style'] = PHPExcel_Style_Border::BORDER_THIN;
-								break;
-							}
-						}
-						break;
+									for ($i=0;$i<strlen($styleSettings);++$i) {
+										switch ($styleSettings{$i}) {
+											case 'I' :	$styleData['font']['italic'] = true;
+														break;
+											case 'D' :	$styleData['font']['bold'] = true;
+														break;
+											case 'T' :	$styleData['borders']['top']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+											case 'B' :	$styleData['borders']['bottom']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+											case 'L' :	$styleData['borders']['left']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+											case 'R' :	$styleData['borders']['right']['style'] = PHPExcel_Style_Border::BORDER_THIN;
+														break;
+										}
+									}
+									break;
 					}
 				}
 				if (($formatStyle > '') && ($column > '') && ($row > '')) {
@@ -407,10 +407,10 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 					switch($rowDatum{0}) {
 						case 'C' :
 						case 'X' :	$column = substr($rowDatum,1);
-						break;
+									break;
 						case 'R' :
 						case 'Y' :	$row = substr($rowDatum,1);
-						break;
+									break;
 					}
 				}
 			}

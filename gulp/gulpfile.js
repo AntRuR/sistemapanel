@@ -213,7 +213,8 @@ const watch_task = () => {
   gulp.watch(
       [
         stylus_dir+'/*.styl',
-        stylus_dir+'/parts/*.styl'
+        stylus_dir+'/parts/*.styl',
+        stylus_dir+'/apps/*.styl'
       ]
     ,
     stylus_task

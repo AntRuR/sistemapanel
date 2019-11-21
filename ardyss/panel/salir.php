@@ -10,8 +10,12 @@ session_unset();
 session_unset($_SESSION['usuario_id']);
 session_unset($_SESSION['usuario_datos_nombre']);
 session_unset($_SESSION['usuario_datos_id']);
+
+session_unset($_SESSION['sesionhid3']);
+session_unset($_SESSION['xt']);
+session_unset($_SESSION['permisos']);
+
 session_destroy();
 
 // Redireccionar al inicio
-header("Location: index.php");
-?>
+header("Location: login.php");
