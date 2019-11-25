@@ -239,8 +239,9 @@ function try_bread($objeto,$mememe,$ididid=null){
 		if($campo['foreigkey']!=''){
 
 			list($aa,$foreigtabla,$cc)=explode("|",$campo['opciones']);
+			list($id4,$name4)=explode(",",$aa);
 
-			$nombre=dato("nombre",$foreigtabla,"where id=".$ididid,0);
+			$nombre=dato($name4,$foreigtabla,"where ".$id4."=".$ididid,0);
 
 			$id_dad=false;
 			foreach($objeto as $fore=>$obje){
@@ -257,9 +258,13 @@ function try_bread($objeto,$mememe,$ididid=null){
 				}
 			}
 			
-			$id_dad=dato($id_padre,$foreigtabla,"where id=".$ididid,0);
-			
-			try_bread($objeto,$foreigme,$id_dad);			
+			$id_dad=dato($id_padre,$foreigtabla,"where ".$id4."=".$ididid,0);
+
+			if($id_dad!=null){
+
+				try_bread($objeto,$foreigme,$id_dad);			
+
+			}
 
 			if($SERVER['ARCHIVO']==$objeto[$mememe]['archivo'].".php?id=".$ididid){
 				

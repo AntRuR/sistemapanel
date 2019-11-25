@@ -105,7 +105,7 @@ case "confirm":
 	];
 
 	$no_copy=[
-		$Carpeta.'/app/views/php/',
+		// $Carpeta.'/app/views/php/',
 	];
 	// prin($no_copy);
 

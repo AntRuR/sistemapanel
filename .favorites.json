@@ -1,0 +1,66 @@
+[
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/gulp",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "gulp",
+        "id": "FSRsZVTDXfNBkMAU"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/panel",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "panel",
+        "id": "EcHWCZmrQODzYVup"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/sumarseg",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "sumarseg",
+        "id": "0eBxzrIsYmfOlZuC"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/ardyss",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "ardyss",
+        "id": "K6EAmYOoPRQHbChl"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/wpkmanager",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "wpkmanager",
+        "id": "iBdF5lAqjz2r7xus"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/woorld",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "woorld",
+        "id": "pZh3fqcrdF0kD5jE"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/crmdiamantes",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "crmdiamantes",
+        "id": "9MQvrRFtLBHjGXVy"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/agro",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "agro",
+        "id": "wCb5FUWLR7T2eyjE"
+    }
+]
