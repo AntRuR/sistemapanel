@@ -62,5 +62,21 @@
         "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
         "workspacePath": "agro",
         "id": "wCb5FUWLR7T2eyjE"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/asiste",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "asiste",
+        "id": "JQTheMqpbtA9UZ5k"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/MAMP/htdocs/sistemapanel/consorcio",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/MAMP/htdocs/sistemapanel",
+        "workspacePath": "consorcio",
+        "id": "CqO3KRnwY50zvJXh"
     }
 ]
