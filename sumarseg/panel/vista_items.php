@@ -170,7 +170,7 @@ foreach($lineas as $tete=>$linea)
         }	
         if($load_subs_render){
 
-            render_foreig_subs($load_subs,$linea[$datos_tabla['id']],$linea,$urd,$datos_tabla['sub_procesos']);
+            render_foreig_subs_old($load_subs,$linea[$datos_tabla['id']],$linea,$urd,$datos_tabla['sub_procesos']);
             // render_foreig_subs($load_subs,$linea,$urd,$datos_tabla['sub_procesos']);
         }
         if($load_file_render){
