@@ -1,0 +1,128 @@
+
+.menudown
+    position relative
+    overflow hidden
+    > a
+        display inline
+        z-index 1
+        background white
+        padding 0
+        margin 0
+        background white
+    .li_cabecera
+        z-index 2
+        position absolute
+        right -1px
+        background white
+        box-shadow 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        // top -400px
+        max-height 400px
+        overflow hidden
+        overflow-y auto
+        display flex
+        flex-direction column
+        width 0px
+        // top 19px
+        // width auto
+        border 1px solid #ccc
+        transition top .1s,width .1s
+        padding-left 0
+        a
+            min-width 200px
+            display block
+            text-align left
+            padding 8px 10px
+            float none
+            white-space nowrap
+            border-bottom 1px solid #ccc
+        > li, > a
+            &:nth-child(even)
+                background-color rgba(225,236,237,0.5)
+
+    &:hover    
+        overflow visible
+        .li_cabecera
+            top 19px
+            width auto
+            right 1px
+
+
+
+ul.li_cabecera2
+    position absolute
+    right -1px
+    z-index 100
+    border-top 0
+    box-shadow 7px 1px 15px #ddd
+    top 19px
+    max-height 400px
+    overflow hidden
+    overflow-y auto
+    display flex
+    flex-direction column
+    // min-width 200px
+    li
+        border 1px solid #DCDCDC
+        // border-top 0
+        width 100%
+        // &:first-child
+        //     border-top 1px solid #000
+        &:hover
+            background #FFF
+        a
+            padding 8px 5px
+            display block !important
+            float none
+            white-space nowrap
+    a.mb
+        display block
+        width 100%
+        border-bottom 1px solid #DCDCDC
+        padding 8px 5px
+        white-space nowrap
+        min-width 150px;
+
+
+
+
+.li_cabecera2
+    background none repeat scroll 0 0 #FFFFFF
+    clear left
+    float left
+    height auto
+    margin-bottom 0
+    margin-top 0
+    padding 0
+    position absolute
+    width auto
+    z-index 1
+    margin-left 0            
+
+
+.div_fila_overflow2
+	clear both
+	float left !important
+	display none
+	z-index 10 !important
+	padding 0
+	margin 0
+	ul
+		border 1px solid #565656
+		img
+			height 5px
+			position absolute
+			right 0
+			top -3px
+			width 13px
+			background #fff
+		li
+			background-color #FFF
+			a
+				padding 10px 20px 10px 10px
+				text-transform uppercase
+				text-decoration none
+				font-weight bold
+			&:hover
+				text-decoration underline
+			&:nth-child(even) 
+				background-color rgba(225,236,237,0.5)

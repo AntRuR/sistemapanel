@@ -1,0 +1,63 @@
+
+ul.pagination
+    margin 10px 0
+    display flex
+    > li
+        > a
+            padding .5rem .75rem
+            line-height 1.25
+            border 1px solid #dee2e6
+            margin-left -1px
+            display block
+            background #fff
+        &.disabled,
+        &.active
+            > a
+                pointer-events none
+                color #6c757d
+        &.active,
+        &:hover
+            > a
+                background rgba(225,236,237,0.5)
+        &:first-child,&:last-child 
+            > a
+                position relative !important
+                color transparent !important
+                display flex
+                align-items center
+                align-content center
+                &:before
+                    font-family 'icomoon'
+                    font-size 1.8em
+                    position absolute
+                    color #005580
+        &:first-child 
+            > a
+                &:before
+                    content "\e651"
+                    left 0em
+        &:last-child 
+            > a
+                &:before
+                    content "\e654"
+                    right 0em
+
+
+
+.nohay
+	text-align center
+	padding 15% 0 !important
+	// color color_2
+	font-size 1.2em
+	background rgba(#F9F9F9,.5)
+
+
+
+
+
+
+#inner_span_num
+	display inline-block
+	padding 0
+	.spa2n
+		color color_2    

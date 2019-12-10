@@ -164,7 +164,7 @@ function tabla_chain($obj,$chain_items0=[],$more=[]){
 					'foreigkey'		=> $chai['object'],
 					'label'			=> $prev_label,
 	
-					'opciones'		=> 'id,'.$nombre.'|'.$prev_tabla,
+					'opciones'		=> 'id,'.$nombre.'|'.$prev_tabla."| order by ".$nombre." asc ",
 					'derecha'		=> '1',
 					'tags'			=> '1',
 					'queries'		=> '0'

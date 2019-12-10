@@ -72,7 +72,7 @@ $objeto_tabla_comp['PAGINAS_GROUPS']=array(
                     'listable'		=> '0',
                     'validacion'	=> '1',
                     // 'constante'		=> '1',
-                    'setup'			=> 'quienes-somos,notas-de-interes',
+                    'setup'			=> 'quienes-somos,servicios',
             ),								
             'name'		=>array(
                     'campo'			=> 'name',
@@ -124,7 +124,7 @@ $objeto_tabla_comp['PAGINAS']=array(
 
 
     <a href="custom/paginas.php?id=9">Quienes Somos</a>
-    <a href="custom/paginas.php?id=3">Notas de Interés</a>
+    <a href="custom/paginas.php?id=3">Servicios</a>
     
 
 
@@ -661,7 +661,7 @@ $objeto_tabla_comp['GALLERIES_VIDEOS']=array(
     'visibilidad'	=> '1',
     'buscar'		=> '0',
     'bloqueado'		=> '0',
-    'menu'			=> '1',
+    'menu'			=> '0',
     'menu_label'	=> 'Galerías de video',
     'me'			=> 'GALLERIES_VIDEOS',
     'orden'			=> '0',
@@ -861,7 +861,7 @@ $objeto_tabla_comp['PAGES_PHOTOS']=array(
     'visibilidad'	=> '1',
     'buscar'		=> '0',
     'bloqueado'		=> '0',
-    'menu'			=> '1',
+    'menu'			=> '0',
     'menu_label'	=> 'Grupos de Productos',
     'me'			=> 'PAGES_PHOTOS',
     'orden'			=> '0',
@@ -1188,9 +1188,9 @@ $objeto_tabla_comp['NEWS']=array(
 
 
 $objeto_tabla_comp['LINKS']=array(
-    'titulo'		=> 'Enlaces',
-    'nombre_singular'=> 'enlace',
-    'nombre_plural'	=> 'enlaces',
+    'titulo'		=> 'Marcas',
+    'nombre_singular'=> 'marca',
+    'nombre_plural'	=> 'marcas',
     'tabla'			=> 'links',
     'archivo'		=> 'links',
     'prefijo'		=> 'link',
@@ -1204,7 +1204,7 @@ $objeto_tabla_comp['LINKS']=array(
     'buscar'		=> '1',
     'bloqueado'		=> '0',
     'menu'			=> '1',
-    'menu_label'	=> 'Enlaces',
+    'menu_label'	=> 'Marcas',
     'por_pagina'	=> '20',
     'me'			=> 'LINKS',
     'orden'			=> '1',
@@ -1270,7 +1270,7 @@ $objeto_tabla_comp['LINKS']=array(
                     'tipo'			=> 'inp',
                     'width'			=> '400px',
                     'listable'		=> '1',
-                    'validacion'	=> '1',
+                    'validacion'	=> '0',
                     'style'			=> 'width:75%;',
 
             ),
@@ -1284,7 +1284,7 @@ $objeto_tabla_comp['LINKS']=array(
     'alias_grupo'	=> '',
     'edicion_rapida'	=> '1',
     'page'			=> '0',
-    'disabled'		=> '1',
+//     'disabled'		=> '1',
 );
 
 /******************************************************************************************************************************************************/

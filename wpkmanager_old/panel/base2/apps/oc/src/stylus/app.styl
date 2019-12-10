@@ -1,0 +1,228 @@
+
+
+.foot,
+#linea_crear,
+#linea_grabar,
+.i_form_cancel
+    display none
+
+    
+
+.formulario
+    margin-bottom 100px
+
+
+h2.status span
+    .aprobado &
+        color #620a1e
+    .activacion &, .activacion_editar &
+        color #721c24
+    .modificacion &
+        color #29b549
+    .aprobacion &
+        color #004085
+
+
+.noedit
+    .groups > li, .titulo_formulario, .linea_form_mensaje
+	    display none
+
+
+.activacion, .activacion_editar
+    .groups > li:not(#id_in_banco_operacion):not(#id_in_moneda):not(#id_in_banco_monto):not(#id_in_producto_tc):not(#id_in_tipo_documento):not(#alert_in_banco_operacion):not(#leg_banco_operacion)
+	    display none
+
+
+.editarvin
+    .groups > li:not(#id_in_producto_vin)
+	    display none
+    .groups > li#id_in_producto_vin
+        display block
+
+
+#id_in_banco_explicacion_duplicidad
+	display none
+
+
+.after_save,.aceptando_aprobacion
+    .groups, .linea_form
+	    display none
+
+
+    
+
+
+
+
+.inner_listado
+	display none !important;
+
+.line_content
+	float none
+
+input[type="button"]
+	text-transform:uppercase;
+
+.nav
+	margin-bottom 30px
+
+html, body, .div_allcontent
+    height: 100%
+
+.bottom_buttons
+    position fixed
+    bottom 0
+    height auto
+    width 100%
+    background #fafafa
+    #message
+        margin 0px
+    ul
+        display flex
+        justify-content space-evenly
+        align-content flex-start
+        flex-wrap wrap 
+        margin 10px 0
+        li
+            padding 1px 5px
+            display none
+            a
+                // min-width 100px
+                text-transform uppercase
+
+li#btn-cerrar
+    display block
+
+.activacion
+    &.permiso_3
+        &:not(.after_save)
+            &:not(.validado)
+                li#btn-validar
+                    display block
+            &.validado
+                li#btn-activar
+                    display block
+        &.after_save
+            li#btn-editar
+                display block    
+
+.activacion_editar
+    &.permiso_3
+        &:not(.after_save)
+            &:not(.validado)
+                li#btn-validar
+                    display block
+            &.validado
+                li#btn-activar-editar
+                    display block
+        &.after_save
+            li#btn-editar
+                display block        
+
+
+.modificacion
+    &.permiso_3
+            &.after_save
+                li#btn-editar
+                    display block
+            &:not(.after_save)
+                li#btn-guardar
+                    display block
+            &.modificado:not(.after_requested)
+                li#btn-solicitar-aprobacion
+                    display block
+        
+
+
+.aceptaraprobacion
+    &.permiso_2
+        &:not(.aceptando_aprobacion)
+            &:not(.after_answer)
+                li#btn-aceptar-aprobacion,li#btn-denegar-aprobacion
+                    display block
+                &.after_save
+                    li#btn-editar
+                        display block
+                &:not(.after_save)
+                    li#btn-guardar
+                        display block
+        &.aceptando_aprobacion
+            li#btn-aceptar-aprobacion-enviar,li#btn-aceptar-aprobacion-cancelar
+                display block
+
+.aprobacion
+    &.permiso_2
+        &:not(.after_save)
+            &:not(.after_aproved)
+                &:not(.noedit)
+                    li#btn-guardar
+                        display block
+                &.noedit:not(.after_aproved)
+                    li#btn-editar,li#btn-editar-vin
+                        display block
+                li#btn-aceptar_aprobacion,li#btn-denegar_aprobacion
+                    display block
+        &.after_save
+            li#btn-editar,li#btn-aprobar,li#btn-editar-vin
+                display block
+
+
+
+.aprobado
+    &.solicitando_anulacion
+        li#btn-solicitar-anular-cancelar,li#btn-solicitar-anular-enviar
+            display block
+    &:not(.solicitando_anulacion)
+        &:not(.after_requested)
+            li#btn-pdf,li#btn-enviar
+                display block
+            &.permiso_10
+                li#btn-excel
+                    display block
+            &.permiso_2
+                li#btn-solicitar-anular
+                    display block
+            &.after_save
+                li#btn-editar,li#btn-editar-vin
+                    display block
+
+            &:not(.after_save)
+                &.permiso_10
+                    &:not(.noedit)
+                        li#btn-guardar,li#btn-guardar-cancelar
+                            display block
+                    &.noedit
+                        li#btn-review,li#btn-editar-vin
+                            display block
+                        li#btn-editar
+                            display block                
+
+
+.aceptaranulacion
+    &.permiso_10
+        &:not(.after_save)
+            li#btn-aceptar-anular,li#btn-denegar-anular
+                display block
+            // &:not(.noedit)
+            //     li#btn-guardar
+            //         display block
+            &.noedit
+                li#btn-editar,li#btn-editar-vin
+                    display block
+
+.cerrado
+    li#btn-aceptar-anular,
+    li#btn-denegar-anular,
+    li#btn-editar,
+    li#btn-editar-vin,
+    li#btn-guardar,
+    li#btn-guardar-cancelar,
+    li#btn-solicitar-anular,
+    li#btn-solicitar-anular-cancelar,
+    li#btn-solicitar-anular-enviar,
+    li#btn-validar
+        display none !important
+    &.activacion_editar,
+    &.activacion
+        .formulario
+            display none
