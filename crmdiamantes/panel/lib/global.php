@@ -312,6 +312,7 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$LOCAL=1;
 	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+	// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 
 } else {
@@ -402,7 +403,7 @@ unset($script_B); unset($script_A);
 $SERVER['URL']=$url_script;
 $SERVER['ARCHIVO']=$url_script;
 $SERVER['ARCHIVO_REAL']=$file_script;
-$SERVER['BASE']="http://".$_SERVER['HTTP_HOST'].$dir_script."/";
+$SERVER['BASE']="//".$_SERVER['HTTP_HOST'].$dir_script."/";
 $SERVER['ROOT']=$vars_server['url_publica'];
 $SERVER['PANEL']=$SERVER['ROOT'].'/panel';
 // echo '<pre>'; print_r($vars_server['url_publica']); echo '</pre>';
@@ -805,3 +806,4 @@ $HTML_ALL_INICIO="<div id='layer'></div>".$HTML_ALL_INICIO;
 		
 	}
 */
+

@@ -5,7 +5,7 @@ $objeto_chain['products']=[
 	'PRODUCTOS_SUBGRUPOS?grupo=grupo',
 	'PRODUCTOS_GROUPS?grupo=grupo&nombre=name',
 	'PRODUCTOS_ITEMS?grupo=grupo',
-	'PRODUCTOS_FOTOS?grupo=item'
+	// 'PRODUCTOS_FOTOS?grupo=item'
 ];
 
 

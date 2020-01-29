@@ -6238,6 +6238,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 		'nocharge'		=> '0',
 		'onload_include'	=> 'base2/update_alertas.php',
 		'onload_script'	=> '<style>#id_in_id_jefe{display:none;}</style>',
+		'envio_automatizado'=>'1',
 		'events'		=>array(
 				'on_session'	=> ''
 		),
@@ -6481,6 +6482,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tip_foreig'	=> '0',
 						'tags'			=> '1',
 						'queries'		=> '1',
+						'select_multiple'=>'1',
 						// 'noedit'		=> '1',
 				),
 				
@@ -6550,7 +6552,7 @@ $objeto_tabla['VENTAS_ITEMS']=array(
 						'tags'			=> '1',
 						'queries'		=> '1',
 						// 'noedit'		=> '1',
-						'validacion'	=> '1'
+						'validacion'	=> '1',
 				),
 				'id_cuenta_email'=>array(
 						'campo'			=> 'id_cuenta_email',
@@ -6831,6 +6833,9 @@ $objeto_tabla['CLIENTES']=array(
 	<style>
 	#group_persona_jurídica { display:none; }
 	#group_persona_contacto { display:display; }
+	#id_in_id_usuario { display:none; }
+	#id_in_info2 { display:none; }
+	#id_in_id_jefe { display:none; }
 	</style>
 	<script>
 	window.addEvent("domready",function(){
@@ -11659,4 +11664,454 @@ $objeto_tabla['GEO_DISTRITOS']=array(
 
 
 
-?>
+$objeto_tabla['GRUPOS_ENVIOS']=array(
+	'me'			=> 'GRUPOS_ENVIOS',
+	'titulo'		=> 'Grupos de envio',
+	'nombre_singular'=> 'grupo de envio',
+	'nombre_plural'	=> 'grupos de envios',
+	'tabla'			=> 'grupos_envios',
+	'archivo'		=> 'grupos_envios',
+	'prefijo'		=> 'progru',
+	'eliminar'		=> '1',
+	'editar'		=> '1',
+	'crear'			=> '0',
+	'altura_listado'	=> 'auto',
+	'visibilidad'	=> '1',
+	'buscar'		=> '0',
+	'bloqueado'		=> '0',
+	'menu'			=> '1',
+	'menu_label'	=> 'Grupos de envios',
+	'orden'			=> '1',
+	'postscript'	=> '
+		if(SS=="delete"){
+			delete("grupos_envios_ventas_items","where id_grupos_envios=II");
+		}
+	',	
+	'controles'		=> '
+	<a class="btn btn-small btn-primary" href="custom/ventas_items.php">para crear un grupo de envio, seleccionar un filtro en en el modulo de atenciones y crear grupo de envio</a>		
+	',			
+	'campos'		=>array(
+			'id'			=>array(
+					'campo'			=> 'id',
+					'tipo'			=> 'id'
+			),
+			'fecha_creacion'	=>array(
+					'campo'			=> 'fecha_creacion',
+					'tipo'			=> 'fcr'
+			),
+			'fecha_edicion'	=>array(
+					'campo'			=> 'fecha_edicion',
+					'tipo'			=> 'fed'
+			),
+			'posicion'		=>array(
+					'campo'			=> 'posicion',
+					'tipo'			=> 'pos'
+			),
+			'visibilidad'	=>array(
+					'campo'			=> 'visibilidad',
+					'tipo'			=> 'vis'
+			),
+			'calificacion'	=>array(
+					'campo'			=> 'calificacion',
+					'tipo'			=> 'cal'
+			),
+			'nombre'		=>array(
+					'campo'			=> 'nombre',
+					'label'			=> 'Nombre',
+					'width'			=> '300px',
+					'tipo'			=> 'inp',
+					'listable'		=> '1',
+					'validacion'	=> '1',
+					'style'			=> 'width:300px;',
+			),
+
+			'filtros'		=>array(
+				'campo'			=> 'filtros',
+				'label'			=> 'Características',
+				'width'			=> '300px',
+				'tipo'			=> 'txt',
+				'listable'		=> '1',
+				'validacion'	=> '1',
+				'style'			=> 'width:300px;',
+			),						
+			'num'		=>array(
+				'campo'			=> 'num',
+				'label'			=> 'Contactos',
+				'width'			=> '140px',
+				'tipo'			=> 'inp',
+				'listable'		=> '1',
+				'validacion'	=> '0',
+				'style'			=> 'width:300px;',
+				'indicador'		=> '1',
+		),			
+
+
+	),
+	'grupo'			=> 'envios',
+	'edicion_completa'=> '1',
+	'edicion_rapida'	=> '0',
+	'expandir_vertical'=> '0',
+	'control'		=> '1',
+	// 'set_fila_fijo'	=> '1',
+	'seccion'		=> '',
+	
+);
+
+$objeto_tabla['ENVIOS_SPEECHES']=array(
+	'me'			=> 'ENVIOS_SPEECHES',
+	'grupo'			=> 'envios',
+	'titulo'		=> 'Speaches',
+	'nombre_singular'=> 'speech',
+	'nombre_plural'	=> 'speeches',
+	'tabla'			=> 'envios_speeches',
+	'archivo'		=> 'envios_speeches',
+	'prefijo'		=> 'envspe',
+	'eliminar'		=> '1',
+	'crear'			=> '1',
+	'editar'		=> '1',
+	'buscar'		=> '0',
+	'bloqueado'		=> '0',
+	'menu'			=> '1',
+	'crear_label'	=> '100px',
+	'crear_txt'		=> '600px',
+	'menu_label'	=> 'Speeches',
+	'orden'			=> '1',
+	'campos'		=>array(
+			'id'			=>array(
+					'campo'			=> 'id',
+					'tipo'			=> 'id'
+			),
+			'fecha_creacion'	=>array(
+					'campo'			=> 'fecha_creacion',
+					'tipo'			=> 'fcr'
+			),
+			'fecha_edicion'	=>array(
+					'campo'			=> 'fecha_edicion',
+					'tipo'			=> 'fed'
+			),
+			'posicion'		=>array(
+					'campo'			=> 'posicion',
+					'tipo'			=> 'pos'
+			),
+			'visibilidad'	=>array(
+					'campo'			=> 'visibilidad',
+					'tipo'			=> 'vis'
+			),
+			'calificacion'	=>array(
+					'campo'			=> 'calificacion',
+					'tipo'			=> 'cal'
+			),
+			'nombre'			=>array(
+				'campo'			=> 'nombre',
+				'label'			=> 'Asunto',
+				'tipo'			=> 'inp',
+				'listable'		=> '1',
+				'width'			=> '300px',
+				'style'			=> 'width:550px;',
+			),			
+			'texto'			=>array(
+					'campo'			=> 'texto',
+					'label'			=> 'Texto',
+					'tipo'			=> 'html',
+					'listable'		=> '1',
+					'validacion'	=> '0',
+					'width'			=> '500px',
+					'style'			=> 'height:270px;'
+			),
+			'tipo'	=>array(
+				'campo'			=> 'tipo',
+				'label'			=> 'Tipo',
+				'tipo'			=> 'com',
+				'listable'		=> '1',
+				'validacion'	=> '0',
+				'opciones'		=>array(
+						'1'			=> 'Seguimiento',
+						'2'			=> 'Contenido de valor"',
+						'3'			=> 'Promoción',
+						'4'			=> 'Cierra puertas',
+				),
+				'default'		=> '1',
+				'style'			=> 'width:150px;',
+				'derecha'		=> '1',
+				'width'			=> '130px',
+				// 'frozen'		=> '1',
+				'queries'		=> '1'
+			),			
+			'numero'	=>array(
+				'campo'			=> 'numero',
+				'label'			=> 'Número',
+				'tipo'			=> 'inp',
+				'listable'		=> '1',
+				'validacion'	=> '0',
+				'style'			=> 'width:80px;',
+				'width'			=> '80px',
+			),
+			'memoria'			=>array(
+				'campo'			=> 'memoria',
+				'label'			=> 'Memoria',
+				'tipo'			=> 'txt',
+				'listable'		=> '1',
+				'validacion'	=> '0',
+				'width'			=> '500px',
+				'style'			=> 'height:270px;'
+		),						
+	)
+);
+
+$objeto_tabla['GRUPOS_ENVIOS_ITEMS']=array(
+	'me'			=> 'GRUPOS_ENVIOS_ITEMS',
+	'titulo'		=> 'Item de envio',
+	'nombre_singular'=> 'Item',
+	'nombre_plural'	=> 'Items',
+	'tabla'			=> 'grupos_envios_items',
+	'archivo'		=> 'grupos_envios_items',
+	'prefijo'		=> 'progru',
+	'eliminar'		=> '0',
+	'editar'		=> '1',
+	'crear'			=> '1',
+	'altura_listado'	=> 'auto',
+	'visibilidad'	=> '1',
+	'buscar'		=> '0',
+	'bloqueado'		=> '0',
+	'menu'			=> '1',
+	'menu_label'	=> 'Items de envio',
+	'orden'			=> '1',
+	'campos'		=>array(
+			'id'			=>array(
+					'campo'			=> 'id',
+					'tipo'			=> 'id'
+			),
+			'fecha_creacion'	=>array(
+					'campo'			=> 'fecha_creacion',
+					'tipo'			=> 'fcr'
+			),
+			'fecha_edicion'	=>array(
+					'campo'			=> 'fecha_edicion',
+					'tipo'			=> 'fed'
+			),
+			'id_item'		=>array(
+				'campo'			=> 'id_item',
+				'label'			=> 'Item',
+				'tipo'			=> 'hid',
+				'listable'		=> '1',
+				'validacion'	=> '1',
+				'default'		=> '[id_item]',
+				'foreig'		=> '1',
+				'style'			=> 'width:150px;',
+				'opciones'		=> 'id,nombre|ventas_items|where 0',
+				'width'			=> '140px',
+				'derecha'		=> '2',
+				'tip_foreig'	=> '1',
+				'tags'			=> '1',
+				'queries'		=> '1'
+			),	
+	),
+	'grupo'			=> 'envios',
+	'edicion_completa'=> '0',
+	'expandir_vertical'=> '0',
+	'control'		=> '1',
+	// 'set_fila_fijo'	=> '1',
+	'seccion'		=> '',
+	'disabled'		=> '1'
+);
+
+$objeto_tabla['GRUPOS_ENVIOS_ENVIOS']=array(
+	'me'			=> 'GRUPOS_ENVIOS_ENVIOS',
+	'titulo'		=> 'Envios',
+	'nombre_singular'=> 'envio',
+	'nombre_plural'	=> 'envios',
+	'tabla'			=> 'grupos_envios_envios',
+	'archivo'		=> 'grupos_envios_envios',
+	'prefijo'		=> 'progru',
+	'eliminar'		=> '0',
+	'editar'		=> '1',
+	'crear'			=> '1',
+	'altura_listado'	=> 'auto',
+	'visibilidad'	=> '1',
+	'buscar'		=> '0',
+	'bloqueado'		=> '0',
+	'menu'			=> '1',
+	'menu_label'	=> 'Programación de Envios',
+	'orden'			=> '1',
+	'joins'			=>array(
+		'envios_speeches'		=> 'grupos_envios_envios.id_speech=envios_speeches.id',
+	),	
+	'more'			=>array(
+		'envios_speeches'		=> '
+	tipo?listable=1&queries=0&after=id_speech,
+	numero?listable=1&queries=0&after=id_speech,
+	'
+	),	
+	'campos'		=>array(
+			'id'			=>array(
+					'campo'			=> 'id',
+					'tipo'			=> 'id'
+			),
+			'fecha_creacion'	=>array(
+					'campo'			=> 'fecha_creacion',
+					'tipo'			=> 'fcr'
+			),
+			'fecha_edicion'	=>array(
+					'campo'			=> 'fecha_edicion',
+					'tipo'			=> 'fed'
+			),
+			'posicion'		=>array(
+					'campo'			=> 'posicion',
+					'tipo'			=> 'pos'
+			),
+			'visibilidad'	=>array(
+					'campo'			=> 'visibilidad',
+					'tipo'			=> 'vis'
+			),
+			'calificacion'	=>array(
+					'campo'			=> 'calificacion',
+					'tipo'			=> 'cal'
+			),
+			'fecha_programada'=>array(
+				'campo'			=> 'fecha_programada',
+				'label'			=> 'Fecha y hora',
+				'tipo'			=> 'fch',
+				'listable'		=> '1',
+				'formato'		=> '7b',
+				'time'			=> '2',
+				'width'			=> '136px',
+				'derecha'		=> '1',
+				'default'		=> '',
+				'rango'			=> 'now,+1 years',
+				'queries'		=> '0',
+				'main'			=> '1',
+				'queries'		=> '1',	
+			),			
+			'id_speech'		=>array(
+				'campo'			=> 'id_speech',
+				'label'			=> 'Speech',
+				'tipo'			=> 'hid',
+				'listable'		=> '1',
+				'validacion'	=> '1',
+				'foreig'		=> '1',
+				'style'			=> 'width:350px;',
+				'opciones'		=> 'id,nombre|envios_speeches|where visibilidad=1',
+				'width'			=> '140px',
+				'derecha'		=> '1',
+				'tip_foreig'	=> '1',
+				'tags'			=> '1',
+			),
+			// 'id_grupos'		=>array(
+			// 	'campo'			=> 'id_grupos',
+			// 	'label'			=> 'Grupos de envio 2',
+			// 	'tipo'			=> 'hid',
+			// 	'listable'		=> '1',
+			// 	'validacion'	=> '1',
+			// 	'foreig'		=> '1',
+			// 	'style'			=> 'width:150px;',
+			// 	'opciones'		=> 'id,nombre|grupos_envios|where visibilidad=1 order by id desc',
+			// 	'width'			=> '140px',
+			// 	'derecha'		=> '1',
+			// 	'tip_foreig'	=> '1',
+			// 	'tags'			=> '1',
+			// 	'multi'			=> '1',
+			// ),
+			'id_grupos'	=>array(
+				'campo'			=> 'id_grupos',
+				'label'			=> 'Grupos de envio',
+				'tipo'			=> 'hid',
+				'combo'			=> '1',
+				'multi'			=> '1',
+				'variable'		=> 'longtext',							
+				'listable'		=> '1',
+				'validacion'	=> '0',
+				'opciones'		=> 'id,nombre|grupos_envios|where visibilidad=1 order by id desc',
+				'derecha'		=> '1',
+				'style'			=> 'width:350px;',
+				'width'			=> '240px',
+				// 'multi'			=> '1',
+
+			),											
+			'estado'		=>array(
+				'campo'			=> 'estado',
+				'label'			=> 'Estado',
+				'tipo'			=> 'com',
+				'listable'		=> '1',
+				'indicador'		=> '1',
+				'validacion'	=> '0',
+				'queries'		=> '1',						
+				'opciones'		=>array(
+						'1'			=> 'pendiente|red',
+						'2'			=> 'enviado|green',							
+				),
+				'default'		=> '1',
+				'style'			=> 'width:150px;',
+				'width'			=> '100px',
+
+			),			
+
+	),
+	'grupo'			=> 'envios',
+	'edicion_completa'=> '1',
+	'edicion_rapida'	=> '0',
+	'expandir_vertical'=> '0',
+	'control'		=> '1',
+	// 'set_fila_fijo'	=> '1',
+	'seccion'		=> ''
+);
+
+/******************************************************************************************************************************************************/
+
+$objeto_tabla['BLACKLIST']=array(
+	'me'			=> 'BLACKLIST',
+	'titulo'		=> 'Black List',
+	'nombre_singular'=> 'email',
+	'nombre_plural'	=> 'emails',
+	'tabla'			=> 'blacklist',
+	'archivo'		=> 'blacklist',
+	'prefijo'		=> 'black',
+	'eliminar'		=> '1',
+	'editar'		=> '0',
+	'crear'			=> '1',
+	'altura_listado'	=> 'auto',
+	'visibilidad'	=> '0',
+	'buscar'		=> '0',
+	'bloqueado'		=> '0',
+	'menu'			=> '1',
+	'menu_label'	=> 'Black List',
+	'orden'			=> '0',
+	'width_listado'	=> '800px',
+	'campos'		=>array(
+			'id'			=>array(
+					'campo'			=> 'id',
+					'tipo'			=> 'id'
+			),
+			'fecha_creacion'	=>array(
+					'campo'			=> 'fecha_creacion',
+					'tipo'			=> 'fcr'
+			),
+			'fecha_edicion'	=>array(
+					'campo'			=> 'fecha_edicion',
+					'tipo'			=> 'fed'
+			),
+			'email'			=>array(
+					'campo'			=> 'email',
+					'label'			=> 'Email',
+					'subvalidacion'		=> 'email',
+					'tipo'			=> 'inp',
+					'listable'		=> '1',
+					'validacion'	=> '1',
+					'width'			=> '150px',
+					'style'			=> 'width:150px;',
+					'derecha'		=> '1',
+					'default'		=> '',
+					'like'			=> '1',
+					'unique'		=> '1'
+			),
+
+	),
+	'grupo'			=> 'envios',
+	'edicion_completa'=> '1',
+	'expandir_vertical'=> '0',
+	'edicion_rapida'	=> '1',
+	'calificacion'	=> '0',
+	'set_fila_fijo'	=> '4',
+	'crear_quick'	=> '0',
+);
+
+// $objeto_tabla=tablas_build($objeto_tabla);

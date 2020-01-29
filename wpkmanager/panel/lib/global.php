@@ -403,7 +403,7 @@ unset($script_B); unset($script_A);
 $SERVER['URL']=$url_script;
 $SERVER['ARCHIVO']=$url_script;
 $SERVER['ARCHIVO_REAL']=$file_script;
-$SERVER['BASE']="http://".$_SERVER['HTTP_HOST'].$dir_script."/";
+$SERVER['BASE']="//".$_SERVER['HTTP_HOST'].$dir_script."/";
 $SERVER['ROOT']=$vars_server['url_publica'];
 $SERVER['PANEL']=$SERVER['ROOT'].'/panel';
 // echo '<pre>'; print_r($vars_server['url_publica']); echo '</pre>';

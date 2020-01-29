@@ -36,44 +36,15 @@ var json;<?php
 console.log(accion);
 switch(accion){
 case "set_fila_2":
-$("exl_"+id).setStyles({'display':'none'});
-$("cll_"+id).setStyles({'display':''});<?php
-if($datos_tabla['expandir_vertical']=='1') {
-?>$('i_'+id).removeClass('modificador');
-$('i_'+id).removeClass('modificador_linea');
 $('i_'+id).removeClass('modificador_grilla');
-$('i_'+id).addClass('modificador');<?php
-} ?>
+$('i_'+id).addClass('modificador');
 break;
-case "set_fila_1":
-$("exl_"+id).setStyles({'display':'none'});
-$("cll_"+id).setStyles({'display':''});<?php
-if($datos_tabla['expandir_vertical']=='1') { ?>
+case "set_fila_4":
 $('i_'+id).removeClass('modificador');
-$('i_'+id).removeClass('modificador_linea');
-$('i_'+id).removeClass('modificador_grilla');<?php
-} ?>
-break;
-case "set_fila_3":
-$("exl_"+id).setStyles({'display':''});
-$("cll_"+id).setStyles({'display':'none'});<?php
-if($datos_tabla['expandir_vertical']=='1') {?>
-$('i_'+id).removeClass('modificador');
-$('i_'+id).removeClass('modificador');
-<?php
- } ?>
-$('i_'+id).removeClass('modificador_linea');
 $('i_'+id).addClass('modificador_grilla'); 
 break;
 case "actualizar_total":
-if($('inner_span_num'))
-$('inner_span_num').innerHTML=$('inner_hidden_num').value;
-if($('inner_span_tren'))
-$('inner_span_tren').innerHTML=$('inner_hidden_tren').value;
-if($('inner_span_num2'))
-$('inner_span_num2').innerHTML=$('inner_hidden_num2').value;
-if($('inner_span_tren2'))
-$('inner_span_tren2').innerHTML=$('inner_hidden_tren').value;<?php
+<?php
 if($needs['img']){
 ?>charge_multibox();<?php
 ?>if($('nfilter').value!='filter='){ window.location.hash='#'+$('nfilter').value; }<?php
@@ -81,7 +52,7 @@ if($needs['img']){
 if($needs['mootooltips']){
 ?>charge_tooltips();<?php
 }
-?>charge_submenus();alljsloads();<?php
+?>alljsloads();<?php
  ?>
 break;
 /*
@@ -194,6 +165,9 @@ $0('refresh-cover');
 break;
 case "excel":
 location.href="vista.php?OB="+MMEE+"&filter="+id+"&format=excel&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>"+(($('ffilter')?'&filter='+$('ffilter').value:''));
+break;
+case "creargrupo":
+location.href="vista.php?OB="+MMEE+"&filter="+id+"&format=creargrupo&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>"+(($('ffilter')?'&filter='+$('ffilter').value:''));
 break;
 case "gm":
 // urll="vista.php?OB="+MMEE+"&filter="+id+"&format=excel&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>"+(($('ffilter')?'&filter='+$('ffilter').value:''));
@@ -346,10 +320,6 @@ case "resetear":
 	?>reset_img_sto('<?php echo $tb?>','<?php echo $tbcampA['campo']?>');<?php
 	break;
 	case "fch":
-	?>$('in_<?php echo $tbcampA['campo']?>_a').value='';<?php
-	?>$('in_<?php echo $tbcampA['campo']?>_m').value='';<?php
-	?>$('in_<?php echo $tbcampA['campo']?>_d').value='';<?php
-	?>$('in_<?php echo $tbcampA['campo']?>_t').value='';<?php
 	?>$('in_<?php echo $tbcampA['campo']?>').value='';<?php
 	break;
 	case "pas":
@@ -359,6 +329,9 @@ case "resetear":
 	break;
 	case "hid":
 	if($tbcampA['opciones']!=''){
+		if($tbcampA['multi']=='1'){
+		
+		}
 	/*?>$('in_<?php echo $tbcampA['campo']?>').value='';<?php*/
 	}
 	break;
@@ -551,7 +524,7 @@ $('lc_'+id).addClass('oc');
 } } ).send();
 break;
 case "editar_completo_cancelar":
-$1('segunda_barra_2');
+$1('barra_paginacion');
 // if($('linea_buscador'))	$1('linea_buscador');
 $('error_creacion').innerHTML='<span style="color:#000000;">los campos con * son obligatorios</span>';
 $0('titulo_editar');
@@ -606,7 +579,7 @@ if($('titulo_crear')){
 if($('bloque_content_crear'))$('bloque_content_crear').setStyles({'display':''});
 ax("ec2",id);
 } else {
-console.log('por aqui');
+// console.log('por aqui');
 new Request({'url':'formulario.php?OB='+MMEE+'&ran=1<?php echo ($datos_tabla['get_id'])?'&'.$datos_tabla['get_id']:'';?>&proceso=<?php echo $Proceso;?>',  method:'get', onSuccess:function(ee) {
 if($('bloque_content_crear'))$('bloque_content_crear').innerHTML=ee;
 pre_crear('ax("ec2","'+id+'","'+pag+'");');
@@ -639,7 +612,7 @@ $1('load');
 if($('area_hijos')) $1('area_hijos');
 }
 ax("ec3",id,pag);
-$0('segunda_barra_2');
+$0('barra_paginacion');
 if($('linea_buscador')) $0('linea_buscador');
 if(pag!='nuevo'){<?php
 
@@ -673,11 +646,11 @@ charge_multibox();
 break;
 case "ec3":
 var datos = {
-v_o : MMEE,
-v_d : "where <?php echo $datos_tabla['id']?>='"+id+"' ",
-id:id,
-f:'get_fila',
-debug:'0'
+	v_o 	: MMEE,
+	v_d 	: "where <?php echo $datos_tabla['id']?>='"+id+"' ",
+	id		: id,
+	f		: 'get_fila',
+	debug	: '0'
 };
 new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee) {
 	var json=eval("(" + ee + ")");<?php
@@ -713,43 +686,36 @@ new Request({url:"ajax_sql.php", method:'get', data:datos, onSuccess:function(ee
 		 } elseif($tbcampA['tipo']=='sto'){
 			?>$("upl_<?php echo $tb?>_<?php echo $tbcampA['campo']?>_0").innerHTML=render_upload_sto('<?php echo $tb?>','<?php echo $tbcampA['campo']?>','',json.<?php echo $tbcampA['campo']?>_get_archivo);<?php
 		 } elseif($tbcampA['tipo']=='fch'){
-			?>var fechaaa=json.<?php echo $tbcampA['campo']?>;<?php
-			?>if(fechaaa=='0000-00-00 00:00:00' || fechaaa==null){<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_a').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_m').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_d').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_t').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>').value='';<?php
-			?>} else if(fechaaa=='now()'){<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_a').value='<?php echo date("Y")?>';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_m').value='<?php echo date("m")?>';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_d').value='<?php echo date("d")?>';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_t').value='';<?php
-			?>$('in_<?php echo $tbcampA['campo']?>').value='<?php echo date("Y-m-d H:i:s")?>';<?php
-			?>} else {<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_a').value=fechaaa.substring(0,4);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_m').value=fechaaa.substring(5,7);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_d').value=fechaaa.substring(8,10);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>_t').value=fechaaa.substring(11,19);<?php
-			?>$('in_<?php echo $tbcampA['campo']?>').value=fechaaa;<?php
-			?>}<?php
+			?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
+			// calendar
+			?>update_calendar('in_<?php echo $tbcampA['campo']?>');<?php
 		} elseif($tbcampA['tipo']=='hid'){
 			/*?>if($('<?php echo $tbcampA['campo']?>_load_combo')){<?php
 			?>$('<?php echo $tbcampA['campo']?>_load_combo').setProperty('title',json.<?php echo $tbcampA['campo']?>);<?php
 			?>}<?php */
 			list($tbcampA['campo'],$html)=explode("|",$tbcampA['campo']);
-			?>$('in_<?php echo $tbcampA['campo']?>').rel=json.<?php echo $tbcampA['campo']?>;<?php
-			?>var dhay=0; $$('#in_<?php echo $tbcampA['campo']?> option').each(function(ele){ if($(ele).value==json.<?php echo $tbcampA['campo']?>){ dhay=1; } });<?php
-			?>if(dhay==0){ <?php
-			list($ouno,$odos,$otre)=explode("|",$tbcampA['opciones']);
-			list($ouno1,$ouno2)=explode(",",$ouno);
-
-			?>if(json.<?php echo $tbcampA['campo']?>!=null){ new Request({url:'load_combo.php?s='+encodeURIComponent('<?php echo $ouno1.",concat(".str_replace(";",",",$ouno2).")"."|".$odos."|where id=";?>'+json.<?php echo $tbcampA['campo']?>)+'&s2=&camp=<?php echo $tbcampA['campo']?>',  method:'get', onSuccess:function(ee) {
-	var json0=JSON.decode(ee,true); if(json0.length>0){ new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':json0[0][1],'selected':'selected'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); }
-	/*$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;*/
-	} } ).send();<?php
-			/*?>new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':'seleccionado'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); <?php**/
-			?>}}<?php
+			?>
+			$('in_<?php echo $tbcampA['campo']?>').rel=json.<?php echo $tbcampA['campo']?>;
+			var dhay=0; 
+			$$('#in_<?php echo $tbcampA['campo']?> option').each(function(ele){if($(ele).value==json.<?php echo $tbcampA['campo']?>){ dhay=1; } });
+			if(dhay==0){
+				<?php
+				list($ouno,$odos,$otre)=explode("|",$tbcampA['opciones']);
+				list($ouno1,$ouno2)=explode(",",$ouno);
+				?>
+				if(json.<?php echo $tbcampA['campo']?>!=null){ 
+					new Request({
+						url:'load_combo.php?s='+encodeURIComponent('<?php echo $ouno1.",concat(".str_replace(";",",",$ouno2).")"."|".$odos."|where id=";?>'+json.<?php echo $tbcampA['campo']?>)+'&s2=&camp=<?php echo $tbcampA['campo']?>',  
+						method:'get', 
+						onSuccess:function(ee) {
+							var json0=JSON.decode(ee,true); 
+							if(json0.length>0){
+								new Element('option',{'value':json.<?php echo $tbcampA['campo']?>,'html':json0[0][1],'selected':'selected'}).inject($('in_<?php echo $tbcampA['campo']?>'), 'bottom'); 
+							}
+						} 
+					}).send();
+				}
+			}<?php
 			?>$('in_<?php echo $tbcampA['campo']?>').value=json.<?php echo $tbcampA['campo']?>;<?php
 			if($tbcampA['obj']){
 			?>$('in_<?php echo $tbcampA['campo']?>_obj').innerHTML=render_obj(json.<?php echo $tbcampA['campo']?>);<?php

@@ -106,6 +106,17 @@ case "confirm":
 		copy($Carpeta."/panel/config/tablas.php",$this_project['carpeta']."/panel/config/tablas.php");
 		copy($Carpeta."/panel/config/memory.txt",$this_project['carpeta']."/panel/config/memory.txt");
 
+		if(file_exists($Carpeta."/panel/config/comps")){
+			@mkdir($this_project['carpeta']."/panel/config/comps");
+			$directorio = dir($Carpeta."/panel/config/comps");
+			while($fichero=$directorio->read()){
+				if($fichero!='.' and $fichero!='..'){
+					copy($Carpeta."/panel/config/comps/".$fichero,$this_project['carpeta']."/panel/config/comps/".$fichero);
+				}
+			}
+			$directorio->close();
+		}
+				
 		if(file_exists($Carpeta."/panel/base2")){
 			@mkdir($this_project['carpeta']."/panel/base2");
 			$directorio = dir($Carpeta."/panel/base2");
@@ -143,7 +154,7 @@ case "confirm":
 
 	echo "<br>";
 	echo "creando config.ini <br>";
-	set_params_ini("GENERAL","FILE_DEFAULT", $carpetaConfigVars['GENERAL']['FILE_DEFAULT'], $this_project['carpeta']."/panel/config/config.ini" );
+	set_params_ini("GENERAL","FILE_DEFAULT",'"'. $carpetaConfigVars['GENERAL']['FILE_DEFAULT'].'"', $this_project['carpeta']."/panel/config/config.ini" );
 
 	set_params_ini("GENERAL","img_logo", "img/logo.".$ext, $this_project['carpeta']."/panel/config/config.ini" );
 

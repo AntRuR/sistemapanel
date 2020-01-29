@@ -1,44 +1,27 @@
-<?php //á
-/* */
-//////// MENU ///////
+<?php
 
-$tablas_creadas=array();
-$sql = "show tables";
-$result=mysql_query($sql,$link);
-$total=mysql_num_rows($result);
-if($total>0)
-{
-	while ($row = mysql_fetch_row($result))
-	{
-		$tablas_creadas[] = $row[0];
-	}
-}
+$tablas_creadas=$TABLAS_CREADAS;
 
-// prin($SERVER);
+$script_name=$SERVER["ARCHIVO"];
+
+$grupi=[];
+
 
 if($mostrar_menu)
 {
 
-	$menus=array();
-	$menus_1=array();
-	$menus_2=array();
-
+	$menus   = [];
 
 	foreach($objeto_tabla as $item)
 	{
-		if(isset($item['alias_grupo']) and ($item['alias_grupo']!='') ){	$ALIAS_GRUPO[$item['grupo']]=$item['alias_grupo'];	}
+		if(isset($item['alias_grupo']) and ($item['alias_grupo']!='') ){	
+			
+			$ALIAS_GRUPO[$item['grupo']]=$item['alias_grupo'];
+		}
+
 	}
 
 
-	//prin(array_keys($objeto_tabla));
-	/*
-	foreach($objeto_tabla as $t_o=>$o_t){
-	if($o_t['disabled']!='1'){
-		$oottoo[]=$t_o;
-	}
-	}
-	prin($oottoo);
-	*/
 	foreach($objeto_tabla as $meit=>$item)
 	{
 		// prin($item);
@@ -49,247 +32,143 @@ if($mostrar_menu)
 			$item['menu_label']=$item['archivo'];
 		}
 
-		if( $item['menu']=='1' or ($Open=='1' and $item['menu_label']!='' ) or ($script_name=="maquina.php") )
+		if( 
+			$item['menu']=='1' 
+			or 
+			($Open=='1' and $item['menu_label']!='' ) 
+			or ($script_name=="maquina.php") 
+		)
 		{
+
 
 			if(
 				(
-				// file_exists($DIR_CUSTOM.$item['archivo'].".php") and 
-				in_array($item['tabla'],$tablas_creadas)
-				and (!($item['disabled']=='1'))
+					// file_exists($DIR_CUSTOM.$item['archivo'].".php") and 
+					in_array($item['tabla'],$tablas_creadas)
+					and (!($item['disabled']=='1'))
 				)
 				or
 				(
-				!in_array($item['tabla'],$tablas_creadas) and $Open
+					!in_array($item['tabla'],$tablas_creadas) and $Open
 				)
+			)
+			{
 
-				)
-				{
+				
 
-				$bbgg = ( !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1') )?1:0;
-
-
-				if($bbgg){ $BBB[]=$item['me']; }
+				$grupe=($item['grupo'])?$item['grupo']:'general';
 
 				if($item['seccion'])
 				{
 
-					$mmm.='<li class="seccion"><b>'.$item['seccion'].'</b></li>';
+					$mmmA[$grupe][]=[
+						'class'=>'seccion',
+						'text'=>$item['seccion'],
+					];
 
 				}
 				
 				// prin(  $item['archivo'].".php" .'=='.$item['archivo']);
 
-				$bitselected=( enhay( $script_name ,  $item['archivo'].".php" ) or ($script_name==$item['archivo_hijo'].".php") );
+				$bitselected=( 
+					enhay( $script_name ,  $item['archivo'].".php" ) 
+					or ($script_name==$item['archivo_hijo'].".php") 
+				);
 
-				//$otto[]=$meit;
-				$mmm .="<li". ( ($bitselected) ? ' class="selected"': '' ) .">";
-
-					$mmm .="<a href='".$DIR_CUSTOM.$item['archivo'].".php' >";
-
-						$mmm .=$item['menu_label'].$item['archivo_padre'];
-
-						$nume=contar($item['tabla'],"where 1 ".get_extra_filtro(array('user'=>$item['user'],'web'=>($filtrar_web)?$item['web']:0,'page'=>($filtrar_page)?$item['page']:0)));
-
-						$mmm.="<span class='number'>$nume</span>";
-
-					$mmm.="</a>";
-
-					//DEVEL
-					if($Open=='1')
-					{
-
-						$mmm.="<a class='derech' href='maquina.php?me=".$item['me']."#blo_objetos' title='Editar Propiedades'>P</a>";
-
-						$mmm.="<a class='derech2' href='maquina.php?me=".$item['me']."#edicion_indices_sub' title='Editar Campos'>C</a>";
-
-					}
-
-				$mmm.="</li>";
-
-			}
-
-		}
-
-		if( $script_name!="login.php" )
-		{
-			//prin($item['app']);
-			if($item['app']!=''
-			//temporal
-			//and trim($mmm)!=''
-			){
-
-				$item['app']=str_replace("'","\"",$item['app']);
-
-				$aps=explode("<a",$item['app']);
+				if($bitselected)
+					$grupo_will_selected[]=$grupe;
 				
-				foreach($aps as $ap)
-				{ 
-					if(trim($ap)!='')
-					{
+				$mmmA[$grupe][]=[
+					'class'=>($bitselected) ? 'selected': '',
+					'href'=>$DIR_CUSTOM.$item['archivo'].'.php',
+					'text'=>$item['menu_label'].$item['archivo_padre'],
+				];	
+					
 
-						$bitselected=(enhay($ap,$script_name)); 	
-						// prin("$script_name == $ap");
-						$mmm='';
-						$mmm.="<li".(($bitselected)?" class='selected'":'').">";
-						$mmm.="<a".$ap;
-						$mmm.="</li>";
-
-						$menus[($item['grupo'])?$item['grupo']:'general'][]=array($mmm,$bitselected);
-
-					} 
-				}	
 			}
 
-		}
-
-		// if($mmm!=''){ echo "<textarea>".$mmm."</textarea>"; }
-
-		if(  !( ($script_name==$item['archivo'].".php") or ($script_name==$item['archivo_hijo'].".php") ) and ($item['menu']!='1')  ){
-
-			$menus_2[]=array('h'=>$mmm,'g'=>$item['grupo']);	
-
-		} else {
-		
-			$menus_1[]=array('h'=>$mmm,'g'=>$item['grupo']);
-
-		}
-
-		if($item['app']=='')
-		{
-			$menus[($item['grupo'])?$item['grupo']:'general'][]=array($mmm,$bitselected);
-		}
-
-		if($mmm!='')
-		{
 			if(!in_array($item['grupo'],$grupi))
 			{
+
 				$grupi[]=$item['grupo'];
 
 				if(trim($item['grupo'])!='')
 				{
 				
 					$paddre=($ALIAS_GRUPO[$item['grupo']])?$ALIAS_GRUPO[$item['grupo']]:$item['grupo'];
+					$paddre2=str_replace(
+						array(" ",'á','é','í','ó',''), 
+						array("_",'a','e','i','o','u'), 
+						strtolower($paddre)
+					);
 
-					$GrupLi[$item['grupo']]['open']="<li id='group_".$item['grupo']."' class='group {selected}". (($item['grupo']=='sistema')?" admincc":'') ."' >".
-					
-					"<a class='padre'>".
-					
-					"<i class='zzz ic_". str_replace(
-											array(" ",'á','é','í','ó',''), 
-											array("_",'a','e','i','o','u'), 
-											strtolower($paddre)
-											) . "'></i>".
-
-					$paddre .
-
-					"</a>";
-
-					$GrupLi[$item['grupo']]['close']="</li>";
+					$GrupLiA[$item['grupo']]=[
+						'ite'=>$item['titulo'],
+						'item'=>$item['grupo'],
+						'text'=>"<i class='zzz ic_{$paddre2}'></i>".$paddre,						
+						];
+						
 
 				}
-			}
+			}			
+
 		}
-	}
 
-	// prin($menus);
-
-	//prin($otto);
-
-
-/*
-	$GGR['0'][]=array('productos'	,$GrupLi['productos']);
-	$GGR['0'][]=array('ventas'	,$GrupLi['ventas']);
-
-	$GGR['2'][]=array('marketing'	,$GrupLi['marketing']);
-	$GGR['2'][]=array('contenidos'	,$GrupLi['contenidos']);
-	$GGR['2'][]=array('publicidad'	,$GrupLi['publicidad']);
-
-	$GGR['3'][]=array('formularios'	,$GrupLi['formularios']);
-	$GGR['3'][]=array('boletin'	,$GrupLi['boletin']);
-
-	$GGR['4'][]=array('sistema'		,$GrupLi['sistema']);
-
-	foreach($GGR as $GGR2){ foreach($GGR2 as $GGR3){ $GgrupoS[]=$GGR3[0]; } }
-
-	$GGR['1']=array();
-
-	foreach($GrupLi as $iii=>$ggg){
-		if(!in_array($iii,$GgrupoS)){ $GGR['1'][]=array($iii,$GrupLi[$iii]); }
-	}
-
-	unset($GgrupoS);
-	unset($GrupLi);
-
-	foreach($GGR as $GGR2){ foreach($GGR2 as $GGR3){ $GrupLi[$GGR3['0']]=$GGR3['1']; } }
-*/
-
-	$htmlmenu .= "<ul id='menu_main' class='ul_menus". ( ($SERVER['ARCHIVO']=="maquina.php" and $_GET['accion']=='' )?' ul_menus_fixed':'' ) ."'>";
-	if(sizeof($GrupLi)>0)
-	{
-
-		$ttmi=-1;
-		foreach($GrupLi as $ttm=>$gl)
+		// apps
+		if($item['app']!='')
 		{
+			$item['app']=str_replace("'","\"",$item['app']);
 
-			$ttmi++;
+			$aps=explode("href=\"",$item['app']);
 
-			$htmlmenu1='';
+			foreach($aps as $ap)
+			{ 
+				list($ap,$ap2)=explode("\"",$ap);
+				list($ap2,$ap3)=explode("<",$ap2);
+				$ap2=str_replace(">","",$ap2);
 
-			$htmlmenu0 = str_replace('{selected}','',$gl['open']);
-
-			if(sizeof($menus[$ttm])>0)
-			{
-				
-				if($ttm==$this_grupo or $SERVER['ARCHIVO']=="maquina.php"){ $OpEn=$ttmi; }
-
-				$htmlmenu1 .= "<div class='mcontent'><ul>";
-				foreach($menus[$ttm] as $menn)
+				if(
+					trim($ap)!='' 
+					and trim($ap2)!=''
+				)
 				{
-					$htmlmenu1 .=$menn[0]; if( $menn[1] or $SERVER['ARCHIVO_REAL']=='maquina.php' ){ $htmlmenu0 = str_replace('{selected}','selected',$gl['open']); }
-				}
-				$htmlmenu1 .= "</ul></div>";
-			}
+					$bitselected=(enhay($ap,$script_name)); 	
 
-			$htmlmenu2 = $gl['close'];
+					$grupe=($item['grupo'])?$item['grupo']:'general';
+					
+					if($bitselected)
+						$grupo_will_selected[]=$grupe;
 
-			$htmlmenu.=$htmlmenu0.$htmlmenu1.$htmlmenu2;
+					$mmmA[$grupe][]=[
+						'class'=>($bitselected) ? 'selected': '',
+						'href'=>$ap,
+						'text'=>$ap2
+					];	
 
-		}
+				} 
+			}	
+		}			
+		
+	}
 
-	} else {
+	
+	foreach($grupo_will_selected as $one){
 
-		foreach($menus['general'] as $menn)
-		{
-			$htmlmenu .=$menn;
-		}
+		$GrupLiA[$one]['checked']=true;
 
 	}
 
-	$htmlmenu .='</ul>';
+	foreach($GrupLiA as $oo=>$rupo){
 
-	if(str_replace('Array','',$htmlmenu)=="<ul id='menu_main' class='ul_menus'></ul>"){
+		if(sizeof($mmmA[$oo])>0)
+			$GrupLiA[$oo]['items']=$mmmA[$oo];
+		else
+			unset($GrupLiA[$oo]);
 
-		echo "<ul id='menu_main' class='ul_menus ul_menus_empty' id='ul_menus_empty'></ul>";
-
-	} else {
-
-		echo $htmlmenu;
-
-		/*
-		if($SERVER['ARCHIVO']!='maquina.php'){
-		echo '<script>';
-		?>if(!Browser.Engine.webkit || 1){
-			window.addEvent('domready', function(){ 
-				new Fx.Accordion('.ul_menus .padre', '.ul_menus .opcl',{initialDisplayFx :false,opacity:false,display:<?php echo ($OpEn)?$OpEn:"''"; ?>});
-			});
-
-		}<?php
-		echo '</script>';
-		}
-		*/
 	}
+
+	// prin($mmmA['ventas']);
+
+	render_view(['grupos'=>$GrupLiA],'menu_left.php');
 
 }
-
-

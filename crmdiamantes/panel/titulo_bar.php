@@ -46,8 +46,7 @@
         </span>
     <?php }
 
-
-    if(!($datos_tabla['crear']=='0' or $tblistadosize=='0' )){
+    if(!($objeto_tabla[$datos_tabla['me']]['crear']=='0' or $tblistadosize=='0' )){
 
         if(!isset($_GET['i'])){
 
@@ -77,8 +76,30 @@
     /*
 
     */
+    if($datos_tabla['envio_automatizado']=='1'){
 
-    if($datos_tabla['exportar_gm']=='1' and 0){
+        ?>
+        <a href="#" onclick="javascript:crear_grupo();return false;" class="btn btn-danger btn-small crear_grupo_button" title="Descargar Base para Gmail">
+            crear grupo de envio
+        </a>
+        <script>
+            function crear_grupo(){ 
+
+                var nombre_grupo = prompt("Ingrese un nombre para el grupo que desea crear",document.getElementById('filtracion_txt').value);
+
+                if (nombre_grupo != null) {
+                    var url="vista.php?nombre="+nombre_grupo+"&fili="+document.getElementById('filtracion_txt').value+"&OB=<?php echo $datos_tabla['me'];?>&format=creargrupo&ran=1<?php echo $datos_tabla['get_id']?>&conf2=<?php echo urlencode($_GET['conf'])?>"+(($('ffilter')?'&filter='+$('ffilter').value:''));
+                    location.href=url; 
+                }
+
+            }
+        </script>
+        <?php
+
+    }
+
+
+    if($datos_tabla['exportar_gm']=='1' and 1){
 
         ?>
         <a href="#" onclick="javascript:exportar_gm();return false;" class="btn btn-small exportar_gm" title="Descargar Base para Group Mail">
@@ -122,7 +143,7 @@
         <?php
 
     }
-
+     
 
 
     if(sizeof($datos_tabla['exports'])>0){
@@ -151,3 +172,4 @@
     <span class='titulo' name="titulo" ><?php echo $tbtitulo?></span>
 
 </div>
+<div id="filro_described"></div>

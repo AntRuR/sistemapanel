@@ -235,6 +235,7 @@ float: right !important;
 #id_in_nombre2,
 #id_in_link,
 .exportar_go,
+.crear_grupo_button,
 .controll,
 .formulario #group_import,
 .formulario #id_in_invernado
@@ -244,6 +245,7 @@ float: right !important;
 .acceso_49_unlocked #id_in_nombre2,
 .acceso_49_unlocked  #id_in_link,
 .acceso_49_unlocked .exportar_go,
+.acceso_49_unlocked .crear_grupo_button,
 .acceso_ .exportar_go,
 .acceso_49_unlocked .controll,
 .acceso_ .controll,
@@ -270,4 +272,11 @@ float: right !important;
     display: inline-block;
     padding: 1em;
     margin: 0 1em 1em 1em;
+}
+.qsm {
+    float:none;
+    overflow: hidden;
+    max-height: 80px;
+    display: inline-block;
+    vertical-align: top;
 }

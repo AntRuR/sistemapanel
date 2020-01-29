@@ -1,7 +1,118 @@
 <?php
 
+$queries         = [];
+$queries_end     = [];
+$queries_after   = [];
 
 
+if(isset($_GET['format']) and sizeof($objeto_tabla[$this_me]['more'])>0 ){
+
+    foreach($objeto_tabla[$this_me]['campos'] as $campo){
+
+        if($campo['tipo']=='hid' and isset($campo['opciones']) and enhay($campo['opciones'],'||') ){
+
+            list($ouno,$odos)=explode("||",$campo['opciones']);
+                        
+            list($tablaO)=explode(" ",$tablaO);
+
+            list($otres,$ocuat)=explode("|",$ouno);
+
+            $moremore[$ocuat]=explode(';',$odos);
+
+            unset($ouno); unset($odos); unset($otres); unset($ocuat); 
+            
+        }
+
+    } unset($campo);
+
+    
+    // prin($moremore);
+    foreach($moremore as $ore=>$ero){
+
+        $adicionales=explode(",",$objeto_tabla[$this_me]['more'][$ore]);
+        
+        foreach($adicionales as $uurl){
+        
+            $diran=parse_url($uurl);
+            $ero2=array();
+            parse_str($diran['query'], $output);
+            foreach($ero as $eero){
+                if($eero!=$diran['path']) $ero2[]=$eero."?listable=1&after=".$output['after'];
+            }
+            $objeto_tabla[$this_me]['more'][$ore]=$objeto_tabla[$this_me]['more'][$ore].",\n".implode(",\n",$ero2);
+    
+        }
+    
+    }
+
+} unset($ore); unset($ero);
+
+
+// prin($objeto_tabla[$this_me]['more']);
+
+foreach($objeto_tabla[$this_me]['more'] as $blata=>$querries){
+
+    $querrie=explode(",",$querries);
+    
+    foreach($querrie as $querrie1){
+
+        list($querrie1uno,$querrie1dos)=explode('?',trim($querrie1));
+
+        $objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]['tabla']=$blata;
+
+        $objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]['legend']='';
+
+        parse_str($querrie1dos,$querrie11);
+
+        foreach($querrie11 as $querrie11uno => $querrie11dos){
+
+            $objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno][$querrie11uno]=$querrie11dos;
+
+        } unset($querrie11uno); unset($querrie11dos);
+
+        if($querrie11['queries']=='1'){
+            
+            if(isset($objeto_tabla[$this_me]['campos'][$querrie11['after']])){
+
+                $queries_after[$querrie11['after']][]=array($querrie1uno,$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]);	
+
+            } else {
+
+                $queries_end[$querrie1uno]=$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno];	
+
+            }	
+
+        }
+
+        if($querrie11['listable']=='1'){
+
+            if($querrie11['after']=='start'){ $querrie11['after']=$first_listable; }
+
+            $objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]['noedit']=1;
+
+            if(isset($objeto_tabla[$this_me]['campos'][$querrie11['after']])){
+
+                $tblistatado_after[$querrie11['after']][]=array($querrie1uno,$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno]);	
+
+            } else {
+
+                $tblistatado_end[$querrie1uno]=$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno];	
+
+            }	
+
+            $listable_end[$querrie1uno]=$objeto_tabla[$file2OBJ[$blata]]['campos'][$querrie1uno];	
+
+        }
+
+
+    } unset($querrie1);
+
+} unset($querries);
+
+
+// prin($queries_after);
+
+// prin($queries_after);
 
 foreach($objeto_tabla[$this_me]['campos'] as $ddff=>$df){
 
@@ -23,13 +134,14 @@ foreach($objeto_tabla[$this_me]['campos'] as $ddff=>$df){
 
 } unset($ddff); unset($df);
 
-// prin($queries);
+// prin(sizeof($queries));
 
 $queries=array_merge($queries,$queries_end);
 
 parse_str($_GET['filter'],$FiL0);
 
 foreach($FiL0 as $tre=>$FiL0tbl){
+
     foreach($FiL0tbl as $Fili){
 
         list($un,$do)=explode(".",$Fili);
@@ -45,13 +157,46 @@ foreach($FiL0 as $tre=>$FiL0tbl){
             $FiL[$tre][$un]=$Fili;
 
         } unset($un); unset($do); unset($pa_rts);
+
     } unset($Fili);
+
 } unset($tre); unset($FiL0tbl);
-// prin($FiL);
+
+prin($FiL);
+
+foreach($FiL as $modulitos=>$campitos23){
+    foreach($campitos23 as $campo23=>$valor23){
+        if($queries[$campo23]['tipo']=='fcr'){
+            list($valor232,$desde233,$hasta233)=explode("|",$valor23);
+            $filtracion[]=substr($desde233,8,2)."/".substr($desde233,5,2)."/".substr($desde233,0,4).
+            "-".
+            substr($hasta233,8,2)."/".substr($hasta233,5,2)."/".substr($hasta233,0,4);
+        } else {
+            list($uno23,$tabla23)=explode("|",$queries[$campo23]['opciones']);
+            list($id23,$nombre23)=explode(",",$uno23);
+            list($valor232,$valor233)=explode("=",$valor23);
+            // prin($queries[$campo23]['label']);
+            $filter_values=select(["concat(".str_replace(";",'," ",',$nombre23).") as name"],$tabla23,"where $id23 in (".$valor233.")",0);
+            // prin($filter_values);
+            foreach($filter_values as $fv23){
+                $filter_valuesa[]=$fv23['name'];
+            }
+            // prin($filter_values);
+            $filtracion[]=$queries[$campo23]['label'].":".implode(",",$filter_valuesa);
+        }
+        unset($filter_valuesa);
+    }
+}
+// prin($filtracion);
+$filtracion_txt=implode(", ",$filtracion);
+// prin($filtracion_txt);
+echo "<input type='text' id='filtracion_txt' value='".$filtracion_txt."' />";
+
 
 
 $html_filter_fecha_A=[];
 $html_filter_A=[];
+
 
 $html_filter_fecha='';
 $html_filter='';
@@ -90,8 +235,10 @@ foreach($queries as $blatacampo=>$querie){
 
         if($querie['select_multiple']=='1'){
 
+
         } elseif($querie['dlquery']=='1'){
 
+            
         } else {
             
             // prin($querie['campo']);
@@ -138,25 +285,6 @@ foreach($parenthood as $hdd=>$ph){
 
 
 
-
-
-// prin($queries);
-
-
-// prin($tblistado);
-
-// prin($this_me);
-
-// prin($objeto_tabla[$this_me]['campos']);
-
-//prin(sizeof($objeto_tabla[$this_me]['campos']));
-
-
-
-
-// $queries = [ $queries['id_grupo'] ];
-
-// prin($queries);
 
 foreach($queries as $blatacampo=>$querie){
 
@@ -219,7 +347,7 @@ foreach($queries as $blatacampo=>$querie){
             foreach($oopciones as $pppooo){
             $quer=urlencode($tbl.".".$querie['campo']."=".$pppooo[$idO]);
             $html_filter.="<li class='qsml ".((in_array($pppooo[$idO],$selex))?"smcheck":"")."'>";
-            $html_filter.="<input class='filtr_".$querie['campo']."' value=\"".$pppooo[$idO]."\" type='checkbox' id='filtr_".$querie['campo']."__".$pppooo[$idO]."' onchange=\"rf('".$querie['campo']."');\" ".((in_array($pppooo[$idO],$selex))?"checked":"").">";
+            $html_filter.="<input class='filtr_".$querie['campo']."' value=\"".$pppooo[$idO]."\" type='checkbox' id='filtr_".$querie['campo']."__".$pppooo[$idO]."' onchange=\"rf('".$querie['campo']."','".$blata."');\" ".((in_array($pppooo[$idO],$selex))?"checked":"").">";
             $html_filter.="<label for='filtr_".$querie['campo']."__".$pppooo[$idO]."' ".(($quer==urlencode($FiL[$blata][$querie['campo']]))?'selected':'')." >".$pppooo['value']."</label>";
             $html_filter.="</li>";
             }
@@ -454,7 +582,7 @@ if($_GET['format']!='excel'){
 
     ?>
     <script>
-    function rf(filter){
+    function rf(filter,blata){
         var j=0;
         var eles = new Array();
         $$('.filtr_'+filter).each(function(ele) {
@@ -463,7 +591,7 @@ if($_GET['format']!='excel'){
                 j++;
             }
         });
-        $('filtr_'+filter).value=(j==0)?'':encodeURIComponent(filter+'='+eles.join(','));
+        $('filtr_'+filter).value=(j==0)?'':encodeURIComponent(filter+'='+filter+'.'+eles.join(','));
         render_filder();
     }
     function render_filder(){

@@ -207,6 +207,7 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 
 } else {
+
 	$vars_server=$vars['REMOTE'];
 	$vars_server_mysql=$vars['REMOTE_MYSQL'];
 	$vars_server_ftp=$vars['REMOTE_FTP'];
@@ -215,6 +216,7 @@ if ( substr($_SERVER['SERVER_NAME'],-9,9)=='localhost' or $_SERVER['SERVER_NAME'
 	$SERVER['LOCAL']=0;
 	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 	//error_reporting(E_ALL);
+	
 }
 //echo "<pre>";print_r($SERVER);echo "</pre>";
 

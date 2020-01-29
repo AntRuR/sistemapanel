@@ -938,7 +938,7 @@ class PHPMailer {
 
 
 
-    $toArr = split(',', $to);
+    $toArr = explode(',', $to);
 
 
 

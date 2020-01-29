@@ -136,7 +136,7 @@ $objeto_tabla_comp['PRODUCTOS_GRUPOS']=array_merge(
         ),],
     [
         'grupo'			=> 'productos',
-        'edicion_rapida'	=> '0'
+        'edicion_rapida'	=> '0',
     ]
 );
 
@@ -264,12 +264,24 @@ $objeto_tabla_comp['PRODUCTOS_SUBGRUPOS']=array_merge(
                     'default'		=> '0',
                     'style'			=> 'width:40px;',
                     'disabled'		=> 1
-            )
+            ),
+            'weight'		=>array(
+                'campo'			=> 'weight',
+                'label'			=> 'Peso',
+                'tipo'			=> 'inp',
+                'listable'		=> '0',
+                'width'			=> '100px',
+                'validacion'	=> '0',
+                'variable'		=> 'float',
+                'derecha'		=> '1',
+                'style'			=> 'width:100px;',
+        ),            
         ),
     ],
     [
         'grupo'			=> 'productos',
-        'group'			=> 'id_grupo'
+        // 'group'			=> 'id_grupo',
+        'order_by'		=> 'nombre asc',
     ]
 );
 
@@ -388,6 +400,7 @@ $objeto_tabla_comp['PRODUCTOS_GROUPS']=array_merge(
         'menu_label'	=> 'Sub Categorías',
         'me'			=> 'PRODUCTOS_GROUPS',
         'orden'			=> '0',
+        'order_by'		=> 'name asc',
     ],
     [
         'campos'		=>array(
@@ -699,7 +712,7 @@ $objeto_tabla_comp['PRODUCTOS_ITEMS']=array_merge(
                     'tipo'			=> 'sto',
                     'width'			=> '150px',
                     'style'			=> 'width:200px;',
-                    'listable'		=> '0',
+                    'listable'		=> '1',
                     'validacion'	=> '0',
                     'prefijo'		=> 'atc',
                     'carpeta'		=> 'atc_imas',
@@ -752,7 +765,8 @@ $objeto_tabla_comp['PRODUCTOS_ITEMS']=array_merge(
         'edicion_rapida'	=> '0',
         'calificacion'	=> '0',
         'edicion_completa'=> '1',
-        'duplicar'		=> '0'
+        'duplicar'		=> '0',
+        'order_by'		=> 'nombre asc',
     ]
 );
 
@@ -806,14 +820,13 @@ $objeto_tabla_comp['PRODUCTOS_FOTOS']=array(
             ),
 
             'id_item'		=>array(
-                    'campo'			=> 'id_item',
-                    'tipo'			=> 'hid',
-                    'listable'		=> '0',
-                    'validacion'	=> '0',
-                    'foreig'		=> '1',
-                    'default'		=> '[id]'
+                'campo'			=> 'id_item',
+                'tipo'			=> 'hid',
+                'listable'		=> '0',
+                'validacion'	        => '0',
+                'foreig'		=> '1',
+                'default'		=> '[id]'
             ),
-
             'file'			=>array(
                     'campo'			=> 'file',
                     'label'			=> 'Foto',
@@ -835,7 +848,19 @@ $objeto_tabla_comp['PRODUCTOS_FOTOS']=array(
                     'listable'		=> '1',
                     'validacion'	=> '0',
                     'width'			=> '207px'
-            )
+            ),
+            'weight'		=>array(
+                'campo'			=> 'weight',
+                'label'			=> 'Peso',
+                'tipo'			=> 'inp',
+                'listable'		=> '1',
+                'width'			=> '100px',
+                'validacion'	=> '0',
+                'variable'		=> 'float',
+                'derecha'		=> '1',
+                'style'			=> 'width:100px;',
+                'disabled'		=> 0
+            ),	            
     ),
     'grupo'			=> 'productos',
     'por_linea'		=> '5'
@@ -1109,7 +1134,19 @@ $objeto_tabla_comp['PRODUCTOS_FOTOS_IMPOR']=array(
                     'listable'		=> '1',
                     'validacion'	=> '0',
                     'width'			=> '207px'
-            )
+            ),
+            'weight'		=>array(
+                'campo'			=> 'weight',
+                'label'			=> 'Peso',
+                'tipo'			=> 'inp',
+                'listable'		=> '1',
+                'width'			=> '100px',
+                'validacion'	=> '0',
+                'variable'		=> 'float',
+                'derecha'		=> '1',
+                'style'			=> 'width:100px;',
+                'disabled'		=> 0
+            ),	            
     ),
     'grupo'			=> 'productos',
     'por_linea'		=> '5'
@@ -1118,9 +1155,9 @@ $objeto_tabla_comp['PRODUCTOS_FOTOS_IMPOR']=array(
 
 $objeto_tabla_comp['PRODUCTOS_ITEMS_DESCU']=array(
     'titulo'		=> 'Ofertas',
-    'nombre_singular'=> 'producto',
-    'nombre_plural'	=> 'productos',
-    'tabla'			=> 'productos_items_descu',
+    'nombre_singular'=> 'oferta',
+    'nombre_plural'	=> 'ofertas',
+    'tabla'	        => 'productos_items_descu',
     'archivo'		=> 'productos_items_descu',
     'archivo_hijo'	=> 'productos_fotos_descu',
     'prefijo'		=> 'proditeim',
@@ -1176,9 +1213,18 @@ $objeto_tabla_comp['PRODUCTOS_ITEMS_DESCU']=array(
                     'like'			=> '1',
                     'style'			=> 'width:250px;',
                     'derecha'		=> '1',
-                    'controles'		=> '<a href="custom/productos_fotos_descu.php?id=[id]">{select count(*) from productos_fotos_descu where id_item=[id]} fotos</a>'
+                    'controles'		=> '<a rel="subs" href="custom/productos_fotos_descu.php?id=[id]">{select count(*) from productos_fotos_descu where id_item=[id]} fotos</a>'
             ),
-
+            'url'		=>array(
+                'campo'			=> 'url',
+                'label'			=> 'Url',
+                'tipo'			=> 'inp',
+                'width'			=> '200px',
+                'style'			=> 'width:200px;',
+                'listable'		=> '1',
+                'size'			=> '160',
+                'disabled'		=> '0'
+            ),
             'marca'			=>array(
                     'campo'			=> 'marca',
                     'label'			=> 'Marca',
@@ -1407,7 +1453,19 @@ $objeto_tabla_comp['PRODUCTOS_FOTOS_DESCU']=array(
                     'listable'		=> '1',
                     'validacion'	=> '0',
                     'width'			=> '207px'
-            )
+            ),
+            'weight'		=>array(
+                'campo'			=> 'weight',
+                'label'			=> 'Peso',
+                'tipo'			=> 'inp',
+                'listable'		=> '1',
+                'width'			=> '100px',
+                'validacion'	=> '0',
+                'variable'		=> 'float',
+                'derecha'		=> '1',
+                'style'			=> 'width:100px;',
+                'disabled'		=> 0
+            ),            
     ),
     'grupo'			=> 'productos',
     'por_linea'		=> '5'

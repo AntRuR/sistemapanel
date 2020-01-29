@@ -16,19 +16,18 @@ if($_GET['rt']!=''){
 	echo '<meta http-equiv="refresh" content="0;url='. ( $SERVER['BASE'].$SERVER['ARCHIVO'].'?'.http_build_query($get) ) .'" />';
 }
 
-if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
-	$sn=explode($DIR_CUSTOM,$_SERVER['SCRIPT_NAME']);
-	$sn2="http://".$_SERVER['SERVER_NAME'].$sn[0];
-	$sn3='<base href="'.$sn2.'" />';
-} else {
-	$sn=explode("/panel",$_SERVER['SCRIPT_NAME']);
-	$sn2="http://".$_SERVER['SERVER_NAME'].$sn[0]."/panel/";
-	$sn3='<base href="'.$sn2.'" />';
-}
+// prin($_SERVER);
+
+$con_port=($_SERVER['SERVER_PORT'])?':'.$_SERVER['SERVER_PORT']:'';
+
+$sn2='';
+$sn3='<base href="'.$SERVER['BASE'].'" />';
 
 echo $sn3;
 
-$rrr='218';
+$rrr='315';
+
+$Touch = json_decode(file('../touch.json')[0],true)['v'];
 
 // prin($MEEE);
 
@@ -37,36 +36,37 @@ $needs=necesita_libs($MEEE);
 
 //FAVICON
 if($Local){ ?>
-<link rel="shortcut icon" href="<?php echo $sn2?>img/local.ico?r=<?php echo $rrr;?>" />
+<link rel="shortcut icon" href="<?php echo $sn2?>img/local20.png?r=<?php echo $Touch;?>" />
 <?php } else{ ?>
-<link rel="shortcut icon" href="<?php echo $sn2?>img/remote.ico?r=<?php echo $rrr;?>" />
+<link rel="shortcut icon" href="<?php echo $sn2?>img/remote1.ico?r=<?php echo $Touch;?>" />
 <?php }
 
 
 //MAIN LIBs
-/*?><link href="<?php echo $sn2?>css/css.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css"/><?php
+/*?><link href="<?php echo $sn2?>css/css.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css"/><?php
  ?><script type="text/javascript" src="<?php echo $sn2?>js/mootools-core-1.3.2-full-compat.js"></script><?php
 ?><script type="text/javascript" src="<?php echo $sn2?>js/mootools-more-1.3.2.1.js"></script><?php
-?><script type="text/javascript" src="<?php echo $sn2?>js/js.js?r=<?php echo $rrr;?>"></script><?php
+?><script type="text/javascript" src="<?php echo $sn2?>js/js.js?r=<?php echo $Touch;?>"></script><?php
 */
 ?>
 
-<link href="<?php echo $sn2?>css/bootstrap.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
-<!-- <link href="<?php echo $sn2?>css/bootstrap-responsive.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+<link href="<?php echo $sn2?>css/bootstrap.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" />
+<!-- <link href="<?php echo $sn2?>css/bootstrap-responsive.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" /> -->
 
-<!-- <link href="<?php echo $sn2?>css/material.min.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
-<!-- <link href="<?php echo $sn2?>css/flat-ui.min.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="<?php echo $sn2?>css/material.min.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="<?php echo $sn2?>css/flat-ui.min.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" /> -->
 
-<!-- <link href="<?php echo $sn2?>css/docs.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="<?php echo $sn2?>css/docs.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" /> -->
 
-<link href="<?php echo $sn2?>css/css.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $sn2?>css/css.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" />
 
 <?php
 ?>
 
-<link href="<?php echo $sn2?>config/main.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" />
+<!-- <link href="<?php echo $sn2?>config/main.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" /> -->
 
-<link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $rrr;?>" rel="stylesheet" type="text/css" media="print" />
+<link href="<?php echo $sn2?>css/css_print.css?r=<?php echo $Touch;?>" rel="stylesheet" type="text/css" media="print" />
 
 <?php
 
@@ -126,7 +126,7 @@ else
 	<?php
 	?>
 	<script type="text/javascript"
-		src="<?php echo $sn2?>js/js.js?r=<?php echo $rrr;?>"></script>
+		src="<?php echo $sn2?>js/js.js?r=<?php echo $Touch;?>"></script>
 	<?php
 
 
@@ -171,7 +171,7 @@ else
 	//if(1){
 	if($needs['html'] or $SERVER['ARCHIVO_REAL']=='pop.php'){
 
-	?><script type="text/javascript" src="<?php echo $sn2?>js/ckeditor/ckeditor.js?r=<?php echo $rrr;?>"></script><?php	
+	?><script type="text/javascript" src="<?php echo $sn2?>js/ckeditor/ckeditor.js?r=<?php echo $Touch;?>"></script><?php	
 
 	/*
 	?><link rel="stylesheet" type="text/css" href="<?php echo $sn2?>css/MooEditable.css"><?php
@@ -215,7 +215,6 @@ else
 
 <script type="text/javascript" src="<?php echo $sn2?>js/flext.js"></script>
 
-<script type="text/javascript" src="<?php echo $sn2?>js/jquery/require.js" data-main="js/jquery/main.js?r=1"></script>	
 	<?php
 
 }//END MOOTOOLS
@@ -224,6 +223,9 @@ else
 $LINK_COLOR_OPP=oppColour($LINK_COLOR);
 $BG_IMAGE=str_replace("img/bgs/","http://crazyosito.com/bgs/",$BG_IMAGE);
 ?>
+
+<script type="text/javascript" src="<?php echo $sn2?>js/bundle.js?r=<?php echo $Touch;?>"></script>	
+
 <style>
 /*body {
 	background: fixed;

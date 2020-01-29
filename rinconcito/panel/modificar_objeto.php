@@ -16,7 +16,8 @@ if($_POST['valor']=='borrararchivo'){
 	@unlink($DIR_CUSTOM.$_POST['me']."_vista.php");
 	exit();
 } elseif($_POST['valor']=='borrartabla'){
-	mysql_query("DROP TABLE `".$_POST['me']."`",$link);
+	mysqli_query($link,"DROP TABLE `".$_POST['me']."`;");
+	// echo "eliminando ".$_POST['me'];
 	exit();
 }
 

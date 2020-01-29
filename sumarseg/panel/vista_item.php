@@ -32,6 +32,7 @@ foreach($tblistado as $tbli){
         //prin($linea);
         if($urd==1){
             if($tbli['controles']!=''){
+                // echo "<textarea style='width=100%;height:50px;'>"; echo $tbli['controles']; echo "</textarea>";
                 list($tbli['controles'],$controles)=getControles($tbli['controles'],$objeto_tabla);
                 // prin($controles);
                 $controlEs[$tbli['campo']]=$tbli['controles'];

@@ -20,16 +20,9 @@ if($_GET['rt']!=''){
 
 $con_port=($_SERVER['SERVER_PORT'])?':'.$_SERVER['SERVER_PORT']:'';
 
-if(!(strpos($_SERVER['SCRIPT_NAME'], $DIR_CUSTOM)===false)){
-	$sn=explode($DIR_CUSTOM,$_SERVER['SCRIPT_NAME']);
-	$sn2="http://".$_SERVER['SERVER_NAME'].$sn[0];
-	$sn3='<base href="'.$sn2.'" />';
-} else {
-	$sn=explode("/panel",$_SERVER['SCRIPT_NAME']);
-	$sn2="http://".$_SERVER['SERVER_NAME'].$con_port.$sn[0]."/panel/";
-	$sn3='<base href="'.$sn2.'" />';
-}
 
+$sn2='';
+$sn3='<base href="'.$SERVER['BASE'].'" />';
 
 echo $sn3;
 

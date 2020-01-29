@@ -1,6 +1,14 @@
 <?php
+
+if(!function_exists('microtime_float')){
+	function microtime_float()
+	{
+	    list($usec, $sec) = explode(" ", microtime());
+	    return ((float)$usec + (float)$sec);
+	}
+}
 //showoncrearsubs
-function getStringFilters($out,$ot,$this){
+function getStringFilters($out,$ot,$esto){
 	// foreach($out as $out0=>$out1){
 	// 	foreach($ot as $ot1){
 	// 		if($ot1['tabla']==$out0){
@@ -151,9 +159,9 @@ function procesar_objeto_tabla($array){
 
 function verificar_tabla($tabla){
 
-	global $tablas_creadas;
-	if(is_array($tablas_creadas)){
-		if(!in_array($tabla,$tablas_creadas)){
+	global $TABLAS_CREADAS;
+	if(is_array($TABLAS_CREADAS)){
+		if(!in_array($tabla,$TABLAS_CREADAS)){
 			echo "<div style='background-color:#37F73B; margin:-20px 0 0 8px;padding:2px 10px;float:left;'>No existe la tabla <b style='text-decoration:underline;'>".$tabla."</b> <a href='maquina.php' >ir a maquina</a></div>";
 		}
 	}
@@ -166,239 +174,121 @@ function breadcrumb($dato,$id=NULL,$objeto){
 	global $SERVER;
 	global $ibi;
 	global $ibi2;
-
-	$ttren =array();
+	global $ttren;
+	global $deep;
+	
+	$ttren=array();
 
 	if(!isset($_GET['id']) and !isset($_GET['i'])){
 
-		$ttren[]="<span class='type_file'>".ucfirst($objeto[$dato['me']]['nombre_plural']).'</span>';
+		$ttren[]="<strong class='type_file'>".ucfirst($objeto[$dato['me']]['nombre_plural']).'</strong>';
 
 	} else {
 
-		if(isset($_GET['i'])){
+		if(isset($_GET['id'])){
 
+			try_bread($objeto,$dato['me'],$_GET['id']);	
+
+		}
+		
+		if(isset($_GET['i'])){
 			foreach($objeto[$dato['me']]['campos'] as $campo){
 				if($campo['foreigkey']!=''){
-					// prin($campo);
-					list($aa,$bb,$cc)=explode("|",$campo['opciones']);
-					list($dd,$ee)=explode(",",$aa);
+					// list($aa,$bb,$cc)=explode("|",$campo['opciones']);
+					// list($dd,$ee)=explode(",",$aa);
 					$id=dato($campo['campo'],$dato['tabla'],"where id=".$_GET['i'],0);
+					continue;
 				}
 			}
 
 
-		}
+			try_bread($objeto,$dato['me'],$id);	
 
-		$ibi=0;
-		$ibi2=0;
+			$name=dato("nombre",$dato['tabla'],'where id='.$_GET['i'],0);
+			if($name){
+				
+				$ttren[]="<strong class='type_file'>".$name."</strong>";
+			}
 
-		breadcrumb_0($dato['titulo'],$id,$objeto,$ttren);
-
-		if(isset($_GET['i'])){
-
-			$name=dato("name",$dato['tabla'],'where id='.$_GET['i']);
-			$ttren[]="<span class='type_file'>".$name."</span>";
-
-		}
-
+		}		
+		
 	}
 
-	return implode("<span class='pipe'> / </span>",$ttren);
+	return implode("<strong class='pipe'> / </strong>",$ttren);
 
 }
 
-function breadcrumb_0($dato,$id=NULL,$objeto,&$ttren){
 
-	global $_GET;
-	global $link;
-	global $ibi;
-	global $ibi2;
+function try_bread($objeto,$mememe,$ididid=null){
+	
+	global $ttren;
 	global $SERVER;
 
-	// prin($objeto);
+	if($ididid==null){
 
-	$dato=str_replace("class=\"linkstitu\"","",$dato);
+		$ttren[]= "<a 
+		title='".$objeto[$mememe]['nombre_plural']."'
+		href='custom/".$objeto[$mememe]['archivo'].".php' 
+		class='type_file'
+		>".ucfirst($objeto[$mememe]['nombre_plural'])."</a href=''>";
 
-	// if(isset($_GET['i'])){
+	}
 
-	// 	// breadcrumb($dato,$_GET['i'],$objeto,$ttren);
-	// 	// prin($ttren);
-	// 	// exit();
-	// 	$_GET['id']=$_GET['i'];
-	// 	unset($_GET['i']);
+	foreach($objeto[$mememe]['campos'] as $campo_id=>$campo){
 
-	// }
+		if($campo['foreigkey']!=''){
 
-	if(!$id){ $id=$_GET['id']; }
+			list($aa,$foreigtabla,$cc)=explode("|",$campo['opciones']);
+			list($id4,$name4)=explode(",",$aa);
 
-	// prin($_GET);
-	// prin($id);
-	// prin($dato);
+			$nombre=dato($name4,$foreigtabla,"where ".$id4."=".$ididid,0);
 
-	//$dato = ($id)?str_replace('[id]',$id,$dato):"registros";
-
-	$dato = str_replace('[id]',$id,$dato);
-
-	$dato2= $dato;
-
-	if(
-		enhay($dato,"}") and enhay($dato,"{") 
-		){
-
-		$uno=array();
-		$uno = explode("{",$dato);
-		foreach($uno as $ii=>$un){
-		if( !(strpos($un,"}")==false) ){
-		$dos = explode("}",$un);
-
-		$consulta = $dos[0];
-		// prin($consulta);
-
-		$tabla=between($consulta,'from','where');
-
-		// if( $ibi==0 ){
-
-		// 	prin($SERVER['URL']);
-		// 	$url2='custom/'.$SERVER['URL'];
-
-		// } else {
-
-			$url2="custom/".trim($tabla[1]).".php?id=$id";
-
-		// }
-
-			// echo "<div style='color:red;'>$url2, $ibi <div>"; nose
-
-		$ibi++;
-		
-		foreach($objeto as $obj){
-			if($obj['tabla']==trim($tabla['1'])){
-				foreach($obj['campos'] as $campo){
-					if($campo['foreigkey']!=''){
-						// prin($campo);
-						list($aa,$bb,$cc)=explode("|",$campo['opciones']);
-						list($dd,$ee)=explode(",",$aa);
-						$idgrupo=dato($campo['campo'],$bb,"where id=".$id,0);
-						// prin("|".$idgrupo);
-						// prin($campo['name']['controlles']);
-
-						// echo "{select $ee from $bb where id=[id]}";
-						if($idgrupo!=0)
-							breadcrumb_0("{select $ee from $bb where id=[id]}",$idgrupo,$objeto,$ttren);
-						// prin($campo);
+			$id_dad=false;
+			foreach($objeto as $fore=>$obje){
+				if($obje['tabla']==$foreigtabla){
+					$foreigme=$fore;
+					$foreigfile=$obje['archivo'];
+					foreach($objeto[$fore]['campos'] as $campu_id=>$campu){
+						if($campu['foreig']!=''){
+							$id_padre=$campu_id;
+							continue;
+						}
 					}
+					continue;
 				}
 			}
-		}
+			
+			$id_dad=dato($id_padre,$foreigtabla,"where ".$id4."=".$ididid,0);
 
+			if($id_dad!=null){
 
-		$url2="custom/".trim($tabla[1]).".php?id=$id";
+				try_bread($objeto,$foreigme,$id_dad);			
 
-		// }
+			}
 
-		// echo "<div style='color:green;'>$url2, $ibi2 <div>"; nose
+			if($SERVER['ARCHIVO']==$objeto[$mememe]['archivo'].".php?id=".$ididid){
+				
+				$ttren[]= "<strong 
+				title='".$objeto[$mememe]['nombre_plural']." de ".ucfirst($nombre)."'
+				class='type_file'>".ucfirst($nombre).'</strong>';
 
-		$ibi2++;
+			} else {
 
+				$ttren[]= "<a 
+				title='".$objeto[$mememe]['nombre_plural']." de ".ucfirst($nombre)."'
+				href='custom/".$objeto[$mememe]['archivo'].".php?id=".$ididid."' 
+				class='type_file'>".ucfirst($nombre).'</a>';
 
-		$result=mysql_query($consulta,$link);
-		// echo "$consulta<br>";
-		$row = mysql_fetch_row($result);
-		$dato3 = $row[0];
-		$llaves="{".$dos[0]."}";
-		$dato2 = str_replace($llaves,$dato3,$dato2);
-		}
-		}
-		if($id!=''){
+			}
 
-			$dato = $dato2 ;
-			$url = $url2 ;
-
-		} else {
-
-			list($aa,$bb)=explode("{",$dato);
-			list($cc,$dd)=explode("}",$bb);
-			$dato=$aa.$dd;
+			continue;
 
 		}
 
 	}
-	// $dato=preg_replace("/>([a-z0-9\-\.\s]{2,20})<\/a>/i",' title="$1">$1</a>',$dato);
-
-	// $dato=preg_replace("/foto(s)?</i"			,'<span class="z ico_pics"></span><',$dato);
-	// $dato=preg_replace("/vista previa</i"		,'<span class="z ico_eye"></span><',$dato);
-	// $dato=preg_replace("/imprimir</i"			,'<span class="zz ico_Print"></span><',$dato);
-	// $dato=preg_replace("/mensaje(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
-	// $dato=preg_replace("/alerta(s)?</i"			,'<span class="zz ico_alert"></span><',$dato);
-	// $dato=preg_replace("/consulta(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
-	// $dato=preg_replace("/comentario(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
-	// $dato=preg_replace("/>nuevo/i"				,'><span class="zz ico_plus"></span>',$dato);
-
-	// prin($dato);
-
-	$ttren[]="<a href='".$url."' class='type_directory'>".$dato."</a>";
-
 }
 
 
-function procesar_dato($dato,$id=NULL){
-
-	global $_GET;
-	global $link;
-
-	$dato=str_replace("class=\"linkstitu\"","",$dato);
-
-	if(!$id){ $id=$_GET['id']; }
-
-	//$dato = ($id)?str_replace('[id]',$id,$dato):"registros";
-
-	$dato = str_replace('[id]',$id,$dato);
-
-	$dato2= $dato;
-	if(
-		enhay($dato,"}") and enhay($dato,"{") 
-		){
-		$uno=array();
-		$uno = explode("{",$dato);
-		foreach($uno as $ii=>$un){
-		if( !(strpos($un,"}")==false) ){
-		$dos = explode("}",$un);
-		$consulta = $dos[0];
-		// echo $consulta."<br>";
-		$result=mysql_query($consulta,$link);
-		$row = mysql_fetch_row($result);
-		$dato3 = $row[0];
-		$llaves="{".$dos[0]."}";
-		$dato2 = str_replace($llaves,$dato3,$dato2);
-		}
-		}
-		if($id!=''){
-
-			$dato = $dato2 ;
-
-		} else {
-
-			list($aa,$bb)=explode("{",$dato);
-			list($cc,$dd)=explode("}",$bb);
-			$dato=$aa.$dd;
-
-		}
-
-	}
-	$dato=preg_replace("/>([a-z0-9\-\.\s]{2,20})<\/a>/i",' title="$1">$1</a>',$dato);
-
-	$dato=preg_replace("/foto(s)?</i"			,'<span class="z ico_pics"></span><',$dato);
-	$dato=preg_replace("/vista previa</i"		,'<span class="z ico_eye"></span><',$dato);
-	$dato=preg_replace("/imprimir</i"			,'<span class="zz ico_Print"></span><',$dato);
-	$dato=preg_replace("/mensaje(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
-	$dato=preg_replace("/alerta(s)?</i"			,'<span class="zz ico_alert"></span><',$dato);
-	$dato=preg_replace("/consulta(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
-	$dato=preg_replace("/comentario(s)?</i"		,'<span class="zz ico_gm"></span><',$dato);
-	$dato=preg_replace("/>nuevo/i"				,'><span class="zz ico_plus"></span>',$dato);
-
-	return $dato;
-
-}
 
 function script_create_table($obta){
 
@@ -423,7 +313,8 @@ foreach($obta['campos'] as $camp){
 		$Acampos2[]="PRIMARY KEY  (`".$camp['campo']."`)";
 	}
 	if(in_array($camp['tipo'],array('fcr','fed','fch'))){
-		$Acampos[]="`".$camp['campo']."` datetime default '0000-00-00 00:00:00'";
+		// $Acampos[]="`".$camp['campo']."` datetime default '0000-00-00 00:00:00'";
+		$Acampos[]="`".$camp['campo']."` datetime";
 	}
 	if(in_array($camp['tipo'],array('pos'))){
 		$Acampos[]="`".$camp['campo']."` int(10) default NULL";
@@ -1270,250 +1161,6 @@ function fixEncoding($in_str)
 } // fixEncoding
 
 
-	function get_uniques_from_tabla($tabla){
-
-	global $link;
-	$result = mysql_query("SHOW KEYS FROM ".$tabla);
-	while ($row=mysql_fetch_row($result)){
-		if( $row[1]=='0' and $row[2]!='PRIMARY' and $row[2]!='FULLTEXT'){
-			$uniques[]=$row[4];
-		}
-	}
-	//prin($uniques);
-	return $uniques;
-
-	}
-
-	function get_fulltext_from_tabla($tabla){
-
-	global $link;
-	$result = mysql_query("SHOW KEYS FROM ".$tabla);
-	while ($row=mysql_fetch_row($result)){
-		//prin($row);
-		if( $row[10]=='FULLTEXT'){
-			$fulltext[]=$row[2];
-		}
-	}
-	//prin($fulltext);
-	return $fulltext;
-
-	}
-
-	function get_tipo_de_campo($campo,$tabla){
-
-	global $link;
-	$result = mysql_query("SHOW COLUMNS FROM ".$tabla);
-	while ($row=mysql_fetch_row($result)){
-		if($row['0']==$campo){
-			$t0=explode("(",$row['1']);
-			//$t1=explode(")",$t0['1']);
-			$size=$t0['0'];
-		}
-	}
-	return $size;
-	}
-
-	function get_size_de_campo($campo,$tabla){
-
-	global $link;
-	$result = mysql_query("SHOW COLUMNS FROM ".$tabla);
-	while ($row=mysql_fetch_row($result)){
-		if($row['0']==$campo){
-			$t0=explode("(",$row['1']);
-			$t1=explode(")",$t0['1']);
-			$size=$t1['0'];
-		}
-	}
-	return $size;
-	}
-
-	function get_columns_from_tabla($tabla){
-
-	global $link;
-	$result = mysql_query("SHOW COLUMNS FROM ".$tabla);
-	$count = 0;
-	while ($row=mysql_fetch_row($result)){
-		$cnt = 0;
-		foreach ($row as $item){
-			if ($cnt == 0){
-				$cnames[$count] = $item;
-				$cnt++;
-				$count++;
-			}
-		}
-	}
-	return $cnames;
-
-	}
-
-function get_tablas_from_bd(){
-	global $link;
-	$sql = "show tables";
-	$result=mysql_query($sql,$link);
-	$total=mysql_num_rows($result);
-	if($total>0){
-		while ($row = mysql_fetch_row($result)){
-				$tablas_creadas[] = $row[0];
-		}
-	}
-	return $tablas_creadas;
-}
-
-function get_columns_from_objeto($obta){
-
-$nombre_tabla=$obta['tabla'];
-
-$columnas_existentes=get_columns_from_tabla($obta['tabla']);
-
-$fulltext_existentes=get_fulltext_from_tabla($obta['tabla']);
-
-$indices_existentes=get_uniques_from_tabla($obta['tabla']);
-
-
-$tablas_existentes=get_tablas_from_bd();
-
-
-
-$Acampos=array();
-
-$Acampos2=array();
-
-//echo "<pre>"; print_r($obta); echo "</pre>";
-
-foreach($obta['campos'] as $camp){
-
-	if($camp['multiopciones']!=''){
-		list($name,$tablerel,$campos,$table9,$where)=explode("|",$camp['multiopciones']);
-		if(!in_array($tablerel,$tablas_existentes)){
-
-$Acampos[]="CREATE TABLE IF NOT EXISTS `".$tablerel."` (`id_".$obta['tabla']."` int(10) NOT NULL DEFAULT '0',`id_".$table9."` int(10) NOT NULL DEFAULT '0',`orden` int(10) NOT NULL DEFAULT '0',PRIMARY KEY (`id_".$obta['tabla']."`,`id_".$table9."`),KEY `id_".$obta['tabla']."` (`id_".$obta['tabla']."`),KEY `id_".$table9."` (`id_".$table9."`) ) ENGINE=MyISAM DEFAULT CHARSET=utf8";
-
-		}
-	}
-
-	$camposA[]=$camp['campo'];
-
-	if(!in_array($camp['campo'],$columnas_existentes)){
-
-		if(in_array($camp['tipo'],array('id'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) NOT NULL;";
-			//$Acampos2[]="PRIMARY KEY  (`".$camp['campo']."`)";
-		}
-		if(in_array($camp['tipo'],array('fcr','fed','fch'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  datetime default '0000-00-00 00:00:00';";
-		}
-		if(in_array($camp['tipo'],array('pos'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default NULL;";
-		}
-		if(in_array($camp['tipo'],array('txt','html'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  longtext default NULL;";
-		}
-		if(in_array($camp['tipo'],array('inp','com','img','sto','pas','yot'))){
-			$size=($camp['size'])?$camp['size']:80;
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  varchar($size) default NULL;";
-		}
-		if(in_array($camp['tipo'],array('hid'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default NULL;";
-		}
-		if(in_array($camp['tipo'],array('vis'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  char(1) default 1 NOT NULL;";
-		}
-		if(in_array($camp['tipo'],array('cal'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(2) default 0 NOT NULL;";
-		}
-		if(in_array($camp['tipo'],array('web'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default 1 NOT NULL;";
-		}
-		if(in_array($camp['tipo'],array('page'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default 1 NOT NULL;";
-		}
-		if(in_array($camp['tipo'],array('user'))){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD `".$camp['campo']."`  int(10) default 1 NULL;";
-		}
-		//prin($Acampos);
-
-	} else {
-
-
-		if($camp['size']=='' and $camp['variable']==''){
-
-			if(in_array($camp['tipo'],array('inp')) and get_size_de_campo($camp['campo'],$obta['tabla'])!=80 ){
-				$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` VARCHAR(80); ";
-			}
-			if(in_array($camp['tipo'],array('txt')) and get_tipo_de_campo($camp['campo'],$obta['tabla'])!='longtext'){
-				$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` longtext; ";
-			}
-
-		} else {
-
-			if(( $camp['size']!='' or $camp['variable']!='' ) and in_array($camp['tipo'],array('inp','txt','hid'))){
-
-				$variable	=($camp['variable']!='')?$camp['variable']	:"varchar";
-				$size		=($camp['size']!='')	?$camp['size']		:(($camp['tipo']=='inp')?"80":"800");
-
-				if(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size'] or  get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable']){
-
-					if(in_array($variable,array('float','blob'))){
-						if(get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable']){
-							$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ".$variable."; ";
-						}
-					} else {
-					if(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size'] and get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable']){
-					$camp['size']=($camp['size']!='')?"(".$camp['size'].")":$camp['size'];
-					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$camp['size']."; ";
-					} elseif(get_size_de_campo($camp['campo'],$obta['tabla'])!=$camp['size']){
-					$camp['size']=($camp['size']!='')?"(".$camp['size'].")":$camp['size'];
-					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$camp['size']."; ";
-					} elseif(get_tipo_de_campo($camp['campo'],$obta['tabla'])!=$camp['variable'] and $camp['variable']!=''){
-					$size=($size!='')?"(".$size.")":$size;						
-					$Acampos[]="ALTER TABLE `$nombre_tabla` MODIFY `".$camp['campo']."` ". ( ($camp['variable'])?$camp['variable']:$variable ).$size."; ";
-					}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
-
-	if(!in_array($camp['campo'],$fulltext_existentes)){
-		if($camp['fulltext']=='1'){
-			$Acampos[]="ALTER TABLE `$nombre_tabla` ADD FULLTEXT (`".$camp['campo']."`);";
-			//prin("ALTER TABLE `$nombre_tabla` ADD FULLTEXT (`".$camp['campo']."`);");
-		}
-	}
-
-
-
-}
-
-//echo "<pre>"; print_r($columnas_existentes); echo "</pre>";
-
-//echo "<pre>"; print_r($camposA); echo "</pre>";
-
-foreach($columnas_existentes as $columna){
-
-	if(!in_array($columna,$camposA)){
-		$Acampos[]="ALTER TABLE `$nombre_tabla` DROP `$columna`;";
-	}
-}
-
-
-/*
-if(sizeof($AcamposFull)>0){
-	$Acampos2[]="FULLTEXT KEY ".$AcamposFull[0]." (". implode(",",$AcamposFull). ")";
-}
-*/
-
-$Acampos3=array_merge($Acampos,$Acampos2);
-
-return $Acampos3;
-
-}
-
 function cambiar_permisos($carpeta){
 
 	global $conn_id;
@@ -1867,11 +1514,13 @@ function print_gzipped_page() {
     if( $encoding ){
         $contents = ob_get_contents();
         ob_end_clean();
+        $size = strlen($contents);
         header('Content-Encoding: '.$encoding);
         print("\x1f\x8b\x08\x00\x00\x00\x00\x00");
-		$bh="<input type='hidden' id='pagetime' value='".( number_format((microtime(true) - $TIME_START )/60,6) )."'><input type='hidden' id='pagesize' value='". number_format((strlen($contents)/9)/1024,3)."'></body>";
+		$bh="<input type='hidden' id='pagetime' value='".( (microtime_float() - $TIME_START ) )."'>
+		<input type='hidden' id='pagesize' value='". number_format(($size/9)/1024,3)."'>
+		</body>";
 		$contents=str_replace("</body>",$bh,$contents);
-        $size = strlen($contents);
         $contents = gzcompress($contents, 9);
         //$contents = substr($contents, 0, $size);
         print($contents);
@@ -2573,7 +2222,7 @@ function store($archivo,$grupo,$datos){
 
 
 function fileExists($path){
-     return (@fopen($path,"r")==true);
+	 return (@fopen($path,"r")==true);
  }
 
 function str_control($dts){
@@ -2589,8 +2238,8 @@ return intval($ret);
 }
 
 
-function insert_rapido($array,$tabla,$debug=0){
-	$array['visibilidad']='1';
+function insert_rapido($array,$tabla,$debug=0){	
+$array['visibilidad']='1';
 	$array['fecha_creacion']='now()';
 	$ret=insert($array,$tabla,$debug);
 	return $ret['id'];
@@ -2909,6 +2558,8 @@ function getControles($controles,$objeto_tabla){
 		if(enhay($rel,'crear')){ $crear=1; $rel=trim(str_replace('crear','',$rel)); }
 		$popup=0;
 		if(enhay($rel,'popup')){ $popup=1; $rel=trim(str_replace('popup','',$rel)); }
+		$strip=0;
+		if(enhay($rel,'strip')){ $strip=1; $rel=trim(str_replace('strip','',$rel)); }
 
 		if($text!=''){
 			$aaaj['completo']=$unoo.">".$ltext."</a>";
@@ -2927,6 +2578,7 @@ function getControles($controles,$objeto_tabla){
 							$aaaj['obj']=$objttoo;
 							$aaaj['crear']=$crear;
 							$aaaj['popup']=$popup;
+							$aaaj['strip']=$strip;
 							/*
 							$foreis=array();
 							foreach($ttoo['campos'] as $objttoocc=>$ttoocc){
@@ -2975,7 +2627,11 @@ function render_foreig_foto($obj,$id){
 	}
 	//echo "|$obj|$id|";
 }
-function render_foreig_subs($obj0,$id,$urd){
+
+function render_foreig_subs_old($obj0,$id,$linealinea,$urd,$sub_procesos=null){
+
+
+	// return "";wwwwt
 
 	global $objeto_tabla;
 	global $Array_Meses;
@@ -2985,10 +2641,8 @@ function render_foreig_subs($obj0,$id,$urd){
 	global $vars;
 	global $PERMISOS_USUARIO;
 	global $linea;
-
-
-	// prin([$obj0,$id,$urd]);
-
+	// prin($linea);
+	
 	//var_dump($PERMISOS_USUARIO);
 
 	$permisos=explode(",",$PERMISOS_USUARIO);
@@ -2996,7 +2650,7 @@ function render_foreig_subs($obj0,$id,$urd){
 	list($objeto,$params)=explode("?",trim($permiso));
 	parse_str($params,$paras);
 	$persos[$objeto]=$paras;
-	}
+	} unset($permiso);
 
 	// var_dump($persos);
 
@@ -3015,6 +2669,7 @@ function render_foreig_subs($obj0,$id,$urd){
 		foreach($obj2 as $obj){
 
 
+
 			// prin($obj);
 
 			if(isset($persos[$obj['obj']])){
@@ -3031,6 +2686,10 @@ function render_foreig_subs($obj0,$id,$urd){
 
 			$datos_tabla=procesar_objeto_tabla($objeto_tabla[$obj['obj']]);
 
+			$procesos=$objeto_tabla[$obj['obj']]['procesos'];
+			$prefijo=$objeto_tabla[$obj['obj']]['prefijo'];
+
+			// prin($procesos);
 			// var_dump($datos_tabla);
 
 			// prin($datos_tabla);
@@ -3059,8 +2718,8 @@ function render_foreig_subs($obj0,$id,$urd){
 				$reemplazo=str_replace("[".$leva."]",$pesa,$reemplazo);	
 				$reemplazowhere=str_replace("[".$leva."]",$pesa,$reemplazowhere);
 			}
-			// prin($reemplazo);
-			// prin($reemplazowhere);
+			
+			
 			$where="where ".$reemplazowhere." ";
 			$campS=array();
 			// echo '<div style="clear:both;">';
@@ -3071,6 +2730,7 @@ function render_foreig_subs($obj0,$id,$urd){
 					$campSform[]=$lis;
 				}
 			}
+
 
 			foreach($datos_tabla['list'] as $lis){
 				// var_dump($lis);
@@ -3087,10 +2747,11 @@ function render_foreig_subs($obj0,$id,$urd){
 					//($lis['campo']!='id_subgrupo') and
 					1
 					)
-					){
-					$campS[]=$lis['campo'];
-					}
+				){
+				$campS[]=$lis['campo'];
 				}
+			}
+
 			$classLineal=0;
 			if(sizeof($campS)==1){
 				if($objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='img'){ $classLineal=1; }
@@ -3117,10 +2778,38 @@ function render_foreig_subs($obj0,$id,$urd){
 
 			$query_where=$where
 						 ."order by ". ( ($datos_tabla['order_by']=='')? (  $datos_tabla['id']." ". (($datos_tabla['orden']=='1')?"desc":"asc") ):$datos_tabla['order_by'] )." "
-						 ."limit 0,500";
+						//  ."limit 0,500"
+						 ."";
+
+
+			if($obj['strip'])
+			{
+
+				// prin($obj);
+
+				$count=contar($datos_tabla['tabla'],$query_where,0)." ".$obj['text'];
+
+				echo '<div class="itms_cont" >';
+
+				echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
+
+					echo '<a rel="width:1300,height:400" class="mb popup" href="'.$reemplazo.'&amp;justlist=1&amp;conf=set_fila_fijo%3D4%26calificacion%3D0" title="'.$count.'">'.$count.'</a>';
+
+				echo '</div>';
+
+				echo '</div>';
+
+				continue;
+
+			}	
+
 			$lineas=select($campS2,
 							$datos_tabla['tabla'],
 							$query_where,0);
+
+
+			$hay_buton=(sizeof($procesos)>0 and $sub_procesos);
+
 
 			$wwwwt=0;
 			$nosubwidth=0;
@@ -3135,6 +2824,9 @@ function render_foreig_subs($obj0,$id,$urd){
 				$wwwwt=$wwwwt+$wwww+1;
 			}
 			$wwwwt=$wwwwt+2;
+			if($hay_buton)
+				$wwwwt=$wwwwt+50;
+			
 
 			echo '<div class="itms_cont" >';
 
@@ -3154,13 +2846,16 @@ function render_foreig_subs($obj0,$id,$urd){
 			$pluralIma=preg_replace("/imprimir/i",'<span class="z ico_Print"></span>',$pluralIma);
 
 			echo '<div class="tite '. (((sizeof($lineas)>0) and (sizeof($campS)>1) or ($obj['crear']=='1') )?'hid1':'') .'" >';
+
 			echo "<a ";
 			echo ($obj['popup']=='1')?"rel='width:1300,height:400' class='mb popup' href='".$reemplazo."&justlist=1&conf=set_fila_fijo%3D4%26calificacion%3D0' ":" href='".$reemplazo."' ";
 			echo "title='".sizeof($lineas)." ".$objeto_tabla[$obj['obj']]['nombre_plural']."' "
 					."href='".$reemplazo."'>"
 					.sizeof($lineas)." ".$pluralIma
 					."</a>";
+			
 			echo '</div>';
+			
 
 			if( (sizeof($lineas)>0) or ($obj['crear']=='1') ){
 
@@ -3170,9 +2865,11 @@ function render_foreig_subs($obj0,$id,$urd){
 					{
 						echo '<div class="itd" '.(($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':'').' >';
 						if($cp==0){
+							if(!$sub_procesos){
 							echo "<a ";
 							echo ($obj['popup']=='1')?"rel='width:1300,height:400' class='mb popup' href='".$reemplazo."&justlist=1&conf=set_fila_fijo%3D4%26calificacion%3D0' ":" href='".$reemplazo."' ";
 							echo "title='".sizeof($lineas)." ".$objeto_tabla[$obj['obj']]['nombre_plural']."' >".sizeof($lineas)." ".$pluralIma."</a>";
+							}
 						} else {
 							$label = ($objeto_tabla[$obj['obj']]['campos'][$camP]['label'])?strtoupper($objeto_tabla[$obj['obj']]['campos'][$camP]['label']):'&nbsp;';
 							$label = str_replace(array('(',')'),array('<span style="display:none;">','</span>'),$label);
@@ -3180,6 +2877,8 @@ function render_foreig_subs($obj0,$id,$urd){
 						}
 						echo '</div>';
 					}
+					if($hay_buton)
+						echo '<div class="itd" style="width:50px;">&nbsp;</div>';
 				echo '</div>';
 				}//if hay camps?
 
@@ -3189,8 +2888,11 @@ function render_foreig_subs($obj0,$id,$urd){
 				foreach($lineas as $linea){
 					echo '<li class="itm">';
 					foreach($campS as $camP){
+
 						echo '<div class="itd" ';
-						if($classLineal==0){ echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; }
+						if($classLineal==0){ 
+							echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; 
+						}
 						echo ' >';
 
 						switch($objeto_tabla[$obj['obj']]['campos'][$camP]['tipo']){
@@ -3250,8 +2952,7 @@ function render_foreig_subs($obj0,$id,$urd){
 							case "html":
 							$lolon=700;
 							// prin($linea);
-							echo ($linea[$camP]!='')?((strlen($linea[$camP])>$lolon)?str_replace("<br />
-<br />",'<br \>',nl2br(substr(strip_tags($linea[$camP]),0,$lolon))).'<a class="mb" rel="width:1050,height:530" href="field.php?get='.$objeto_tabla[$obj['obj']]['tabla'].','.$camP.','.$linea['id'].'">mostrar texto completo</a>':"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>"):"&nbsp;";
+							echo ($linea[$camP]!='')?((strlen($linea[$camP])>$lolon)?str_replace("<br /><br />",'<br \>',nl2br(substr(strip_tags($linea[$camP]),0,$lolon))).'<a class="mb" rel="width:1050,height:530" href="field.php?get='.$objeto_tabla[$obj['obj']]['tabla'].','.$camP.','.$linea['id'].'">mostrar texto completo</a>':"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>"):"&nbsp;";
 							/*break;
 							echo ($linea[$camP]!='')?$linea[$camP]:"&nbsp;";*/
 							break;
@@ -3261,7 +2962,8 @@ function render_foreig_subs($obj0,$id,$urd){
 							default:
 								switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
 								case "currency":
-								echo '<span class="currency">'.number_format(($linea[$camP]!='')?$linea[$camP]:"", 2, '.', ',').'</span>';
+								$decimals=($objeto_tabla[$obj['obj']]['campos'][$camP]['decimals'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['decimals']:'2';
+								echo '<span class="currency">'.number_format(($linea[$camP]!='')?$linea[$camP]:"", $decimals, '.', ',').'</span>';
 								break;
 								default:
 								echo ($linea[$camP]!='')?$linea[$camP]:"";
@@ -3271,6 +2973,54 @@ function render_foreig_subs($obj0,$id,$urd){
 						} //switch tipo
 						echo '</div>';
 					}//foreach camps
+
+					if($hay_buton){
+						echo '<div class="itd" style="width:50px;">';
+					
+						echo '<a rel="sm_'.$prefijo.'_'.$linea[$datos_tabla['id']].'" id="ab_'.$linea[$datos_tabla['id']].'" onclick="ax(\'b\',\''.$linea[$datos_tabla['id']].'\');return false;" class=" bl1 itr i_b z" ></a>';
+
+						echo '<div id="sm_'.$prefijo.'_'.$linea[$datos_tabla['id']].'" class="div_fila_overflow">';
+						echo '<ul class="li_cabecera">';
+
+						foreach($procesos as $iproceso=>$proceso){
+
+						$href= ( ($proceso['file']!='')?$proceso['file']:'formulario_quick.php' ) 
+						.'?proceso='.$iproceso
+						.'&L='.$linea[$datos_tabla['id']]
+						.'&OT='
+						.( ($proceso['ot'])?$proceso['ot']."&parent=".$objeto_tabla[$this_me]['archivo']:$objeto_tabla[$this_me]['archivo']."&parent=")
+						.( ($proceso['ran']=='null')?"":"&ran=1" )
+						.( ($proceso['accion'])?"&accion=".$proceso['accion']:'')
+						.( (sizeof($proceso['cargar'])>0)?'&load='.urlencode(json_encode($proceso['cargar'])):'')
+
+						.( ($proceso['extra'])?"&".str_replace(
+							["[id]","[id_grupo]"],
+							[$linea[$datos_tabla['id']],$linea['id_grupo']],
+							$proceso['extra']):'');
+
+						echo "<li>";
+						// prin($proceso);
+						echo '<a rel="';
+						echo ($proceso['rel'])?$proceso['rel']:'width:1250,height:900';
+						echo '" href="';
+						
+						echo $href;
+
+						echo '"'
+						.' class="'. ( (isset($proceso['class']))?$proceso['class']:'mb' )
+						.'"'
+						.' >';
+						//echo '<a onclick="ax(\'ec\',\e'9\'); return false;" href="#" >';
+						// echo $href." ";
+						echo $proceso['label'];
+						echo '</a>';
+						echo "</li>";
+						}
+						echo '</ul>';
+						echo '</div>';
+					
+						echo '</div>';
+					}
 					echo '</li>';
 				}//foreach lineas
 
@@ -3291,7 +3041,8 @@ function render_foreig_subs($obj0,$id,$urd){
 
 										switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
 										case "currency":
-										echo '<span class="currency">'.number_format(($SUM!='')?$SUM:"", 2, '.', ',').'</span>';
+										$decimals=($objeto_tabla[$obj['obj']]['campos'][$camP]['decimals'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['decimals']:'2';
+										echo '<span class="currency">'.number_format(($SUM!='')?$SUM:"", $decimals, '.', ' ').'</span>';
 										break;
 										default:
 										echo $SUM;
@@ -3303,6 +3054,9 @@ function render_foreig_subs($obj0,$id,$urd){
 								}
 							echo '</div>';
 						}
+
+						if($hay_buton)
+							echo '<div class="itd" style="width:50px;">&nbsp;</div>';
 						echo '</li>';
 					// echo '</ul>';
 				}//if SUMA
@@ -3478,6 +3232,1183 @@ function render_foreig_subs($obj0,$id,$urd){
 				global $linkPagina;
 				global $vvvalos;
 				// prin($campSform);
+				if($hay_buton)
+					echo '<div class="itd" style="width:50px;">&nbsp;</div>';
+
+				echo '<li class="itd">';
+				echo "</li>";
+		
+				echo "<div class='cr_pl'>";
+
+
+				echo '<label for="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" >'.$campSform[0]['label'].'</label>';
+				echo '<input id="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" type="checkbox" onchange="$(\''.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'\').value=(this.checked)?1:0; " >';
+				echo '<input type="hidden" class="'.$datos_tabla['archivo'].'-_'.$id.'" 
+				id="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'" >';
+				echo "<a href='#' class='itr ico_plus' onclick='send_crear(\"".$id."\",\"".$datos_tabla['archivo']."\",\"".$linkPagina."\",\"".urlencode($vvvalos)."\");return false;'>crear</a></div>";
+
+
+
+				echo "</li>";
+
+			} //if
+
+
+			echo '</ul>';
+
+
+		}
+			echo "</div>";
+			echo "</div>";
+			unset($campS);
+			unset($campS2);
+		}
+	}
+}
+
+function render_foreig_subs($obj0,$id,$linealinea,$urd,$sub_procesos=null){
+
+
+	// return "";
+
+	global $objeto_tabla;
+	global $Array_Meses;
+	global $Array_Horas;
+	global $Array_Horas2;
+	global $LOCAL;
+	global $vars;
+	global $PERMISOS_USUARIO;
+	global $linea;
+	// prin($linea);
+	
+	//var_dump($PERMISOS_USUARIO);
+
+	$permisos=explode(",",$PERMISOS_USUARIO);
+	foreach($permisos as $permiso){
+	list($objeto,$params)=explode("?",trim($permiso));
+	parse_str($params,$paras);
+	$persos[$objeto]=$paras;
+	} unset($permiso);
+
+	// var_dump($persos);
+
+	// if($_SESSION['usuario_id']!='' or 1){
+	// $ALL='';
+	// foreach($objeto_tabla as $obj=>$ot){
+	// $ALL.=$obj.",\n";
+	// }
+
+	// global $this_me;
+	// $permisos=($PERMISOS_USUARIO?$PERMISOS_USUARIO:$ALL).",\n".((($_GET['conf']!='')?$this_me."?".$_GET['conf'].",\n":''));
+
+	// var_dump($persos);
+	$linealinea=$linea;
+	foreach($obj0 as $obj2){
+		foreach($obj2 as $obj){
+
+
+
+			// prin($obj);
+
+			if(isset($persos[$obj['obj']])){
+				// var_dump($persos[$obj['obj']]);
+				foreach($persos[$obj['obj']] as $uno=>$dos){
+					if(enhay($uno,"|")){
+				 		list($tres,$cuatro)=explode("|",$uno);
+						$objeto_tabla[$obj['obj']]['campos'][$tres][$cuatro]=$dos;
+				 	} else {
+				 		$objeto_tabla[$obj['obj']][$uno]=$dos;
+				 	}
+				}
+			}
+
+			$datos_tabla=procesar_objeto_tabla($objeto_tabla[$obj['obj']]);
+
+			$procesos=$objeto_tabla[$obj['obj']]['procesos'];
+			$prefijo=$objeto_tabla[$obj['obj']]['prefijo'];
+
+			// prin($procesos);
+			// var_dump($datos_tabla);
+
+			// prin($datos_tabla);
+
+			// $fchsa=$objeto_tabla[$obj['obj']]['campos']['fecha_creacion'];
+			// $fchsa['listable']='1';
+
+			// prin($fchsa);
+			// prin($datos_tabla);
+
+			// $datos_tabla['list']=array_merge(
+			// 	array($fchsa),
+			// 	$datos_tabla['list']
+			// 	);
+
+			$parte=between($obj['ltext'],"where","}");
+			list($forei,$forein)=explode("=",$parte['1']);
+
+			$reemplazo=$obj['href'];
+			$reemplazowhere=$parte['1'];
+
+			// prin($linea);
+
+			foreach($linealinea as $leva=>$pesa){
+				// prin($pesa);
+				$reemplazo=str_replace("[".$leva."]",$pesa,$reemplazo);	
+				$reemplazowhere=str_replace("[".$leva."]",$pesa,$reemplazowhere);
+			}
+			
+			
+			$where="where ".$reemplazowhere." ";
+			$campS=array();
+			// echo '<div style="clear:both;">';
+			// prin($datos_tabla['list']);
+			// echo '</div>';
+			foreach($datos_tabla['form'] as $lis){
+				if($lis['showoncrearsubs']=='1'){
+					$campSform[]=$lis;
+				}
+			}
+
+
+			foreach($datos_tabla['list'] as $lis){
+				// var_dump($lis);
+				if(
+					(in_array($lis['tipo'],array('inp','txt','html','hid','fch','fcr','img','com')) and
+					($lis['campo']!=trim($forei)) and
+					($lis['listable']=='1') and
+					($lis['inherited']!='1') and
+					( !($lis['indicador']=='1' and $lis['tipo']=='hid') ) and
+					(!enhay($lis['label'],'descripci',1)) and
+					(!enhay($lis['label'],'source',1)) and
+					(!enhay($lis['label'],'url',1)) and
+					//($lis['campo']!='id_grupo') and
+					//($lis['campo']!='id_subgrupo') and
+					1
+					)
+				){
+				$campS[]=$lis['campo'];
+				}
+			}
+
+			$classLineal=0;
+			if(sizeof($campS)==1){
+				if($objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='img'){ $classLineal=1; }
+			}
+			if(sizeof($campS)==2){
+				if(
+					$objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='img' and
+					$objeto_tabla[$obj['obj']]['campos'][$campS[1]]['tipo']=='inp'
+					){ $campTitu=$campS[1]; unset($campS[1]); $classLineal=1; }
+				if(
+					$objeto_tabla[$obj['obj']]['campos'][$campS[1]]['tipo']=='img' and
+					$objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='inp'
+					){ $campTitu=$campS[0]; unset($campS[0]); $classLineal=1; }
+			}
+			// var_dump($camps);
+			$campS2=$campS;
+			$campS2=array_merge(array($datos_tabla['id']),$campS2,array($campTitu));
+			if(!in_array($datos_tabla['fcr'],$campS2)){ $campS2=array_merge(array($datos_tabla['fcr']),$campS2); }
+
+			foreach($campS2 as $ccc=>$cccc){ if(trim($cccc)==''){ unset($campS2[$ccc]); } }
+
+			//$where="where ".$datos_tabla['foreig']."='".$id."' ";//anterior where
+
+
+			$query_where=$where
+						 ."order by ". ( ($datos_tabla['order_by']=='')? (  $datos_tabla['id']." ". (($datos_tabla['orden']=='1')?"desc":"asc") ):$datos_tabla['order_by'] )." "
+						//  ."limit 0,500"
+						 ."";
+
+
+			if($obj['strip'])
+			{
+
+				// prin($obj);
+
+				$count=contar($datos_tabla['tabla'],$query_where,0)." ".$obj['text'];
+
+				echo '<div class="itms_cont" >';
+
+				echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
+
+					echo '<a rel="width:1300,height:400" class="mb popup" href="'.$reemplazo.'&amp;justlist=1&amp;conf=set_fila_fijo%3D4%26calificacion%3D0" title="'.$count.'">'.$count.'</a>';
+
+				echo '</div>';
+
+				echo '</div>';
+
+				continue;
+
+			}	
+
+			$lineas=select($campS2,
+							$datos_tabla['tabla'],
+							$query_where,0);
+
+
+			$hay_buton=(sizeof($procesos)>0 and $sub_procesos);
+
+
+			$wwwwt=0;
+			$nosubwidth=0;
+			foreach($campS as $cp=>$camP){
+					switch($objeto_tabla[$obj['obj']]['campos'][$camP]['tipo']){
+					case "img":
+						$nosubwidth=1;
+					break;
+					}
+				$wwww=str_replace("px","",$objeto_tabla[$obj['obj']]['campos'][$camP]['width']);
+				$wwww=($wwww)?$wwww:100;
+				$wwwwt=$wwwwt+$wwww+1;
+			}
+			$wwwwt=$wwwwt+2;
+			if($hay_buton)
+				$wwwwt=$wwwwt+50;
+
+			// echo '<div class="itms_cont" >';
+
+			// echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
+
+			$pluralIma=$objeto_tabla[$obj['obj']]['nombre_plural'];
+			//prin($plural);
+
+			$pluralIma=preg_replace("/fotos/i",'<span class="z ico_pics"></span>',$pluralIma);
+			$pluralIma=preg_replace("/vista previa/i",'<span class="z ico_eye"></span>',$pluralIma);
+			$pluralIma=preg_replace("/mensajes/i",'<span class="z ico_gm"></span>',$pluralIma);
+			$pluralIma=preg_replace("/alertas/i",'<span class="z ico_alert"></span>',$pluralIma);
+			$pluralIma=preg_replace("/imprimir/i",'<span class="z ico_Print"></span>',$pluralIma);
+
+			/*
+			echo '<div class="tite '. (((sizeof($lineas)>0) and (sizeof($campS)>1) or ($obj['crear']=='1') )?'hid1':'') .'" >';
+
+			echo "<a ";
+			echo ($obj['popup']=='1')?"rel='width:1300,height:400' class='mb popup' href='".$reemplazo."&justlist=1&conf=set_fila_fijo%3D4%26calificacion%3D0' ":" href='".$reemplazo."' ";
+			echo "title='".sizeof($lineas)." ".$objeto_tabla[$obj['obj']]['nombre_plural']."' "
+					."href='".$reemplazo."'>"
+					.sizeof($lineas)." ".$pluralIma
+					."</a>";
+			
+			echo '</div>';
+			*/
+
+			if( (sizeof($lineas)>0) or ($obj['crear']=='1') ){
+
+				if(sizeof($campS)>1){
+					foreach($campS as $cp=>$camP)
+					{
+						$label='';
+						if($cp==0){
+							if(!$sub_procesos){
+							$label.= "<a ";
+							$label.= ($obj['popup']=='1')?"rel='width:1300,height:400' class='mb popup' href='".$reemplazo."&justlist=1&conf=set_fila_fijo%3D4%26calificacion%3D0' ":" href='".$reemplazo."' ";
+							$label.= "title='".sizeof($lineas)." ".$objeto_tabla[$obj['obj']]['nombre_plural']."' >".sizeof($lineas)." ".$pluralIma."</a>";
+							}
+						} else {
+							$label = ($objeto_tabla[$obj['obj']]['campos'][$camP]['label'])?strtoupper($objeto_tabla[$obj['obj']]['campos'][$camP]['label']):'&nbsp;';
+							$label = str_replace(array('(',')'),array('<span style="display:none;">','</span>'),$label);
+						}
+
+						$Head[$camP]=[
+								'width'=>$objeto_tabla[$obj['obj']]['campos'][$camP]['width'],
+								'label'=>$label
+							];
+						unset($label);
+					}
+					if($hay_buton)
+						$Head['menu_']=[
+							'width'=>'50px',
+							'label'=>''
+						];
+				}//if hay camps?
+
+				$LineaSub['head_']=$Head;
+
+				foreach($lineas as $linea){
+
+					foreach($campS as $camP){
+
+						$width = $objeto_tabla[$obj['obj']]['campos'][$camP]['width'];
+
+						$cont="";
+
+						switch($objeto_tabla[$obj['obj']]['campos'][$camP]['tipo']){
+							case "img":
+								$tbli=$objeto_tabla[$obj['obj']]['campos'][$camP];
+								if($linea[$tbli['campo']]!=''){
+								if(!($LOCAL and $vars['GENERAL']['mostrar_toolbars'])){
+									$cont.= '<a href="';
+									$cont.= get_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']]);
+									$cont.= '" ';
+									$cont.= 'rel="[images],noDesc" class="mb" >';
+								}
+								$cont.= '<img ';
+								$cont.= dimensionar_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']],$tbli['tamano_listado']);
+								$cont.= ' />';
+								if(!($LOCAL and $vars['GENERAL']['mostrar_toolbars'])){ $cont.= '</a>'; }
+								}
+							break;
+							case "com":
+								$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
+								list($valoor,$color)=explode("|",$valoor);
+								$valoor=($valoor!='')?strtolower($valoor):"";
+								switch($valoor){
+									case "comentario":$cont.= "<a title='comentario' class='ico_tack z ico_list'></a>"; break;
+									case "soporte":$cont.= "<a title='soporte' class='ico_clip z ico_list'></a>"; break;
+									case "enviado":$cont.= "<a title='enviado' class='ico_yes z ico_list'></a>"; break;
+									case "recibido":$cont.= "<a title='recibido' class='ico_yes z ico_list'></a>"; break;
+									case "si":$cont.= "<a title='si' class='ico_yes z ico_list'></a>"; break;
+									case "no":$cont.= "<a title='no' class='ico_no z ico_list'></a>"; break;
+									default; $cont.= "<span ".(($color)?" class='label' style='color:white;background-color:".$color.";'":"").">".$valoor."</span>"; break;
+								}
+							break;
+							case "hid":
+								list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
+								list($idO,$camposO)=explode(",",$primO);
+								$camposOA=array();
+								$camposOA=explode(";",$camposO);
+								$bufy='';
+								$color0='';
+								foreach($camposOA as $COA){
+								$ddatt= select_dato($COA,$tablaO,"where ".$idO."='".$linea[$camP]."'")." ";
+								if($COA=='color' and trim($ddatt)!=''){ $color0=$ddatt; }
+								else $bufy.=$ddatt;
+								}
+								if($objeto_tabla[$obj['obj']]['campos'][$camP]['tip_foreig']=='1'){
+								$adiv0='<a class="tipper" href="custom/'.$tablaO.'.php?i='.$linea[$camP].'" rel="{ajax:\'ajax_sql.php?v_t='.$tablaO.'&v_d='.$idO.'%3D'.$linea[$camP].'&f=get_quick\'}">';
+								$adiv1='</a>';
+								} else { 
+								$adiv0=($color0!='')?"<span class='label' style='background:$color0;color:white;' >":''; $adiv1=($color0!='')?'</span>':''; 
+								}
+								$cont.= (trim($bufy)!='')?$adiv0.$bufy.$adiv1:'';
+							break;
+							case "fcr":	case "fch":
+								$fech=fecha_formato($linea[$camP],($objeto_tabla[$obj['obj']]['campos'][$camP]['formato'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['formato']:'0b');
+								$cont.= '<span class="fche">'.(($fech!='')?$fech:"")."</span>";
+							break;
+							case "html":
+								$lolon=700;
+								// prin($linea);
+								$cont.= ($linea[$camP]!='')?((strlen($linea[$camP])>$lolon)?str_replace("<br /><br />",'<br \>',nl2br(substr(strip_tags($linea[$camP]),0,$lolon))).'<a class="mb" rel="width:1050,height:530" href="field.php?get='.$objeto_tabla[$obj['obj']]['tabla'].','.$camP.','.$linea['id'].'">mostrar texto completo</a>':"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>"):"&nbsp;";
+								/*break;
+								$cont.= ($linea[$camP]!='')?$linea[$camP]:"&nbsp;";*/
+							break;
+							case "txt":
+								$cont.= ($linea[$camP]!='')?nl2br($linea[$camP]):"&nbsp;";
+							break;
+							default:
+								switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
+								case "currency":
+								$decimals=($objeto_tabla[$obj['obj']]['campos'][$camP]['decimals'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['decimals']:'2';
+								$cont.= '<span class="currency">'.number_format(($linea[$camP]!='')?$linea[$camP]:"", $decimals, '.', ',').'</span>';
+								break;
+								default:
+								$cont.= ($linea[$camP]!='')?$linea[$camP]:"";
+								break;
+								}							
+							break;
+
+						} //switch tipo
+						
+						$value[$camP]=$cont;
+
+					}//foreach camps
+
+					if($hay_buton){
+
+						//echo '<div class="itd" style="width:50px;">';
+					
+						$cont = '
+						<li class="menudown">
+
+							<a  id="ab_'.$linea[$datos_tabla['id']].'" onclick="ax(\'b\',\''.$linea[$datos_tabla['id']].'\');return false;" class=" bl1 itr i_b z" ></a>';
+
+							$cont.= '<ul class="li_cabecera">';
+
+							foreach($procesos as $iproceso=>$proceso){
+
+								$href= ( ($proceso['file']!='')?$proceso['file']:'formulario_quick.php' ) 
+								.'?proceso='.$iproceso
+								.'&L='.$linea[$datos_tabla['id']]
+								.'&OT='
+								.( ($proceso['ot'])?$proceso['ot']."&parent=".$objeto_tabla[$this_me]['archivo']:$objeto_tabla[$this_me]['archivo']."&parent=")
+								.( ($proceso['ran']=='null')?"":"&ran=1" )
+								.( ($proceso['accion'])?"&accion=".$proceso['accion']:'')
+								.( (sizeof($proceso['cargar'])>0)?'&load='.urlencode(json_encode($proceso['cargar'])):'')
+
+								.( ($proceso['extra'])?"&".str_replace(
+									["[id]","[id_grupo]"],
+									[$linea[$datos_tabla['id']],$linea['id_grupo']],
+									$proceso['extra']):'');
+
+								$cont.= "<li>";
+								// prin($proceso);
+								$cont.= '<a rel="';
+								$cont.= ($proceso['rel'])?$proceso['rel']:'width:1250,height:900';
+								$cont.= '" href="';
+								
+								$cont.= $href;
+
+								$cont.= '"'
+								.' class="'. ( (isset($proceso['class']))?$proceso['class']:'mb' )
+								.'"'
+								.' >';
+								//$cont.= '<a onclick="ax(\'ec\',\e'9\'); return false;" href="#" >';
+								// $cont.= $href." ";
+								$cont.= $proceso['label'];
+								$cont.= '</a>';
+								$cont.= "</li>";
+							}
+							$cont.= '</ul>';
+							
+						$cont.= '</li>';
+
+						$value['menu_']=$cont;
+
+						// echo '</div>';
+					}
+
+					$LineaSub['lines_'][]=$value;
+
+
+					// echo '</li>';
+				}//foreach lineas
+
+	
+				
+				if($objeto_tabla[$obj['obj']]['subbottom']!=''){
+
+					parse_str($objeto_tabla[$obj['obj']]['subbottom'],$bottoms);
+					// echo '<ul class="hid2">';
+						// echo '<li class="itm itmbottom">';
+					foreach($campS as $camP){
+						// echo '<div class="itd" ';
+						if($classLineal==0){ 
+							// echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="'.
+							// (($bottoms[$camP]=='SUM')?'border-top:1px solid #000;background-color:#FFC;':'').
+							// 'width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; }
+							// echo ' >';
+							if($bottoms[$camP]=='SUM'){
+
+								$SUM=0;
+								foreach($lineas as $linea){ $SUM+=$linea[$camP]; }
+
+								switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
+									case "currency":
+										$decimals=($objeto_tabla[$obj['obj']]['campos'][$camP]['decimals'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['decimals']:'2';
+										// echo '<span class="currency">'.number_format(($SUM!='')?$SUM:"", $decimals, '.', ',').'</span>';
+										$SubLinea[$camP]='<span class="currency">'.number_format(($SUM!='')?$SUM:"", $decimals, '.', ',').'</span>';
+									break;
+									default:
+										$SubLinea[$camP]=$SUM;
+									break;
+								}	
+
+							} else {
+
+								$SubLinea[$camP]=$bottoms[$camP];
+								// echo ($bottoms[$camP])?$bottoms[$camP]:"&nbsp;";
+							}
+						// echo '</div>';
+						}
+
+						// echo '</li>';
+					// echo '</ul>';
+					}//if SUMA
+
+					if($hay_buton)
+						$SubLinea['menu_']='&nbsp;';
+
+
+					$LineaSub['bottom_']=$SubLinea;
+
+					if($obj['crear']=='1' and false){
+
+						echo "<li class='itm itmedit' id='".$id."_ined'>";
+							echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_fecha_creacion' value='now()' />";
+							echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$forei."' 	value='".$id."' />";
+							echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_v_o' 			value='".$obj['obj']."' />";
+							echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_visibilidad' 	value='1' />";
+
+							// prin($campS);
+							foreach($campS as $camP){
+								$valis=($objeto_tabla[$obj['obj']]['campos'][$camP]['validacion']=='1')?' data-vali=\'1\' ':' data-vali=\'0\' ';
+								$classvalis=($objeto_tabla[$obj['obj']]['campos'][$camP]['validacion']=='1')?' cvl':'';
+								echo '<div class="itd '.$classvalis.'" ';
+								if($classLineal==0){ echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; }
+								echo ' >';
+								$tbcampA=$objeto_tabla[$obj['obj']]['campos'][$camP];
+								switch($tbcampA['tipo']){
+									case "img":
+									echo "&nbsp;";
+									break;
+									case "com":
+									if(
+										$objeto_tabla[$obj['obj']]['campos'][$camP]['indicador']=='1'){
+									echo "&nbsp;";
+									} else {
+									echo "";
+									$bufy='';
+									$oopciones=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'];
+									$bufy.="<select ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
+									$bufy.="<option value='' >".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."</option>";
+									foreach($oopciones as $iioo=>$pppooo){
+									$bufy.="<option value=\"".$iioo."\">".$pppooo."</option>";
+									}
+									$bufy.="</select>";
+									echo $bufy;
+									}
+									break;
+									case "hid":
+									
+									if($objeto_tabla[$obj['obj']]['campos'][$camP]['noedit']=='1'){
+									echo "&nbsp;";
+									} else {
+									list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
+									list($idO,$camposO)=explode(",",$primO);
+									$camposOA=array();
+
+									$bufy='';
+									$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,$whereO);
+									$bufy.="<select ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
+									$bufy.="<option value='' >".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."</option>";
+									foreach($oopciones as $pppooo){
+									$bufy.="<option value=\"".$pppooo[$idO]."\">".$pppooo['value']."</option>";
+									}
+									$bufy.="</select>";
+									echo $bufy;
+
+									}
+
+									break;
+									case "fcr":
+									echo "&nbsp;";
+									break;
+									case "fch":
+									echo "&nbsp;";
+
+									if($tbcampA['rango']){
+									list($uuno,$ddos)=explode(",",$tbcampA['rango']);
+									$fromYear = date("Y",strtotime($uuno));
+									$toYear = date("Y",strtotime($ddos));
+									} else {
+									$fromYear = date("Y")-99;
+									$toYear = date("Y")+1;
+									}
+
+									$html='';
+									$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:52px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+									$html.= "<option></option>";
+									for($i=1; $i<=31;$i++){
+									if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("d"))?"selected":""; }
+									$html.="<option value='". sprintf("%02d",$i) ."' $selected >".$i."</option>";
+									}
+									$html.= "</select>";
+									$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:53px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+									$html.= "<option></option>";
+									for($i=1; $i<=12;$i++){
+									if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("m"))?"selected":""; }
+									$html.="<option value='". sprintf("%02d",$i) ."' $selected >".substr($Array_Meses[$i],0,3)."</option>";
+									}
+									$html.= "</select>";
+									$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:57px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+									$html.= "<option></option>";
+									for($i=$toYear; $i>=$fromYear;$i--){
+									if($tbcampA['default']=='now()'){ $selected=($i==date("Y"))?"selected":""; }
+									$html.="<option value='".$i."' $selected >".$i."</option>";
+									}
+									$html.= "</select>";
+
+
+									if($tbcampA['time']){
+									$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:70px;font-size:10px;margin-right:0px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+									$html.= "<option></option>";
+									if($tbcampA['time']=='1'){
+										for($i=0; $i<24;$i++){
+											$html.="<option value='".sprintf("%02d",$i).":00:00' >".$Array_Horas[$i]."</option>";
+										}
+									} elseif($tbcampA['time']=='2'){
+										$yii=0;
+										for($i=0; $i<24;$i++){
+											for($jk=0; $jk<=3;$jk++){
+												$html.="<option value='".sprintf("%02d",$i).":".sprintf("%02d",$jk*15).":00' >".$Array_Horas2[$yii++]."</option>";
+											}
+										}
+									}
+									$html.= "</select>";
+									} else {
+									$html.= "<input type='hidden' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' />";
+									}
+
+									$html.= "<input type='hidden'  ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ".(($tbcampA['default']=='now()')?"value='".date("Y-m-d 00:00:00")."'":"")." />";
+									echo $html;
+									break;
+									case "html":
+									echo "<textarea placeholder='".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
+						
+									break;
+									case "txt":
+									echo "<textarea placeholder='".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
+									
+									break;
+									default:
+									echo "<input type='text' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."'  />";
+									
+									break;
+								}//switch
+								echo '</div>';
+							}//foreach
+
+							global $linkPagina;
+							global $vvvalos;
+							// prin($campSform);
+							if($hay_buton)
+								echo '<div class="itd" style="width:50px;">&nbsp;</div>';
+							echo "<div class='cr_pl'>";
+
+
+							echo '<label for="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" >'.$campSform[0]['label'].'</label>';
+							echo '<input id="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" type="checkbox" onchange="$(\''.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'\').value=(this.checked)?1:0; " >';
+							echo '<input type="hidden" class="'.$datos_tabla['archivo'].'-_'.$id.'" 
+							id="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'" >';
+							echo "<a href='#' class='itr ico_plus' onclick='send_crear(\"".$id."\",\"".$datos_tabla['archivo']."\",\"".$linkPagina."\",\"".urlencode($vvvalos)."\");return false;'>crear</a></div>";
+
+
+
+						echo "</li>";
+
+					} //if
+
+
+			// echo '</ul>';
+
+
+				}
+
+				// echo "</div>";
+				// echo "</div>";
+				unset($campS);
+				unset($campS2);
+			}
+		}	
+	}
+
+	// prin($LineaSub);
+
+	render_view($LineaSub,'sub_items.php');
+	// prin($LineaSub);
+}
+
+
+/*
+function render_foreig_subs_old($obj0,$id,$linealinea,$urd,$sub_procesos=null){
+
+
+	// return "";
+
+	global $objeto_tabla;
+	global $Array_Meses;
+	global $Array_Horas;
+	global $Array_Horas2;
+	global $LOCAL;
+	global $vars;
+	global $PERMISOS_USUARIO;
+	// global $linea;
+
+
+	// prin([$obj0,$id,$urd]);
+
+	//var_dump($PERMISOS_USUARIO);
+
+	$permisos=explode(",",$PERMISOS_USUARIO);
+	foreach($permisos as $permiso){
+	list($objeto,$params)=explode("?",trim($permiso));
+	parse_str($params,$paras);
+	$persos[$objeto]=$paras;
+	}
+
+	// var_dump($persos);
+
+	// if($_SESSION['usuario_id']!='' or 1){
+	// $ALL='';
+	// foreach($objeto_tabla as $obj=>$ot){
+	// $ALL.=$obj.",\n";
+	// }
+
+	// global $this_me;
+	// $permisos=($PERMISOS_USUARIO?$PERMISOS_USUARIO:$ALL).",\n".((($_GET['conf']!='')?$this_me."?".$_GET['conf'].",\n":''));
+
+	// var_dump($persos);
+	foreach($obj0 as $obj2){
+		foreach($obj2 as $obj){
+
+
+
+			// prin($obj);
+
+			if(isset($persos[$obj['obj']])){
+				// var_dump($persos[$obj['obj']]);
+				foreach($persos[$obj['obj']] as $uno=>$dos){
+					if(enhay($uno,"|")){
+				 		list($tres,$cuatro)=explode("|",$uno);
+						$objeto_tabla[$obj['obj']]['campos'][$tres][$cuatro]=$dos;
+				 	} else {
+				 		$objeto_tabla[$obj['obj']][$uno]=$dos;
+				 	}
+				}
+			}
+
+			$datos_tabla=procesar_objeto_tabla($objeto_tabla[$obj['obj']]);
+
+			// var_dump($datos_tabla);
+
+			// prin($datos_tabla);
+
+			// $fchsa=$objeto_tabla[$obj['obj']]['campos']['fecha_creacion'];
+			// $fchsa['listable']='1';
+
+			// prin($fchsa);
+			// prin($datos_tabla);
+
+			// $datos_tabla['list']=array_merge(
+			// 	array($fchsa),
+			// 	$datos_tabla['list']
+			// 	);
+
+			$parte=between($obj['ltext'],"where","}");
+			list($forei,$forein)=explode("=",$parte['1']);
+
+			$reemplazo=$obj['href'];
+			$reemplazowhere=$parte['1'];
+
+			// prin($linea);
+
+			foreach($linealinea as $leva=>$pesa){
+				// prin($pesa);
+				$reemplazo=str_replace("[".$leva."]",$pesa,$reemplazo);	
+				$reemplazowhere=str_replace("[".$leva."]",$pesa,$reemplazowhere);
+			}
+			
+
+			$where="where ".$reemplazowhere." ";
+			$campS=array();
+			// echo '<div style="clear:both;">';
+			// prin($datos_tabla['list']);
+			// echo '</div>';
+			foreach($datos_tabla['form'] as $lis){
+				if($lis['showoncrearsubs']=='1'){
+					$campSform[]=$lis;
+				}
+			}
+
+			foreach($datos_tabla['list'] as $lis){
+				// var_dump($lis);
+				if(
+					(in_array($lis['tipo'],array('inp','txt','html','hid','fch','fcr','img','com')) and
+					($lis['campo']!=trim($forei)) and
+					($lis['listable']=='1') and
+					($lis['inherited']!='1') and
+					( !($lis['indicador']=='1' and $lis['tipo']=='hid') ) and
+					(!enhay($lis['label'],'descripci',1)) and
+					(!enhay($lis['label'],'source',1)) and
+					(!enhay($lis['label'],'url',1)) and
+					//($lis['campo']!='id_grupo') and
+					//($lis['campo']!='id_subgrupo') and
+					1
+					)
+					){
+					$campS[]=$lis['campo'];
+					}
+				}
+
+			$classLineal=0;
+			if(sizeof($campS)==1){
+				if($objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='img'){ $classLineal=1; }
+			}
+			if(sizeof($campS)==2){
+				if(
+					$objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='img' and
+					$objeto_tabla[$obj['obj']]['campos'][$campS[1]]['tipo']=='inp'
+					){ $campTitu=$campS[1]; unset($campS[1]); $classLineal=1; }
+				if(
+					$objeto_tabla[$obj['obj']]['campos'][$campS[1]]['tipo']=='img' and
+					$objeto_tabla[$obj['obj']]['campos'][$campS[0]]['tipo']=='inp'
+					){ $campTitu=$campS[0]; unset($campS[0]); $classLineal=1; }
+			}
+			// var_dump($camps);
+			$campS2=$campS;
+			$campS2=array_merge(array($datos_tabla['id']),$campS2,array($campTitu));
+			if(!in_array($datos_tabla['fcr'],$campS2)){ $campS2=array_merge(array($datos_tabla['fcr']),$campS2); }
+
+			foreach($campS2 as $ccc=>$cccc){ if(trim($cccc)==''){ unset($campS2[$ccc]); } }
+
+			//$where="where ".$datos_tabla['foreig']."='".$id."' ";//anterior where
+
+
+			$query_where=$where
+						 ."order by ". ( ($datos_tabla['order_by']=='')? (  $datos_tabla['id']." ". (($datos_tabla['orden']=='1')?"desc":"asc") ):$datos_tabla['order_by'] )." "
+						 ."limit 0,500";
+
+
+			$lineas=select($campS2,
+			$datos_tabla['tabla'],
+			$query_where,0);
+			
+			if($obj['strip'])
+			{
+
+				// prin($obj);
+
+				$count=contar($datos_tabla['tabla'],$query_where,0)." ".$obj['text'];
+
+				echo '<div class="itms_cont" >';
+
+				echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
+
+					echo '<a rel="width:1300,height:400" class="mb popup" href="'.$reemplazo.'&amp;justlist=1&amp;conf=set_fila_fijo%3D4%26calificacion%3D0" title="'.$count.'">'.$count.'</a>';
+
+				echo '</div>';
+
+				echo '</div>';
+
+				continue;
+
+			}	
+
+
+
+
+
+
+
+			$wwwwt=0;
+			$nosubwidth=0;
+			foreach($campS as $cp=>$camP){
+					switch($objeto_tabla[$obj['obj']]['campos'][$camP]['tipo']){
+					case "img":
+						$nosubwidth=1;
+					break;
+					}
+				$wwww=str_replace("px","",$objeto_tabla[$obj['obj']]['campos'][$camP]['width']);
+				$wwww=($wwww)?$wwww:100;
+				$wwwwt=$wwwwt+$wwww+1;
+			}
+			$wwwwt=$wwwwt+2;
+
+			echo '<div class="itms_cont" >';
+
+			// prin($obj0);
+			// prin($id);
+			// prin($urd);
+
+			echo '<div class="itms '. ( ($urd=='1')?"first_linea ":"" ).' '. ( ($classLineal=='1')?"lineal":"" ).' '. ((sizeof($lineas)==0)?'hid0':'') .'" '.( ($nosubwidth==0)?'style="width:'.$wwwwt.'px;"':'' ).'>';
+
+			$pluralIma=$objeto_tabla[$obj['obj']]['nombre_plural'];
+			//prin($plural);
+
+			$pluralIma=preg_replace("/fotos/i",'<span class="z ico_pics"></span>',$pluralIma);
+			$pluralIma=preg_replace("/vista previa/i",'<span class="z ico_eye"></span>',$pluralIma);
+			$pluralIma=preg_replace("/mensajes/i",'<span class="z ico_gm"></span>',$pluralIma);
+			$pluralIma=preg_replace("/alertas/i",'<span class="z ico_alert"></span>',$pluralIma);
+			$pluralIma=preg_replace("/imprimir/i",'<span class="z ico_Print"></span>',$pluralIma);
+
+			echo '<div class="tite '. (((sizeof($lineas)>0) and (sizeof($campS)>1) or ($obj['crear']=='1') )?'hid1':'') .'" >';
+			echo "<a ";
+			echo ($obj['popup']=='1')?"rel='width:1300,height:400' class='mb popup' href='".$reemplazo."&justlist=1&conf=set_fila_fijo%3D4%26calificacion%3D0' ":" href='".$reemplazo."' ";
+			echo "title='".sizeof($lineas)." ".$objeto_tabla[$obj['obj']]['nombre_plural']."' "
+					."href='".$reemplazo."'>"
+					.sizeof($lineas)." ".$pluralIma
+					."</a>";
+			echo '</div>';
+
+			if( (sizeof($lineas)>0) or ($obj['crear']=='1') ){
+
+				if(sizeof($campS)>1){
+				echo '<div class="itm hitm hid2" >';
+					foreach($campS as $cp=>$camP)
+					{
+						echo '<div class="itd" '.(($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':'').' >';
+						if($cp==0){
+							echo "<a ";
+							echo ($obj['popup']=='1')?"rel='width:1300,height:400' class='mb popup' href='".$reemplazo."&justlist=1&conf=set_fila_fijo%3D4%26calificacion%3D0' ":" href='".$reemplazo."' ";
+							echo "title='".sizeof($lineas)." ".$objeto_tabla[$obj['obj']]['nombre_plural']."' >".sizeof($lineas)." ".$pluralIma."</a>";
+						} else {
+							$label = ($objeto_tabla[$obj['obj']]['campos'][$camP]['label'])?strtoupper($objeto_tabla[$obj['obj']]['campos'][$camP]['label']):'&nbsp;';
+							$label = str_replace(array('(',')'),array('<span style="display:none;">','</span>'),$label);
+							echo $label;
+						}
+						echo '</div>';
+					}
+				echo '</div>';
+				}//if hay camps?
+
+
+				echo '<ul class="hid2">';
+
+				foreach($lineas as $linea){
+					echo '<li class="itm">';
+					foreach($campS as $camP){
+						echo '<div class="itd" ';
+						if($classLineal==0){ echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; }
+						echo ' >';
+
+						switch($objeto_tabla[$obj['obj']]['campos'][$camP]['tipo']){
+							case "img":
+								$tbli=$objeto_tabla[$obj['obj']]['campos'][$camP];
+								if($linea[$tbli['campo']]!=''){
+								if(!($LOCAL and $vars['GENERAL']['mostrar_toolbars'])){
+								echo '<a href="';
+								echo get_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']]);
+								echo '" ';
+								echo 'rel="[images],noDesc" class="mb" >';
+								}
+								echo '<img ';
+								echo dimensionar_imagen($datos_tabla[$tbli['campo']]['carpeta'], $linea[$datos_tabla['fcr']],$linea[$tbli['campo']],$tbli['tamano_listado']);
+								echo ' />';
+								if(!($LOCAL and $vars['GENERAL']['mostrar_toolbars'])){ echo '</a>'; }
+								}
+							break;
+							case "com":
+								$valoor=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'][$linea[$camP]];
+								list($valoor,$color)=explode("|",$valoor);
+								$valoor=($valoor!='')?strtolower($valoor):"";
+								switch($valoor){
+									case "comentario":echo "<a title='comentario' class='ico_tack z ico_list'></a>"; break;
+									case "soporte":echo "<a title='soporte' class='ico_clip z ico_list'></a>"; break;
+									case "enviado":echo "<a title='enviado' class='ico_yes z ico_list'></a>"; break;
+									case "recibido":echo "<a title='recibido' class='ico_yes z ico_list'></a>"; break;
+									case "si":echo "<a title='si' class='ico_yes z ico_list'></a>"; break;
+									case "no":echo "<a title='no' class='ico_no z ico_list'></a>"; break;
+									default; echo "<span ".(($color)?" class='label' style='color:white;background-color:".$color.";'":"").">".$valoor."</span>"; break;
+								}
+							break;
+							case "hid":
+								list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
+								list($idO,$camposO)=explode(",",$primO);
+								$camposOA=array();
+								$camposOA=explode(";",$camposO);
+								$bufy='';
+								$color0='';
+								foreach($camposOA as $COA){
+								$ddatt= select_dato($COA,$tablaO,"where ".$idO."='".$linea[$camP]."'")." ";
+								if($COA=='color' and trim($ddatt)!=''){ $color0=$ddatt; }
+								else $bufy.=$ddatt;
+								}
+								if($objeto_tabla[$obj['obj']]['campos'][$camP]['tip_foreig']=='1'){
+								$adiv0='<a class="tipper" href="custom/'.$tablaO.'.php?i='.$linea[$camP].'" rel="{ajax:\'ajax_sql.php?v_t='.$tablaO.'&v_d='.$idO.'%3D'.$linea[$camP].'&f=get_quick\'}">';
+								$adiv1='</a>';
+								} else { 
+								$adiv0=($color0!='')?"<span class='label' style='background:$color0;color:white;' >":''; $adiv1=($color0!='')?'</span>':''; 
+								}
+								echo (trim($bufy)!='')?$adiv0.$bufy.$adiv1:'';
+							break;
+							case "fcr":	case "fch":
+							$fech=fecha_formato($linea[$camP],($objeto_tabla[$obj['obj']]['campos'][$camP]['formato'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['formato']:'0b');
+							echo '<span class="fche">'.(($fech!='')?$fech:"")."</span>";
+							break;
+							case "html":
+							$lolon=700;
+							// prin($linea);
+							echo ($linea[$camP]!='')?((strlen($linea[$camP])>$lolon)?str_replace("<br />
+<br />",'<br \>',nl2br(substr(strip_tags($linea[$camP]),0,$lolon))).'<a class="mb" rel="width:1050,height:530" href="field.php?get='.$objeto_tabla[$obj['obj']]['tabla'].','.$camP.','.$linea['id'].'">mostrar texto completo</a>':"<div class='htmlenlista'>".stripslashes($linea[$camP])."</div>"):"&nbsp;";
+						
+							break;
+							case "txt":
+							echo ($linea[$camP]!='')?nl2br($linea[$camP]):"&nbsp;";
+							break;
+							default:
+								switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
+								case "currency":
+								$decimals=($objeto_tabla[$obj['obj']]['campos'][$camP]['decimals'])?$objeto_tabla[$obj['obj']]['campos'][$camP]['format']:'2';
+								echo '<span class="currency">'.number_format(($linea[$camP]!='')?$linea[$camP]:"",$decimals, '.', ',').'</span>';
+								break;
+								default:
+								echo ($linea[$camP]!='')?$linea[$camP]:"";
+								break;
+								}							
+							break;
+						} //switch tipo
+						echo '</div>';
+					}//foreach camps
+					echo '</li>';
+				}//foreach lineas
+
+				if($objeto_tabla[$obj['obj']]['subbottom']!=''){
+					parse_str($objeto_tabla[$obj['obj']]['subbottom'],$bottoms);
+					// echo '<ul class="hid2">';
+						echo '<li class="itm itmbottom">';
+						foreach($campS as $camP){
+							echo '<div class="itd" ';
+							if($classLineal==0){ 
+								echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="'.
+								(($bottoms[$camP]=='SUM')?'border-top:1px solid #000;background-color:#FFC;':'').
+								'width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; }
+								echo ' >';
+								if($bottoms[$camP]=='SUM'){
+									$SUM=0;
+									foreach($lineas as $lino){ $SUM+=$lino[$camP]; }
+
+									switch($objeto_tabla[$obj['obj']]['campos'][$camP]['format']){
+										case "currency":
+											echo '<span class="currency">'.number_format(($SUM!='')?$SUM:"", 2, '.', ',').'</span>';
+										break;
+										default:
+											echo $SUM;
+										break;
+									}	
+
+								} else {
+									echo ($bottoms[$camP])?$bottoms[$camP]:"&nbsp;";
+								}
+							echo '</div>';
+						}
+						echo '</li>';
+					// echo '</ul>';
+				}//if SUMA
+
+
+			if($obj['crear']=='1'){
+
+				echo "<li class='itm itmedit' id='".$id."_ined'>";
+				echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_fecha_creacion' value='now()' />";
+				echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$forei."' 	value='".$id."' />";
+				echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_v_o' 			value='".$obj['obj']."' />";
+				echo "<input type='hidden' class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_visibilidad' 	value='1' />";
+
+				// prin($campS);
+				foreach($campS as $camP){
+					$valis=($objeto_tabla[$obj['obj']]['campos'][$camP]['validacion']=='1')?' data-vali=\'1\' ':' data-vali=\'0\' ';
+					$classvalis=($objeto_tabla[$obj['obj']]['campos'][$camP]['validacion']=='1')?' cvl':'';
+					echo '<div class="itd '.$classvalis.'" ';
+					if($classLineal==0){ echo ($objeto_tabla[$obj['obj']]['campos'][$camP]['width'])?'style="width:'.$objeto_tabla[$obj['obj']]['campos'][$camP]['width'].';"':''; }
+					echo ' >';
+					$tbcampA=$objeto_tabla[$obj['obj']]['campos'][$camP];
+					switch($tbcampA['tipo']){
+						case "img":
+						echo "&nbsp;";
+			
+						break;
+						case "com":
+						if(
+							$objeto_tabla[$obj['obj']]['campos'][$camP]['indicador']=='1'){
+						echo "&nbsp;";
+						} else {
+						echo "";
+					
+						$bufy='';
+						$oopciones=$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones'];
+						$bufy.="<select ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
+						$bufy.="<option value='' >".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."</option>";
+						foreach($oopciones as $iioo=>$pppooo){
+						$bufy.="<option value=\"".$iioo."\">".$pppooo."</option>";
+						}
+						$bufy.="</select>";
+						echo $bufy;
+						}
+						break;
+						case "hid":
+						
+						if($objeto_tabla[$obj['obj']]['campos'][$camP]['noedit']=='1'){
+						echo "&nbsp;";
+						} else {
+						list($primO,$tablaO,$whereO)=explode("|",$objeto_tabla[$obj['obj']]['campos'][$camP]['opciones']);
+						list($idO,$camposO)=explode(",",$primO);
+						$camposOA=array();
+
+						$bufy='';
+						$oopciones=select(array($idO,"CONCAT_WS(' ',". str_replace(";",",",$camposO) .") as value"),$tablaO,$whereO);
+						$bufy.="<select ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' >";
+						$bufy.="<option value='' >".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."</option>";
+						foreach($oopciones as $pppooo){
+						$bufy.="<option value=\"".$pppooo[$idO]."\">".$pppooo['value']."</option>";
+						}
+						$bufy.="</select>";
+						echo $bufy;
+
+						}
+
+						break;
+						case "fcr":
+						echo "&nbsp;";
+						
+						break;
+						case "fch":
+						echo "&nbsp;";
+
+						if($tbcampA['rango']){
+						list($uuno,$ddos)=explode(",",$tbcampA['rango']);
+						$fromYear = date("Y",strtotime($uuno));
+						$toYear = date("Y",strtotime($ddos));
+						} else {
+						$fromYear = date("Y")-99;
+						$toYear = date("Y")+1;
+						}
+
+						$html='';
+						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_d' style='width:52px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<option></option>";
+						for($i=1; $i<=31;$i++){
+						if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("d"))?"selected":""; }
+						$html.="<option value='". sprintf("%02d",$i) ."' $selected >".$i."</option>";
+						}
+						$html.= "</select>";
+						$html.= "<select id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_m' style='width:53px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<option></option>";
+						for($i=1; $i<=12;$i++){
+						if($tbcampA['default']=='now()'){ $selected=(sprintf("%02d",$i)==date("m"))?"selected":""; }
+						$html.="<option value='". sprintf("%02d",$i) ."' $selected >".substr($Array_Meses[$i],0,3)."</option>";
+						}
+						$html.= "</select>";
+						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_a' style='width:57px;font-size:12px;margin-right:-23px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<option></option>";
+						for($i=$toYear; $i>=$fromYear;$i--){
+						if($tbcampA['default']=='now()'){ $selected=($i==date("Y"))?"selected":""; }
+						$html.="<option value='".$i."' $selected >".$i."</option>";
+						}
+						$html.= "</select>";
+
+
+						if($tbcampA['time']){
+						$html.= "<select  id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' style='width:70px;font-size:10px;margin-right:0px;' class='form_input form_input_fecha' onchange='fechaChange(\"".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."\")'>";
+						$html.= "<option></option>";
+						if($tbcampA['time']=='1'){
+							for($i=0; $i<24;$i++){
+								$html.="<option value='".sprintf("%02d",$i).":00:00' >".$Array_Horas[$i]."</option>";
+							}
+						} elseif($tbcampA['time']=='2'){
+							$yii=0;
+							for($i=0; $i<24;$i++){
+								for($jk=0; $jk<=3;$jk++){
+									$html.="<option value='".sprintf("%02d",$i).":".sprintf("%02d",$jk*15).":00' >".$Array_Horas2[$yii++]."</option>";
+								}
+							}
+						}
+						$html.= "</select>";
+						} else {
+						$html.= "<input type='hidden' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."_t' />";
+						}
+
+						$html.= "<input type='hidden'  ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ".(($tbcampA['default']=='now()')?"value='".date("Y-m-d 00:00:00")."'":"")." />";
+						echo $html;
+						break;
+						case "html":
+						echo "<textarea placeholder='".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
+						
+						break;
+						case "txt":
+						echo "<textarea placeholder='".$objeto_tabla[$obj['obj']]['campos'][$camP]['label']."' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi flext growme' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."' ></textarea>";
+						
+						break;
+						default:
+						echo "<input type='text' ".$valis." class='".$datos_tabla['archivo']."-_".$id." formi' id='".$datos_tabla['archivo']."-_".$id."-_".$tbcampA['campo']."'  />";
+						
+						break;
+					}//switch
+					echo '</div>';
+				}//foreach
+
+				global $linkPagina;
+				global $vvvalos;
+				// prin($campSform);
 				echo "<div class='cr_pl'>";
 				echo '<label for="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" >'.$campSform[0]['label'].'</label>';
 				echo '<input id="'.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'_checkbox" type="checkbox" onchange="$(\''.$datos_tabla['archivo'].'-_'.$id.'-_'.$campSform[0]['campo'].'\').value=(this.checked)?1:0; " >';
@@ -3499,6 +4430,55 @@ function render_foreig_subs($obj0,$id,$urd){
 			unset($campS2);
 		}
 	}
+}
+*/
+function render_foreig_exists($obj0,$linealinea,$urd){
+
+	// return "";
+	
+	global $objeto_tabla;
+	global $Array_Meses;
+	global $Array_Horas;
+	global $Array_Horas2;
+	global $LOCAL;
+	global $vars;
+	global $PERMISOS_USUARIO;
+	// global $linea;
+
+	// prin($linea);
+	// $linealinea=$linea;
+	foreach($obj0 as $obj2){
+		foreach($obj2 as $obj){
+
+			$datos_tabla=procesar_objeto_tabla($objeto_tabla[$obj['obj']]);
+
+			$parte=between($obj['ltext'],"where","}");
+			list($forei,$forein)=explode("=",$parte['1']);
+
+			$reemplazo=$obj['href'];
+			$reemplazowhere=$parte['1'];
+
+			foreach($linealinea as $leva=>$pesa){
+				$reemplazo=str_replace("[".$leva."]",$pesa,$reemplazo);	
+				$reemplazowhere=str_replace("[".$leva."]",$pesa,$reemplazowhere);
+			}
+			
+			$where="where ".$reemplazowhere." ";
+
+   			if(hay($datos_tabla['tabla'],$where,0)){
+				   
+				echo "
+				<div class='itms_cont'>
+				<a style='color:green;font-weight:bold;text-decoration:underline;' rel='{$obj['rel']}' href='{$reemplazo}'>{$obj['text']}</a>
+				</div>
+				";
+
+			}
+			
+
+		}
+	}
+
 }
 
 function render_input_fecha( $campo, $opciones=array() ){
@@ -4294,15 +5274,15 @@ function PreProcessEstructura($Estructura){
 function pre_procesar_objeto_tabla_0($me){
 
 	global $_SESSION;
-	global $tabla_sesion_datos;
+	// global $tabla_sesion_datos;
 	global $TIPO_USUARIO;
 	global $_COOKIE;
 	global $objeto_tabla;
 	global $filtrar_web;
 	global $filtrar_page;
 
+	$tabla_sesion_datos=$_SESSION['tabla_sesion_datos'];
 	// prin([$_COOKIE['admin'],$_SESSION['usuario_id'],$TIPO_USUARIO]);
-
 	$TIPO_USUARIO=( $me['multiusuario'] )?$me['multiusuario']:$TIPO_USUARIO;
 	// prin($TIPO_USUARIO);
 
@@ -4761,7 +5741,12 @@ function query_filter($filterA0){
 				$aa=explode("|",$AF);
 				if(sizeof($aa)==3){ 
 				
-					$AAFF[]= " date(".$aa['0'].") between '".$aa['1']."' and '".$aa['2']."' "; 
+					// $AAFF[]= " date(".$aa['0'].") between '".$aa['1']."' and '".$aa['2']."' "; 
+
+					$aa['1']=$aa['1'].":00:00:00";
+					$aa['2']=$aa['2'].":23:59:59";
+					
+					$AAFF[]= " ".$aa['0']." between '".$aa['1']."' and '".$aa['2']."' "; 
 
 				} else {
 
@@ -5279,7 +6264,7 @@ function opciones_fechas($querie){
 
 	}
 
-function procesar_lives($lives,$this){
+function procesar_lives($lives,$esto){
 $livesA=explode(";",$lives);
 //prin($livesA);
 foreach($livesA as $live){
@@ -5315,9 +6300,9 @@ return implode("",$Live);
 
 }
 
-function procesar_loads($string,$this){
+function procesar_loads($string,$esto){
 if($string[strlen($string)-1]=='='){
-$string=$string."'+\$v('in_".$this."')+'";
+$string=$string."'+\$v('in_".$esto."')+'";
 } else {
 $eee=explode("[",$string);
 foreach($eee as $ee){
@@ -5332,10 +6317,10 @@ $string=str_replace("[$Var]","'+\$v('in_".$Var."')+'",$string);
 }
 return $string;
 }
-function procesar_loads2($string,$this){
+function procesar_loads2($string,$esto){
 //return $string;
 if($string[strlen($string)-1]=='='){
-$string=$string."'+json.".$this."+'";
+$string=$string."'+json.".$esto."+'";
 } else {
 $eee=explode("[",$string);
 foreach($eee as $ee){
@@ -5351,60 +6336,62 @@ $string=str_replace("[$Var]","'+json.".$Var."+'",$string);
 return $string;
 }
 function procesproces($objj,$conf=NULL){
-	//$conf='0|disabled=1&1|disabled=0';
-	if($conf){
-		parse_str($conf,$paras);
-		//prin($paras);
-		$paras2=array();
-		foreach($paras as $prop=>$para){
-			if(enhay($prop,"|")){
-				list($campo,$campoprop)=explode("|",$prop);
-				if(enhay($campo,".")){
-					list($dad,$camp)=explode(".",$campo);
+	
+	if($cont==NULL){
+		return $objj;
+	}
+
+//$conf='0|disabled=1&1|disabled=0';
+	parse_str($conf,$paras);
+	//prin($paras);
+	$paras2=array();
+	foreach($paras as $prop=>$para){
+		if(enhay($prop,"|")){
+			list($campo,$campoprop)=explode("|",$prop);
+			if(enhay($campo,".")){
+				list($dad,$camp)=explode(".",$campo);
+			} else {
+				if(is_numeric($campo)){
+					$dad='procesos'; $camp=$campo;
+					//prin($campo);
 				} else {
-					if(is_numeric($campo)){
-						$dad='procesos'; $camp=$campo;
-						//prin($campo);
-					} else {
-						$dad='campos';	$camp=$campo;
-					}
+					$dad='campos';	$camp=$campo;
 				}
-				$paras2[$dad][$camp][$campoprop]=$para;
 			}
-			else {	$paras2[$prop]=$para;	}
+			$paras2[$dad][$camp][$campoprop]=$para;
 		}
-		//$Params[$objeto]=$paras2;
+		else {	$paras2[$prop]=$para;	}
+	}
+	//$Params[$objeto]=$paras2;
 
 
 
-		//if(!($objeto_tabla2[$obj]['page']=='1')){ $ooii[]=$obj; }
-		//$objj;
-		//if(sizeof($paras2)>0){
-			foreach($paras2 as $var=>$val){
-			if($var=='campos'){
+	//if(!($objeto_tabla2[$obj]['page']=='1')){ $ooii[]=$obj; }
+	//$objj;
+	//if(sizeof($paras2)>0){
+	foreach($paras2 as $var=>$val){
+		if($var=='campos'){
 			foreach($paras2['campos'] as $id_campo=>$campo){
 				foreach($campo as $varc=>$valc){
-				$objj['campos'][$id_campo][$varc]=$valc;
+					$objj['campos'][$id_campo][$varc]=$valc;
 				}
 			}
-			}elseif($var=='procesos'){
+		}elseif($var=='procesos'){
 			foreach($paras2['procesos'] as $id_campo=>$campo){
 				foreach($campo as $varc=>$valc){
-				$objj['procesos'][$id_campo][$varc]=$valc;
+					$objj['procesos'][$id_campo][$varc]=$valc;
 				}
 			}
-			} else {
-				$objj[$var]=$val;
-			}
-			}
-		//}
-
-
+		} else {
+			$objj[$var]=$val;
+		}
 	}
+	//}
 
 	//prin($paras2);
 
-return $objj;
+	return $objj;
+
 }
 
 function D3($number){
@@ -5616,220 +6603,17 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 }
 
 
+function render_view($vars,$file){
 
-function paginacionnumerada($parametros,$campos,$tabla,$donde,$debug=0,$opciones=NULL,&$concat=NULL){
+	extract($vars);
 
-	global $_GET;
-	$pagin=$_GET['pag'];
-	if($pagin==''){
-		$pagin=1;
-	}
-
-	if(is_array($parametros['item'])){
-
-		$wer=each($parametros['item']);
-
-	}
-
-	if($wer['value']!=''){
-
-		$visi=select($campos,$tabla," where ".$wer['key']."='".$wer['value']."' ",$debug,$opciones);
-
-		$tot=1;
-
-		$cm = array(
-				'filas'     => $visi,
-				'total'     => $tot,
-				'pagina'    => $pagin,
-				'anterior'  => "",
-				'siguiente' => "",
-				'desde'     => 1,
-				'hasta'     => $tot,
-				'tren'      => ""
-			  );
-
-		return $cm;
-
-	} else {
-
-		if($parametros['porpag']==0){
-
-			$visi=select($campos,$tabla,$donde." limit 0,100",$debug,$opciones,$concat);
-
-			$tot=sizeof($visi);
-
-			$cm = array(
-					'filas'     => $visi,
-					'pagina'    => $pagin,
-					'total'     => $tot,
-					'anterior'  => "",
-					'siguiente' => "",
-					'desde'     => 1,
-					'hasta'     => $tot,
-					'tren'      => ""
-				  );
-
-			return $cm;
-
-		} else {
-
-			//pagin
-			//porpag,anterior,siguiente,enlace
-			$porpag          =$parametros['porpag'];
-			$anterior        =$parametros['anterior'];
-			$siguiente       =$parametros['siguiente'];
-			$enlace          =$parametros['enlace'];
-			$separador       =$parametros['separador'];
-			$onclick         =$parametros['onclick'];
-			$pagina_disabled =$parametros['pagina_disabled'];
-			$tren_limite     =($parametros['tren_limite'])?$parametros['tren_limite']:10;
-			$procesar_url    =($parametros['procesar_url'])?$parametros['procesar_url']:0;
-			$tipo            =($parametros['tipo'])?$parametros['tipo']:'default';
-
-
-			parse_str($enlace,$gets);
-			$gets=array_keys($gets);
-			$var_pag=$gets[sizeof($gets)-1];
-
-
-			if($pagin==''){
-				$pagin=1;
-			}
-
-			$total=contar($tabla,$donde,0);
-			//prin($tabla);
-			//prin($donde);
-			//prin($total);
-
-			$finpag=$total;
-			$inicio=$porpag*($pagin-1);
-
-			if($total>$porpag){
-
-				$visi=select($campos,$tabla,$donde." limit $inicio,$porpag",$debug,$opciones,$concat);
-
-				$finpag=sizeof($visi);
-
-				$prev_pag=$pagin-1;
-				$next_pag=$pagin+1;
-
-
-				if ($pagin==1) {
-					$prev="<li><span>".$anterior."</span></li>";
-					$prevA="<li class='active'><a href='#'>".$anterior."</a></li>";
-				} else {
-					$prev=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " class='linkarrow'>$anterior</a></li>";
-					$prevA=($anterior=='')?"":"<li><a " . enlace($enlace,$onclick,$prev_pag,$var_pag,$procesar_url) . " >$anterior</a></li>";
-				}
-
-				if ($total==($finpag+$inicio)) {
-					$next="<li><span>".$siguiente."</span></li>";
-					$nextA="<li class='active'><a href='#'>".$siguiente."</a></li>";
-				} else {
-					$next=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " class='linkarrow' >$siguiente</a></li>";
-					$nextA=($siguiente=='')?"":"<li><a " . enlace($enlace,$onclick,$next_pag,$var_pag,$procesar_url) . " >$siguiente</a></li>";
-				}
-
-			} else {
-
-				$visi=select($campos,$tabla,$donde,$debug,$opciones,$concat);
-
-			}
-			$sun=(int)(($total-1)/$porpag)+1;
-			for($i=1;$i<=$sun;$i++){
-				if($i==$pagin){
-					$raba[]  ="<li class='active'><span>$i</span></li>";
-					$rabaA[] ="<li class='active'><a href='#'>$i</a></li>";
-				} else {
-					$raba[]  ="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
-					$rabaA[] ="<li><a " . enlace($enlace,$onclick,$i,$var_pag,$procesar_url) . " >$i</a></li>";
-				}
-			}
-			$marder=3;
-			$inicior=($pagin>$tren_limite-1-$marder)?($pagin-$tren_limite+$marder):0;
-			//$inicior=$pagin;
-			if(sizeof($raba)>$tren_limite){
-				for( $r = $inicior ;  $r < $inicior + $tren_limite  ; $r++ ){
-
-					if( $r==$inicior and $inicior>0 ){
-						$raba2[]  =$raba[0];
-						$raba2A[] =$rabaA[0];
-					} else {
-						$raba2[]  =$raba[$r];
-						$raba2A[] =$rabaA[$r];
-					}
-
-					if($raba[$r]!=''){
-						$ultimoraba  =$raba[$r];
-						$ultimorabaA =$rabaA[$r];
-					}
-
-				}
-				if($ultimoraba!=$raba[sizeof($raba)-1]){
-
-					$raba2[]   ="<li><span>&nbsp;...&nbsp;</span></li>";
-					//$raba2[] =$raba[sizeof($raba)-2];
-					$raba2[]   =$raba[sizeof($raba)-1];
-					$raba2A[]  ="<li class='active'><a href='#'>&nbsp;...&nbsp;</a></li>";
-					//$raba2[] =$raba[sizeof($raba)-2];
-					$raba2A[]  =$rabaA[sizeof($raba)-1];
-
-				}
-				$raba=$raba2;
-				$rabaA=$raba2A;
-
-			}
-
-
-			$rabas  =(sizeof($raba)>1)?implode($separador,$raba):"";
-			$rabasA =(sizeof($raba)>1)?implode($separador,$rabaA):"";
-
-			if($pagina_disabled){
-
-				$cm = array(
-						'filas'  =>$visi,
-						'pagina' =>$pagin,
-						'total'  =>$total
-					);
-
-			} else {
-
-				if($tipo=='bootstrap')
-
-					$cm = array(
-							'filas'        =>$visi,
-							'pagina'       =>$pagin,
-							'totalpaginas' =>sizeof($raba),
-							'total'        =>$total,
-							'anterior'     =>$prevA,
-							'siguiente'    =>$nextA,
-							'desde'        =>$inicio+1,
-							'hasta'        =>$finpag+$inicio,
-							'tren'         =>$rabasA
-					);
-
-				else
-
-					$cm = array(
-							'filas'        =>$visi,
-							'pagina'       =>$pagin,
-							'totalpaginas' =>sizeof($raba),
-							'total'        =>$total,
-							'anterior'     =>$prev,
-							'siguiente'    =>$next,
-							'desde'        =>$inicio+1,
-							'hasta'        =>$finpag+$inicio,
-							'tren'         =>$rabas
-					);
-
-			}
-
-			return $cm;
-
-		}
-
-	}
+	require "views/dist/".$file;
 
 }
 
-
+function get_rel_tabla($tabla1,$tabla2){
+	if($tabla1<$tabla2)
+		return $tabla1.'_'.$tabla2;
+	else
+		return $tabla2.'_'.$tabla1;
+}
